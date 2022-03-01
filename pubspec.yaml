@@ -1,0 +1,44 @@
+name: flutter_application_1
+description: A new Flutter project.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.15.1 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  sprintf: "^6.0.0"
+
+  cupertino_icons: ^1.0.3
+  customizable_space_bar: ^0.2.0
+  diacritic: ^0.1.3
+  shared_preferences: ^2.0.13
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+  flappy_translator:
+    path: C:/Development/Flutter/FlappyTranslator
+
+flappy_translator:
+  input_file_path: "localizations.xlsx"
+  output_dir: "lib/Translation"
+  file_name: "i18n"
+  class_name: "I18n"
+  delimiter: ","
+  start_index: 1
+  depend_on_context: true
+  use_single_quotes: false
+  replace_no_break_spaces: false
+  expose_get_string: false
+  expose_loca_strings: false
+  expose_locale_maps: false
+
+flutter:
+  uses-material-design: true
+  generate: true

@@ -1,0 +1,21 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"program": "lib/UI/main.dart",
+			"name": "flutter_application_1",
+			"request": "launch",
+			"type": "dart"
+		},
+		{
+			"program": "lib/UI/main.dart",
+			"name": "flutter_application_1 (profile mode)",
+			"request": "launch",
+			"type": "dart",
+			"flutterMode": "profile"
+		}
+	]
+}
