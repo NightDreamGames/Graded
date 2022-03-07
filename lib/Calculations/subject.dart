@@ -75,9 +75,7 @@ class Subject {
   List<String> getGrades() {
     List<String> a = [];
     for (int i = 0; i < tests.length; i++) {
-      a.add(Calculator.format(tests[i].grade1) +
-          "/" +
-          Calculator.format(tests[i].grade2));
+      a.add(Calculator.format(tests[i].grade1) + "/" + Calculator.format(tests[i].grade2));
     }
 
     return a;
@@ -93,5 +91,13 @@ class Subject {
 
   void sort() {
     Calculator.sort2(tests);
+  }
+
+  String getResult() {
+    if (result > -1) {
+      return result.toString();
+    } else {
+      return "-";
+    }
   }
 }

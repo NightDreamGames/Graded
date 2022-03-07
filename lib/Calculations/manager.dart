@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../Misc/preferences.dart';
 import '../Misc/serialization.dart';
 import 'calculator.dart';
 import 'subject.dart';
@@ -13,31 +14,62 @@ class Manager {
   static List<Year> years = [];
   static List<Subject> termTemplate = [];
   static int currentYear = 0;
-  static int currentTerm = 0;
+
+  static int _currentTerm = 0;
+  static int get currentTerm => _currentTerm;
+  static set currentTerm(int newValue) {
+    Preferences.setPreference("current_term", newValue);
+    _currentTerm = newValue;
+  }
+
+  static int maxTerm = 1;
 
   static void init() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    readPreferences();
-
-    years = [];
-    years.add(Year());
+    await readPreferences();
 
     termTemplate = [];
     termTemplate.add(Subject("Allemand", 2));
     termTemplate.add(Subject("Programmation", 3));
     termTemplate.add(Subject("Education physique", 1));
+    /* termTemplate.add(Subject("a", 1));
+    termTemplate.add(Subject("b", 1));
+    termTemplate.add(Subject("c", 1));
+    termTemplate.add(Subject("d", 1));
+    termTemplate.add(Subject("e", 1));
+    termTemplate.add(Subject("f", 1));
+    termTemplate.add(Subject("g", 1));
+    termTemplate.add(Subject("he", 1));
+    termTemplate.add(Subject("hfe", 1));
+    termTemplate.add(Subject("hsadfe", 1));
+    termTemplate.add(Subject("hasvdae", 1));
+    termTemplate.add(Subject("hveasde", 1));
+    termTemplate.add(Subject("hqwvetbe", 1));
+    termTemplate.add(Subject("hfgsde", 1));
+    termTemplate.add(Subject("hlozuzjte", 1));*/
 
-    getCurrentTerm().subjects.add(Subject("Allemand", 2));
-    getCurrentTerm().subjects.add(Subject("Programmation", 3));
-    getCurrentTerm().subjects.add(Subject("Education physique", 1));
+    years = [];
+    years.add(Year());
   }
 
-  static void readPreferences() async {
-    interpretPreferences();
-
+  static Future<void> readPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     currentTerm = prefs.getInt("current_term") ?? 0;
+
+    switch (prefs.getString("term") ?? "term_trimester") {
+      case "term_trimester":
+        maxTerm = 3;
+        break;
+      case "term_semester":
+        maxTerm = 2;
+        break;
+      case "term_year":
+        maxTerm = 1;
+        break;
+    }
+
+    interpretPreferences();
   }
 
   static void interpretPreferences() async {
@@ -82,10 +114,7 @@ class Manager {
       for (int i = 0; i < getCurrentYear().terms.length; i++) {
         for (int j = 0; j < getCurrentYear().terms[i].subjects.length; j++) {
           if (getCurrentYear().terms[i].subjects[i].result != -1) {
-            p.subjects[j].addTest(Test(
-                getCurrentYear().terms[i].subjects[j].result,
-                totalGrades.toDouble(),
-                name));
+            p.subjects[j].addTest(Test(getCurrentYear().terms[i].subjects[j].result, totalGrades.toDouble(), name));
           }
         }
       }
@@ -95,6 +124,7 @@ class Manager {
     }
 
     return getCurrentYear().terms[currentTerm];
+    //return years[0].terms[currentTerm];
   }
 
   static Future<String> getName() async {

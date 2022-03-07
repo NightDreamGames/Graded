@@ -42,14 +42,20 @@ class Term {
   List<String> getGrades() {
     List<String> a = [];
     for (int i = 0; i < subjects.length; i++) {
-      a.add((subjects[i].result == -1)
-          ? "-"
-          : Calculator.format(subjects[i].result));
+      a.add((subjects[i].result == -1) ? "-" : Calculator.format(subjects[i].result));
     }
     return a;
   }
 
   void sort() {
     Calculator.sort1(subjects, "sort_mode1");
+  }
+
+  String getResult() {
+    if (result > -1) {
+      return result.toString();
+    } else {
+      return "-";
+    }
   }
 }

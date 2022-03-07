@@ -1,3 +1,4 @@
+import 'package:flutter_application_1/Calculations/manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'calculator.dart';
@@ -14,22 +15,8 @@ class Year {
     calculate();
   }
 
-  void addTerms() async {
-    int k = 3;
-
-    final prefs = await SharedPreferences.getInstance();
-    switch (prefs.getString("term") ?? "term_trimester") {
-      case "term_trimester":
-        k = 3;
-        break;
-      case "term_semester":
-        k = 2;
-        break;
-      case "term_year":
-        k = 1;
-        break;
-    }
-    for (int i = 0; i < k; i++) {
+  void addTerms() {
+    for (int i = 0; i < Manager.maxTerm; i++) {
       terms.add(Term());
     }
   }
@@ -46,5 +33,13 @@ class Year {
     }
 
     result = Calculator.calculate(results, coefficients);
+  }
+
+  String getResult() {
+    if (result > -1) {
+      return result.toString();
+    } else {
+      return "-";
+    }
   }
 }
