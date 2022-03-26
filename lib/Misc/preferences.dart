@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 class Preferences {
   static void setPreference(String key, dynamic value) async {
-    final prefs = await SharedPreferences.getInstance();
     if (value is int) {
-      prefs.setInt(key, value);
+      await Settings.setValue<int>(key, value);
     } else if (value is String) {
-      prefs.setString(key, value);
+      await Settings.setValue<String>(key, value);
     }
   }
 }

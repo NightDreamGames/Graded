@@ -33,12 +33,12 @@ class Subject {
     if (o < 0) {
       result = 0;
     } else {
-      Calculator.round(o).then((value) => result = value);
+      result = Calculator.round(o);
     }
   }
 
   void createTest(double grade, double total, String name) {
-    tests.add(Test(grade, total, name));
+    tests.add(Test(grade, total, name, nameResource: ""));
     Manager.calculate();
     Serialization.Serialize();
   }
@@ -95,7 +95,7 @@ class Subject {
 
   String getResult() {
     if (result > -1) {
-      return result.toString();
+      return Calculator.format(result);
     } else {
       return "-";
     }

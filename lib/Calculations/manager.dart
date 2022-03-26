@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gradely/Translation/i18n.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 import '../Misc/preferences.dart';
 import '../Misc/serialization.dart';
@@ -24,16 +26,17 @@ class Manager {
 
   static int maxTerm = 1;
 
-  static void init() async {
+  static void init() {
     WidgetsFlutterBinding.ensureInitialized();
 
-    await readPreferences();
+    readPreferences();
 
     termTemplate = [];
     termTemplate.add(Subject("Allemand", 2));
     termTemplate.add(Subject("Programmation", 3));
     termTemplate.add(Subject("Education physique", 1));
-    /* termTemplate.add(Subject("a", 1));
+    termTemplate.add(Subject("Education physidqfskfghjqslfhjkqsdlkfjh qldkjh qlskjh que", 1));
+    termTemplate.add(Subject("a", 1));
     termTemplate.add(Subject("b", 1));
     termTemplate.add(Subject("c", 1));
     termTemplate.add(Subject("d", 1));
@@ -47,39 +50,41 @@ class Manager {
     termTemplate.add(Subject("hveasde", 1));
     termTemplate.add(Subject("hqwvetbe", 1));
     termTemplate.add(Subject("hfgsde", 1));
-    termTemplate.add(Subject("hlozuzjte", 1));*/
+    termTemplate.add(Subject("hlozuzjte", 1));
 
     years = [];
     years.add(Year());
+
+    getCurrentTerm().subjects[0].addTest(Test(30, 60, "aTest 1"));
+    getCurrentTerm().subjects[0].addTest(Test(45, 60, "58Test 2"));
+    getCurrentTerm().subjects[0].addTest(Test(2.5, 60, "Test 3"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "bTest 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "zTest 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "cTest 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "dTest 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "uTest 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+
+    Manager.sortAll();
   }
 
-  static Future<void> readPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    currentTerm = prefs.getInt("current_term") ?? 0;
-
-    switch (prefs.getString("term") ?? "term_trimester") {
-      case "term_trimester":
-        maxTerm = 3;
-        break;
-      case "term_semester":
-        maxTerm = 2;
-        break;
-      case "term_year":
-        maxTerm = 1;
-        break;
-    }
-
-    interpretPreferences();
-  }
-
-  static void interpretPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    if ((prefs.getInt("total_grades") ?? 100) != -1) {
-      totalGrades = prefs.getInt("total_grades") ?? 100;
-    } else {
-      totalGrades = prefs.getInt("custom_grade") ?? 100;
-    }
+  static void readPreferences() {
+    currentTerm = Settings.getValue<int>("current_term", 0);
+    maxTerm = Settings.getValue<int>("term", 3);
+    totalGrades = int.parse(Settings.getValue<String>("total_grades", "60"));
   }
 
   static void calculate() {
@@ -109,12 +114,11 @@ class Manager {
     if (currentTerm == -1) {
       Term p = Term();
       String name = "";
-      getName().then((value) => name = value);
 
       for (int i = 0; i < getCurrentYear().terms.length; i++) {
         for (int j = 0; j < getCurrentYear().terms[i].subjects.length; j++) {
           if (getCurrentYear().terms[i].subjects[i].result != -1) {
-            p.subjects[j].addTest(Test(getCurrentYear().terms[i].subjects[j].result, totalGrades.toDouble(), name));
+            p.subjects[j].addTest(Test(getCurrentYear().terms[i].subjects[j].result, totalGrades.toDouble(), "", nameResource: getName(i)));
           }
         }
       }
@@ -124,35 +128,23 @@ class Manager {
     }
 
     return getCurrentYear().terms[currentTerm];
-    //return years[0].terms[currentTerm];
   }
 
-  static Future<String> getName() async {
-    String name = "";
-
-    final prefs = await SharedPreferences.getInstance();
-    if ((prefs.getString("term") ?? "term_trimester") == "term_trimester") {
-      // TODO string manager
-      /*name = MainActivity.sApplication.getString(MainActivity.sApplication
-                .getResources()
-                .getIdentifier("trimester_" + (i + 1).toString(), "string",
-                    MainActivity.sApplication.getPackageName()));*/
+  static String getName(int i) {
+    if (maxTerm == 3) {
+      return "trimester_" + currentTerm.toString();
     } else {
-      /*name = MainActivity.sApplication.getString(MainActivity.sApplication
-                .getResources()
-                .getIdentifier("semester_" + (i + 1).toString(), "string",
-                    MainActivity.sApplication.getPackageName()));*/
+      return "semester_" + currentTerm.toString();
     }
-    return name;
   }
 
   static void sortAll() {
     for (Year y in years) {
       for (Term p in y.terms) {
-        p.sort();
         for (Subject s in p.subjects) {
           s.sort();
         }
+        p.sort();
       }
     }
 

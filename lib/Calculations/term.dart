@@ -53,7 +53,7 @@ class Term {
 
   String getResult() {
     if (result > -1) {
-      return result.toString();
+      return Calculator.format(result);
     } else {
       return "-";
     }

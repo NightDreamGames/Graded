@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/Calculations/manager.dart';
+import 'package:gradely/Calculations/manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'calculator.dart';
@@ -37,7 +37,7 @@ class Year {
 
   String getResult() {
     if (result > -1) {
-      return result.toString();
+      return Calculator.format(result);
     } else {
       return "-";
     }

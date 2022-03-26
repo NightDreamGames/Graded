@@ -6,13 +6,13 @@
 	"configurations": [
 		{
 			"program": "lib/UI/main.dart",
-			"name": "flutter_application_1",
+			"name": "Grade.ly",
 			"request": "launch",
 			"type": "dart"
 		},
 		{
 			"program": "lib/UI/main.dart",
-			"name": "flutter_application_1 (profile mode)",
+			"name": "Grade.ly (profile mode)",
 			"request": "launch",
 			"type": "dart",
 			"flutterMode": "profile"

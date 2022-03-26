@@ -1,3 +1,4 @@
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:diacritic/diacritic.dart';
@@ -6,36 +7,31 @@ import 'subject.dart';
 import 'test.dart';
 
 class Calculator {
-  static void sort1(List<Subject> data, String sortMode) async {
+  static void sort1(List<Subject> data, String sortMode) {
     if (data.length >= 2) {
-      final prefs = await SharedPreferences.getInstance();
-      switch (prefs.getInt(sortMode) ?? 0) {
+      switch (Settings.getValue<int>(sortMode, 0)) {
         case 0:
           data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
               .replaceAll("[^\\p{ASCII}]", "")
-              .compareTo(removeDiacritics(o2.name.toLowerCase())
-                  .replaceAll("[^\\p{ASCII}]", "")));
+              .compareTo(removeDiacritics(o2.name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "")));
           break;
         case 1:
-          data.sort((o1, o2) => o1.result.compareTo(o2.result));
+          data.sort((o1, o2) => o2.result.compareTo(o1.result));
           break;
       }
     }
   }
 
-  static void sort2(List<Test> data) async {
+  static void sort2(List<Test> data) {
     if (data.length >= 2) {
-      final prefs = await SharedPreferences.getInstance();
-      switch (prefs.getInt("sort_mode2") ?? 0) {
+      switch (Settings.getValue<int>("sort_mode2", 0)) {
         case 0:
           data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
               .replaceAll("[^\\p{ASCII}]", "")
-              .compareTo(removeDiacritics(o2.name.toLowerCase())
-                  .replaceAll("[^\\p{ASCII}]", "")));
+              .compareTo(removeDiacritics(o2.name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "")));
           break;
         case 1:
-          data.sort((o1, o2) =>
-              (o1.grade1 / o1.grade2).compareTo(o2.grade1 / o2.grade2));
+          data.sort((o1, o2) => (o2.grade1 / o2.grade2).compareTo(o1.grade1 / o1.grade2));
           break;
       }
     }
@@ -56,19 +52,16 @@ class Calculator {
       }
     }
 
-    if (b == 0) {
-      return -1;
+    if (b > 0) {
+      return round(a / b);
     } else {
-      round(a / b).then((value) => value);
+      return -1;
     }
-    return -1;
   }
 
-  static Future<double> round(double n) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    String roundingMode = prefs.getString("rounding_mode") ?? "rounding_up";
-    int roundTo = prefs.getInt("round_to") ?? 1;
+  static double round(double n) {
+    String roundingMode = Settings.getValue<String>("rounding_mode", "rounding_up");
+    int roundTo = Settings.getValue<int>("round_to", 1);
 
     switch (roundingMode) {
       case "rounding_up":
@@ -78,8 +71,7 @@ class Calculator {
         double a = n * roundTo;
         return a.floorToDouble() / roundTo;
       case "rounding_half_up":
-        double i = n * roundTo;
-        i = i.ceilToDouble();
+        double i = (n * roundTo).ceilToDouble();
         double f = n - i;
         return (f < 0.5 ? i : i + 1) / roundTo;
       case "rounding_half_down":
@@ -95,9 +87,9 @@ class Calculator {
   static String format(double n) {
     String a;
     if (n == n.toInt()) {
-      a = sprintf("%d", n.toInt());
+      a = sprintf("%d", [n.toInt()]);
     } else {
-      a = sprintf("%s", n);
+      a = sprintf("%s", [n]);
     }
     if (n < 10) {
       return 0.toString() + a;
