@@ -42,7 +42,8 @@ A clean and open-source app to track and manage your school grades.
 
 - Android: Search for "Grade.ly" on
   the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
-- iOS and Web: coming soon 👀
+- iOS: Coming very soon 👀
+- Web: Consideration
 
 ---
 
@@ -77,8 +78,7 @@ your new device.
 
 Here's a brief high-level overview of the tech stack Grade.ly uses:
 
-- This project uses the Android framework, with Android Studio.
-- A Flutter rewrite is planned to port Grade.ly to other platforms, like iOS and Web.
+- This project uses the Flutter framework, with builds for Android, iOS, and soon Web.
 - The app design adheres to the material design guidelines.
 
 # ✍️ Contributing
