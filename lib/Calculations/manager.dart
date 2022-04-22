@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gradely/Translation/i18n.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../Misc/preferences.dart';
 import '../Misc/serialization.dart';
@@ -9,10 +9,9 @@ import 'subject.dart';
 import 'term.dart';
 import 'test.dart';
 import 'year.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Manager {
-  static int totalGrades = 0;
+  static double totalGrades = 0;
   static List<Year> years = [];
   static List<Subject> termTemplate = [];
   static int currentYear = 0;
@@ -25,6 +24,8 @@ class Manager {
   }
 
   static int maxTerm = 1;
+
+  Manager();
 
   static void init() {
     WidgetsFlutterBinding.ensureInitialized();
@@ -78,19 +79,22 @@ class Manager {
     getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
     getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
 
+    Serialization.deserialize();
     Manager.sortAll();
   }
 
   static void readPreferences() {
     currentTerm = Settings.getValue<int>("current_term", 0);
     maxTerm = Settings.getValue<int>("term", 3);
-    totalGrades = int.parse(Settings.getValue<String>("total_grades", "60"));
+    totalGrades = double.parse(Settings.getValue<String>("total_grades", "60"));
   }
 
   static void calculate() {
     for (Year y in years) {
       y.calculate();
     }
+
+    sortAll();
   }
 
   static void clear() {
@@ -113,7 +117,6 @@ class Manager {
   static Term getCurrentTerm() {
     if (currentTerm == -1) {
       Term p = Term();
-      String name = "";
 
       for (int i = 0; i < getCurrentYear().terms.length; i++) {
         for (int j = 0; j < getCurrentYear().terms[i].subjects.length; j++) {
@@ -150,6 +153,6 @@ class Manager {
 
     Calculator.sort1(termTemplate, "sort_mode3");
 
-    Serialization.Serialize();
+    Serialization.serialize();
   }
 }

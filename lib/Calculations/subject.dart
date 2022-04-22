@@ -2,14 +2,16 @@ import 'manager.dart';
 import 'calculator.dart';
 import 'test.dart';
 import "../Misc/serialization.dart";
+import 'package:json_annotation/json_annotation.dart';
 
 class Subject {
   List<Test> tests = [];
 
   String name = "";
   double coefficient = 1;
-  double result = 0;
   int bonus = 0;
+
+  double result = 0;
 
   Subject(this.name, this.coefficient) {
     Manager.calculate();
@@ -40,19 +42,19 @@ class Subject {
   void createTest(double grade, double total, String name) {
     tests.add(Test(grade, total, name, nameResource: ""));
     Manager.calculate();
-    Serialization.Serialize();
+    Serialization.serialize();
   }
 
   void addTest(Test test) {
     tests.add(test);
     Manager.calculate();
-    Serialization.Serialize();
+    Serialization.serialize();
   }
 
   void removeTest(int position) {
     tests.removeAt(position);
     Manager.calculate();
-    Serialization.Serialize();
+    Serialization.serialize();
   }
 
   void editTest(int position, double grade1, double grade2, String name) {
@@ -60,7 +62,7 @@ class Subject {
     tests[position].grade2 = grade2;
     tests[position].name = name;
     Manager.calculate();
-    Serialization.Serialize();
+    Serialization.serialize();
   }
 
   List<String> getNames() {
@@ -85,7 +87,7 @@ class Subject {
     if ((bonus + direction).abs() < 10) {
       bonus += direction;
       Manager.calculate();
-      Serialization.Serialize();
+      Serialization.serialize();
     }
   }
 
@@ -100,4 +102,17 @@ class Subject {
       return "-";
     }
   }
+
+  Subject.fromJson(Map<String, dynamic> json)
+      : tests = json['tests'],
+        name = json['name'],
+        coefficient = json['coefficient'],
+        bonus = json['bonus'];
+
+  Map<String, dynamic> toJson() => {
+        "tests": tests,
+        "name": name,
+        "coefficient": coefficient,
+        "bonus": bonus,
+      };
 }

@@ -15,7 +15,7 @@ class DefaultTheme {
     blendLevel: 40,
     appBarStyle: FlexAppBarStyle.primary,
     appBarOpacity: 0.95,
-    appBarElevation: 9,
+    appBarElevation: 2,
     transparentStatusBar: true,
     tabBarStyle: FlexTabBarStyle.forAppBar,
     tooltipsMatchBackground: true,

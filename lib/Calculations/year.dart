@@ -1,11 +1,10 @@
 import 'package:gradely/Calculations/manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'calculator.dart';
 import 'term.dart';
 
 class Year {
-  final List<Term> terms = [];
+  List<Term> terms = [];
 
   double result = 0;
 
@@ -42,4 +41,10 @@ class Year {
       return "-";
     }
   }
+
+  Year.fromJson(Map<String, dynamic> json) : terms = json['terms'];
+
+  Map<String, dynamic> toJson() => {
+        "terms": terms,
+      };
 }

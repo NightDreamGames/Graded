@@ -1,20 +1,14 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:gradely/Misc/preferences.dart';
-import 'package:gradely/UI/settings_route.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:gradely/Calculations/manager.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../Calculations/calculator.dart';
 import '../Calculations/subject.dart';
+import '../Calculations/test.dart';
 import '../Translation/i18n.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
-import '../Misc/serialization.dart';
 import '../Calculations/manager.dart';
-import 'default_theme.dart';
 import 'popup_sub_menu.dart';
-import 'subject_route.dart';
 
 class SubjectRoute extends StatefulWidget {
   final Subject subject;
@@ -227,7 +221,6 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                   childCount: widget.subject.tests.length,
                 ),
               ),
-              const SliverFillRemaining(),
             ],
           ),
           _buildFab(),
@@ -263,9 +256,15 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
     );
   }
 
-  final TextEditingController _skillOneController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _gradeController = TextEditingController();
+  final TextEditingController _maximumController = TextEditingController();
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
+    _gradeController.clear();
+    _maximumController.clear();
+    _nameController.clear();
+
     return showDialog(
       context: context,
       builder: (context) {
@@ -273,14 +272,14 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
           title: Text(I18n.of(context).add_test),
           actions: [
             TextButton(
-              onPressed: () {},
+              onPressed: () => Navigator.pop(context, false),
               child: Text(
                 MaterialLocalizations.of(context).cancelButtonLabel,
                 style: TextStyle(color: Theme.of(context).toggleableActiveColor),
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => Navigator.pop(context, true),
               child: Text(
                 MaterialLocalizations.of(context).okButtonLabel,
                 style: TextStyle(color: Theme.of(context).toggleableActiveColor),
@@ -294,9 +293,24 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
               children: [
                 TextField(
                   onChanged: (value) {},
-                  controller: _skillOneController,
-                  //TODO Change hint
-                  decoration: const InputDecoration(hintText: "Test 1"),
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    hintText: getTestHint(I18n.of(context).test, widget.subject),
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: I18n.of(context).name,
+                    labelStyle: TextStyle(color: Colors.grey[500]),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.secondary),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.secondary),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -304,15 +318,30 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                   children: [
                     Flexible(
                       child: TextField(
+                        //TODO Text validation
                         onChanged: (value) {},
                         autofocus: true,
-                        controller: _skillOneController,
-                        decoration: const InputDecoration(hintText: "01"),
+                        controller: _gradeController,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        decoration: InputDecoration(
+                          hintText: "01",
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: I18n.of(context).grade,
+                          labelStyle: TextStyle(color: Colors.grey[500]),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.secondary),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.secondary),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
                         textAlign: TextAlign.end,
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(4),
                       child: Text(
                         "/",
                       ),
@@ -320,21 +349,22 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                     Flexible(
                       child: TextField(
                         onChanged: (value) {},
-                        controller: _skillOneController,
+                        controller: _maximumController,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         decoration: InputDecoration(
-                            hintText: Manager.totalGrades.toString(),
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(width: 3, color: Colors.blue),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(width: 3, color: Colors.blue),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(width: 3, color: Colors.red),
-                              borderRadius: BorderRadius.circular(15),
-                            )),
+                          hintText: Calculator.format(Manager.totalGrades),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: I18n.of(context).maximum,
+                          labelStyle: TextStyle(color: Colors.grey[500]),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.secondary),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.secondary),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -344,6 +374,35 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
           ),
         );
       },
-    );
+    ).then((confirmed) {
+      if (confirmed) {
+        widget.subject.addTest(Test(double.tryParse(_gradeController.text) ?? 1, double.tryParse(_maximumController.text) ?? Manager.totalGrades,
+            _nameController.text.isEmpty ? getTestHint(I18n.of(context).test, widget.subject) : _nameController.text));
+
+        rebuild();
+      }
+    });
   }
+}
+
+String getTestHint(String test, Subject subject) {
+  bool a = false;
+  String defaultName = "Test 1";
+  int i = 1;
+
+  do {
+    defaultName = test + " " + (subject.tests.length + i).toString();
+
+    for (Test t in subject.tests) {
+      if (t.name == defaultName) {
+        a = true;
+        i++;
+        break;
+      } else {
+        a = false;
+      }
+    }
+  } while (a);
+
+  return defaultName;
 }

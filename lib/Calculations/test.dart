@@ -1,4 +1,5 @@
 import 'package:gradely/Calculations/calculator.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 class Test {
   double grade1 = 0;
@@ -12,4 +13,17 @@ class Test {
   String toString() {
     return Calculator.format(grade1) + "/" + Calculator.format(grade2);
   }
+
+  Test.fromJson(Map<String, dynamic> json)
+      : grade1 = json['grade1'],
+        grade2 = json['grade2'],
+        name = json['name'],
+        nameResource = json['name_resource'];
+
+  Map<String, dynamic> toJson() => {
+        "grade1": grade1,
+        "grade2": grade2,
+        "name": name,
+        "name_resource": nameResource,
+      };
 }
