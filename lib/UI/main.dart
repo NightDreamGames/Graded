@@ -1,15 +1,11 @@
-import 'package:gradely/Misc/preferences.dart';
 import 'package:gradely/UI/settings_route.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:gradely/Calculations/manager.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../Translation/i18n.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-
-import '../Misc/serialization.dart';
+import '../Misc/storage.dart';
 import '../Calculations/manager.dart';
 import 'default_theme.dart';
 import 'popup_sub_menu.dart';
@@ -177,9 +173,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     ],
                     onSelected: (value) {
                       if (value == I18n.of(context).az) {
-                        Preferences.setPreference("sort_mode1", 0);
+                        Storage.setPreference("sort_mode1", 0);
                       } else if (value == I18n.of(context).grade) {
-                        Preferences.setPreference("sort_mode1", 1);
+                        Storage.setPreference("sort_mode1", 1);
                       }
 
                       Manager.sortAll();

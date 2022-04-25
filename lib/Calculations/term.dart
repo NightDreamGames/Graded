@@ -1,7 +1,6 @@
 import 'manager.dart';
 import 'calculator.dart';
 import 'subject.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 class Term {
   List<Subject> subjects = [];
@@ -60,7 +59,14 @@ class Term {
     }
   }
 
-  Term.fromJson(Map<String, dynamic> json) : subjects = json['subjects'];
+  Term.fromJson(Map<String, dynamic> json) {
+    if (json['subjects'] != null) {
+      var _subjects = json["subjects"] as List;
+      List<Subject> __subjects = _subjects.map((subjectJson) => Subject.fromJson(subjectJson)).toList();
+
+      subjects = __subjects;
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         "subjects": subjects,

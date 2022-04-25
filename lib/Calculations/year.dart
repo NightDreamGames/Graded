@@ -42,7 +42,12 @@ class Year {
     }
   }
 
-  Year.fromJson(Map<String, dynamic> json) : terms = json['terms'];
+  Year.fromJson(Map<String, dynamic> json) {
+    var _terms = json["terms"] as List;
+    List<Term> __terms = _terms.map((termJson) => Term.fromJson(termJson)).toList();
+
+    terms = __terms;
+  }
 
   Map<String, dynamic> toJson() => {
         "terms": terms,

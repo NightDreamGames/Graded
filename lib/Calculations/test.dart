@@ -1,5 +1,4 @@
 import 'package:gradely/Calculations/calculator.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 class Test {
   double grade1 = 0;

@@ -1,15 +1,14 @@
-import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:diacritic/diacritic.dart';
 
+import '../Misc/storage.dart';
 import 'subject.dart';
 import 'test.dart';
 
 class Calculator {
   static void sort1(List<Subject> data, String sortMode) {
     if (data.length >= 2) {
-      switch (Settings.getValue<int>(sortMode, 0)) {
+      switch (Storage.getPreference<int>(sortMode, 0)) {
         case 0:
           data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
               .replaceAll("[^\\p{ASCII}]", "")
@@ -24,7 +23,7 @@ class Calculator {
 
   static void sort2(List<Test> data) {
     if (data.length >= 2) {
-      switch (Settings.getValue<int>("sort_mode2", 0)) {
+      switch (Storage.getPreference<int>("sort_mode2", 0)) {
         case 0:
           data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
               .replaceAll("[^\\p{ASCII}]", "")
@@ -60,8 +59,8 @@ class Calculator {
   }
 
   static double round(double n) {
-    String roundingMode = Settings.getValue<String>("rounding_mode", "rounding_up");
-    int roundTo = Settings.getValue<int>("round_to", 1);
+    String roundingMode = Storage.getPreference<String>("rounding_mode", "rounding_up");
+    int roundTo = Storage.getPreference<int>("round_to", 1);
 
     switch (roundingMode) {
       case "rounding_up":

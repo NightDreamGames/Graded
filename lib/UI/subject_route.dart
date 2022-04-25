@@ -1,10 +1,9 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:gradely/Misc/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:gradely/Calculations/manager.dart';
 import '../Calculations/calculator.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/test.dart';
+import '../Misc/storage.dart';
 import '../Translation/i18n.dart';
 
 import '../Calculations/manager.dart';
@@ -76,9 +75,9 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                         ],
                         onSelected: (value) {
                           if (value == I18n.of(context).az) {
-                            Preferences.setPreference("sort_mode2", 0);
+                            Storage.setPreference("sort_mode2", 0);
                           } else if (value == I18n.of(context).grade) {
-                            Preferences.setPreference("sort_mode2", 1);
+                            Storage.setPreference("sort_mode2", 1);
                           }
 
                           Manager.sortAll();

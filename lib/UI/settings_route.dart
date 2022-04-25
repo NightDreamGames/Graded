@@ -42,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                           context,
                           PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: SubjectEditRoute(),
+                            child: const SubjectEditRoute(),
                           ),
                         );
                       },
