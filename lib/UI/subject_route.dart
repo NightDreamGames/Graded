@@ -184,29 +184,47 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                   (context, index) {
                     return Column(
                       children: [
-                        ListTile(
-                          onTap: () {
-                            //TODO add options
+                        GestureDetector(
+                          onTapDown: (TapDownDetails details) async {
+                            double left = details.globalPosition.dx;
+                            double top = details.globalPosition.dy;
+                            var result = await showMenu(
+                              context: context,
+                              position: RelativeRect.fromLTRB(left, top, 0, 0),
+                              items: [
+                                PopupMenuItem<String>(child: Text(I18n.of(context).edit), value: I18n.of(context).edit),
+                                PopupMenuItem<String>(child: Text(I18n.of(context).delete), value: I18n.of(context).delete),
+                              ],
+                              elevation: 8.0,
+                            );
+                            if (result == I18n.of(context).edit) {
+                              //TODO edit popup
+                            } else if (result == I18n.of(context).delete) {
+                              widget.subject.removeTest(index);
+                              rebuild();
+                            }
                           },
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                          title: Text(
-                            widget.subject.tests[index].name,
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            style: const TextStyle(
-                              fontSize: 18.0,
-                            ),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                widget.subject.tests[index].toString(),
-                                style: const TextStyle(
-                                  fontSize: 20.0,
-                                ),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                            title: Text(
+                              widget.subject.tests[index].name,
+                              overflow: TextOverflow.fade,
+                              softWrap: false,
+                              style: const TextStyle(
+                                fontSize: 18.0,
                               ),
-                            ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  widget.subject.tests[index].toString(),
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Padding(
