@@ -17,7 +17,7 @@ class Test {
       : grade1 = json['grade1'],
         grade2 = json['grade2'],
         name = json['name'],
-        nameResource = json['name_resource'];
+        nameResource = json['name_resource'] ?? "";
 
   Map<String, dynamic> toJson() => {
         "grade1": grade1,

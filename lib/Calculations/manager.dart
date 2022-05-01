@@ -22,12 +22,12 @@ class Manager {
 
   static int maxTerm = 1;
 
-  static void init() {
+  static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await Storage.deserialize();
 
     readPreferences();
 
-    Storage.deserialize();
     if (years.isEmpty) {
       years.add(Year());
     }
@@ -40,7 +40,7 @@ class Manager {
   static void readPreferences() {
     currentTerm = Storage.getPreference<int>("current_term", 0);
     maxTerm = Storage.getPreference<int>("term", 3);
-    totalGrades = double.parse(Storage.getPreference<String>("total_grades", "60"));
+    totalGrades = Storage.getPreference<double>("total_grades", 60.0);
   }
 
   static void calculate() {

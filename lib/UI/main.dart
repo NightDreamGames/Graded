@@ -32,7 +32,7 @@ void main() async {
                 break;
         }*/
 
-  Manager.init();
+  await Manager.init();
 
   // Serialization.Deserialize();
 
