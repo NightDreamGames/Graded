@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
+import '../Misc/compatibility.dart';
 import '../Misc/storage.dart';
 import 'calculator.dart';
 import 'subject.dart';
@@ -24,9 +27,19 @@ class Manager {
 
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Storage.deserialize();
+
+    if (Storage.getPreference<bool>("isFirstRunFlutter", true)) {
+      try {
+        await Compatibility.importPreferences();
+      } catch (e) {
+        log("Error while importing old data: " + e.toString());
+        throw Exception(e);
+      }
+    }
 
     readPreferences();
+
+    await Storage.deserialize();
 
     if (years.isEmpty) {
       years.add(Year());
@@ -35,12 +48,14 @@ class Manager {
     //fillSampleData();
 
     Manager.calculate();
+
+    Storage.setPreference("isFirstRunFlutter", false);
   }
 
   static void readPreferences() {
-    currentTerm = Storage.getPreference<int>("current_term", 0);
-    maxTerm = Storage.getPreference<int>("term", 3);
-    totalGrades = Storage.getPreference<double>("total_grades", 60.0);
+    currentTerm = Storage.getPreference<int>("current_term", defaultValues["current_term"]);
+    maxTerm = Storage.getPreference<int>("term", defaultValues["term"]);
+    totalGrades = Storage.getPreference<double>("total_grades", defaultValues["total_grades"]);
   }
 
   static void calculate() {

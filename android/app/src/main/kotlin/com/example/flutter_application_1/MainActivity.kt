@@ -1,4 +1,4 @@
-package com.NightDreamGames.Grade.ly2
+package com.NightDreamGames.Grade.ly.debug
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -13,21 +13,22 @@ import '../Calculations/term.dart';
 //TODO handle data_version
 class Compatibility {
   static Future<void> importPreferences() async {
-    /*var uri = Uri.file((await getApplicationDocumentsDirectory()).parent.path + "/shared_prefs/FlutterSharedPreferences.xml");
+    //TODO change file path
+    var uri = Uri.file((await getApplicationDocumentsDirectory()).parent.path + "/shared_prefs/com.NightDreamGames.Grade.ly.debug_preferences.xml");
 
     if (!await File.fromUri(uri).exists()) return;
 
     File file = File.fromUri(uri);
-    XmlDocument xml = XmlDocument.parse(file.readAsStringSync());*/
-    //TODO remove test statement
+    XmlDocument xml = XmlDocument.parse(file.readAsStringSync());
 
-    String xmlString = '''<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+    //TODO remove test statement
+    /*String xmlString = '''<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
     <map>
 
     </map>''';
 
     XmlDocument xml = XmlDocument.parse(xmlString);
-    /**/
+    */
 
     List<String> keys = <String>[];
     List<String> values = <String>[];
@@ -51,7 +52,7 @@ class Compatibility {
 
     double totalGrades = double.parse(elements["total_grades"] ?? defaultValues["total_grades"].toString());
     if (totalGrades == -1) {
-      totalGrades = double.parse(elements["custom_grade"] ?? defaultValues["custom_grade"].toString());
+      totalGrades = double.parse(elements["custom_grade"] ?? defaultValues["total_grades"].toString());
     }
     Storage.setPreference("total_grades", totalGrades);
 
@@ -83,11 +84,15 @@ class Compatibility {
     Storage.setPreference("current_term", int.tryParse(elements["current_term"] ?? defaultValues["current_term"].toString()));
 
     upgradeDataVersion();
+
+    file.delete();
   }
 
   static void upgradeDataVersion() {
-    termCount(newValue: Storage.getPreference("term", defaultValues["term"]));
-    periodPreferences();
+    if (Storage.getPreference<int>("data_version", -1) < 2) {
+      termCount(newValue: Storage.getPreference("term", defaultValues["term"]));
+      periodPreferences();
+    }
 
     Storage.setPreference("data_version", DATA_VERSION);
   }

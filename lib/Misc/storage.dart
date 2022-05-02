@@ -14,11 +14,8 @@ final Map<String, dynamic> defaultValues = {
   "round_to": 1,
   "language": "default",
   "dark_theme": "auto",
-  "total_grades": 60,
-  "variant": "basic",
+  "total_grades": 60.0,
   "term": 2,
-  "school_system": "lux",
-  "class": "7C",
   "current_term": 0,
   "sort_mode1": 0,
   "sort_mode2": 0,
@@ -39,13 +36,6 @@ class Storage {
   }
 
   static Future<void> deserialize() async {
-    //try {
-    await Compatibility.importPreferences();
-
-    /*} catch (e) {
-      log("Error while importing old data: " + e.toString());
-    }*/
-
     if (existsPreference("data")) {
       var data = jsonDecode(getPreference<String>("data", "")) as List;
       List<Year> _years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
