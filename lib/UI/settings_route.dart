@@ -1,8 +1,10 @@
+import 'package:gradely/Misc/storage.dart';
 import 'package:gradely/custom_icons_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../Calculations/manager.dart';
 import '../Translation/i18n.dart';
 
@@ -61,14 +63,15 @@ class SettingsPage extends StatelessWidget {
                         2: I18n.of(context).semesters,
                         1: I18n.of(context).year,
                       },
-                      selected: 3,
+                      selected: defaultValues["term"],
                     ),
                     TextInputSettingsTile(
                       title: I18n.of(context).rating_system,
-                      settingKey: 'total_grades',
-                      initialValue: "60",
+                      settingKey: 'total_grades_text',
+                      initialValue: defaultValues["total_grades"].toString(),
                       leading: const Icon(Icons.book),
                       keyboardType: TextInputType.number,
+                      onChange: (text) => Storage.setPreference<double>("total_grades", double.parse(text)),
                       validator: (String? input) {
                         if (input != null && double.tryParse(input) != null) {
                           return null;
@@ -89,7 +92,7 @@ class SettingsPage extends StatelessWidget {
                         "rounding_half_up": I18n.of(context).half_up,
                         "rounding_half_down": I18n.of(context).half_down,
                       },
-                      selected: "rounding_up",
+                      selected: defaultValues["rounding_mode"],
                     ),
                     RadioModalSettingsTile<int>(
                       title: I18n.of(context).round_to,
@@ -100,7 +103,7 @@ class SettingsPage extends StatelessWidget {
                         10: I18n.of(context).to_10th,
                         100: I18n.of(context).to_100th,
                       },
-                      selected: 1,
+                      selected: defaultValues["round_to"],
                     ),
                     SimpleSettingsTile(
                       leading: const Icon(Icons.clear_all),
@@ -123,7 +126,7 @@ class SettingsPage extends StatelessWidget {
                         "on": I18n.of(context).light_mode_on,
                         "off": I18n.of(context).light_mode_off,
                       },
-                      selected: "auto",
+                      selected: defaultValues["dark_theme"],
                     ),
                     RadioModalSettingsTile<String>(
                       title: I18n.of(context).language,
@@ -136,7 +139,7 @@ class SettingsPage extends StatelessWidget {
                         "fr": I18n.of(context).french,
                         "lu": I18n.of(context).luxemburgish,
                       },
-                      selected: "default",
+                      selected: defaultValues["language"],
                     ),
                   ],
                 ),
@@ -196,17 +199,18 @@ class SettingsPage extends StatelessWidget {
 void _launchURL(int type) async {
   switch (type) {
     case 0:
-      if (!await launch("mailto:contact.nightdreamgames@gmail.com?subject=Grade.ly%20feedback&body=Thank%20you%20you%20for%20your%20feedback")) {
+      if (!await launchUrlString(
+          "mailto:contact.nightdreamgames@gmail.com?subject=Grade.ly%20feedback&body=Thank%20you%20you%20for%20your%20feedback")) {
         throw 'Could not launch email app';
       }
       break;
     case 1:
-      if (!await launch("https://github.com/NightDreamGames/Grade.ly")) {
+      if (!await launchUrlString("https://github.com/NightDreamGames/Grade.ly")) {
         throw 'Could not open link';
       }
       break;
     case 2:
-      if (!await launch("https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly")) {
+      if (!await launchUrlString("https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly")) {
         throw 'Could not open link';
       }
       break;

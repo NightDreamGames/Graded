@@ -173,9 +173,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     ],
                     onSelected: (value) {
                       if (value == I18n.of(context).az) {
-                        Storage.setPreference("sort_mode1", 0);
+                        Storage.setPreference<int>("sort_mode1", 0);
                       } else if (value == I18n.of(context).grade) {
-                        Storage.setPreference("sort_mode1", 1);
+                        Storage.setPreference<int>("sort_mode1", 1);
                       }
 
                       Manager.sortAll();

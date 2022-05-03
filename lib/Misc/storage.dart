@@ -27,8 +27,8 @@ const DATA_VERSION = 3;
 
 class Storage {
   static void serialize() {
-    setPreference("data", jsonEncode(Manager.years));
-    setPreference("default_data", jsonEncode(Manager.termTemplate));
+    setPreference<String?>("data", jsonEncode(Manager.years));
+    setPreference<String?>("default_data", jsonEncode(Manager.termTemplate));
   }
 
   static String serializeString(Map<String, dynamic> map) {
@@ -47,8 +47,8 @@ class Storage {
     }
   }
 
-  static void setPreference(String key, dynamic value) {
-    Settings.setValue(key, value);
+  static void setPreference<T>(String key, T value) {
+    Settings.setValue<T>(key, value);
   }
 
   static T getPreference<T>(String key, dynamic defaultValue) {

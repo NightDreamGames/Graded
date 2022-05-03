@@ -38,50 +38,50 @@ class Compatibility {
 
     var elements = {for (int i = 0; i < keys.length; i++) keys[i]: values[i]};
 
-    Storage.setPreference("data", elements["data"]);
-    Storage.setPreference("default_data", elements["default_data"]);
-    Storage.setPreference("data_version", int.tryParse(elements["data_version"] ?? "-1"));
-    Storage.setPreference("rounding_mode", elements["rounding_mode"]);
-    Storage.setPreference("language", elements["language"]);
-    Storage.setPreference("dark_theme", elements["dark_theme"]);
-    Storage.setPreference("variant", elements["variant"]);
-    Storage.setPreference("school_system", elements["school_system"]);
-    Storage.setPreference("class", elements["class"]);
+    Storage.setPreference<String?>("data", elements["data"]);
+    Storage.setPreference<String?>("default_data", elements["default_data"]);
+    Storage.setPreference<int?>("data_version", int.tryParse(elements["data_version"] ?? "-1"));
+    Storage.setPreference<String?>("rounding_mode", elements["rounding_mode"]);
+    Storage.setPreference<String?>("language", elements["language"]);
+    Storage.setPreference<String?>("dark_theme", elements["dark_theme"]);
+    Storage.setPreference<String?>("variant", elements["variant"]);
+    Storage.setPreference<String?>("school_system", elements["school_system"]);
+    Storage.setPreference<String?>("class", elements["class"]);
 
-    Storage.setPreference("round_to", int.tryParse(elements["round_to"] ?? defaultValues["round_to"].toString()));
+    Storage.setPreference<int?>("round_to", int.tryParse(elements["round_to"] ?? defaultValues["round_to"].toString()));
 
     double totalGrades = double.parse(elements["total_grades"] ?? defaultValues["total_grades"].toString());
     if (totalGrades == -1) {
       totalGrades = double.parse(elements["custom_grade"] ?? defaultValues["total_grades"].toString());
     }
-    Storage.setPreference("total_grades", totalGrades);
+    Storage.setPreference<double>("total_grades", totalGrades);
 
-    Storage.setPreference("isFirstRun", elements["isFirstRun"]?.toLowerCase() == 'true');
+    Storage.setPreference<bool>("isFirstRun", elements["isFirstRun"]?.toLowerCase() == 'true');
 
     if (Storage.existsPreference("period")) {
       elements.update("term", (value) => elements["period"]?.replaceFirst("period", "term") ?? defaultValues["term"]);
     }
     switch (elements["term"]) {
       case "term_trimester":
-        Storage.setPreference("term", 3);
+        Storage.setPreference<int>("term", 3);
         break;
       case "term_semester":
-        Storage.setPreference("term", 2);
+        Storage.setPreference<int>("term", 2);
         break;
       case "term_year":
-        Storage.setPreference("term", 1);
+        Storage.setPreference<int>("term", 1);
         break;
       default:
-        Storage.setPreference("term", defaultValues["term"]);
+        Storage.setPreference<int>("term", defaultValues["term"]);
         break;
     }
 
-    Storage.setPreference("sort_mode1", int.tryParse(elements["sort_mode"] ?? defaultValues["sort_mode1"].toString()));
-    Storage.setPreference("sort_mode1", int.tryParse(elements["sort_mode1"] ?? defaultValues["sort_mode1"].toString()));
-    Storage.setPreference("sort_mode2", int.tryParse(elements["sort_mode2"] ?? defaultValues["sort_mode2"].toString()));
-    Storage.setPreference("sort_mode3", int.tryParse(elements["sort_mode3"] ?? defaultValues["sort_mode3"].toString()));
-    Storage.setPreference("current_term", int.tryParse(elements["current_period"] ?? defaultValues["current_term"].toString()));
-    Storage.setPreference("current_term", int.tryParse(elements["current_term"] ?? defaultValues["current_term"].toString()));
+    Storage.setPreference<int?>("sort_mode1", int.tryParse(elements["sort_mode"] ?? defaultValues["sort_mode1"].toString()));
+    Storage.setPreference<int?>("sort_mode1", int.tryParse(elements["sort_mode1"] ?? defaultValues["sort_mode1"].toString()));
+    Storage.setPreference<int?>("sort_mode2", int.tryParse(elements["sort_mode2"] ?? defaultValues["sort_mode2"].toString()));
+    Storage.setPreference<int?>("sort_mode3", int.tryParse(elements["sort_mode3"] ?? defaultValues["sort_mode3"].toString()));
+    Storage.setPreference<int?>("current_term", int.tryParse(elements["current_period"] ?? defaultValues["current_term"].toString()));
+    Storage.setPreference<int?>("current_term", int.tryParse(elements["current_term"] ?? defaultValues["current_term"].toString()));
 
     upgradeDataVersion();
 
@@ -94,7 +94,7 @@ class Compatibility {
       periodPreferences();
     }
 
-    Storage.setPreference("data_version", DATA_VERSION);
+    Storage.setPreference<int>("data_version", DATA_VERSION);
   }
 
   static void termCount({int newValue = 0}) {
@@ -108,7 +108,7 @@ class Compatibility {
 
     if (Manager.currentTerm >= Manager.getCurrentYear().terms.length) {
       Manager.currentTerm = 0;
-      Storage.setPreference("current_term", Manager.currentTerm);
+      Storage.setPreference<int>("current_term", Manager.currentTerm);
     }
 
     Manager.calculate();
@@ -118,8 +118,9 @@ class Compatibility {
   static void periodPreferences() {
     if (!Storage.getPreference<bool>("isFirstRun", true) && Storage.getPreference<int>("data_version", -1) < 2) {
       if (Storage.existsPreference("data")) {
-        Storage.setPreference("data", Storage.getPreference("data", "").replaceAll("period", "term").replaceAll("mark", "grade"));
-        Storage.setPreference("default_data", Storage.getPreference("default_data", "").replaceAll("period", "term").replaceAll("mark", "grade"));
+        Storage.setPreference<String?>("data", Storage.getPreference("data", "").replaceAll("period", "term").replaceAll("mark", "grade"));
+        Storage.setPreference<String?>(
+            "default_data", Storage.getPreference("default_data", "").replaceAll("period", "term").replaceAll("mark", "grade"));
       }
     }
   }

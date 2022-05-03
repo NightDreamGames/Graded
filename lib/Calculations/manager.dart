@@ -19,7 +19,7 @@ class Manager {
   static int _currentTerm = 0;
   static int get currentTerm => _currentTerm;
   static set currentTerm(int newValue) {
-    Storage.setPreference("current_term", newValue);
+    Storage.setPreference<int>("current_term", newValue);
     _currentTerm = newValue;
   }
 
@@ -29,12 +29,11 @@ class Manager {
     WidgetsFlutterBinding.ensureInitialized();
 
     if (Storage.getPreference<bool>("isFirstRunFlutter", true)) {
-      try {
-        await Compatibility.importPreferences();
-      } catch (e) {
+      //try {
+      await Compatibility.importPreferences();
+      /*} catch (e) {
         log("Error while importing old data: " + e.toString());
-        throw Exception(e);
-      }
+      }*/
     }
 
     readPreferences();
@@ -49,7 +48,7 @@ class Manager {
 
     Manager.calculate();
 
-    Storage.setPreference("isFirstRunFlutter", false);
+    Storage.setPreference<bool>("isFirstRunFlutter", false);
   }
 
   static void readPreferences() {

@@ -75,9 +75,9 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                         ],
                         onSelected: (value) {
                           if (value == I18n.of(context).az) {
-                            Storage.setPreference("sort_mode2", 0);
+                            Storage.setPreference<int>("sort_mode2", 0);
                           } else if (value == I18n.of(context).grade) {
-                            Storage.setPreference("sort_mode2", 1);
+                            Storage.setPreference<int>("sort_mode2", 1);
                           }
 
                           Manager.sortAll();
@@ -199,6 +199,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                             );
                             if (result == I18n.of(context).edit) {
                               //TODO edit popup
+                              return _displayTextInputDialog(context, index: index);
                             } else if (result == I18n.of(context).delete) {
                               widget.subject.removeTest(index);
                               rebuild();
@@ -277,16 +278,21 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
   final TextEditingController _gradeController = TextEditingController();
   final TextEditingController _maximumController = TextEditingController();
 
-  Future<void> _displayTextInputDialog(BuildContext context) async {
+  Future<void> _displayTextInputDialog(BuildContext context, {int? index}) async {
     _gradeController.clear();
     _maximumController.clear();
     _nameController.clear();
+
+    bool add = index == null;
+    _gradeController.text = add ? "" : Calculator.format(widget.subject.tests[index].grade1);
+    _maximumController.text = add ? "" : Calculator.format(widget.subject.tests[index].grade2);
+    _nameController.text = add ? "" : widget.subject.tests[index].name;
 
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(I18n.of(context).add_test),
+          title: add ? Text(I18n.of(context).add_test) : Text(I18n.of(context).edit_test),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -393,8 +399,13 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
       },
     ).then((confirmed) {
       if (confirmed) {
-        widget.subject.addTest(Test(double.tryParse(_gradeController.text) ?? 1, double.tryParse(_maximumController.text) ?? Manager.totalGrades,
-            _nameController.text.isEmpty ? getTestHint(I18n.of(context).test, widget.subject) : _nameController.text));
+        if (add) {
+          widget.subject.addTest(Test(double.tryParse(_gradeController.text) ?? 1, double.tryParse(_maximumController.text) ?? Manager.totalGrades,
+              _nameController.text.isEmpty ? getTestHint(I18n.of(context).test, widget.subject) : _nameController.text));
+        } else {
+          widget.subject.editTest(index, double.tryParse(_gradeController.text) ?? 1, double.tryParse(_maximumController.text) ?? Manager.totalGrades,
+              _nameController.text.isEmpty ? getTestHint(I18n.of(context).test, widget.subject) : _nameController.text);
+        }
 
         rebuild();
       }
