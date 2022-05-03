@@ -5,9 +5,9 @@ class DefaultTheme {
   static var lightTheme = FlexThemeData.light(
     colors: const FlexSchemeColor(
       primary: Color(0xff303f9f),
-      primaryVariant: Color(0xff1a237e),
+      primaryContainer: Color(0xff1a237e),
       secondary: Color(0xff512da8),
-      secondaryVariant: Color(0xff311b92),
+      secondaryContainer: Color(0xff311b92),
       appBarColor: Color(0xff311b92),
       error: Color(0xffb00020),
     ),
@@ -21,7 +21,6 @@ class DefaultTheme {
     tooltipsMatchBackground: true,
     swapColors: false,
     lightIsWhite: false,
-    useSubThemes: true,
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     // To use playground font, add GoogleFonts package and uncomment:
     // fontFamily: GoogleFonts.notoSans().fontFamily,
@@ -32,7 +31,6 @@ class DefaultTheme {
       bottomNavigationBarElevation: 0,
       bottomNavigationBarOpacity: 0.95,
       navigationBarOpacity: 0.95,
-      navigationBarMutedUnselectedText: true,
       navigationBarMutedUnselectedIcon: true,
       inputDecoratorIsFilled: true,
       inputDecoratorBorderType: FlexInputBorderType.outline,
@@ -45,9 +43,9 @@ class DefaultTheme {
   static var darkTheme = FlexThemeData.dark(
     colors: const FlexSchemeColor(
       primary: Color(0xff222E3C),
-      primaryVariant: Color(0xff222E3C),
+      primaryContainer: Color(0xff222E3C),
       secondary: Color(0xff61A9E0),
-      secondaryVariant: Color(0xff61A9E0),
+      secondaryContainer: Color(0xff61A9E0),
       appBarColor: Color(0xff222E3C),
       error: Color(0xffb00020),
     ),
@@ -61,7 +59,6 @@ class DefaultTheme {
     tooltipsMatchBackground: true,
     swapColors: false,
     darkIsTrueBlack: false,
-    useSubThemes: true,
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     // To use playground font, add GoogleFonts package and uncomment:
     // fontFamily: GoogleFonts.notoSans().fontFamily,
@@ -72,7 +69,6 @@ class DefaultTheme {
       bottomNavigationBarElevation: 0,
       bottomNavigationBarOpacity: 0.95,
       navigationBarOpacity: 0.95,
-      navigationBarMutedUnselectedText: true,
       navigationBarMutedUnselectedIcon: true,
       inputDecoratorIsFilled: true,
       inputDecoratorBorderType: FlexInputBorderType.outline,

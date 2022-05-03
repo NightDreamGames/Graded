@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'package:gradely/Misc/storage.dart';
 import 'package:xml/xml.dart';
 
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../Calculations/manager.dart';
 import '../Calculations/term.dart';
 
-//TODO handle data_version
 class Compatibility {
   static Future<void> importPreferences() async {
     //TODO change file path
@@ -21,7 +18,6 @@ class Compatibility {
     File file = File.fromUri(uri);
     XmlDocument xml = XmlDocument.parse(file.readAsStringSync());
 
-    //TODO remove test statement
     /*String xmlString = '''<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
     <map>
 

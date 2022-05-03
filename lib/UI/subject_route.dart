@@ -198,7 +198,6 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                               elevation: 8.0,
                             );
                             if (result == I18n.of(context).edit) {
-                              //TODO edit popup
                               return _displayTextInputDialog(context, index: index);
                             } else if (result == I18n.of(context).delete) {
                               widget.subject.removeTest(index);

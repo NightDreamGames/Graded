@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/year.dart';
-import 'compatibility.dart';
 
 final Map<String, dynamic> defaultValues = {
   "data": "[{}]",

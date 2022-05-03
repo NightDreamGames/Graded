@@ -2,7 +2,6 @@ import 'package:gradely/Misc/storage.dart';
 import 'package:gradely/custom_icons_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../Calculations/manager.dart';
