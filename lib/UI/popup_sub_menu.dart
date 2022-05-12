@@ -43,7 +43,13 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Expanded(
-              child: Text(widget.title),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
             ),
             Icon(
               Icons.arrow_right,
@@ -70,7 +76,13 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
             .map(
               (item) => PopupMenuItem<T>(
                 value: item,
-                child: Text(item.toString()), //MEthod toString() of class T should be overridden to repesent something meaningful
+                child: Text(
+                  item.toString(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ), //MEthod toString() of class T should be overridden to repesent something meaningful
               ),
             )
             .toList();

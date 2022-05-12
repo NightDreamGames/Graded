@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             actions: <Widget>[
               PopupMenuButton<String>(
                 icon: const Icon(Icons.more_vert),
-                tooltip: 'More options',
+                tooltip: I18n.of(context).more_options,
                 onSelected: (value) {
                   if (value == "2") {
                     Navigator.pushNamed(
@@ -332,44 +332,6 @@ class ListRow extends StatelessWidget {
     );
   }
 }
-
-/*void onResume() {
-  super.onResume();
-
-  adaptView();
-  updateView();
-}
-
-void adaptView() {
-  setTitle();
-
-  binding = MainSubjectActivityBinding.inflate(getLayoutInflater());
-  setContentView(binding.getRoot());
-
-  binding.fab.setVisibility(View.GONE);
-  binding.bonus.setVisibility(View.GONE);
-
-  Toolbar toolbar = binding.toolbar;
-  setSupportActionBar(toolbar);
-}
-
-void updateView() {
-  Manager.sortAll();
-
-  Term p = Manager.getCurrentTerm();
-
-  RecyclerView recyclerView = binding.recyclerView;
-  recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-  CustomRecyclerViewAdapter adapter =
-      new CustomRecyclerViewAdapter(this, p.getSubjects(), p.getGrades(), 0);
-
-  adapter.setClickListener(this);
-  recyclerView.setAdapter(adapter);
-
-  binding.textView3
-      .setText((p.result == -1) ? "-" : Calculator.format(p.result));
-}*/
 
 String getTitle(var context) {
   switch (Manager.currentTerm) {
