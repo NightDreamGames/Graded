@@ -70,7 +70,11 @@ class SettingsPage extends StatelessWidget {
                       initialValue: defaultValues["total_grades"].toString(),
                       leading: const Icon(Icons.book),
                       keyboardType: TextInputType.number,
-                      onChange: (text) => Storage.setPreference<double>("total_grades", double.parse(text)),
+                      onChange: (text) {
+                        double d = double.parse(text);
+                        Storage.setPreference<double>("total_grades", d);
+                        Manager.totalGrades = d;
+                      },
                       validator: (String? input) {
                         if (input != null && double.tryParse(input) != null) {
                           return null;

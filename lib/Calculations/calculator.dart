@@ -83,14 +83,14 @@ class Calculator {
     }
   }
 
-  static String format(double n) {
+  static String format(double n, {bool ignoreZero = false}) {
     String a;
     if (n == n.toInt()) {
       a = sprintf("%d", [n.toInt()]);
     } else {
       a = sprintf("%s", [n]);
     }
-    if (n < 10) {
+    if (!ignoreZero && n < 10 && n % 1 == 0) {
       return 0.toString() + a;
     } else {
       return a;

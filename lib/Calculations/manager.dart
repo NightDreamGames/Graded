@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:gradely/Translation/i18n.dart';
 
 import '../Misc/compatibility.dart';
 import '../Misc/storage.dart';
@@ -27,11 +30,11 @@ class Manager {
     WidgetsFlutterBinding.ensureInitialized();
 
     if (Storage.getPreference<bool>("isFirstRunFlutter", true)) {
-      //try {
-      await Compatibility.importPreferences();
-      /*} catch (e) {
+      try {
+        await Compatibility.importPreferences();
+      } catch (e) {
         log("Error while importing old data: " + e.toString());
-      }*/
+      }
     }
 
     readPreferences();
@@ -80,14 +83,30 @@ class Manager {
     return years[currentYear];
   }
 
-  static Term getCurrentTerm() {
+  static Term getCurrentTerm({dynamic context}) {
     if (currentTerm == -1) {
       Term p = Term();
-
+      Year year = getCurrentYear();
       for (int i = 0; i < getCurrentYear().terms.length; i++) {
         for (int j = 0; j < getCurrentYear().terms[i].subjects.length; j++) {
-          if (getCurrentYear().terms[i].subjects[i].result != -1) {
-            p.subjects[j].addTest(Test(getCurrentYear().terms[i].subjects[j].result, totalGrades.toDouble(), "", nameResource: getName(i)));
+          if (getCurrentYear().terms[i].subjects[j].result != -1) {
+            String name = "";
+            switch (i) {
+              case 0:
+                name = (maxTerm == 3) ? I18n.of(context).trimester_1 : I18n.of(context).semester_1;
+                break;
+              case 1:
+                name = (maxTerm == 3) ? I18n.of(context).trimester_2 : I18n.of(context).semester_2;
+                break;
+              case 2:
+                name = I18n.of(context).trimester_3;
+                break;
+              default:
+                name = I18n.of(context).trimester_1;
+                break;
+            }
+
+            p.subjects[j].addTest(Test(getCurrentYear().terms[i].subjects[j].result, totalGrades.toDouble(), name));
           }
         }
       }
@@ -97,14 +116,6 @@ class Manager {
     }
 
     return getCurrentYear().terms[currentTerm];
-  }
-
-  static String getName(int i) {
-    if (maxTerm == 3) {
-      return "trimester_" + currentTerm.toString();
-    } else {
-      return "semester_" + currentTerm.toString();
-    }
   }
 
   static void sortAll() {

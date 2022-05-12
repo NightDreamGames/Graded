@@ -39,7 +39,7 @@ class Subject {
   }
 
   void createTest(double grade, double total, String name) {
-    tests.add(Test(grade, total, name, nameResource: ""));
+    tests.add(Test(grade, total, name));
     Manager.calculate();
     Storage.serialize();
   }

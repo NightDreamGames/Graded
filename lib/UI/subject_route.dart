@@ -126,21 +126,6 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    widget.subject.changeBonus(1);
-                                    rebuild();
-                                  },
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<CircleBorder>(const CircleBorder()),
-                                  ),
-                                  child: const Text(
-                                    "+",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
                                     widget.subject.changeBonus(-1);
                                     rebuild();
                                   },
@@ -149,6 +134,21 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                   ),
                                   child: const Text(
                                     "-",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    widget.subject.changeBonus(1);
+                                    rebuild();
+                                  },
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<CircleBorder>(const CircleBorder()),
+                                  ),
+                                  child: const Text(
+                                    "+",
                                     style: TextStyle(
                                       fontSize: 18,
                                     ),
@@ -186,6 +186,8 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                       children: [
                         GestureDetector(
                           onTapDown: (TapDownDetails details) async {
+                            if (Manager.currentTerm == -1) return;
+
                             double left = details.globalPosition.dx;
                             double top = details.globalPosition.dy;
                             var result = await showMenu(
@@ -283,8 +285,8 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
     _nameController.clear();
 
     bool add = index == null;
-    _gradeController.text = add ? "" : Calculator.format(widget.subject.tests[index].grade1);
-    _maximumController.text = add ? "" : Calculator.format(widget.subject.tests[index].grade2);
+    _gradeController.text = add ? "" : Calculator.format(widget.subject.tests[index].grade1, ignoreZero: true);
+    _maximumController.text = add ? "" : Calculator.format(widget.subject.tests[index].grade2, ignoreZero: true);
     _nameController.text = add ? "" : widget.subject.tests[index].name;
 
     return showDialog(

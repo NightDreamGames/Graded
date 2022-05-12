@@ -40,7 +40,10 @@ void main() async {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SubjectRoute()),
-    );
+    ).then((value) {
+                      rebuild();
+                      print("AAAAAAAAAAA");
+                    });
   }*/
 
   //Compatibility.init();
@@ -118,8 +121,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     Navigator.pushNamed(
                       context,
                       "/settings",
-                    );
-                    rebuild();
+                    ).then((value) {
+                      rebuild();
+                    });
                   }
                 },
                 itemBuilder: (BuildContext context) {
@@ -227,7 +231,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           ),
                         ),
                         Text(
-                          Manager.getCurrentTerm().getResult(),
+                          Manager.getCurrentTerm(context: context).getResult(),
                           style: const TextStyle(
                             fontSize: 22.0,
                             fontWeight: FontWeight.bold,
@@ -267,7 +271,7 @@ class ListWidget extends StatelessWidget {
           return ListRow(index, function);
         },
         addAutomaticKeepAlives: true,
-        childCount: Manager.getCurrentTerm().subjects.length,
+        childCount: Manager.getCurrentTerm(context: context).subjects.length,
       ),
     );
   }
@@ -289,14 +293,14 @@ class ListRow extends StatelessWidget {
               PageTransition(
                 type: PageTransitionType.rightToLeft,
                 child: SubjectRoute(
-                  subject: Manager.getCurrentTerm().subjects[index],
+                  subject: Manager.getCurrentTerm(context: context).subjects[index],
                 ),
               ),
             ).then((_) => function());
           },
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           title: Text(
-            Manager.getCurrentTerm().subjects[index].name,
+            Manager.getCurrentTerm(context: context).subjects[index].name,
             overflow: TextOverflow.fade,
             softWrap: false,
             style: const TextStyle(
@@ -307,7 +311,7 @@ class ListRow extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                Manager.getCurrentTerm().subjects[index].getResult(),
+                Manager.getCurrentTerm(context: context).subjects[index].getResult(),
                 style: const TextStyle(
                   fontSize: 20.0,
                 ),
