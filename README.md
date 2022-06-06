@@ -91,7 +91,6 @@ If you have a contribution in mind, don't hesitate to contact us, so we can work
 
 # ⚠️ License
 
-Grade.ly is a free and open-source software licensed under the MIT License. You can use it for
-whatever you want, as long as you give appropriate copyright credits.
+[GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/)
 
 ---
