@@ -61,10 +61,10 @@ class Term {
 
   Term.fromJson(Map<String, dynamic> json) {
     if (json['subjects'] != null) {
-      var _subjects = json["subjects"] as List;
-      List<Subject> __subjects = _subjects.map((subjectJson) => Subject.fromJson(subjectJson)).toList();
+      var subjectList = json["subjects"] as List;
+      List<Subject> s = subjectList.map((subjectJson) => Subject.fromJson(subjectJson)).toList();
 
-      subjects = __subjects;
+      subjects = s;
     }
   }
 

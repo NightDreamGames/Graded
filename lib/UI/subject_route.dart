@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:gradely/Calculations/manager.dart';
+import 'package:gradely/UI/title.dart';
 import '../Calculations/calculator.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/test.dart';
 import '../Misc/storage.dart';
 import '../Translation/i18n.dart';
-
+import 'package:customizable_space_bar/customizable_space_bar.dart';
 import '../Calculations/manager.dart';
 import 'popup_sub_menu.dart';
+import 'view_state.dart';
 
 class SubjectRoute extends StatefulWidget {
   final Subject subject;
@@ -28,7 +29,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(() => setState(() {}));
@@ -36,7 +37,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
     super.dispose();
   }
@@ -91,14 +92,52 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                   ),
                 ],
                 expandedHeight: 150,
-                flexibleSpace: FlexibleSpaceBar(
+                flexibleSpace: CustomizableSpaceBar(
+                  builder: (context, scrollingRate) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 12, left: 24 + 40 * scrollingRate),
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Hero(
+                          tag: widget.subject.name,
+                          flightShuttleBuilder: (
+                            BuildContext flightContext,
+                            Animation<double> animation,
+                            HeroFlightDirection flightDirection,
+                            BuildContext fromHeroContext,
+                            BuildContext toHeroContext,
+                          ) {
+                            return DestinationTitle(
+                              title: widget.subject.name,
+                              isOverflow: false,
+                              viewState: flightDirection == HeroFlightDirection.push ? ViewState.enlarge : ViewState.shrink,
+                              beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
+                              endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
+                            );
+                          },
+                          child: Text(
+                            widget.subject.name,
+                            style: TextStyle(
+                              fontSize: 42 - 18 * scrollingRate,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                /*FlexibleSpaceBar(
                   centerTitle: false,
                   titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
-                  title: Text(
-                    widget.subject.name,
-                    style: const TextStyle(fontSize: 24),
+                  title: Hero(
+                    tag: widget.subject.name,
+                    child: Text(
+                      widget.subject.name,
+                      style: const TextStyle(fontSize: 24),
+                    ),
                   ),
-                ),
+                ),*/
               ),
               SliverToBoxAdapter(
                 child: Column(
@@ -115,7 +154,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                 Padding(
                                   padding: const EdgeInsets.only(right: 20),
                                   child: Text(
-                                    I18n.of(context).bonus + " " + widget.subject.bonus.toString() + (widget.subject.bonus < 0 ? "" : " "),
+                                    "${I18n.of(context).bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : " "}",
                                     overflow: TextOverflow.fade,
                                     softWrap: false,
                                     style: const TextStyle(
@@ -160,11 +199,26 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                               padding: EdgeInsets.only(right: fabVisible ? 60 : 0),
                               duration: const Duration(milliseconds: 250),
                               curve: Curves.decelerate,
-                              child: Text(
-                                widget.subject.getResult(),
-                                style: const TextStyle(
-                                  fontSize: 22.0,
-                                  fontWeight: FontWeight.bold,
+                              child: Hero(
+                                tag: "${widget.subject.name}_result",
+                                flightShuttleBuilder: (
+                                  BuildContext flightContext,
+                                  Animation<double> animation,
+                                  HeroFlightDirection flightDirection,
+                                  BuildContext fromHeroContext,
+                                  BuildContext toHeroContext,
+                                ) {
+                                  return DestinationTitle(
+                                    title: widget.subject.getResult(),
+                                    isOverflow: false,
+                                    viewState: flightDirection == HeroFlightDirection.push ? ViewState.enlarge : ViewState.shrink,
+                                    beginFontStyle: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
+                                    endFontStyle: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+                                  );
+                                },
+                                child: Text(
+                                  widget.subject.getResult(),
+                                  style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
@@ -194,8 +248,8 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                               context: context,
                               position: RelativeRect.fromLTRB(left, top, 0, 0),
                               items: [
-                                PopupMenuItem<String>(child: Text(I18n.of(context).edit), value: I18n.of(context).edit),
-                                PopupMenuItem<String>(child: Text(I18n.of(context).delete), value: I18n.of(context).delete),
+                                PopupMenuItem<String>(value: I18n.of(context).edit, child: Text(I18n.of(context).edit)),
+                                PopupMenuItem<String>(value: I18n.of(context).delete, child: Text(I18n.of(context).delete)),
                               ],
                               elevation: 8.0,
                             );
@@ -420,7 +474,7 @@ String getTestHint(String test, Subject subject) {
   int i = 1;
 
   do {
-    defaultName = test + " " + (subject.tests.length + i).toString();
+    defaultName = "$test ${subject.tests.length + i}";
 
     for (Test t in subject.tests) {
       if (t.name == defaultName) {

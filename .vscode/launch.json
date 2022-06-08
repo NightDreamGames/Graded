@@ -5,17 +5,24 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"program": "lib/UI/main.dart",
-			"name": "Grade.ly",
+			"program": "lib/main.dart",
+			"name": "Grade.ly - Debug",
 			"request": "launch",
 			"type": "dart"
 		},
 		{
-			"program": "lib/UI/main.dart",
-			"name": "Grade.ly (profile mode)",
+			"program": "lib/main.dart",
+			"name": "Grade.ly - Profiling",
 			"request": "launch",
 			"type": "dart",
 			"flutterMode": "profile"
+		},
+		{
+			"name": "Grade.ly - Release",
+			"type": "dart",
+			"request": "launch",
+			"program": "lib/main.dart",
+			"flutterMode": "release"
 		}
 	]
 }

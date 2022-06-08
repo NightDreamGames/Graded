@@ -1,15 +1,19 @@
+import 'package:customizable_space_bar/customizable_space_bar.dart';
 import 'package:gradely/UI/settings_route.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:gradely/Calculations/manager.dart';
 import 'package:page_transition/page_transition.dart';
-import '../Translation/i18n.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'Translation/i18n.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import '../Misc/storage.dart';
-import '../Calculations/manager.dart';
-import 'default_theme.dart';
-import 'popup_sub_menu.dart';
-import 'subject_route.dart';
+import 'Misc/storage.dart';
+import 'Calculations/manager.dart';
+import 'UI/default_theme.dart';
+import 'UI/fade_page_route.dart';
+import 'UI/popup_sub_menu.dart';
+import 'UI/subject_route.dart';
+import 'UI/title.dart';
+import 'UI/view_state.dart';
 
 void main() async {
   await Settings.init();
@@ -87,13 +91,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
+    setOptimalDisplayMode();
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -102,6 +107,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) {
       rebuild();
     }
+  }
+
+  Future<void> setOptimalDisplayMode() async {
+    final List<DisplayMode> supported = await FlutterDisplayMode.supported;
+    final DisplayMode active = await FlutterDisplayMode.active;
+
+    final List<DisplayMode> sameResolution = supported.where((DisplayMode m) => m.width == active.width && m.height == active.height).toList()
+      ..sort((DisplayMode a, DisplayMode b) => b.refreshRate.compareTo(a.refreshRate));
+
+    final DisplayMode mostOptimalMode = sameResolution.isNotEmpty ? sameResolution.first : active;
+
+    await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
   }
 
   @override
@@ -187,9 +204,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     },
                   ));
                   entries.add(PopupMenuItem<String>(
-                    child: Text(I18n.of(context).settings),
                     value: "2",
                     onTap: () {},
+                    child: Text(I18n.of(context).settings),
                   ));
 
                   return entries;
@@ -197,13 +214,22 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
             ],
             expandedHeight: 150,
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: false,
-              titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
-              title: Text(
-                getTitle(context),
-                style: const TextStyle(fontSize: 24),
-              ),
+            flexibleSpace: CustomizableSpaceBar(
+              builder: (context, scrollingRate) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12, left: 24),
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      getTitle(context),
+                      style: TextStyle(
+                        fontSize: 42 - 18 * scrollingRate,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           SliverToBoxAdapter(
@@ -288,7 +314,15 @@ class ListRow extends StatelessWidget {
       children: [
         ListTile(
           onTap: () {
-            Navigator.push(
+            Navigator.push(context, FadePageRoute(
+              builder: (context) {
+                return SubjectRoute(
+                  subject: Manager.getCurrentTerm(context: context).subjects[index],
+                );
+              },
+            )).then((_) => function());
+
+            /*Navigator.push(
               context,
               PageTransition(
                 type: PageTransitionType.rightToLeft,
@@ -296,24 +330,57 @@ class ListRow extends StatelessWidget {
                   subject: Manager.getCurrentTerm(context: context).subjects[index],
                 ),
               ),
-            ).then((_) => function());
+            ).then((_) => function());*/
           },
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-          title: Text(
-            Manager.getCurrentTerm(context: context).subjects[index].name,
-            overflow: TextOverflow.fade,
-            softWrap: false,
-            style: const TextStyle(
-              fontSize: 18.0,
+          title: Hero(
+            tag: Manager.getCurrentTerm(context: context).subjects[index].name,
+            flightShuttleBuilder: (
+              BuildContext flightContext,
+              Animation<double> animation,
+              HeroFlightDirection flightDirection,
+              BuildContext fromHeroContext,
+              BuildContext toHeroContext,
+            ) {
+              return DestinationTitle(
+                title: Manager.getCurrentTerm(context: context).subjects[index].name,
+                isOverflow: false,
+                viewState: flightDirection == HeroFlightDirection.push ? ViewState.enlarge : ViewState.shrink,
+                beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
+                endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
+              );
+            },
+            child: DestinationTitle(
+              title: Manager.getCurrentTerm(context: context).subjects[index].name,
+              isOverflow: false,
+              viewState: ViewState.shrunk,
+              beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
+              endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
             ),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                Manager.getCurrentTerm(context: context).subjects[index].getResult(),
-                style: const TextStyle(
-                  fontSize: 20.0,
+              Hero(
+                tag: "${Manager.getCurrentTerm(context: context).subjects[index].name}_result",
+                flightShuttleBuilder: (
+                  BuildContext flightContext,
+                  Animation<double> animation,
+                  HeroFlightDirection flightDirection,
+                  BuildContext fromHeroContext,
+                  BuildContext toHeroContext,
+                ) {
+                  return DestinationTitle(
+                    title: Manager.getCurrentTerm(context: context).subjects[index].getResult(),
+                    isOverflow: false,
+                    viewState: flightDirection == HeroFlightDirection.push ? ViewState.enlarge : ViewState.shrink,
+                    beginFontStyle: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
+                    endFontStyle: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+                  );
+                },
+                child: Text(
+                  Manager.getCurrentTerm(context: context).subjects[index].getResult(),
+                  style: const TextStyle(fontSize: 20.0),
                 ),
               ),
               const Padding(padding: EdgeInsets.only(right: 24)),

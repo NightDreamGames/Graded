@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../Calculations/manager.dart';
 import '../Translation/i18n.dart';
-
+import 'package:customizable_space_bar/customizable_space_bar.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-
 import 'subject_edit_route.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -22,10 +21,22 @@ class SettingsPage extends StatelessWidget {
           floating: false,
           pinned: true,
           expandedHeight: 150,
-          flexibleSpace: FlexibleSpaceBar(
-            centerTitle: false,
-            titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
-            title: Text(I18n.of(context).settings),
+          flexibleSpace: CustomizableSpaceBar(
+            builder: (context, scrollingRate) {
+              return Padding(
+                padding: EdgeInsets.only(bottom: 12, left: 24 + 40 * scrollingRate),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    I18n.of(context).settings,
+                    style: TextStyle(
+                      fontSize: 42 - 18 * scrollingRate,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
         SliverToBoxAdapter(

@@ -11,7 +11,7 @@ import '../Calculations/term.dart';
 class Compatibility {
   static Future<void> importPreferences() async {
     //TODO change file path
-    var uri = Uri.file((await getApplicationDocumentsDirectory()).parent.path + "/shared_prefs/com.NightDreamGames.Grade.ly.debug_preferences.xml");
+    var uri = Uri.file("${(await getApplicationDocumentsDirectory()).parent.path}/shared_prefs/com.NightDreamGames.Grade.ly.debug_preferences.xml");
 
     if (!await File.fromUri(uri).exists()) return;
 

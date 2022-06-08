@@ -76,7 +76,7 @@ class Subject {
   List<String> getGrades() {
     List<String> a = [];
     for (int i = 0; i < tests.length; i++) {
-      a.add(Calculator.format(tests[i].grade1) + "/" + Calculator.format(tests[i].grade2));
+      a.add("${Calculator.format(tests[i].grade1)}/${Calculator.format(tests[i].grade2)}");
     }
 
     return a;
@@ -104,10 +104,10 @@ class Subject {
 
   Subject.fromJson(Map<String, dynamic> json) {
     if (json['tests'] != null) {
-      var _tests = json["tests"] as List;
-      List<Test> __tests = _tests.map((testJson) => Test.fromJson(testJson)).toList();
+      var testList = json["tests"] as List;
+      List<Test> t = testList.map((testJson) => Test.fromJson(testJson)).toList();
 
-      tests = __tests;
+      tests = t;
     }
 
     name = json['name'];

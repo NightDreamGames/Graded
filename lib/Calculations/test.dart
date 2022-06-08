@@ -13,7 +13,7 @@ class Test {
 
   @override
   String toString() {
-    return Calculator.format(grade1) + "/" + Calculator.format(grade2);
+    return "${Calculator.format(grade1)}/${Calculator.format(grade2)}";
   }
 
   Test.fromJson(Map<String, dynamic> json)

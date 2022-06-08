@@ -33,7 +33,7 @@ class Manager {
       try {
         await Compatibility.importPreferences();
       } catch (e) {
-        log("Error while importing old data: " + e.toString());
+        log("Error while importing old data: $e");
       }
     }
 

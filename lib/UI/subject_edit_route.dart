@@ -5,7 +5,6 @@ import '../Calculations/calculator.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/term.dart';
-import '../Calculations/test.dart';
 import '../Misc/storage.dart';
 import 'popup_sub_menu.dart';
 
@@ -23,13 +22,13 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -46,10 +45,10 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
       appBar: AppBar(
         title: Text(I18n.of(context).edit_subjects),
         actions: <Widget>[
-          IconButton(onPressed: () => _displayTextInputDialog(context), icon: Icon(Icons.add)),
+          IconButton(onPressed: () => _displayTextInputDialog(context), icon: const Icon(Icons.add)),
           PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert),
-            tooltip: 'More options',
+            tooltip: I18n.of(context).more_options,
             itemBuilder: (BuildContext context) {
               List<PopupMenuEntry<String>> entries = [];
 
@@ -90,8 +89,8 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                           context: context,
                           position: RelativeRect.fromLTRB(left, top, 0, 0),
                           items: [
-                            PopupMenuItem<String>(child: Text(I18n.of(context).edit), value: I18n.of(context).edit),
-                            PopupMenuItem<String>(child: Text(I18n.of(context).delete), value: I18n.of(context).delete),
+                            PopupMenuItem<String>(value: I18n.of(context).edit, child: Text(I18n.of(context).edit)),
+                            PopupMenuItem<String>(value: I18n.of(context).delete, child: Text(I18n.of(context).delete)),
                           ],
                           elevation: 8.0,
                         );
@@ -271,7 +270,7 @@ String getSubjectHint(String subject) {
   int i = 1;
 
   do {
-    defaultName = subject + " " + (Manager.termTemplate.length + i).toString();
+    defaultName = "$subject ${Manager.termTemplate.length + i}";
 
     for (Subject t in Manager.termTemplate) {
       if (t.name == defaultName) {
