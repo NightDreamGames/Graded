@@ -15,7 +15,7 @@ class FadePageRoute<T> extends MaterialPageRoute<T> {
   final bool maintainState;
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 400);
+  Duration get transitionDuration => const Duration(milliseconds: 300);
 
   @override
   Color? get barrierColor => null;
@@ -65,30 +65,52 @@ class FadePageRoute<T> extends MaterialPageRoute<T> {
   String get debugLabel => '${super.debugLabel}(${settings.name})';
 }
 
-class _FadeInPageTransition extends StatelessWidget {
+class _FadeInPageTransition extends StatefulWidget {
   _FadeInPageTransition({
+    required Animation<double> this.routeAnimation,
+    required this.child,
+  });
+
+  final Widget child;
+  final Animation<double> routeAnimation;
+  @override
+  State<StatefulWidget> createState() => _FadeInPageTransitionState(routeAnimation: routeAnimation, child: child);
+}
+
+class _FadeInPageTransitionState extends State<_FadeInPageTransition> with SingleTickerProviderStateMixin {
+  _FadeInPageTransitionState({
     Key? key,
     required Animation<double> routeAnimation, // The route's linear 0.0 - 1.0 animation.
     required this.child,
   })  : _opacityAnimation = routeAnimation.drive(_easeInTween),
-        super(key: key);
+        _bottomUpTween = routeAnimation.drive(_fadeTween);
 
   // Fractional offset from 1/4 screen below the top to fully on screen.
-  static final Tween<Offset> _bottomUpTween = Tween<Offset>(
+  /*static final Animation<Offset> _bottomUpTween = Tween<Offset>(
     begin: const Offset(0.0, 0.25),
     end: Offset.zero,
+  ).animate(CurvedAnimation(
+    parent: AnimationController(duration: const Duration(milliseconds: 300), vsync: this)..forward(),
+    curve: Curves.easeInCubic,
+  ));*/
+  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeInOut);
+  static final Animatable<Offset> _fadeTween = Tween<Offset>(
+    begin: const Offset(0.0, 0.1),
+    end: Offset.zero,
   );
-  static final Animatable<double> _fastOutSlowInTween = CurveTween(curve: Curves.fastOutSlowIn);
-  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
 
   final Animation<double> _opacityAnimation;
+  final Animation<Offset> _bottomUpTween;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _opacityAnimation,
-      child: child,
+    return SlideTransition(
+      position: _bottomUpTween,
+      child: FadeTransition(
+        opacity: _opacityAnimation,
+        child: child,
+      ),
     );
   }
 }

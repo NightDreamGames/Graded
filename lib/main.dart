@@ -63,7 +63,7 @@ void main() async {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: I18nDelegate.supportedLocals,
-      theme: DefaultTheme.lightTheme,
+      theme: DefaultTheme.darkTheme,
       darkTheme: DefaultTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
@@ -314,26 +314,28 @@ class ListRow extends StatelessWidget {
       children: [
         ListTile(
           onTap: () {
-            Navigator.push(context, FadePageRoute(
+            /*Navigator.push(context, FadePageRoute(
               builder: (context) {
                 return SubjectRoute(
                   subject: Manager.getCurrentTerm(context: context).subjects[index],
                 );
               },
-            )).then((_) => function());
+            )).then((_) => function());*/
 
-            /*Navigator.push(
+            Navigator.push(
               context,
               PageTransition(
                 type: PageTransitionType.rightToLeft,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
                 child: SubjectRoute(
                   subject: Manager.getCurrentTerm(context: context).subjects[index],
                 ),
               ),
-            ).then((_) => function());*/
+            ).then((_) => function());
           },
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-          title: Hero(
+          title: /*Hero(
             tag: Manager.getCurrentTerm(context: context).subjects[index].name,
             flightShuttleBuilder: (
               BuildContext flightContext,
@@ -350,18 +352,19 @@ class ListRow extends StatelessWidget {
                 endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
               );
             },
-            child: DestinationTitle(
-              title: Manager.getCurrentTerm(context: context).subjects[index].name,
-              isOverflow: false,
-              viewState: ViewState.shrunk,
-              beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
-              endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
-            ),
+            child:*/
+              DestinationTitle(
+            title: Manager.getCurrentTerm(context: context).subjects[index].name,
+            isOverflow: false,
+            viewState: ViewState.shrunk,
+            beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
+            endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
+            //),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Hero(
+              /*Hero(
                 tag: "${Manager.getCurrentTerm(context: context).subjects[index].name}_result",
                 flightShuttleBuilder: (
                   BuildContext flightContext,
@@ -378,10 +381,11 @@ class ListRow extends StatelessWidget {
                     endFontStyle: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                   );
                 },
-                child: Text(
-                  Manager.getCurrentTerm(context: context).subjects[index].getResult(),
-                  style: const TextStyle(fontSize: 20.0),
-                ),
+                child: */
+              Text(
+                Manager.getCurrentTerm(context: context).subjects[index].getResult(),
+                style: const TextStyle(fontSize: 20.0),
+                //),
               ),
               const Padding(padding: EdgeInsets.only(right: 24)),
               const Icon(

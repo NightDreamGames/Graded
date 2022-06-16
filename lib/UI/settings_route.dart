@@ -128,7 +128,8 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SettingsGroup(
+                //TODO Language selector
+                /*SettingsGroup(
                   title: I18n.of(context).appearance,
                   children: [
                     RadioModalSettingsTile<String>(
@@ -140,7 +141,7 @@ class SettingsPage extends StatelessWidget {
                         "on": I18n.of(context).light_mode_on,
                         "off": I18n.of(context).light_mode_off,
                       },
-                      selected: defaultValues["dark_theme"],
+                      seleed: defaultValues["dark_theme"],
                     ),
                     RadioModalSettingsTile<String>(
                       title: I18n.of(context).language,
@@ -156,7 +157,7 @@ class SettingsPage extends StatelessWidget {
                       selected: defaultValues["language"],
                     ),
                   ],
-                ),
+                ),*/
                 SettingsGroup(
                   title: I18n.of(context).about,
                   children: [

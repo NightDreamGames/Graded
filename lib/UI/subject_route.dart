@@ -98,7 +98,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                       padding: EdgeInsets.only(bottom: 12, left: 24 + 40 * scrollingRate),
                       child: Align(
                         alignment: Alignment.bottomLeft,
-                        child: Hero(
+                        child: /*Hero(
                           tag: widget.subject.name,
                           flightShuttleBuilder: (
                             BuildContext flightContext,
@@ -115,12 +115,13 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                               endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
                             );
                           },
-                          child: Text(
-                            widget.subject.name,
-                            style: TextStyle(
-                              fontSize: 42 - 18 * scrollingRate,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: */
+                            Text(
+                          widget.subject.name,
+                          style: TextStyle(
+                            fontSize: 42 - 18 * scrollingRate,
+                            fontWeight: FontWeight.bold,
+                            //),
                           ),
                         ),
                       ),
@@ -199,7 +200,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                               padding: EdgeInsets.only(right: fabVisible ? 60 : 0),
                               duration: const Duration(milliseconds: 250),
                               curve: Curves.decelerate,
-                              child: Hero(
+                              child: /*Hero(
                                 tag: "${widget.subject.name}_result",
                                 flightShuttleBuilder: (
                                   BuildContext flightContext,
@@ -216,11 +217,12 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                     endFontStyle: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                                   );
                                 },
-                                child: Text(
-                                  widget.subject.getResult(),
-                                  style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-                                ),
+                                child:*/
+                                  Text(
+                                widget.subject.getResult(),
+                                style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                               ),
+                              //),
                             ),
                           ],
                         ),
