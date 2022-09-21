@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: public_member_api_docs, prefer_single_quotes, avoid_escaping_inner_quotes, prefer_const_constructors, sort_constructors_first, always_specify_types
+// ignore_for_file: public_member_api_docs, prefer_single_quotes, avoid_escaping_inner_quotes, prefer_const_constructors, sort_constructors_first, always_specify_types, non_constant_identifier_names
 
 import 'dart:async';
 
@@ -209,8 +209,7 @@ class I18n {
     "plus": "+",
     "minus": "-",
     "az": "A-Z",
-    "about_text":
-        "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
     "one": "1",
     "github_summary": "https://github.com/NightDreamGames/Grade.ly",
     "english": "English",
@@ -308,8 +307,7 @@ class I18n {
     "plus": "+",
     "minus": "-",
     "az": "A-Z",
-    "about_text":
-        "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
     "one": "2",
     "github_summary": "https://github.com/NightDreamGames/Grade.ly",
     "english": "English",
@@ -333,8 +331,7 @@ class I18n {
     "coefficient_dots": "Coefficient:",
     "coefficients": "Coefficients",
     "confirm": "Confirmation",
-    "confirm_delete":
-        "Êtes-vous sûr de vouloir supprimer toutes vos notes enregistrées ?",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer toutes vos notes enregistrées ?",
     "contact": "Contact",
     "custom": "Personnalisé",
     "custom_rating_system": "Système de notation personnalisé",
@@ -362,15 +359,13 @@ class I18n {
     "lux_system": "Système scolaire luxembourgeois",
     "next": "Suivant",
     "note": "Note:",
-    "note_text":
-        "Vous pouvez toujours modifier vos matières dans les paramètres ultérieurement",
+    "note_text": "Vous pouvez toujours modifier vos matières dans les paramètres ultérieurement",
     "open": "Ouvrir",
     "other_system": "Autre système scolaire",
     "previous": "Précédent",
     "rating_system": "Système de notation",
     "reset": "Réinitialiser les notes",
-    "reset_summary":
-        "Supprimer toutes les notes enregistrées et réinitialiser l'application",
+    "reset_summary": "Supprimer toutes les notes enregistrées et réinitialiser l'application",
     "round_to": "Arrondir à",
     "rounding_mode": "Mode arrondissage",
     "school_system": "Système scolaire",
@@ -410,8 +405,7 @@ class I18n {
     "plus": "+",
     "minus": "-",
     "az": "A-Z",
-    "about_text":
-        "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
     "one": "3",
     "github_summary": "https://github.com/NightDreamGames/Grade.ly",
     "english": "English",
@@ -435,8 +429,7 @@ class I18n {
     "coefficient_dots": "Koeffizient:",
     "coefficients": "Koeffiziente",
     "confirm": "Bestätigung",
-    "confirm_delete":
-        "Sind Sie sicher, dass Sie alle Ihre gespeicherten Noten löschen wollen?",
+    "confirm_delete": "Sind Sie sicher, dass Sie alle Ihre gespeicherten Noten löschen wollen?",
     "contact": "Kontakt",
     "custom": "Personalisiert",
     "custom_rating_system": "Personalisiertes Bewertungssystem",
@@ -464,8 +457,7 @@ class I18n {
     "lux_system": "Luxemburgisches Schulsystem",
     "next": "Weiter",
     "note": "Anmerkung:",
-    "note_text":
-        "Sie können Ihre Fächer später immer noch in den Einstellungen bearbeiten",
+    "note_text": "Sie können Ihre Fächer später immer noch in den Einstellungen bearbeiten",
     "open": "Öffnen",
     "other_system": "Anderes Schulsystem",
     "previous": "Zurück",
@@ -511,8 +503,7 @@ class I18n {
     "plus": "+",
     "minus": "-",
     "az": "A-Z",
-    "about_text":
-        "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
     "one": "4",
     "github_summary": "https://github.com/NightDreamGames/Grade.ly",
     "english": "English",
@@ -536,8 +527,7 @@ class I18n {
     "coefficient_dots": "Koeffizient:",
     "coefficients": "Koeffizienten",
     "confirm": "Bestätegung",
-    "confirm_delete":
-        "Sidd Dir sécher datt Dir all Är gespäichert Notten läschen wëllt?",
+    "confirm_delete": "Sidd Dir sécher datt Dir all Är gespäichert Notten läschen wëllt?",
     "contact": "Kontakt",
     "custom": "Personaliséiert",
     "custom_rating_system": "Personaliséierten Bewäertungssystem",
@@ -565,8 +555,7 @@ class I18n {
     "lux_system": "Lëtzebuergeschen Schoulsystem",
     "next": "Weider",
     "note": "Umierkung:",
-    "note_text":
-        "Dir kënnt är Fächer spéider ëmmer nach an den Astellungen beaarbechten",
+    "note_text": "Dir kënnt är Fächer spéider ëmmer nach an den Astellungen beaarbechten",
     "open": "Öffnen",
     "other_system": "Aneren Schoulsystem",
     "previous": "Zeréck",
@@ -615,8 +604,7 @@ class I18n {
 
   final Locale _locale;
 
-  static I18n of(BuildContext context) =>
-      Localizations.of<I18n>(context, I18n)!;
+  static I18n of(BuildContext context) => Localizations.of<I18n>(context, I18n)!;
 
   String _getText(String key) => _localizedValues[key] ?? '** $key not found';
 

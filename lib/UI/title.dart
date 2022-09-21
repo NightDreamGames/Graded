@@ -114,12 +114,6 @@ class _DestinationTitleState extends State<DestinationTitle> with SingleTickerPr
         );
 
         _animationController.forward(from: 0.0);
-
-        Tween<TextStyle> a = TextStyleTween(
-          begin: TextStyle(fontWeight: FontWeight.bold),
-          end: TextStyle(fontWeight: FontWeight.bold),
-        );
-
         break;
 
       case ViewState.shrunk:

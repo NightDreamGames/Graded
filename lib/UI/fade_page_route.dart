@@ -9,6 +9,7 @@ class FadePageRoute<T> extends MaterialPageRoute<T> {
   }) : super(settings: settings, fullscreenDialog: fullscreenDialog, builder: builder);
 
   /// Builds the primary contents of the route.
+  @override
   final WidgetBuilder builder;
 
   @override
@@ -41,13 +42,6 @@ class FadePageRoute<T> extends MaterialPageRoute<T> {
     Animation<double> secondaryAnimation,
   ) {
     final Widget result = builder(context);
-    assert(() {
-      if (result == null) {
-        throw FlutterError('The builder for route "${settings.name}" returned null.\n'
-            'Route builders must never return null.');
-      }
-      return true;
-    }());
     return Semantics(
       scopesRoute: true,
       explicitChildNodes: true,
@@ -66,8 +60,8 @@ class FadePageRoute<T> extends MaterialPageRoute<T> {
 }
 
 class _FadeInPageTransition extends StatefulWidget {
-  _FadeInPageTransition({
-    required Animation<double> this.routeAnimation,
+  const _FadeInPageTransition({
+    required this.routeAnimation,
     required this.child,
   });
 
@@ -79,7 +73,6 @@ class _FadeInPageTransition extends StatefulWidget {
 
 class _FadeInPageTransitionState extends State<_FadeInPageTransition> with SingleTickerProviderStateMixin {
   _FadeInPageTransitionState({
-    Key? key,
     required Animation<double> routeAnimation, // The route's linear 0.0 - 1.0 animation.
     required this.child,
   })  : _opacityAnimation = routeAnimation.drive(_easeInTween),

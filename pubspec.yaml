@@ -12,18 +12,19 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   sprintf: "^6.0.0"
-  flutter_displaymode: ^0.3.2
+  flutter_displaymode: ^0.4.0
   cupertino_icons: ^1.0.3
   diacritic: ^0.1.3
   shared_preferences: ^2.0.13
+  path_provider: ^2.0.2
+  provider: ^6.0.0
   page_transition: ^2.0.5
   package_info_plus: ^1.4.0
-  url_launcher: ^6.0.20
-  flutter_settings_screens:
-    path: C:/Dev/Libraries/Flutter/flutter_settings_screens
-  flex_color_scheme: ^5.0.1
-  xml: ^5.0.0
   customizable_space_bar: ^0.2.0
+  url_launcher: ^6.0.20
+  xml: ^5.0.0
+  dynamic_color: ^1.4.0
+  easy_dynamic_theme: ^2.2.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

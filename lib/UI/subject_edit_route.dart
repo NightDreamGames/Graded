@@ -46,35 +46,40 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
         title: Text(I18n.of(context).edit_subjects),
         actions: <Widget>[
           IconButton(onPressed: () => _displayTextInputDialog(context), icon: const Icon(Icons.add)),
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert),
-            tooltip: I18n.of(context).more_options,
-            itemBuilder: (BuildContext context) {
-              List<PopupMenuEntry<String>> entries = [];
+          Theme(
+            //TODO correct theme when Flutter updates
+            data: Theme.of(context).copyWith(useMaterial3: false),
+            child: PopupMenuButton<String>(
+              icon: const Icon(Icons.more_vert),
+              tooltip: I18n.of(context).more_options,
+              itemBuilder: (BuildContext context) {
+                List<PopupMenuEntry<String>> entries = [];
 
-              entries.add(PopupSubMenuItem<String>(
-                title: I18n.of(context).sort_by,
-                items: [
-                  I18n.of(context).az,
-                  I18n.of(context).grade,
-                ],
-                onSelected: (value) {
-                  if (value == I18n.of(context).az) {
-                    Storage.setPreference<int>("sort_mode3", 0);
-                  } else if (value == I18n.of(context).grade) {
-                    Storage.setPreference<int>("sort_mode3", 1);
-                  }
+                entries.add(PopupSubMenuItem<String>(
+                  title: I18n.of(context).sort_by,
+                  items: [
+                    I18n.of(context).az,
+                    I18n.of(context).grade,
+                  ],
+                  onSelected: (value) {
+                    if (value == I18n.of(context).az) {
+                      Storage.setPreference<int>("sort_mode3", 0);
+                    } else if (value == I18n.of(context).grade) {
+                      Storage.setPreference<int>("sort_mode3", 1);
+                    }
 
-                  Manager.sortAll();
-                  rebuild();
-                },
-              ));
-              return entries;
-            },
+                    Manager.sortAll();
+                    rebuild();
+                  },
+                ));
+                return entries;
+              },
+            ),
           ),
         ],
       ),
       body: CustomScrollView(
+        primary: true,
         slivers: [
           SliverList(
             delegate: SliverChildBuilderDelegate(
@@ -125,9 +130,9 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Divider(height: 1, color: Theme.of(context).dividerColor),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Divider(height: 1),
                     ),
                   ],
                 );
@@ -156,20 +161,20 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: add ? Text(I18n.of(context).add_subject) : Text(I18n.of(context).edit_subject),
+          title: Center(
+            child: add ? Text(I18n.of(context).add_subject) : Text(I18n.of(context).edit_subject),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
               child: Text(
                 MaterialLocalizations.of(context).cancelButtonLabel,
-                style: TextStyle(color: Theme.of(context).toggleableActiveColor),
               ),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, true),
               child: Text(
                 MaterialLocalizations.of(context).okButtonLabel,
-                style: TextStyle(color: Theme.of(context).toggleableActiveColor),
               ),
             ),
           ],
@@ -178,7 +183,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
+                TextFormField(
                   onChanged: (value) {},
                   controller: _nameController,
                   autofocus: true,
@@ -186,14 +191,21 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                     hintText: getSubjectHint(I18n.of(context).subject),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: I18n.of(context).name,
-                    labelStyle: TextStyle(color: Colors.grey[500]),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.secondary),
-                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
+                      borderRadius: BorderRadius.circular(16.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.secondary),
-                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),
@@ -205,23 +217,37 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Flexible(
-                      child: TextField(
+                      child: TextFormField(
                         //TODO Text validation
                         onChanged: (value) {},
                         controller: _coeffController,
                         keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        autofocus: true,
+                        validator: (String? input) {
+                          if (input == null || input.isEmpty || double.tryParse(input) != null) {
+                            return null;
+                          }
+                          return I18n.of(context).enter_valid_number;
+                        },
                         decoration: InputDecoration(
                           hintText: "01",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
                           labelText: I18n.of(context).coefficient,
-                          labelStyle: TextStyle(color: Colors.grey[500]),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.secondary),
-                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
+                            borderRadius: BorderRadius.circular(16.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.secondary),
-                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                       ),
