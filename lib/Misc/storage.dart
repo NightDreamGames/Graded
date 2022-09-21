@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import '/UI/Settings/flutter_settings_screens.dart';
 
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';

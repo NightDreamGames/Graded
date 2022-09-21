@@ -86,7 +86,6 @@ class Manager {
   static Term getCurrentTerm({dynamic context}) {
     if (currentTerm == -1) {
       Term p = Term();
-      Year year = getCurrentYear();
       for (int i = 0; i < getCurrentYear().terms.length; i++) {
         for (int j = 0; j < getCurrentYear().terms[i].subjects.length; j++) {
           if (getCurrentYear().terms[i].subjects[j].result != -1) {
