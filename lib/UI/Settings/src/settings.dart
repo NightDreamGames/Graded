@@ -91,14 +91,14 @@ class Settings {
   ///
   /// If there's no value found associated with the [key] then the [defaultValue]
   /// is returned.
-  static T getValue<T>(String key, T defaultValue) {
+  static T getValue<T>(String key, T? defaultValue) {
     ensureCacheProvider();
     final containsKey = _cacheProvider?.containsKey(key);
     if (containsKey ?? false) {
       final prefValue = _cacheProvider?.getValue<T>(key, defaultValue);
-      return prefValue ?? defaultValue;
+      return prefValue ?? defaultValue ?? null as T;
     }
-    return defaultValue;
+    return defaultValue ?? null as T;
   }
 
   /// method to set [value] using the [cacheProvider] for given [key]
@@ -184,13 +184,13 @@ Map<String, List<ValueChangeNotifier>> _notifiers = <String, List<ValueChangeNot
 /// [cacheKey]
 class ValueChangeObserver<T> extends StatefulWidget {
   final String cacheKey;
-  final T defaultValue;
+  final T? defaultValue;
   final InternalWidgetBuilder<T> builder;
 
   const ValueChangeObserver({
     Key? key,
     required this.cacheKey,
-    required this.defaultValue,
+    this.defaultValue,
     required this.builder,
   }) : super(key: key);
 
@@ -203,7 +203,7 @@ class _ValueChangeObserverState<T> extends State<ValueChangeObserver<T>> {
 
   String get cacheKey => widget.cacheKey;
 
-  T get defaultValue => widget.defaultValue;
+  T? get defaultValue => widget.defaultValue;
 
   late ValueChangeNotifier<T> notifier;
 
@@ -212,7 +212,11 @@ class _ValueChangeObserverState<T> extends State<ValueChangeObserver<T>> {
     //if [cacheKey] is not found, add new cache in the [cacheProvider] with [defaultValue]
     final containsKey = Settings.containsKey(cacheKey) ?? false;
     if (!containsKey) {
-      Settings.setValue<T>(cacheKey, defaultValue);
+      if (defaultValue != null) {
+        Settings.setValue<T>(cacheKey, defaultValue as T);
+      } else {
+        Settings.setValue<T>(cacheKey, "" as T);
+      }
     }
 
     // get cache value from the [cacheProvider]

@@ -43,8 +43,7 @@ class SharePreferenceCache extends CacheProvider {
   }
 
   @override
-  Future<void> setDouble(String key, double? value,
-      {double? defaultValue = 0.0}) {
+  Future<void> setDouble(String key, double? value, {double? defaultValue = 0.0}) {
     return _preferences.setDouble(key, value ?? defaultValue!);
   }
 
@@ -98,7 +97,7 @@ class SharePreferenceCache extends CacheProvider {
   }
 
   @override
-  T getValue<T>(String key, T defaultValue) {
+  T getValue<T>(String key, T? defaultValue) {
     if (defaultValue is int) {
       return _preferences.getInt(key) as T;
     }
@@ -108,7 +107,7 @@ class SharePreferenceCache extends CacheProvider {
     if (defaultValue is bool) {
       return _preferences.getBool(key) as T;
     }
-    if (defaultValue is String) {
+    if (defaultValue is String || defaultValue == null) {
       return _preferences.getString(key) as T;
     }
     throw Exception('No Implementation Found');

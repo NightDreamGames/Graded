@@ -207,7 +207,7 @@ class SettingsPage extends StatelessWidget {
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                         title: I18n.of(context).app_version,
-                        subtitle: snapshot.data.toString(),
+                        subtitle: snapshot.data as String,
                         onTap: () {
                           _launchURL(2);
                         },

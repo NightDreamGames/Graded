@@ -75,5 +75,5 @@ abstract class CacheProvider {
 
   Future<void> setObject<T>(String key, T value);
 
-  T getValue<T>(String key, T defaultValue);
+  T getValue<T>(String key, T? defaultValue);
 }

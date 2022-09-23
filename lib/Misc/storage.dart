@@ -18,6 +18,9 @@ final Map<String, dynamic> defaultValues = {
   "sort_mode1": 0,
   "sort_mode2": 0,
   "sort_mode3": 0,
+  "class": "na",
+  "lux_system": "na",
+  "school_system": "na",
 };
 
 // ignore: constant_identifier_names
@@ -49,7 +52,7 @@ class Storage {
     Settings.setValue<T>(key, value);
   }
 
-  static T getPreference<T>(String key, dynamic defaultValue) {
+  static T getPreference<T>(String key, T defaultValue) {
     return Settings.getValue<T>(key, defaultValue);
   }
 

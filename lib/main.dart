@@ -4,6 +4,7 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:gradely/UI/settings_route.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:gradely/UI/setup_route.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'Translation/i18n.dart';
@@ -43,15 +44,18 @@ void main() async {
 
   // Serialization.Deserialize();
 
-  /*if (Preferences.getPreference("isFirstRun", "true") == "true") {
-    Navigator.push(
+  String initialRoute = "/";
+
+  if (Storage.getPreference("isFirstRun", true)) {
+    initialRoute = "/setup";
+    /*Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SubjectRoute()),
     ).then((value) {
-                      rebuild();
-                      print("AAAAAAAAAAA");
-                    });
-  }*/
+      rebuild();
+      print("AAAAAAAAAAA");
+    });*/
+  }
 
   //Compatibility.init();
 
@@ -70,11 +74,12 @@ void main() async {
         ],
         supportedLocales: I18nDelegate.supportedLocals,
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',
+        initialRoute: initialRoute,
         routes: {
           '/': (context) => const Material(child: HomePage()),
           '/subject': (context) => const Material(child: HomePage()),
           '/settings': (context) => const Material(child: SettingsPage()),
+          '/setup': (context) => const Material(child: SetupPage()),
         },
       );
     }),
@@ -171,7 +176,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
             actions: <Widget>[
               Theme(
-                //TODO correct theme when Flutter updates
+                //TODO correct theme when Flutter finally fixed it
                 data: Theme.of(context).copyWith(useMaterial3: false),
                 child: PopupMenuButton<String>(
                   icon: const Icon(Icons.more_vert),

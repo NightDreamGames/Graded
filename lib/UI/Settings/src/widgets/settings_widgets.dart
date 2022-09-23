@@ -1,5 +1,6 @@
 // @dart = 2.12
 import 'package:flutter/material.dart';
+import 'package:gradely/Translation/i18n.dart';
 
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';
@@ -1632,7 +1633,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
   final String settingKey;
 
   /// Selected value or group value of the radio buttons
-  final T selected;
+  final T? selected;
 
   /// A map containing unique values along with the display name
   final Map<T, String> values;
@@ -1666,7 +1667,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
     Key? key,
     required this.title,
     required this.settingKey,
-    required this.selected,
+    this.selected,
     required this.values,
     this.enabled = true,
     this.showTitles = false,
@@ -1682,7 +1683,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
 }
 
 class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
-  late T selectedValue;
+  late T? selectedValue;
 
   @override
   void initState() {
@@ -1705,7 +1706,7 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
       builder: (BuildContext context, T value, OnChanged<T> onChanged) {
         return _ModalSettingsTile<T>(
           title: widget.title,
-          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : widget.values[value],
+          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[value] ?? I18n.of(context).not_set),
           leading: widget.leading,
           titleTextStyle: widget.titleTextStyle,
           subtitleTextStyle: widget.subtitleTextStyle,
