@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  sprintf: "^6.0.0"
+  sprintf: ^7.0.0
   flutter_displaymode: ^0.4.0
   cupertino_icons: ^1.0.3
   diacritic: ^0.1.3
@@ -19,7 +19,7 @@ dependencies:
   path_provider: ^2.0.2
   provider: ^6.0.0
   page_transition: ^2.0.5
-  package_info_plus: ^1.4.0
+  package_info_plus: ^3.0.1
   customizable_space_bar: ^0.2.0
   url_launcher: ^6.0.20
   xml: ^5.0.0
@@ -31,7 +31,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flappy_translator:
     path: C:/Dev/Libraries/Flutter/FlappyTranslator
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.10.0
   integration_test:
     sdk: flutter
 
@@ -44,7 +44,7 @@ flutter_icons:
   remove_alpha_ios: true
 
 flappy_translator:
-  input_file_path: "localizations.xlsx"
+  input_file_path: "assets/Localizations.xlsx"
   output_dir: "lib/Translation"
   file_name: "i18n"
   class_name: "I18n"
