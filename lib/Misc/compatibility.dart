@@ -52,7 +52,7 @@ class Compatibility {
     }
     Storage.setPreference<double>("total_grades", totalGrades);
 
-    Storage.setPreference<bool>("isFirstRun", elements["isFirstRun"]?.toLowerCase() == 'true');
+    Storage.setPreference<bool>("is_first_run", elements["isFirstRun"]?.toLowerCase() == 'true');
 
     if (Storage.existsPreference("period")) {
       elements.update("term", (value) => elements["period"]?.replaceFirst("period", "term") ?? defaultValues["term"]);
@@ -112,7 +112,7 @@ class Compatibility {
   }
 
   static void periodPreferences() {
-    if (!Storage.getPreference<bool>("isFirstRun", true) && Storage.getPreference<int>("data_version", -1) < 2) {
+    if (!Storage.getPreference<bool>("is_first_run", true) && Storage.getPreference<int>("data_version", -1) < 2) {
       if (Storage.existsPreference("data")) {
         Storage.setPreference<String?>("data", Storage.getPreference("data", "").replaceAll("period", "term").replaceAll("mark", "grade"));
         Storage.setPreference<String?>(

@@ -21,6 +21,9 @@ final Map<String, dynamic> defaultValues = {
   "class": "na",
   "lux_system": "na",
   "school_system": "na",
+  "is_first_run": true,
+  "is_first_run_flutter": true,
+  "variant": "basic",
 };
 
 // ignore: constant_identifier_names

@@ -5,6 +5,7 @@ import 'package:gradely/UI/settings_route.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:gradely/UI/setup_route.dart';
+import 'package:gradely/UI/subject_edit_route.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'Translation/i18n.dart';
@@ -43,18 +44,12 @@ void main() async {
   await Manager.init();
 
   // Serialization.Deserialize();
+  String initialRoute = "/home";
 
-  String initialRoute = "/";
-
-  if (Storage.getPreference("isFirstRun", true)) {
+  if (Storage.getPreference("is_first_run", defaultValues["is_first_run"])) {
     initialRoute = "/setup";
-    /*Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SubjectRoute()),
-    ).then((value) {
-      rebuild();
-      print("AAAAAAAAAAA");
-    });*/
+    /*Navigator.pushReplacementNamed(context, "/setup");
+    rebuild();*/
   }
 
   //Compatibility.init();
@@ -76,10 +71,11 @@ void main() async {
         debugShowCheckedModeBanner: false,
         initialRoute: initialRoute,
         routes: {
-          '/': (context) => const Material(child: HomePage()),
+          '/home': (context) => const Material(child: HomePage()),
           '/subject': (context) => const Material(child: HomePage()),
           '/settings': (context) => const Material(child: SettingsPage()),
           '/setup': (context) => const Material(child: SetupPage()),
+          '/subject_edit': (context) => const Material(child: SubjectEditRoute()),
         },
       );
     }),

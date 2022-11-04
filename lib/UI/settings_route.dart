@@ -1,11 +1,12 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:gradely/Misc/storage.dart';
+import 'package:gradely/UI/easy_dialog.dart';
 import 'package:gradely/custom_icons_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import '../Calculations/manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../Translation/i18n.dart';
 import 'package:customizable_space_bar/customizable_space_bar.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
@@ -50,16 +51,24 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   SimpleSettingsTile(
                     leading: Icon(
+                      Icons.class_,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(context, "/setup");
+                    },
+                    title: I18n.of(context).change_class,
+                    subtitle: I18n.of(context).change_class_summary,
+                  ),
+                  SimpleSettingsTile(
+                    leading: Icon(
                       Icons.school,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        PageTransition(
-                          type: PageTransitionType.rightToLeft,
-                          child: const SubjectEditRoute(),
-                        ),
+                        "/subject_edit",
                       );
                     },
                     title: I18n.of(context).edit_subjects,
@@ -138,7 +147,25 @@ class SettingsPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     onTap: () {
-                      Manager.clear();
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return EasyDialog(
+                            title: I18n.of(context).confirm,
+                            leading: Icon(
+                              Icons.clear_all,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            onConfirm: () {
+                              Manager.clear();
+                              Navigator.pop(context);
+                              //Navigator.pop(context);
+                              return true;
+                            },
+                            child: Text(I18n.of(context).confirm_delete),
+                          );
+                        },
+                      );
                     },
                     title: I18n.of(context).reset,
                   ),
@@ -207,7 +234,7 @@ class SettingsPage extends StatelessWidget {
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                         title: I18n.of(context).app_version,
-                        subtitle: snapshot.data as String,
+                        subtitle: snapshot.data != null ? snapshot.data as String : "",
                         onTap: () {
                           _launchURL(2);
                         },
@@ -249,21 +276,39 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
+String? encodeQueryParameters(Map<String, String> params) {
+  return params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
+}
+
+final Uri emailLaunchUri = Uri(
+  scheme: 'mailto',
+  path: 'contact.nightdreamgames@gmail.com',
+  query: encodeQueryParameters(<String, String>{
+    'subject': 'Grade.ly feedback',
+    'body': 'Thank you for your feedback!',
+  }),
+);
+
 void _launchURL(int type) async {
   switch (type) {
     case 0:
-      if (!await launchUrlString(
-          "mailto:contact.nightdreamgames@gmail.com?subject=Grade.ly%20feedback&body=Thank%20you%20you%20for%20your%20feedback")) {
+      if (!await launchUrl(emailLaunchUri)) {
         throw 'Could not launch email app';
       }
       break;
     case 1:
-      if (!await launchUrlString("https://github.com/NightDreamGames/Grade.ly")) {
+      if (!await launchUrl(
+        Uri.parse('https://github.com/NightDreamGames/Grade.ly'),
+        mode: LaunchMode.externalApplication,
+      )) {
         throw 'Could not open link';
       }
       break;
     case 2:
-      if (!await launchUrlString("https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly")) {
+      if (!await launchUrl(
+        Uri.parse('https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly'),
+        mode: LaunchMode.externalApplication,
+      )) {
         throw 'Could not open link';
       }
       break;

@@ -29,7 +29,8 @@ class Manager {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    if (Storage.getPreference<bool>("isFirstRunFlutter", true)) {
+    if (!Storage.getPreference<bool>("is_first_run", defaultValues["is_first_run"]) &&
+        Storage.getPreference<bool>("is_first_run_flutter", defaultValues["is_first_run_flutter"])) {
       try {
         await Compatibility.importPreferences();
       } catch (e) {
@@ -49,7 +50,7 @@ class Manager {
 
     Manager.calculate();
 
-    Storage.setPreference<bool>("isFirstRunFlutter", false);
+    Storage.setPreference<bool>("is_first_run_flutter", false);
   }
 
   static void readPreferences() {
