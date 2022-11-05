@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'cache/cache.dart';
@@ -160,7 +162,7 @@ void _notifyGlobally<T>(String key, T newValue) {
     final currentValue = notifier.value;
     if (currentValue != newValue) {
       notifier.value = newValue;
-      print(': _notifyGlobally: updating $key notifier');
+      log(': _notifyGlobally: updating $key notifier');
     }
   }
 }

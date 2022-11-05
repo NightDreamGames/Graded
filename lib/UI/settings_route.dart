@@ -1,7 +1,7 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:gradely/Misc/storage.dart';
 import 'package:gradely/UI/easy_dialog.dart';
-import 'package:gradely/custom_icons_icons.dart';
+import 'package:gradely/UI/custom_icons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +10,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../Translation/i18n.dart';
 import 'package:customizable_space_bar/customizable_space_bar.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
-
-import 'subject_edit_route.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);

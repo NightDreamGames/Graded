@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:typed_data';
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -6,7 +5,6 @@ import 'package:gradely/Misc/storage.dart';
 
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
-import '../Calculations/year.dart';
 
 class ExcelParser {
   static List<List<String>> classes = [[], []];
