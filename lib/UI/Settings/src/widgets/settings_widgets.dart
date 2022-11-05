@@ -298,7 +298,7 @@ class SettingsContainer extends StatelessWidget {
         top: 16.0,
       ),
       child: Material(
-        child: Container(
+        child: Padding(
           padding: EdgeInsets.only(left: leftPadding),
           child: child,
         ),
@@ -374,8 +374,7 @@ class SettingsGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var elements = <Widget>[
-      Container(
-        //color: Theme.of(context).scaffoldBackgroundColor,
+      Padding(
         padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 22.0),
         child: Align(
           alignment: Alignment.centerLeft,
@@ -389,7 +388,7 @@ class SettingsGroup extends StatelessWidget {
 
     if (subtitle.isNotEmpty) {
       elements.addAll([
-        Container(
+        Padding(
           padding: const EdgeInsets.all(16.0),
           child: Align(alignment: Alignment.centerLeft, child: Text(subtitle)),
         ),
