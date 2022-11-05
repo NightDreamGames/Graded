@@ -34,62 +34,58 @@ class PopupSubMenuItem<T> extends PopupMenuEntry<T> {
 class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      //TODO correct theme when Flutter updates
-      data: Theme.of(context).copyWith(useMaterial3: false),
-      child: PopupMenuButton<T>(
-        color: Theme.of(context).colorScheme.surface,
-        tooltip: widget.title,
-        onCanceled: () {
-          if (Navigator.canPop(context)) {
-            Navigator.pop(context);
-          }
-        },
-        onSelected: (T value) {
-          if (Navigator.canPop(context)) {
-            Navigator.pop(context);
-          }
-          widget.onSelected.call(value);
-        },
-        offset: Offset.zero,
-        itemBuilder: (BuildContext context) {
-          return widget.items
-              .map(
-                (item) => PopupMenuItem<T>(
-                  value: item,
-                  child: Text(
-                    item.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              )
-              .toList();
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 8.0, top: 12.0, bottom: 12.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Expanded(
+    return PopupMenuButton<T>(
+      color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
+      tooltip: widget.title,
+      onCanceled: () {
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
+      },
+      onSelected: (T value) {
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
+        widget.onSelected.call(value);
+      },
+      offset: Offset.zero,
+      itemBuilder: (BuildContext context) {
+        return widget.items
+            .map(
+              (item) => PopupMenuItem<T>(
+                value: item,
                 child: Text(
-                  widget.title,
+                  item.toString(),
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
                 ),
               ),
-              Icon(
-                Icons.arrow_right,
-                size: 24.0,
-                color: Theme.of(context).iconTheme.color,
+            )
+            .toList();
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 8.0, top: 12.0, bottom: 12.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                widget.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
               ),
-            ],
-          ),
+            ),
+            Icon(
+              Icons.arrow_right,
+              size: 24.0,
+              color: Theme.of(context).iconTheme.color,
+            ),
+          ],
         ),
       ),
     );

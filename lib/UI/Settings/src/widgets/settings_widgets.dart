@@ -375,7 +375,7 @@ class SettingsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     var elements = <Widget>[
       Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
+        //color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 22.0),
         child: Align(
           alignment: Alignment.centerLeft,
@@ -573,19 +573,19 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
       child: Form(
         key: _formKey,
         child: TextFormField(
-          autofocus: widget.autoFocus,
-          controller: _controller,
-          focusNode: _focusNode,
-          autovalidateMode: AutovalidateMode.always,
-          enabled: widget.enabled,
-          validator: widget.enabled ? widget.validator : null,
-          onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
-          obscureText: widget.obscureText,
-          keyboardType: widget.keyboardType,
-          cursorColor: Theme.of(context).colorScheme.primary,
-          decoration: InputDecoration(
+            autofocus: widget.autoFocus,
+            controller: _controller,
+            focusNode: _focusNode,
+            autovalidateMode: AutovalidateMode.always,
+            enabled: widget.enabled,
+            validator: widget.enabled ? widget.validator : null,
+            onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
+            obscureText: widget.obscureText,
+            keyboardType: widget.keyboardType,
+            //cursorColor: Theme.of(context).colorScheme.primary,
+            decoration: InputDecoration(
               labelText: widget.title,
-              labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+              //labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
               floatingLabelBehavior: FloatingLabelBehavior.always,
 
               /*errorBorder: OutlineInputBorder(
@@ -609,8 +609,8 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
                 borderSide: BorderSide(
                   color: Theme.of(context).colorScheme.primary,
                 ),
-              )),
-        ),
+              ),
+            )),
       ),
     );
   }
@@ -1113,14 +1113,17 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
 
   Widget _buildRadioTiles(BuildContext context, T groupValue, OnChanged<T> onChanged) {
     var radioList = widget.values.entries.map<Widget>((MapEntry<T, String> entry) {
-      return Container(
+      return Material(
         color: Theme.of(context).colorScheme.surface,
+        surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+        elevation: 6,
+        shadowColor: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: _SettingsTile(
             title: entry.value,
             onTap: () => _onRadioChange(entry.key, onChanged),
-            color: Theme.of(context).colorScheme.surface,
+            color: Theme.of(context).dialogBackgroundColor,
             enabled: widget.enabled,
             child: _SettingsRadio<T>(
               value: entry.key,
@@ -1992,9 +1995,9 @@ class SimpleRadioSettingsTile extends StatelessWidget {
 
   Map<String, String> getValues(List<String> values) {
     var valueMap = <String, String>{};
-    values.forEach((String value) {
+    for (var value in values) {
       valueMap[value] = value;
-    });
+    }
     return valueMap;
   }
 }
@@ -2089,9 +2092,9 @@ class SimpleDropDownSettingsTile extends StatelessWidget {
 
   Map<String, String> getValues(List<String> values) {
     var valueMap = <String, String>{};
-    values.forEach((String value) {
+    for (var value in values) {
       valueMap[value] = value;
-    });
+    }
     return valueMap;
   }
 }

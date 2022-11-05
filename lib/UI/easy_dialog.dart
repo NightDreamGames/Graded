@@ -138,7 +138,7 @@ class _EasyDialogState extends State<EasyDialog> {
                 },
                 child: Text(
                   MaterialLocalizations.of(dialogContext).cancelButtonLabel,
-                  style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
+                  //style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
                 ),
               ),
               TextButton(
@@ -157,7 +157,7 @@ class _EasyDialogState extends State<EasyDialog> {
                 },
                 child: Text(
                   MaterialLocalizations.of(dialogContext).okButtonLabel,
-                  style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
+                  //style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
                 ),
               )
             ],

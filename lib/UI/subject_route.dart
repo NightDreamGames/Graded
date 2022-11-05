@@ -97,38 +97,35 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                   },
                 ),
                 actions: <Widget>[
-                  Theme(
-                    //TODO correct theme when Flutter updates
-                    data: Theme.of(context).copyWith(useMaterial3: false),
-                    child: PopupMenuButton<String>(
-                      icon: const Icon(Icons.more_vert),
-                      tooltip: 'More options',
-                      onSelected: (value) {},
-                      itemBuilder: (BuildContext context) {
-                        List<PopupMenuEntry<String>> entries = [];
+                  PopupMenuButton<String>(
+                    color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
+                    icon: const Icon(Icons.more_vert),
+                    tooltip: 'More options',
+                    onSelected: (value) {},
+                    itemBuilder: (BuildContext context) {
+                      List<PopupMenuEntry<String>> entries = [];
 
-                        entries.add(PopupSubMenuItem<String>(
-                          title: I18n.of(context).sort_by,
-                          items: [
-                            I18n.of(context).az,
-                            I18n.of(context).grade,
-                          ],
-                          onSelected: (value) {
-                            if (value == I18n.of(context).az) {
-                              Storage.setPreference<int>("sort_mode2", 0);
-                            } else if (value == I18n.of(context).grade) {
-                              Storage.setPreference<int>("sort_mode2", 1);
-                            }
+                      entries.add(PopupSubMenuItem<String>(
+                        title: I18n.of(context).sort_by,
+                        items: [
+                          I18n.of(context).az,
+                          I18n.of(context).grade,
+                        ],
+                        onSelected: (value) {
+                          if (value == I18n.of(context).az) {
+                            Storage.setPreference<int>("sort_mode2", 0);
+                          } else if (value == I18n.of(context).grade) {
+                            Storage.setPreference<int>("sort_mode2", 1);
+                          }
 
-                            Manager.sortAll();
-                            Manager.years[0].terms[0];
-                            rebuild();
-                          },
-                        ));
+                          Manager.sortAll();
+                          Manager.years[0].terms[0];
+                          rebuild();
+                        },
+                      ));
 
-                        return entries;
-                      },
-                    ),
+                      return entries;
+                    },
                   ),
                 ],
               ),
@@ -229,7 +226,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Divider(height: 0, color: Theme.of(context).dividerColor, thickness: 1),
+                      child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
                     ),
                   ],
                 ),
@@ -286,7 +283,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Divider(height: 1, color: Theme.of(context).dividerColor),
+                          child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
                         ),
                       ],
                     );

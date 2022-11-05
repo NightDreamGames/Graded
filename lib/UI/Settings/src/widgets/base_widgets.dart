@@ -156,41 +156,39 @@ class __SettingsTileState extends State<_SettingsTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          _SettingsTileDivider(),
-          ListTile(
-            tileColor: widget.color,
-            leading: widget.leading,
-            title: Text(
-              widget.title,
-              style: widget.titleTextStyle ?? headerTextStyle(context),
-            ),
-            subtitle: widget.subtitle?.isEmpty ?? true
-                ? null
-                : Text(
-                    widget.subtitle!,
-                    style: widget.subtitleTextStyle ?? subtitleTextStyle(context),
-                  ),
-            enabled: widget.enabled,
-            onTap: widget.onTap,
-            trailing: Visibility(
-              visible: !widget.showChildBelow,
-              child: widget.child,
-            ),
-            dense: true,
-            // wrap only if the subtitle is longer than 70 characters
-            isThreeLine: (widget.subtitle?.isNotEmpty ?? false) && widget.subtitle!.length > 70,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        _SettingsTileDivider(),
+        ListTile(
+          //tileColor: widget.color,
+          leading: widget.leading,
+          title: Text(
+            widget.title,
+            style: widget.titleTextStyle ?? headerTextStyle(context),
           ),
-          Visibility(
-            visible: widget.showChildBelow,
+          subtitle: widget.subtitle?.isEmpty ?? true
+              ? null
+              : Text(
+                  widget.subtitle!,
+                  style: widget.subtitleTextStyle ?? subtitleTextStyle(context),
+                ),
+          enabled: widget.enabled,
+          onTap: widget.onTap,
+          trailing: Visibility(
+            visible: !widget.showChildBelow,
             child: widget.child,
           ),
-          _SettingsTileDivider(),
-        ],
-      ),
+          dense: true,
+          // wrap only if the subtitle is longer than 70 characters
+          isThreeLine: (widget.subtitle?.isNotEmpty ?? false) && widget.subtitle!.length > 70,
+        ),
+        Visibility(
+          visible: widget.showChildBelow,
+          child: widget.child,
+        ),
+        _SettingsTileDivider(),
+      ],
     );
   }
 }
@@ -491,7 +489,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
             },
             child: Text(
               MaterialLocalizations.of(dialogContext).cancelButtonLabel,
-              style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
+              //style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
             ),
           ),
           TextButton(
@@ -510,7 +508,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
             },
             child: Text(
               MaterialLocalizations.of(dialogContext).okButtonLabel,
-              style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
+              //style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
             ),
           )
         ],
@@ -533,7 +531,7 @@ class _SettingsTileDivider extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Divider(
-        height: 0.0,
+        height: 1,
         color: Theme.of(context).colorScheme.surfaceVariant,
       ),
     );
@@ -563,7 +561,7 @@ class _SettingsCheckbox extends StatelessWidget {
     return Checkbox(
       value: value,
       onChanged: enabled ? onChanged : null,
-      activeColor: Theme.of(context).colorScheme.secondary,
+      //activeColor: Theme.of(context).colorScheme.secondary,
     );
   }
 }
@@ -591,7 +589,7 @@ class _SettingsSwitch extends StatelessWidget {
     return Switch.adaptive(
       value: value,
       onChanged: enabled ? onChanged : null,
-      activeColor: Theme.of(context).colorScheme.secondary,
+      //activeColor: Theme.of(context).colorScheme.secondary,
     );
   }
 }
@@ -621,7 +619,7 @@ class _SettingsRadio<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Radio<T>(
-      activeColor: Theme.of(context).colorScheme.secondary,
+      //activeColor: Theme.of(context).colorScheme.secondary,
       groupValue: groupValue,
       value: value,
       onChanged: enabled ? onChanged : null,

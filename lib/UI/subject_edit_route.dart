@@ -46,35 +46,32 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
         title: Text(I18n.of(context).edit_subjects),
         actions: <Widget>[
           IconButton(onPressed: () => _displayTextInputDialog(context), icon: const Icon(Icons.add)),
-          Theme(
-            //TODO correct theme when Flutter updates
-            data: Theme.of(context).copyWith(useMaterial3: false),
-            child: PopupMenuButton<String>(
-              icon: const Icon(Icons.more_vert),
-              tooltip: I18n.of(context).more_options,
-              itemBuilder: (BuildContext context) {
-                List<PopupMenuEntry<String>> entries = [];
+          PopupMenuButton<String>(
+            color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
+            icon: const Icon(Icons.more_vert),
+            tooltip: I18n.of(context).more_options,
+            itemBuilder: (BuildContext context) {
+              List<PopupMenuEntry<String>> entries = [];
 
-                entries.add(PopupSubMenuItem<String>(
-                  title: I18n.of(context).sort_by,
-                  items: [
-                    I18n.of(context).az,
-                    I18n.of(context).grade,
-                  ],
-                  onSelected: (value) {
-                    if (value == I18n.of(context).az) {
-                      Storage.setPreference<int>("sort_mode3", 0);
-                    } else if (value == I18n.of(context).grade) {
-                      Storage.setPreference<int>("sort_mode3", 1);
-                    }
+              entries.add(PopupSubMenuItem<String>(
+                title: I18n.of(context).sort_by,
+                items: [
+                  I18n.of(context).az,
+                  I18n.of(context).grade,
+                ],
+                onSelected: (value) {
+                  if (value == I18n.of(context).az) {
+                    Storage.setPreference<int>("sort_mode3", 0);
+                  } else if (value == I18n.of(context).grade) {
+                    Storage.setPreference<int>("sort_mode3", 1);
+                  }
 
-                    Manager.sortAll();
-                    rebuild();
-                  },
-                ));
-                return entries;
-              },
-            ),
+                  Manager.sortAll();
+                  rebuild();
+                },
+              ));
+              return entries;
+            },
           ),
         ],
       ),
@@ -130,9 +127,9 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                         ),
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Divider(height: 1),
+                      child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
                     ),
                   ],
                 );

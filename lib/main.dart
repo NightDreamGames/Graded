@@ -171,91 +171,88 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               },
             ),
             actions: <Widget>[
-              Theme(
-                //TODO correct theme when Flutter finally fixed it
-                data: Theme.of(context).copyWith(useMaterial3: false),
-                child: PopupMenuButton<String>(
-                  icon: const Icon(Icons.more_vert),
-                  tooltip: I18n.of(context).more_options,
-                  onSelected: (value) {
-                    if (value == "2") {
-                      Navigator.pushNamed(
-                        context,
-                        "/settings",
-                      ).then((value) {
-                        rebuild();
-                      });
-                    }
-                  },
-                  itemBuilder: (BuildContext context) {
-                    List<String> a = [];
+              PopupMenuButton<String>(
+                color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
+                icon: const Icon(Icons.more_vert),
+                tooltip: I18n.of(context).more_options,
+                onSelected: (value) {
+                  if (value == "2") {
+                    Navigator.pushNamed(
+                      context,
+                      "/settings",
+                    ).then((value) {
+                      rebuild();
+                    });
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  List<String> a = [];
 
-                    switch (Manager.maxTerm) {
-                      case 2:
-                        a = [
-                          I18n.of(context).semester_1,
-                          I18n.of(context).semester_2,
-                          I18n.of(context).year,
-                        ];
-                        break;
-                      case 3:
-                        a = [
-                          I18n.of(context).trimester_1,
-                          I18n.of(context).trimester_2,
-                          I18n.of(context).trimester_3,
-                          I18n.of(context).year,
-                        ];
-                        break;
-                    }
+                  switch (Manager.maxTerm) {
+                    case 2:
+                      a = [
+                        I18n.of(context).semester_1,
+                        I18n.of(context).semester_2,
+                        I18n.of(context).year,
+                      ];
+                      break;
+                    case 3:
+                      a = [
+                        I18n.of(context).trimester_1,
+                        I18n.of(context).trimester_2,
+                        I18n.of(context).trimester_3,
+                        I18n.of(context).year,
+                      ];
+                      break;
+                  }
 
-                    List<PopupMenuEntry<String>> entries = [];
-                    if (Manager.maxTerm != 1) {
-                      entries.add(
-                        PopupSubMenuItem<String>(
-                          title: I18n.of(context).select_term,
-                          items: a,
-                          onSelected: (value) async {
-                            if (value == I18n.of(context).semester_1 || value == I18n.of(context).trimester_1) {
-                              Manager.currentTerm = 0;
-                            } else if (value == I18n.of(context).semester_2 || value == I18n.of(context).trimester_2) {
-                              Manager.currentTerm = 1;
-                            } else if (value == I18n.of(context).trimester_3) {
-                              Manager.currentTerm = 2;
-                            } else if (value == I18n.of(context).year) {
-                              Manager.currentTerm = -1;
-                            }
+                  List<PopupMenuEntry<String>> entries = [];
+                  if (Manager.maxTerm != 1) {
+                    entries.add(
+                      PopupSubMenuItem<String>(
+                        title: I18n.of(context).select_term,
+                        items: a,
+                        onSelected: (value) async {
+                          if (value == I18n.of(context).semester_1 || value == I18n.of(context).trimester_1) {
+                            Manager.currentTerm = 0;
+                          } else if (value == I18n.of(context).semester_2 || value == I18n.of(context).trimester_2) {
+                            Manager.currentTerm = 1;
+                          } else if (value == I18n.of(context).trimester_3) {
+                            Manager.currentTerm = 2;
+                          } else if (value == I18n.of(context).year) {
+                            Manager.currentTerm = -1;
+                          }
 
-                            rebuild();
-                          },
-                        ),
-                      );
-                    }
-                    entries.add(PopupSubMenuItem<String>(
-                      title: I18n.of(context).sort_by,
-                      items: [
-                        I18n.of(context).az,
-                        I18n.of(context).grade,
-                      ],
-                      onSelected: (value) {
-                        if (value == I18n.of(context).az) {
-                          Storage.setPreference<int>("sort_mode1", 0);
-                        } else if (value == I18n.of(context).grade) {
-                          Storage.setPreference<int>("sort_mode1", 1);
-                        }
+                          rebuild();
+                        },
+                      ),
+                    );
+                  }
+                  entries.add(PopupSubMenuItem<String>(
+                    title: I18n.of(context).sort_by,
+                    items: [
+                      I18n.of(context).az,
+                      I18n.of(context).grade,
+                    ],
+                    onSelected: (value) {
+                      if (value == I18n.of(context).az) {
+                        Storage.setPreference<int>("sort_mode1", 0);
+                      } else if (value == I18n.of(context).grade) {
+                        Storage.setPreference<int>("sort_mode1", 1);
+                      }
 
-                        Manager.sortAll();
-                        rebuild();
-                      },
-                    ));
-                    entries.add(PopupMenuItem<String>(
-                      value: "2",
-                      onTap: () {},
-                      child: Text(I18n.of(context).settings),
-                    ));
+                      Manager.sortAll();
+                      rebuild();
+                    },
+                  ));
+                  entries.add(PopupMenuItem<String>(
+                    value: "2",
+                    onTap: () {},
+                    child: Text(I18n.of(context).settings),
+                  ));
 
-                    return entries;
-                  },
-                ),
+                  return entries;
+                },
               ),
             ],
           ),
@@ -296,9 +293,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Divider(height: 0, thickness: 1),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
                 ),
               ],
             ),
@@ -424,9 +421,9 @@ class ListRow extends StatelessWidget {
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Divider(height: 1),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
         ),
       ],
     );
