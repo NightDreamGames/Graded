@@ -62,7 +62,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                 onSelected: (value) {
                   if (value == I18n.of(context).az) {
                     Storage.setPreference<int>("sort_mode3", 0);
-                  } else if (value == I18n.of(context).grade) {
+                  } else if (value == I18n.of(context).coefficient) {
                     Storage.setPreference<int>("sort_mode3", 1);
                   }
 
