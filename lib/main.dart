@@ -130,7 +130,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     return WillPopScope(
       onWillPop: () {
         if (Manager.currentTerm == -1) {
-          //TODO Go to last selected term
           Manager.currentTerm = Manager.lastTerm;
           rebuild();
         } else {
