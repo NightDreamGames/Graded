@@ -48,7 +48,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.NightDreamGames.Grade.ly.debug"
+        applicationId "com.NightDreamGames.Grade.ly"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
@@ -64,6 +64,12 @@ android {
        }
    }
    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+        }
+
        release {
            signingConfig signingConfigs.release
        }
