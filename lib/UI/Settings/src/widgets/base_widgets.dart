@@ -140,6 +140,7 @@ class _SettingsTile extends StatefulWidget {
     this.subtitleTextStyle,
     this.onTap,
     this.enabled = true,
+    // ignore: unused_element
     this.showChildBelow = false,
     this.leading,
   });

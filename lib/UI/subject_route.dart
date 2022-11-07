@@ -4,7 +4,8 @@ import '../Calculations/calculator.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/test.dart';
 import '../Misc/storage.dart';
-import '../Translation/translations.dart';import 'package:customizable_space_bar/customizable_space_bar.dart';
+import '../Translation/translations.dart';
+import 'package:customizable_space_bar/customizable_space_bar.dart';
 import '../Calculations/manager.dart';
 import 'popup_sub_menu.dart';
 import 'easy_dialog.dart';
@@ -264,6 +265,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                               ],
                             );
                             if (result == "edit") {
+                              if (!context.mounted) return;
                               _displayTextInputDialog(context, index: index);
                             } else if (result == "delete") {
                               widget.subject.removeTest(index);

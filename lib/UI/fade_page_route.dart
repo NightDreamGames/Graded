@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 
 class FadePageRoute<T> extends MaterialPageRoute<T> {
   FadePageRoute({
-    required this.builder,
+    required this.widgetBuilder,
     RouteSettings? settings,
-    this.maintainState = true,
+    this.doMaintainState = true,
     bool fullscreenDialog = false,
-  }) : super(settings: settings, fullscreenDialog: fullscreenDialog, builder: builder);
+  }) : super(settings: settings, fullscreenDialog: fullscreenDialog, builder: widgetBuilder);
 
   /// Builds the primary contents of the route.
-  @override
-  final WidgetBuilder builder;
+  final WidgetBuilder widgetBuilder;
 
-  @override
-  final bool maintainState;
+  final bool doMaintainState;
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 300);
@@ -41,7 +39,7 @@ class FadePageRoute<T> extends MaterialPageRoute<T> {
     Animation<double> animation,
     Animation<double> secondaryAnimation,
   ) {
-    final Widget result = builder(context);
+    final Widget result = widgetBuilder(context);
     return Semantics(
       scopesRoute: true,
       explicitChildNodes: true,
@@ -68,15 +66,16 @@ class _FadeInPageTransition extends StatefulWidget {
   final Widget child;
   final Animation<double> routeAnimation;
   @override
-  State<StatefulWidget> createState() => _FadeInPageTransitionState(routeAnimation: routeAnimation, child: child);
+  State<StatefulWidget> createState() => _FadeInPageTransitionState();
 }
 
 class _FadeInPageTransitionState extends State<_FadeInPageTransition> with SingleTickerProviderStateMixin {
-  _FadeInPageTransitionState({
-    required Animation<double> routeAnimation, // The route's linear 0.0 - 1.0 animation.
-    required this.child,
-  })  : _opacityAnimation = routeAnimation.drive(_easeInTween),
-        _bottomUpTween = routeAnimation.drive(_fadeTween);
+  @override
+  void initState() {
+    super.initState();
+    _opacityAnimation = widget.routeAnimation.drive(_easeInTween);
+    _bottomUpTween = widget.routeAnimation.drive(_fadeTween);
+  }
 
   // Fractional offset from 1/4 screen below the top to fully on screen.
   /*static final Animation<Offset> _bottomUpTween = Tween<Offset>(
@@ -92,9 +91,8 @@ class _FadeInPageTransitionState extends State<_FadeInPageTransition> with Singl
     end: Offset.zero,
   );
 
-  final Animation<double> _opacityAnimation;
-  final Animation<Offset> _bottomUpTween;
-  final Widget child;
+  late Animation<double> _opacityAnimation;
+  late Animation<Offset> _bottomUpTween;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +100,7 @@ class _FadeInPageTransitionState extends State<_FadeInPageTransition> with Singl
       position: _bottomUpTween,
       child: FadeTransition(
         opacity: _opacityAnimation,
-        child: child,
+        child: widget.child,
       ),
     );
   }

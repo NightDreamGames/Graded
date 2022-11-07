@@ -102,6 +102,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                           ],
                         );
                         if (result == "edit") {
+                          if (!context.mounted) return;
                           _displayTextInputDialog(context, index: index);
                         } else if (result == "delete") {
                           Manager.termTemplate.removeAt(index);
@@ -139,7 +140,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
                     ),
                   ],
