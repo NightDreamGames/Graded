@@ -58,28 +58,27 @@ class Calculator {
     }
   }
 
-  static double round(double n) {
+  static double round(double number) {
     String roundingMode = Storage.getPreference<String>("rounding_mode");
     int roundTo = Storage.getPreference<int>("round_to");
 
     switch (roundingMode) {
       case "rounding_up":
-        double a = n * roundTo;
+        double a = number * roundTo;
         return a.ceilToDouble() / roundTo;
       case "rounding_down":
-        double a = n * roundTo;
+        double a = number * roundTo;
         return a.floorToDouble() / roundTo;
       case "rounding_half_up":
-        double i = (n * roundTo).ceilToDouble();
-        double f = n - i;
+        double i = (number * roundTo).floorToDouble();
+        double f = number - i;
         return (f < 0.5 ? i : i + 1) / roundTo;
       case "rounding_half_down":
-        double i1 = n * roundTo;
-        i1 = i1.floorToDouble();
-        double f1 = n - i1;
+        double i1 = (number * roundTo).floorToDouble();
+        double f1 = number - i1;
         return (f1 <= 0.5 ? i1 : i1 + 1) / roundTo;
       default:
-        return n;
+        return number;
     }
   }
 
