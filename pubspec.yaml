@@ -45,16 +45,9 @@ flutter_icons:
 flappy_translator:
   input_file_path: "assets/Localizations.xlsx"
   output_dir: "lib/Translation"
-  file_name: "i18n"
-  class_name: "I18n"
-  delimiter: ","
-  start_index: 1
-  depend_on_context: true
-  use_single_quotes: false
-  replace_no_break_spaces: false
-  expose_get_string: false
-  expose_loca_strings: false
-  expose_locale_maps: false
+  file_name: "translations"
+  class_name: "Translations"
+  depend_on_context: false
 
 flutter:
   uses-material-design: true

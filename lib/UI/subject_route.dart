@@ -4,8 +4,7 @@ import '../Calculations/calculator.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/test.dart';
 import '../Misc/storage.dart';
-import '../Translation/i18n.dart';
-import 'package:customizable_space_bar/customizable_space_bar.dart';
+import '../Translation/translations.dart';import 'package:customizable_space_bar/customizable_space_bar.dart';
 import '../Calculations/manager.dart';
 import 'popup_sub_menu.dart';
 import 'easy_dialog.dart';
@@ -16,7 +15,7 @@ class SubjectRoute extends StatefulWidget {
   const SubjectRoute({Key? key, required this.subject}) : super(key: key);
 
   @override
-  _SubjectRouteState createState() => _SubjectRouteState();
+  State<SubjectRoute> createState() => _SubjectRouteState();
 }
 
 class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver {
@@ -110,15 +109,15 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                   List<PopupMenuEntry<String>> entries = [];
 
                   entries.add(PopupSubMenuItem<String>(
-                    title: I18n.of(context).sort_by,
+                    title: Translations.sort_by,
                     items: [
-                      I18n.of(context).az,
-                      I18n.of(context).grade,
+                      Translations.az,
+                      Translations.grade,
                     ],
                     onSelected: (value) {
-                      if (value == I18n.of(context).az) {
+                      if (value == Translations.az) {
                         Storage.setPreference<int>("sort_mode2", 0);
-                      } else if (value == I18n.of(context).grade) {
+                      } else if (value == Translations.grade) {
                         Storage.setPreference<int>("sort_mode2", 1);
                       }
 
@@ -147,7 +146,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                             ? Row(
                                 children: [
                                   Text(
-                                    "${I18n.of(context).bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : "  "}",
+                                    "${Translations.bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : "  "}",
                                     overflow: TextOverflow.fade,
                                     softWrap: false,
                                     style: const TextStyle(
@@ -198,7 +197,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                 ],
                               )
                             : Text(
-                                I18n.of(context).average,
+                                Translations.average,
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                                 style: const TextStyle(
@@ -260,8 +259,8 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                   Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
                               position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
                               items: [
-                                PopupMenuItem<String>(value: "edit", child: Text(I18n.of(context).edit)),
-                                PopupMenuItem<String>(value: "delete", child: Text(I18n.of(context).delete)),
+                                PopupMenuItem<String>(value: "edit", child: Text(Translations.edit)),
+                                PopupMenuItem<String>(value: "delete", child: Text(Translations.delete)),
                               ],
                             );
                             if (result == "edit") {
@@ -332,7 +331,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
       context: context,
       builder: (context) {
         return EasyDialog(
-          title: add ? I18n.of(context).add_test : I18n.of(context).edit_test,
+          title: add ? Translations.add_test : Translations.edit_test,
           leading: add
               ? Icon(Icons.add, color: Theme.of(context).colorScheme.secondary)
               : Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary),
@@ -341,13 +340,13 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
               widget.subject.addTest(Test(
                   double.tryParse(_gradeController.text) ?? 1,
                   double.tryParse(_maximumController.text) ?? Manager.totalGrades,
-                  _nameController.text.isEmpty ? getTestHint(I18n.of(context).test, widget.subject) : _nameController.text));
+                  _nameController.text.isEmpty ? getTestHint(Translations.test, widget.subject) : _nameController.text));
             } else {
               widget.subject.editTest(
                   index,
                   double.tryParse(_gradeController.text) ?? 1,
                   double.tryParse(_maximumController.text) ?? Manager.totalGrades,
-                  _nameController.text.isEmpty ? getTestHint(I18n.of(context).test, widget.subject) : _nameController.text);
+                  _nameController.text.isEmpty ? getTestHint(Translations.test, widget.subject) : _nameController.text);
             }
 
             rebuild();
@@ -362,8 +361,8 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                 onChanged: (value) {},
                 controller: _nameController,
                 decoration: InputDecoration(
-                  hintText: getTestHint(I18n.of(context).test, widget.subject),
-                  labelText: I18n.of(context).name,
+                  hintText: getTestHint(Translations.test, widget.subject),
+                  labelText: Translations.name,
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
@@ -400,12 +399,12 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                         if (input == null || input.isEmpty || double.tryParse(input) != null) {
                           return null;
                         }
-                        return I18n.of(context).enter_valid_number;
+                        return Translations.enter_valid_number;
                       },
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         hintText: "01",
-                        labelText: I18n.of(context).grade,
+                        labelText: Translations.grade,
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
@@ -442,11 +441,11 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                         if (input != null && double.tryParse(input) != null) {
                           return null;
                         }
-                        return I18n.of(context).enter_valid_number;
+                        return Translations.enter_valid_number;
                       },
                       decoration: InputDecoration(
                         hintText: Calculator.format(Manager.totalGrades),
-                        labelText: I18n.of(context).maximum,
+                        labelText: Translations.maximum,
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),

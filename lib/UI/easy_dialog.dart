@@ -70,7 +70,7 @@ class EasyDialog<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EasyDialogState createState() => _EasyDialogState();
+  State<EasyDialog> createState() => _EasyDialogState();
 }
 
 class _EasyDialogState extends State<EasyDialog> {

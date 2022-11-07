@@ -62,7 +62,7 @@ class DestinationTitle extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DestinationTitleState createState() => _DestinationTitleState();
+  State<DestinationTitle> createState() => _DestinationTitleState();
 }
 
 class _DestinationTitleState extends State<DestinationTitle> with SingleTickerProviderStateMixin {

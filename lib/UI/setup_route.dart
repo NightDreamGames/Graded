@@ -5,7 +5,7 @@ import 'package:customizable_space_bar/customizable_space_bar.dart';
 
 import '../Calculations/manager.dart';
 import '../Calculations/year.dart';
-import '../Translation/i18n.dart';
+import '../Translation/translations.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 
 class SetupPage extends StatefulWidget {
@@ -66,12 +66,12 @@ class _SetupPageState extends State<SetupPage> {
 
       Map<String, String> result = <String, String>{};
       if (year == "1C") {
-        result["basic"] = I18n.of(context).basic;
-        result["latin"] = I18n.of(context).latin;
+        result["basic"] = Translations.basic;
+        result["latin"] = Translations.latin;
       } else {
-        result["basic"] = I18n.of(context).basic;
-        result["latin"] = I18n.of(context).latin;
-        result["chinese"] = I18n.of(context).chinese;
+        result["basic"] = Translations.basic;
+        result["latin"] = Translations.latin;
+        result["chinese"] = Translations.chinese;
       }
 
       return result;
@@ -135,7 +135,7 @@ class _SetupPageState extends State<SetupPage> {
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      I18n.of(context).setup,
+                      Translations.setup,
                       style: TextStyle(
                         fontSize: 42 - 18 * scrollingRate,
                         fontWeight: FontWeight.bold,
@@ -150,7 +150,7 @@ class _SetupPageState extends State<SetupPage> {
             child: SettingsContainer(
               children: [
                 RadioModalSettingsTile<String>(
-                  title: I18n.of(context).school_system,
+                  title: Translations.school_system,
                   leading: Icon(
                     Icons.school,
                     color: Theme.of(context).colorScheme.secondary,
@@ -160,16 +160,16 @@ class _SetupPageState extends State<SetupPage> {
                     rebuild();
                   },
                   values: <String, String>{
-                    "lux": I18n.of(context).lux_system,
-                    "other": I18n.of(context).other_system,
+                    "lux": Translations.lux_system,
+                    "other": Translations.other_system,
                   },
                 ),
                 Storage.getPreference("school_system") == "lux"
                     ? SettingsGroup(
-                        title: I18n.of(context).lux_system,
+                        title: Translations.lux_system,
                         children: [
                           RadioModalSettingsTile<String>(
-                            title: I18n.of(context).system,
+                            title: Translations.system,
                             leading: Icon(
                               Icons.build,
                               color: Theme.of(context).colorScheme.secondary,
@@ -182,14 +182,14 @@ class _SetupPageState extends State<SetupPage> {
                               rebuild();
                             },
                             values: <String, String>{
-                              "classic": I18n.of(context).classic,
+                              "classic": Translations.classic,
                               "general": "General (coming soon)",
-                              //"general": I18n.of(context).general,
+                              //"general": Translations.general,
                             },
                           ),
                           Storage.existsPreference("lux_system") && Storage.getPreference("lux_system") == "classic"
                               ? RadioModalSettingsTile<String>(
-                                  title: I18n.of(context).year,
+                                  title: Translations.year,
                                   leading: Icon(
                                     Icons.timelapse,
                                     color: Theme.of(context).colorScheme.secondary,
@@ -209,7 +209,7 @@ class _SetupPageState extends State<SetupPage> {
                               : Container(),
                           hasSections(Storage.getPreference("year")) && Storage.getPreference("lux_system") == "classic"
                               ? RadioModalSettingsTile<String>(
-                                  title: I18n.of(context).section,
+                                  title: Translations.section,
                                   leading: Icon(
                                     Icons.fork_right,
                                     color: Theme.of(context).colorScheme.secondary,
@@ -225,7 +225,7 @@ class _SetupPageState extends State<SetupPage> {
                                   hasVariants(Storage.getPreference("year")) &&
                                   Storage.getPreference("lux_system") == "classic"
                               ? RadioModalSettingsTile<String>(
-                                  title: I18n.of(context).variant,
+                                  title: Translations.variant,
                                   leading: Icon(
                                     Icons.edit,
                                     color: Theme.of(context).colorScheme.secondary,
@@ -242,7 +242,7 @@ class _SetupPageState extends State<SetupPage> {
                       )
                     : Storage.getPreference("school_system") == "other"
                         ? SettingsGroup(
-                            title: I18n.of(context).other_system,
+                            title: Translations.other_system,
                             children: [
                               SimpleSettingsTile(
                                 leading: Icon(
@@ -252,11 +252,11 @@ class _SetupPageState extends State<SetupPage> {
                                 onTap: () {
                                   Navigator.pushNamed(context, "/subject_edit");
                                 },
-                                title: I18n.of(context).add_subjects,
-                                subtitle: I18n.of(context).edit_subjects_summary,
+                                title: Translations.add_subjects,
+                                subtitle: Translations.edit_subjects_summary,
                               ),
                               RadioModalSettingsTile<int>(
-                                title: I18n.of(context).term,
+                                title: Translations.term,
                                 leading: Icon(
                                   Icons.access_time_outlined,
                                   color: Theme.of(context).colorScheme.secondary,
@@ -266,14 +266,14 @@ class _SetupPageState extends State<SetupPage> {
                                   Manager.readPreferences();
                                 },
                                 values: <int, String>{
-                                  3: I18n.of(context).trimesters,
-                                  2: I18n.of(context).semesters,
-                                  1: I18n.of(context).year,
+                                  3: Translations.trimesters,
+                                  2: Translations.semesters,
+                                  1: Translations.year,
                                 },
                                 selected: defaultValues["term"],
                               ),
                               TextInputSettingsTile(
-                                title: I18n.of(context).rating_system,
+                                title: Translations.rating_system,
                                 settingKey: 'total_grades_text',
                                 initialValue: defaultValues["total_grades"].toString(),
                                 leading: Icon(
@@ -290,35 +290,35 @@ class _SetupPageState extends State<SetupPage> {
                                   if (input != null && double.tryParse(input) != null) {
                                     return null;
                                   }
-                                  return I18n.of(context).enter_valid_number;
+                                  return Translations.enter_valid_number;
                                 },
                               ),
                               RadioModalSettingsTile<String>(
-                                title: I18n.of(context).rounding_mode,
+                                title: Translations.rounding_mode,
                                 leading: Icon(
                                   Icons.arrow_upward,
                                   color: Theme.of(context).colorScheme.secondary,
                                 ),
                                 settingKey: 'rounding_mode',
                                 values: <String, String>{
-                                  "rounding_up": I18n.of(context).up,
-                                  "rounding_down": I18n.of(context).down,
-                                  "rounding_half_up": I18n.of(context).half_up,
-                                  "rounding_half_down": I18n.of(context).half_down,
+                                  "rounding_up": Translations.up,
+                                  "rounding_down": Translations.down,
+                                  "rounding_half_up": Translations.half_up,
+                                  "rounding_half_down": Translations.half_down,
                                 },
                                 selected: defaultValues["rounding_mode"],
                               ),
                               RadioModalSettingsTile<int>(
-                                title: I18n.of(context).round_to,
+                                title: Translations.round_to,
                                 leading: Icon(
                                   Icons.cut,
                                   color: Theme.of(context).colorScheme.secondary,
                                 ),
                                 settingKey: 'round_to',
                                 values: <int, String>{
-                                  1: I18n.of(context).to_integer,
-                                  10: I18n.of(context).to_10th,
-                                  100: I18n.of(context).to_100th,
+                                  1: Translations.to_integer,
+                                  10: Translations.to_10th,
+                                  100: Translations.to_100th,
                                 },
                                 selected: defaultValues["round_to"],
                               ),
@@ -326,8 +326,8 @@ class _SetupPageState extends State<SetupPage> {
                           )
                         : Container(),
                 SimpleSettingsTile(
-                  title: I18n.of(context).note,
-                  subtitle: I18n.of(context).note_text,
+                  title: Translations.note,
+                  subtitle: Translations.note_text,
                   leading: Icon(
                     Icons.info_outline,
                     color: Theme.of(context).colorScheme.secondary,

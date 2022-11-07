@@ -8,11 +8,11 @@ import 'package:gradely/UI/setup_route.dart';
 import 'package:gradely/UI/subject_edit_route.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'Translation/i18n.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 
 import 'Misc/storage.dart';
 import 'Calculations/manager.dart';
+import 'Translation/translations.dart';
 import 'UI/app_theme.dart';
 import 'UI/popup_sub_menu.dart';
 import 'UI/subject_route.dart';
@@ -62,12 +62,12 @@ class _AppContainerState extends State<AppContainer> {
               ? ThemeMode.light
               : ThemeMode.dark,
       localizationsDelegates: const [
-        I18nDelegate(),
+        TranslationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: I18nDelegate.supportedLocals,
+      supportedLocales: TranslationsDelegate.supportedLocals,
       debugShowCheckedModeBanner: false,
       initialRoute: widget.initialRoute,
       routes: {
@@ -85,7 +85,7 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               PopupMenuButton<String>(
                 color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
                 icon: const Icon(Icons.more_vert),
-                tooltip: I18n.of(context).more_options,
+                tooltip: Translations.more_options,
                 onSelected: (value) {
                   if (value == "2") {
                     Navigator.pushNamed(
@@ -201,17 +201,17 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   switch (Manager.maxTerm) {
                     case 2:
                       a = [
-                        I18n.of(context).semester_1,
-                        I18n.of(context).semester_2,
-                        I18n.of(context).year,
+                        Translations.semester_1,
+                        Translations.semester_2,
+                        Translations.year,
                       ];
                       break;
                     case 3:
                       a = [
-                        I18n.of(context).trimester_1,
-                        I18n.of(context).trimester_2,
-                        I18n.of(context).trimester_3,
-                        I18n.of(context).year,
+                        Translations.trimester_1,
+                        Translations.trimester_2,
+                        Translations.trimester_3,
+                        Translations.year,
                       ];
                       break;
                   }
@@ -220,16 +220,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   if (Manager.maxTerm != 1) {
                     entries.add(
                       PopupSubMenuItem<String>(
-                        title: I18n.of(context).select_term,
+                        title: Translations.select_term,
                         items: a,
                         onSelected: (value) async {
-                          if (value == I18n.of(context).semester_1 || value == I18n.of(context).trimester_1) {
+                          if (value == Translations.semester_1 || value == Translations.trimester_1) {
                             Manager.currentTerm = 0;
-                          } else if (value == I18n.of(context).semester_2 || value == I18n.of(context).trimester_2) {
+                          } else if (value == Translations.semester_2 || value == Translations.trimester_2) {
                             Manager.currentTerm = 1;
-                          } else if (value == I18n.of(context).trimester_3) {
+                          } else if (value == Translations.trimester_3) {
                             Manager.currentTerm = 2;
-                          } else if (value == I18n.of(context).year) {
+                          } else if (value == Translations.year) {
                             Manager.lastTerm = Manager.currentTerm;
                             Manager.currentTerm = -1;
                           }
@@ -240,15 +240,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     );
                   }
                   entries.add(PopupSubMenuItem<String>(
-                    title: I18n.of(context).sort_by,
+                    title: Translations.sort_by,
                     items: [
-                      I18n.of(context).az,
-                      I18n.of(context).grade,
+                      Translations.az,
+                      Translations.grade,
                     ],
                     onSelected: (value) {
-                      if (value == I18n.of(context).az) {
+                      if (value == Translations.az) {
                         Storage.setPreference<int>("sort_mode1", 0);
-                      } else if (value == I18n.of(context).grade) {
+                      } else if (value == Translations.grade) {
                         Storage.setPreference<int>("sort_mode1", 1);
                       }
 
@@ -259,7 +259,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   entries.add(PopupMenuItem<String>(
                     value: "2",
                     onTap: () {},
-                    child: Text(I18n.of(context).settings),
+                    child: Text(Translations.settings),
                   ));
 
                   return entries;
@@ -282,7 +282,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             child: Padding(
                               padding: const EdgeInsets.only(right: 20),
                               child: Text(
-                                I18n.of(context).average,
+                                Translations.average,
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                                 style: const TextStyle(
@@ -445,26 +445,26 @@ String getTitle(var context) {
     case 0:
       switch (Manager.maxTerm) {
         case 3:
-          return I18n.of(context).trimester_1;
+          return Translations.trimester_1;
         case 2:
-          return I18n.of(context).semester_1;
+          return Translations.semester_1;
         case 1:
-          return I18n.of(context).year;
+          return Translations.year;
       }
       break;
     case 1:
       switch (Manager.maxTerm) {
         case 3:
-          return I18n.of(context).trimester_2;
+          return Translations.trimester_2;
         case 2:
-          return I18n.of(context).semester_2;
+          return Translations.semester_2;
       }
       break;
     case 2:
-      return I18n.of(context).trimester_3;
+      return Translations.trimester_3;
     case -1:
-      return I18n.of(context).year;
+      return Translations.year;
   }
 
-  return I18n.of(context).app_name;
+  return Translations.app_name;
 }

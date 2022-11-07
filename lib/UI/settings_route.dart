@@ -6,7 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter/material.dart';
 import '../Calculations/manager.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../Translation/i18n.dart';
+import '../Translation/translations.dart';
 import 'package:customizable_space_bar/customizable_space_bar.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 
@@ -29,7 +29,7 @@ class SettingsPage extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
-                    I18n.of(context).settings,
+                    Translations.settings,
                     style: TextStyle(
                       fontSize: 42 - 18 * scrollingRate,
                       fontWeight: FontWeight.bold,
@@ -44,7 +44,7 @@ class SettingsPage extends StatelessWidget {
           child: SettingsContainer(
             children: [
               SettingsGroup(
-                title: I18n.of(context).general,
+                title: Translations.general,
                 children: [
                   SimpleSettingsTile(
                     leading: Icon(
@@ -54,8 +54,8 @@ class SettingsPage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, "/setup");
                     },
-                    title: I18n.of(context).change_class,
-                    subtitle: I18n.of(context).change_class_summary,
+                    title: Translations.change_class,
+                    subtitle: Translations.change_class_summary,
                   ),
                   SimpleSettingsTile(
                     leading: Icon(
@@ -65,11 +65,11 @@ class SettingsPage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, "/subject_edit");
                     },
-                    title: I18n.of(context).edit_subjects,
-                    subtitle: I18n.of(context).edit_subjects_summary,
+                    title: Translations.edit_subjects,
+                    subtitle: Translations.edit_subjects_summary,
                   ),
                   RadioModalSettingsTile<int>(
-                    title: I18n.of(context).term,
+                    title: Translations.term,
                     leading: Icon(
                       Icons.access_time_outlined,
                       color: Theme.of(context).colorScheme.secondary,
@@ -79,14 +79,14 @@ class SettingsPage extends StatelessWidget {
                       Manager.readPreferences();
                     },
                     values: <int, String>{
-                      3: I18n.of(context).trimesters,
-                      2: I18n.of(context).semesters,
-                      1: I18n.of(context).year,
+                      3: Translations.trimesters,
+                      2: Translations.semesters,
+                      1: Translations.year,
                     },
                     selected: defaultValues["term"],
                   ),
                   TextInputSettingsTile(
-                    title: I18n.of(context).rating_system,
+                    title: Translations.rating_system,
                     settingKey: 'total_grades_text',
                     initialValue: defaultValues["total_grades"].toString(),
                     leading: Icon(
@@ -104,11 +104,11 @@ class SettingsPage extends StatelessWidget {
                       if (input != null && double.tryParse(input) != null) {
                         return null;
                       }
-                      return I18n.of(context).enter_valid_number;
+                      return Translations.enter_valid_number;
                     },
                   ),
                   RadioModalSettingsTile<String>(
-                    title: I18n.of(context).rounding_mode,
+                    title: Translations.rounding_mode,
                     leading: Icon(
                       Icons.arrow_upward,
                       color: Theme.of(context).colorScheme.secondary,
@@ -118,15 +118,15 @@ class SettingsPage extends StatelessWidget {
                       Manager.calculate();
                     },
                     values: <String, String>{
-                      "rounding_up": I18n.of(context).up,
-                      "rounding_down": I18n.of(context).down,
-                      "rounding_half_up": I18n.of(context).half_up,
-                      "rounding_half_down": I18n.of(context).half_down,
+                      "rounding_up": Translations.up,
+                      "rounding_down": Translations.down,
+                      "rounding_half_up": Translations.half_up,
+                      "rounding_half_down": Translations.half_down,
                     },
                     selected: defaultValues["rounding_mode"],
                   ),
                   RadioModalSettingsTile<int>(
-                    title: I18n.of(context).round_to,
+                    title: Translations.round_to,
                     leading: Icon(
                       Icons.cut,
                       color: Theme.of(context).colorScheme.secondary,
@@ -136,9 +136,9 @@ class SettingsPage extends StatelessWidget {
                       Manager.calculate();
                     },
                     values: <int, String>{
-                      1: I18n.of(context).to_integer,
-                      10: I18n.of(context).to_10th,
-                      100: I18n.of(context).to_100th,
+                      1: Translations.to_integer,
+                      10: Translations.to_10th,
+                      100: Translations.to_100th,
                     },
                     selected: defaultValues["round_to"],
                   ),
@@ -152,7 +152,7 @@ class SettingsPage extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return EasyDialog(
-                            title: I18n.of(context).confirm,
+                            title: Translations.confirm,
                             leading: Icon(
                               Icons.clear_all,
                               color: Theme.of(context).colorScheme.secondary,
@@ -162,29 +162,29 @@ class SettingsPage extends StatelessWidget {
                               Navigator.pop(context);
                               return true;
                             },
-                            child: Text(I18n.of(context).confirm_delete),
+                            child: Text(Translations.confirm_delete),
                           );
                         },
                       );
                     },
-                    title: I18n.of(context).reset,
+                    title: Translations.reset,
                   ),
                 ],
               ),
               SettingsGroup(
-                title: I18n.of(context).appearance,
+                title: Translations.appearance,
                 children: [
                   RadioModalSettingsTile<String>(
-                    title: I18n.of(context).theme,
+                    title: Translations.theme,
                     leading: Icon(
                       Icons.dark_mode,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     settingKey: 'theme',
                     values: <String, String>{
-                      "system": I18n.of(context).theme_system,
-                      "light": I18n.of(context).theme_light,
-                      "dark": I18n.of(context).theme_dark,
+                      "system": Translations.theme_system,
+                      "light": Translations.theme_light,
+                      "dark": Translations.theme_dark,
                     },
                     selected: defaultValues["theme"],
                     onChange: (value) {
@@ -195,30 +195,30 @@ class SettingsPage extends StatelessWidget {
                   /*
                   //TODO Language selector
                   RadioModalSettingsTile<String>(
-                    title: I18n.of(context).language,
+                    title: Translations.language,
                     leading: const Icon(Icons.language),
                     settingKey: 'language',
                     values: <String, String>{
-                      "default": I18n.of(context).default_string,
-                      "en": I18n.of(context).english,
-                      "de": I18n.of(context).german,
-                      "fr": I18n.of(context).french,
-                      "lu": I18n.of(context).luxemburgish,
+                      "default": Translations.default_string,
+                      "en": Translations.english,
+                      "de": Translations.german,
+                      "fr": Translations.french,
+                      "lu": Translations.luxemburgish,
                     },
                     selected: defaultValues["language"],
                   ),*/
                 ],
               ),
               SettingsGroup(
-                title: I18n.of(context).about,
+                title: Translations.about,
                 children: [
                   SimpleSettingsTile(
                     leading: Icon(
                       CustomIcons.gradely,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    title: I18n.of(context).app_name,
-                    subtitle: I18n.of(context).about_text,
+                    title: Translations.app_name,
+                    subtitle: Translations.about_text,
                     onTap: () {
                       _launchURL(2);
                     },
@@ -230,7 +230,7 @@ class SettingsPage extends StatelessWidget {
                           Icons.info_outline,
                           color: Theme.of(context).colorScheme.secondary,
                         ),
-                        title: I18n.of(context).app_version,
+                        title: Translations.app_version,
                         subtitle: snapshot.data != null ? snapshot.data as String : "",
                         onTap: () {
                           _launchURL(2);
@@ -246,8 +246,8 @@ class SettingsPage extends StatelessWidget {
                       CustomIcons.github,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    title: I18n.of(context).github,
-                    subtitle: I18n.of(context).github_summary,
+                    title: Translations.github,
+                    subtitle: Translations.github_summary,
                     onTap: () {
                       _launchURL(1);
                     },
@@ -257,8 +257,8 @@ class SettingsPage extends StatelessWidget {
                       Icons.feedback_outlined,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    title: I18n.of(context).contact,
-                    subtitle: I18n.of(context).email,
+                    title: Translations.contact,
+                    subtitle: Translations.email,
                     onTap: () {
                       _launchURL(0);
                     },

@@ -1,10 +1,9 @@
 // @dart = 2.12
 import 'package:flutter/material.dart';
-import 'package:gradely/Translation/i18n.dart';
+import 'package:gradely/Translation/translations.dart';
 
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';
-import 'color_picker/material_color_picker.dart';
 
 part 'base_widgets.dart';
 
@@ -525,7 +524,7 @@ class TextInputSettingsTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TextInputSettingsTileState createState() => _TextInputSettingsTileState();
+  State<TextInputSettingsTile> createState() => _TextInputSettingsTileState();
 }
 
 class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
@@ -1063,7 +1062,7 @@ class RadioSettingsTile<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _RadioSettingsTileState<T> createState() => _RadioSettingsTileState<T>();
+  State<RadioSettingsTile<T>> createState() => _RadioSettingsTileState<T>();
 }
 
 class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
@@ -1229,7 +1228,7 @@ class DropDownSettingsTile<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _DropDownSettingsTileState<T> createState() => _DropDownSettingsTileState<T>();
+  State<DropDownSettingsTile<T>> createState() => _DropDownSettingsTileState<T>();
 }
 
 class _DropDownSettingsTileState<T> extends State<DropDownSettingsTile<T>> {
@@ -1419,7 +1418,7 @@ class SliderSettingsTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SliderSettingsTileState createState() => _SliderSettingsTileState();
+  State<SliderSettingsTile> createState() => _SliderSettingsTileState();
 }
 
 class _SliderSettingsTileState extends State<SliderSettingsTile> {
@@ -1483,122 +1482,6 @@ class _SliderSettingsTileState extends State<SliderSettingsTile> {
   Future<void> _handleSliderChangeEnd(double newValue, OnChanged<double> onChanged) async {
     _updateWidget(newValue, onChanged);
     widget.onChangeEnd?.call(newValue);
-  }
-}
-
-/// [ColorPickerSettingsTile] is a widget which allows user to
-/// select the a color from a set of Material color choices.
-///
-/// Since, [Color] is an in-memory object type, the serialized version
-/// of the value of this widget will be a Hex value [String] of the selected
-/// color.
-///
-/// This conversion string <-> color, makes this easy to check/debug the values
-/// from the storage/preference manually.
-///
-/// The color panel shown in the widget is provided by `flutter_material_color_picker` library.
-///
-/// Example:
-///
-/// ```dart
-///  ColorPickerSettingsTile(
-///    settingKey: 'key-color-picker',
-///    title: 'Accent Color',
-///    defaultValue: Colors.blue,
-///    onChange: (value) {
-///      debugPrint('key-color-picker: $value');
-///    },
-///  );
-/// ```
-class ColorPickerSettingsTile extends StatefulWidget {
-  /// Settings Key string for storing the state of Color picker in cache (assumed to be unique)
-  final String settingKey;
-
-  /// Default value of the color as a Hex String, default = '#ff000000'
-  final String defaultStringValue;
-
-  /// Default value of the color
-  final Color? defaultValue;
-
-  /// title for the settings tile
-  final String title;
-
-  /// subtitle for the settings tile, default = ''
-  final String subtitle;
-
-  /// title text style
-  final TextStyle? titleTextStyle;
-
-  /// subtitle text style
-  final TextStyle? subtitleTextStyle;
-
-  /// The widget shown in front of the title
-  final Widget? leading;
-
-  /// flag which represents the state of the settings, if false the the tile will
-  /// ignore all the user inputs, default = true
-  final bool enabled;
-
-  /// on change callback for handling the value change
-  final OnChanged<Color>? onChange;
-
-  const ColorPickerSettingsTile({
-    Key? key,
-    required this.title,
-    required this.settingKey,
-    this.defaultValue,
-    this.enabled = true,
-    this.onChange,
-    this.defaultStringValue = '#ff000000',
-    this.subtitle = '',
-    this.leading,
-    this.titleTextStyle,
-    this.subtitleTextStyle,
-  }) : super(key: key);
-
-  @override
-  _ColorPickerSettingsTileState createState() => _ColorPickerSettingsTileState();
-}
-
-class _ColorPickerSettingsTileState extends State<ColorPickerSettingsTile> {
-  late String currentValue;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.defaultValue != null) {
-      currentValue = ConversionUtils.stringFromColor(widget.defaultValue!);
-    } else {
-      currentValue = widget.defaultStringValue;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueChangeObserver<String>(
-      cacheKey: widget.settingKey,
-      defaultValue: currentValue,
-      builder: (BuildContext context, String value, OnChanged<String> onChanged) {
-        // debugPrint('creating settings Tile: ${widget.settingKey}');
-        return _SettingsColorPicker(
-          title: widget.title,
-          value: value,
-          leading: widget.leading,
-          enabled: widget.enabled,
-          onChanged: (color) => _handleColorChanged(color, onChanged),
-          titleTextStyle: widget.titleTextStyle,
-          subtitleTextStyle: widget.subtitleTextStyle,
-        );
-      },
-    );
-  }
-
-  Future<void> _handleColorChanged(String color, OnChanged<String> onChanged) async {
-    currentValue = color;
-    onChanged(color);
-    final colorFromString = ConversionUtils.colorFromString(color);
-    widget.onChange?.call(colorFromString);
   }
 }
 
@@ -1681,7 +1564,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _RadioModalSettingsTileState<T> createState() => _RadioModalSettingsTileState<T>();
+  State<RadioModalSettingsTile<T>> createState() => _RadioModalSettingsTileState<T>();
 }
 
 class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
@@ -1708,7 +1591,7 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
       builder: (BuildContext context, T value, OnChanged<T> onChanged) {
         return _ModalSettingsTile<T>(
           title: widget.title,
-          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[value] ?? I18n.of(context).not_set),
+          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[value] ?? Translations.not_set),
           leading: widget.leading,
           titleTextStyle: widget.titleTextStyle,
           subtitleTextStyle: widget.subtitleTextStyle,
@@ -1838,7 +1721,7 @@ class SliderModalSettingsTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SliderModalSettingsTileState createState() => _SliderModalSettingsTileState();
+  State<SliderModalSettingsTile> createState() => _SliderModalSettingsTileState();
 }
 
 class _SliderModalSettingsTileState extends State<SliderModalSettingsTile> {

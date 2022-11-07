@@ -3,10 +3,10 @@ import 'package:excel/excel.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/widgets.dart';
 import 'package:gradely/Misc/storage.dart';
-import 'package:gradely/Translation/i18n.dart';
 
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
+import '../Translation/translations.dart';
 
 class ExcelParser {
   static List<List<String>> classes = [[], []];
@@ -32,14 +32,14 @@ class ExcelParser {
   static Map<String, String> getSections(BuildContext context) {
     if (Storage.getPreference("lux_system") == "classic") {
       return {
-        "A": I18n.of(context).section_classic_a,
-        "B": I18n.of(context).section_classic_b,
-        "C": I18n.of(context).section_classic_c,
-        "D": I18n.of(context).section_classic_d,
-        "E": I18n.of(context).section_classic_e,
-        "F": I18n.of(context).section_classic_f,
-        "G": I18n.of(context).section_classic_g,
-        "I": I18n.of(context).section_classic_i,
+        "A": Translations.section_classic_a,
+        "B": Translations.section_classic_b,
+        "C": Translations.section_classic_c,
+        "D": Translations.section_classic_d,
+        "E": Translations.section_classic_e,
+        "F": Translations.section_classic_f,
+        "G": Translations.section_classic_g,
+        "I": Translations.section_classic_i,
       };
     } else {
       throw UnimplementedError();

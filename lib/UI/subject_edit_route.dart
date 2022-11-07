@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:gradely/Translation/i18n.dart';
 
 import '../Calculations/calculator.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/term.dart';
 import '../Misc/storage.dart';
+import '../Translation/translations.dart';
 import 'popup_sub_menu.dart';
 
 class SubjectEditRoute extends StatefulWidget {
   const SubjectEditRoute({Key? key}) : super(key: key);
 
   @override
-  _SubjectEditRouteState createState() => _SubjectEditRouteState();
+  State<SubjectEditRoute> createState() => _SubjectEditRouteState();
 }
 
 class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBindingObserver {
@@ -43,26 +43,26 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(I18n.of(context).edit_subjects),
+        title: Text(Translations.edit_subjects),
         actions: <Widget>[
           IconButton(onPressed: () => _displayTextInputDialog(context), icon: const Icon(Icons.add)),
           PopupMenuButton<String>(
             color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
             icon: const Icon(Icons.more_vert),
-            tooltip: I18n.of(context).more_options,
+            tooltip: Translations.more_options,
             itemBuilder: (BuildContext context) {
               List<PopupMenuEntry<String>> entries = [];
 
               entries.add(PopupSubMenuItem<String>(
-                title: I18n.of(context).sort_by,
+                title: Translations.sort_by,
                 items: [
-                  I18n.of(context).az,
-                  I18n.of(context).grade,
+                  Translations.az,
+                  Translations.grade,
                 ],
                 onSelected: (value) {
-                  if (value == I18n.of(context).az) {
+                  if (value == Translations.az) {
                     Storage.setPreference<int>("sort_mode3", 0);
-                  } else if (value == I18n.of(context).coefficient) {
+                  } else if (value == Translations.coefficient) {
                     Storage.setPreference<int>("sort_mode3", 1);
                   }
 
@@ -97,8 +97,8 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                               ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
                           position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
                           items: [
-                            PopupMenuItem<String>(value: "edit", child: Text(I18n.of(context).edit)),
-                            PopupMenuItem<String>(value: "delete", child: Text(I18n.of(context).delete)),
+                            PopupMenuItem<String>(value: "edit", child: Text(Translations.edit)),
+                            PopupMenuItem<String>(value: "delete", child: Text(Translations.delete)),
                           ],
                         );
                         if (result == "edit") {
@@ -170,7 +170,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
       builder: (context) {
         return AlertDialog(
           title: Center(
-            child: add ? Text(I18n.of(context).add_subject) : Text(I18n.of(context).edit_subject),
+            child: add ? Text(Translations.add_subject) : Text(Translations.edit_subject),
           ),
           actions: [
             TextButton(
@@ -196,9 +196,9 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                   controller: _nameController,
                   autofocus: true,
                   decoration: InputDecoration(
-                    hintText: getSubjectHint(I18n.of(context).subject),
+                    hintText: getSubjectHint(Translations.subject),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: I18n.of(context).name,
+                    labelText: Translations.name,
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
                       borderRadius: BorderRadius.circular(16.0),
@@ -236,11 +236,11 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                         if (input == null || input.isEmpty || double.tryParse(input) != null) {
                           return null;
                         }
-                        return I18n.of(context).enter_valid_number;
+                        return Translations.enter_valid_number;
                       },
                       decoration: InputDecoration(
                         hintText: "01",
-                        labelText: I18n.of(context).coefficient,
+                        labelText: Translations.coefficient,
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
@@ -269,7 +269,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
       },
     ).then((confirmed) {
       if (confirmed) {
-        String name = _nameController.text.isEmpty ? getSubjectHint(I18n.of(context).subject) : _nameController.text;
+        String name = _nameController.text.isEmpty ? getSubjectHint(Translations.subject) : _nameController.text;
         double coefficient = double.tryParse(_coeffController.text) ?? 1.0;
 
         if (add) {
@@ -279,7 +279,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
             p.subjects.add(Subject(name, coefficient));
           }
         } else {
-          Manager.termTemplate[index].name = _nameController.text.isEmpty ? getSubjectHint(I18n.of(context).subject) : _nameController.text;
+          Manager.termTemplate[index].name = _nameController.text.isEmpty ? getSubjectHint(Translations.subject) : _nameController.text;
           Manager.termTemplate[index].coefficient = double.tryParse(_coeffController.text) ?? 1.0;
 
           Manager.sortSubjectsAZ();

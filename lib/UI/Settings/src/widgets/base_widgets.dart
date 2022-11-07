@@ -145,7 +145,7 @@ class _SettingsTile extends StatefulWidget {
   });
 
   @override
-  __SettingsTileState createState() => __SettingsTileState();
+  State<_SettingsTile> createState() => __SettingsTileState();
 }
 
 class __SettingsTileState extends State<_SettingsTile> {
@@ -220,7 +220,7 @@ class _SimpleHeaderTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  __SimpleHeaderTileState createState() => __SimpleHeaderTileState();
+  State<_SimpleHeaderTile> createState() => __SimpleHeaderTileState();
 }
 
 class __SimpleHeaderTileState extends State<_SimpleHeaderTile> {
@@ -289,7 +289,7 @@ class _ExpansionSettingsTile extends StatefulWidget {
   });
 
   @override
-  _ExpansionSettingsTileState createState() => _ExpansionSettingsTileState();
+  State<_ExpansionSettingsTile> createState() => _ExpansionSettingsTileState();
 }
 
 class _ExpansionSettingsTileState extends State<_ExpansionSettingsTile> {
@@ -401,7 +401,7 @@ class _ModalSettingsTile<T> extends StatefulWidget {
   });
 
   @override
-  __ModalSettingsTileState createState() => __ModalSettingsTileState();
+  State<_ModalSettingsTile> createState() => __ModalSettingsTileState();
 }
 
 class __ModalSettingsTileState extends State<_ModalSettingsTile> {
@@ -737,85 +737,6 @@ class _SettingsSlider extends StatelessWidget {
       onChangeStart: enabled && !eagerUpdate ? (value) => onChangeStart?.call(value) : null,
       onChanged: enabled ? (value) => onChanged?.call(value) : null,
       onChangeEnd: enabled && !eagerUpdate ? (value) => onChangeEnd?.call(value) : null,
-    );
-  }
-}
-
-/// [_SettingsColorPicker] is a widget which allows picking colors
-/// from pallet of colors
-class _SettingsColorPicker extends StatelessWidget {
-  /// title of the settings tile and color pallet dialog
-  final String title;
-
-  final String subtitle;
-
-  /// title text style
-  final TextStyle? titleTextStyle;
-
-  /// subtitle text style
-  final TextStyle? subtitleTextStyle;
-
-  /// The widget shown in front of the title
-  final Widget? leading;
-
-  /// current value of the slider
-  final String value;
-
-  /// on change callback to handle the value change
-  final OnChanged<String> onChanged;
-
-  /// flag which represents the state of the settings, if false the the tile will
-  /// ignore all the user inputs
-  final bool enabled;
-
-  const _SettingsColorPicker({
-    required this.value,
-    required this.onChanged,
-    required this.enabled,
-    required this.title,
-    this.subtitle = '',
-    this.leading,
-    this.titleTextStyle,
-    this.subtitleTextStyle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return _SettingsTile(
-      title: title,
-      subtitle: subtitle.isNotEmpty ? subtitle : value,
-      leading: leading,
-      enabled: enabled,
-      onTap: () => _showColorPicker(context, value),
-      titleTextStyle: titleTextStyle,
-      subtitleTextStyle: subtitleTextStyle,
-      child: FloatingActionButton(
-        heroTag: null,
-        backgroundColor: ConversionUtils.colorFromString(value),
-        elevation: 0,
-        onPressed: enabled ? () => _showColorPicker(context, value) : null,
-      ),
-    );
-  }
-
-  void _showColorPicker(BuildContext context, String value) {
-    Widget dialogContent = MaterialColorPicker(
-      shrinkWrap: true,
-      selectedColor: ConversionUtils.colorFromString(value),
-      onColorChange: (Color? color) {
-        if (color == null) return;
-        onChanged(ConversionUtils.stringFromColor(color));
-      },
-    );
-
-    showDialog(
-      context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          title: const Text('Pick a Color'),
-          content: dialogContent,
-        );
-      },
     );
   }
 }

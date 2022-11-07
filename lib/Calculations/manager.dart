@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:gradely/Translation/i18n.dart';
 
 import '../Misc/compatibility.dart';
 import '../Misc/storage.dart';
+import '../Translation/translations.dart';
 import 'calculator.dart';
 import 'subject.dart';
 import 'term.dart';
@@ -97,16 +97,16 @@ class Manager {
             String name = "";
             switch (i) {
               case 0:
-                name = (maxTerm == 3) ? I18n.of(context).trimester_1 : I18n.of(context).semester_1;
+                name = (maxTerm == 3) ? Translations.trimester_1 : Translations.semester_1;
                 break;
               case 1:
-                name = (maxTerm == 3) ? I18n.of(context).trimester_2 : I18n.of(context).semester_2;
+                name = (maxTerm == 3) ? Translations.trimester_2 : Translations.semester_2;
                 break;
               case 2:
-                name = I18n.of(context).trimester_3;
+                name = Translations.trimester_3;
                 break;
               default:
-                name = I18n.of(context).trimester_1;
+                name = Translations.trimester_1;
                 break;
             }
 

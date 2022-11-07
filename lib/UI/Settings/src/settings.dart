@@ -197,7 +197,7 @@ class ValueChangeObserver<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ValueChangeObserverState<T> createState() => _ValueChangeObserverState<T>();
+  State<ValueChangeObserver<T>> createState() => _ValueChangeObserverState<T>();
 }
 
 class _ValueChangeObserverState<T> extends State<ValueChangeObserver<T>> {
