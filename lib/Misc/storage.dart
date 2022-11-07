@@ -6,24 +6,31 @@ import '../Calculations/subject.dart';
 import '../Calculations/year.dart';
 
 final Map<String, dynamic> defaultValues = {
-  "data": "[{}]",
-  "default_data": "[{}]",
-  "rounding_mode": "rounding_up",
-  "round_to": 1,
-  "language": "default",
-  "dark_theme": "auto",
-  "total_grades": 60.0,
-  "term": 2,
+  //System
+  "data": "",
+  "default_data": "",
   "current_term": 0,
+  "last_term": 0,
   "sort_mode1": 0,
   "sort_mode2": 0,
   "sort_mode3": 0,
-  "class": "na",
-  "lux_system": "na",
-  "school_system": "na",
-  "is_first_run": true,
-  "is_first_run_flutter": true,
+  "data_version": -1,
+  //Calculation settings
+  "term": 2,
+  "total_grades": 60.0,
+  "rounding_mode": "rounding_up",
+  "round_to": 1,
+  //Setup
+  "school_system": "",
+  "lux_system": "",
+  "year": "",
+  "section": "",
   "variant": "basic",
+  "is_first_run": true,
+  //App settings
+  "theme": "system",
+  "brightness": "dark",
+  "language": "default",
 };
 
 // ignore: constant_identifier_names
@@ -41,11 +48,11 @@ class Storage {
 
   static Future<void> deserialize() async {
     if (existsPreference("data")) {
-      var data = jsonDecode(getPreference<String>("data", "")) as List;
+      var data = jsonDecode(getPreference<String>("data")) as List;
       List<Year> years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
       Manager.years = years;
 
-      var termTemplateList = jsonDecode(getPreference<String>("default_data", "")) as List;
+      var termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
       List<Subject> tT = termTemplateList.map((templateJson) => Subject.fromJson(templateJson)).toList();
       Manager.termTemplate = tT;
     }
@@ -55,8 +62,8 @@ class Storage {
     Settings.setValue<T>(key, value);
   }
 
-  static T getPreference<T>(String key, T defaultValue) {
-    return Settings.getValue<T>(key, defaultValue);
+  static T getPreference<T>(String key, {T? defaultValue}) {
+    return Settings.getValue<T>(key, defaultValue ?? defaultValues[key]);
   }
 
   static bool existsPreference(String key) {

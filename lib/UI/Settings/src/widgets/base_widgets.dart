@@ -159,7 +159,6 @@ class __SettingsTileState extends State<_SettingsTile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _SettingsTileDivider(),
         ListTile(
           //tileColor: widget.color,
           leading: widget.leading,

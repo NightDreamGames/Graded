@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/widgets.dart';
 import 'package:gradely/Misc/storage.dart';
+import 'package:gradely/Translation/i18n.dart';
 
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
@@ -17,34 +19,38 @@ class ExcelParser {
 
   static List<bool> loaded = [false, false];
 
-  static Map<String, String> getYears() {
-    return {
-      "7e": "7e",
-      "6e": "6e",
-      "5e": "5e",
-      "4e": "4e",
-      "3e": "3e",
-      "2e": "2e",
-      "1e": "1e",
-    };
+  static Map<String, String> years = {
+    "7C": "7e",
+    "6C": "6e",
+    "5C": "5e",
+    "4C": "4e",
+    "3C": "3e",
+    "2C": "2e",
+    "1C": "1e",
+  };
+
+  static Map<String, String> getSections(BuildContext context) {
+    if (Storage.getPreference("lux_system") == "classic") {
+      return {
+        "A": I18n.of(context).section_classic_a,
+        "B": I18n.of(context).section_classic_b,
+        "C": I18n.of(context).section_classic_c,
+        "D": I18n.of(context).section_classic_d,
+        "E": I18n.of(context).section_classic_e,
+        "F": I18n.of(context).section_classic_f,
+        "G": I18n.of(context).section_classic_g,
+        "I": I18n.of(context).section_classic_i,
+      };
+    } else {
+      throw UnimplementedError();
+    }
   }
 
-  static Map<String, String> getSections1(String year) {
-    //if (Storage.getPreference("school_system", "classic") == "classic")
-    return {
-      "7e": "7e",
-      "6e": "6e",
-      "5e": "5e",
-      "4e": "4e",
-      "3e": "3e",
-      "2e": "2e",
-      "1e": "1e",
-    };
-  }
+  static void fillClassNames() async {
+    String system = Storage.getPreference("lux_system");
 
-  static Future<Map<String, String>> getClassNames(String system) async {
     int index = system == "classic" ? 0 : 1;
-    if (loaded[index]) return classMap[index];
+    if (loaded[index]) return;
 
     String file = index == 1 ? generalPath : classicPath;
 
@@ -77,12 +83,11 @@ class ExcelParser {
     }
 
     loaded[index] = true;
-    return classMap[index];
   }
 
   static void fillSubjects() {
     Manager.termTemplate.clear();
-    String variant = Storage.getPreference("variant", defaultValues["variant"]);
+    String variant = Storage.getPreference("variant");
 
     int position = 4;
 
@@ -95,11 +100,12 @@ class ExcelParser {
         break;
     }
 
-    int index = Storage.getPreference("lux_system", defaultValues["lux_system"]) == "classic" ? 0 : 1;
+    int index = Storage.getPreference("lux_system") == "classic" ? 0 : 1;
 
     classes[index] = excelFiles[index]!.sheets.keys.toList();
 
-    Sheet sheet = excelFiles[index]!.sheets[Storage.getPreference("class", defaultValues["class"])]!;
+    String className = Storage.getPreference("year") + Storage.getPreference("section");
+    Sheet sheet = excelFiles[index]!.sheets[className]!;
 
     for (int i = 1; i < sheet.maxRows; i++) {
       if (sheet.row(i)[position] != null) {

@@ -1,6 +1,6 @@
+import 'dart:io';
+
 import 'package:customizable_space_bar/customizable_space_bar.dart';
-import 'package:dynamic_color/dynamic_color.dart';
-import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:gradely/UI/settings_route.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
@@ -14,72 +14,71 @@ import '/UI/Settings/flutter_settings_screens.dart';
 import 'Misc/storage.dart';
 import 'Calculations/manager.dart';
 import 'UI/app_theme.dart';
-import 'UI/fade_page_route.dart';
 import 'UI/popup_sub_menu.dart';
 import 'UI/subject_route.dart';
-import 'UI/title.dart';
-import 'UI/view_state.dart';
+
+final GlobalKey appContainerKey = GlobalKey();
 
 void main() async {
   await Settings.init();
-
-  // Compatibility.periodPreferences();
-
-  /*switch (Preferences.getPreference("dark_theme", "auto")) {
-            case "on":
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-            case "off":
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            default:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-                break;
-        }*/
-
   await Manager.init();
 
-  // Serialization.Deserialize();
   String initialRoute = "/home";
 
-  if (Storage.getPreference("is_first_run", defaultValues["is_first_run"])) {
+  if (Storage.getPreference("is_first_run")) {
     initialRoute = "/setup";
-    /*Navigator.pushReplacementNamed(context, "/setup");
-    rebuild();*/
   }
-
-  //Compatibility.init();
 
   Manager.calculate();
 
   runApp(
-    DynamicColorBuilder(builder: (ColorScheme? lightColorScheme, ColorScheme? darkColorScheme) {
-      return MaterialApp(
-        theme: AppTheme.lightTheme(lightColorScheme),
-        darkTheme: AppTheme.darkTheme(darkColorScheme),
-        localizationsDelegates: const [
-          I18nDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: I18nDelegate.supportedLocals,
-        debugShowCheckedModeBanner: false,
-        initialRoute: initialRoute,
-        routes: {
-          '/home': (context) => const Material(child: HomePage()),
-          '/subject': (context) => const Material(child: HomePage()),
-          '/settings': (context) => const Material(child: SettingsPage()),
-          '/setup': (context) => const Material(child: SetupPage()),
-          '/subject_edit': (context) => const Material(child: SubjectEditRoute()),
-        },
-      );
-    }),
+    AppContainer(initialRoute: initialRoute, key: appContainerKey),
   );
+}
+
+class AppContainer extends StatefulWidget {
+  const AppContainer({
+    Key? key,
+    required this.initialRoute,
+  }) : super(key: key);
+
+  final String initialRoute;
+
+  @override
+  State<AppContainer> createState() => _AppContainerState();
+}
+
+class _AppContainerState extends State<AppContainer> {
+  @override
+  Widget build(BuildContext context) {
+    String brightness = Storage.getPreference("theme");
+
+    return MaterialApp(
+      theme: AppTheme.getTheme(Brightness.light),
+      darkTheme: AppTheme.getTheme(Brightness.dark),
+      themeMode: brightness == "system"
+          ? ThemeMode.system
+          : brightness == "light"
+              ? ThemeMode.light
+              : ThemeMode.dark,
+      localizationsDelegates: const [
+        I18nDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: I18nDelegate.supportedLocals,
+      debugShowCheckedModeBanner: false,
+      initialRoute: widget.initialRoute,
+      routes: {
+        '/home': (context) => const Material(child: HomePage()),
+        //'/subject': (context) => Material(child: SubjectRoute()),
+        '/settings': (context) => const Material(child: SettingsPage()),
+        '/setup': (context) => const Material(child: SetupPage()),
+        '/subject_edit': (context) => const Material(child: SubjectEditRoute()),
+      },
+    );
+  }
 }
 
 class HomePage extends StatefulWidget {
@@ -128,8 +127,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
+    return WillPopScope(
+      onWillPop: () {
+        if (Manager.currentTerm == -1) {
+          //TODO Go to last selected term
+          Manager.currentTerm = Manager.lastTerm;
+          rebuild();
+        } else {
+          exit(0);
+        }
+
+        return Future<bool>.value(false);
+      },
+      child: CustomScrollView(
         primary: true,
         slivers: <Widget>[
           SliverAppBar.large(
@@ -141,23 +151,23 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: /*Hero(
-                          tag: widget.subject.name,
-                          flightShuttleBuilder: (
-                            BuildContext flightContext,
-                            Animation<double> animation,
-                            HeroFlightDirection flightDirection,
-                            BuildContext fromHeroContext,
-                            BuildContext toHeroContext,
-                          ) {
-                            return DestinationTitle(
-                              title: widget.subject.name,
-                              isOverflow: false,
-                              viewState: flightDirection == HeroFlightDirection.push ? ViewState.enlarge : ViewState.shrink,
-                              beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
-                              endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
-                            );
-                          },
-                          child: */
+                            tag: widget.subject.name,
+                            flightShuttleBuilder: (
+                              BuildContext flightContext,
+                              Animation<double> animation,
+                              HeroFlightDirection flightDirection,
+                              BuildContext fromHeroContext,
+                              BuildContext toHeroContext,
+                            ) {
+                              return DestinationTitle(
+                                title: widget.subject.name,
+                                isOverflow: false,
+                                viewState: flightDirection == HeroFlightDirection.push ? ViewState.enlarge : ViewState.shrink,
+                                beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
+                                endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
+                              );
+                            },
+                            child: */
                         Text(
                       getTitle(context),
                       style: TextStyle(
@@ -220,6 +230,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           } else if (value == I18n.of(context).trimester_3) {
                             Manager.currentTerm = 2;
                           } else if (value == I18n.of(context).year) {
+                            Manager.lastTerm = Manager.currentTerm;
                             Manager.currentTerm = -1;
                           }
 
@@ -282,7 +293,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             ),
                           ),
                           Text(
-                            Manager.getCurrentTerm(context: context).getResult(),
+                            Manager.getCurrentTerm(context).getResult(),
                             style: const TextStyle(
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold,
@@ -295,7 +306,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
+                  child: Divider(height: 1, thickness: 3, color: Theme.of(context).colorScheme.surfaceVariant),
                 ),
               ],
             ),
@@ -323,7 +334,7 @@ class ListWidget extends StatelessWidget {
           return ListRow(index, function);
         },
         addAutomaticKeepAlives: true,
-        childCount: Manager.getCurrentTerm(context: context).subjects.length,
+        childCount: Manager.getCurrentTerm(context).subjects.length,
       ),
     );
   }
@@ -340,14 +351,12 @@ class ListRow extends StatelessWidget {
       children: [
         ListTile(
           onTap: () {
-            /*Navigator.push(context, FadePageRoute(
-              builder: (context) {
-                return SubjectRoute(
-                  subject: Manager.getCurrentTerm(context: context).subjects[index],
-                );
-              },
-            )).then((_) => function());*/
-
+            //TODO Make subject route a named route
+            /*Navigator.pushNamed(
+              context,
+              "/subject",
+              arguments: Manager.getCurrentTerm(context: context).subjects[index],
+            ).then((_) => function());*/
             Navigator.push(
               context,
               PageTransition(
@@ -355,7 +364,7 @@ class ListRow extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeOut,
                 child: SubjectRoute(
-                  subject: Manager.getCurrentTerm(context: context).subjects[index],
+                  subject: Manager.getCurrentTerm(context).subjects[index],
                 ),
               ),
             ).then((_) => function());
@@ -379,13 +388,14 @@ class ListRow extends StatelessWidget {
               );
             },
             child:*/
-              DestinationTitle(
-            title: Manager.getCurrentTerm(context: context).subjects[index].name,
-            isOverflow: false,
-            viewState: ViewState.shrunk,
-            beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
-            endFontStyle: const TextStyle(fontSize: 42.0, fontWeight: FontWeight.bold),
-            //),
+
+              Text(
+            Manager.getCurrentTerm(context).subjects[index].name,
+            overflow: TextOverflow.fade,
+            softWrap: false,
+            style: const TextStyle(
+              fontSize: 18.0,
+            ),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
@@ -409,7 +419,7 @@ class ListRow extends StatelessWidget {
                 },
                 child: */
               Text(
-                Manager.getCurrentTerm(context: context).subjects[index].getResult(),
+                Manager.getCurrentTerm(context).subjects[index].getResult(),
                 style: const TextStyle(fontSize: 20.0),
                 //),
               ),

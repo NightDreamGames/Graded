@@ -24,13 +24,19 @@ class Manager {
     _currentTerm = newValue;
   }
 
+  static int _lastTerm = 0;
+  static int get lastTerm => _lastTerm;
+  static set lastTerm(int newValue) {
+    Storage.setPreference<int>("last_term", newValue);
+    _lastTerm = newValue;
+  }
+
   static int maxTerm = 1;
 
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    if (!Storage.getPreference<bool>("is_first_run", defaultValues["is_first_run"]) &&
-        Storage.getPreference<bool>("is_first_run_flutter", defaultValues["is_first_run_flutter"])) {
+    if (Storage.getPreference<bool>("is_first_run")) {
       try {
         await Compatibility.importPreferences();
       } catch (e) {
@@ -46,17 +52,13 @@ class Manager {
       years.add(Year());
     }
 
-    //fillSampleData();
-
     Manager.calculate();
-
-    Storage.setPreference<bool>("is_first_run_flutter", false);
   }
 
   static void readPreferences() {
-    currentTerm = Storage.getPreference<int>("current_term", defaultValues["current_term"]);
-    maxTerm = Storage.getPreference<int>("term", defaultValues["term"]);
-    totalGrades = Storage.getPreference<double>("total_grades", defaultValues["total_grades"]);
+    currentTerm = Storage.getPreference<int>("current_term");
+    maxTerm = Storage.getPreference<int>("term");
+    totalGrades = Storage.getPreference<double>("total_grades");
   }
 
   static void calculate() {
@@ -84,9 +86,11 @@ class Manager {
     return years[currentYear];
   }
 
-  static Term getCurrentTerm({dynamic context}) {
+  static Term getCurrentTerm(BuildContext context) {
     if (currentTerm == -1) {
-      Term p = Term();
+      Term yearTerm = Term();
+      Manager.sortSubjectsAZ();
+
       for (int i = 0; i < getCurrentYear().terms.length; i++) {
         for (int j = 0; j < getCurrentYear().terms[i].subjects.length; j++) {
           if (getCurrentYear().terms[i].subjects[j].result != -1) {
@@ -106,18 +110,20 @@ class Manager {
                 break;
             }
 
-            p.subjects[j].addTest(Test(getCurrentYear().terms[i].subjects[j].result, totalGrades.toDouble(), name));
+            yearTerm.subjects[j].addTest(Test(getCurrentYear().terms[i].subjects[j].result, totalGrades.toDouble(), name), calculate: false);
           }
         }
       }
 
-      p.calculate();
-      return p;
+      yearTerm.calculate();
+      Calculator.sortSubjects(yearTerm.subjects, "sort_mode1");
+      return yearTerm;
     }
 
     return getCurrentYear().terms[currentTerm];
   }
 
+  //TODO Reduce number of times sort is called
   static void sortAll() {
     for (Year y in years) {
       for (Term p in y.terms) {
@@ -128,54 +134,19 @@ class Manager {
       }
     }
 
-    Calculator.sort1(termTemplate, "sort_mode3");
+    Calculator.sortSubjects(termTemplate, "sort_mode3");
 
     Storage.serialize();
   }
 
-  static void fillSampleData() {
-    termTemplate = [];
-    termTemplate.add(Subject("Allemand", 2));
-    termTemplate.add(Subject("Programmation", 3));
-    termTemplate.add(Subject("Education physique", 1));
-    termTemplate.add(Subject("Education physidqfskfghjqslfhjkqsdlkfjh qldkjh qlskjh que", 1));
-    termTemplate.add(Subject("a", 1));
-    termTemplate.add(Subject("b", 1));
-    termTemplate.add(Subject("c", 1));
-    termTemplate.add(Subject("d", 1));
-    termTemplate.add(Subject("e", 1));
-    termTemplate.add(Subject("f", 1));
-    termTemplate.add(Subject("g", 1));
-    termTemplate.add(Subject("he", 1));
-    termTemplate.add(Subject("hfe", 1));
-    termTemplate.add(Subject("hsadfe", 1));
-    termTemplate.add(Subject("hasvdae", 1));
-    termTemplate.add(Subject("hveasde", 1));
-    termTemplate.add(Subject("hqwvetbe", 1));
-    termTemplate.add(Subject("hfgsde", 1));
-    termTemplate.add(Subject("hlozuzjte", 1));
-    getCurrentTerm().subjects[0].addTest(Test(30, 60, "aTest 1"));
-    getCurrentTerm().subjects[0].addTest(Test(45, 60, "58Test 2"));
-    getCurrentTerm().subjects[0].addTest(Test(2.5, 60, "Test 3"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "bTest 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "zTest 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "cTest 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "dTest 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "uTest 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
-    getCurrentTerm().subjects[0].addTest(Test(56, 60, "Test 4"));
+  static void sortSubjectsAZ() {
+    for (Year y in years) {
+      for (Term p in y.terms) {
+        p.sort(sortModeOverride: 0);
+      }
+    }
+
+    Calculator.sortSubjects(termTemplate, "", sortModeOverride: 0);
   }
 
   Map<String, dynamic> toJson() => {"years": years, "term_template": termTemplate};

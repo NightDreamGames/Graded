@@ -47,8 +47,8 @@ class Term {
     return a;
   }
 
-  void sort() {
-    Calculator.sort1(subjects, "sort_mode1");
+  void sort({int? sortModeOverride}) {
+    Calculator.sortSubjects(subjects, "sort_mode1", sortModeOverride: sortModeOverride);
   }
 
   String getResult() {

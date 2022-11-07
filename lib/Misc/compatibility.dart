@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:gradely/Misc/storage.dart';
 import 'package:xml/xml.dart';
 
@@ -10,21 +11,18 @@ import '../Calculations/term.dart';
 
 class Compatibility {
   static Future<void> importPreferences() async {
-    //TODO change file path
-    var uri = Uri.file("${(await getApplicationDocumentsDirectory()).parent.path}/shared_prefs/com.NightDreamGames.Grade.ly.debug_preferences.xml");
+    Uri uri;
+
+    if (kDebugMode) {
+      uri = Uri.file("${(await getApplicationDocumentsDirectory()).parent.path}/shared_prefs/com.NightDreamGames.Grade.ly.debug_preferences.xml");
+    } else {
+      uri = Uri.file("${(await getApplicationDocumentsDirectory()).parent.path}/shared_prefs/com.NightDreamGames.Grade.ly_preferences.xml");
+    }
 
     if (!await File.fromUri(uri).exists()) return;
 
     File file = File.fromUri(uri);
     XmlDocument xml = XmlDocument.parse(file.readAsStringSync());
-
-    /*String xmlString = '''<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-    <map>
-
-    </map>''';
-
-    XmlDocument xml = XmlDocument.parse(xmlString);
-    */
 
     List<String> keys = <String>[];
     List<String> values = <String>[];
@@ -39,10 +37,22 @@ class Compatibility {
     Storage.setPreference<int?>("data_version", int.tryParse(elements["data_version"] ?? "-1"));
     Storage.setPreference<String?>("rounding_mode", elements["rounding_mode"]);
     Storage.setPreference<String?>("language", elements["language"]);
-    Storage.setPreference<String?>("dark_theme", elements["dark_theme"]);
-    Storage.setPreference<String?>("variant", elements["variant"]);
+
+    String theme = "system";
+    switch (elements["dark_theme"]) {
+      case "auto":
+        theme = "system";
+        break;
+      case "on":
+        theme = "dark";
+        break;
+      case "off":
+        theme = "light";
+        break;
+    }
+    Storage.setPreference<String?>("theme", theme);
+
     Storage.setPreference<String?>("school_system", elements["school_system"]);
-    Storage.setPreference<String?>("class", elements["class"]);
 
     Storage.setPreference<int?>("round_to", int.tryParse(elements["round_to"] ?? defaultValues["round_to"].toString()));
 
@@ -85,8 +95,8 @@ class Compatibility {
   }
 
   static void upgradeDataVersion() {
-    if (Storage.getPreference<int>("data_version", -1) < 2) {
-      termCount(newValue: Storage.getPreference("term", defaultValues["term"]));
+    if (Storage.getPreference<int>("data_version") < 2) {
+      termCount(newValue: Storage.getPreference("term"));
       periodPreferences();
     }
 
@@ -112,11 +122,11 @@ class Compatibility {
   }
 
   static void periodPreferences() {
-    if (!Storage.getPreference<bool>("is_first_run", true) && Storage.getPreference<int>("data_version", -1) < 2) {
+    if (!Storage.getPreference<bool>("is_first_run") && Storage.getPreference<int>("data_version") < 2) {
       if (Storage.existsPreference("data")) {
-        Storage.setPreference<String?>("data", Storage.getPreference("data", "").replaceAll("period", "term").replaceAll("mark", "grade"));
+        Storage.setPreference<String?>("data", Storage.getPreference("data").replaceAll("period", "term").replaceAll("mark", "grade"));
         Storage.setPreference<String?>(
-            "default_data", Storage.getPreference("default_data", "").replaceAll("period", "term").replaceAll("mark", "grade"));
+            "default_data", Storage.getPreference("default_data").replaceAll("period", "term").replaceAll("mark", "grade"));
       }
     }
   }

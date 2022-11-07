@@ -1,7 +1,7 @@
-import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:gradely/Misc/storage.dart';
 import 'package:gradely/UI/easy_dialog.dart';
 import 'package:gradely/UI/custom_icons.dart';
+import 'package:gradely/main.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
@@ -64,10 +64,7 @@ class SettingsPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        "/subject_edit",
-                      );
+                      Navigator.pushNamed(context, "/subject_edit");
                     },
                     title: I18n.of(context).edit_subjects,
                     subtitle: I18n.of(context).edit_subjects_summary,
@@ -157,7 +154,6 @@ class SettingsPage extends StatelessWidget {
                             onConfirm: () {
                               Manager.clear();
                               Navigator.pop(context);
-                              //Navigator.pop(context);
                               return true;
                             },
                             child: Text(I18n.of(context).confirm_delete),
@@ -169,32 +165,30 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              //TODO Language selector
-              /*SettingsGroup(
+              SettingsGroup(
                 title: I18n.of(context).appearance,
                 children: [
                   RadioModalSettingsTile<String>(
-                    title: I18n.of(context).dark_theme,
+                    title: I18n.of(context).theme,
                     leading: Icon(
                       Icons.dark_mode,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    settingKey: 'dark_theme',
+                    settingKey: 'theme',
                     values: <String, String>{
-                      "auto": I18n.of(context).light_mode_auto,
-                      "on": I18n.of(context).light_mode_on,
-                      "off": I18n.of(context).light_mode_off,
+                      "system": I18n.of(context).theme_system,
+                      "light": I18n.of(context).theme_light,
+                      "dark": I18n.of(context).theme_dark,
                     },
-                    selected: defaultValues["dark_theme"],
+                    selected: defaultValues["theme"],
                     onChange: (value) {
-                      print(value);
-                      EasyDynamicTheme.of(context).changeTheme(
-                        dark: value == "on",
-                        dynamic: value == "auto",
-                      );
+                      // ignore: invalid_use_of_protected_member
+                      appContainerKey.currentState!.setState(() {});
                     },
                   ),
-                  /*RadioModalSettingsTile<String>(
+                  /*
+                  //TODO Language selector
+                  RadioModalSettingsTile<String>(
                     title: I18n.of(context).language,
                     leading: const Icon(Icons.language),
                     settingKey: 'language',
@@ -208,8 +202,7 @@ class SettingsPage extends StatelessWidget {
                     selected: defaultValues["language"],
                   ),*/
                 ],
-              ),*/
-
+              ),
               SettingsGroup(
                 title: I18n.of(context).about,
                 children: [

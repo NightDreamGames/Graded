@@ -81,50 +81,61 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
+                GlobalKey listKey = GlobalKey();
+
                 return Column(
                   children: [
-                    GestureDetector(
-                      onTapDown: (TapDownDetails details) async {
-                        double left = details.globalPosition.dx;
-                        double top = details.globalPosition.dy;
+                    ListTile(
+                      key: listKey,
+                      onTap: () async {
+                        RenderBox box = listKey.currentContext?.findRenderObject() as RenderBox;
+                        Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
+
                         var result = await showMenu(
                           context: context,
-                          position: RelativeRect.fromLTRB(left, top, 0, 0),
+                          color:
+                              ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
+                          position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
                           items: [
-                            PopupMenuItem<String>(value: I18n.of(context).edit, child: Text(I18n.of(context).edit)),
-                            PopupMenuItem<String>(value: I18n.of(context).delete, child: Text(I18n.of(context).delete)),
+                            PopupMenuItem<String>(value: "edit", child: Text(I18n.of(context).edit)),
+                            PopupMenuItem<String>(value: "delete", child: Text(I18n.of(context).delete)),
                           ],
-                          elevation: 8.0,
                         );
-                        if (result == I18n.of(context).edit) {
-                          return _displayTextInputDialog(context, index: index);
-                        } else if (result == I18n.of(context).delete) {
+                        if (result == "edit") {
+                          _displayTextInputDialog(context, index: index);
+                        } else if (result == "delete") {
                           Manager.termTemplate.removeAt(index);
+                          Manager.sortSubjectsAZ();
+
+                          for (Term p in Manager.getCurrentYear().terms) {
+                            p.subjects.removeAt(index);
+                          }
+
+                          Manager.calculate();
+
                           Storage.serialize();
                           rebuild();
                         }
                       },
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                        title: Text(
-                          Manager.termTemplate[index].name,
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                          ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                      title: Text(
+                        Manager.termTemplate[index].name,
+                        overflow: TextOverflow.fade,
+                        softWrap: false,
+                        style: const TextStyle(
+                          fontSize: 18.0,
                         ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
-                              style: const TextStyle(
-                                fontSize: 20.0,
-                              ),
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
+                            style: const TextStyle(
+                              fontSize: 20.0,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                     Padding(
@@ -175,12 +186,12 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
               ),
             ),
           ],
-          content: Flexible(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextFormField(
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: TextFormField(
                   onChanged: (value) {},
                   controller: _nameController,
                   autofocus: true,
@@ -206,53 +217,53 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Flexible(
-                      child: TextFormField(
-                        //TODO Text validation
-                        onChanged: (value) {},
-                        controller: _coeffController,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                        autofocus: true,
-                        validator: (String? input) {
-                          if (input == null || input.isEmpty || double.tryParse(input) != null) {
-                            return null;
-                          }
-                          return I18n.of(context).enter_valid_number;
-                        },
-                        decoration: InputDecoration(
-                          hintText: "01",
-                          labelText: I18n.of(context).coefficient,
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: TextFormField(
+                      //TODO Text validation
+                      onChanged: (value) {},
+                      controller: _coeffController,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      autofocus: true,
+                      validator: (String? input) {
+                        if (input == null || input.isEmpty || double.tryParse(input) != null) {
+                          return null;
+                        }
+                        return I18n.of(context).enter_valid_number;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "01",
+                        labelText: I18n.of(context).coefficient,
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },
@@ -271,6 +282,8 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
           Manager.termTemplate[index].name = _nameController.text.isEmpty ? getSubjectHint(I18n.of(context).subject) : _nameController.text;
           Manager.termTemplate[index].coefficient = double.tryParse(_coeffController.text) ?? 1.0;
 
+          Manager.sortSubjectsAZ();
+
           for (Term p in Manager.getCurrentYear().terms) {
             for (int i = 0; i < p.subjects.length; i++) {
               p.subjects[i].name = Manager.termTemplate[i].name;
@@ -280,6 +293,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
         }
 
         Manager.calculate();
+        Storage.serialize();
 
         rebuild();
       }

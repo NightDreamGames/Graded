@@ -22,41 +22,93 @@ class _SetupPageState extends State<SetupPage> {
     setState(() {});
   }
 
-  bool hasVariant(String? className) {
-    if (className == "na" || className == null) return false;
+  bool hasSections(String year) {
+    String luxSystem = Storage.getPreference("lux_system");
 
-    return className != "7C";
+    if (luxSystem.isEmpty) {
+      return false;
+    } else if (luxSystem == "classic") {
+      if (year.isEmpty) {
+        return false;
+      } else if (int.parse(year.substring(0, 1)) <= 3) {
+        return true;
+      }
+      return false;
+    } else {
+      return false;
+      //throw UnimplementedError();
+    }
   }
 
-  Map<String, String> getVariants(String className) {
-    Map<String, String> result = <String, String>{};
-    if (className.startsWith("1C")) {
-      result["basic"] = I18n.of(context).basic;
-      result["latin"] = I18n.of(context).latin;
+  bool hasVariants(String year) {
+    String luxSystem = Storage.getPreference("lux_system");
+
+    if (luxSystem.isEmpty) {
+      return false;
+    } else if (luxSystem == "classic") {
+      if (year.isEmpty) {
+        return false;
+      }
+      return year != "7C";
     } else {
-      result["basic"] = I18n.of(context).basic;
-      result["latin"] = I18n.of(context).latin;
-      result["chinese"] = I18n.of(context).chinese;
+      return false;
+      //throw UnimplementedError();
+    }
+  }
+
+  Map<String, String> getVariants(String year) {
+    String luxSystem = Storage.getPreference("lux_system");
+
+    if (luxSystem.isEmpty) {
+      return {};
+    } else if (luxSystem == "classic") {
+      if (!hasVariants(year)) {
+        return {};
+      }
+
+      Map<String, String> result = <String, String>{};
+      if (year == "1C") {
+        result["basic"] = I18n.of(context).basic;
+        result["latin"] = I18n.of(context).latin;
+      } else {
+        result["basic"] = I18n.of(context).basic;
+        result["latin"] = I18n.of(context).latin;
+        result["chinese"] = I18n.of(context).chinese;
+      }
+
+      return result;
+    } else {
+      throw UnimplementedError();
+    }
+  }
+
+  void fillSubjects() {
+    if (!hasSections(Storage.getPreference("year"))) {
+      Storage.setPreference<String>("section", defaultValues["section"]);
+    }
+    if (!hasVariants(Storage.getPreference("year")) || getVariants(Storage.getPreference("year"))[Storage.getPreference("variant")] == null) {
+      Storage.setPreference<String>("variant", defaultValues["variant"]);
     }
 
-    return result;
-  }
-
-  static void fillSubjects() {
-    if (Storage.getPreference("school_system", defaultValues["school_system"]) == "lux") {
+    if (Storage.getPreference("school_system") == "lux") {
       ExcelParser.fillSubjects();
     }
 
     Manager.years.clear();
     Manager.years.add(Year());
+
+    Storage.setPreference<bool>("is_first_run", false);
   }
 
   @override
   Widget build(BuildContext context) {
+    ExcelParser.fillClassNames();
+
     return Scaffold(
-      floatingActionButton: (Storage.getPreference("class", defaultValues["class"]) != "na" &&
-                  Storage.getPreference("lux_system", defaultValues["lux_system"]) != "general") ||
-              Storage.getPreference("school_system", defaultValues["school_system"]) == "other"
+      floatingActionButton: (Storage.getPreference("lux_system") == "classic" &&
+                  Storage.getPreference<String>("year").isNotEmpty &&
+                  (!hasSections(Storage.getPreference("year")) || Storage.getPreference<String>("section").isNotEmpty)) ||
+              Storage.getPreference("school_system") == "other"
           ? FloatingActionButton(
               onPressed: () {
                 fillSubjects();
@@ -67,7 +119,7 @@ class _SetupPageState extends State<SetupPage> {
                   Navigator.of(context).pushReplacementNamed("/home");
                 }
               },
-              child: const Icon(Icons.add),
+              child: const Icon(Icons.navigate_next),
             )
           : null,
       body: CustomScrollView(
@@ -114,7 +166,7 @@ class _SetupPageState extends State<SetupPage> {
                     "other": I18n.of(context).other_system,
                   },
                 ),
-                Storage.getPreference("school_system", defaultValues["school_system"]) == "lux"
+                Storage.getPreference("school_system") == "lux"
                     ? SettingsGroup(
                         title: I18n.of(context).lux_system,
                         children: [
@@ -126,7 +178,9 @@ class _SetupPageState extends State<SetupPage> {
                             ),
                             settingKey: 'lux_system',
                             onChange: (var value) {
-                              Storage.setPreference("class", defaultValues["class"]);
+                              Storage.setPreference<String>("year", defaultValues["year"]);
+                              Storage.setPreference<String>("section", defaultValues["section"]);
+                              Storage.setPreference<String>("variant", defaultValues["variant"]);
                               rebuild();
                             },
                             values: <String, String>{
@@ -135,28 +189,43 @@ class _SetupPageState extends State<SetupPage> {
                               //"general": I18n.of(context).general,
                             },
                           ),
-                          Storage.existsPreference("lux_system") && Storage.getPreference("lux_system", defaultValues["lux_system"]) != "general"
-                              ? FutureBuilder(
-                                  initialData: const <String, String>{},
-                                  future: ExcelParser.getClassNames(Storage.getPreference("lux_system", defaultValues["lux_system"])),
-                                  builder: (context, snapshot) {
-                                    return RadioModalSettingsTile<String>(
-                                      title: I18n.of(context).class_string,
-                                      leading: Icon(
-                                        Icons.book,
-                                        color: Theme.of(context).colorScheme.secondary,
-                                      ),
-                                      settingKey: 'class',
-                                      onChange: (var value) {
-                                        rebuild();
-                                      },
-                                      values: snapshot.data as Map<String, String>,
-                                    );
+                          Storage.existsPreference("lux_system") && Storage.getPreference("lux_system") == "classic"
+                              ? RadioModalSettingsTile<String>(
+                                  title: I18n.of(context).year,
+                                  leading: Icon(
+                                    Icons.timelapse,
+                                    color: Theme.of(context).colorScheme.secondary,
+                                  ),
+                                  settingKey: 'year',
+                                  onChange: (var value) {
+                                    if (hasSections(Storage.getPreference("year"))) {
+                                      Storage.setPreference<String>("section", defaultValues["section"]);
+                                    }
+                                    if (getVariants(Storage.getPreference("year"))[Storage.getPreference("variant")] == null) {
+                                      Storage.setPreference<String>("variant", defaultValues["variant"]);
+                                    }
+                                    rebuild();
                                   },
+                                  values: ExcelParser.years,
                                 )
                               : Container(),
-                          hasVariant(Storage.getPreference<String?>("class", defaultValues["class"])) &&
-                                  Storage.getPreference("lux_system", defaultValues["lux_system"]) != "general"
+                          hasSections(Storage.getPreference("year")) && Storage.getPreference("lux_system") == "classic"
+                              ? RadioModalSettingsTile<String>(
+                                  title: I18n.of(context).section,
+                                  leading: Icon(
+                                    Icons.fork_right,
+                                    color: Theme.of(context).colorScheme.secondary,
+                                  ),
+                                  settingKey: 'section',
+                                  onChange: (var value) {
+                                    rebuild();
+                                  },
+                                  values: ExcelParser.getSections(context),
+                                )
+                              : Container(),
+                          Storage.existsPreference("year") &&
+                                  hasVariants(Storage.getPreference("year")) &&
+                                  Storage.getPreference("lux_system") == "classic"
                               ? RadioModalSettingsTile<String>(
                                   title: I18n.of(context).variant,
                                   leading: Icon(
@@ -168,12 +237,12 @@ class _SetupPageState extends State<SetupPage> {
                                     rebuild();
                                   },
                                   selected: defaultValues["variant"],
-                                  values: getVariants(Storage.getPreference("class", defaultValues["class"])),
+                                  values: getVariants(Storage.getPreference("year")),
                                 )
                               : Container(),
                         ],
                       )
-                    : Storage.getPreference("school_system", defaultValues["school_system"]) == "other"
+                    : Storage.getPreference("school_system") == "other"
                         ? SettingsGroup(
                             title: I18n.of(context).other_system,
                             children: [
@@ -183,13 +252,7 @@ class _SetupPageState extends State<SetupPage> {
                                   color: Theme.of(context).colorScheme.secondary,
                                 ),
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.rightToLeft,
-                                      child: const SubjectEditRoute(),
-                                    ),
-                                  );
+                                  Navigator.pushNamed(context, "subject_edit");
                                 },
                                 title: I18n.of(context).add_subjects,
                                 subtitle: I18n.of(context).edit_subjects_summary,

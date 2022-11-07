@@ -6,9 +6,9 @@ import 'subject.dart';
 import 'test.dart';
 
 class Calculator {
-  static void sort1(List<Subject> data, String sortMode) {
+  static void sortSubjects(List<Subject> data, String sortMode, {int? sortModeOverride}) {
     if (data.length >= 2) {
-      switch (Storage.getPreference<int>(sortMode, 0)) {
+      switch (sortModeOverride ?? Storage.getPreference<int>(sortMode)) {
         case 0:
           data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
               .replaceAll("[^\\p{ASCII}]", "")
@@ -21,9 +21,9 @@ class Calculator {
     }
   }
 
-  static void sort2(List<Test> data) {
+  static void sortTests(List<Test> data) {
     if (data.length >= 2) {
-      switch (Storage.getPreference<int>("sort_mode2", 0)) {
+      switch (Storage.getPreference<int>("sort_mode2")) {
         case 0:
           data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
               .replaceAll("[^\\p{ASCII}]", "")
@@ -59,8 +59,8 @@ class Calculator {
   }
 
   static double round(double n) {
-    String roundingMode = Storage.getPreference<String>("rounding_mode", "rounding_up");
-    int roundTo = Storage.getPreference<int>("round_to", 1);
+    String roundingMode = Storage.getPreference<String>("rounding_mode");
+    int roundTo = Storage.getPreference<int>("round_to");
 
     switch (roundingMode) {
       case "rounding_up":

@@ -44,9 +44,11 @@ class Subject {
     Storage.serialize();
   }
 
-  void addTest(Test test) {
+  void addTest(Test test, {bool calculate = true}) {
     tests.add(test);
-    Manager.calculate();
+    if (calculate) {
+      Manager.calculate();
+    }
     Storage.serialize();
   }
 
@@ -91,7 +93,7 @@ class Subject {
   }
 
   void sort() {
-    Calculator.sort2(tests);
+    Calculator.sortTests(tests);
   }
 
   String getResult() {
