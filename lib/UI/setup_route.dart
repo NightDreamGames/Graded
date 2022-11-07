@@ -1,6 +1,5 @@
 import 'package:gradely/Misc/excel_parser.dart';
 import 'package:gradely/Misc/storage.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:customizable_space_bar/customizable_space_bar.dart';
 
@@ -8,7 +7,6 @@ import '../Calculations/manager.dart';
 import '../Calculations/year.dart';
 import '../Translation/i18n.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
-import 'subject_edit_route.dart';
 
 class SetupPage extends StatefulWidget {
   const SetupPage({Key? key}) : super(key: key);
@@ -248,11 +246,11 @@ class _SetupPageState extends State<SetupPage> {
                             children: [
                               SimpleSettingsTile(
                                 leading: Icon(
-                                  Icons.school,
+                                  Icons.subject,
                                   color: Theme.of(context).colorScheme.secondary,
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context, "subject_edit");
+                                  Navigator.pushNamed(context, "/subject_edit");
                                 },
                                 title: I18n.of(context).add_subjects,
                                 subtitle: I18n.of(context).edit_subjects_summary,
@@ -279,7 +277,7 @@ class _SetupPageState extends State<SetupPage> {
                                 settingKey: 'total_grades_text',
                                 initialValue: defaultValues["total_grades"].toString(),
                                 leading: Icon(
-                                  Icons.book,
+                                  Icons.vertical_align_top,
                                   color: Theme.of(context).colorScheme.secondary,
                                 ),
                                 keyboardType: TextInputType.number,
@@ -330,6 +328,10 @@ class _SetupPageState extends State<SetupPage> {
                 SimpleSettingsTile(
                   title: I18n.of(context).note,
                   subtitle: I18n.of(context).note_text,
+                  leading: Icon(
+                    Icons.info_outline,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                   enabled: false,
                 ),
               ],

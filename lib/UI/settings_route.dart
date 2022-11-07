@@ -3,7 +3,6 @@ import 'package:gradely/UI/easy_dialog.dart';
 import 'package:gradely/UI/custom_icons.dart';
 import 'package:gradely/main.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 import '../Calculations/manager.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -60,7 +59,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                   SimpleSettingsTile(
                     leading: Icon(
-                      Icons.school,
+                      Icons.subject,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     onTap: () {
@@ -91,7 +90,7 @@ class SettingsPage extends StatelessWidget {
                     settingKey: 'total_grades_text',
                     initialValue: defaultValues["total_grades"].toString(),
                     leading: Icon(
-                      Icons.book,
+                      Icons.vertical_align_top,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     keyboardType: TextInputType.number,
@@ -99,6 +98,7 @@ class SettingsPage extends StatelessWidget {
                       double d = double.parse(text);
                       Storage.setPreference<double>("total_grades", d);
                       Manager.totalGrades = d;
+                      Manager.calculate();
                     },
                     validator: (String? input) {
                       if (input != null && double.tryParse(input) != null) {
@@ -114,6 +114,9 @@ class SettingsPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     settingKey: 'rounding_mode',
+                    onChange: (value) {
+                      Manager.calculate();
+                    },
                     values: <String, String>{
                       "rounding_up": I18n.of(context).up,
                       "rounding_down": I18n.of(context).down,
@@ -129,6 +132,9 @@ class SettingsPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     settingKey: 'round_to',
+                    onChange: (value) {
+                      Manager.calculate();
+                    },
                     values: <int, String>{
                       1: I18n.of(context).to_integer,
                       10: I18n.of(context).to_10th,
