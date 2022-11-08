@@ -197,7 +197,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                   controller: _nameController,
                   autofocus: true,
                   decoration: InputDecoration(
-                    hintText: getSubjectHint(Translations.subject),
+                    hintText: getSubjectHint(),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: Translations.name,
                     enabledBorder: OutlineInputBorder(
@@ -270,7 +270,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
       },
     ).then((confirmed) {
       if (confirmed) {
-        String name = _nameController.text.isEmpty ? getSubjectHint(Translations.subject) : _nameController.text;
+        String name = _nameController.text.isEmpty ? getSubjectHint() : _nameController.text;
         double coefficient = double.tryParse(_coeffController.text) ?? 1.0;
 
         if (add) {
@@ -280,7 +280,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
             p.subjects.add(Subject(name, coefficient));
           }
         } else {
-          Manager.termTemplate[index].name = _nameController.text.isEmpty ? getSubjectHint(Translations.subject) : _nameController.text;
+          Manager.termTemplate[index].name = _nameController.text.isEmpty ? getSubjectHint() : _nameController.text;
           Manager.termTemplate[index].coefficient = double.tryParse(_coeffController.text) ?? 1.0;
 
           Manager.sortSubjectsAZ();
@@ -302,13 +302,13 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
   }
 }
 
-String getSubjectHint(String subject) {
+String getSubjectHint() {
   bool a = false;
   String defaultName = "Subject 1";
   int i = 1;
 
   do {
-    defaultName = "$subject ${Manager.termTemplate.length + i}";
+    defaultName = "${Translations.subject} ${Manager.termTemplate.length + i}";
 
     for (Subject t in Manager.termTemplate) {
       if (t.name == defaultName) {
