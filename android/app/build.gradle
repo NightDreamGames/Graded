@@ -70,6 +70,12 @@ android {
             versionNameSuffix '-DEBUG'
         }
 
+        profile {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.profile'
+            versionNameSuffix '-PROFILE'
+        }
+
        release {
            signingConfig signingConfigs.release
        }
