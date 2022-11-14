@@ -33,8 +33,7 @@ final Map<String, dynamic> defaultValues = {
   "language": "default",
 };
 
-// ignore: constant_identifier_names
-const DATA_VERSION = 3;
+const dataVersion = 4;
 
 class Storage {
   static void serialize() {

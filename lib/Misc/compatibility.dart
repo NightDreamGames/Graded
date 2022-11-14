@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:gradely/Misc/storage.dart';
@@ -89,18 +90,29 @@ class Compatibility {
     Storage.setPreference<int?>("current_term", int.tryParse(elements["current_period"] ?? defaultValues["current_term"].toString()));
     Storage.setPreference<int?>("current_term", int.tryParse(elements["current_term"] ?? defaultValues["current_term"].toString()));
 
-    upgradeDataVersion();
-
     file.delete();
   }
 
-  static void upgradeDataVersion() {
+  static Future<void> upgradeDataVersion() async {
+    if (Storage.getPreference<bool>("is_first_run")) {
+      try {
+        await Compatibility.importPreferences();
+      } catch (e) {
+        log("Error while importing old data: $e");
+      }
+    }
+
     if (Storage.getPreference<int>("data_version") < 2) {
-      termCount(newValue: Storage.getPreference("term"));
       periodPreferences();
     }
 
-    Storage.setPreference<int>("data_version", DATA_VERSION);
+    await Storage.deserialize();
+
+    if (Storage.getPreference<int>("data_version") < 3) {
+      termCount(newValue: Storage.getPreference("term"));
+    }
+
+    Storage.setPreference<int>("data_version", dataVersion);
   }
 
   static void termCount({int newValue = 0}) {
@@ -131,26 +143,3 @@ class Compatibility {
     }
   }
 }
-
-/*
-<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<map>
-    <string name="sort_mode">1</string>
-    <string name="data">[{&quot;result&quot;:19.0,&quot;terms&quot;:[{&quot;result&quot;:19.0,&quot;subjects&quot;:[{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Allemand&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Anglais&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Biologie&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Chimie&quot;,&quot;result&quot;:44.0,&quot;tests&quot;:[{&quot;grade1&quot;:85.0,&quot;grade2&quot;:60.0,&quot;name&quot;:&quot;Test 1&quot;},{&quot;grade1&quot;:2.5,&quot;grade2&quot;:60.0,&quot;name&quot;:&quot;Test 2&quot;}]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Cours à option&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Éducation artistique&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:1.0,&quot;name&quot;:&quot;Éducation physique et sportive&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Français&quot;,&quot;result&quot;:1.0,&quot;tests&quot;:[{&quot;grade1&quot;:1.0,&quot;grade2&quot;:60.0,&quot;name&quot;:&quot;Test 1&quot;}]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Histoire&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Mathématiques&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Physique&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:4.0,&quot;name&quot;:&quot;Sciences économiques et sociales&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Vie et société&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]}]},{&quot;result&quot;:-1.0,&quot;subjects&quot;:[{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Allemand&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Anglais&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Biologie&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Chimie&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Cours à option&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Éducation artistique&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:1.0,&quot;name&quot;:&quot;Éducation physique et sportive&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Français&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Histoire&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Mathématiques&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Physique&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:4.0,&quot;name&quot;:&quot;Sciences économiques et sociales&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Vie et société&quot;,&quot;result&quot;:-1.0,&quot;tests&quot;:[]}]}]}]</string>
-    <string name="data_version">2</string>
-    <string name="rounding_mode">rounding_up</string>
-    <string name="language">default</string>
-    <string name="dark_theme">auto</string>
-    <string name="round_to">1</string>
-    <string name="total_grades">-1</string>
-    <string name="isFirstRun">false</string>
-    <string name="custom_grade">60</string>
-    <string name="variant">basic</string>
-    <string name="term">term_semester</string>
-    <string name="school_system">lux</string>
-    <string name="class">3CD</string>
-    <string name="default_data">[{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Allemand&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Anglais&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Biologie&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Chimie&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Cours à option&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Éducation artistique&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:1.0,&quot;name&quot;:&quot;Éducation physique et sportive&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Français&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Histoire&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:3.0,&quot;name&quot;:&quot;Mathématiques&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Physique&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:4.0,&quot;name&quot;:&quot;Sciences économiques et sociales&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]},{&quot;bonus&quot;:0,&quot;coefficient&quot;:2.0,&quot;name&quot;:&quot;Vie et société&quot;,&quot;result&quot;:0.0,&quot;tests&quot;:[]}]</string>
-    <string name="sort_mode1">0</string>
-    <string name="current_term">0</string>
-</map>
-*/

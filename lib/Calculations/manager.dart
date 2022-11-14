@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import '../Misc/compatibility.dart';
@@ -36,21 +34,8 @@ class Manager {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    if (Storage.getPreference<bool>("is_first_run")) {
-      try {
-        await Compatibility.importPreferences();
-      } catch (e) {
-        log("Error while importing old data: $e");
-      }
-    }
-
+    await Compatibility.upgradeDataVersion();
     readPreferences();
-
-    await Storage.deserialize();
-
-    if (years.isEmpty) {
-      years.add(Year());
-    }
 
     Manager.calculate();
   }
@@ -59,6 +44,8 @@ class Manager {
     currentTerm = Storage.getPreference<int>("current_term");
     maxTerm = Storage.getPreference<int>("term");
     totalGrades = Storage.getPreference<double>("total_grades");
+
+    Compatibility.termCount(newValue: maxTerm);
   }
 
   static void calculate() {
@@ -83,6 +70,14 @@ class Manager {
   }
 
   static Year getCurrentYear() {
+    if (years.isEmpty) {
+      Storage.deserialize();
+    }
+
+    if (years.isEmpty) {
+      years.add(Year());
+    }
+
     return years[currentYear];
   }
 
