@@ -42,10 +42,13 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {_displayTextInputDialog(context)},
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text(Translations.edit_subjects),
         actions: <Widget>[
-          IconButton(onPressed: () => _displayTextInputDialog(context), icon: const Icon(Icons.add)),
           PopupMenuButton<String>(
             color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
             icon: const Icon(Icons.more_vert),
@@ -81,73 +84,79 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                GlobalKey listKey = GlobalKey();
+                if (index != Manager.termTemplate.length) {
+                  GlobalKey listKey = GlobalKey();
 
-                return Column(
-                  children: [
-                    ListTile(
-                      key: listKey,
-                      onTap: () async {
-                        RenderBox box = listKey.currentContext?.findRenderObject() as RenderBox;
-                        Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
+                  return Column(
+                    children: [
+                      ListTile(
+                        key: listKey,
+                        onTap: () async {
+                          RenderBox box = listKey.currentContext?.findRenderObject() as RenderBox;
+                          Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
 
-                        var result = await showMenu(
-                          context: context,
-                          color:
-                              ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
-                          position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
-                          items: [
-                            PopupMenuItem<String>(value: "edit", child: Text(Translations.edit)),
-                            PopupMenuItem<String>(value: "delete", child: Text(Translations.delete)),
-                          ],
-                        );
-                        if (result == "edit") {
-                          if (!context.mounted) return;
-                          _displayTextInputDialog(context, index: index);
-                        } else if (result == "delete") {
-                          Manager.termTemplate.removeAt(index);
-                          Manager.sortSubjectsAZ();
+                          var result = await showMenu(
+                            context: context,
+                            color: ElevationOverlay.applySurfaceTint(
+                                Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
+                            position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
+                            items: [
+                              PopupMenuItem<String>(value: "edit", child: Text(Translations.edit)),
+                              PopupMenuItem<String>(value: "delete", child: Text(Translations.delete)),
+                            ],
+                          );
+                          if (result == "edit") {
+                            if (!context.mounted) return;
+                            _displayTextInputDialog(context, index: index);
+                          } else if (result == "delete") {
+                            Manager.termTemplate.removeAt(index);
+                            Manager.sortSubjectsAZ();
 
-                          for (Term p in Manager.getCurrentYear().terms) {
-                            p.subjects.removeAt(index);
+                            for (Term p in Manager.getCurrentYear().terms) {
+                              p.subjects.removeAt(index);
+                            }
+
+                            Manager.calculate();
+
+                            Storage.serialize();
+                            rebuild();
                           }
-
-                          Manager.calculate();
-
-                          Storage.serialize();
-                          rebuild();
-                        }
-                      },
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                      title: Text(
-                        Manager.termTemplate[index].name,
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                        style: const TextStyle(
-                          fontSize: 18.0,
+                        },
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                        title: Text(
+                          Manager.termTemplate[index].name,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
-                            style: const TextStyle(
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
-                    ),
-                  ],
-                );
+                    ],
+                  );
+                } else {
+                  return const Padding(
+                    padding: EdgeInsets.only(bottom: 88),
+                  );
+                }
               },
               addAutomaticKeepAlives: true,
-              childCount: Manager.termTemplate.length,
+              childCount: Manager.termTemplate.length + 1,
             ),
           ),
         ],
