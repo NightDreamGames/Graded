@@ -31,6 +31,9 @@
 .pub/
 /build/
 
+# Android related
+.jarCache/
+
 # Web related
 lib/generated_plugin_registrant.dart
 
