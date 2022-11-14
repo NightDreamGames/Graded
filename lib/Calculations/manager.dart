@@ -86,7 +86,7 @@ class Manager {
     return years[currentYear];
   }
 
-  static Term getCurrentTerm(BuildContext context) {
+  static Term getCurrentTerm() {
     if (currentTerm == -1) {
       Term yearTerm = Term();
       Manager.sortSubjectsAZ();

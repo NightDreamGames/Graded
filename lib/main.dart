@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:customizable_space_bar/customizable_space_bar.dart';
+import 'package:flutter/services.dart';
 import 'package:gradely/UI/settings_route.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
@@ -292,7 +293,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             ),
                           ),
                           Text(
-                            Manager.getCurrentTerm(context).getResult(),
+                            Manager.getCurrentTerm().getResult(),
                             style: const TextStyle(
                               fontSize: 22.0,
                               fontWeight: FontWeight.bold,
@@ -333,7 +334,7 @@ class ListWidget extends StatelessWidget {
           return ListRow(index, function);
         },
         addAutomaticKeepAlives: true,
-        childCount: Manager.getCurrentTerm(context).subjects.length,
+        childCount: Manager.getCurrentTerm().subjects.length,
       ),
     );
   }
@@ -363,7 +364,7 @@ class ListRow extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeOut,
                 child: SubjectRoute(
-                  subject: Manager.getCurrentTerm(context).subjects[index],
+                  subjectIndex: index,
                 ),
               ),
             ).then((_) => function());
@@ -389,7 +390,7 @@ class ListRow extends StatelessWidget {
             child:*/
 
               Text(
-            Manager.getCurrentTerm(context).subjects[index].name,
+            Manager.getCurrentTerm().subjects[index].name,
             overflow: TextOverflow.fade,
             softWrap: false,
             style: const TextStyle(
@@ -418,7 +419,7 @@ class ListRow extends StatelessWidget {
                 },
                 child: */
               Text(
-                Manager.getCurrentTerm(context).subjects[index].getResult(),
+                Manager.getCurrentTerm().subjects[index].getResult(),
                 style: const TextStyle(fontSize: 20.0),
                 //),
               ),
