@@ -506,7 +506,9 @@ class TextInputSettingsTile extends StatefulWidget {
   /// [TextInputType] of the [TextFormField] to set the keyboard type to name, phone, etc.
   final TextInputType? keyboardType;
 
-  const TextInputSettingsTile({
+  String? subtitle;
+
+  TextInputSettingsTile({
     Key? key,
     required this.title,
     required this.settingKey,
@@ -521,6 +523,7 @@ class TextInputSettingsTile extends StatefulWidget {
     this.borderColor,
     this.errorColor,
     this.keyboardType,
+    this.subtitle,
   }) : super(key: key);
 
   @override
@@ -546,11 +549,11 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
       defaultValue: widget.initialValue,
       builder: (BuildContext context, String value, OnChanged<String> onChanged) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          _controller.text = value;
+          _controller.text = widget.subtitle ?? value;
         });
         return _ModalSettingsTile<String>(
           title: widget.title,
-          subtitle: widget.obscureText ? '' : value,
+          subtitle: widget.subtitle ?? value,
           leading: widget.leading,
           showConfirmation: true,
           onConfirm: () => _submitText(_controller.text),
@@ -558,7 +561,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
             _controller.text = Settings.getValue(widget.settingKey, '');
           },
           children: <Widget>[
-            _buildTextField(context, value, onChanged),
+            _buildTextField(context, widget.subtitle ?? value, onChanged),
           ],
         );
       },
@@ -637,6 +640,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
     if (newValue == null) return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onChanged(newValue);
+      widget.subtitle = null;
       widget.onChange?.call(newValue);
     });
   }

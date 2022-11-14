@@ -87,6 +87,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                   TextInputSettingsTile(
                     title: Translations.rating_system,
+                    subtitle: Storage.getPreference("total_grades").toString(),
                     settingKey: 'total_grades_text',
                     initialValue: defaultValues["total_grades"].toString(),
                     leading: Icon(
