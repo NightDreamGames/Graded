@@ -81,19 +81,34 @@ class _SetupPageState extends State<SetupPage> {
   }
 
   void fillSubjects() {
-    if (!hasSections(Storage.getPreference("year"))) {
-      Storage.setPreference<String>("section", defaultValues["section"]);
-    }
-    if (!hasVariants(Storage.getPreference("year")) || getVariants(Storage.getPreference("year"))[Storage.getPreference("variant")] == null) {
-      Storage.setPreference<String>("variant", defaultValues["variant"]);
-    }
-
     if (Storage.getPreference("school_system") == "lux") {
+      if (Storage.getPreference("lux_system") == "classic") {
+        if (!hasSections(Storage.getPreference("year"))) {
+          Storage.setPreference<String>("section", defaultValues["section"]);
+        }
+        if (!hasVariants(Storage.getPreference("year")) || getVariants(Storage.getPreference("year"))[Storage.getPreference("variant")] == null) {
+          Storage.setPreference<String>("variant", defaultValues["variant"]);
+        }
+
+        if (Storage.getPreference("year") == "1C") {
+          Storage.setPreference("term", 2);
+        } else {
+          Storage.setPreference("term", 3);
+        }
+      }
+
       ExcelParser.fillSubjects();
+
+      Storage.setPreference<double>("total_grades", 60.0);
+      Storage.setPreference("rounding_mode", "rounding_up");
+      Storage.setPreference("round_to", 1);
     }
 
+    Manager.readPreferences();
     Manager.years.clear();
     Manager.years.add(Year());
+
+    Manager.calculate();
 
     Storage.setPreference<bool>("is_first_run", false);
   }
