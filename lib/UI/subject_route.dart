@@ -11,9 +11,12 @@ import 'popup_sub_menu.dart';
 import 'easy_dialog.dart';
 
 class SubjectRoute extends StatefulWidget {
-  final Subject subject;
+  Subject subject;
+  final int subjectIndex;
 
-  const SubjectRoute({Key? key, required this.subject}) : super(key: key);
+  SubjectRoute({Key? key, required this.subjectIndex})
+      : subject = Manager.getCurrentTerm().subjects[subjectIndex],
+        super(key: key);
 
   @override
   State<SubjectRoute> createState() => _SubjectRouteState();
@@ -21,7 +24,6 @@ class SubjectRoute extends StatefulWidget {
 
 class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver {
   late ScrollController _scrollController;
-  bool fabVisible = true;
 
   void rebuild() {
     setState(() {});
@@ -109,6 +111,49 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                 itemBuilder: (BuildContext context) {
                   List<PopupMenuEntry<String>> entries = [];
 
+                  List<String> a = [];
+
+                  switch (Manager.maxTerm) {
+                    case 2:
+                      a = [
+                        Translations.semester_1,
+                        Translations.semester_2,
+                        Translations.year,
+                      ];
+                      break;
+                    case 3:
+                      a = [
+                        Translations.trimester_1,
+                        Translations.trimester_2,
+                        Translations.trimester_3,
+                        Translations.year,
+                      ];
+                      break;
+                  }
+
+                  if (Manager.maxTerm != 1) {
+                    entries.add(
+                      PopupSubMenuItem<String>(
+                        title: Translations.select_term,
+                        items: a,
+                        onSelected: (value) async {
+                          if (value == Translations.semester_1 || value == Translations.trimester_1) {
+                            Manager.currentTerm = 0;
+                          } else if (value == Translations.semester_2 || value == Translations.trimester_2) {
+                            Manager.currentTerm = 1;
+                          } else if (value == Translations.trimester_3) {
+                            Manager.currentTerm = 2;
+                          } else if (value == Translations.year) {
+                            Manager.lastTerm = Manager.currentTerm;
+                            Manager.currentTerm = -1;
+                          }
+
+                          widget.subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
+                          rebuild();
+                        },
+                      ),
+                    );
+                  }
                   entries.add(PopupSubMenuItem<String>(
                     title: Translations.sort_by,
                     items: [
