@@ -221,7 +221,7 @@ class SettingsPage extends StatelessWidget {
                     title: Translations.app_name,
                     subtitle: Translations.about_text,
                     onTap: () {
-                      _launchURL(2);
+                      _launchURL(4);
                     },
                   ),
                   FutureBuilder(
@@ -278,6 +278,9 @@ String? encodeQueryParameters(Map<String, String> params) {
   return params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
 }
 
+final Uri githubLaunchUri = Uri.parse('https://github.com/NightDreamGames/Grade.ly');
+final Uri playStoreLaunchUri = Uri.parse('https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly');
+final Uri websiteLaunchUri = Uri.parse('https://nightdreamgames.com/');
 final Uri emailLaunchUri = Uri(
   scheme: 'mailto',
   path: 'contact.nightdreamgames@gmail.com',
@@ -288,27 +291,27 @@ final Uri emailLaunchUri = Uri(
 );
 
 void _launchURL(int type) async {
+  Uri link = websiteLaunchUri;
+
   switch (type) {
     case 0:
-      if (!await launchUrl(emailLaunchUri)) {
-        throw 'Could not launch email app';
-      }
+      link = emailLaunchUri;
       break;
     case 1:
-      if (!await launchUrl(
-        Uri.parse('https://github.com/NightDreamGames/Grade.ly'),
-        mode: LaunchMode.externalApplication,
-      )) {
-        throw 'Could not open link';
-      }
+      link = githubLaunchUri;
       break;
     case 2:
-      if (!await launchUrl(
-        Uri.parse('https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly'),
-        mode: LaunchMode.externalApplication,
-      )) {
-        throw 'Could not open link';
-      }
+      link = playStoreLaunchUri;
       break;
+    case 3:
+      link = websiteLaunchUri;
+      break;
+  }
+
+  if (!await launchUrl(
+    link,
+    mode: LaunchMode.externalApplication,
+  )) {
+    throw 'Error while opening link: $link';
   }
 }
