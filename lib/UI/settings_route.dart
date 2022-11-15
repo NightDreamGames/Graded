@@ -279,7 +279,7 @@ String? encodeQueryParameters(Map<String, String> params) {
 }
 
 final Uri githubLaunchUri = Uri.parse('https://github.com/NightDreamGames/Grade.ly');
-final Uri playStoreLaunchUri = Uri.parse('https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly');
+final Uri playStoreLaunchUri = Uri.https('play.google.com', '/store/apps/details', {'id': 'com.NightDreamGames.Grade.ly'});
 final Uri websiteLaunchUri = Uri.parse('https://nightdreamgames.com/');
 final Uri emailLaunchUri = Uri(
   scheme: 'mailto',
