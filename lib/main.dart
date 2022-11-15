@@ -181,6 +181,54 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               },
             ),
             actions: <Widget>[
+              Manager.maxTerm != 1
+                  ? PopupMenuButton<String>(
+                      color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
+                      icon: const Icon(Icons.access_time_outlined),
+                      tooltip: Translations.select_term,
+                      itemBuilder: (BuildContext context) {
+                        List<String> a = [];
+
+                        switch (Manager.maxTerm) {
+                          case 2:
+                            a = [
+                              Translations.semester_1,
+                              Translations.semester_2,
+                              Translations.year,
+                            ];
+                            break;
+                          case 3:
+                            a = [
+                              Translations.trimester_1,
+                              Translations.trimester_2,
+                              Translations.trimester_3,
+                              Translations.year,
+                            ];
+                            break;
+                        }
+
+                        List<PopupMenuEntry<String>> entries = [];
+                        for (int i = 0; i < a.length; i++) {
+                          entries.add(PopupMenuItem<String>(
+                            value: i.toString(),
+                            onTap: () {
+                              if (i == Manager.maxTerm) {
+                                Manager.lastTerm = Manager.currentTerm;
+                                Manager.currentTerm = -1;
+                              } else {
+                                Manager.currentTerm = i;
+                              }
+
+                              rebuild();
+                            },
+                            child: Text(a[i]),
+                          ));
+                        }
+
+                        return entries;
+                      },
+                    )
+                  : Container(),
               PopupMenuButton<String>(
                 color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
                 icon: const Icon(Icons.more_vert),
@@ -196,73 +244,30 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   }
                 },
                 itemBuilder: (BuildContext context) {
-                  List<String> a = [];
+                  return [
+                    PopupSubMenuItem<String>(
+                      title: Translations.sort_by,
+                      items: [
+                        Translations.az,
+                        Translations.grade,
+                      ],
+                      onSelected: (value) {
+                        if (value == Translations.az) {
+                          Storage.setPreference<int>("sort_mode1", 0);
+                        } else if (value == Translations.grade) {
+                          Storage.setPreference<int>("sort_mode1", 1);
+                        }
 
-                  switch (Manager.maxTerm) {
-                    case 2:
-                      a = [
-                        Translations.semester_1,
-                        Translations.semester_2,
-                        Translations.year,
-                      ];
-                      break;
-                    case 3:
-                      a = [
-                        Translations.trimester_1,
-                        Translations.trimester_2,
-                        Translations.trimester_3,
-                        Translations.year,
-                      ];
-                      break;
-                  }
-
-                  List<PopupMenuEntry<String>> entries = [];
-                  if (Manager.maxTerm != 1) {
-                    entries.add(
-                      PopupSubMenuItem<String>(
-                        title: Translations.select_term,
-                        items: a,
-                        onSelected: (value) async {
-                          if (value == Translations.semester_1 || value == Translations.trimester_1) {
-                            Manager.currentTerm = 0;
-                          } else if (value == Translations.semester_2 || value == Translations.trimester_2) {
-                            Manager.currentTerm = 1;
-                          } else if (value == Translations.trimester_3) {
-                            Manager.currentTerm = 2;
-                          } else if (value == Translations.year) {
-                            Manager.lastTerm = Manager.currentTerm;
-                            Manager.currentTerm = -1;
-                          }
-
-                          rebuild();
-                        },
-                      ),
-                    );
-                  }
-                  entries.add(PopupSubMenuItem<String>(
-                    title: Translations.sort_by,
-                    items: [
-                      Translations.az,
-                      Translations.grade,
-                    ],
-                    onSelected: (value) {
-                      if (value == Translations.az) {
-                        Storage.setPreference<int>("sort_mode1", 0);
-                      } else if (value == Translations.grade) {
-                        Storage.setPreference<int>("sort_mode1", 1);
-                      }
-
-                      Manager.sortAll();
-                      rebuild();
-                    },
-                  ));
-                  entries.add(PopupMenuItem<String>(
-                    value: "2",
-                    onTap: () {},
-                    child: Text(Translations.settings),
-                  ));
-
-                  return entries;
+                        Manager.sortAll();
+                        rebuild();
+                      },
+                    ),
+                    PopupMenuItem<String>(
+                      value: "2",
+                      onTap: () {},
+                      child: Text(Translations.settings),
+                    )
+                  ];
                 },
               ),
             ],

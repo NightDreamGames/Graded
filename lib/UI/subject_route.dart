@@ -103,77 +103,82 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
               },
             ),
             actions: <Widget>[
+              Manager.maxTerm != 1
+                  ? PopupMenuButton<String>(
+                      color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
+                      icon: const Icon(Icons.access_time_outlined),
+                      tooltip: Translations.select_term,
+                      itemBuilder: (BuildContext context) {
+                        List<String> termEntries = [];
+
+                        switch (Manager.maxTerm) {
+                          case 2:
+                            widget.subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
+
+                            termEntries = [
+                              Translations.semester_1,
+                              Translations.semester_2,
+                              Translations.year,
+                            ];
+                            break;
+                          case 3:
+                            termEntries = [
+                              Translations.trimester_1,
+                              Translations.trimester_2,
+                              Translations.trimester_3,
+                              Translations.year,
+                            ];
+                            break;
+                        }
+
+                        List<PopupMenuEntry<String>> entries = [];
+                        for (int i = 0; i < termEntries.length; i++) {
+                          entries.add(PopupMenuItem<String>(
+                            value: i.toString(),
+                            onTap: () {
+                              if (i == Manager.maxTerm) {
+                                Manager.lastTerm = Manager.currentTerm;
+                                Manager.currentTerm = -1;
+                              } else {
+                                Manager.currentTerm = i;
+                              }
+
+                              widget.subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
+                              rebuild();
+                            },
+                            child: Text(termEntries[i]),
+                          ));
+                        }
+
+                        return entries;
+                      },
+                    )
+                  : Container(),
               PopupMenuButton<String>(
                 color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
                 icon: const Icon(Icons.more_vert),
-                tooltip: 'More options',
-                onSelected: (value) {},
+                tooltip: Translations.more_options,
                 itemBuilder: (BuildContext context) {
-                  List<PopupMenuEntry<String>> entries = [];
+                  return [
+                    PopupSubMenuItem<String>(
+                      title: Translations.sort_by,
+                      items: [
+                        Translations.az,
+                        Translations.grade,
+                      ],
+                      onSelected: (value) {
+                        if (value == Translations.az) {
+                          Storage.setPreference<int>("sort_mode2", 0);
+                        } else if (value == Translations.grade) {
+                          Storage.setPreference<int>("sort_mode2", 1);
+                        }
 
-                  List<String> a = [];
-
-                  switch (Manager.maxTerm) {
-                    case 2:
-                      a = [
-                        Translations.semester_1,
-                        Translations.semester_2,
-                        Translations.year,
-                      ];
-                      break;
-                    case 3:
-                      a = [
-                        Translations.trimester_1,
-                        Translations.trimester_2,
-                        Translations.trimester_3,
-                        Translations.year,
-                      ];
-                      break;
-                  }
-
-                  if (Manager.maxTerm != 1) {
-                    entries.add(
-                      PopupSubMenuItem<String>(
-                        title: Translations.select_term,
-                        items: a,
-                        onSelected: (value) async {
-                          if (value == Translations.semester_1 || value == Translations.trimester_1) {
-                            Manager.currentTerm = 0;
-                          } else if (value == Translations.semester_2 || value == Translations.trimester_2) {
-                            Manager.currentTerm = 1;
-                          } else if (value == Translations.trimester_3) {
-                            Manager.currentTerm = 2;
-                          } else if (value == Translations.year) {
-                            Manager.lastTerm = Manager.currentTerm;
-                            Manager.currentTerm = -1;
-                          }
-
-                          widget.subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
-                          rebuild();
-                        },
-                      ),
-                    );
-                  }
-                  entries.add(PopupSubMenuItem<String>(
-                    title: Translations.sort_by,
-                    items: [
-                      Translations.az,
-                      Translations.grade,
-                    ],
-                    onSelected: (value) {
-                      if (value == Translations.az) {
-                        Storage.setPreference<int>("sort_mode2", 0);
-                      } else if (value == Translations.grade) {
-                        Storage.setPreference<int>("sort_mode2", 1);
-                      }
-
-                      Manager.sortAll();
-                      Manager.years[0].terms[0];
-                      rebuild();
-                    },
-                  ));
-
-                  return entries;
+                        Manager.sortAll();
+                        Manager.years[0].terms[0];
+                        rebuild();
+                      },
+                    )
+                  ];
                 },
               ),
             ],
