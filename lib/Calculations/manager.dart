@@ -129,7 +129,7 @@ class Manager {
       }
     }
 
-    Calculator.sortSubjects(termTemplate, "sort_mode3");
+    Calculator.sortSubjectsTermTemplate(termTemplate, "sort_mode3");
 
     Storage.serialize();
   }
