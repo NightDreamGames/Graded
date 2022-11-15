@@ -60,7 +60,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                 title: Translations.sort_by,
                 items: [
                   Translations.az,
-                  Translations.grade,
+                  Translations.coefficient,
                 ],
                 onSelected: (value) {
                   if (value == Translations.az) {
@@ -249,7 +249,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                         return Translations.enter_valid_number;
                       },
                       decoration: InputDecoration(
-                        hintText: "01",
+                        hintText: "1",
                         labelText: Translations.coefficient,
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         enabledBorder: OutlineInputBorder(
