@@ -577,6 +577,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
             autofocus: widget.autoFocus,
             controller: _controller,
             focusNode: _focusNode,
+            textCapitalization: TextCapitalization.sentences,
             autovalidateMode: AutovalidateMode.always,
             enabled: widget.enabled,
             validator: widget.enabled ? widget.validator : null,
