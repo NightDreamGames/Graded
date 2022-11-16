@@ -17,19 +17,7 @@ class Calculator {
         case 1:
           data.sort((o1, o2) => o2.result.compareTo(o1.result));
           break;
-      }
-    }
-  }
-
-  static void sortSubjectsTermTemplate(List<Subject> data, String sortMode, {int? sortModeOverride}) {
-    if (data.length >= 2) {
-      switch (sortModeOverride ?? Storage.getPreference<int>(sortMode)) {
-        case 0:
-          data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
-              .replaceAll("[^\\p{ASCII}]", "")
-              .compareTo(removeDiacritics(o2.name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "")));
-          break;
-        case 1:
+        case 2:
           data.sort((o1, o2) => o2.coefficient.compareTo(o1.coefficient));
           break;
       }

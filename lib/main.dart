@@ -250,12 +250,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       items: [
                         Translations.az,
                         Translations.grade,
+                        Translations.coefficient,
                       ],
                       onSelected: (value) {
                         if (value == Translations.az) {
                           Storage.setPreference<int>("sort_mode1", 0);
                         } else if (value == Translations.grade) {
                           Storage.setPreference<int>("sort_mode1", 1);
+                        } else if (value == Translations.coefficient) {
+                          Storage.setPreference<int>("sort_mode1", 2);
                         }
 
                         Manager.sortAll();

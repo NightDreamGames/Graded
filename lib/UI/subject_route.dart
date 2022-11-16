@@ -165,12 +165,15 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                       items: [
                         Translations.az,
                         Translations.grade,
+                        Translations.coefficient,
                       ],
                       onSelected: (value) {
                         if (value == Translations.az) {
                           Storage.setPreference<int>("sort_mode2", 0);
                         } else if (value == Translations.grade) {
                           Storage.setPreference<int>("sort_mode2", 1);
+                        } else if (value == Translations.coefficient) {
+                          Storage.setPreference<int>("sort_mode1", 2);
                         }
 
                         Manager.sortAll();
@@ -412,6 +415,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
               TextFormField(
                 onChanged: (value) {},
                 controller: _nameController,
+                textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                   hintText: getTestHint(widget.subject),
                   labelText: Translations.name,

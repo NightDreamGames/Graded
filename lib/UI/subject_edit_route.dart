@@ -66,7 +66,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                   if (value == Translations.az) {
                     Storage.setPreference<int>("sort_mode3", 0);
                   } else if (value == Translations.coefficient) {
-                    Storage.setPreference<int>("sort_mode3", 1);
+                    Storage.setPreference<int>("sort_mode3", 2);
                   }
 
                   Manager.sortAll();
@@ -205,6 +205,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                   onChanged: (value) {},
                   controller: _nameController,
                   autofocus: true,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
                     hintText: getSubjectHint(),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
