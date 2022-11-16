@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:customizable_space_bar/customizable_space_bar.dart';
-import 'package:flutter/services.dart';
 import 'package:gradely/UI/settings_route.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';

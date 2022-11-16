@@ -172,10 +172,10 @@ packages:
   flappy_translator:
     dependency: "direct dev"
     description:
-      path: "C:/Dev/Libraries/Flutter/FlappyTranslator"
-      relative: false
-    source: path
-    version: "2.0.0-nullsafety.2"
+      name: flappy_translator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0-nullsafety.3"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -199,7 +199,7 @@ packages:
       name: flutter_launcher_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.11.0"
   flutter_lints:
     dependency: "direct dev"
     description:

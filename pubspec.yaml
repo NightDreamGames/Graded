@@ -28,9 +28,8 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^2.0.0
-  flappy_translator:
-    path: C:/Dev/Libraries/Flutter/FlappyTranslator
-  flutter_launcher_icons: ^0.10.0
+  flappy_translator: ^2.0.0-nullsafety.3
+  flutter_launcher_icons: ^0.11.0
   integration_test:
     sdk: flutter
 
