@@ -1,6 +1,8 @@
-import 'package:sprintf/sprintf.dart';
+// Package imports:
 import 'package:diacritic/diacritic.dart';
+import 'package:sprintf/sprintf.dart';
 
+// Project imports:
 import '../Misc/storage.dart';
 import 'subject.dart';
 import 'test.dart';

@@ -1,5 +1,5 @@
+// Project imports:
 import 'package:gradely/Calculations/manager.dart';
-
 import 'calculator.dart';
 import 'term.dart';
 

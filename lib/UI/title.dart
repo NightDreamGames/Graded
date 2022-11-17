@@ -1,5 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
 import 'view_state.dart';
 
 class DestinationTitleContent extends StatelessWidget {

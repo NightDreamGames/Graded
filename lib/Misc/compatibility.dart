@@ -1,12 +1,17 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+
+// Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:gradely/Misc/storage.dart';
+
+// Package imports:
+import 'package:path_provider/path_provider.dart';
 import 'package:xml/xml.dart';
 
-import 'package:path_provider/path_provider.dart';
-
+// Project imports:
+import 'package:gradely/Misc/storage.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/term.dart';
 

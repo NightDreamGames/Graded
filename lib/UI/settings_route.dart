@@ -1,13 +1,18 @@
-import 'package:gradely/Misc/storage.dart';
-import 'package:gradely/UI/easy_dialog.dart';
-import 'package:gradely/UI/custom_icons.dart';
-import 'package:gradely/main.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import '../Calculations/manager.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../Translation/translations.dart';
+
+// Package imports:
 import 'package:customizable_space_bar/customizable_space_bar.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
+import 'package:gradely/Misc/storage.dart';
+import 'package:gradely/UI/custom_icons.dart';
+import 'package:gradely/UI/easy_dialog.dart';
+import 'package:gradely/main.dart';
+import '../Calculations/manager.dart';
+import '../Translation/translations.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 
 class SettingsPage extends StatelessWidget {

@@ -1,8 +1,12 @@
-import 'package:gradely/Misc/excel_parser.dart';
-import 'package:gradely/Misc/storage.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:customizable_space_bar/customizable_space_bar.dart';
 
+// Project imports:
+import 'package:gradely/Misc/excel_parser.dart';
+import 'package:gradely/Misc/storage.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/year.dart';
 import '../Translation/translations.dart';

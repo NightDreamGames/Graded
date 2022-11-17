@@ -1,7 +1,8 @@
-import 'manager.dart';
-import 'calculator.dart';
-import 'test.dart';
+// Project imports:
 import '../Misc/storage.dart';
+import 'calculator.dart';
+import 'manager.dart';
+import 'test.dart';
 
 class Subject {
   List<Test> tests = [];

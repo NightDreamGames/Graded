@@ -1,7 +1,10 @@
 // @dart = 2.12
-import 'package:flutter/material.dart';
-import 'package:gradely/Translation/translations.dart';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:gradely/Translation/translations.dart';
 import '../../../easy_dialog.dart';
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';

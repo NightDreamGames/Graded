@@ -1,5 +1,6 @@
-import 'manager.dart';
+// Project imports:
 import 'calculator.dart';
+import 'manager.dart';
 import 'subject.dart';
 
 class Term {

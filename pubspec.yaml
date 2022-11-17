@@ -30,6 +30,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flappy_translator: ^2.0.0-nullsafety.3
   flutter_launcher_icons: ^0.11.0
+  import_sorter: ^4.6.0
 
 flutter_icons:
   android: true

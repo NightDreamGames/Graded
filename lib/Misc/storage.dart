@@ -1,9 +1,11 @@
+// Dart imports:
 import 'dart:convert';
-import '/UI/Settings/flutter_settings_screens.dart';
 
+// Project imports:
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/year.dart';
+import '/UI/Settings/flutter_settings_screens.dart';
 
 final Map<String, dynamic> defaultValues = {
   //System

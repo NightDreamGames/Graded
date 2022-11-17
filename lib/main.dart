@@ -1,17 +1,23 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:customizable_space_bar/customizable_space_bar.dart';
-import 'package:gradely/UI/settings_route.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+// Package imports:
+import 'package:customizable_space_bar/customizable_space_bar.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:page_transition/page_transition.dart';
+
+// Project imports:
+import 'package:gradely/UI/settings_route.dart';
 import 'package:gradely/UI/setup_route.dart';
 import 'package:gradely/UI/subject_edit_route.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
-
-import 'Misc/storage.dart';
 import 'Calculations/manager.dart';
+import 'Misc/storage.dart';
 import 'Translation/translations.dart';
 import 'UI/app_theme.dart';
 import 'UI/popup_sub_menu.dart';
@@ -127,6 +133,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(Theme.of(context).brightness == Brightness.light ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
+
     return WillPopScope(
       onWillPop: () {
         if (Manager.currentTerm == -1) {

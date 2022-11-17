@@ -1,9 +1,15 @@
+// Dart imports:
 import 'dart:typed_data';
-import 'package:excel/excel.dart';
+
+// Flutter imports:
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/widgets.dart';
-import 'package:gradely/Misc/storage.dart';
 
+// Package imports:
+import 'package:excel/excel.dart';
+
+// Project imports:
+import 'package:gradely/Misc/storage.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Translation/translations.dart';

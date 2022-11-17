@@ -1,14 +1,18 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:customizable_space_bar/customizable_space_bar.dart';
+
+// Project imports:
 import '../Calculations/calculator.dart';
+import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/test.dart';
 import '../Misc/storage.dart';
 import '../Translation/translations.dart';
-import 'package:customizable_space_bar/customizable_space_bar.dart';
-import '../Calculations/manager.dart';
-import 'popup_sub_menu.dart';
 import 'easy_dialog.dart';
+import 'popup_sub_menu.dart';
 
 class SubjectRoute extends StatefulWidget {
   Subject subject;

@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import '/UI/Settings/flutter_settings_screens.dart';
 
 ///[EasyDialog] is a widget which shows the given child widget inside a
