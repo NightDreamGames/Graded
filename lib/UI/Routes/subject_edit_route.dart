@@ -2,14 +2,15 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../Calculations/calculator.dart';
-import '../Calculations/manager.dart';
-import '../Calculations/subject.dart';
-import '../Calculations/term.dart';
-import '../Misc/storage.dart';
-import '../Translation/translations.dart';
-import 'easy_dialog.dart';
-import 'popup_sub_menu.dart';
+import '../../Calculations/calculator.dart';
+import '../../Calculations/manager.dart';
+import '../../Calculations/subject.dart';
+import '../../Calculations/term.dart';
+import '../../Misc/storage.dart';
+import '../../Translation/translations.dart';
+import '../Widgets/easy_dialog.dart';
+import '../Widgets/easy_form_field.dart';
+import '../Widgets/popup_sub_menu.dart';
 
 class SubjectEditRoute extends StatefulWidget {
   const SubjectEditRoute({Key? key}) : super(key: key);
@@ -181,35 +182,51 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
     return showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: Center(
-            child: add ? Text(Translations.add_subject) : Text(Translations.edit_subject),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(
-                MaterialLocalizations.of(context).cancelButtonLabel,
-              ),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(
-                MaterialLocalizations.of(context).okButtonLabel,
-              ),
-            ),
-          ],
-          content: Column(
+        return EasyDialog(
+          title: add ? Translations.add_subject : Translations.edit_subject,
+          leading: add
+              ? Icon(Icons.add, color: Theme.of(context).colorScheme.secondary)
+              : Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary),
+          onConfirm: () {
+            String name = _nameController.text.isEmpty ? getSubjectHint() : _nameController.text;
+            double coefficient = double.tryParse(_coeffController.text) ?? 1.0;
+
+            if (add) {
+              Manager.termTemplate.add(Subject(name, coefficient));
+
+              for (Term p in Manager.getCurrentYear().terms) {
+                p.subjects.add(Subject(name, coefficient));
+              }
+            } else {
+              Manager.termTemplate[index].name = _nameController.text.isEmpty ? getSubjectHint() : _nameController.text;
+              Manager.termTemplate[index].coefficient = double.tryParse(_coeffController.text) ?? 1.0;
+
+              Manager.sortSubjectsAZ();
+
+              for (Term p in Manager.getCurrentYear().terms) {
+                for (int i = 0; i < p.subjects.length; i++) {
+                  p.subjects[i].name = Manager.termTemplate[i].name;
+                  p.subjects[i].coefficient = Manager.termTemplate[i].coefficient;
+                }
+              }
+            }
+
+            Manager.calculate();
+            Storage.serialize();
+
+            rebuild();
+
+            return true;
+          },
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Flexible(
-                child: TextFormField(
-                  controller: _nameController,
-                  autofocus: true,
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: inputDecoration(context, hintText: getSubjectHint(), labelText: Translations.name),
-                ),
+              EasyFormField(
+                controller: _nameController,
+                autofocus: true,
+                label: Translations.name,
+                hint: getSubjectHint(),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -218,20 +235,11 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(
-                    child: TextFormField(
-                      //TODO Text validation
-                      controller: _coeffController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (String? input) {
-                        if (input == null || input.isEmpty || double.tryParse(input) != null) {
-                          return null;
-                        }
-                        return Translations.enter_valid_number;
-                      },
-                      decoration: inputDecoration(context, hintText: "1", labelText: Translations.coefficient),
-                    ),
+                  EasyFormField(
+                    controller: _coeffController,
+                    label: Translations.coefficient,
+                    hint: "1",
+                    numeric: true,
                   ),
                 ],
               ),
@@ -239,37 +247,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
           ),
         );
       },
-    ).then((confirmed) {
-      if (confirmed) {
-        String name = _nameController.text.isEmpty ? getSubjectHint() : _nameController.text;
-        double coefficient = double.tryParse(_coeffController.text) ?? 1.0;
-
-        if (add) {
-          Manager.termTemplate.add(Subject(name, coefficient));
-
-          for (Term p in Manager.getCurrentYear().terms) {
-            p.subjects.add(Subject(name, coefficient));
-          }
-        } else {
-          Manager.termTemplate[index].name = _nameController.text.isEmpty ? getSubjectHint() : _nameController.text;
-          Manager.termTemplate[index].coefficient = double.tryParse(_coeffController.text) ?? 1.0;
-
-          Manager.sortSubjectsAZ();
-
-          for (Term p in Manager.getCurrentYear().terms) {
-            for (int i = 0; i < p.subjects.length; i++) {
-              p.subjects[i].name = Manager.termTemplate[i].name;
-              p.subjects[i].coefficient = Manager.termTemplate[i].coefficient;
-            }
-          }
-        }
-
-        Manager.calculate();
-        Storage.serialize();
-
-        rebuild();
-      }
-    });
+    );
   }
 }
 

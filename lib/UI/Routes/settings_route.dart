@@ -8,11 +8,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:gradely/Misc/storage.dart';
-import 'package:gradely/UI/custom_icons.dart';
-import 'package:gradely/UI/easy_dialog.dart';
+import 'package:gradely/UI/Utilities/custom_icons.dart';
+import 'package:gradely/UI/Widgets/easy_dialog.dart';
 import 'package:gradely/main.dart';
-import '../Calculations/manager.dart';
-import '../Translation/translations.dart';
+import '../../Calculations/manager.dart';
+import '../../Translation/translations.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -107,10 +107,10 @@ class SettingsPage extends StatelessWidget {
                       Manager.calculate();
                     },
                     validator: (String? input) {
-                      if (input != null && double.tryParse(input) != null) {
+                      if (input == null || input.isEmpty || double.tryParse(input) != null) {
                         return null;
                       }
-                      return Translations.enter_valid_number;
+                      return Translations.invalid;
                     },
                   ),
                   RadioModalSettingsTile<String>(

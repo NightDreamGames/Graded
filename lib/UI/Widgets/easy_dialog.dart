@@ -116,6 +116,8 @@ class _EasyDialogState extends State<EasyDialog> {
     ]);
   }
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   Widget _addActionWidgets(BuildContext dialogContext, Widget children) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,7 +125,13 @@ class _EasyDialogState extends State<EasyDialog> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: children,
+          child: Form(
+            key: formKey,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: children,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 16.0, right: 8.0),
@@ -141,7 +149,6 @@ class _EasyDialogState extends State<EasyDialog> {
                 },
                 child: Text(
                   MaterialLocalizations.of(dialogContext).cancelButtonLabel,
-                  //style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
                 ),
               ),
               TextButton(
@@ -150,7 +157,25 @@ class _EasyDialogState extends State<EasyDialog> {
                 ),
                 onPressed: () async {
                   var closeDialog = true;
-                  if (widget.onConfirm != null) {
+
+                  bool submitText() {
+                    var isValid = true;
+                    final state = formKey.currentState;
+                    if (state != null) {
+                      isValid = state.validate();
+                    }
+
+                    if (isValid) {
+                      state?.save();
+                      return true;
+                    }
+
+                    return false;
+                  }
+
+                  if (!submitText()) {
+                    closeDialog = false;
+                  } else if (widget.onConfirm != null) {
                     closeDialog = widget.onConfirm!.call();
                   }
 
@@ -173,28 +198,4 @@ class _EasyDialogState extends State<EasyDialog> {
   void _disposeDialog(BuildContext dialogContext) {
     Navigator.of(dialogContext).pop();
   }
-}
-
-InputDecoration inputDecoration(context, {String? hintText, String? labelText}) {
-  return InputDecoration(
-    hintText: hintText,
-    labelText: labelText,
-    floatingLabelBehavior: FloatingLabelBehavior.always,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
-      borderRadius: BorderRadius.circular(16.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
-      borderRadius: BorderRadius.circular(16.0),
-    ),
-    focusedErrorBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-  );
 }

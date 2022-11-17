@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:gradely/Translation/translations.dart';
-import '../../../easy_dialog.dart';
+import 'package:gradely/UI/Widgets/easy_form_field.dart';
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';
 
@@ -510,9 +510,9 @@ class TextInputSettingsTile extends StatefulWidget {
   /// [TextInputType] of the [TextFormField] to set the keyboard type to name, phone, etc.
   final TextInputType? keyboardType;
 
-  String? subtitle;
+  final String? subtitle;
 
-  TextInputSettingsTile({
+  const TextInputSettingsTile({
     Key? key,
     required this.title,
     required this.settingKey,
@@ -538,6 +538,8 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _controller;
   late FocusNode _focusNode;
+
+  late String? subtitle = widget.subtitle;
 
   @override
   void initState() {
@@ -618,7 +620,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
     if (newValue == null) return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onChanged(newValue);
-      widget.subtitle = null;
+      subtitle = null;
       widget.onChange?.call(newValue);
     });
   }

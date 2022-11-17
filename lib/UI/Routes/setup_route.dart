@@ -7,9 +7,9 @@ import 'package:customizable_space_bar/customizable_space_bar.dart';
 // Project imports:
 import 'package:gradely/Misc/excel_parser.dart';
 import 'package:gradely/Misc/storage.dart';
-import '../Calculations/manager.dart';
-import '../Calculations/year.dart';
-import '../Translation/translations.dart';
+import '../../Calculations/manager.dart';
+import '../../Calculations/year.dart';
+import '../../Translation/translations.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 
 class SetupPage extends StatefulWidget {
@@ -306,10 +306,10 @@ class _SetupPageState extends State<SetupPage> {
                                   Manager.totalGrades = d;
                                 },
                                 validator: (String? input) {
-                                  if (input != null && double.tryParse(input) != null) {
+                                  if (input == null || input.isEmpty || double.tryParse(input) != null) {
                                     return null;
                                   }
-                                  return Translations.enter_valid_number;
+                                  return Translations.invalid;
                                 },
                               ),
                               RadioModalSettingsTile<String>(

@@ -5,22 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:customizable_space_bar/customizable_space_bar.dart';
 
 // Project imports:
-import '../Calculations/calculator.dart';
-import '../Calculations/manager.dart';
-import '../Calculations/subject.dart';
-import '../Calculations/test.dart';
-import '../Misc/storage.dart';
-import '../Translation/translations.dart';
-import 'easy_dialog.dart';
-import 'popup_sub_menu.dart';
+import '../../Calculations/calculator.dart';
+import '../../Calculations/manager.dart';
+import '../../Calculations/subject.dart';
+import '../../Calculations/test.dart';
+import '../../Misc/storage.dart';
+import '../../Translation/translations.dart';
+import '../Widgets/easy_dialog.dart';
+import '../Widgets/easy_form_field.dart';
+import '../Widgets/popup_sub_menu.dart';
 
 class SubjectRoute extends StatefulWidget {
-  Subject subject;
   final int subjectIndex;
 
-  SubjectRoute({Key? key, required this.subjectIndex})
-      : subject = Manager.getCurrentTerm().subjects[subjectIndex],
-        super(key: key);
+  const SubjectRoute({Key? key, required this.subjectIndex}) : super(key: key);
 
   @override
   State<SubjectRoute> createState() => _SubjectRouteState();
@@ -28,6 +26,7 @@ class SubjectRoute extends StatefulWidget {
 
 class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver {
   late ScrollController _scrollController;
+  late Subject subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
 
   void rebuild() {
     setState(() {});
@@ -69,7 +68,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
         slivers: [
           SliverAppBar.large(
             //TODO Fix title size
-            //title: Text(widget.subject.name, style: TextStyle(fontWeight: FontWeight.bold)),
+            //title: Text(subject.name, style: TextStyle(fontWeight: FontWeight.bold)),
             flexibleSpace: CustomizableSpaceBar(
               builder: (context, scrollingRate) {
                 return Padding(
@@ -77,7 +76,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      widget.subject.name,
+                      subject.name,
                       style: TextStyle(
                         fontSize: 42 - 18 * scrollingRate,
                         fontWeight: FontWeight.bold,
@@ -85,7 +84,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                       ),
                     ),
                     /*Hero(
-                      tag: widget.subject.name,
+                      tag: subject.name,
                       flightShuttleBuilder: (
                         BuildContext flightContext,
                         Animation<double> animation,
@@ -94,7 +93,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                         BuildContext toHeroContext,
                       ) {
                         return DestinationTitle(
-                          title: widget.subject.name,
+                          title: subject.name,
                           isOverflow: false,
                           viewState: flightDirection == HeroFlightDirection.push ? ViewState.enlarge : ViewState.shrink,
                           beginFontStyle: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),
@@ -117,7 +116,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
 
                         switch (Manager.maxTerm) {
                           case 2:
-                            widget.subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
+                            subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
 
                             termEntries = [
                               Translations.semester_1,
@@ -147,7 +146,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                 Manager.currentTerm = i;
                               }
 
-                              widget.subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
+                              subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
                               rebuild();
                             },
                             child: Text(termEntries[i]),
@@ -204,7 +203,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                             ? Row(
                                 children: [
                                   Text(
-                                    "${Translations.bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : "  "}",
+                                    "${Translations.bonus} ${subject.bonus}${subject.bonus < 0 ? "" : "  "}",
                                     overflow: TextOverflow.fade,
                                     softWrap: false,
                                     style: const TextStyle(
@@ -217,7 +216,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                     children: [
                                       ElevatedButton(
                                         onPressed: () {
-                                          widget.subject.changeBonus(-1);
+                                          subject.changeBonus(-1);
                                           rebuild();
                                         },
                                         style: ButtonStyle(
@@ -235,7 +234,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
-                                          widget.subject.changeBonus(1);
+                                          subject.changeBonus(1);
                                           rebuild();
                                         },
                                         style: ButtonStyle(
@@ -264,7 +263,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                 ),
                               ),
                         /*Hero(
-                            tag: "${widget.subject.name}_result",
+                            tag: "${subject.name}_result",
                             flightShuttleBuilder: (
                               BuildContext flightContext,
                               Animation<double> animation,
@@ -273,7 +272,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                               BuildContext toHeroContext,
                             ) {
                               return DestinationTitle(
-                                title: widget.subject.getResult(),
+                                title: subject.getResult(),
                                 isOverflow: false,
                                 viewState: flightDirection == HeroFlightDirection.push ? ViewState.enlarge : ViewState.shrink,
                                 beginFontStyle: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
@@ -282,7 +281,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                             },
                             child:*/
                         Text(
-                          widget.subject.getResult(),
+                          subject.getResult(),
                           style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -299,7 +298,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                if (index != widget.subject.tests.length) {
+                if (index != subject.tests.length) {
                   GlobalKey listKey = GlobalKey();
 
                   return Column(
@@ -325,14 +324,14 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                               if (!context.mounted) return;
                               _displayTextInputDialog(context, index: index);
                             } else if (result == "delete") {
-                              widget.subject.removeTest(index);
+                              subject.removeTest(index);
                               rebuild();
                             }
                           }
                         },
                         contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                         title: Text(
-                          widget.subject.tests[index].name,
+                          subject.tests[index].name,
                           overflow: TextOverflow.fade,
                           softWrap: false,
                           style: const TextStyle(
@@ -343,7 +342,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              widget.subject.tests[index].toString(),
+                              subject.tests[index].toString(),
                               style: const TextStyle(
                                 fontSize: 20.0,
                               ),
@@ -364,7 +363,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                 }
               },
               addAutomaticKeepAlives: true,
-              childCount: widget.subject.tests.length + 1,
+              childCount: subject.tests.length + 1,
             ),
           ),
         ],
@@ -382,9 +381,9 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
     _nameController.clear();
 
     bool add = index == null;
-    _gradeController.text = add ? "" : Calculator.format(widget.subject.tests[index].grade1, ignoreZero: true);
-    _maximumController.text = add ? "" : Calculator.format(widget.subject.tests[index].grade2, ignoreZero: true);
-    _nameController.text = add ? "" : widget.subject.tests[index].name;
+    _gradeController.text = add ? "" : Calculator.format(subject.tests[index].grade1, ignoreZero: true);
+    _maximumController.text = add ? "" : Calculator.format(subject.tests[index].grade2, ignoreZero: true);
+    _nameController.text = add ? "" : subject.tests[index].name;
 
     return showDialog(
       context: context,
@@ -396,16 +395,11 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
               : Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary),
           onConfirm: () {
             if (add) {
-              widget.subject.addTest(Test(
-                  double.tryParse(_gradeController.text) ?? 1,
-                  double.tryParse(_maximumController.text) ?? Manager.totalGrades,
-                  _nameController.text.isEmpty ? getTestHint(widget.subject) : _nameController.text));
+              subject.addTest(Test(double.tryParse(_gradeController.text) ?? 1, double.tryParse(_maximumController.text) ?? Manager.totalGrades,
+                  _nameController.text.isEmpty ? getTestHint(subject) : _nameController.text));
             } else {
-              widget.subject.editTest(
-                  index,
-                  double.tryParse(_gradeController.text) ?? 1,
-                  double.tryParse(_maximumController.text) ?? Manager.totalGrades,
-                  _nameController.text.isEmpty ? getTestHint(widget.subject) : _nameController.text);
+              subject.editTest(index, double.tryParse(_gradeController.text) ?? 1, double.tryParse(_maximumController.text) ?? Manager.totalGrades,
+                  _nameController.text.isEmpty ? getTestHint(subject) : _nameController.text);
             }
 
             rebuild();
@@ -416,53 +410,37 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(
+              EasyFormField(
                 controller: _nameController,
-                textCapitalization: TextCapitalization.sentences,
-                decoration: inputDecoration(context, hintText: getTestHint(widget.subject), labelText: Translations.name),
+                autofocus: true,
+                label: Translations.name,
+                hint: getTestHint(subject),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(
-                    child: TextFormField(
-                      controller: _gradeController,
-                      autofocus: true,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (String? input) {
-                        if (input == null || input.isEmpty || double.tryParse(input) != null) {
-                          return null;
-                        }
-                        return Translations.enter_valid_number;
-                      },
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      textAlign: TextAlign.end,
-                      decoration: inputDecoration(context, hintText: "01", labelText: Translations.grade),
-                    ),
+                  EasyFormField(
+                    controller: _gradeController,
+                    label: Translations.grade,
+                    hint: "01",
+                    textAlign: TextAlign.end,
+                    autofocus: true,
+                    numeric: true,
                   ),
                   const Padding(
-                    padding: EdgeInsets.all(4),
-                    child: Text(
-                      "/",
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+                    child: Text("/", style: TextStyle(fontSize: 20)),
                   ),
-                  Flexible(
-                    child: TextFormField(
-                      controller: _maximumController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (String? input) {
-                        if (input != null && double.tryParse(input) != null) {
-                          return null;
-                        }
-                        return Translations.enter_valid_number;
-                      },
-                      decoration: inputDecoration(context, hintText: Calculator.format(Manager.totalGrades), labelText: Translations.maximum),
-                    ),
+                  EasyFormField(
+                    controller: _maximumController,
+                    label: Translations.maximum,
+                    hint: Calculator.format(Manager.totalGrades),
+                    numeric: true,
                   ),
                 ],
               ),
