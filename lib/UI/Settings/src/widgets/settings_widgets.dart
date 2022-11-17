@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradely/Translation/translations.dart';
 
+import '../../../easy_dialog.dart';
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';
 
@@ -574,45 +575,18 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
       child: Form(
         key: _formKey,
         child: TextFormField(
-            autofocus: widget.autoFocus,
-            controller: _controller,
-            focusNode: _focusNode,
-            textCapitalization: TextCapitalization.sentences,
-            autovalidateMode: AutovalidateMode.always,
-            enabled: widget.enabled,
-            validator: widget.enabled ? widget.validator : null,
-            onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
-            obscureText: widget.obscureText,
-            keyboardType: widget.keyboardType,
-            //cursorColor: Theme.of(context).colorScheme.primary,
-            decoration: InputDecoration(
-              labelText: widget.title,
-              //labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-
-              /*errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
-              ),*/
-              border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(16.0),
-                ),
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(8.0),
-                ),
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            )),
+          autofocus: widget.autoFocus,
+          controller: _controller,
+          focusNode: _focusNode,
+          textCapitalization: TextCapitalization.sentences,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          enabled: widget.enabled,
+          validator: widget.enabled ? widget.validator : null,
+          onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
+          obscureText: widget.obscureText,
+          keyboardType: widget.keyboardType,
+          decoration: inputDecoration(context, labelText: widget.title),
+        ),
       ),
     );
   }

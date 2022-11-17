@@ -413,30 +413,9 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                onChanged: (value) {},
                 controller: _nameController,
                 textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
-                  hintText: getTestHint(widget.subject),
-                  labelText: Translations.name,
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
+                decoration: inputDecoration(context, hintText: getTestHint(widget.subject), labelText: Translations.name),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -447,10 +426,9 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                 children: [
                   Flexible(
                     child: TextFormField(
-                      onChanged: (value) {},
-                      autofocus: true,
-                      autovalidateMode: AutovalidateMode.always,
                       controller: _gradeController,
+                      autofocus: true,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (String? input) {
                         if (input == null || input.isEmpty || double.tryParse(input) != null) {
                           return null;
@@ -458,28 +436,8 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                         return Translations.enter_valid_number;
                       },
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        hintText: "01",
-                        labelText: Translations.grade,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
                       textAlign: TextAlign.end,
+                      decoration: inputDecoration(context, hintText: "01", labelText: Translations.grade),
                     ),
                   ),
                   const Padding(
@@ -490,36 +448,16 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                   ),
                   Flexible(
                     child: TextFormField(
-                      onChanged: (value) {},
                       controller: _maximumController,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (String? input) {
                         if (input != null && double.tryParse(input) != null) {
                           return null;
                         }
                         return Translations.enter_valid_number;
                       },
-                      decoration: InputDecoration(
-                        hintText: Calculator.format(Manager.totalGrades),
-                        labelText: Translations.maximum,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
+                      decoration: inputDecoration(context, hintText: Calculator.format(Manager.totalGrades), labelText: Translations.maximum),
                     ),
                   ),
                 ],

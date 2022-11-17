@@ -6,6 +6,7 @@ import '../Calculations/subject.dart';
 import '../Calculations/term.dart';
 import '../Misc/storage.dart';
 import '../Translation/translations.dart';
+import 'easy_dialog.dart';
 import 'popup_sub_menu.dart';
 
 class SubjectEditRoute extends StatefulWidget {
@@ -202,31 +203,10 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
             children: [
               Flexible(
                 child: TextFormField(
-                  onChanged: (value) {},
                   controller: _nameController,
                   autofocus: true,
                   textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
-                    hintText: getSubjectHint(),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: Translations.name,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
+                  decoration: inputDecoration(context, hintText: getSubjectHint(), labelText: Translations.name),
                 ),
               ),
               const Padding(
@@ -239,37 +219,16 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
                   Flexible(
                     child: TextFormField(
                       //TODO Text validation
-                      onChanged: (value) {},
                       controller: _coeffController,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      autofocus: true,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (String? input) {
                         if (input == null || input.isEmpty || double.tryParse(input) != null) {
                           return null;
                         }
                         return Translations.enter_valid_number;
                       },
-                      decoration: InputDecoration(
-                        hintText: "1",
-                        labelText: Translations.coefficient,
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
+                      decoration: inputDecoration(context, hintText: "1", labelText: Translations.coefficient),
                     ),
                   ),
                 ],
