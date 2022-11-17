@@ -16,9 +16,7 @@ import '../Widgets/easy_form_field.dart';
 import '../Widgets/popup_sub_menu.dart';
 
 class SubjectRoute extends StatefulWidget {
-  final int subjectIndex;
-
-  const SubjectRoute({Key? key, required this.subjectIndex}) : super(key: key);
+  const SubjectRoute({Key? key}) : super(key: key);
 
   @override
   State<SubjectRoute> createState() => _SubjectRouteState();
@@ -26,7 +24,8 @@ class SubjectRoute extends StatefulWidget {
 
 class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver {
   late ScrollController _scrollController;
-  late Subject subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
+  late int subjectIndex;
+  late Subject subject = Manager.getCurrentTerm().subjects[subjectIndex];
 
   void rebuild() {
     setState(() {});
@@ -56,6 +55,8 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
 
   @override
   Widget build(BuildContext context) {
+    subjectIndex = ModalRoute.of(context)!.settings.arguments as int;
+
     return Scaffold(
       floatingActionButton: Manager.currentTerm != -1
           ? FloatingActionButton(
@@ -116,7 +117,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
 
                         switch (Manager.maxTerm) {
                           case 2:
-                            subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
+                            subject = Manager.getCurrentTerm().subjects[subjectIndex];
 
                             termEntries = [
                               Translations.semester_1,
@@ -146,7 +147,7 @@ class _SubjectRouteState extends State<SubjectRoute> with WidgetsBindingObserver
                                 Manager.currentTerm = i;
                               }
 
-                              subject = Manager.getCurrentTerm().subjects[widget.subjectIndex];
+                              subject = Manager.getCurrentTerm().subjects[subjectIndex];
                               rebuild();
                             },
                             child: Text(termEntries[i]),

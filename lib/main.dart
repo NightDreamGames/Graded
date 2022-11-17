@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -13,6 +14,7 @@ import 'Calculations/manager.dart';
 import 'Misc/storage.dart';
 import 'Translation/translations.dart';
 import 'UI/Routes/home_route.dart';
+import 'UI/Routes/subject_route.dart';
 import 'UI/Utilities/app_theme.dart';
 
 final GlobalKey appContainerKey = GlobalKey();
@@ -68,13 +70,47 @@ class _AppContainerState extends State<AppContainer> {
       supportedLocales: TranslationsDelegate.supportedLocals,
       debugShowCheckedModeBanner: false,
       initialRoute: widget.initialRoute,
-      routes: {
-        '/home': (context) => const Material(child: HomePage()),
-        //'/subject': (context) => Material(child: SubjectRoute()),
-        '/settings': (context) => const Material(child: SettingsPage()),
-        '/setup': (context) => const Material(child: SetupPage()),
-        '/subject_edit': (context) => const Material(child: SubjectEditRoute()),
+      onGenerateRoute: (settings) {
+        Widget route;
+
+        switch (settings.name) {
+          case "/home":
+            route = const HomePage();
+            break;
+          case "/subject":
+            route = const SubjectRoute();
+            break;
+          case "/settings":
+            route = const SettingsPage();
+            break;
+          case "/setup":
+            route = const SetupPage();
+            break;
+          case "/subject_edit":
+            route = const SubjectEditRoute();
+            break;
+          default:
+            route = const HomePage();
+            break;
+        }
+
+        return buildSharedAxisTransitionPageRoute((_) => Material(child: route), settings: settings);
       },
     );
   }
+}
+
+Route buildSharedAxisTransitionPageRoute(Widget Function(BuildContext) builder, {RouteSettings? settings}) {
+  return PageRouteBuilder(
+    settings: settings,
+    pageBuilder: (context, animation, secondaryAnimation) => builder(context),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return SharedAxisTransition(
+        animation: animation,
+        secondaryAnimation: secondaryAnimation,
+        transitionType: SharedAxisTransitionType.horizontal,
+        child: child,
+      );
+    },
+  );
 }

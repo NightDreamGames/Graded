@@ -8,14 +8,12 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:customizable_space_bar/customizable_space_bar.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:page_transition/page_transition.dart';
 
 // Project imports:
 import '../../Calculations/manager.dart';
 import '../../Misc/storage.dart';
 import '../../Translation/translations.dart';
 import '../Widgets/popup_sub_menu.dart';
-import 'subject_route.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -81,6 +79,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         slivers: <Widget>[
           SliverAppBar.large(
             centerTitle: true,
+            automaticallyImplyLeading: false,
             flexibleSpace: CustomizableSpaceBar(
               builder: (context, scrollingRate) {
                 return Padding(
@@ -264,9 +263,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 }
 
 class ListWidget extends StatelessWidget {
-  final Function function;
+  final Function rebuild;
 
-  const ListWidget(this.function, {Key? key})
+  const ListWidget(this.rebuild, {Key? key})
       : super(
           key: key,
         );
@@ -276,7 +275,7 @@ class ListWidget extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return ListRow(index, function);
+          return ListRow(index, rebuild);
         },
         addAutomaticKeepAlives: true,
         childCount: Manager.getCurrentTerm().subjects.length,
@@ -287,8 +286,8 @@ class ListWidget extends StatelessWidget {
 
 class ListRow extends StatelessWidget {
   final int index;
-  final Function function;
-  const ListRow(this.index, this.function, {Key? key}) : super(key: key);
+  final Function rebuild;
+  const ListRow(this.index, this.rebuild, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -296,23 +295,11 @@ class ListRow extends StatelessWidget {
       children: [
         ListTile(
           onTap: () {
-            //TODO Make subject route a named route
-            /*Navigator.pushNamed(
+            Navigator.pushNamed(
               context,
               "/subject",
-              arguments: Manager.getCurrentTerm(context: context).subjects[index],
-            ).then((_) => function());*/
-            Navigator.push(
-              context,
-              PageTransition(
-                type: PageTransitionType.rightToLeft,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOut,
-                child: SubjectRoute(
-                  subjectIndex: index,
-                ),
-              ),
-            ).then((_) => function());
+              arguments: index,
+            ).then((_) => rebuild());
           },
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           title: /*Hero(
