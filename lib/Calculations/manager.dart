@@ -1,10 +1,7 @@
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Project imports:
+import 'package:gradely/UI/Utilities/hints.dart';
 import '../Misc/compatibility.dart';
 import '../Misc/storage.dart';
-import '../Translation/translations.dart';
 import 'calculator.dart';
 import 'subject.dart';
 import 'term.dart';
@@ -34,8 +31,6 @@ class Manager {
   static int maxTerm = 1;
 
   static Future<void> init() async {
-    WidgetsFlutterBinding.ensureInitialized();
-
     await Compatibility.upgradeDataVersion();
     readPreferences();
 
@@ -63,12 +58,14 @@ class Manager {
       for (Term p in y.terms) {
         for (Subject s in p.subjects) {
           for (int i = 0; i < s.tests.length;) {
-            s.removeTest(i);
+            s.removeTest(i, calculate: false);
           }
           s.bonus = 0;
         }
       }
     }
+
+    calculate();
   }
 
   static Year getCurrentYear() {
@@ -85,42 +82,27 @@ class Manager {
 
   static Term getCurrentTerm() {
     if (currentTerm == -1) {
+      Year currentYear = getCurrentYear();
       Term yearTerm = Term();
       Manager.sortSubjectsAZ();
 
-      for (int i = 0; i < getCurrentYear().terms.length; i++) {
-        for (int j = 0; j < getCurrentYear().terms[i].subjects.length; j++) {
-          if (getCurrentYear().terms[i].subjects[j].result != -1) {
-            String name = "";
-            switch (i) {
-              case 0:
-                name = (maxTerm == 3) ? Translations.trimester_1 : Translations.semester_1;
-                break;
-              case 1:
-                name = (maxTerm == 3) ? Translations.trimester_2 : Translations.semester_2;
-                break;
-              case 2:
-                name = Translations.trimester_3;
-                break;
-              default:
-                name = Translations.trimester_1;
-                break;
-            }
-
-            yearTerm.subjects[j].addTest(Test(getCurrentYear().terms[i].subjects[j].result, totalGrades.toDouble(), name), calculate: false);
+      for (int i = 0; i < currentYear.terms.length; i++) {
+        for (int j = 0; j < currentYear.terms[i].subjects.length; j++) {
+          if (currentYear.terms[i].subjects[j].result != -1) {
+            yearTerm.subjects[j].addTest(Test(currentYear.terms[i].subjects[j].result, totalGrades, getTitle(termOverride: i)), calculate: false);
           }
         }
       }
 
       yearTerm.calculate();
-      Calculator.sortSubjects(yearTerm.subjects, "sort_mode1");
+      Calculator.sortObjects(yearTerm.subjects, 1);
+
       return yearTerm;
     }
 
     return getCurrentYear().terms[currentTerm];
   }
 
-  //TODO Reduce number of times sort is called
   static void sortAll() {
     for (Year y in years) {
       for (Term p in y.terms) {
@@ -131,7 +113,7 @@ class Manager {
       }
     }
 
-    Calculator.sortSubjects(termTemplate, "sort_mode3");
+    Calculator.sortObjects(termTemplate, 3);
 
     Storage.serialize();
   }
@@ -143,7 +125,7 @@ class Manager {
       }
     }
 
-    Calculator.sortSubjects(termTemplate, "", sortModeOverride: 0);
+    Calculator.sortObjects(termTemplate, 0, sortModeOverride: 0);
   }
 
   Map<String, dynamic> toJson() => {"years": years, "term_template": termTemplate};

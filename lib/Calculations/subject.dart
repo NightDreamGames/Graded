@@ -1,21 +1,22 @@
 // Project imports:
-import '../Misc/storage.dart';
 import 'calculator.dart';
 import 'manager.dart';
+import 'sort_interface.dart';
 import 'test.dart';
 
-class Subject {
+class Subject implements SortInterface {
   List<Test> tests = [];
 
+  @override
   String name = "";
+  @override
   double coefficient = 1;
   int bonus = 0;
 
+  @override
   double result = 0;
 
-  Subject(this.name, this.coefficient) {
-    Manager.calculate();
-  }
+  Subject(this.name, this.coefficient);
 
   void calculate() {
     if (tests.isEmpty) {
@@ -39,24 +40,16 @@ class Subject {
     }
   }
 
-  void createTest(double grade, double total, String name) {
-    tests.add(Test(grade, total, name));
-    Manager.calculate();
-    Storage.serialize();
-  }
-
   void addTest(Test test, {bool calculate = true}) {
     tests.add(test);
     if (calculate) {
       Manager.calculate();
     }
-    Storage.serialize();
   }
 
-  void removeTest(int position) {
+  void removeTest(int position, {bool calculate = true}) {
     tests.removeAt(position);
-    Manager.calculate();
-    Storage.serialize();
+    if (calculate) Manager.calculate();
   }
 
   void editTest(int position, double grade1, double grade2, String name) {
@@ -64,7 +57,6 @@ class Subject {
     tests[position].grade2 = grade2;
     tests[position].name = name;
     Manager.calculate();
-    Storage.serialize();
   }
 
   List<String> getNames() {
@@ -89,12 +81,11 @@ class Subject {
     if ((bonus + direction).abs() < 10) {
       bonus += direction;
       Manager.calculate();
-      Storage.serialize();
     }
   }
 
   void sort() {
-    Calculator.sortTests(tests);
+    Calculator.sortObjects(tests, 2);
   }
 
   String getResult() {

@@ -35,8 +35,6 @@ final Map<String, dynamic> defaultValues = {
   "language": "default",
 };
 
-const dataVersion = 4;
-
 class Storage {
   static void serialize() {
     setPreference<String?>("data", jsonEncode(Manager.years));

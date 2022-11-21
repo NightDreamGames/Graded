@@ -1,58 +1,45 @@
 // Package imports:
+import 'package:collection/collection.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:sprintf/sprintf.dart';
+import 'package:tuple/tuple.dart';
 
 // Project imports:
+import 'package:gradely/Calculations/sort_interface.dart';
 import '../Misc/storage.dart';
-import 'subject.dart';
-import 'test.dart';
 
 class Calculator {
-  static void sortSubjects(List<Subject> data, String sortMode, {int? sortModeOverride}) {
+  static void sortObjects(List<SortInterface> data, int sortMode, {int? sortModeOverride}) {
     if (data.length >= 2) {
-      switch (sortModeOverride ?? Storage.getPreference<int>(sortMode)) {
+      switch (sortModeOverride ?? Storage.getPreference<int>("sort_mode$sortMode")) {
         case 0:
-          data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
-              .replaceAll("[^\\p{ASCII}]", "")
-              .compareTo(removeDiacritics(o2.name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "")));
+          insertionSort(data,
+              compare: (SortInterface a, SortInterface b) => removeDiacritics(a.name.toLowerCase())
+                  .replaceAll("[^\\p{ASCII}]", "")
+                  .compareTo(removeDiacritics(b.name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "")));
           break;
         case 1:
-          data.sort((o1, o2) => o2.result.compareTo(o1.result));
+          insertionSort(data, compare: (SortInterface a, SortInterface b) => b.result.compareTo(a.result));
           break;
         case 2:
-          data.sort((o1, o2) => o2.coefficient.compareTo(o1.coefficient));
+          insertionSort(data, compare: (SortInterface a, SortInterface b) => b.coefficient.compareTo(a.coefficient));
           break;
       }
     }
   }
 
-  static void sortTests(List<Test> data) {
-    if (data.length >= 2) {
-      switch (Storage.getPreference<int>("sort_mode2")) {
-        case 0:
-          data.sort((o1, o2) => removeDiacritics(o1.name.toLowerCase())
-              .replaceAll("[^\\p{ASCII}]", "")
-              .compareTo(removeDiacritics(o2.name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "")));
-          break;
-        case 1:
-          data.sort((o1, o2) => (o2.grade1 / o2.grade2).compareTo(o1.grade1 / o1.grade2));
-          break;
-      }
-    }
-  }
-
-  static double calculate(List<double> results, List<double> coefficients) {
-    if (results.isEmpty) {
+  static double calculate(List<Tuple2<double, double>> data) {
+    if (data.isEmpty) {
       return -1;
     }
 
     double a = 0;
     double b = 0;
 
-    for (int i = 0; i < results.length; i++) {
-      if (results[i] != -1) {
-        a += results[i] * coefficients[i];
-        b += coefficients[i];
+    for (int i = 0; i < data.length; i++) {
+      if (data[i].item1 != -1) {
+        a += data[i].item1 * data[i].item2;
+        b += data[i].item2;
       }
     }
 

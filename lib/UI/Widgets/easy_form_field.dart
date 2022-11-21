@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Translation/translations.dart';
+import '../../Translations/translations.dart';
 
 class EasyFormField extends StatelessWidget {
   const EasyFormField({

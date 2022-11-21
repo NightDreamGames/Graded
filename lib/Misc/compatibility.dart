@@ -16,6 +16,8 @@ import '../Calculations/manager.dart';
 import '../Calculations/term.dart';
 
 class Compatibility {
+  static const dataVersion = 5;
+
   static Future<void> importPreferences() async {
     Uri uri;
 
@@ -99,6 +101,8 @@ class Compatibility {
   }
 
   static Future<void> upgradeDataVersion() async {
+    int currentDataVersion = Storage.getPreference<int>("data_version");
+
     if (Storage.getPreference<bool>("is_first_run")) {
       try {
         await Compatibility.importPreferences();
@@ -107,14 +111,18 @@ class Compatibility {
       }
     }
 
-    if (Storage.getPreference<int>("data_version") < 2) {
+    if (currentDataVersion < 2) {
       periodPreferences();
     }
 
     await Storage.deserialize();
 
-    if (Storage.getPreference<int>("data_version") < 3) {
+    if (currentDataVersion < 5) {
       termCount(newValue: Storage.getPreference("term"));
+
+      if (Storage.getPreference("language") == "lu") {
+        Storage.setPreference("language", defaultValues["language"]);
+      }
     }
 
     Storage.setPreference<int>("data_version", dataVersion);
@@ -134,7 +142,6 @@ class Compatibility {
       Storage.setPreference<int>("current_term", Manager.currentTerm);
     }
 
-    Manager.calculate();
     Storage.serialize();
   }
 

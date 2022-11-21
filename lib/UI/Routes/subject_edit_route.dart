@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 // Project imports:
 import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
-import '../../Calculations/subject.dart';
 import '../../Calculations/term.dart';
-import '../../Misc/storage.dart';
-import '../../Translation/translations.dart';
-import '../Widgets/easy_dialog.dart';
-import '../Widgets/easy_form_field.dart';
-import '../Widgets/popup_sub_menu.dart';
+import '../../Translations/translations.dart';
+import '../Widgets/dialogs.dart';
+import '../Widgets/list_widgets.dart';
+import '../Widgets/popup_menus.dart';
 
 class SubjectEditRoute extends StatefulWidget {
   const SubjectEditRoute({Key? key}) : super(key: key);
@@ -19,67 +17,22 @@ class SubjectEditRoute extends StatefulWidget {
   State<SubjectEditRoute> createState() => _SubjectEditRouteState();
 }
 
-class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBindingObserver {
+class _SubjectEditRouteState extends State<SubjectEditRoute> {
   void rebuild() {
     setState(() {});
-  }
-
-  @override
-  void initState() {
-    WidgetsBinding.instance.addObserver(this);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      rebuild();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {_displayTextInputDialog(context)},
+        onPressed: () => {showSubjectDialog(context).then((value) => rebuild())},
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
         title: Text(Translations.edit_subjects),
         actions: <Widget>[
-          PopupMenuButton<String>(
-            color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
-            icon: const Icon(Icons.more_vert),
-            tooltip: Translations.more_options,
-            itemBuilder: (BuildContext context) {
-              List<PopupMenuEntry<String>> entries = [];
-
-              entries.add(PopupSubMenuItem<String>(
-                title: Translations.sort_by,
-                items: [
-                  Translations.az,
-                  Translations.coefficient,
-                ],
-                onSelected: (value) {
-                  if (value == Translations.az) {
-                    Storage.setPreference<int>("sort_mode3", 0);
-                  } else if (value == Translations.coefficient) {
-                    Storage.setPreference<int>("sort_mode3", 2);
-                  }
-
-                  Manager.sortAll();
-                  rebuild();
-                },
-              ));
-              return entries;
-            },
-          ),
+          SortSelector(rebuild: rebuild, type: 2),
         ],
       ),
       body: CustomScrollView(
@@ -90,68 +43,27 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
               (context, index) {
                 if (index != Manager.termTemplate.length) {
                   GlobalKey listKey = GlobalKey();
+                  return TextRow(
+                    listKey: listKey,
+                    leading: Manager.termTemplate[index].name,
+                    trailing: Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
+                    onTap: () async {
+                      showListMenu(context, listKey).then((result) {
+                        if (result == "edit") {
+                          showSubjectDialog(context, index: index).then((value) => rebuild());
+                        } else if (result == "delete") {
+                          Manager.termTemplate.removeAt(index);
+                          Manager.sortSubjectsAZ();
 
-                  return Column(
-                    children: [
-                      ListTile(
-                        key: listKey,
-                        onTap: () async {
-                          RenderBox box = listKey.currentContext?.findRenderObject() as RenderBox;
-                          Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
-
-                          var result = await showMenu(
-                            context: context,
-                            color: ElevationOverlay.applySurfaceTint(
-                                Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
-                            position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
-                            items: [
-                              PopupMenuItem<String>(value: "edit", child: Text(Translations.edit)),
-                              PopupMenuItem<String>(value: "delete", child: Text(Translations.delete)),
-                            ],
-                          );
-                          if (result == "edit") {
-                            if (!context.mounted) return;
-                            _displayTextInputDialog(context, index: index);
-                          } else if (result == "delete") {
-                            Manager.termTemplate.removeAt(index);
-                            Manager.sortSubjectsAZ();
-
-                            for (Term p in Manager.getCurrentYear().terms) {
-                              p.subjects.removeAt(index);
-                            }
-
-                            Manager.calculate();
-
-                            Storage.serialize();
-                            rebuild();
+                          for (Term p in Manager.getCurrentYear().terms) {
+                            p.subjects.removeAt(index);
                           }
-                        },
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                        title: Text(
-                          Manager.termTemplate[index].name,
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                          ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
-                              style: const TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
-                      ),
-                    ],
+
+                          Manager.calculate();
+                          rebuild();
+                        }
+                      });
+                    },
                   );
                 } else {
                   return const Padding(
@@ -167,108 +79,4 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> with WidgetsBinding
       ),
     );
   }
-
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _coeffController = TextEditingController();
-
-  Future<void> _displayTextInputDialog(BuildContext context, {int? index}) async {
-    _coeffController.clear();
-    _nameController.clear();
-
-    bool add = index == null;
-    _coeffController.text = add ? "" : Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true);
-    _nameController.text = add ? "" : Manager.termTemplate[index].name;
-
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return EasyDialog(
-          title: add ? Translations.add_subject : Translations.edit_subject,
-          leading: add
-              ? Icon(Icons.add, color: Theme.of(context).colorScheme.secondary)
-              : Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary),
-          onConfirm: () {
-            String name = _nameController.text.isEmpty ? getSubjectHint() : _nameController.text;
-            double coefficient = double.tryParse(_coeffController.text) ?? 1.0;
-
-            if (add) {
-              Manager.termTemplate.add(Subject(name, coefficient));
-
-              for (Term p in Manager.getCurrentYear().terms) {
-                p.subjects.add(Subject(name, coefficient));
-              }
-            } else {
-              Manager.termTemplate[index].name = _nameController.text.isEmpty ? getSubjectHint() : _nameController.text;
-              Manager.termTemplate[index].coefficient = double.tryParse(_coeffController.text) ?? 1.0;
-
-              Manager.sortSubjectsAZ();
-
-              for (Term p in Manager.getCurrentYear().terms) {
-                for (int i = 0; i < p.subjects.length; i++) {
-                  p.subjects[i].name = Manager.termTemplate[i].name;
-                  p.subjects[i].coefficient = Manager.termTemplate[i].coefficient;
-                }
-              }
-            }
-
-            Manager.calculate();
-            Storage.serialize();
-
-            rebuild();
-
-            return true;
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              EasyFormField(
-                controller: _nameController,
-                autofocus: true,
-                label: Translations.name,
-                hint: getSubjectHint(),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  EasyFormField(
-                    controller: _coeffController,
-                    label: Translations.coefficient,
-                    hint: "1",
-                    numeric: true,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-String getSubjectHint() {
-  bool a = false;
-  String defaultName = "Subject 1";
-  int i = 1;
-
-  do {
-    defaultName = "${Translations.subject} ${Manager.termTemplate.length + i}";
-
-    for (Subject t in Manager.termTemplate) {
-      if (t.name == defaultName) {
-        a = true;
-        i++;
-        break;
-      } else {
-        a = false;
-      }
-    }
-  } while (a);
-
-  return defaultName;
 }

@@ -439,6 +439,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
         context: context,
         builder: (dialogContext) {
           return SimpleDialog(
+            backgroundColor: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
             title: Center(
               child: getTitle(),
             ),
@@ -519,7 +520,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
   }
 
   void _disposeDialog(BuildContext dialogContext) {
-    Navigator.of(dialogContext).pop();
+    Navigator.pop(dialogContext);
   }
 }
 
@@ -619,7 +620,7 @@ class _SettingsRadio<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Radio<T>(
-      //activeColor: Theme.of(context).colorScheme.secondary,
+      activeColor: Theme.of(context).colorScheme.primary,
       groupValue: groupValue,
       value: value,
       onChanged: enabled ? onChanged : null,

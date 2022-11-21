@@ -1,10 +1,16 @@
 // Project imports:
 import 'package:gradely/Calculations/calculator.dart';
+import 'sort_interface.dart';
 
-class Test {
+class Test implements SortInterface {
   double grade1 = 0;
   double grade2 = 0;
+  @override
   String name = "";
+  @override
+  double get result => grade1 / grade2;
+  @override
+  double get coefficient => 0;
 
   Test(
     this.grade1,

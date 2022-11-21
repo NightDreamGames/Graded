@@ -1,3 +1,6 @@
+// Package imports:
+import 'package:tuple/tuple.dart';
+
 // Project imports:
 import 'package:gradely/Calculations/manager.dart';
 import 'calculator.dart';
@@ -18,20 +21,19 @@ class Year {
     for (int i = 0; i < Manager.maxTerm; i++) {
       terms.add(Term());
     }
+
+    Manager.calculate();
   }
 
   void calculate() {
-    List<double> results = [];
-    List<double> coefficients = [];
+    List<Tuple2<double, double>> data = [];
 
     for (Term t in terms) {
       t.calculate();
-
-      results.add(t.result);
-      coefficients.add(1.0);
+      data.add(Tuple2(t.result, 1.0));
     }
 
-    result = Calculator.calculate(results, coefficients);
+    result = Calculator.calculate(data);
   }
 
   String getResult() {

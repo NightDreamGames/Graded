@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:gradely/Translation/translations.dart';
+import 'package:gradely/Translations/translations.dart';
 import 'package:gradely/UI/Widgets/easy_form_field.dart';
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';
@@ -46,7 +46,7 @@ class SimpleSettingsTile extends StatelessWidget {
   final TextStyle? subtitleTextStyle;
 
   /// widget to be placed at first in the tile
-  final Widget? leading;
+  final IconData? icon;
 
   /// flag which represents the state of the settings, if false the the tile will
   /// ignore all the user inputs, default = true
@@ -65,14 +65,14 @@ class SimpleSettingsTile extends StatelessWidget {
     this.subtitleTextStyle,
     this.child,
     this.enabled = true,
-    this.leading,
+    this.icon,
     this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return _SettingsTile(
-      leading: leading,
+      leading: Icon(icon, color: Theme.of(context).colorScheme.secondary),
       title: title,
       subtitle: subtitle,
       titleTextStyle: titleTextStyle,
@@ -94,9 +94,11 @@ class SimpleSettingsTile extends StatelessWidget {
     onTap?.call();
 
     if (child != null) {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => child!,
-      ));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => child!,
+          ));
     }
   }
 }
@@ -494,7 +496,7 @@ class TextInputSettingsTile extends StatefulWidget {
   /// validator for input validation
   final FormFieldValidator<String?>? validator;
 
-  final Widget? leading;
+  final IconData? icon;
 
   /// flag which represents the state of obscureText in the [TextFormField]
   ///  default = false
@@ -520,7 +522,7 @@ class TextInputSettingsTile extends StatefulWidget {
     this.enabled = true,
     this.autoValidateMode = AutovalidateMode.onUserInteraction,
     this.autoFocus = true,
-    this.leading,
+    this.icon,
     this.onChange,
     this.validator,
     this.obscureText = false,
@@ -560,7 +562,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
         return _ModalSettingsTile<String>(
           title: widget.title,
           subtitle: widget.subtitle ?? value,
-          leading: widget.leading,
+          leading: Icon(widget.icon, color: Theme.of(context).colorScheme.secondary),
           showConfirmation: true,
           onConfirm: () => _submitText(_controller.text),
           onCancel: () {
@@ -1063,7 +1065,7 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
     selectedValue = value;
     onChanged(value);
     widget.onChange?.call(value);
-    Navigator.of(context).pop();
+    Navigator.pop(context);
   }
 
   @override
@@ -1098,7 +1100,7 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
       return Material(
         color: Theme.of(context).colorScheme.surface,
         surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
-        elevation: 6,
+        elevation: 3,
         shadowColor: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -1520,7 +1522,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
   final TextStyle? subtitleTextStyle;
 
   /// The widget shown in front of the title
-  final Widget? leading;
+  final IconData? icon;
 
   /// flag which represents the state of the settings, if false the the tile will
   /// ignore all the user inputs, default = true
@@ -1542,7 +1544,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
     this.showTitles = false,
     this.onChange,
     this.subtitle = '',
-    this.leading,
+    this.icon,
     this.titleTextStyle,
     this.subtitleTextStyle,
   }) : super(key: key);
@@ -1576,7 +1578,7 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
         return _ModalSettingsTile<T>(
           title: widget.title,
           subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[value] ?? Translations.not_set),
-          leading: widget.leading,
+          leading: Icon(widget.icon, color: Theme.of(context).colorScheme.secondary),
           titleTextStyle: widget.titleTextStyle,
           subtitleTextStyle: widget.subtitleTextStyle,
           children: <Widget>[

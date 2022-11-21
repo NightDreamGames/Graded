@@ -1,3 +1,6 @@
+// Package imports:
+import 'package:tuple/tuple.dart';
+
 // Project imports:
 import 'calculator.dart';
 import 'manager.dart';
@@ -14,22 +17,17 @@ class Term {
         subjects.add(Subject(s.name, s.coefficient));
       }
     }
-
-    Manager.calculate();
   }
 
   void calculate() {
-    List<double> results = [];
-    List<double> coefficients = [];
+    List<Tuple2<double, double>> data = [];
 
     for (Subject s in subjects) {
       s.calculate();
-
-      results.add(s.result);
-      coefficients.add(s.coefficient);
+      data.add(Tuple2(s.result, s.coefficient));
     }
 
-    result = Calculator.calculate(results, coefficients);
+    result = Calculator.calculate(data);
   }
 
   List<String> getSubjects() {
@@ -49,7 +47,7 @@ class Term {
   }
 
   void sort({int? sortModeOverride}) {
-    Calculator.sortSubjects(subjects, "sort_mode1", sortModeOverride: sortModeOverride);
+    Calculator.sortObjects(subjects, 1, sortModeOverride: sortModeOverride);
   }
 
   String getResult() {
