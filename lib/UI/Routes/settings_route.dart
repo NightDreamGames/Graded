@@ -102,7 +102,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     icon: Icons.language,
                     settingKey: 'language',
                     values: <String, String>{
-                      "default": Translations.default_string,
+                      "system": Translations.system_language,
                       "en": Translations.english,
                       "de": Translations.german,
                       "fr": Translations.french,

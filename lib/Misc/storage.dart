@@ -32,7 +32,7 @@ final Map<String, dynamic> defaultValues = {
   //App settings
   "theme": "system",
   "brightness": "dark",
-  "language": "default",
+  "language": "system",
 };
 
 class Storage {

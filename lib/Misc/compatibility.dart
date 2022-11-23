@@ -120,9 +120,7 @@ class Compatibility {
     if (currentDataVersion < 5) {
       termCount(newValue: Storage.getPreference("term"));
 
-      if (Storage.getPreference("language") == "lu") {
-        Storage.setPreference("language", defaultValues["language"]);
-      }
+      Storage.setPreference("language", defaultValues["language"]);
     }
 
     Storage.setPreference<int>("data_version", dataVersion);

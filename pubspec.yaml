@@ -46,7 +46,7 @@ flutter_icons:
 
 flappy_translator:
   input_file_path: "assets/Localizations.xlsx"
-  output_dir: "lib/Translation"
+  output_dir: "lib/Translations"
   file_name: "translations"
   class_name: "Translations"
   depend_on_context: false

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: public_member_api_docs, prefer_single_quotes, avoid_escaping_inner_quotes, prefer_const_constructors, sort_constructors_first, always_specify_types, non_constant_identifier_names
+// ignore_for_file: public_member_api_docs, prefer_single_quotes, avoid_escaping_inner_quotes, prefer_const_constructors, sort_constructors_first, always_specify_types
 
 // Dart imports:
 import 'dart:async';
@@ -181,6 +181,8 @@ class Translations {
 
   static String get subject => _getText("subject");
 
+  static String get system_language => _getText("system_language");
+
   static String get system => _getText("system");
 
   static String get term => _getText("term");
@@ -221,7 +223,8 @@ class Translations {
 
   static const _enValues = {
     "about": "About",
-    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text":
+        "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
     "add": "Add",
     "add_subject": "Add subject",
     "add_subjects": "Add subjects",
@@ -234,7 +237,8 @@ class Translations {
     "basic": "Basic",
     "bonus": "Bonus:",
     "change_class": "Change class",
-    "change_class_summary": "Click to change your current class. This will delete all your saved grades.",
+    "change_class_summary":
+        "Click to change your current class. This will delete all your saved grades.",
     "chinese": "Chinese",
     "class_string": "Class",
     "classic": "Classic",
@@ -278,7 +282,8 @@ class Translations {
     "no": "No",
     "not_set": "Not set",
     "note": "Note:",
-    "note_text": "You can always edit your subjects and other options in the settings later",
+    "note_text":
+        "You can always edit your subjects and other options in the settings later",
     "ok": "Ok",
     "open": "Open",
     "other_system": "Other school system",
@@ -306,6 +311,7 @@ class Translations {
     "setup": "Setup",
     "sort_by": "Sort by",
     "subject": "Subject",
+    "system_language": "System language",
     "system": "System",
     "term": "Term",
     "test": "Test",
@@ -328,7 +334,8 @@ class Translations {
 
   static const _frValues = {
     "about": "À propos",
-    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text":
+        "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
     "add": "Ajouter",
     "add_subject": "Ajouter une matière",
     "add_subjects": "Ajouter des matières",
@@ -341,7 +348,8 @@ class Translations {
     "basic": "Basique",
     "bonus": "Bonus:",
     "change_class": "Changer la classe",
-    "change_class_summary": "Cliquez pour changer votre classe actuelle. Cela supprimera toutes vos notes sauvegardées.",
+    "change_class_summary":
+        "Cliquez pour changer votre classe actuelle. Cela supprimera toutes vos notes sauvegardées.",
     "chinese": "Chinois",
     "class_string": "Classe",
     "classic": "Classique",
@@ -349,7 +357,8 @@ class Translations {
     "coefficient_dots": "Coefficient:",
     "coefficients": "Coefficients",
     "confirm": "Confirmation",
-    "confirm_delete": "Êtes-vous sûr de vouloir supprimer toutes vos notes enregistrées ?",
+    "confirm_delete":
+        "Êtes-vous sûr de vouloir supprimer toutes vos notes enregistrées ?",
     "contact": "Contact",
     "custom": "Personnalisé",
     "custom_rating_system": "Système de notation personnalisé",
@@ -385,14 +394,16 @@ class Translations {
     "no": "Non",
     "not_set": "Non défini",
     "note": "Note:",
-    "note_text": "Vous pouvez toujours modifier vos matières et les autres options dans les paramètres plus tard",
+    "note_text":
+        "Vous pouvez toujours modifier vos matières et les autres options dans les paramètres plus tard",
     "ok": "Ok",
     "open": "Ouvrir",
     "other_system": "Autre système scolaire",
     "previous": "Précédent",
     "rating_system": "Système de notation",
     "reset": "Réinitialiser les notes",
-    "reset_summary": "Supprimer toutes les notes enregistrées et réinitialiser l'application",
+    "reset_summary":
+        "Supprimer toutes les notes enregistrées et réinitialiser l'application",
     "round_to": "Arrondir à",
     "rounding_mode": "Mode arrondissage",
     "school_system": "Système scolaire",
@@ -413,6 +424,7 @@ class Translations {
     "setup": "Configuration",
     "sort_by": "Trier par",
     "subject": "Matière",
+    "system_language": "Langue du système",
     "system": "Système",
     "term": "Période",
     "test": "Devoir",
@@ -435,7 +447,8 @@ class Translations {
 
   static const _deValues = {
     "about": "Informationen",
-    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text":
+        "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
     "add": "Hinzufügen",
     "add_subject": "Fach hinzufügen",
     "add_subjects": "Fächer hinzufügen",
@@ -448,7 +461,8 @@ class Translations {
     "basic": "Basic",
     "bonus": "Bonus:",
     "change_class": "Klasse ändern",
-    "change_class_summary": "Klicken Sie um Ihre aktuelle Klasse zu ändern. Alle gespeicherten Noten werden dabei gelöscht.",
+    "change_class_summary":
+        "Klicken Sie um Ihre aktuelle Klasse zu ändern. Alle gespeicherten Noten werden dabei gelöscht.",
     "chinese": "Chinesisch",
     "class_string": "Klasse",
     "classic": "Klassik",
@@ -456,7 +470,8 @@ class Translations {
     "coefficient_dots": "Koeffizient:",
     "coefficients": "Koeffiziente",
     "confirm": "Bestätigung",
-    "confirm_delete": "Sind Sie sicher, dass Sie alle Ihre gespeicherten Noten löschen wollen?",
+    "confirm_delete":
+        "Sind Sie sicher, dass Sie alle Ihre gespeicherten Noten löschen wollen?",
     "contact": "Kontakt",
     "custom": "Personalisiert",
     "custom_rating_system": "Personalisiertes Bewertungssystem",
@@ -492,7 +507,8 @@ class Translations {
     "no": "Nein",
     "not_set": "Nicht definiert",
     "note": "Anmerkung:",
-    "note_text": "Sie können Ihre Fächer und andere Optionen später immer noch in den Einstellungen bearbeiten",
+    "note_text":
+        "Sie können Ihre Fächer und andere Optionen später immer noch in den Einstellungen bearbeiten",
     "ok": "Ok",
     "open": "Öffnen",
     "other_system": "Anderes Schulsystem",
@@ -520,6 +536,7 @@ class Translations {
     "setup": "Einrichtung",
     "sort_by": "Sortieren",
     "subject": "Fach",
+    "system_language": "Systemsprache",
     "system": "System",
     "term": "Periode",
     "test": "Prüfung",
@@ -542,7 +559,8 @@ class Translations {
 
   static const _luValues = {
     "about": "Informatiounen",
-    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text":
+        "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
     "add": "Zoufügen",
     "add_subject": "Fach zoufügen",
     "add_subjects": "Fächer zoufügen",
@@ -555,7 +573,8 @@ class Translations {
     "basic": "Basic",
     "bonus": "Bonus:",
     "change_class": "Klass änneren",
-    "change_class_summary": "Klickt fir är aktuell Klass ze änneren. All gespäichert Notten ginn dobäi geläscht.",
+    "change_class_summary":
+        "Klickt fir är aktuell Klass ze änneren. All gespäichert Notten ginn dobäi geläscht.",
     "chinese": "Chineesesch",
     "class_string": "Klass",
     "classic": "Klassik",
@@ -563,7 +582,8 @@ class Translations {
     "coefficient_dots": "Koeffizient:",
     "coefficients": "Koeffizienten",
     "confirm": "Bestätegung",
-    "confirm_delete": "Sidd Dir sécher datt Dir all Är gespäichert Notten läschen wëllt?",
+    "confirm_delete":
+        "Sidd Dir sécher datt Dir all Är gespäichert Notten läschen wëllt?",
     "contact": "Kontakt",
     "custom": "Personaliséiert",
     "custom_rating_system": "Personaliséierten Bewäertungssystem",
@@ -599,7 +619,8 @@ class Translations {
     "no": "Nee",
     "not_set": "Net definéiert",
     "note": "Umierkung:",
-    "note_text": "Dir kënnt är Fächer an aner Optiounen spéider ëmmer nach an den Astellungen beaarbechten",
+    "note_text":
+        "Dir kënnt är Fächer an aner Optiounen spéider ëmmer nach an den Astellungen beaarbechten",
     "ok": "Ok",
     "open": "Öffnen",
     "other_system": "Aneren Schoulsystem",
@@ -627,6 +648,7 @@ class Translations {
     "setup": "Ariichtung",
     "sort_by": "Sortéieren",
     "subject": "Fach",
+    "system_language": "Systemsprooch",
     "system": "System",
     "term": "Periode",
     "test": "Prüfung",
@@ -661,7 +683,8 @@ class Translations {
 
   static late Locale _locale;
 
-  static String _getText(String key) => _localizedValues[key] ?? '** $key not found';
+  static String _getText(String key) =>
+      _localizedValues[key] ?? '** $key not found';
 
   static Locale get currentLocale => _locale;
 
