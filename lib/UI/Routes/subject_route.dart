@@ -24,6 +24,8 @@ class _SubjectRouteState extends State<SubjectRoute> {
   late Subject subject = term.subjects[subjectIndex];
 
   void rebuild() {
+    term = Manager.getCurrentTerm();
+    subject = term.subjects[subjectIndex];
     setState(() {});
   }
 
@@ -46,12 +48,9 @@ class _SubjectRouteState extends State<SubjectRoute> {
             flexibleSpace: ScrollingTitle(title: subject.name),
             actions: <Widget>[
               TermSelector(
-                  rebuild: rebuild,
-                  onTap: () {
-                    term = Manager.getCurrentTerm();
-                    subject = term.subjects[subjectIndex];
-                  }),
-              SortSelector(rebuild: rebuild, type: 1, onTap: () => term = Manager.getCurrentTerm()),
+                rebuild: rebuild,
+              ),
+              SortSelector(rebuild: rebuild, type: 1),
             ],
           ),
           ResultRow(

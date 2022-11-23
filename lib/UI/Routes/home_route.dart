@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   late Term term = Manager.getCurrentTerm();
 
   void rebuild() {
+    term = Manager.getCurrentTerm();
     setState(() {});
   }
 
@@ -48,8 +49,8 @@ class _HomePageState extends State<HomePage> {
             automaticallyImplyLeading: false,
             flexibleSpace: ScrollingTitle(title: getTitle()),
             actions: <Widget>[
-              TermSelector(rebuild: rebuild, onTap: () => term = Manager.getCurrentTerm()),
-              SortSelector(rebuild: rebuild, type: 0, onTap: () => term = Manager.getCurrentTerm()),
+              TermSelector(rebuild: rebuild),
+              SortSelector(rebuild: rebuild, type: 0),
             ],
           ),
           ResultRow(

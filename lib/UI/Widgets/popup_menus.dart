@@ -7,10 +7,9 @@ import 'package:gradely/Translations/translations.dart';
 import '../../Misc/storage.dart';
 
 class TermSelector extends StatelessWidget {
-  const TermSelector({Key? key, required this.rebuild, this.onTap}) : super(key: key);
+  const TermSelector({Key? key, required this.rebuild}) : super(key: key);
 
   final Function rebuild;
-  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +51,6 @@ class TermSelector extends StatelessWidget {
                       Manager.currentTerm = i;
                     }
 
-                    if (onTap != null) onTap!();
                     rebuild();
                   },
                   child: Text(a[i]),
@@ -67,11 +65,10 @@ class TermSelector extends StatelessWidget {
 }
 
 class SortSelector extends StatelessWidget {
-  const SortSelector({Key? key, required this.rebuild, required this.type, this.onTap}) : super(key: key);
+  const SortSelector({Key? key, required this.rebuild, required this.type}) : super(key: key);
 
   final Function rebuild;
   final int type;
-  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +105,6 @@ class SortSelector extends StatelessWidget {
 
               Manager.sortAll();
 
-              if (onTap != null) onTap!();
               rebuild();
             },
           ),
