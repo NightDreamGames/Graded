@@ -93,7 +93,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     },
                     selected: defaultValues["theme"],
                     onChange: (value) {
-                      // ignore: invalid_use_of_protected_member
                       appContainerKey.currentState!.setState(() {});
                     },
                   ),

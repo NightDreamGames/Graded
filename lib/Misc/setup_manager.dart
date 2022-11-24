@@ -12,7 +12,6 @@ import 'package:excel/excel.dart';
 import 'package:gradely/Misc/storage.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
-import '../Calculations/year.dart';
 import '../Translations/translations.dart';
 
 class SetupManager {

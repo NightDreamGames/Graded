@@ -124,8 +124,8 @@ class SortSelector extends StatelessWidget {
 }
 
 class PopupSubMenuItem<T> extends PopupMenuEntry<T> {
-  // ignore: use_key_in_widget_constructors
   const PopupSubMenuItem({
+    super.key,
     required this.title,
     required this.items,
     required this.onSelected,
@@ -136,10 +136,10 @@ class PopupSubMenuItem<T> extends PopupMenuEntry<T> {
   final Function(T) onSelected;
 
   @override
-  double get height => kMinInteractiveDimension; //Does not actually affect anything
+  double get height => kMinInteractiveDimension;
 
   @override
-  bool represents(T? value) => false; //Our submenu does not represent any specific value for the parent menu
+  bool represents(T? value) => false;
 
   @override
   State createState() => _PopupSubMenuState<T>();
