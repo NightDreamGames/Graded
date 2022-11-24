@@ -126,7 +126,7 @@ class SetupManager {
     loaded = true;
   }
 
-  static void completeSetup() {
+  static Future<void> completeSetup() async {
     if (Storage.getPreference("school_system") == "lux") {
       if (Storage.getPreference("lux_system") == "classic") {
         if (!hasSections(Storage.getPreference("year"))) {
@@ -143,21 +143,22 @@ class SetupManager {
         }
       }
 
-      fillSubjects();
-
       Storage.setPreference<double>("total_grades", 60.0);
       Storage.setPreference("rounding_mode", "rounding_up");
       Storage.setPreference("round_to", 1);
+      Manager.readPreferences();
+
+      await fillSubjects();
     }
 
     Manager.readPreferences();
-    Manager.years.clear();
-    Manager.years.add(Year());
+    Manager.clear();
+    Manager.calculate();
 
     Storage.setPreference<bool>("is_first_run", false);
   }
 
-  static void fillSubjects() async {
+  static Future<void> fillSubjects() async {
     await readFiles();
 
     Manager.termTemplate.clear();

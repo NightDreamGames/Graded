@@ -40,8 +40,8 @@ class _SetupPageState extends State<SetupPage> {
                 (!SetupManager.hasSections(Storage.getPreference("year")) || Storage.getPreference<String>("section").isNotEmpty)) ||
             Storage.getPreference("school_system") == "other") {
           return FloatingActionButton(
-            onPressed: () {
-              SetupManager.completeSetup();
+            onPressed: () async {
+              await SetupManager.completeSetup();
 
               if (widget.dismissible) {
                 Navigator.popUntil(context, ModalRoute.withName("/home"));

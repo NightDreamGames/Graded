@@ -1,7 +1,7 @@
 name: gradely
 description: A clean and open-source app to track and manage your school grades.
 publish_to: "none"
-version: 2.0.2+43
+version: 2.0.2+44
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -27,13 +27,23 @@ dependencies:
   animations: ^2.0.0
   tuple: ^2.0.1
   collection: ^1.16.0
-  flutter_native_splash: ^2.2.0+1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flappy_translator: ^2.0.0-nullsafety.3
   flutter_launcher_icons: ^0.11.0
   import_sorter: ^4.6.0
+  flutter_native_splash: ^2.2.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  fonts:
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf
+  assets:
+    - assets/
 
 flutter_icons:
   android: true
@@ -50,16 +60,6 @@ flappy_translator:
   file_name: "translations"
   class_name: "Translations"
   depend_on_context: false
-
-flutter:
-  uses-material-design: true
-  generate: true
-  fonts:
-    - family: CustomIcons
-      fonts:
-        - asset: assets/fonts/CustomIcons.ttf
-  assets:
-    - assets/
 
 flutter_native_splash:
   color: "#fdfcff"

@@ -54,16 +54,8 @@ class Manager {
   }
 
   static void clear() {
-    for (Year y in years) {
-      for (Term p in y.terms) {
-        for (Subject s in p.subjects) {
-          for (int i = 0; i < s.tests.length;) {
-            s.removeTest(i, calculate: false);
-          }
-          s.bonus = 0;
-        }
-      }
-    }
+    years.clear();
+    years.add(Year());
 
     calculate();
   }
