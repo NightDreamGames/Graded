@@ -16,7 +16,7 @@ class TermSelector extends StatelessWidget {
     return Manager.maxTerm != 1
         ? PopupMenuButton<String>(
             color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
-            icon: const Icon(Icons.access_time_outlined),
+            icon: Icon(Icons.access_time_outlined, color: Theme.of(context).colorScheme.secondary),
             tooltip: Translations.select_term,
             itemBuilder: (BuildContext context) {
               List<String> a = [];
@@ -74,7 +74,7 @@ class SortSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
-      icon: const Icon(Icons.more_vert),
+      icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.secondary),
       tooltip: Translations.more_options,
       onSelected: (value) {
         if (value == "settings") {
@@ -194,11 +194,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
                 ),
               ),
             ),
-            Icon(
-              Icons.arrow_right,
-              size: 24.0,
-              color: Theme.of(context).iconTheme.color,
-            ),
+            Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.secondary),
           ],
         ),
       ),

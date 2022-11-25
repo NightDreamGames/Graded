@@ -22,9 +22,18 @@ class AppTheme {
 
     ColorScheme scheme = brightness == Brightness.light ? lightTheme() : darkTheme();
 
-    return ThemeData.from(
+    ThemeData theme = ThemeData.from(
       colorScheme: scheme,
       useMaterial3: true,
+    );
+
+    return theme.copyWith(
+      textTheme: theme.textTheme.apply(
+        fontFamily: 'RobotoMono',
+      ),
+      primaryTextTheme: theme.textTheme.apply(
+        fontFamily: 'RobotoMono',
+      ),
     );
   }
 
