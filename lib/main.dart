@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:animations/animations.dart';
@@ -56,7 +55,6 @@ class _AppContainerState extends State<AppContainer> {
   @override
   Widget build(BuildContext context) {
     setOptimalDisplayMode();
-    SystemChrome.setSystemUIOverlayStyle(Theme.of(context).brightness == Brightness.light ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
 
     String brightness = Storage.getPreference("theme");
 

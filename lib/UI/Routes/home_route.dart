@@ -3,6 +3,7 @@ import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Project imports:
 import '../../Calculations/manager.dart';
@@ -30,6 +31,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: Theme.of(context).colorScheme.surface,
+        systemNavigationBarIconBrightness: Theme.of(context).brightness != Brightness.light ? Brightness.dark : Brightness.light,
+        systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
+      ));
+    });
+
     return WillPopScope(
       onWillPop: () {
         if (Manager.currentTerm == -1) {
