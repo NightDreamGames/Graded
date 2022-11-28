@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:io' show Platform;
+
 // Package imports:
 import 'package:url_launcher/url_launcher.dart';
 
@@ -7,6 +10,7 @@ String? encodeQueryParameters(Map<String, String> params) {
 
 final Uri websiteLaunchUri = Uri.parse('https://nightdreamgames.com/');
 final Uri playStoreLaunchUri = Uri.https('play.google.com', '/store/apps/details', {'id': 'com.NightDreamGames.Grade.ly'});
+final Uri appStoreLaunchUri = Uri.parse('https://apps.apple.com/us/app/grade-ly-suivi-de-notes/id6444681284');
 final Uri githubLaunchUri = Uri.parse('https://github.com/NightDreamGames/Grade.ly');
 final Uri emailLaunchUri = Uri(
   scheme: 'mailto',
@@ -25,7 +29,13 @@ void launchURL(int type) async {
       link = websiteLaunchUri;
       break;
     case 1:
-      link = playStoreLaunchUri;
+      if (Platform.isAndroid) {
+        link = playStoreLaunchUri;
+      } else if (Platform.isIOS) {
+        link = appStoreLaunchUri;
+      } else {
+        link = websiteLaunchUri;
+      }
       break;
     case 2:
       link = githubLaunchUri;
