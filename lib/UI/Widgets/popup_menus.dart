@@ -162,7 +162,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
         }
         widget.onSelected.call(value);
       },
-      offset: Offset.zero,
+      offset: const Offset(0, -8),
       itemBuilder: (BuildContext context) {
         return widget.items
             .map(
@@ -173,21 +173,20 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
             )
             .toList();
       },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 8.0, top: 12.0, bottom: 12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          IgnorePointer(
+            child: PopupMenuItem(
+              enabled: true,
               child: Text(
                 widget.title,
-                style: PopupMenuTheme.of(context).textStyle ?? Theme.of(context).textTheme.subtitle1!,
               ),
             ),
-            Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.onSurfaceVariant),
-          ],
-        ),
+          ),
+          Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.onSurfaceVariant),
+        ],
       ),
     );
   }
