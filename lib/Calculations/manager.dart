@@ -82,9 +82,11 @@ class Manager {
 
       for (int i = 0; i < currentYear.terms.length; i++) {
         for (int j = 0; j < currentYear.terms[i].subjects.length; j++) {
-          if (currentYear.terms[i].subjects[j].result != -1) {
-            yearTerm.subjects[j].addTest(Test(currentYear.terms[i].subjects[j].result, totalGrades, getTitle(termOverride: i)), calculate: false);
-          }
+          bool empty = currentYear.terms[i].subjects[j].result == -1;
+
+          yearTerm.subjects[j].addTest(
+              Test(!empty ? currentYear.terms[i].subjects[j].result : 0, totalGrades, getTitle(termOverride: i), empty: empty),
+              calculate: false);
         }
       }
 

@@ -89,7 +89,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                 );
               } else {
                 return Text(
-                  Translations.average,
+                  Translations.yearly_average,
                   overflow: TextOverflow.fade,
                   softWrap: false,
                   style: const TextStyle(

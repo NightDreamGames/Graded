@@ -26,7 +26,7 @@ class TermSelector extends StatelessWidget {
                   a = [
                     Translations.semester_1,
                     Translations.semester_2,
-                    Translations.year,
+                    Translations.year_overview,
                   ];
                   break;
                 case 3:
@@ -34,7 +34,7 @@ class TermSelector extends StatelessWidget {
                     Translations.trimester_1,
                     Translations.trimester_2,
                     Translations.trimester_3,
-                    Translations.year,
+                    Translations.year_overview,
                   ];
                   break;
               }

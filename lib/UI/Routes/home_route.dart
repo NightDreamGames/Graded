@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
             ResultRow(
               result: term.getResult(),
               leading: Text(
-                Translations.average,
+                Manager.currentTerm != -1 ? Translations.average : Translations.yearly_average,
                 overflow: TextOverflow.fade,
                 softWrap: false,
                 style: const TextStyle(

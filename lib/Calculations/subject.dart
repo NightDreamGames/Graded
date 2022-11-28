@@ -89,10 +89,18 @@ class Subject implements SortInterface {
   }
 
   String getResult() {
-    if (result > -1) {
-      return Calculator.format(result);
-    } else {
+    bool empty = true;
+    for (Test t in tests) {
+      if (!t.empty) {
+        empty = false;
+        break;
+      }
+    }
+
+    if (empty || result == -1) {
       return "-";
+    } else {
+      return Calculator.format(result);
     }
   }
 

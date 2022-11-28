@@ -51,10 +51,18 @@ class Term {
   }
 
   String getResult() {
-    if (result > -1) {
-      return Calculator.format(result);
-    } else {
+    bool empty = true;
+    for (Subject s in subjects) {
+      if (s.getResult() != "-") {
+        empty = false;
+        break;
+      }
+    }
+
+    if (empty || result == -1) {
       return "-";
+    } else {
+      return Calculator.format(result);
     }
   }
 

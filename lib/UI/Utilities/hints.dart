@@ -57,7 +57,7 @@ String getTitle({int? termOverride}) {
         case 2:
           return Translations.semester_1;
         case 1:
-          return Translations.year;
+          return Translations.year_overview;
       }
       break;
     case 1:
@@ -71,7 +71,7 @@ String getTitle({int? termOverride}) {
     case 2:
       return Translations.trimester_3;
     case -1:
-      return Translations.year;
+      return Translations.year_overview;
   }
 
   return Translations.app_name;

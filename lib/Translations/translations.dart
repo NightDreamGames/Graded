@@ -219,6 +219,10 @@ class Translations {
 
   static String get year => _getText("year");
 
+  static String get year_overview => _getText("year_overview");
+
+  static String get yearly_average => _getText("yearly_average");
+
   static String get yes => _getText("yes");
 
   static late Map<String, String> _localizedValues;
@@ -329,6 +333,8 @@ class Translations {
     "up": "Up",
     "variant": "Variant",
     "year": "Year",
+    "year_overview": "Year overview",
+    "yearly_average": "Yearly average",
     "yes": "Yes",
   };
 
@@ -438,6 +444,8 @@ class Translations {
     "up": "Vers le haut",
     "variant": "Variante",
     "year": "Année",
+    "year_overview": "Aperçu de l'année",
+    "yearly_average": "Moyenne annuelle",
     "yes": "Oui",
   };
 
@@ -547,6 +555,8 @@ class Translations {
     "up": "Nach oben",
     "variant": "Variante",
     "year": "Jahr",
+    "year_overview": "Jahresübersicht",
+    "yearly_average": "Jahresdurchschnitt",
     "yes": "Ja",
   };
 
@@ -656,6 +666,8 @@ class Translations {
     "up": "No uewen",
     "variant": "Variante",
     "year": "Joer",
+    "year_overview": "Joresiwwersiicht",
+    "yearly_average": "Joresmoyenne",
     "yes": "Jo",
   };
 
