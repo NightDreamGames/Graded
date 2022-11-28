@@ -440,6 +440,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
         builder: (dialogContext) {
           return SimpleDialog(
             backgroundColor: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
+            elevation: 0,
             title: Center(
               child: getTitle(),
             ),

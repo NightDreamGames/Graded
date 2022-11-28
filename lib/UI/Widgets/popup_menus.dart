@@ -182,7 +182,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
             Expanded(
               child: Text(
                 widget.title,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: PopupMenuTheme.of(context).textStyle ?? Theme.of(context).textTheme.subtitle1!,
               ),
             ),
             Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.onSurfaceVariant),

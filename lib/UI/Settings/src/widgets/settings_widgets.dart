@@ -1098,7 +1098,10 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
   Widget _buildRadioTiles(BuildContext context, T groupValue, OnChanged<T> onChanged) {
     var radioList = widget.values.entries.map<Widget>((MapEntry<T, String> entry) {
       return Material(
-        color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
+        color: Theme.of(context).colorScheme.surface,
+        surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+        elevation: 3,
+        shadowColor: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: _SettingsTile(
