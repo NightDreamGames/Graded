@@ -30,6 +30,8 @@ class Manager {
 
   static int maxTerm = 1;
 
+  static bool deserializationError = false;
+
   static Future<void> init() async {
     await Compatibility.upgradeDataVersion();
     readPreferences();

@@ -179,11 +179,13 @@ class Translations {
 
   static String get sort_by => _getText("sort_by");
 
+  static String get storage_error => _getText("storage_error");
+
   static String get subject => _getText("subject");
 
-  static String get system_language => _getText("system_language");
-
   static String get system => _getText("system");
+
+  static String get system_language => _getText("system_language");
 
   static String get term => _getText("term");
 
@@ -307,9 +309,10 @@ class Translations {
     "settings": "Settings",
     "setup": "Setup",
     "sort_by": "Sort by",
+    "storage_error": "There was an error loading your saved data, so it has been deleted.",
     "subject": "Subject",
-    "system_language": "System language",
     "system": "System",
+    "system_language": "System language",
     "term": "Term",
     "test": "Test",
     "theme": "Theme",
@@ -415,9 +418,10 @@ class Translations {
     "settings": "Options",
     "setup": "Configuration",
     "sort_by": "Trier par",
+    "storage_error": "Une erreur s'est produite lors du chargement de vos données sauvegardées, elles ont donc été supprimées.",
     "subject": "Matière",
-    "system_language": "Langue du système",
     "system": "Système",
+    "system_language": "Langue du système",
     "term": "Période",
     "test": "Devoir",
     "theme": "Thème",
@@ -523,9 +527,10 @@ class Translations {
     "settings": "Einstellungen",
     "setup": "Einrichtung",
     "sort_by": "Sortieren",
+    "storage_error": "Es ist ein Fehler beim Laden Ihrer gespeicherten Daten aufgetreten, daher wurden sie gelöscht.",
     "subject": "Fach",
-    "system_language": "Systemsprache",
     "system": "System",
+    "system_language": "Systemsprache",
     "term": "Periode",
     "test": "Prüfung",
     "theme": "Design",
@@ -631,9 +636,10 @@ class Translations {
     "settings": "Astellungen",
     "setup": "Ariichtung",
     "sort_by": "Sortéieren",
+    "storage_error": "Et ass e Feeler beim Lueden vun ären gespäicherten Donnéeën opgetrueden, dofir goufen se geläscht.",
     "subject": "Fach",
-    "system_language": "Systemsprooch",
     "system": "System",
+    "system_language": "Systemsprooch",
     "term": "Periode",
     "test": "Prüfung",
     "theme": "Design",

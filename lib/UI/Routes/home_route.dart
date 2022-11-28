@@ -37,65 +37,79 @@ class _HomePageState extends State<HomePage> {
         systemNavigationBarIconBrightness: Theme.of(context).brightness != Brightness.light ? Brightness.dark : Brightness.light,
         systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
       ));
+
+      if (Manager.deserializationError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(Translations.storage_error),
+            backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+            elevation: 3,
+          ),
+        );
+
+        Manager.deserializationError = false;
+      }
     });
 
-    return WillPopScope(
-      onWillPop: () {
-        if (Manager.currentTerm == -1) {
-          Manager.currentTerm = Manager.lastTerm;
-          rebuild();
-        } else {
-          exit(0);
-        }
+    return Scaffold(
+      body: WillPopScope(
+        onWillPop: () {
+          if (Manager.currentTerm == -1) {
+            Manager.currentTerm = Manager.lastTerm;
+            rebuild();
+          } else {
+            exit(0);
+          }
 
-        return Future<bool>.value(false);
-      },
-      child: CustomScrollView(
-        primary: true,
-        slivers: <Widget>[
-          SliverAppBar.large(
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-            flexibleSpace: ScrollingTitle(title: getTitle()),
-            actions: <Widget>[
-              TermSelector(rebuild: rebuild),
-              SortSelector(rebuild: rebuild, type: 0),
-            ],
-          ),
-          ResultRow(
-            rebuild,
-            result: term.getResult(),
-            leading: Text(
-              Translations.average,
-              overflow: TextOverflow.fade,
-              softWrap: false,
-              style: const TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.bold,
+          return Future<bool>.value(false);
+        },
+        child: CustomScrollView(
+          primary: true,
+          slivers: <Widget>[
+            SliverAppBar.large(
+              centerTitle: true,
+              automaticallyImplyLeading: false,
+              flexibleSpace: ScrollingTitle(title: getTitle()),
+              actions: <Widget>[
+                TermSelector(rebuild: rebuild),
+                SortSelector(rebuild: rebuild, type: 0),
+              ],
+            ),
+            ResultRow(
+              rebuild,
+              result: term.getResult(),
+              leading: Text(
+                Translations.average,
+                overflow: TextOverflow.fade,
+                softWrap: false,
+                style: const TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return TextRow(
-                  leading: term.subjects[index].name,
-                  trailing: term.subjects[index].getResult(),
-                  icon: Icons.navigate_next,
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      "/subject",
-                      arguments: index,
-                    ).then((_) => rebuild());
-                  },
-                );
-              },
-              addAutomaticKeepAlives: true,
-              childCount: term.subjects.length,
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return TextRow(
+                    leading: term.subjects[index].name,
+                    trailing: term.subjects[index].getResult(),
+                    icon: Icons.navigate_next,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "/subject",
+                        arguments: index,
+                      ).then((_) => rebuild());
+                    },
+                  );
+                },
+                addAutomaticKeepAlives: true,
+                childCount: term.subjects.length,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

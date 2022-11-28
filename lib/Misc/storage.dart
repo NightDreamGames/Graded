@@ -47,13 +47,18 @@ class Storage {
 
   static Future<void> deserialize() async {
     if (existsPreference("data")) {
-      var data = jsonDecode(getPreference<String>("data")) as List;
-      List<Year> years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
-      Manager.years = years;
+      try {
+        var data = jsonDecode(getPreference<String>("data")) as List;
+        List<Year> years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
+        Manager.years = years;
 
-      var termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
-      List<Subject> tT = termTemplateList.map((templateJson) => Subject.fromJson(templateJson)).toList();
-      Manager.termTemplate = tT;
+        var termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
+        List<Subject> tT = termTemplateList.map((templateJson) => Subject.fromJson(templateJson)).toList();
+        Manager.termTemplate = tT;
+      } catch (e) {
+        Manager.deserializationError = true;
+        Manager.clear();
+      }
     }
   }
 
