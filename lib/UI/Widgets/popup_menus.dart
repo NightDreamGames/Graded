@@ -168,13 +168,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
             .map(
               (item) => PopupMenuItem<T>(
                 value: item,
-                child: Text(
-                  item.toString(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
+                child: Text(item.toString()),
               ),
             )
             .toList();
@@ -188,10 +182,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
             Expanded(
               child: Text(
                 widget.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
             Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.secondary),
