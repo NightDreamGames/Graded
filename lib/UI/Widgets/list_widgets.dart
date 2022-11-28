@@ -60,10 +60,9 @@ class TextRow extends StatelessWidget {
 }
 
 class ResultRow extends StatelessWidget {
-  const ResultRow(this.rebuild, {Key? key, required this.result, required this.leading}) : super(key: key);
+  const ResultRow({Key? key, required this.result, required this.leading}) : super(key: key);
 
   final String result;
-  final Function rebuild;
   final Widget leading;
 
   @override

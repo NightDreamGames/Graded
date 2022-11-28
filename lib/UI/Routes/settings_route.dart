@@ -93,7 +93,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     },
                     selected: defaultValues["theme"],
                     onChange: (value) {
-                      appContainerKey.currentState!.setState(() {});
+                      appContainerKey.currentState?.setState(() {});
                     },
                   ),
                   RadioModalSettingsTile<String>(
@@ -134,7 +134,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       return SimpleSettingsTile(
                         icon: Icons.info_outline,
                         title: Translations.app_version,
-                        subtitle: snapshot.data != null ? snapshot.data as String : "",
+                        subtitle: snapshot.data as String? ?? "2.0.0",
                         onTap: () {
                           launchURL(1);
                         },

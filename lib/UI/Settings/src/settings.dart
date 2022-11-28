@@ -217,11 +217,7 @@ class _ValueChangeObserverState<T> extends State<ValueChangeObserver<T>> {
     //if [cacheKey] is not found, add new cache in the [cacheProvider] with [defaultValue]
     final containsKey = Settings.containsKey(cacheKey) ?? false;
     if (!containsKey) {
-      if (defaultValue != null) {
-        Settings.setValue<T>(cacheKey, defaultValue as T);
-      } else {
-        Settings.setValue<T>(cacheKey, "" as T);
-      }
+      Settings.setValue<T>(cacheKey, defaultValue ?? "" as T);
     }
 
     // get cache value from the [cacheProvider]

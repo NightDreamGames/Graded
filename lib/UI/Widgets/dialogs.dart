@@ -70,12 +70,11 @@ class _EasyDialogState extends State<EasyDialog> {
 
   Widget getTitle() {
     return Column(children: [
-      widget.icon != null
-          ? Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Icon(widget.icon, color: Theme.of(context).colorScheme.secondary),
-            )
-          : Container(),
+      if (widget.icon != null)
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Icon(widget.icon, color: Theme.of(context).colorScheme.secondary),
+        ),
       Text(
         widget.title,
         style: Theme.of(context).textTheme.headlineSmall,

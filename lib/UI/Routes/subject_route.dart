@@ -31,7 +31,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
 
   @override
   Widget build(BuildContext context) {
-    subjectIndex = ModalRoute.of(context)!.settings.arguments as int;
+    subjectIndex = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
 
     return Scaffold(
       floatingActionButton: Manager.currentTerm != -1
@@ -54,7 +54,6 @@ class _SubjectRouteState extends State<SubjectRoute> {
             ],
           ),
           ResultRow(
-            rebuild,
             result: subject.getResult(),
             leading: () {
               if (Manager.currentTerm != -1) {

@@ -76,7 +76,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             ResultRow(
-              rebuild,
               result: term.getResult(),
               leading: Text(
                 Translations.average,
