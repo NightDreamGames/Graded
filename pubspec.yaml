@@ -43,7 +43,7 @@ flutter:
       fonts:
         - asset: assets/fonts/CustomIcons.ttf
   assets:
-    - assets/
+    - assets/class_data/
 
 flutter_icons:
   android: true

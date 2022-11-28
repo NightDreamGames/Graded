@@ -15,8 +15,8 @@ import '../Calculations/subject.dart';
 import '../Translations/translations.dart';
 
 class SetupManager {
-  static String classicPath = "assets/Classique.xlsx";
-  static String generalPath = "assets/General.xlsx";
+  static String classicPath = "assets/class_data/Classique.xlsx";
+  static String generalPath = "assets/class_data/General.xlsx";
 
   static List<Excel?> excelFiles = [null, null];
 
