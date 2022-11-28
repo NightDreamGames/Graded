@@ -185,7 +185,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
                 style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
-            Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.secondary),
+            Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.onSurfaceVariant),
           ],
         ),
       ),
