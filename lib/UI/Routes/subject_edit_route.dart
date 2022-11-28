@@ -41,40 +41,35 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                if (index != Manager.termTemplate.length) {
-                  GlobalKey listKey = GlobalKey();
-                  return TextRow(
-                    listKey: listKey,
-                    leading: Manager.termTemplate[index].name,
-                    trailing: Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
-                    onTap: () async {
-                      showListMenu(context, listKey).then((result) {
-                        if (result == "edit") {
-                          showSubjectDialog(context, index: index).then((value) => rebuild());
-                        } else if (result == "delete") {
-                          Manager.termTemplate.removeAt(index);
-                          Manager.sortSubjectsAZ();
+                GlobalKey listKey = GlobalKey();
+                return TextRow(
+                  listKey: listKey,
+                  leading: Manager.termTemplate[index].name,
+                  trailing: Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
+                  onTap: () async {
+                    showListMenu(context, listKey).then((result) {
+                      if (result == "edit") {
+                        showSubjectDialog(context, index: index).then((value) => rebuild());
+                      } else if (result == "delete") {
+                        Manager.termTemplate.removeAt(index);
+                        Manager.sortSubjectsAZ();
 
-                          for (Term p in Manager.getCurrentYear().terms) {
-                            p.subjects.removeAt(index);
-                          }
-
-                          Manager.calculate();
-                          rebuild();
+                        for (Term p in Manager.getCurrentYear().terms) {
+                          p.subjects.removeAt(index);
                         }
-                      });
-                    },
-                  );
-                } else {
-                  return const Padding(
-                    padding: EdgeInsets.only(bottom: 88),
-                  );
-                }
+
+                        Manager.calculate();
+                        rebuild();
+                      }
+                    });
+                  },
+                );
               },
               addAutomaticKeepAlives: true,
-              childCount: Manager.termTemplate.length + 1,
+              childCount: Manager.termTemplate.length,
             ),
           ),
+          const SliverPadding(padding: EdgeInsets.only(bottom: 88)),
         ],
       ),
     );

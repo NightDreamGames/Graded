@@ -104,33 +104,30 @@ class _SubjectRouteState extends State<SubjectRoute> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                if (index != subject.tests.length) {
-                  GlobalKey listKey = GlobalKey();
-                  return TextRow(
-                    listKey: listKey,
-                    leading: subject.tests[index].name,
-                    trailing: subject.tests[index].toString(),
-                    onTap: () async {
-                      if (Manager.currentTerm != -1) {
-                        showListMenu(context, listKey).then((result) {
-                          if (result == "edit") {
-                            showTestDialog(context, subject, index: index).then((value) => rebuild());
-                          } else if (result == "delete") {
-                            subject.removeTest(index);
-                            rebuild();
-                          }
-                        });
-                      }
-                    },
-                  );
-                } else {
-                  return const Padding(padding: EdgeInsets.only(bottom: 88));
-                }
+                GlobalKey listKey = GlobalKey();
+                return TextRow(
+                  listKey: listKey,
+                  leading: subject.tests[index].name,
+                  trailing: subject.tests[index].toString(),
+                  onTap: () async {
+                    if (Manager.currentTerm != -1) {
+                      showListMenu(context, listKey).then((result) {
+                        if (result == "edit") {
+                          showTestDialog(context, subject, index: index).then((value) => rebuild());
+                        } else if (result == "delete") {
+                          subject.removeTest(index);
+                          rebuild();
+                        }
+                      });
+                    }
+                  },
+                );
               },
               addAutomaticKeepAlives: true,
-              childCount: subject.tests.length + 1,
+              childCount: subject.tests.length,
             ),
           ),
+          const SliverPadding(padding: EdgeInsets.only(bottom: 88)),
         ],
       ),
     );

@@ -165,6 +165,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ],
           ),
         ),
+        const SliverPadding(padding: EdgeInsets.only(bottom: 16)),
       ],
     );
   }

@@ -152,6 +152,7 @@ class _SetupPageState extends State<SetupPage> {
               ],
             ),
           ),
+          const SliverPadding(padding: EdgeInsets.only(bottom: 88)),
         ],
       ),
     );

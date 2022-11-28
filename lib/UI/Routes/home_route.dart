@@ -108,6 +108,7 @@ class _HomePageState extends State<HomePage> {
                 childCount: term.subjects.length,
               ),
             ),
+            const SliverPadding(padding: EdgeInsets.only(bottom: 16)),
           ],
         ),
       ),
