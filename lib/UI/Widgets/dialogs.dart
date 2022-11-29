@@ -52,6 +52,7 @@ class _EasyDialogState extends State<EasyDialog> {
   Widget build(BuildContext context) {
     return SimpleDialog(
       backgroundColor: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
+      elevation: 0,
       title: Center(
         child: getTitle(),
       ),
