@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
@@ -45,7 +46,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
         Manager.calculate();
       },
       validator: (String? input) {
-        if (input == null || input.isEmpty || double.tryParse(input) != null) {
+        if (input == null || input.isEmpty || Calculator.tryParse(input) != null) {
           return null;
         }
         return Translations.invalid;

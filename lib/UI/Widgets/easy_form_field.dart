@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../Calculations/calculator.dart';
 import '../../Translations/translations.dart';
 
 class EasyFormField extends StatelessWidget {
@@ -40,7 +41,7 @@ class EasyFormField extends StatelessWidget {
         textCapitalization: TextCapitalization.sentences,
         validator: _numeric
             ? (String? input) {
-                if (input == null || input.isEmpty || double.tryParse(input) != null) {
+                if (input == null || input.isEmpty || Calculator.tryParse(input) != null) {
                   return null;
                 }
                 return Translations.invalid;

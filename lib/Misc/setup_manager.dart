@@ -10,6 +10,7 @@ import 'package:excel/excel.dart';
 
 // Project imports:
 import 'package:gradely/Misc/storage.dart';
+import '../Calculations/calculator.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Translations/translations.dart';
@@ -182,7 +183,7 @@ class SetupManager {
     for (int i = 1; i < sheet.maxRows; i++) {
       if (sheet.row(i)[position] != null) {
         String name = sheet.row(i)[0]!.value.toString();
-        double coefficient = double.tryParse(sheet.row(i)[position]!.value.toString()) ?? 1;
+        double coefficient = Calculator.tryParse(sheet.row(i)[position]!.value.toString()) ?? 1;
 
         Manager.termTemplate.add(Subject(name, coefficient));
       }

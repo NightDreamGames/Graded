@@ -188,11 +188,17 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
         icon: add ? Icons.add : Icons.edit,
         onConfirm: () {
           if (add) {
-            subject.addTest(Test(double.tryParse(gradeController.text) ?? 1, double.tryParse(maximumController.text) ?? Manager.totalGrades,
-                nameController.text.isEmpty ? getTestHint(subject) : nameController.text));
+            subject.addTest(
+              Test(Calculator.tryParse(gradeController.text) ?? 1, Calculator.tryParse(maximumController.text) ?? Manager.totalGrades,
+                  nameController.text.isEmpty ? getTestHint(subject) : nameController.text),
+            );
           } else {
-            subject.editTest(index, double.tryParse(gradeController.text) ?? 1, double.tryParse(maximumController.text) ?? Manager.totalGrades,
-                nameController.text.isEmpty ? getTestHint(subject) : nameController.text);
+            subject.editTest(
+              index,
+              Calculator.tryParse(gradeController.text) ?? 1,
+              Calculator.tryParse(maximumController.text) ?? Manager.totalGrades,
+              nameController.text.isEmpty ? getTestHint(subject) : nameController.text,
+            );
           }
 
           return true;
@@ -260,7 +266,7 @@ Future<void> showSubjectDialog(BuildContext context, {int? index}) async {
         icon: add ? Icons.add : Icons.edit,
         onConfirm: () {
           String name = nameController.text.isEmpty ? getSubjectHint() : nameController.text;
-          double coefficient = double.tryParse(coeffController.text) ?? 1.0;
+          double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
           if (add) {
             Manager.termTemplate.add(Subject(name, coefficient));
@@ -270,7 +276,7 @@ Future<void> showSubjectDialog(BuildContext context, {int? index}) async {
             }
           } else {
             Manager.termTemplate[index].name = nameController.text.isEmpty ? getSubjectHint() : nameController.text;
-            Manager.termTemplate[index].coefficient = double.tryParse(coeffController.text) ?? 1.0;
+            Manager.termTemplate[index].coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
             Manager.sortSubjectsAZ();
 

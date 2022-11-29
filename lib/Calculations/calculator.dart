@@ -74,17 +74,24 @@ class Calculator {
     }
   }
 
-  static String format(double n, {bool ignoreZero = false}) {
-    String a;
-    if (n == n.toInt()) {
-      a = sprintf("%d", [n.toInt()]);
+  static double? tryParse(String? input) {
+    if (input == null) return null;
+    return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
+  }
+
+  static String format(double d, {bool ignoreZero = false}) {
+    String result;
+
+    if (d == d.toInt()) {
+      result = sprintf("%d", [d.toInt()]);
     } else {
-      a = sprintf("%s", [n]);
+      result = sprintf("%s", [d]);
     }
-    if (!ignoreZero && n < 10 && n % 1 == 0) {
-      return 0.toString() + a;
+
+    if (!ignoreZero && d < 10 && d > 0 && d % 1 == 0) {
+      return 0.toString() + result;
     } else {
-      return a;
+      return result;
     }
   }
 }
