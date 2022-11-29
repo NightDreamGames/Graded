@@ -173,20 +173,19 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
             )
             .toList();
       },
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          IgnorePointer(
-            child: PopupMenuItem(
-              enabled: true,
-              child: Text(
+      child: IgnorePointer(
+        child: PopupMenuItem(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
                 widget.title,
               ),
-            ),
+              Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.onSurfaceVariant),
+            ],
           ),
-          Icon(Icons.arrow_right, size: 24.0, color: Theme.of(context).colorScheme.onSurfaceVariant),
-        ],
+        ),
       ),
     );
   }
