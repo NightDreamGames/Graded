@@ -1,37 +1,39 @@
 // Project imports:
-import 'package:gradely/Calculations/calculator.dart';
-import 'sort_interface.dart';
+import 'calculation_object.dart';
+import 'calculator.dart';
 
-class Test implements SortInterface {
-  double grade1 = 0;
-  double grade2 = 0;
+class Test extends CalculationObject {
   @override
-  String name = "";
+  double? value1;
   @override
-  double get result => grade1 / grade2;
-  @override
-  double get coefficient => 0;
-  bool empty = false;
+  double value2 = 0;
 
-  Test(this.grade1, this.grade2, this.name, {this.empty = false});
+  Test(this.value1, this.value2, String name, {bool isEmpty = false}) {
+    super.name = name;
+    result = isEmpty ? null : Calculator.calculate([this]);
+    if (result == null) value1 = null;
+  }
 
   @override
   String toString() {
-    if (!empty) {
-      return "${Calculator.format(grade1)}/${Calculator.format(grade2)}";
+    if (result != null) {
+      return "${Calculator.format(value1)}/${Calculator.format(value2)}";
     } else {
       return "-";
     }
   }
 
-  Test.fromJson(Map<String, dynamic> json)
-      : grade1 = json['grade1'],
-        grade2 = json['grade2'],
-        name = json['name'];
+  Test.fromJson(Map<String, dynamic> json) {
+    value1 = json['grade1'];
+    value2 = json['grade2'];
+    name = json['name'];
+    result = Calculator.calculate([this]);
+    if (result == null) value1 = null;
+  }
 
   Map<String, dynamic> toJson() => {
-        "grade1": grade1,
-        "grade2": grade2,
+        "grade1": value1,
+        "grade2": value2,
         "name": name,
       };
 }

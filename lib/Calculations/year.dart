@@ -1,15 +1,11 @@
-// Package imports:
-import 'package:tuple/tuple.dart';
-
 // Project imports:
 import 'package:gradely/Calculations/manager.dart';
+import 'calculation_object.dart';
 import 'calculator.dart';
 import 'term.dart';
 
-class Year {
+class Year extends CalculationObject {
   List<Term> terms = [];
-
-  double result = 0;
 
   Year() {
     addTerms();
@@ -26,18 +22,15 @@ class Year {
   }
 
   void calculate() {
-    List<Tuple2<double, double>> data = [];
-
     for (Term t in terms) {
       t.calculate();
-      data.add(Tuple2(t.result, 1.0));
     }
 
-    result = Calculator.calculate(data);
+    result = Calculator.calculate(terms);
   }
 
   String getResult() {
-    if (result > -1) {
+    if (result != null) {
       return Calculator.format(result);
     } else {
       return "-";

@@ -1,15 +1,11 @@
-// Package imports:
-import 'package:tuple/tuple.dart';
-
 // Project imports:
+import 'calculation_object.dart';
 import 'calculator.dart';
 import 'manager.dart';
 import 'subject.dart';
 
-class Term {
+class Term extends CalculationObject {
   List<Subject> subjects = [];
-
-  double result = 0;
 
   Term() {
     if (Manager.termTemplate.isNotEmpty) {
@@ -20,30 +16,11 @@ class Term {
   }
 
   void calculate() {
-    List<Tuple2<double, double>> data = [];
-
     for (Subject s in subjects) {
       s.calculate();
-      data.add(Tuple2(s.result, s.coefficient));
     }
 
-    result = Calculator.calculate(data);
-  }
-
-  List<String> getSubjects() {
-    List<String> a = [];
-    for (int i = 0; i < subjects.length; i++) {
-      a.add(subjects[i].name);
-    }
-    return a;
-  }
-
-  List<String> getGrades() {
-    List<String> a = [];
-    for (int i = 0; i < subjects.length; i++) {
-      a.add((subjects[i].result == -1) ? "-" : Calculator.format(subjects[i].result));
-    }
-    return a;
+    result = Calculator.calculate(subjects);
   }
 
   void sort({int? sortModeOverride}) {
@@ -59,7 +36,7 @@ class Term {
       }
     }
 
-    if (empty || result == -1) {
+    if (empty || result == null) {
       return "-";
     } else {
       return Calculator.format(result);

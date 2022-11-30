@@ -2,51 +2,65 @@
 import 'package:collection/collection.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:sprintf/sprintf.dart';
-import 'package:tuple/tuple.dart';
 
 // Project imports:
-import 'package:gradely/Calculations/sort_interface.dart';
+import 'package:gradely/Calculations/calculation_object.dart';
 import '../Misc/storage.dart';
+import 'manager.dart';
 
 class Calculator {
-  static void sortObjects(List<SortInterface> data, int sortMode, {int? sortModeOverride}) {
+  static void sortObjects(List<CalculationObject> data, int sortMode, {int? sortModeOverride}) {
     if (data.length >= 2) {
       switch (sortModeOverride ?? Storage.getPreference<int>("sort_mode$sortMode")) {
         case 0:
           insertionSort(data,
-              compare: (SortInterface a, SortInterface b) => removeDiacritics(a.name.toLowerCase())
+              compare: (CalculationObject a, CalculationObject b) => removeDiacritics(a.name.toLowerCase())
                   .replaceAll("[^\\p{ASCII}]", "")
                   .compareTo(removeDiacritics(b.name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "")));
           break;
         case 1:
-          insertionSort(data, compare: (SortInterface a, SortInterface b) => b.result.compareTo(a.result));
+          insertionSort(data, compare: (CalculationObject a, CalculationObject b) {
+            if (a.result == null && b.result == null) {
+              return 0;
+            } else if (b.result == null) {
+              return 1;
+            } else if (a.result == null) {
+              return -1;
+            }
+
+            return b.result!.compareTo(a.result!);
+          });
           break;
         case 2:
-          insertionSort(data, compare: (SortInterface a, SortInterface b) => b.coefficient.compareTo(a.coefficient));
+          insertionSort(data, compare: (CalculationObject a, CalculationObject b) => b.coefficient.compareTo(a.coefficient));
           break;
       }
     }
   }
 
-  static double calculate(List<Tuple2<double, double>> data) {
+  static double? calculate(List<CalculationObject> data, {int bonus = 0}) {
     if (data.isEmpty) {
-      return -1;
+      return null;
     }
 
-    double a = 0;
-    double b = 0;
+    double numerator = 0;
+    double denominator = 0;
+    bool empty = true;
 
-    for (int i = 0; i < data.length; i++) {
-      if (data[i].item1 != -1) {
-        a += data[i].item1 * data[i].item2;
-        b += data[i].item2;
+    for (CalculationObject c in data) {
+      if (c.value1 != null) {
+        empty = false;
+        numerator += c.value1!;
+        denominator += c.value2;
       }
     }
 
-    if (b > 0) {
-      return round(a / b);
+    double result = numerator * (Manager.totalGrades / denominator) + bonus;
+
+    if (!empty) {
+      return Calculator.round(result);
     } else {
-      return -1;
+      return null;
     }
   }
 
@@ -79,7 +93,11 @@ class Calculator {
     return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
   }
 
-  static String format(double d, {bool ignoreZero = false}) {
+  static String format(double? d, {bool ignoreZero = false}) {
+    if (d == null) {
+      return "-";
+    }
+
     String result;
 
     if (d == d.toInt()) {

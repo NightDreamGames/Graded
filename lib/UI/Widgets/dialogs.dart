@@ -176,8 +176,8 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
   nameController.clear();
 
   bool add = index == null;
-  gradeController.text = add ? "" : Calculator.format(subject.tests[index].grade1, ignoreZero: true);
-  maximumController.text = add ? "" : Calculator.format(subject.tests[index].grade2, ignoreZero: true);
+  gradeController.text = add ? "" : Calculator.format(subject.tests[index].value1, ignoreZero: true);
+  maximumController.text = add ? "" : Calculator.format(subject.tests[index].value2, ignoreZero: true);
   nameController.text = add ? "" : subject.tests[index].name;
 
   return showDialog(
