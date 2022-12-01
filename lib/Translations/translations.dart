@@ -229,7 +229,7 @@ class Translations {
 
   static const _enValues = {
     "about": "About",
-    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text": "NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus",
     "add": "Add",
     "add_subject": "Add subject",
     "add_subjects": "Add subjects",
@@ -340,7 +340,7 @@ class Translations {
 
   static const _frValues = {
     "about": "À propos",
-    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text": "NightDream Games\nDéveloppeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus",
     "add": "Ajouter",
     "add_subject": "Ajouter une matière",
     "add_subjects": "Ajouter des matières",
@@ -451,7 +451,7 @@ class Translations {
 
   static const _deValues = {
     "about": "Informationen",
-    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text": "NightDream Games\nEntwickler - Damien Pirotte\nVisuelle Identität - Ellia Walrave\nTesting - Louis Colbus",
     "add": "Hinzufügen",
     "add_subject": "Fach hinzufügen",
     "add_subjects": "Fächer hinzufügen",
@@ -562,7 +562,7 @@ class Translations {
 
   static const _luValues = {
     "about": "Informatiounen",
-    "about_text": "NightDream Games - FauconSpartiate\nVisual identity - Ellia Walrave\nTesting - AigleSpartiate",
+    "about_text": "NightDream Games\nEntwéckler - Damien Pirotte\nVisuell Identitéit - Ellia Walrave\nTesting - Louis Colbus",
     "add": "Zoufügen",
     "add_subject": "Fach zoufügen",
     "add_subjects": "Fächer zoufügen",

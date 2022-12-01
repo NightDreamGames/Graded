@@ -1,7 +1,7 @@
 name: gradely
 description: A clean and open-source app to track and manage your school grades.
 publish_to: "none"
-version: 2.0.2+44
+version: 2.0.3+45
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -47,6 +47,13 @@ flutter:
   assets:
     - assets/class_data/
 
+flappy_translator:
+  input_file_path: "assets/Localizations.xlsx"
+  output_dir: "lib/Translations"
+  file_name: "translations"
+  class_name: "Translations"
+  depend_on_context: false
+
 flutter_icons:
   android: true
   min_sdk_android: 21
@@ -56,23 +63,16 @@ flutter_icons:
   image_path: "assets/icons/icon.png"
   remove_alpha_ios: true
 
-flappy_translator:
-  input_file_path: "assets/Localizations.xlsx"
-  output_dir: "lib/Translations"
-  file_name: "translations"
-  class_name: "Translations"
-  depend_on_context: false
-
 flutter_native_splash:
-  color: "#fdfcff"
-  color_dark: "#1a1c1e"
+  color: "#FDFCFF"
+  color_dark: "#1A1C1E"
   image: assets/icons/icon-round.png
   android_12:
-    color: "#fdfcff"
+    color: "#FDFCFF"
     color_dark: "#1a1c1e"
     image: assets/icons/icon-large.png
-    icon_background_color: "#62a9e1"
-    icon_background_color_dark: "#62a9e1"
+    icon_background_color: "#62A9E1"
+    icon_background_color_dark: "#62A9E1"
   android: true
   ios: true
   web: false
