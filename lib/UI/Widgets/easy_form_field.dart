@@ -8,38 +8,35 @@ import '../../Translations/translations.dart';
 class EasyFormField extends StatelessWidget {
   const EasyFormField({
     Key? key,
-    required TextEditingController controller,
-    required String label,
-    required String hint,
-    bool numeric = false,
-    bool autofocus = false,
-    TextAlign textAlign = TextAlign.start,
-  })  : _controller = controller,
-        _label = label,
-        _hint = hint,
-        _autofocus = autofocus,
-        _textAlign = textAlign,
-        _numeric = numeric,
-        super(key: key);
+    required this.controller,
+    required this.label,
+    required this.hint,
+    this.numeric = false,
+    this.autofocus = false,
+    this.textAlign = TextAlign.start,
+    this.textInputAction = TextInputAction.done,
+  }) : super(key: key);
 
-  final TextEditingController _controller;
-  final String _label;
-  final String _hint;
-  final bool _autofocus;
-  final TextAlign _textAlign;
-  final bool _numeric;
+  final TextEditingController controller;
+  final String label;
+  final String hint;
+  final bool autofocus;
+  final TextAlign textAlign;
+  final bool numeric;
+  final TextInputAction textInputAction;
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
       child: TextFormField(
-        controller: _controller,
-        autofocus: _autofocus,
-        autovalidateMode: _numeric ? AutovalidateMode.onUserInteraction : null,
-        keyboardType: _numeric ? const TextInputType.numberWithOptions(decimal: true) : null,
-        textAlign: _textAlign,
+        controller: controller,
+        textInputAction: textInputAction,
+        autofocus: autofocus,
+        autovalidateMode: numeric ? AutovalidateMode.onUserInteraction : null,
+        keyboardType: numeric ? const TextInputType.numberWithOptions(decimal: true) : null,
+        textAlign: textAlign,
         textCapitalization: TextCapitalization.sentences,
-        validator: _numeric
+        validator: numeric
             ? (String? input) {
                 if (input == null || input.isEmpty || Calculator.tryParse(input) != null) {
                   return null;
@@ -47,7 +44,7 @@ class EasyFormField extends StatelessWidget {
                 return Translations.invalid;
               }
             : null,
-        decoration: inputDecoration(context, labelText: _label, hintText: _hint),
+        decoration: inputDecoration(context, labelText: label, hintText: hint),
       ),
     );
   }

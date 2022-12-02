@@ -211,6 +211,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
               controller: nameController,
               label: Translations.name,
               hint: getTestHint(subject),
+              textInputAction: TextInputAction.next,
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -227,6 +228,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
                   textAlign: TextAlign.end,
                   autofocus: true,
                   numeric: true,
+                  textInputAction: TextInputAction.next,
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
@@ -301,6 +303,7 @@ Future<void> showSubjectDialog(BuildContext context, {int? index}) async {
               autofocus: true,
               label: Translations.name,
               hint: getSubjectHint(),
+              textInputAction: TextInputAction.next,
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
