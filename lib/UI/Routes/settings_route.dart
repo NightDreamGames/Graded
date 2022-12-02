@@ -65,6 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           return EasyDialog(
                             title: Translations.confirm,
                             icon: Icons.clear_all,
+                            action: Translations.confirm,
                             onConfirm: () {
                               Manager.clear();
                               Navigator.pop(context);

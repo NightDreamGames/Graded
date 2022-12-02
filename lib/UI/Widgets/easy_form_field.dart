@@ -9,21 +9,25 @@ class EasyFormField extends StatelessWidget {
   const EasyFormField({
     Key? key,
     required this.controller,
-    required this.label,
-    required this.hint,
+    this.label,
+    this.hint,
     this.numeric = false,
     this.autofocus = false,
     this.textAlign = TextAlign.start,
     this.textInputAction = TextInputAction.done,
+    this.onSaved,
+    this.additionalValidator,
   }) : super(key: key);
 
   final TextEditingController controller;
-  final String label;
-  final String hint;
+  final String? label;
+  final String? hint;
   final bool autofocus;
   final TextAlign textAlign;
   final bool numeric;
   final TextInputAction textInputAction;
+  final void Function(String?)? onSaved;
+  final String? Function(String)? additionalValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +37,19 @@ class EasyFormField extends StatelessWidget {
         textInputAction: textInputAction,
         autofocus: autofocus,
         autovalidateMode: numeric ? AutovalidateMode.onUserInteraction : null,
-        keyboardType: numeric ? const TextInputType.numberWithOptions(decimal: true) : null,
+        keyboardType: numeric ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
         textAlign: textAlign,
         textCapitalization: TextCapitalization.sentences,
         validator: numeric
             ? (String? input) {
-                if (input == null || input.isEmpty || Calculator.tryParse(input) != null) {
+                if ((input == null || input.isEmpty || Calculator.tryParse(input) != null) && additionalValidator?.call(input!) == null) {
                   return null;
                 }
                 return Translations.invalid;
               }
             : null,
         decoration: inputDecoration(context, labelText: label, hintText: hint),
+        onSaved: onSaved,
       ),
     );
   }

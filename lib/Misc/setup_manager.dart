@@ -143,7 +143,7 @@ class SetupManager {
         }
       }
 
-      Storage.setPreference<double>("total_grades", 60.0);
+      Storage.setPreference<double>("total_grades", 60);
       Storage.setPreference("rounding_mode", "rounding_up");
       Storage.setPreference("round_to", 1);
       Manager.readPreferences();

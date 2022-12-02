@@ -37,7 +37,6 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       settingKey: 'total_grades_text',
       initialValue: defaultValues["total_grades"].toString(),
       icon: Icons.vertical_align_top,
-      keyboardType: TextInputType.number,
       onChange: (text) {
         double d = double.parse(text);
         Storage.setPreference<double>("total_grades", d);
@@ -45,11 +44,15 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
 
         Manager.calculate();
       },
-      validator: (String? input) {
-        if (input == null || input.isEmpty || Calculator.tryParse(input) != null) {
-          return null;
+      numeric: true,
+      additionalValidator: (value) {
+        double? number = double.tryParse(value);
+
+        if (number != null && number <= 0) {
+          return Translations.invalid;
         }
-        return Translations.invalid;
+
+        return null;
       },
     ),
     RadioModalSettingsTile<String>(

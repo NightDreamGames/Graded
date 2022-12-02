@@ -35,6 +35,8 @@ class Translations {
 
   static String get bonus => _getText("bonus");
 
+  static String get cancel => _getText("cancel");
+
   static String get change_class => _getText("change_class");
 
   static String get change_class_summary => _getText("change_class_summary");
@@ -145,6 +147,8 @@ class Translations {
 
   static String get rounding_mode => _getText("rounding_mode");
 
+  static String get save => _getText("save");
+
   static String get school_system => _getText("school_system");
 
   static String get section => _getText("section");
@@ -241,6 +245,7 @@ class Translations {
     "az": "A-Z",
     "basic": "Basic",
     "bonus": "Bonus:",
+    "cancel": "Cancel",
     "change_class": "Change class",
     "change_class_summary": "Click to change your current class. This will delete all your saved grades.",
     "chinese": "Chinese",
@@ -287,7 +292,7 @@ class Translations {
     "not_set": "Not set",
     "note": "Note:",
     "note_text": "You can always edit your subjects and other options in the settings later",
-    "ok": "Ok",
+    "ok": "OK",
     "open": "Open",
     "other_system": "Other school system",
     "previous": "Previous",
@@ -296,6 +301,7 @@ class Translations {
     "reset_summary": "Delete all saved grades and reset app",
     "round_to": "Round to",
     "rounding_mode": "Rounding mode",
+    "save": "Save",
     "school_system": "School system",
     "section": "Section",
     "section_classic_a": "A - Languages",
@@ -352,6 +358,7 @@ class Translations {
     "az": "A-Z",
     "basic": "Basique",
     "bonus": "Bonus:",
+    "cancel": "Annuler",
     "change_class": "Changer la classe",
     "change_class_summary": "Cliquez pour changer votre classe actuelle. Cela supprimera toutes vos notes sauvegardées.",
     "chinese": "Chinois",
@@ -398,7 +405,7 @@ class Translations {
     "not_set": "Non défini",
     "note": "Note:",
     "note_text": "Vous pouvez toujours modifier vos matières et les autres options dans les paramètres plus tard",
-    "ok": "Ok",
+    "ok": "OK",
     "open": "Ouvrir",
     "other_system": "Autre système scolaire",
     "previous": "Précédent",
@@ -407,6 +414,7 @@ class Translations {
     "reset_summary": "Supprimer toutes les notes enregistrées et réinitialiser l'application",
     "round_to": "Arrondir à",
     "rounding_mode": "Mode arrondissage",
+    "save": "Sauvegarder",
     "school_system": "Système scolaire",
     "section": "Section",
     "section_classic_a": "A - Langues",
@@ -463,6 +471,7 @@ class Translations {
     "az": "A-Z",
     "basic": "Basic",
     "bonus": "Bonus:",
+    "cancel": "Abbrechen",
     "change_class": "Klasse ändern",
     "change_class_summary": "Klicken Sie um Ihre aktuelle Klasse zu ändern. Alle gespeicherten Noten werden dabei gelöscht.",
     "chinese": "Chinesisch",
@@ -509,7 +518,7 @@ class Translations {
     "not_set": "Nicht definiert",
     "note": "Anmerkung:",
     "note_text": "Sie können Ihre Fächer und andere Optionen später immer noch in den Einstellungen bearbeiten",
-    "ok": "Ok",
+    "ok": "OK",
     "open": "Öffnen",
     "other_system": "Anderes Schulsystem",
     "previous": "Zurück",
@@ -518,6 +527,7 @@ class Translations {
     "reset_summary": "Alle gespeicherten Noten löschen und App zurücksetzen",
     "round_to": "Runden bis",
     "rounding_mode": "Abrundungsmodus",
+    "save": "Speichern",
     "school_system": "Schulsystem",
     "section": "Section",
     "section_classic_a": "A - Sprachen",
@@ -574,6 +584,7 @@ class Translations {
     "az": "A-Z",
     "basic": "Basic",
     "bonus": "Bonus:",
+    "cancel": "Ofbriechen",
     "change_class": "Klass änneren",
     "change_class_summary": "Klickt fir är aktuell Klass ze änneren. All gespäichert Notten ginn dobäi geläscht.",
     "chinese": "Chineesesch",
@@ -620,7 +631,7 @@ class Translations {
     "not_set": "Net definéiert",
     "note": "Umierkung:",
     "note_text": "Dir kënnt är Fächer an aner Optiounen spéider ëmmer nach an den Astellungen beaarbechten",
-    "ok": "Ok",
+    "ok": "OK",
     "open": "Öffnen",
     "other_system": "Aneren Schoulsystem",
     "previous": "Zeréck",
@@ -629,6 +640,7 @@ class Translations {
     "reset_summary": "All gespäichert Notten läschen an d'App zeréckzesetzen",
     "round_to": "Ronnen bis",
     "rounding_mode": "Ofronnungsmodus",
+    "save": "Späicheren",
     "school_system": "Schoulsystem",
     "section": "Sektioun",
     "section_classic_a": "A - Sproochen",

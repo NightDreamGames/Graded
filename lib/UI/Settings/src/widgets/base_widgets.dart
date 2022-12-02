@@ -131,6 +131,8 @@ class _SettingsTile extends StatefulWidget {
 
   final Color? color;
 
+  final EdgeInsets? padding;
+
   const _SettingsTile({
     required this.title,
     required this.child,
@@ -143,6 +145,7 @@ class _SettingsTile extends StatefulWidget {
     // ignore: unused_element
     this.showChildBelow = false,
     this.leading,
+    this.padding,
   });
 
   @override
@@ -161,6 +164,7 @@ class __SettingsTileState extends State<_SettingsTile> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         ListTile(
+          contentPadding: widget.padding,
           //tileColor: widget.color,
           leading: widget.leading,
           title: Text(
@@ -357,11 +361,11 @@ class _ModalSettingsTile<T> extends StatefulWidget {
   final bool enabled;
 
   /// The widget shown in front of the title
-  final Widget? leading;
+  final IconData? icon;
 
   /// The list widgets which will be displayed in a vertical list manner
   /// when the dialog is displayed
-  final List<Widget> children;
+  final Widget child;
 
   /// flag that determines if the dialog will be displayed with
   /// confirmation buttons or not .
@@ -390,10 +394,10 @@ class _ModalSettingsTile<T> extends StatefulWidget {
 
   const _ModalSettingsTile({
     required this.title,
-    required this.children,
+    required this.child,
     this.subtitle = '',
     this.enabled = true,
-    this.leading,
+    this.icon,
     this.showConfirmation = true,
     this.onCancel,
     this.onConfirm,
@@ -418,14 +422,14 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           ListTile(
-            leading: widget.leading,
+            leading: Icon(widget.icon),
             title: Text(widget.title, style: widget.titleTextStyle ?? headerTextStyle(context)),
             subtitle: Text(
               widget.subtitle!,
               style: widget.subtitleTextStyle ?? subtitleTextStyle(context),
             ),
             enabled: widget.enabled,
-            onTap: () => _showWidget(context, widget.children),
+            onTap: () => _showWidget(context, widget.child),
             dense: true,
           ),
           _SettingsTileDivider(),
@@ -434,94 +438,17 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
     );
   }
 
-  void _showWidget(BuildContext context, List<Widget> children) {
+  void _showWidget(BuildContext context, Widget child) {
     showDialog(
         context: context,
         builder: (dialogContext) {
-          return SimpleDialog(
-            backgroundColor: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
-            elevation: 0,
-            title: Center(
-              child: getTitle(),
-            ),
-            contentPadding: EdgeInsets.zero,
-            children: _finalWidgets(dialogContext, children),
+          return EasyDialog(
+            title: widget.title,
+            icon: widget.icon,
+            onConfirm: widget.onConfirm,
+            child: child,
           );
         });
-  }
-
-  List<Widget> _finalWidgets(BuildContext dialogContext, List<Widget> children) {
-    if (!widget.showConfirmation) {
-      return children;
-    }
-    return _addActionWidgets(dialogContext, children);
-  }
-
-  Widget getTitle() {
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.only(bottom: 16.0),
-        child: widget.leading!,
-      ),
-      Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: Text(
-          widget.title,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-      ),
-    ]);
-  }
-
-  List<Widget> _addActionWidgets(BuildContext dialogContext, List<Widget> children) {
-    final finalList = List<Widget>.from(children);
-    finalList.add(Padding(
-      padding: const EdgeInsets.only(right: 8.0, top: 8.0),
-      child: ButtonBar(
-        layoutBehavior: ButtonBarLayoutBehavior.constrained,
-        alignment: MainAxisAlignment.end,
-        children: <Widget>[
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-            ),
-            onPressed: () {
-              widget.onCancel?.call();
-              _disposeDialog(dialogContext);
-            },
-            child: Text(
-              MaterialLocalizations.of(dialogContext).cancelButtonLabel,
-              //style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
-            ),
-          ),
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-            ),
-            onPressed: () async {
-              var closeDialog = true;
-              if (widget.onConfirm != null) {
-                closeDialog = widget.onConfirm!.call();
-              }
-
-              if (closeDialog) {
-                _disposeDialog(dialogContext);
-              }
-            },
-            child: Text(
-              MaterialLocalizations.of(dialogContext).okButtonLabel,
-              //style: TextStyle(color: Theme.of(dialogContext).colorScheme.primary),
-            ),
-          )
-        ],
-      ),
-    ));
-    finalList.add(const Padding(padding: EdgeInsets.only(bottom: 16.0)));
-    return finalList;
-  }
-
-  void _disposeDialog(BuildContext dialogContext) {
-    Navigator.pop(dialogContext);
   }
 }
 

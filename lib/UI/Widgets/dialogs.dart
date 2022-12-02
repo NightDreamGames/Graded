@@ -23,6 +23,7 @@ class EasyDialog<T> extends StatefulWidget {
   final bool showConfirmation;
   final VoidCallback? onCancel;
   final OnConfirmedCallback? onConfirm;
+  final String? action;
 
   const EasyDialog({
     Key? key,
@@ -36,6 +37,7 @@ class EasyDialog<T> extends StatefulWidget {
     this.onConfirm,
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.action,
   }) : super(key: key);
 
   @override
@@ -50,116 +52,66 @@ class _EasyDialogState extends State<EasyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleDialog(
+    return AlertDialog(
       backgroundColor: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
       elevation: 0,
-      title: Center(
-        child: getTitle(),
-      ),
-      children: [
-        _finalWidgets(context, widget.child),
-      ],
-    );
-  }
-
-  Widget _finalWidgets(BuildContext dialogContext, Widget children) {
-    if (!widget.showConfirmation) {
-      return children;
-    }
-    return _addActionWidgets(dialogContext, children);
-  }
-
-  Widget getTitle() {
-    return Column(children: [
-      if (widget.icon != null)
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Icon(widget.icon, color: Theme.of(context).colorScheme.secondary),
+      semanticLabel: widget.title,
+      title: Text(widget.title),
+      scrollable: true,
+      icon: widget.icon != null ? Icon(widget.icon) : null,
+      iconColor: Theme.of(context).colorScheme.secondary,
+      actions: [
+        TextButton(
+          onPressed: () {
+            widget.onCancel?.call();
+            _disposeDialog(context);
+          },
+          child: Text(
+            Translations.cancel,
+          ),
         ),
-      Text(
-        widget.title,
-        style: Theme.of(context).textTheme.headlineSmall,
+        TextButton(
+          onPressed: () async {
+            var closeDialog = true;
+
+            bool submitText() {
+              var isValid = true;
+              final state = formKey.currentState;
+              if (state != null) {
+                isValid = state.validate();
+              }
+
+              if (isValid) {
+                state?.save();
+                return true;
+              }
+
+              return false;
+            }
+
+            if (!submitText()) {
+              closeDialog = false;
+            } else if (widget.onConfirm != null) {
+              closeDialog = widget.onConfirm!.call();
+            }
+
+            if (closeDialog) {
+              _disposeDialog(context);
+            }
+          },
+          child: Text(
+            widget.action ?? Translations.save,
+          ),
+        )
+      ],
+      content: Form(
+        key: formKey,
+        child: widget.child,
       ),
-    ]);
+    );
   }
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  Widget _addActionWidgets(BuildContext dialogContext, Widget children) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Form(
-            key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 12),
-              child: children,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 16.0, right: 8.0),
-          child: ButtonBar(
-            layoutBehavior: ButtonBarLayoutBehavior.constrained,
-            alignment: MainAxisAlignment.end,
-            children: <Widget>[
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                ),
-                onPressed: () {
-                  widget.onCancel?.call();
-                  _disposeDialog(dialogContext);
-                },
-                child: Text(
-                  MaterialLocalizations.of(dialogContext).cancelButtonLabel,
-                ),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                ),
-                onPressed: () async {
-                  var closeDialog = true;
-
-                  bool submitText() {
-                    var isValid = true;
-                    final state = formKey.currentState;
-                    if (state != null) {
-                      isValid = state.validate();
-                    }
-
-                    if (isValid) {
-                      state?.save();
-                      return true;
-                    }
-
-                    return false;
-                  }
-
-                  if (!submitText()) {
-                    closeDialog = false;
-                  } else if (widget.onConfirm != null) {
-                    closeDialog = widget.onConfirm!.call();
-                  }
-
-                  if (closeDialog) {
-                    _disposeDialog(dialogContext);
-                  }
-                },
-                child: Text(
-                  MaterialLocalizations.of(dialogContext).okButtonLabel,
-                ),
-              )
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 
   void _disposeDialog(BuildContext dialogContext) {
     Navigator.pop(dialogContext);

@@ -4,7 +4,9 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:gradely/Calculations/calculator.dart';
 import 'package:gradely/Translations/translations.dart';
+import 'package:gradely/UI/Widgets/dialogs.dart';
 import 'package:gradely/UI/Widgets/easy_form_field.dart';
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';
@@ -104,7 +106,7 @@ class SimpleSettingsTile extends StatelessWidget {
 }
 
 /// [ModalSettingsTile] is a widget which allows creating
-/// a setting which shows the [children] in a [_ModalSettingsTile]
+/// a setting which shows the [child] in a [_ModalSettingsTile]
 ///
 /// Example:
 /// ```dart
@@ -139,14 +141,14 @@ class ModalSettingsTile<T> extends StatelessWidget {
   final String subtitle;
 
   /// widget to be placed at first in the tile
-  final Widget? leading;
+  final IconData? icon;
 
   /// flag which represents the state of the settings, if false the the tile will
   /// ignore all the user inputs, default = true
   final bool enabled;
 
   /// List of widgets which are to be shown in the modal dialog
-  final List<Widget> children;
+  final Widget child;
 
   final bool showConfirmation;
   final VoidCallback? onCancel;
@@ -155,10 +157,10 @@ class ModalSettingsTile<T> extends StatelessWidget {
   const ModalSettingsTile({
     Key? key,
     required this.title,
-    required this.children,
+    required this.child,
     this.subtitle = '',
     this.enabled = true,
-    this.leading,
+    this.icon,
     this.showConfirmation = false,
     this.onCancel,
     this.onConfirm,
@@ -167,14 +169,14 @@ class ModalSettingsTile<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _ModalSettingsTile<T>(
-      leading: leading,
+      icon: icon,
       title: title,
       subtitle: subtitle,
       enabled: enabled,
       onCancel: onCancel,
       onConfirm: onConfirm,
       showConfirmation: showConfirmation,
-      children: children,
+      child: child,
     );
   }
 }
@@ -298,15 +300,10 @@ class SettingsContainer extends StatelessWidget {
 
   Widget _buildChild() {
     var child = allowScrollInternally ? getList(children) : getColumn(children);
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 16.0,
-      ),
-      child: Material(
-        child: Padding(
-          padding: EdgeInsets.only(left: leftPadding),
-          child: child,
-        ),
+    return Material(
+      child: Padding(
+        padding: EdgeInsets.only(left: leftPadding),
+        child: child,
       ),
     );
   }
@@ -476,14 +473,6 @@ class TextInputSettingsTile extends StatefulWidget {
   /// ignore all the user inputs, default = true
   final bool enabled;
 
-  /// Validation mode helps use customize the way the input text field is
-  /// validated for proper input values.
-  ///
-  /// [AutovalidateMode.disabled] - Never auto validate, equivalent of `autoValidate = false`
-  /// [AutovalidateMode.always] - Always auto validate, equivalent of `autoValidate = true`
-  /// [AutovalidateMode.onUserInteraction] - Only auto validate if user interacts with it
-  final AutovalidateMode autoValidateMode;
-
   /// flag which represents if the text field will be focused by default
   /// or not
   /// if true, then the text field will be in focus other wise it will not be
@@ -493,26 +482,13 @@ class TextInputSettingsTile extends StatefulWidget {
   /// on change callback for handling the value change
   final OnChanged<String>? onChange;
 
-  /// validator for input validation
-  final FormFieldValidator<String?>? validator;
-
   final IconData? icon;
 
-  /// flag which represents the state of obscureText in the [TextFormField]
-  ///  default = false
-  final bool obscureText;
-
-  /// Color of the border of the [TextFormField]
-  final Color? borderColor;
-
-  /// Color of the border of the [TextFormField], when there's an error
-  /// or input is not passed through the validation
-  final Color? errorColor;
-
-  /// [TextInputType] of the [TextFormField] to set the keyboard type to name, phone, etc.
-  final TextInputType? keyboardType;
-
   final String? subtitle;
+
+  final bool numeric;
+
+  final String? Function(String)? additionalValidator;
 
   const TextInputSettingsTile({
     Key? key,
@@ -520,16 +496,12 @@ class TextInputSettingsTile extends StatefulWidget {
     required this.settingKey,
     this.initialValue = '',
     this.enabled = true,
-    this.autoValidateMode = AutovalidateMode.onUserInteraction,
     this.autoFocus = true,
     this.icon,
     this.onChange,
-    this.validator,
-    this.obscureText = false,
-    this.borderColor,
-    this.errorColor,
-    this.keyboardType,
     this.subtitle,
+    this.numeric = false,
+    this.additionalValidator,
   }) : super(key: key);
 
   @override
@@ -539,7 +511,6 @@ class TextInputSettingsTile extends StatefulWidget {
 class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _controller;
-  late FocusNode _focusNode;
 
   late String? subtitle = widget.subtitle;
 
@@ -547,7 +518,6 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    _focusNode = FocusNode();
   }
 
   @override
@@ -562,45 +532,30 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
         return _ModalSettingsTile<String>(
           title: widget.title,
           subtitle: widget.subtitle ?? value,
-          leading: Icon(widget.icon, color: Theme.of(context).colorScheme.secondary),
+          icon: widget.icon,
           showConfirmation: true,
           onConfirm: () => _submitText(_controller.text),
           onCancel: () {
             _controller.text = Settings.getValue(widget.settingKey, '');
           },
-          children: <Widget>[
-            _buildTextField(context, widget.subtitle ?? value, onChanged),
-          ],
+          child: _buildTextField(context, widget.subtitle ?? value, onChanged),
         );
       },
     );
   }
 
   Widget _buildTextField(BuildContext context, String value, OnChanged<String> onChanged) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 16.0),
-      child: Form(
-        key: _formKey,
-        child: TextFormField(
-          autofocus: widget.autoFocus,
-          controller: _controller,
-          focusNode: _focusNode,
-          textCapitalization: TextCapitalization.sentences,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          enabled: widget.enabled,
-          validator: widget.enabled ? widget.validator : null,
-          onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
-          obscureText: widget.obscureText,
-          keyboardType: widget.keyboardType,
-          decoration: inputDecoration(context, labelText: widget.title),
-        ),
+    return Form(
+      key: _formKey,
+      child: EasyFormField(
+        autofocus: widget.autoFocus,
+        controller: _controller,
+        label: widget.title,
+        numeric: widget.numeric,
+        onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
+        additionalValidator: widget.additionalValidator,
       ),
     );
-  }
-
-  AutovalidateMode get autoValidateMode {
-    final autoValidateMode = widget.autoValidateMode;
-    return autoValidateMode;
   }
 
   bool _submitText(String newValue) {
@@ -620,8 +575,9 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
   void _onSave(String? newValue, OnChanged<String> onChanged) {
     if (newValue == null) return;
+    newValue = Calculator.format(double.parse(newValue), ignoreZero: true).toString();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      onChanged(newValue);
+      onChanged(newValue!);
       subtitle = null;
       widget.onChange?.call(newValue);
     });
@@ -1102,19 +1058,17 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
         surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
         elevation: 3,
         shadowColor: Colors.transparent,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: _SettingsTile(
-            title: entry.value,
-            onTap: () => _onRadioChange(entry.key, onChanged),
-            color: Theme.of(context).dialogBackgroundColor,
+        child: _SettingsTile(
+          title: entry.value,
+          onTap: () => _onRadioChange(entry.key, onChanged),
+          color: Theme.of(context).dialogBackgroundColor,
+          enabled: widget.enabled,
+          padding: EdgeInsets.zero,
+          child: _SettingsRadio<T>(
+            value: entry.key,
+            onChanged: (newValue) => _onRadioChange(newValue, onChanged),
             enabled: widget.enabled,
-            child: _SettingsRadio<T>(
-              value: entry.key,
-              onChanged: (newValue) => _onRadioChange(newValue, onChanged),
-              enabled: widget.enabled,
-              groupValue: groupValue,
-            ),
+            groupValue: groupValue,
           ),
         ),
       );
@@ -1578,20 +1532,18 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
         return _ModalSettingsTile<T>(
           title: widget.title,
           subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[value] ?? Translations.not_set),
-          leading: Icon(widget.icon, color: Theme.of(context).colorScheme.secondary),
+          icon: widget.icon,
           titleTextStyle: widget.titleTextStyle,
           subtitleTextStyle: widget.subtitleTextStyle,
-          children: <Widget>[
-            RadioSettingsTile<T>(
-              title: '',
-              showTitles: widget.showTitles,
-              enabled: widget.enabled,
-              values: widget.values,
-              settingKey: widget.settingKey,
-              onChange: (value) => _onRadioChange(value, onChanged),
-              selected: value,
-            ),
-          ],
+          child: RadioSettingsTile<T>(
+            title: '',
+            showTitles: widget.showTitles,
+            enabled: widget.enabled,
+            values: widget.values,
+            settingKey: widget.settingKey,
+            onChange: (value) => _onRadioChange(value, onChanged),
+            selected: value,
+          ),
         );
       },
     );
@@ -1644,7 +1596,7 @@ class SliderModalSettingsTile extends StatefulWidget {
   final TextStyle? subtitleTextStyle;
 
   /// The widget shown in front of the title
-  final Widget? leading;
+  final IconData? icon;
 
   /// flag which represents the state of the settings, if false the the tile will
   /// ignore all the user inputs, default = true
@@ -1700,7 +1652,7 @@ class SliderModalSettingsTile extends StatefulWidget {
     this.onChangeStart,
     this.onChangeEnd,
     this.subtitle = '',
-    this.leading,
+    this.icon,
     this.eagerUpdate = true,
     this.titleTextStyle,
     this.subtitleTextStyle,
@@ -1729,13 +1681,12 @@ class _SliderModalSettingsTileState extends State<SliderModalSettingsTile> {
         return SettingsContainer(
           children: <Widget>[
             _ModalSettingsTile<double>(
-              title: widget.title,
-              subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : value.toString(),
-              leading: widget.leading,
-              titleTextStyle: widget.titleTextStyle,
-              subtitleTextStyle: widget.subtitleTextStyle,
-              children: <Widget>[
-                _SettingsSlider(
+                title: widget.title,
+                subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : value.toString(),
+                icon: widget.icon,
+                titleTextStyle: widget.titleTextStyle,
+                subtitleTextStyle: widget.subtitleTextStyle,
+                child: _SettingsSlider(
                   onChanged: (double newValue) => _handleSliderChanged(newValue, onChanged),
                   onChangeStart: (double newValue) => _handleSliderChangeStart(newValue, onChanged),
                   onChangeEnd: (double newValue) => _handleSliderChangeEnd(newValue, onChanged),
@@ -1745,9 +1696,7 @@ class _SliderModalSettingsTileState extends State<SliderModalSettingsTile> {
                   max: widget.max,
                   min: widget.min,
                   step: widget.step,
-                )
-              ],
-            ),
+                )),
           ],
         );
       },
