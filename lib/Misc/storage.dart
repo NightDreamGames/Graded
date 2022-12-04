@@ -19,7 +19,7 @@ final Map<String, dynamic> defaultValues = {
   "data_version": -1,
   //Calculation settings
   "term": 2,
-  "total_grades": 60,
+  "total_grades": 60.0,
   "rounding_mode": "rounding_up",
   "round_to": 1,
   //Setup

@@ -38,19 +38,15 @@ class Compatibility {
     xml.findAllElements("string").map((e) => e.getAttribute("name")!).forEach(keys.add);
     xml.findAllElements("string").map((e) => e.text).forEach(values.add);
 
-    var elements = {for (int i = 0; i < keys.length; i++) keys[i]: values[i]};
+    Map<String, String> elements = {for (int i = 0; i < keys.length; i++) keys[i]: values[i]};
 
     Storage.setPreference<String?>("data", elements["data"]);
     Storage.setPreference<String?>("default_data", elements["default_data"]);
     Storage.setPreference<int?>("data_version", int.tryParse(elements["data_version"] ?? "-1"));
     Storage.setPreference<String?>("rounding_mode", elements["rounding_mode"]);
-    Storage.setPreference<String?>("language", elements["language"]);
 
     String theme = "system";
     switch (elements["dark_theme"]) {
-      case "auto":
-        theme = "system";
-        break;
       case "on":
         theme = "dark";
         break;
