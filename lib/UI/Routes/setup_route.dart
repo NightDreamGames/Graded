@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:gradely/Misc/setup_manager.dart';
-import 'package:gradely/Misc/storage.dart';
-import 'package:gradely/UI/Widgets/settings_tiles.dart';
+import '../../Misc/setup_manager.dart';
+import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
 import '../Widgets/misc_widgets.dart';
+import '../Widgets/settings_tiles.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 
 class SetupPage extends StatefulWidget {

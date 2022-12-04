@@ -4,8 +4,8 @@ import 'package:diacritic/diacritic.dart';
 import 'package:sprintf/sprintf.dart';
 
 // Project imports:
-import 'package:gradely/Calculations/calculation_object.dart';
 import '../Misc/storage.dart';
+import 'calculation_object.dart';
 import 'manager.dart';
 
 class Calculator {

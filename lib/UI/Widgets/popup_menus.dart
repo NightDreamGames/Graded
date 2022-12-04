@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:gradely/Calculations/manager.dart';
-import 'package:gradely/Translations/translations.dart';
+import '../../Calculations/manager.dart';
 import '../../Misc/storage.dart';
+import '../../Translations/translations.dart';
 
 class TermSelector extends StatelessWidget {
   const TermSelector({Key? key, required this.rebuild}) : super(key: key);

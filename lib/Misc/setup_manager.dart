@@ -9,11 +9,11 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:excel/excel.dart';
 
 // Project imports:
-import 'package:gradely/Misc/storage.dart';
 import '../Calculations/calculator.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Translations/translations.dart';
+import 'storage.dart';
 
 class SetupManager {
   static String classicPath = "assets/class_data/Classique.xlsx";

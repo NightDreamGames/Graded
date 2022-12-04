@@ -1,7 +1,7 @@
 // Project imports:
-import 'package:gradely/Calculations/manager.dart';
 import 'calculation_object.dart';
 import 'calculator.dart';
+import 'manager.dart';
 import 'term.dart';
 
 class Year extends CalculationObject {

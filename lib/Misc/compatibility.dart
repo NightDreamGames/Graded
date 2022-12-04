@@ -11,9 +11,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xml/xml.dart';
 
 // Project imports:
-import 'package:gradely/Misc/storage.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/term.dart';
+import 'storage.dart';
 
 class Compatibility {
   static const dataVersion = 5;

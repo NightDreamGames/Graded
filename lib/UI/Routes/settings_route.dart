@@ -6,16 +6,16 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:gradely/Misc/storage.dart';
-import 'package:gradely/UI/Utilities/custom_icons.dart';
-import 'package:gradely/UI/Widgets/dialogs.dart';
-import 'package:gradely/UI/Widgets/settings_tiles.dart';
-import 'package:gradely/main.dart';
 import '../../Calculations/manager.dart';
 import '../../Misc/locale_provider.dart';
+import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
+import '../../main.dart';
+import '../Utilities/custom_icons.dart';
 import '../Utilities/misc_utilities.dart';
+import '../Widgets/dialogs.dart';
 import '../Widgets/misc_widgets.dart';
+import '../Widgets/settings_tiles.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 
 class SettingsPage extends StatefulWidget {

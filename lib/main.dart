@@ -8,15 +8,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:gradely/UI/Routes/settings_route.dart';
-import 'package:gradely/UI/Routes/setup_route.dart';
-import 'package:gradely/UI/Routes/subject_edit_route.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 import 'Calculations/manager.dart';
 import 'Misc/locale_provider.dart';
 import 'Misc/storage.dart';
 import 'Translations/translations.dart';
 import 'UI/Routes/home_route.dart';
+import 'UI/Routes/settings_route.dart';
+import 'UI/Routes/setup_route.dart';
+import 'UI/Routes/subject_edit_route.dart';
 import 'UI/Routes/subject_route.dart';
 import 'UI/Utilities/app_theme.dart';
 

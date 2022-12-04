@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';

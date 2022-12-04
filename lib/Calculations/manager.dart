@@ -1,7 +1,7 @@
 // Project imports:
-import 'package:gradely/UI/Utilities/hints.dart';
 import '../Misc/compatibility.dart';
 import '../Misc/storage.dart';
+import '../UI/Utilities/hints.dart';
 import 'calculator.dart';
 import 'subject.dart';
 import 'term.dart';
