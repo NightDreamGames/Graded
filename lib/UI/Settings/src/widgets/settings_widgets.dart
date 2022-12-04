@@ -97,10 +97,11 @@ class SimpleSettingsTile extends StatelessWidget {
 
     if (child != null) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) => child!,
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => child!,
+        ),
+      );
     }
   }
 }

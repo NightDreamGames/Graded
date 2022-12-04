@@ -81,7 +81,7 @@ class SortSelector extends StatelessWidget {
           Navigator.pushNamed(context, "/settings").then((_) => rebuild());
         }
       },
-      itemBuilder: (BuildContext context) {
+      itemBuilder: (context) {
         List<PopupMenuEntry<String>> popupList = [
           PopupSubMenuItem<String>(
             title: Translations.sort_by,
@@ -163,7 +163,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
         widget.onSelected.call(value);
       },
       offset: const Offset(0, -8),
-      itemBuilder: (BuildContext context) {
+      itemBuilder: (context) {
         return widget.items
             .map(
               (item) => PopupMenuItem<T>(

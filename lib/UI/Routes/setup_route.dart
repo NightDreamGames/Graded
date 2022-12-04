@@ -70,9 +70,7 @@ class _SetupPageState extends State<SetupPage> {
                   title: Translations.school_system,
                   icon: Icons.school,
                   settingKey: 'school_system',
-                  onChange: (value) {
-                    rebuild();
-                  },
+                  onChange: (_) => rebuild(),
                   values: <String, String>{
                     "lux": Translations.lux_system,
                     "other": Translations.other_system,
@@ -86,7 +84,7 @@ class _SetupPageState extends State<SetupPage> {
                         title: Translations.system,
                         icon: Icons.build,
                         settingKey: 'lux_system',
-                        onChange: (value) {
+                        onChange: (_) {
                           Storage.setPreference<String>("year", defaultValues["year"]);
                           Storage.setPreference<String>("section", defaultValues["section"]);
                           Storage.setPreference<String>("variant", defaultValues["variant"]);
@@ -103,7 +101,7 @@ class _SetupPageState extends State<SetupPage> {
                           title: Translations.year,
                           icon: Icons.timelapse,
                           settingKey: 'year',
-                          onChange: (value) {
+                          onChange: (_) {
                             if (SetupManager.hasSections(Storage.getPreference("year"))) {
                               Storage.setPreference<String>("section", defaultValues["section"]);
                             }
@@ -119,9 +117,7 @@ class _SetupPageState extends State<SetupPage> {
                             title: Translations.section,
                             icon: Icons.fork_right,
                             settingKey: 'section',
-                            onChange: (value) {
-                              rebuild();
-                            },
+                            onChange: (_) => rebuild(),
                             values: SetupManager.getSections(),
                           ),
                         if (SetupManager.hasVariants(Storage.getPreference("year")))
@@ -129,9 +125,6 @@ class _SetupPageState extends State<SetupPage> {
                             title: Translations.variant,
                             icon: Icons.edit,
                             settingKey: 'variant',
-                            onChange: (value) {
-                              rebuild();
-                            },
                             selected: defaultValues["variant"],
                             values: SetupManager.getVariants(Storage.getPreference("year")),
                           )

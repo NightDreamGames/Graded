@@ -94,13 +94,7 @@ class _HomePageState extends State<HomePage> {
                     leading: term.subjects[index].name,
                     trailing: term.subjects[index].getResult(),
                     icon: Icons.navigate_next,
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        "/subject",
-                        arguments: index,
-                      ).then((_) => rebuild());
-                    },
+                    onTap: () => Navigator.pushNamed(context, "/subject", arguments: index).then((_) => rebuild()),
                   );
                 },
                 addAutomaticKeepAlives: true,

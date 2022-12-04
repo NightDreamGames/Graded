@@ -49,9 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: [
                   SimpleSettingsTile(
                     icon: Icons.class_,
-                    onTap: () {
-                      Navigator.pushNamed(context, "/setup");
-                    },
+                    onTap: () => Navigator.pushNamed(context, "/setup"),
                     title: Translations.change_class,
                     subtitle: Translations.change_class_summary,
                   ),
@@ -93,9 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       "dark": Translations.theme_dark,
                     },
                     selected: defaultValues["theme"],
-                    onChange: (value) {
-                      appContainerKey.currentState?.setState(() {});
-                    },
+                    onChange: (_) => appContainerKey.currentState?.setState(() {}),
                   ),
                   RadioModalSettingsTile<String>(
                     title: Translations.language,
@@ -126,9 +122,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     icon: CustomIcons.gradely,
                     title: Translations.app_name,
                     subtitle: Translations.about_text,
-                    onTap: () {
-                      launchURL(0);
-                    },
+                    onTap: () => launchURL(0),
                   ),
                   FutureBuilder(
                     builder: (context, snapshot) {
@@ -136,9 +130,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         icon: Icons.info_outline,
                         title: Translations.app_version,
                         subtitle: snapshot.data as String? ?? "2.0.0",
-                        onTap: () {
-                          launchURL(1);
-                        },
+                        onTap: () => launchURL(1),
                       );
                     },
                     future: PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
@@ -149,17 +141,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     icon: CustomIcons.github,
                     title: Translations.github,
                     subtitle: Translations.github_summary,
-                    onTap: () {
-                      launchURL(2);
-                    },
+                    onTap: () => launchURL(2),
                   ),
                   SimpleSettingsTile(
                     icon: Icons.feedback_outlined,
                     title: Translations.contact,
                     subtitle: Translations.email,
-                    onTap: () {
-                      launchURL(3);
-                    },
+                    onTap: () => launchURL(3),
                   ),
                 ],
               ),

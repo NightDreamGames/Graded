@@ -11,9 +11,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
   return [
     SimpleSettingsTile(
       icon: Icons.subject,
-      onTap: () {
-        Navigator.pushNamed(context, "/subject_edit");
-      },
+      onTap: () => Navigator.pushNamed(context, "/subject_edit"),
       title: type ? Translations.add_subjects : Translations.edit_subjects,
       subtitle: Translations.edit_subjects_summary,
     ),
@@ -21,9 +19,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       title: Translations.term,
       icon: Icons.access_time_outlined,
       settingKey: 'term',
-      onChange: (var value) {
-        Manager.readPreferences();
-      },
+      onChange: (_) => Manager.readPreferences(),
       values: <int, String>{
         3: Translations.trimesters,
         2: Translations.semesters,
@@ -36,16 +32,16 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       settingKey: 'total_grades_text',
       initialValue: defaultValues["total_grades"].toString(),
       icon: Icons.vertical_align_top,
-      onChange: (text) {
-        double d = double.parse(text);
+      onChange: (value) {
+        double d = double.parse(value);
         Storage.setPreference<double>("total_grades", d);
         Manager.totalGrades = d;
 
         Manager.calculate();
       },
       numeric: true,
-      additionalValidator: (value) {
-        double? number = double.tryParse(value);
+      additionalValidator: (newValue) {
+        double? number = double.tryParse(newValue);
 
         if (number != null && number <= 0) {
           return Translations.invalid;
@@ -58,9 +54,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       title: Translations.rounding_mode,
       icon: Icons.arrow_upward,
       settingKey: 'rounding_mode',
-      onChange: (value) {
-        Manager.calculate();
-      },
+      onChange: (_) => Manager.calculate(),
       values: <String, String>{
         "rounding_up": Translations.up,
         "rounding_down": Translations.down,
@@ -73,9 +67,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       title: Translations.round_to,
       icon: Icons.cut,
       settingKey: 'round_to',
-      onChange: (value) {
-        Manager.calculate();
-      },
+      onChange: (_) => Manager.calculate(),
       values: <int, String>{
         1: Translations.to_integer,
         10: Translations.to_10th,
