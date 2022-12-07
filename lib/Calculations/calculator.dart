@@ -23,9 +23,9 @@ class Calculator {
             if (a.result == null && b.result == null) {
               return 0;
             } else if (b.result == null) {
-              return 1;
-            } else if (a.result == null) {
               return -1;
+            } else if (a.result == null) {
+              return 1;
             }
 
             return b.result!.compareTo(a.result!);
