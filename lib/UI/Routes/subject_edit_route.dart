@@ -18,6 +18,16 @@ class SubjectEditRoute extends StatefulWidget {
 }
 
 class _SubjectEditRouteState extends State<SubjectEditRoute> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController coeffController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    coeffController.dispose();
+    super.dispose();
+  }
+
   void rebuild() {
     setState(() {});
   }
@@ -26,7 +36,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {showSubjectDialog(context).then((value) => rebuild())},
+        onPressed: () => showSubjectDialog(context, nameController, coeffController).then((_) => rebuild()),
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -49,7 +59,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
                   onTap: () async {
                     showListMenu(context, listKey).then((result) {
                       if (result == "edit") {
-                        showSubjectDialog(context, index: index).then((value) => rebuild());
+                        showSubjectDialog(context, nameController, coeffController, index: index).then((_) => rebuild());
                       } else if (result == "delete") {
                         Manager.termTemplate.removeAt(index);
                         Manager.sortSubjectsAZ();

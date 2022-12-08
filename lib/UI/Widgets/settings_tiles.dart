@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../Calculations/manager.dart';
+import '../../Misc/compatibility.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
 import '../Settings/flutter_settings_screens.dart';
@@ -19,7 +20,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       title: Translations.term,
       icon: Icons.access_time_outlined,
       settingKey: 'term',
-      onChange: (_) => Manager.readPreferences(),
+      onChange: (_) => Compatibility.termCount(),
       values: <int, String>{
         3: Translations.trimesters,
         2: Translations.semesters,
@@ -35,7 +36,6 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       onChange: (value) {
         double d = double.parse(value);
         Storage.setPreference<double>("total_grades", d);
-        Manager.totalGrades = d;
 
         Manager.calculate();
       },

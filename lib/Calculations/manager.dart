@@ -9,7 +9,6 @@ import 'test.dart';
 import 'year.dart';
 
 class Manager {
-  static double totalGrades = 0;
   static List<Year> years = [];
   static List<Subject> termTemplate = [];
   static int currentYear = 0;
@@ -28,23 +27,13 @@ class Manager {
     _lastTerm = newValue;
   }
 
-  static int maxTerm = 1;
-
   static bool deserializationError = false;
 
   static Future<void> init() async {
     await Compatibility.upgradeDataVersion();
-    readPreferences();
+    currentTerm = Storage.getPreference<int>("current_term");
 
     Manager.calculate();
-  }
-
-  static void readPreferences() {
-    currentTerm = Storage.getPreference<int>("current_term");
-    maxTerm = Storage.getPreference<int>("term");
-    totalGrades = Storage.getPreference<double>("total_grades");
-
-    Compatibility.termCount(newValue: maxTerm);
   }
 
   static void calculate() {
@@ -58,6 +47,7 @@ class Manager {
   static void clear() {
     years.clear();
     years.add(Year());
+    Manager.currentTerm = 0;
 
     calculate();
   }
@@ -84,8 +74,9 @@ class Manager {
         for (int j = 0; j < currentYear.terms[i].subjects.length; j++) {
           double? subjectResult = currentYear.terms[i].subjects[j].result;
 
-          yearTerm.subjects[j]
-              .addTest(Test(subjectResult ?? 0, totalGrades, getTitle(termOverride: i), isEmpty: subjectResult == null), calculate: false);
+          yearTerm.subjects[j].addTest(
+              Test(subjectResult ?? 0, Storage.getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
+              calculate: false);
         }
       }
 

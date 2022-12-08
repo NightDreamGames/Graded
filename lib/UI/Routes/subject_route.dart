@@ -23,6 +23,18 @@ class _SubjectRouteState extends State<SubjectRoute> {
   late Term term = Manager.getCurrentTerm();
   late Subject subject = term.subjects[subjectIndex];
 
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController gradeController = TextEditingController();
+  final TextEditingController maximumController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    gradeController.dispose();
+    maximumController.dispose();
+    super.dispose();
+  }
+
   void rebuild() {
     term = Manager.getCurrentTerm();
     subject = term.subjects[subjectIndex];
@@ -36,7 +48,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
     return Scaffold(
       floatingActionButton: Manager.currentTerm != -1
           ? FloatingActionButton(
-              onPressed: () => {showTestDialog(context, subject).then((value) => rebuild())},
+              onPressed: () => {showTestDialog(context, subject, nameController, gradeController, maximumController).then((_) => rebuild())},
               child: const Icon(Icons.add),
             )
           : null,
@@ -112,7 +124,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                     if (Manager.currentTerm != -1) {
                       showListMenu(context, listKey).then((result) {
                         if (result == "edit") {
-                          showTestDialog(context, subject, index: index).then((value) => rebuild());
+                          showTestDialog(context, subject, nameController, gradeController, maximumController, index: index).then((_) => rebuild());
                         } else if (result == "delete") {
                           subject.removeTest(index);
                           rebuild();

@@ -485,8 +485,6 @@ class TextInputSettingsTile extends StatefulWidget {
 
   final IconData? icon;
 
-  final String? subtitle;
-
   final bool numeric;
 
   final String? Function(String)? additionalValidator;
@@ -500,7 +498,6 @@ class TextInputSettingsTile extends StatefulWidget {
     this.autoFocus = true,
     this.icon,
     this.onChange,
-    this.subtitle,
     this.numeric = false,
     this.additionalValidator,
   }) : super(key: key);
@@ -513,12 +510,16 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late TextEditingController _controller;
 
-  late String? subtitle = widget.subtitle;
-
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -527,25 +528,22 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
       cacheKey: widget.settingKey,
       defaultValue: widget.initialValue,
       builder: (BuildContext context, String value, OnChanged<String> onChanged) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _controller.text = widget.subtitle ?? value;
-        });
         return _ModalSettingsTile<String>(
           title: widget.title,
-          subtitle: widget.subtitle ?? value,
+          subtitle: value,
           icon: widget.icon,
           showConfirmation: true,
           onConfirm: () => _submitText(_controller.text),
-          onCancel: () {
-            _controller.text = Settings.getValue(widget.settingKey, '');
-          },
-          child: _buildTextField(context, widget.subtitle ?? value, onChanged),
+          onCancel: () => _controller.text = Settings.getValue(widget.settingKey, ''),
+          child: _buildTextField(context, value, onChanged),
         );
       },
     );
   }
 
   Widget _buildTextField(BuildContext context, String value, OnChanged<String> onChanged) {
+    _controller.text = value;
+
     return Form(
       key: _formKey,
       child: EasyFormField(
@@ -576,10 +574,10 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
   void _onSave(String? newValue, OnChanged<String> onChanged) {
     if (newValue == null) return;
-    newValue = Calculator.format(double.parse(newValue), ignoreZero: true).toString();
+    newValue = Calculator.format(Calculator.tryParse(newValue), ignoreZero: true).toString();
+    _controller.text = newValue;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onChanged(newValue!);
-      subtitle = null;
       widget.onChange?.call(newValue);
     });
   }

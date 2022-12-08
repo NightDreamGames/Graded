@@ -2,6 +2,7 @@
 import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
 import '../../Calculations/test.dart';
+import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
 
 String getSubjectHint() {
@@ -51,7 +52,7 @@ String getTestHint(Subject subject) {
 String getTitle({int? termOverride}) {
   switch (termOverride ?? Manager.currentTerm) {
     case 0:
-      switch (Manager.maxTerm) {
+      switch (Storage.getPreference<int>("term")) {
         case 3:
           return Translations.trimester_1;
         case 2:
@@ -61,7 +62,7 @@ String getTitle({int? termOverride}) {
       }
       break;
     case 1:
-      switch (Manager.maxTerm) {
+      switch (Storage.getPreference<int>("term")) {
         case 3:
           return Translations.trimester_2;
         case 2:
@@ -71,7 +72,7 @@ String getTitle({int? termOverride}) {
     case 2:
       return Translations.trimester_3;
     case -1:
-      return Translations.year_overview;
+      return Translations.year;
   }
 
   return Translations.app_name;

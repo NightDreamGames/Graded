@@ -7,6 +7,7 @@ import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
 import '../../Calculations/term.dart';
 import '../../Calculations/test.dart';
+import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
 import '../Utilities/hints.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
@@ -118,11 +119,9 @@ class _EasyDialogState extends State<EasyDialog> {
   }
 }
 
-Future<void> showTestDialog(BuildContext context, Subject subject, {int? index}) async {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController gradeController = TextEditingController();
-  final TextEditingController maximumController = TextEditingController();
-
+Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingController nameController, TextEditingController gradeController,
+    TextEditingController maximumController,
+    {int? index}) async {
   gradeController.clear();
   maximumController.clear();
   nameController.clear();
@@ -141,14 +140,16 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
         onConfirm: () {
           if (add) {
             subject.addTest(
-              Test(Calculator.tryParse(gradeController.text) ?? 1, Calculator.tryParse(maximumController.text) ?? Manager.totalGrades,
+              Test(
+                  Calculator.tryParse(gradeController.text) ?? 1,
+                  Calculator.tryParse(maximumController.text) ?? Storage.getPreference<double>("total_grades"),
                   nameController.text.isEmpty ? getTestHint(subject) : nameController.text),
             );
           } else {
             subject.editTest(
               index,
               Calculator.tryParse(gradeController.text) ?? 1,
-              Calculator.tryParse(maximumController.text) ?? Manager.totalGrades,
+              Calculator.tryParse(maximumController.text) ?? Storage.getPreference<double>("total_grades"),
               nameController.text.isEmpty ? getTestHint(subject) : nameController.text,
             );
           }
@@ -159,11 +160,13 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            EasyFormField(
-              controller: nameController,
-              label: Translations.name,
-              hint: getTestHint(subject),
-              textInputAction: TextInputAction.next,
+            Flexible(
+              child: EasyFormField(
+                controller: nameController,
+                label: Translations.name,
+                hint: getTestHint(subject),
+                textInputAction: TextInputAction.next,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -173,24 +176,28 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                EasyFormField(
-                  controller: gradeController,
-                  label: Translations.grade,
-                  hint: "01",
-                  textAlign: TextAlign.end,
-                  autofocus: true,
-                  numeric: true,
-                  textInputAction: TextInputAction.next,
+                Flexible(
+                  child: EasyFormField(
+                    controller: gradeController,
+                    label: Translations.grade,
+                    hint: "01",
+                    textAlign: TextAlign.end,
+                    autofocus: true,
+                    numeric: true,
+                    textInputAction: TextInputAction.next,
+                  ),
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
                   child: Text("/", style: TextStyle(fontSize: 20)),
                 ),
-                EasyFormField(
-                  controller: maximumController,
-                  label: Translations.maximum,
-                  hint: Calculator.format(Manager.totalGrades),
-                  numeric: true,
+                Flexible(
+                  child: EasyFormField(
+                    controller: maximumController,
+                    label: Translations.maximum,
+                    hint: Calculator.format(Storage.getPreference<double>("total_grades")),
+                    numeric: true,
+                  ),
                 ),
               ],
             ),
@@ -201,10 +208,8 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
   );
 }
 
-Future<void> showSubjectDialog(BuildContext context, {int? index}) async {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController coeffController = TextEditingController();
-
+Future<void> showSubjectDialog(BuildContext context, TextEditingController nameController, TextEditingController coeffController,
+    {int? index}) async {
   coeffController.clear();
   nameController.clear();
 
@@ -250,12 +255,14 @@ Future<void> showSubjectDialog(BuildContext context, {int? index}) async {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            EasyFormField(
-              controller: nameController,
-              autofocus: true,
-              label: Translations.name,
-              hint: getSubjectHint(),
-              textInputAction: TextInputAction.next,
+            Flexible(
+              child: EasyFormField(
+                controller: nameController,
+                autofocus: true,
+                label: Translations.name,
+                hint: getSubjectHint(),
+                textInputAction: TextInputAction.next,
+              ),
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -264,11 +271,13 @@ Future<void> showSubjectDialog(BuildContext context, {int? index}) async {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                EasyFormField(
-                  controller: coeffController,
-                  label: Translations.coefficient,
-                  hint: "1",
-                  numeric: true,
+                Flexible(
+                  child: EasyFormField(
+                    controller: coeffController,
+                    label: Translations.coefficient,
+                    hint: "1",
+                    numeric: true,
+                  ),
                 ),
               ],
             ),

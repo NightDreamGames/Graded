@@ -1,22 +1,16 @@
 // Package imports:
 import 'package:collection/collection.dart';
-import 'package:diacritic/diacritic.dart';
-import 'package:sprintf/sprintf.dart';
 
 // Project imports:
 import '../Misc/storage.dart';
 import 'calculation_object.dart';
-import 'manager.dart';
 
 class Calculator {
   static void sortObjects(List<CalculationObject> data, int sortMode, {int? sortModeOverride}) {
     if (data.length >= 2) {
       switch (sortModeOverride ?? Storage.getPreference<int>("sort_mode$sortMode")) {
         case 0:
-          insertionSort(data,
-              compare: (CalculationObject a, CalculationObject b) => removeDiacritics(a.name.toLowerCase())
-                  .replaceAll("[^\\p{ASCII}]", "")
-                  .compareTo(removeDiacritics(b.name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "")));
+          insertionSort(data, compare: (CalculationObject a, CalculationObject b) => a.processedName.compareTo(b.processedName));
           break;
         case 1:
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) {
@@ -55,7 +49,7 @@ class Calculator {
       }
     }
 
-    double result = numerator * (Manager.totalGrades / denominator) + bonus;
+    double result = numerator * (Storage.getPreference<double>("total_grades") / denominator) + bonus;
 
     if (!empty) {
       return Calculator.round(result);
@@ -68,24 +62,24 @@ class Calculator {
     String roundingMode = Storage.getPreference<String>("rounding_mode");
     int roundTo = Storage.getPreference<int>("round_to");
 
-    switch (roundingMode) {
-      case "rounding_up":
-        double a = number * roundTo;
-        return a.ceilToDouble() / roundTo;
-      case "rounding_down":
-        double a = number * roundTo;
-        return a.floorToDouble() / roundTo;
-      case "rounding_half_up":
-        double i = (number * roundTo).floorToDouble();
-        double f = number - i;
+    double a = number * roundTo;
+
+    if (roundingMode == "rounding_up") {
+      return a.ceilToDouble() / roundTo;
+    } else if (roundingMode == "rounding_down") {
+      return a.floorToDouble() / roundTo;
+    } else {
+      double i = a.floorToDouble();
+      double f = number - i;
+
+      if (roundingMode == "rounding_half_up") {
         return (f < 0.5 ? i : i + 1) / roundTo;
-      case "rounding_half_down":
-        double i1 = (number * roundTo).floorToDouble();
-        double f1 = number - i1;
-        return (f1 <= 0.5 ? i1 : i1 + 1) / roundTo;
-      default:
-        return number;
+      } else if (roundingMode == "rounding_half_down") {
+        return (f <= 0.5 ? i : i + 1) / roundTo;
+      }
     }
+
+    return number;
   }
 
   static double? tryParse(String? input) {
@@ -99,17 +93,16 @@ class Calculator {
     }
 
     String result;
-
-    if (d == d.toInt()) {
-      result = sprintf("%d", [d.toInt()]);
+    if (d % 1 == 0) {
+      result = d.toStringAsFixed(0);
     } else {
-      result = sprintf("%s", [d]);
+      result = d.toString();
     }
 
-    if (!ignoreZero && d < 10 && d > 0 && d % 1 == 0) {
-      return 0.toString() + result;
-    } else {
-      return result;
+    if (!ignoreZero && d > 0 && d < 10 && d % 1 == 0) {
+      result = "0$result";
     }
+
+    return result;
   }
 }

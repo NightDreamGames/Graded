@@ -1,4 +1,5 @@
 // Project imports:
+import '../Misc/storage.dart';
 import 'calculation_object.dart';
 import 'calculator.dart';
 import 'manager.dart';
@@ -14,7 +15,7 @@ class Year extends CalculationObject {
   }
 
   void addTerms() {
-    for (int i = 0; i < Manager.maxTerm; i++) {
+    for (int i = 0; i < Storage.getPreference<int>("term"); i++) {
       terms.add(Term());
     }
 

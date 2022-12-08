@@ -29,18 +29,13 @@ class TextRow extends StatelessWidget {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (icon == null)
-                Text(
-                  trailing,
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                  ),
-                )
-              else ...[
-                Text(
-                  trailing,
-                  style: const TextStyle(fontSize: 20.0),
+              Text(
+                trailing,
+                style: const TextStyle(
+                  fontSize: 20.0,
                 ),
+              ),
+              if (icon != null) ...[
                 const Padding(padding: EdgeInsets.only(right: 24)),
                 Icon(
                   icon,

@@ -13,6 +13,7 @@ import '../Calculations/calculator.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Translations/translations.dart';
+import 'compatibility.dart';
 import 'storage.dart';
 
 class SetupManager {
@@ -146,12 +147,11 @@ class SetupManager {
       Storage.setPreference<double>("total_grades", 60);
       Storage.setPreference("rounding_mode", "rounding_up");
       Storage.setPreference("round_to", 1);
-      Manager.readPreferences();
 
       await fillSubjects();
     }
 
-    Manager.readPreferences();
+    Compatibility.termCount();
     Manager.clear();
     Manager.calculate();
 

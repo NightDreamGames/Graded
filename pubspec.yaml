@@ -11,7 +11,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  sprintf: ^7.0.0
   flutter_displaymode: ^0.4.0
   cupertino_icons: ^1.0.3
   diacritic: ^0.1.3

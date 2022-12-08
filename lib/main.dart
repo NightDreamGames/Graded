@@ -62,8 +62,8 @@ class _AppContainerState extends State<AppContainer> {
 
     return ChangeNotifierProvider(
       create: (context) => LocaleProvider(locale: localeName != defaultValues["language"] ? Locale(localeName) : null),
-      child: Consumer<LocaleProvider>(builder: (context, provider, child) {
-        return MaterialApp(
+      child: Consumer<LocaleProvider>(
+        builder: (context, provider, _) => MaterialApp(
           theme: AppTheme.getTheme(Brightness.light),
           darkTheme: AppTheme.getTheme(Brightness.dark),
           themeMode: brightness == "system"
@@ -110,8 +110,8 @@ class _AppContainerState extends State<AppContainer> {
 
             return buildSharedAxisTransitionPageRoute((_) => Material(child: route), settings: settings);
           },
-        );
-      }),
+        ),
+      ),
     );
   }
 }

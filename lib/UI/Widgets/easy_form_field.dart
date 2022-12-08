@@ -31,26 +31,24 @@ class EasyFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: TextFormField(
-        controller: controller,
-        textInputAction: textInputAction,
-        autofocus: autofocus,
-        autovalidateMode: numeric ? AutovalidateMode.onUserInteraction : null,
-        keyboardType: numeric ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
-        textAlign: textAlign,
-        textCapitalization: TextCapitalization.sentences,
-        validator: numeric
-            ? (String? input) {
-                if ((input == null || input.isEmpty || Calculator.tryParse(input) != null) && additionalValidator?.call(input!) == null) {
-                  return null;
-                }
-                return Translations.invalid;
+    return TextFormField(
+      controller: controller,
+      textInputAction: textInputAction,
+      autofocus: autofocus,
+      autovalidateMode: numeric ? AutovalidateMode.onUserInteraction : null,
+      keyboardType: numeric ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
+      textAlign: textAlign,
+      textCapitalization: TextCapitalization.sentences,
+      validator: numeric
+          ? (String? input) {
+              if ((input == null || input.isEmpty || Calculator.tryParse(input) != null) && additionalValidator?.call(input!) == null) {
+                return null;
               }
-            : null,
-        decoration: inputDecoration(context, labelText: label, hintText: hint),
-        onSaved: onSaved,
-      ),
+              return Translations.invalid;
+            }
+          : null,
+      decoration: inputDecoration(context, labelText: label, hintText: hint),
+      onSaved: onSaved,
     );
   }
 }

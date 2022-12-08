@@ -1,4 +1,5 @@
 // Project imports:
+import '../Misc/storage.dart';
 import 'calculation_object.dart';
 import 'calculator.dart';
 import 'manager.dart';
@@ -10,7 +11,7 @@ class Subject extends CalculationObject {
   @override
   double? get value1 => result != null ? coefficient * result! : null;
   @override
-  double get value2 => coefficient * Manager.totalGrades;
+  double get value2 => coefficient * Storage.getPreference<double>("total_grades");
   int bonus = 0;
 
   Subject(String name, double coefficient) {
@@ -24,6 +25,7 @@ class Subject extends CalculationObject {
 
   void addTest(Test test, {bool calculate = true}) {
     tests.add(test);
+
     if (calculate) {
       Manager.calculate();
     }

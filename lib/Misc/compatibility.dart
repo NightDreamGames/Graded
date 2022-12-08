@@ -101,7 +101,7 @@ class Compatibility {
 
     if (Storage.getPreference<bool>("is_first_run")) {
       try {
-        await Compatibility.importPreferences();
+        await importPreferences();
       } catch (e) {
         log("Error while importing old data: $e");
       }
@@ -114,7 +114,7 @@ class Compatibility {
     await Storage.deserialize();
 
     if (currentDataVersion < 5) {
-      termCount(newValue: Storage.getPreference("term"));
+      termCount();
 
       Storage.setPreference("language", defaultValues["language"]);
     }
@@ -122,7 +122,9 @@ class Compatibility {
     Storage.setPreference<int>("data_version", dataVersion);
   }
 
-  static void termCount({int newValue = 0}) {
+  static void termCount() {
+    int newValue = Storage.getPreference("term");
+
     while (Manager.getCurrentYear().terms.length > newValue) {
       Manager.getCurrentYear().terms.removeLast();
     }

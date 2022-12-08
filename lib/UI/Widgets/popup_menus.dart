@@ -13,7 +13,7 @@ class TermSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Manager.maxTerm != 1
+    return Storage.getPreference<int>("term") != 1
         ? PopupMenuButton<String>(
             color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
             icon: Icon(Icons.access_time_outlined, color: Theme.of(context).colorScheme.secondary),
@@ -21,7 +21,7 @@ class TermSelector extends StatelessWidget {
             itemBuilder: (BuildContext context) {
               List<String> a = [];
 
-              switch (Manager.maxTerm) {
+              switch (Storage.getPreference<int>("term")) {
                 case 2:
                   a = [
                     Translations.semester_1,
@@ -44,7 +44,7 @@ class TermSelector extends StatelessWidget {
                 entries.add(PopupMenuItem<String>(
                   value: i.toString(),
                   onTap: () {
-                    if (i == Manager.maxTerm) {
+                    if (i == Storage.getPreference<int>("term")) {
                       Manager.lastTerm = Manager.currentTerm;
                       Manager.currentTerm = -1;
                     } else {
