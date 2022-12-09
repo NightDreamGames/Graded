@@ -1,9 +1,12 @@
+// Dart imports:
+import 'dart:io' show Platform;
+
 // Flutter imports:
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:animations/animations.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -134,13 +137,15 @@ Route buildSharedAxisTransitionPageRoute(Widget Function(BuildContext) builder, 
 }
 
 Future<void> setOptimalDisplayMode() async {
-  final List<DisplayMode> supported = await FlutterDisplayMode.supported;
-  final DisplayMode active = await FlutterDisplayMode.active;
+  if (Platform.isAndroid) {
+    final List<DisplayMode> supported = await FlutterDisplayMode.supported;
+    final DisplayMode active = await FlutterDisplayMode.active;
 
-  final List<DisplayMode> sameResolution = supported.where((DisplayMode m) => m.width == active.width && m.height == active.height).toList()
-    ..sort((DisplayMode a, DisplayMode b) => b.refreshRate.compareTo(a.refreshRate));
+    final List<DisplayMode> sameResolution = supported.where((DisplayMode m) => m.width == active.width && m.height == active.height).toList()
+      ..sort((DisplayMode a, DisplayMode b) => b.refreshRate.compareTo(a.refreshRate));
 
-  final DisplayMode mostOptimalMode = sameResolution.isNotEmpty ? sameResolution.first : active;
+    final DisplayMode mostOptimalMode = sameResolution.isNotEmpty ? sameResolution.first : active;
 
-  await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
+    await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
+  }
 }
