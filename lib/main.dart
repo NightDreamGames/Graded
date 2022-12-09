@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -57,59 +58,60 @@ class _AppContainerState extends State<AppContainer> {
     setOptimalDisplayMode();
 
     String brightness = Storage.getPreference("theme");
-
     String localeName = Storage.getPreference("language");
 
     return ChangeNotifierProvider(
       create: (context) => LocaleProvider(locale: localeName != defaultValues["language"] ? Locale(localeName) : null),
       child: Consumer<LocaleProvider>(
-        builder: (context, provider, _) => MaterialApp(
-          theme: AppTheme.getTheme(Brightness.light),
-          darkTheme: AppTheme.getTheme(Brightness.dark),
-          themeMode: brightness == "system"
-              ? ThemeMode.system
-              : brightness == "light"
-                  ? ThemeMode.light
-                  : ThemeMode.dark,
-          localizationsDelegates: const [
-            TranslationsDelegate(),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: TranslationsDelegate.supportedLocals,
-          locale: provider.locale,
-          debugShowCheckedModeBanner: false,
-          initialRoute: widget.initialRoute,
-          onGenerateRoute: (settings) {
-            Widget route;
+        builder: (context, provider, _) => DynamicColorBuilder(
+          builder: (ColorScheme? light, ColorScheme? dark) => MaterialApp(
+            theme: AppTheme.getTheme(Brightness.light, light, dark),
+            darkTheme: AppTheme.getTheme(Brightness.dark, light, dark),
+            themeMode: brightness == "system"
+                ? ThemeMode.system
+                : brightness == "light"
+                    ? ThemeMode.light
+                    : ThemeMode.dark,
+            localizationsDelegates: const [
+              TranslationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: TranslationsDelegate.supportedLocals,
+            locale: provider.locale,
+            debugShowCheckedModeBanner: false,
+            initialRoute: widget.initialRoute,
+            onGenerateRoute: (settings) {
+              Widget route;
 
-            switch (settings.name) {
-              case "/home":
-                route = const HomePage();
-                break;
-              case "/subject":
-                route = const SubjectRoute();
-                break;
-              case "/settings":
-                route = const SettingsPage();
-                break;
-              case "/setup":
-                route = const SetupPage();
-                break;
-              case "/setup_first":
-                route = const SetupPage(dismissible: false);
-                break;
-              case "/subject_edit":
-                route = const SubjectEditRoute();
-                break;
-              default:
-                route = const HomePage();
-                break;
-            }
+              switch (settings.name) {
+                case "/home":
+                  route = const HomePage();
+                  break;
+                case "/subject":
+                  route = const SubjectRoute();
+                  break;
+                case "/settings":
+                  route = const SettingsPage();
+                  break;
+                case "/setup":
+                  route = const SetupPage();
+                  break;
+                case "/setup_first":
+                  route = const SetupPage(dismissible: false);
+                  break;
+                case "/subject_edit":
+                  route = const SubjectEditRoute();
+                  break;
+                default:
+                  route = const HomePage();
+                  break;
+              }
 
-            return buildSharedAxisTransitionPageRoute((_) => Material(child: route), settings: settings);
-          },
+              return buildSharedAxisTransitionPageRoute((_) => Material(child: route), settings: settings);
+            },
+          ),
         ),
       ),
     );

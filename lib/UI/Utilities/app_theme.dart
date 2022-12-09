@@ -1,24 +1,13 @@
 // Flutter imports:
 import "package:flutter/material.dart";
 
-// Package imports:
-import "package:dynamic_color/dynamic_color.dart";
-
 class AppTheme {
   static ColorScheme? lightColorScheme;
   static ColorScheme? darkColorScheme;
 
-  static ThemeData getTheme(Brightness brightness) {
-    if (lightColorScheme == null) {
-      DynamicColorBuilder(
-        builder: (ColorScheme? light, ColorScheme? dark) {
-          lightColorScheme = lightColorScheme;
-          darkColorScheme = darkColorScheme;
-
-          return Container();
-        },
-      );
-    }
+  static ThemeData getTheme(Brightness brightness, ColorScheme? light, ColorScheme? dark) {
+    lightColorScheme = light;
+    darkColorScheme = dark;
 
     ColorScheme scheme = brightness == Brightness.light ? lightTheme() : darkTheme();
 
