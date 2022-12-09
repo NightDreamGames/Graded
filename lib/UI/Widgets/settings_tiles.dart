@@ -43,7 +43,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       additionalValidator: (newValue) {
         double? number = double.tryParse(newValue);
 
-        if (number != null && number <= 0) {
+        if (number == null || number <= 0) {
           return Translations.invalid;
         }
 
