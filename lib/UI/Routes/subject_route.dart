@@ -71,16 +71,13 @@ class _SubjectRouteState extends State<SubjectRoute> {
               if (Manager.currentTerm != -1) {
                 return Row(
                   children: [
-                    SizedBox(
-                      width: 100,
-                      child: Text(
-                        "${Translations.bonus} ${subject.bonus}${subject.bonus < 0 ? "" : "  "}",
-                        overflow: TextOverflow.fade,
-                        softWrap: false,
-                        style: const TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      "${Translations.bonus} ${subject.bonus}${subject.bonus < 0 ? "" : "  "}",
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                      style: const TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Padding(padding: EdgeInsets.only(left: 8)),
