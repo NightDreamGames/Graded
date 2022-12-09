@@ -508,6 +508,7 @@ class TextInputSettingsTile extends StatefulWidget {
 
 class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<EasyDialogState> _dialogKey = GlobalKey<EasyDialogState>();
   late TextEditingController _controller;
 
   @override
@@ -529,6 +530,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
       defaultValue: widget.initialValue,
       builder: (BuildContext context, String value, OnChanged<String> onChanged) {
         return _ModalSettingsTile<String>(
+          dialogKey: _dialogKey,
           title: widget.title,
           subtitle: value,
           icon: widget.icon,
@@ -543,16 +545,27 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
   Widget _buildTextField(BuildContext context, String value, OnChanged<String> onChanged) {
     _controller.text = value;
+    FocusNode focusNode = FocusNode();
 
     return Form(
       key: _formKey,
       child: EasyFormField(
         autofocus: widget.autoFocus,
+        focusNode: focusNode,
         controller: _controller,
         label: widget.title,
         numeric: widget.numeric,
         onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
         additionalValidator: widget.additionalValidator,
+        signed: false,
+        onSubmitted: () {
+          _controller.clearComposing();
+          focusNode.unfocus();
+
+          if (_dialogKey.currentState is EasyDialogState) {
+            (_dialogKey.currentState as EasyDialogState).submit();
+          }
+        },
       ),
     );
   }

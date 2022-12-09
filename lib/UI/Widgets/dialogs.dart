@@ -13,7 +13,7 @@ import '../Utilities/hints.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 import 'easy_form_field.dart';
 
-class EasyDialog<T> extends StatefulWidget {
+class EasyDialog extends StatefulWidget {
   final String title;
   final String? subtitle;
   final TextStyle? titleTextStyle;
@@ -42,10 +42,10 @@ class EasyDialog<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<EasyDialog> createState() => _EasyDialogState();
+  State<EasyDialog> createState() => EasyDialogState();
 }
 
-class _EasyDialogState extends State<EasyDialog> {
+class EasyDialogState extends State<EasyDialog> {
   @override
   void initState() {
     super.initState();
@@ -73,32 +73,7 @@ class _EasyDialogState extends State<EasyDialog> {
         ),
         TextButton(
           onPressed: () async {
-            var closeDialog = true;
-
-            bool submitText() {
-              var isValid = true;
-              final state = formKey.currentState;
-              if (state != null) {
-                isValid = state.validate();
-              }
-
-              if (isValid) {
-                state?.save();
-                return true;
-              }
-
-              return false;
-            }
-
-            if (!submitText()) {
-              closeDialog = false;
-            } else if (widget.onConfirm != null) {
-              closeDialog = widget.onConfirm!.call();
-            }
-
-            if (closeDialog) {
-              _disposeDialog(context);
-            }
+            submit();
           },
           child: Text(
             widget.action ?? Translations.save,
@@ -117,6 +92,35 @@ class _EasyDialogState extends State<EasyDialog> {
   void _disposeDialog(BuildContext dialogContext) {
     Navigator.pop(dialogContext);
   }
+
+  void submit() {
+    var closeDialog = true;
+
+    bool submitText() {
+      var isValid = true;
+      final state = formKey.currentState;
+      if (state != null) {
+        isValid = state.validate();
+      }
+
+      if (isValid) {
+        state?.save();
+        return true;
+      }
+
+      return false;
+    }
+
+    if (!submitText()) {
+      closeDialog = false;
+    } else if (widget.onConfirm != null) {
+      closeDialog = widget.onConfirm!.call();
+    }
+
+    if (closeDialog) {
+      _disposeDialog(context);
+    }
+  }
 }
 
 Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingController nameController, TextEditingController gradeController,
@@ -134,7 +138,11 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
   return showDialog(
     context: context,
     builder: (context) {
+      final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
+      FocusNode focusNode = FocusNode();
+
       return EasyDialog(
+        key: dialogKey,
         title: add ? Translations.add_test : Translations.edit_test,
         icon: add ? Icons.add : Icons.edit,
         onConfirm: () {
@@ -193,10 +201,19 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                 ),
                 Flexible(
                   child: EasyFormField(
+                    focusNode: focusNode,
                     controller: maximumController,
                     label: Translations.maximum,
                     hint: Calculator.format(Storage.getPreference<double>("total_grades")),
                     numeric: true,
+                    onSubmitted: () {
+                      maximumController.clearComposing();
+                      focusNode.unfocus();
+
+                      if (dialogKey.currentState is EasyDialogState) {
+                        (dialogKey.currentState as EasyDialogState).submit();
+                      }
+                    },
                   ),
                 ),
               ],
@@ -217,10 +234,14 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
   coeffController.text = add ? "" : Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true);
   nameController.text = add ? "" : Manager.termTemplate[index].name;
 
+  final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
+  FocusNode focusNode = FocusNode();
+
   return showDialog(
     context: context,
     builder: (context) {
       return EasyDialog(
+        key: dialogKey,
         title: add ? Translations.add_subject : Translations.edit_subject,
         icon: add ? Icons.add : Icons.edit,
         onConfirm: () {
@@ -274,9 +295,18 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
                 Flexible(
                   child: EasyFormField(
                     controller: coeffController,
+                    focusNode: focusNode,
                     label: Translations.coefficient,
                     hint: "1",
                     numeric: true,
+                    onSubmitted: () {
+                      coeffController.clearComposing();
+                      focusNode.unfocus();
+
+                      if (dialogKey.currentState is EasyDialogState) {
+                        (dialogKey.currentState as EasyDialogState).submit();
+                      }
+                    },
                   ),
                 ),
               ],

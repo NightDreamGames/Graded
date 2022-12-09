@@ -16,7 +16,10 @@ class EasyFormField extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.textInputAction = TextInputAction.done,
     this.onSaved,
+    this.onSubmitted,
     this.additionalValidator,
+    this.signed = true,
+    this.focusNode,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -27,7 +30,10 @@ class EasyFormField extends StatelessWidget {
   final bool numeric;
   final TextInputAction textInputAction;
   final void Function(String?)? onSaved;
+  final void Function()? onSubmitted;
   final String? Function(String)? additionalValidator;
+  final bool signed;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,7 @@ class EasyFormField extends StatelessWidget {
       textInputAction: textInputAction,
       autofocus: autofocus,
       autovalidateMode: numeric ? AutovalidateMode.onUserInteraction : null,
-      keyboardType: numeric ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
+      keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: signed) : TextInputType.text,
       textAlign: textAlign,
       textCapitalization: TextCapitalization.sentences,
       validator: numeric
@@ -49,6 +55,8 @@ class EasyFormField extends StatelessWidget {
           : null,
       decoration: inputDecoration(context, labelText: label, hintText: hint),
       onSaved: onSaved,
+      onEditingComplete: onSubmitted,
+      focusNode: focusNode,
     );
   }
 }

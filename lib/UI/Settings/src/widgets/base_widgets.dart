@@ -391,8 +391,10 @@ class _ModalSettingsTile<T> extends StatefulWidget {
   /// automatically. However you can choose to modify them as per your need by referencing
   /// the values from the callback & updating
   final OnConfirmedCallback? onConfirm;
+  final GlobalKey? dialogKey;
 
   const _ModalSettingsTile({
+    Key? key,
     required this.title,
     required this.child,
     this.subtitle = '',
@@ -403,7 +405,10 @@ class _ModalSettingsTile<T> extends StatefulWidget {
     this.onConfirm,
     this.titleTextStyle,
     this.subtitleTextStyle,
-  });
+    this.dialogKey,
+  }) : super(key: key);
+
+  void submit() {}
 
   @override
   State<_ModalSettingsTile> createState() => __ModalSettingsTileState();
@@ -440,15 +445,17 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
 
   void _showWidget(BuildContext context, Widget child) {
     showDialog(
-        context: context,
-        builder: (dialogContext) {
-          return EasyDialog(
-            title: widget.title,
-            icon: widget.icon,
-            onConfirm: widget.onConfirm,
-            child: child,
-          );
-        });
+      context: context,
+      builder: (dialogContext) {
+        return EasyDialog(
+          title: widget.title,
+          icon: widget.icon,
+          onConfirm: widget.onConfirm,
+          key: widget.dialogKey,
+          child: child,
+        );
+      },
+    );
   }
 }
 
