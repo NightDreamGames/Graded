@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 
 // Project imports:
@@ -72,10 +74,10 @@ class _SubjectRouteState extends State<SubjectRoute> {
                 return Row(
                   children: [
                     SizedBox(
-                      width: 110 * MediaQuery.textScaleFactorOf(context),
+                      width: (Platform.isAndroid ? 100 : 110) * MediaQuery.textScaleFactorOf(context),
                       child: Text(
                         "${Translations.bonus} ${subject.bonus}${subject.bonus < 0 ? "" : "  "}",
-                        overflow: TextOverflow.fade,
+                        overflow: TextOverflow.visible,
                         softWrap: false,
                         style: const TextStyle(
                           fontSize: 22.0,
