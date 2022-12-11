@@ -62,7 +62,6 @@ class _SubjectRouteState extends State<SubjectRoute> {
               title: subject.name,
               actionAmount: 2,
             ),
-            centerTitle: true,
             actions: [
               TermSelector(rebuild: rebuild),
               SortSelector(rebuild: rebuild, type: 1),

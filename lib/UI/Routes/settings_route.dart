@@ -40,7 +40,6 @@ class _SettingsPageState extends State<SettingsPage> {
             title: Translations.settings,
             actionAmount: 0,
           ),
-          centerTitle: true,
         ),
         SliverToBoxAdapter(
           child: SettingsContainer(

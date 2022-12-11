@@ -61,7 +61,6 @@ class _SetupPageState extends State<SetupPage> {
               title: Translations.setup,
               actionAmount: 0,
             ),
-            centerTitle: true,
             automaticallyImplyLeading: widget.dismissible,
           ),
           SliverToBoxAdapter(

@@ -18,10 +18,11 @@ class AppBarTitle extends StatelessWidget {
         final bool collapsed = constraints.biggest.height == 64;
 
         return Padding(
-          padding: EdgeInsets.only(left: collapsed ? 48 : 8, right: collapsed ? 48 * actionAmount.toDouble() : 8),
+          padding: EdgeInsets.only(left: 8, right: collapsed ? actionAmount * 48 : 8),
           child: Text(
             title,
             softWrap: false,
+            textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.fade,
             style: collapsed ? const TextStyle(fontWeight: FontWeight.bold) : const TextStyle(fontWeight: FontWeight.bold, fontSize: 42),

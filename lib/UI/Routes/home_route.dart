@@ -14,7 +14,6 @@ import '../Widgets/list_widgets.dart';
 import '../Widgets/misc_widgets.dart';
 import '../Widgets/popup_menus.dart';
 
-//TODO build is called twice on first load
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -68,8 +67,10 @@ class _HomePageState extends State<HomePage> {
           primary: true,
           slivers: [
             SliverAppBar.large(
-              title: AppBarTitle(title: getTitle()),
-              centerTitle: true,
+              title: AppBarTitle(
+                title: getTitle(),
+                actionAmount: 2,
+              ),
               actions: [
                 TermSelector(rebuild: rebuild),
                 SortSelector(rebuild: rebuild, type: 0),

@@ -41,7 +41,8 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       ),
       appBar: AppBar(
         title: Text(Translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
+        titleSpacing: 0,
+        toolbarHeight: 64,
         actions: [
           SortSelector(rebuild: rebuild, type: 2),
         ],
