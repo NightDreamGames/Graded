@@ -56,12 +56,13 @@ class _SetupPageState extends State<SetupPage> {
       body: CustomScrollView(
         primary: true,
         slivers: [
-          SliverAppBar(
-            floating: false,
-            pinned: true,
+          SliverAppBar.large(
+            title: AppBarTitle(
+              title: Translations.setup,
+              actionAmount: 0,
+            ),
+            centerTitle: true,
             automaticallyImplyLeading: widget.dismissible,
-            expandedHeight: 150,
-            flexibleSpace: ScrollingTitle(title: Translations.setup),
           ),
           SliverToBoxAdapter(
             child: SettingsContainer(

@@ -120,13 +120,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  customizable_space_bar:
-    dependency: "direct main"
-    description:
-      name: customizable_space_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   dart_style:
     dependency: transitive
     description:

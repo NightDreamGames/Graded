@@ -178,7 +178,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               Text(
                 widget.title,
               ),

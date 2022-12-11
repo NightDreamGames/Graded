@@ -1,32 +1,30 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:customizable_space_bar/customizable_space_bar.dart';
-
-class ScrollingTitle extends StatelessWidget {
-  const ScrollingTitle({
+class AppBarTitle extends StatelessWidget {
+  const AppBarTitle({
     Key? key,
     required this.title,
+    this.actionAmount = 1,
   }) : super(key: key);
 
   final String title;
+  final int actionAmount;
 
   @override
   Widget build(BuildContext context) {
-    return CustomizableSpaceBar(
-      builder: (context, scrollingRate) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final bool collapsed = constraints.biggest.height == 64;
+
         return Padding(
-          padding: EdgeInsets.only(bottom: 12, left: 24 + 40 * scrollingRate),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 42 - 18 * scrollingRate,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          padding: EdgeInsets.only(left: collapsed ? 48 : 8, right: collapsed ? 48 * actionAmount.toDouble() : 8),
+          child: Text(
+            title,
+            softWrap: false,
+            maxLines: 1,
+            overflow: TextOverflow.fade,
+            style: collapsed ? const TextStyle(fontWeight: FontWeight.bold) : const TextStyle(fontWeight: FontWeight.bold, fontSize: 42),
           ),
         );
       },

@@ -40,8 +40,9 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text(Translations.edit_subjects),
-        actions: <Widget>[
+        title: Text(Translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        actions: [
           SortSelector(rebuild: rebuild, type: 2),
         ],
       ),

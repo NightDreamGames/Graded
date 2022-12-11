@@ -1,6 +1,7 @@
-// Flutter imports:
+// Dart imports:
 import 'dart:io' show Platform;
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 // Project imports:
@@ -57,13 +58,13 @@ class _SubjectRouteState extends State<SubjectRoute> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar.large(
-            //TODO Fix title size
-            //title: Text(subject.name, style: TextStyle(fontWeight: FontWeight.bold)),
-            flexibleSpace: ScrollingTitle(title: subject.name),
-            actions: <Widget>[
-              TermSelector(
-                rebuild: rebuild,
-              ),
+            title: AppBarTitle(
+              title: subject.name,
+              actionAmount: 2,
+            ),
+            centerTitle: true,
+            actions: [
+              TermSelector(rebuild: rebuild),
               SortSelector(rebuild: rebuild, type: 1),
             ],
           ),

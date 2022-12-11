@@ -35,11 +35,12 @@ class _SettingsPageState extends State<SettingsPage> {
     return CustomScrollView(
       primary: true,
       slivers: [
-        SliverAppBar(
-          floating: false,
-          pinned: true,
-          expandedHeight: 150,
-          flexibleSpace: ScrollingTitle(title: Translations.settings),
+        SliverAppBar.large(
+          title: AppBarTitle(
+            title: Translations.settings,
+            actionAmount: 0,
+          ),
+          centerTitle: true,
         ),
         SliverToBoxAdapter(
           child: SettingsContainer(

@@ -66,15 +66,15 @@ class _HomePageState extends State<HomePage> {
         },
         child: CustomScrollView(
           primary: true,
-          slivers: <Widget>[
+          slivers: [
             SliverAppBar.large(
+              title: AppBarTitle(title: getTitle()),
               centerTitle: true,
-              automaticallyImplyLeading: false,
-              flexibleSpace: ScrollingTitle(title: getTitle()),
-              actions: <Widget>[
+              actions: [
                 TermSelector(rebuild: rebuild),
                 SortSelector(rebuild: rebuild, type: 0),
               ],
+              automaticallyImplyLeading: false,
             ),
             ResultRow(
               result: term.getResult(),
