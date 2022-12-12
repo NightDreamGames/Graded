@@ -29,12 +29,15 @@ A clean and open-source app to track and manage your school grades.
 </a>
 
 <br />
-<br />
 
 <a href='https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-<img alt='Get it on Google Play' src='https://user-images.githubusercontent.com/74767551/207097083-e375553d-ee3c-43fd-83e9-8389159a663e.png' style="height:66px"/>
+  <img alt='Get it on Google Play' src='https://user-images.githubusercontent.com/74767551/207097083-e375553d-ee3c-43fd-83e9-8389159a663e.png' height="60" />
 </a>
-<a href="https://apps.apple.com/us/app/graded-grade-tracker/id6444681284?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 200px; height: 66px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=200x66&amp;releaseDate=1670803200?h=def57059473046f918fe9659af2338b3" alt="Download on the App Store" style="border-radius: 13px; width: 200px; height: 66px;"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://apps.apple.com/us/app/graded-grade-tracker/id6444681284?itsct=apps_box_badge&amp;itscg=30200">
+  <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=200x80&amp;releaseDate=1670803200?h=def57059473046f918fe9659af2338b3" alt="Download on the App Store" border-radius="13" height="60">
+</a>
+
 </div>
 
 ---
