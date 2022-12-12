@@ -38,9 +38,9 @@ A clean and open-source app to track and manage your school grades.
 
 ---
 
-### Grade.ly is available for download! 🥳 🚀
+### Graded is available for download! 🥳 🚀
 
-- Android: Search for "Grade.ly" on
+- Android: Search for "Graded" on
   the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
 - iOS: Coming very soon 👀
 - Web: Consideration
@@ -67,7 +67,7 @@ by selecting your Class, or else by creating your own Subjects with Weights.
 ► Rounding -- Choose how your Grades get rounded: Up, Down, To Integer, 10th, 100th, or 1000th.
 
 ► Multiple Semester / Trimester / Year Support -- Select which term you want to add Grades to and
-switch them at any time. You have complete flexibility and Grade.ly handles it all.
+switch them at any time. You have complete flexibility and Graded handles it all.
 
 ► Clean Interface -- Enjoy a clean interface, available in Light and Dark Mode.
 
@@ -76,14 +76,14 @@ your new device.
 
 # 👨‍💻 Tech stack
 
-Here's a brief high-level overview of the tech stack Grade.ly uses:
+Here's a brief high-level overview of the tech stack Graded uses:
 
 - This project uses the Flutter framework, with builds for Android, iOS, and soon Web.
 - The app design adheres to the material design guidelines.
 
 # ✍️ Contributing
 
-Interested in contributing to the Grade.ly project? Thanks so much for your interest! We are always
+Interested in contributing to the Graded project? Thanks so much for your interest! We are always
 looking for improvements to the project and contributions from open-source developers are greatly
 appreciated.
 

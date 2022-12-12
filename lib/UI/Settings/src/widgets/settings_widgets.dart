@@ -4,10 +4,10 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:gradely/Calculations/calculator.dart';
-import 'package:gradely/Translations/translations.dart';
-import 'package:gradely/UI/Widgets/dialogs.dart';
-import 'package:gradely/UI/Widgets/easy_form_field.dart';
+import '../../../../Calculations/calculator.dart';
+import '../../../../Translations/translations.dart';
+import '../../../Widgets/dialogs.dart';
+import '../../../Widgets/easy_form_field.dart';
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';
 

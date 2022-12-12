@@ -11,12 +11,12 @@ String? encodeQueryParameters(Map<String, String> params) {
 final Uri websiteLaunchUri = Uri.parse('https://nightdreamgames.com/');
 final Uri playStoreLaunchUri = Uri.https('play.google.com', '/store/apps/details', {'id': 'com.NightDreamGames.Grade.ly'});
 final Uri appStoreLaunchUri = Uri.parse('https://apps.apple.com/us/app/grade-ly-suivi-de-notes/id6444681284');
-final Uri githubLaunchUri = Uri.parse('https://github.com/NightDreamGames/Grade.ly');
+final Uri githubLaunchUri = Uri.parse('https://github.com/NightDreamGames/Graded');
 final Uri emailLaunchUri = Uri(
   scheme: 'mailto',
   path: 'contact.nightdreamgames@gmail.com',
   query: encodeQueryParameters(<String, String>{
-    'subject': 'Grade.ly feedback',
+    'subject': 'Graded feedback',
     'body': 'Thank you for your feedback!',
   }),
 );

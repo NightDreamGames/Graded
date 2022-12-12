@@ -119,7 +119,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: Translations.about,
                 children: [
                   SimpleSettingsTile(
-                    icon: CustomIcons.gradely,
+                    icon: CustomIcons.graded,
                     title: Translations.app_name,
                     subtitle: Translations.about_text,
                     onTap: () => launchURL(0),
