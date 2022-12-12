@@ -1,6 +1,6 @@
 <div align='center'>
-<a href="https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly">
-<img src="https://user-images.githubusercontent.com/49079695/152243403-eea6e8c0-30c3-48c2-8866-3e576ba2bf63.png" width="600" />
+<a href="https://nightdreamgames.com">
+<img src="https://user-images.githubusercontent.com/74767551/207093193-cf301609-07c0-4277-a1cd-a1908c6dd5e7.png" width="600" />
 </a>
 
 <br />
@@ -8,7 +8,10 @@
 <br />
 
 <a href="https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly">
-<img src='https://img.shields.io/endpoint?url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.NightDreamGames.Grade.ly%26l%3DVersion%26m%3D%24version&color=brightgreen'>
+<img src='https://img.shields.io/endpoint?url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.NightDreamGames.Grade.ly&label=Play%20Store&color=brightgreen'>
+</a>
+<a href="https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284">
+<img src='https://img.shields.io/itunes/v/6444681284?color=brightgreen&label=App%20Store'>
 </a>
 
 <br />
@@ -25,24 +28,21 @@ A clean and open-source app to track and manage your school grades.
 <img src='https://img.shields.io/badge/HOMEPAGE-gray?style=for-the-badge'>
 </a>
 
-<a href='https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly'>
-<img src='https://img.shields.io/badge/DOWNLOAD-blue?style=for-the-badge'>
-</a>
-
+<br />
 <br />
 
 <a href='https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-<img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' style="width: 200; " width="200" />
+<img alt='Get it on Google Play' src='https://user-images.githubusercontent.com/74767551/207097083-e375553d-ee3c-43fd-83e9-8389159a663e.png' style="height:66px"/>
 </a>
+<a href="https://apps.apple.com/us/app/graded-grade-tracker/id6444681284?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 200px; height: 66px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=200x66&amp;releaseDate=1670803200?h=def57059473046f918fe9659af2338b3" alt="Download on the App Store" style="border-radius: 13px; width: 200px; height: 66px;"></a>
 </div>
 
 ---
 
 ### Graded is available for download! 🥳 🚀
 
-- Android: Search for "Graded" on
-  the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
-- iOS: Coming very soon 👀
+- Android: Search for "Graded" on the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
+- iOS: Search for "Graded" on the [Apple App Store](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284)
 - Web: Consideration
 
 ---
