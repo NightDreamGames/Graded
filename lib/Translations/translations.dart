@@ -85,6 +85,8 @@ class Translations {
 
   static String get english => _getText("english");
 
+  static String get enter_unique => _getText("enter_unique");
+
   static String get french => _getText("french");
 
   static String get general => _getText("general");
@@ -274,6 +276,7 @@ class Translations {
     "edit_test": "Edit test",
     "email": "contact@nightdreamgames.com",
     "english": "English",
+    "enter_unique": "Enter a unique name",
     "french": "Français",
     "general": "General",
     "general_note":
@@ -390,6 +393,7 @@ class Translations {
     "edit_test": "Modifier un devoir",
     "email": "contact@nightdreamgames.com",
     "english": "English",
+    "enter_unique": "Entrez un nom unique",
     "french": "Français",
     "general": "Général",
     "general_note":
@@ -506,6 +510,7 @@ class Translations {
     "edit_test": "Prüfing bearbeiten",
     "email": "contact@nightdreamgames.com",
     "english": "English",
+    "enter_unique": "Geben Sie einen eindeutigen Namen ein",
     "french": "Français",
     "general": "General",
     "general_note":
@@ -622,6 +627,7 @@ class Translations {
     "edit_test": "Prüfung beaarbechten",
     "email": "contact@nightdreamgames.com",
     "english": "English",
+    "enter_unique": "Gidd en eendeitegen Numm un",
     "french": "Français",
     "general": "General",
     "general_note":

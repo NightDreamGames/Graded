@@ -3,12 +3,12 @@ import 'dart:io' show Platform;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:graded/Misc/storage.dart';
 
 // Project imports:
 import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
 import '../../Calculations/term.dart';
+import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
 import '../Widgets/dialogs.dart';
 import '../Widgets/list_widgets.dart';

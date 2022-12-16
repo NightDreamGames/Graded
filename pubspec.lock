@@ -154,7 +154,7 @@ packages:
       name: excel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-null-safety-3"
+    version: "2.0.1"
   fake_async:
     dependency: transitive
     description:

@@ -41,18 +41,18 @@ class EasyFormField extends StatelessWidget {
       controller: controller,
       textInputAction: textInputAction,
       autofocus: autofocus,
-      autovalidateMode: numeric ? AutovalidateMode.onUserInteraction : null,
+      autovalidateMode: numeric || additionalValidator != null ? AutovalidateMode.onUserInteraction : null,
       keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: signed) : TextInputType.text,
       textAlign: textAlign,
       textCapitalization: TextCapitalization.sentences,
-      validator: numeric
-          ? (String? input) {
-              if ((input == null || input.isEmpty || Calculator.tryParse(input) != null) && additionalValidator?.call(input!) == null) {
-                return null;
-              }
-              return Translations.invalid;
-            }
-          : null,
+      validator: (String? input) {
+        if (input != null && input.isNotEmpty) {
+          if (numeric && Calculator.tryParse(input) == null) {
+            return Translations.invalid;
+          }
+        }
+        return additionalValidator?.call(input!);
+      },
       decoration: inputDecoration(context, labelText: label, hintText: hint),
       onSaved: onSaved,
       onEditingComplete: onSubmitted,

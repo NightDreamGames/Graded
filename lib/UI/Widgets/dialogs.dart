@@ -283,6 +283,17 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
                 label: Translations.name,
                 hint: getSubjectHint(),
                 textInputAction: TextInputAction.next,
+                additionalValidator: (newValue) {
+                  if (Manager.termTemplate.any((element) {
+                    if (!add && element.name == Manager.termTemplate[index].name) {
+                      return false;
+                    }
+                    return element.name == newValue;
+                  })) {
+                    return Translations.enter_unique;
+                  }
+                  return null;
+                },
               ),
             ),
             const Padding(
