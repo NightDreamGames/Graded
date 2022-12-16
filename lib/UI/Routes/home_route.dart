@@ -1,9 +1,9 @@
-// Dart imports:
-import 'dart:io';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
+import 'package:flutter_exit_app/flutter_exit_app.dart';
 
 // Project imports:
 import '../../Calculations/manager.dart';
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             Manager.currentTerm = Manager.lastTerm;
             rebuild();
           } else {
-            exit(0);
+            FlutterExitApp.exitApp();
           }
 
           return Future<bool>.value(false);

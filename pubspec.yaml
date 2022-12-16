@@ -1,7 +1,7 @@
 name: graded
 description: A clean and open-source app to track and manage your school grades.
 publish_to: "none"
-version: 2.0.3+47
+version: 2.0.4+48
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -24,6 +24,7 @@ dependencies:
   excel: ^2.0.0-null-safety-3
   animations: ^2.0.0
   collection: ^1.16.0
+  flutter_exit_app: ^1.0.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0
