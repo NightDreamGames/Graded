@@ -427,7 +427,10 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           ListTile(
-            leading: Icon(widget.icon),
+            leading: Icon(
+              widget.icon,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
             title: Text(widget.title, style: widget.titleTextStyle ?? headerTextStyle(context)),
             subtitle: Text(
               widget.subtitle!,

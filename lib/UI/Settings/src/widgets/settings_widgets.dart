@@ -410,7 +410,7 @@ class SettingsGroup extends StatelessWidget {
 
   TextStyle groupStyle(BuildContext context) {
     return TextStyle(
-      color: Theme.of(context).colorScheme.primary,
+      color: Theme.of(context).colorScheme.onSurface,
       fontSize: 12.0,
       fontWeight: FontWeight.bold,
     );

@@ -128,6 +128,13 @@ class _SetupPageState extends State<SetupPage> {
                             selected: defaultValues["variant"],
                             values: SetupManager.getVariants(Storage.getPreference("year")),
                           )
+                      ] else if (Storage.getPreference("lux_system") == "general") ...[
+                        SimpleSettingsTile(
+                          title: Translations.coming_soon,
+                          subtitle: Translations.general_note,
+                          icon: Icons.construction,
+                          enabled: false,
+                        ),
                       ]
                     ],
                   )
