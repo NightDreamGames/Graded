@@ -14,7 +14,7 @@ final Uri appStoreLaunchUri = Uri.parse('https://apps.apple.com/us/app/graded-su
 final Uri githubLaunchUri = Uri.parse('https://github.com/NightDreamGames/Graded');
 final Uri emailLaunchUri = Uri(
   scheme: 'mailto',
-  path: 'contact.nightdreamgames@gmail.com',
+  path: 'contact@nightdreamgames.com',
   query: encodeQueryParameters(<String, String>{
     'subject': 'Graded feedback',
     'body': 'Thank you for your feedback!',
