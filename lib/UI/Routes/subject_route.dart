@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:graded/Misc/storage.dart';
 
 // Project imports:
 import '../../Calculations/manager.dart';
@@ -22,7 +23,7 @@ class SubjectRoute extends StatefulWidget {
 }
 
 class _SubjectRouteState extends State<SubjectRoute> {
-  late int subjectIndex;
+  late int subjectIndex = -1;
   late Term term = Manager.getCurrentTerm();
   late Subject subject = term.subjects[subjectIndex];
 
@@ -39,14 +40,29 @@ class _SubjectRouteState extends State<SubjectRoute> {
   }
 
   void rebuild() {
-    term = Manager.getCurrentTerm();
-    subject = term.subjects[subjectIndex];
+    if (Storage.getPreference("sort_mode1") != 1) {
+      subject = term.subjects[subjectIndex];
+    } else {
+      subjectIndex = term.subjects.indexOf(subject);
+    }
+
     setState(() {});
+  }
+
+  void switchTerm() {
+    Subject tmp = term.subjects[subjectIndex];
+    term = Manager.getCurrentTerm();
+    subjectIndex = term.subjects.indexWhere((element) => element.name == tmp.name);
+    subject = term.subjects[subjectIndex];
+
+    rebuild();
   }
 
   @override
   Widget build(BuildContext context) {
-    subjectIndex = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
+    if (subjectIndex == -1) {
+      subjectIndex = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
+    }
 
     return Scaffold(
       floatingActionButton: Manager.currentTerm != -1
@@ -63,7 +79,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
               actionAmount: 2,
             ),
             actions: [
-              TermSelector(rebuild: rebuild),
+              TermSelector(rebuild: switchTerm),
               SortSelector(rebuild: rebuild, type: 1),
             ],
           ),
