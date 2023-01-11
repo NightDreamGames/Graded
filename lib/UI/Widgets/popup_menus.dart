@@ -24,16 +24,16 @@ class TermSelector extends StatelessWidget {
               switch (Storage.getPreference<int>("term")) {
                 case 2:
                   a = [
-                    Translations.semester_1,
-                    Translations.semester_2,
+                    "${Translations.semester} 1",
+                    "${Translations.semester} 2",
                     Translations.year_overview,
                   ];
                   break;
                 case 3:
                   a = [
-                    Translations.trimester_1,
-                    Translations.trimester_2,
-                    Translations.trimester_3,
+                    "${Translations.trimester} 1",
+                    "${Translations.trimester} 2",
+                    "${Translations.trimester} 3",
                     Translations.year_overview,
                   ];
                   break;

@@ -50,29 +50,16 @@ String getTestHint(Subject subject) {
 }
 
 String getTitle({int? termOverride}) {
-  switch (termOverride ?? Manager.currentTerm) {
-    case 0:
-      switch (Storage.getPreference<int>("term")) {
-        case 3:
-          return Translations.trimester_1;
-        case 2:
-          return Translations.semester_1;
-        case 1:
-          return Translations.year;
-      }
-      break;
-    case 1:
-      switch (Storage.getPreference<int>("term")) {
-        case 3:
-          return Translations.trimester_2;
-        case 2:
-          return Translations.semester_2;
-      }
-      break;
+  int currentTerm = termOverride ?? Manager.currentTerm;
+  if (currentTerm == -1) return Translations.year_overview;
+
+  switch (Storage.getPreference<int>("term")) {
+    case 3:
+      return "${Translations.trimester} ${currentTerm + 1}";
     case 2:
-      return Translations.trimester_3;
-    case -1:
-      return Translations.year_overview;
+      return "${Translations.semester} ${currentTerm + 1}";
+    case 1:
+      return Translations.year;
   }
 
   return Translations.app_name;

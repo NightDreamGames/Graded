@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: public_member_api_docs, prefer_single_quotes, avoid_escaping_inner_quotes, prefer_const_constructors, sort_constructors_first, always_specify_types
+// ignore_for_file: public_member_api_docs, prefer_single_quotes, avoid_escaping_inner_quotes, prefer_const_constructors, sort_constructors_first, always_specify_types, non_constant_identifier_names
 
 import 'dart:async';
 
@@ -175,9 +175,7 @@ class Translations {
 
   static String get select_term => _getText("select_term");
 
-  static String get semester_1 => _getText("semester_1");
-
-  static String get semester_2 => _getText("semester_2");
+  static String get semester => _getText("semester");
 
   static String get semesters => _getText("semesters");
 
@@ -213,11 +211,7 @@ class Translations {
 
   static String get to_integer => _getText("to_integer");
 
-  static String get trimester_1 => _getText("trimester_1");
-
-  static String get trimester_2 => _getText("trimester_2");
-
-  static String get trimester_3 => _getText("trimester_3");
+  static String get trimester => _getText("trimester");
 
   static String get trimesters => _getText("trimesters");
 
@@ -321,8 +315,7 @@ class Translations {
     "section_classic_g": "G - Human and social sciences",
     "section_classic_i": "I - Informatics & Communication",
     "select_term": "Select term",
-    "semester_1": "Semester 1",
-    "semester_2": "Semester 2",
+    "semester": "Semester",
     "semesters": "Semesters",
     "settings": "Settings",
     "setup": "Setup",
@@ -340,9 +333,7 @@ class Translations {
     "to_100th": "To 100-th",
     "to_10th": "To 10-th",
     "to_integer": "To integer",
-    "trimester_1": "Trimester 1",
-    "trimester_2": "Trimester 2",
-    "trimester_3": "Trimester 3",
+    "trimester": "Trimester",
     "trimesters": "Trimesters",
     "up": "Up",
     "variant": "Variant",
@@ -438,8 +429,7 @@ class Translations {
     "section_classic_g": "G - Sciences humaines et sociales",
     "section_classic_i": "I - Informatique & Communication",
     "select_term": "Sélectionner période",
-    "semester_1": "Semestre 1",
-    "semester_2": "Semestre 2",
+    "semester": "Semestre",
     "semesters": "Semestres",
     "settings": "Options",
     "setup": "Configuration",
@@ -457,9 +447,7 @@ class Translations {
     "to_100th": "Au 100ème",
     "to_10th": "Au 10ème",
     "to_integer": "A l'entier",
-    "trimester_1": "Trimestre 1",
-    "trimester_2": "Trimestre 2",
-    "trimester_3": "Trimestre 3",
+    "trimester": "Trimestre",
     "trimesters": "Trimestres",
     "up": "Vers le haut",
     "variant": "Variante",
@@ -555,8 +543,7 @@ class Translations {
     "section_classic_g": "G -Menschliche und soziale Wissenschaften",
     "section_classic_i": "I - Informatik & Kommunikation",
     "select_term": "Periode auswählen",
-    "semester_1": "Semester 1",
-    "semester_2": "Semester 2",
+    "semester": "Semester",
     "semesters": "Semester",
     "settings": "Einstellungen",
     "setup": "Einrichtung",
@@ -574,9 +561,7 @@ class Translations {
     "to_100th": "Zum 100-tel",
     "to_10th": "Zum 10-tel",
     "to_integer": "Zur Ganzzahl",
-    "trimester_1": "Trimester 1",
-    "trimester_2": "Trimester 2",
-    "trimester_3": "Trimester 3",
+    "trimester": "Trimester",
     "trimesters": "Trimester",
     "up": "Nach oben",
     "variant": "Variante",
@@ -672,8 +657,7 @@ class Translations {
     "section_classic_g": "G - Mënschlech an sozial Wëssenschaften",
     "section_classic_i": "I - Informatik & Kommunikatioun",
     "select_term": "Period auswielen",
-    "semester_1": "Semester 1",
-    "semester_2": "Semester 2",
+    "semester": "Semester",
     "semesters": "Semester",
     "settings": "Astellungen",
     "setup": "Ariichtung",
@@ -691,9 +675,7 @@ class Translations {
     "to_100th": "Zum 100-tel",
     "to_10th": "Zum 10-tel",
     "to_integer": "Zur Ganzzuel",
-    "trimester_1": "Trimester 1",
-    "trimester_2": "Trimester 2",
-    "trimester_3": "Trimester 3",
+    "trimester": "Trimester",
     "trimesters": "Trimester",
     "up": "No uewen",
     "variant": "Variante",
