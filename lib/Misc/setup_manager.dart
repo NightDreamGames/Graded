@@ -139,8 +139,6 @@ class SetupManager {
 
         if (Storage.getPreference("year") == "1C") {
           Storage.setPreference("term", 2);
-        } else {
-          Storage.setPreference("term", 3);
         }
       }
 

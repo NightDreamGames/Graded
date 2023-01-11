@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../Misc/compatibility.dart';
 import '../../Misc/setup_manager.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
@@ -127,7 +128,20 @@ class _SetupPageState extends State<SetupPage> {
                             settingKey: 'variant',
                             selected: defaultValues["variant"],
                             values: SetupManager.getVariants(Storage.getPreference("year")),
-                          )
+                          ),
+                        if (Storage.getPreference("year") != "" && Storage.getPreference("year") != "1C")
+                          RadioModalSettingsTile<int>(
+                            title: Translations.term,
+                            icon: Icons.access_time_outlined,
+                            settingKey: 'term',
+                            onChange: (_) => Compatibility.termCount(),
+                            values: <int, String>{
+                              3: Translations.trimesters,
+                              2: Translations.semesters,
+                              1: Translations.year,
+                            },
+                            selected: defaultValues["term"],
+                          ),
                       ] else if (Storage.getPreference("lux_system") == "general") ...[
                         SimpleSettingsTile(
                           title: Translations.coming_soon,

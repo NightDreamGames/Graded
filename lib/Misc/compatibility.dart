@@ -138,6 +138,9 @@ class Compatibility {
       Storage.setPreference<int>("current_term", Manager.currentTerm);
     }
 
+    if (newValue == 1) {
+      Manager.currentTerm = 0;
+    }
     Storage.serialize();
   }
 
