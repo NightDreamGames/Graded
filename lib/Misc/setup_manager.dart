@@ -128,13 +128,23 @@ class SetupManager {
   }
 
   static Future<void> completeSetup() async {
+    Storage.setPreference("validated_school_system", Storage.getPreference("school_system"));
+
     if (Storage.getPreference("school_system") == "lux") {
+      Storage.setPreference("validated_lux_system", Storage.getPreference("lux_system"));
+      Storage.setPreference("validated_year", Storage.getPreference("year"));
+
       if (Storage.getPreference("lux_system") == "classic") {
         if (!hasSections(Storage.getPreference("year"))) {
           Storage.setPreference<String>("section", defaultValues["section"]);
+        } else {
+          Storage.setPreference("validated_section", Storage.getPreference("section"));
         }
+
         if (!hasVariants(Storage.getPreference("year")) || getVariants(Storage.getPreference("year"))[Storage.getPreference("variant")] == null) {
           Storage.setPreference<String>("variant", defaultValues["variant"]);
+        } else {
+          Storage.setPreference("validated_variant", Storage.getPreference("variant"));
         }
 
         if (Storage.getPreference("year") == "1C") {
