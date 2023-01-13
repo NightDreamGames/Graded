@@ -52,23 +52,29 @@ flappy_translator:
 
 flutter_icons:
   android: true
-  min_sdk_android: 21
   ios: true
+  web:
+    generate: false
+  windows:
+    generate: false
+  macos:
+    generate: false
+  image_path: "assets/icons/GRADED-Icon.png"
+  image_path_android: "assets/icons/GRADED-Icon-RoundRect.png"
+  adaptive_icon_foreground: "assets/icons/GRADED-Icon-Foreground-Large.png"
   adaptive_icon_background: "#62A9E1"
-  adaptive_icon_foreground: "assets/icons/icon_foreground.png"
-  image_path: "assets/icons/icon.png"
+  min_sdk_android: 21
   remove_alpha_ios: true
 
 flutter_native_splash:
   color: "#FDFCFF"
   color_dark: "#1A1C1E"
-  image: assets/icons/icon-round.png
+  image: assets/icons/GRADED-Icon-RoundRect.png
   android_12:
     color: "#FDFCFF"
-    color_dark: "#1a1c1e"
-    image: assets/icons/icon-large.png
+    color_dark: "#1A1C1E"
+    image: assets/icons/GRADED-Icon-Foreground-Large.png
     icon_background_color: "#62A9E1"
-    icon_background_color_dark: "#62A9E1"
   android: true
   ios: true
   web: false
