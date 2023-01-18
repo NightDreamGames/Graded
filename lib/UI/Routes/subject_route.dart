@@ -71,7 +71,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
   @override
   Widget build(BuildContext context) {
     if (subjectIndex == -1) {
-      var arguments = ModalRoute.of(context)?.settings.arguments as List<int?>;
+      List<int?> arguments = ModalRoute.of(context)?.settings.arguments as List<int?>;
       subjectIndex = arguments[0] ?? 0;
       subjectGroupIndex = arguments[1] ?? -1;
     }

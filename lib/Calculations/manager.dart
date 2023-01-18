@@ -103,11 +103,11 @@ class Manager {
 
   static void sortAll() {
     for (Year y in years) {
-      for (Term p in y.terms) {
-        for (Subject s in p.subjects) {
+      for (Term t in y.terms) {
+        for (Subject s in t.subjects) {
           s.sort();
         }
-        p.sort();
+        t.sort();
       }
     }
 
@@ -118,13 +118,16 @@ class Manager {
 
   static void sortSubjectsAZ() {
     for (Year y in years) {
-      for (Term p in y.terms) {
-        p.sort(sortModeOverride: 0);
+      for (Term t in y.terms) {
+        t.sort(sortModeOverride: 0);
       }
     }
 
     Calculator.sortObjects(termTemplate, 0, sortModeOverride: 0);
   }
 
-  Map<String, dynamic> toJson() => {"years": years, "term_template": termTemplate};
+  Map<String, dynamic> toJson() => {
+        "years": years,
+        "term_template": termTemplate,
+      };
 }

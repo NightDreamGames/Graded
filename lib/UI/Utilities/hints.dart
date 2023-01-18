@@ -6,22 +6,12 @@ import '../../Translations/translations.dart';
 
 String getHint(String prefix, List<CalculationObject> data) {
   String hint = "";
-  int i = 1;
-  bool foundDupe = false;
+  int i = 0;
 
   do {
+    i++;
     hint = "$prefix ${data.length + i}";
-
-    for (CalculationObject t in data) {
-      if (t.name == hint) {
-        foundDupe = true;
-        i++;
-        break;
-      } else {
-        foundDupe = false;
-      }
-    }
-  } while (foundDupe);
+  } while (data.any((element) => element.name == hint));
 
   return hint;
 }

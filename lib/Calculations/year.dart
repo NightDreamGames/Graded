@@ -9,16 +9,7 @@ class Year extends CalculationObject {
   List<Term> terms = [];
 
   Year() {
-    addTerms();
-
-    calculate();
-  }
-
-  void addTerms() {
-    for (int i = 0; i < Storage.getPreference<int>("term"); i++) {
-      terms.add(Term());
-    }
-
+    terms = List.generate(Storage.getPreference<int>("term"), (_) => Term());
     Manager.calculate();
   }
 

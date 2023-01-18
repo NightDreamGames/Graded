@@ -42,15 +42,7 @@ class Term extends CalculationObject {
   }
 
   String getResult() {
-    bool empty = true;
-    for (Subject s in subjects) {
-      if (s.getResult() != "-") {
-        empty = false;
-        break;
-      }
-    }
-
-    if (empty || result == null) {
+    if (subjects.every((element) => element.getResult() == "-") || result == null) {
       return "-";
     } else {
       return Calculator.format(result);

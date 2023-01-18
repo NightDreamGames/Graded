@@ -115,13 +115,13 @@ class SetupManager {
     if (loaded) return;
 
     //TODO Change when general system is supported
-    //for (var index = 0; index < 2; index++) {
-    for (var index = 0; index < 1; index++) {
-      String file = index == 1 ? generalPath : classicPath;
+    //for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
+      String file = i == 1 ? generalPath : classicPath;
 
       ByteData data = await rootBundle.load(file);
       List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      excelFiles[index] = Excel.decodeBytes(bytes);
+      excelFiles[i] = Excel.decodeBytes(bytes);
     }
 
     loaded = true;

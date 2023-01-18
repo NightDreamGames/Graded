@@ -26,7 +26,7 @@ class Subject extends CalculationObject {
   void calculate() {
     if (isGroup) {
       if (isGroup) {
-        for (var element in children) {
+        for (Subject element in children) {
           element.calculate();
         }
       }
@@ -89,7 +89,7 @@ class Subject extends CalculationObject {
       children = childrenList.map((childJson) => Subject.fromJson(childJson)).toList();
     }
 
-    isGroup = !(json['type'] == null || json['type']);
+    isGroup = json['type'] != null && json['type'];
     name = json['name'];
     coefficient = json['coefficient'];
     bonus = json['bonus'];
