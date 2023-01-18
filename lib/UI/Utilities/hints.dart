@@ -1,52 +1,29 @@
 // Project imports:
+import '../../Calculations/calculation_object.dart';
 import '../../Calculations/manager.dart';
-import '../../Calculations/subject.dart';
-import '../../Calculations/test.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
 
-String getSubjectHint() {
-  bool a = false;
-  String defaultName = "Subject 1";
+String getHint(String prefix, List<CalculationObject> data) {
+  String hint = "";
   int i = 1;
+  bool foundDupe = false;
 
   do {
-    defaultName = "${Translations.subject} ${Manager.termTemplate.length + i}";
+    hint = "$prefix ${data.length + i}";
 
-    for (Subject t in Manager.termTemplate) {
-      if (t.name == defaultName) {
-        a = true;
+    for (CalculationObject t in data) {
+      if (t.name == hint) {
+        foundDupe = true;
         i++;
         break;
       } else {
-        a = false;
+        foundDupe = false;
       }
     }
-  } while (a);
+  } while (foundDupe);
 
-  return defaultName;
-}
-
-String getTestHint(Subject subject) {
-  bool a = false;
-  String defaultName = "";
-  int i = 1;
-
-  do {
-    defaultName = "${Translations.test} ${subject.tests.length + i}";
-
-    for (Test t in subject.tests) {
-      if (t.name == defaultName) {
-        a = true;
-        i++;
-        break;
-      } else {
-        a = false;
-      }
-    }
-  } while (a);
-
-  return defaultName;
+  return hint;
 }
 
 String getTitle({int? termOverride}) {

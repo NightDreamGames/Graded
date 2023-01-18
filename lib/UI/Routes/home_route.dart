@@ -92,12 +92,29 @@ class _HomePageState extends State<HomePage> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  return TextRow(
-                    leading: term.subjects[index].name,
-                    trailing: term.subjects[index].getResult(),
-                    icon: Icons.navigate_next,
-                    onTap: () => Navigator.pushNamed(context, "/subject", arguments: index).then((_) => rebuild()),
-                  );
+                  if (!term.subjects[index].isGroup) {
+                    return TextRow(
+                      leading: term.subjects[index].name,
+                      trailing: term.subjects[index].getResult(),
+                      icon: Icons.navigate_next,
+                      onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, null]).then((_) => rebuild()),
+                    );
+                  } else {
+                    return GroupRow(
+                      leading: term.subjects[index].name,
+                      trailing: term.subjects[index].getResult(),
+                      children: [
+                        for (int i = 0; i < term.subjects[index].children.length; i++)
+                          TextRow(
+                            leading: term.subjects[index].children[i].name,
+                            trailing: term.subjects[index].children[i].getResult(),
+                            icon: Icons.navigate_next,
+                            isChild: true,
+                            onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, i]).then((_) => rebuild()),
+                          ),
+                      ],
+                    );
+                  }
                 },
                 addAutomaticKeepAlives: true,
                 childCount: term.subjects.length,

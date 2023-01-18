@@ -24,8 +24,10 @@ class SubjectRoute extends StatefulWidget {
 
 class _SubjectRouteState extends State<SubjectRoute> {
   late int subjectIndex = -1;
+  late int subjectGroupIndex = -1;
   late Term term = Manager.getCurrentTerm();
-  late Subject subject = term.subjects[subjectIndex];
+  late Subject subject = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
+  late Subject subjectGroup = subjectGroupIndex != -1 ? term.subjects[subjectIndex] : Subject("", 1);
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController gradeController = TextEditingController();
@@ -41,19 +43,27 @@ class _SubjectRouteState extends State<SubjectRoute> {
 
   void rebuild() {
     if (Storage.getPreference("sort_mode1") != 1) {
-      subject = term.subjects[subjectIndex];
+      subject = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
     } else {
-      subjectIndex = term.subjects.indexOf(subject);
+      subjectIndex = term.subjects.indexOf(subjectGroupIndex == -1 ? subject : subjectGroup);
     }
 
     setState(() {});
   }
 
   void switchTerm() {
-    Subject tmp = term.subjects[subjectIndex];
+    Subject tmp = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
     term = Manager.getCurrentTerm();
-    subjectIndex = term.subjects.indexWhere((element) => element.name == tmp.name);
-    subject = term.subjects[subjectIndex];
+    subjectIndex = term.subjects.indexWhere((element) {
+      if (element.name == tmp.name) {
+        return true;
+      }
+      if (element.isGroup) {
+        return element.children.indexWhere((element) => element.name == tmp.name) != -1;
+      }
+      return false;
+    });
+    subject = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
 
     rebuild();
   }
@@ -61,7 +71,9 @@ class _SubjectRouteState extends State<SubjectRoute> {
   @override
   Widget build(BuildContext context) {
     if (subjectIndex == -1) {
-      subjectIndex = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
+      var arguments = ModalRoute.of(context)?.settings.arguments as List<int?>;
+      subjectIndex = arguments[0] ?? 0;
+      subjectGroupIndex = arguments[1] ?? -1;
     }
 
     return Scaffold(

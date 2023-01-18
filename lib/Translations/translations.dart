@@ -15,6 +15,8 @@ class Translations {
 
   static String get add => _getText("add");
 
+  static String get add_group => _getText("add_group");
+
   static String get add_subject => _getText("add_subject");
 
   static String get add_subjects => _getText("add_subjects");
@@ -73,6 +75,8 @@ class Translations {
 
   static String get edit => _getText("edit");
 
+  static String get edit_group => _getText("edit_group");
+
   static String get edit_subject => _getText("edit_subject");
 
   static String get edit_subjects => _getText("edit_subjects");
@@ -86,6 +90,10 @@ class Translations {
   static String get english => _getText("english");
 
   static String get enter_unique => _getText("enter_unique");
+
+  static String get exam => _getText("exam");
+
+  static String get exams => _getText("exams");
 
   static String get french => _getText("french");
 
@@ -102,6 +110,8 @@ class Translations {
   static String get grade => _getText("grade");
 
   static String get grades => _getText("grades");
+
+  static String get group => _getText("group");
 
   static String get half_down => _getText("half_down");
 
@@ -235,6 +245,7 @@ class Translations {
     "about": "About",
     "about_text": "NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus",
     "add": "Add",
+    "add_group": "Add group",
     "add_subject": "Add subject",
     "add_subjects": "Add subjects",
     "add_test": "Add test",
@@ -264,6 +275,7 @@ class Translations {
     "delete": "Delete",
     "down": "Down",
     "edit": "Edit",
+    "edit_group": "Edit group",
     "edit_subject": "Edit subject",
     "edit_subjects": "Edit subjects",
     "edit_subjects_summary": "Click to edit your subjects",
@@ -271,6 +283,8 @@ class Translations {
     "email": "contact@nightdreamgames.com",
     "english": "English",
     "enter_unique": "Enter a unique name",
+    "exam": "Exam",
+    "exams": "Exams",
     "french": "Français",
     "general": "General",
     "general_note":
@@ -280,6 +294,7 @@ class Translations {
     "github_summary": "https://github.com/NightDreamGames/Graded",
     "grade": "Grade",
     "grades": "Grades",
+    "group": "Group",
     "half_down": "Half down",
     "half_up": "Half up",
     "invalid": "Invalid",
@@ -349,6 +364,7 @@ class Translations {
     "about": "À propos",
     "about_text": "NightDream Games\nDéveloppeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus",
     "add": "Ajouter",
+    "add_group": "Ajouter un groupe",
     "add_subject": "Ajouter une matière",
     "add_subjects": "Ajouter des matières",
     "add_test": "Ajouter un devoir",
@@ -378,6 +394,7 @@ class Translations {
     "delete": "Supprimer",
     "down": "Vers le bas",
     "edit": "Modifier",
+    "edit_group": "Modifier un groupe",
     "edit_subject": "Modifier une matière",
     "edit_subjects": "Modifier matières",
     "edit_subjects_summary": "Cliquez pour modifier vos matières.",
@@ -385,6 +402,8 @@ class Translations {
     "email": "contact@nightdreamgames.com",
     "english": "English",
     "enter_unique": "Entrez un nom unique",
+    "exam": "Examen",
+    "exams": "Examens",
     "french": "Français",
     "general": "Général",
     "general_note":
@@ -394,6 +413,7 @@ class Translations {
     "github_summary": "https://github.com/NightDreamGames/Graded",
     "grade": "Note",
     "grades": "Notes",
+    "group": "Groupe",
     "half_down": "A moitié vers le bas",
     "half_up": "A moitié vers le haut",
     "invalid": "Invalide",
@@ -463,6 +483,7 @@ class Translations {
     "about": "Informationen",
     "about_text": "NightDream Games\nEntwickler - Damien Pirotte\nVisuelle Identität - Ellia Walrave\nTesting - Louis Colbus",
     "add": "Hinzufügen",
+    "add_group": "Gruppe hinzufügen",
     "add_subject": "Fach hinzufügen",
     "add_subjects": "Fächer hinzufügen",
     "add_test": "Prüfung hinzufügen",
@@ -492,6 +513,7 @@ class Translations {
     "delete": "Löschen",
     "down": "Nach unten",
     "edit": "Bearbeiten",
+    "edit_group": "Gruppe bearbeiten",
     "edit_subject": "Fach bearbeiten",
     "edit_subjects": "Fächer bearbeiten",
     "edit_subjects_summary": "Klicken Sie um Ihre Fächer zu bearbeiten",
@@ -499,6 +521,8 @@ class Translations {
     "email": "contact@nightdreamgames.com",
     "english": "English",
     "enter_unique": "Geben Sie einen eindeutigen Namen ein",
+    "exam": "Examen",
+    "exams": "Examen",
     "french": "Français",
     "general": "General",
     "general_note":
@@ -508,6 +532,7 @@ class Translations {
     "github_summary": "https://github.com/NightDreamGames/Graded",
     "grade": "Note",
     "grades": "Noten",
+    "group": "Gruppe",
     "half_down": "Halb nach unten",
     "half_up": "Halb nach oben",
     "invalid": "Ungültig",
@@ -577,6 +602,7 @@ class Translations {
     "about": "Informatiounen",
     "about_text": "NightDream Games\nEntwéckler - Damien Pirotte\nVisuell Identitéit - Ellia Walrave\nTesting - Louis Colbus",
     "add": "Zoufügen",
+    "add_group": "Grupp zoufügen",
     "add_subject": "Fach zoufügen",
     "add_subjects": "Fächer zoufügen",
     "add_test": "Prüfung zoufügen",
@@ -606,6 +632,7 @@ class Translations {
     "delete": "Läschen",
     "down": "No ënnen",
     "edit": "Beaarbechten",
+    "edit_group": "Grupp beaarbechten",
     "edit_subject": "Fach beaarbechten",
     "edit_subjects": "Fächer beaarbechten",
     "edit_subjects_summary": "Klickt fir är Fächer ze beaarbechten",
@@ -613,6 +640,8 @@ class Translations {
     "email": "contact@nightdreamgames.com",
     "english": "English",
     "enter_unique": "Gidd en eendeitegen Numm un",
+    "exam": "Examen",
+    "exams": "Examen",
     "french": "Français",
     "general": "General",
     "general_note":
@@ -622,6 +651,7 @@ class Translations {
     "github_summary": "https://github.com/NightDreamGames/Graded",
     "grade": "Notte",
     "grades": "Notten",
+    "group": "Grupp",
     "half_down": "Hallef no ënnen",
     "half_up": "Hallef no uewen",
     "invalid": "Ongëlteg",
