@@ -16,7 +16,7 @@ import '../Calculations/term.dart';
 import 'storage.dart';
 
 class Compatibility {
-  static const dataVersion = 5;
+  static const dataVersion = 6;
 
   static Future<void> importPreferences() async {
     Uri uri;
@@ -117,6 +117,14 @@ class Compatibility {
       termCount();
 
       Storage.setPreference("language", defaultValues["language"]);
+    }
+
+    if (currentDataVersion < 6) {
+      Storage.setPreference("validated_school_system", Storage.getPreference("school_system"));
+      Storage.setPreference("validated_lux_system", Storage.getPreference("lux_system"));
+      Storage.setPreference("validated_year", Storage.getPreference("year"));
+      Storage.setPreference("validated_section", Storage.getPreference("section"));
+      Storage.setPreference("validated_variant", Storage.getPreference("variant"));
     }
 
     Storage.setPreference<int>("data_version", dataVersion);
