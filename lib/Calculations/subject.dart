@@ -1,4 +1,6 @@
 // Project imports:
+
+// Project imports:
 import '../Misc/storage.dart';
 import 'calculation_object.dart';
 import 'calculator.dart';
@@ -6,6 +8,7 @@ import 'manager.dart';
 import 'test.dart';
 
 class Subject extends CalculationObject {
+  List<Subject> children = [];
   List<Test> tests = [];
 
   @override
@@ -13,14 +16,25 @@ class Subject extends CalculationObject {
   @override
   double get value2 => coefficient * Storage.getPreference<double>("total_grades");
   int bonus = 0;
+  bool isGroup = false;
 
-  Subject(String name, double coefficient) {
+  Subject(String name, double coefficient, {this.isGroup = false}) {
     super.name = name;
     super.coefficient = coefficient;
   }
 
   void calculate() {
-    result = Calculator.calculate(tests, bonus: bonus);
+    if (isGroup) {
+      if (isGroup) {
+        for (var element in children) {
+          element.calculate();
+        }
+      }
+
+      result = Calculator.calculate(children);
+    } else {
+      result = Calculator.calculate(tests, bonus: bonus);
+    }
   }
 
   void addTest(Test test, {bool calculate = true}) {
@@ -37,10 +51,12 @@ class Subject extends CalculationObject {
   }
 
   void editTest(int position, double grade1, double grade2, String name) {
-    tests[position].value1 = grade1;
-    tests[position].value2 = grade2;
-    tests[position].name = name;
-    tests[position].result = Calculator.calculate([this]);
+    Test t = tests[position];
+
+    t.value1 = grade1;
+    t.value2 = grade2;
+    t.name = name;
+    t.result = Calculator.calculate([this]);
     Manager.calculate();
   }
 
@@ -65,12 +81,15 @@ class Subject extends CalculationObject {
 
   Subject.fromJson(Map<String, dynamic> json) {
     if (json['tests'] != null) {
-      var testList = json["tests"] as List;
-      List<Test> t = testList.map((testJson) => Test.fromJson(testJson)).toList();
-
-      tests = t;
+      var testsList = json["tests"] as List;
+      tests = testsList.map((testJson) => Test.fromJson(testJson)).toList();
+    }
+    if (json['children'] != null) {
+      var childrenList = json["children"] as List;
+      children = childrenList.map((childJson) => Subject.fromJson(childJson)).toList();
     }
 
+    isGroup = !(json['type'] == null || json['type']);
     name = json['name'];
     coefficient = json['coefficient'];
     bonus = json['bonus'];
@@ -78,8 +97,10 @@ class Subject extends CalculationObject {
 
   Map<String, dynamic> toJson() => {
         "tests": tests,
+        "children": children,
         "name": name,
         "coefficient": coefficient,
         "bonus": bonus,
+        "type": isGroup,
       };
 }

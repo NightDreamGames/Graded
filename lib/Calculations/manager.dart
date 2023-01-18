@@ -69,14 +69,26 @@ class Manager {
       Year currentYear = getCurrentYear();
       Term yearTerm = Term();
       Manager.sortSubjectsAZ();
+      Calculator.sortObjects(yearTerm.subjects, 0, sortModeOverride: 0);
 
       for (int i = 0; i < currentYear.terms.length; i++) {
-        for (int j = 0; j < currentYear.terms[i].subjects.length; j++) {
-          double? subjectResult = currentYear.terms[i].subjects[j].result;
+        Term t = currentYear.terms[i];
+        for (int j = 0; j < t.subjects.length; j++) {
+          Subject s = yearTerm.subjects[j];
 
-          yearTerm.subjects[j].addTest(
-              Test(subjectResult ?? 0, Storage.getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
-              calculate: false);
+          if (s.isGroup) {
+            for (int k = 0; k < s.children.length; k++) {
+              double? subjectResult = t.subjects[j].children[k].result;
+              s.children[k].addTest(
+                  Test(subjectResult ?? 0, Storage.getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
+                  calculate: false);
+            }
+          } else {
+            double? subjectResult = t.subjects[j].result;
+            s.addTest(
+                Test(subjectResult ?? 0, Storage.getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
+                calculate: false);
+          }
         }
       }
 
