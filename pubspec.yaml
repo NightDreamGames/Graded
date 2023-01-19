@@ -25,6 +25,7 @@ dependencies:
   animations: ^2.0.0
   collection: ^1.16.0
   flutter_exit_app: ^1.0.5
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
