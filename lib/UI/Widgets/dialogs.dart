@@ -94,10 +94,10 @@ class EasyDialogState extends State<EasyDialog> {
   }
 
   void submit() {
-    var closeDialog = true;
+    bool closeDialog = true;
 
     bool submitText() {
-      var isValid = true;
+      bool isValid = true;
       final state = formKey.currentState;
       if (state != null) {
         isValid = state.validate();
@@ -146,20 +146,14 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
         title: add ? Translations.add_test : Translations.edit_test,
         icon: add ? Icons.add : Icons.edit,
         onConfirm: () {
+          String name = nameController.text.isEmpty ? getHint(Translations.test, subject.tests) : nameController.text;
+          double value1 = Calculator.tryParse(gradeController.text) ?? 1;
+          double value2 = Calculator.tryParse(maximumController.text) ?? Storage.getPreference<double>("total_grades");
+
           if (add) {
-            subject.addTest(
-              Test(
-                  Calculator.tryParse(gradeController.text) ?? 1,
-                  Calculator.tryParse(maximumController.text) ?? Storage.getPreference<double>("total_grades"),
-                  nameController.text.isEmpty ? getTestHint(subject) : nameController.text),
-            );
+            subject.addTest(Test(value1, value2, name));
           } else {
-            subject.editTest(
-              index,
-              Calculator.tryParse(gradeController.text) ?? 1,
-              Calculator.tryParse(maximumController.text) ?? Storage.getPreference<double>("total_grades"),
-              nameController.text.isEmpty ? getTestHint(subject) : nameController.text,
-            );
+            subject.editTest(index, value1, value2, name);
           }
 
           return true;
@@ -172,7 +166,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
               child: EasyFormField(
                 controller: nameController,
                 label: Translations.name,
-                hint: getTestHint(subject),
+                hint: getHint(Translations.test, subject.tests),
                 textInputAction: TextInputAction.next,
               ),
             ),
@@ -245,25 +239,25 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
         title: add ? Translations.add_subject : Translations.edit_subject,
         icon: add ? Icons.add : Icons.edit,
         onConfirm: () {
-          String name = nameController.text.isEmpty ? getSubjectHint() : nameController.text;
+          String name = nameController.text.isEmpty ? getHint(Translations.subject, Manager.termTemplate) : nameController.text;
           double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
           if (add) {
             Manager.termTemplate.add(Subject(name, coefficient));
 
-            for (Term p in Manager.getCurrentYear().terms) {
-              p.subjects.add(Subject(name, coefficient));
+            for (Term t in Manager.getCurrentYear().terms) {
+              t.subjects.add(Subject(name, coefficient));
             }
           } else {
-            Manager.termTemplate[index].name = nameController.text.isEmpty ? getSubjectHint() : nameController.text;
-            Manager.termTemplate[index].coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
+            Manager.termTemplate[index].name = name;
+            Manager.termTemplate[index].coefficient = coefficient;
 
             Manager.sortSubjectsAZ();
 
-            for (Term p in Manager.getCurrentYear().terms) {
-              for (int i = 0; i < p.subjects.length; i++) {
-                p.subjects[i].name = Manager.termTemplate[i].name;
-                p.subjects[i].coefficient = Manager.termTemplate[i].coefficient;
+            for (Term t in Manager.getCurrentYear().terms) {
+              for (int i = 0; i < t.subjects.length; i++) {
+                t.subjects[i].name = Manager.termTemplate[i].name;
+                t.subjects[i].coefficient = Manager.termTemplate[i].coefficient;
               }
             }
           }
@@ -281,7 +275,7 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
                 controller: nameController,
                 autofocus: true,
                 label: Translations.name,
-                hint: getSubjectHint(),
+                hint: getHint(Translations.subject, Manager.termTemplate),
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
                   if (Manager.termTemplate.any((element) {

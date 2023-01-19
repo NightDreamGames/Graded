@@ -66,11 +66,12 @@ class TextRow extends StatelessWidget {
 }
 
 class GroupRow extends StatefulWidget {
-  const GroupRow({Key? key, required this.children, required this.leading, required this.trailing}) : super(key: key);
+  const GroupRow({Key? key, required this.children, required this.leading, required this.trailing, this.initiallyExpanded = false}) : super(key: key);
 
   final String leading;
   final String trailing;
   final List<Widget> children;
+  final bool initiallyExpanded;
 
   @override
   State<GroupRow> createState() => _GroupRowState();
@@ -123,6 +124,7 @@ class _GroupRowState extends State<GroupRow> {
               });
             },
             childrenPadding: const EdgeInsets.only(left: 16),
+            initiallyExpanded: widget.initiallyExpanded,
             children: widget.children,
           ),
         ),
