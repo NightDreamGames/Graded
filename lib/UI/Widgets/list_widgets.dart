@@ -1,33 +1,43 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
+import '../../Calculations/calculator.dart';
+import '../../Calculations/manager.dart';
+import '../../Calculations/subject.dart';
+import '../../Calculations/term.dart';
+import 'dialogs.dart';
+import 'popup_menus.dart';
+
 class TextRow extends StatelessWidget {
   const TextRow(
-      {Key? key, this.listKey, this.leadingButton, this.onTap, required this.leading, required this.trailing, this.icon, this.isChild = false})
+      {Key? key,
+      this.listKey,
+      this.leadingIcon,
+      this.onTap,
+      required this.leading,
+      required this.trailing,
+      this.trailingIcon,
+      this.padding = const EdgeInsets.symmetric(horizontal: 24)})
       : super(key: key);
 
   final Key? listKey;
   final Function()? onTap;
-  final IconData? icon;
+  final IconData? trailingIcon;
   final String leading;
   final String trailing;
-  final bool isChild;
-  final Widget? leadingButton;
+  final Widget? leadingIcon;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (isChild)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
-          ),
         ListTile(
           key: listKey,
           onTap: onTap,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-          leading: leadingButton,
+          contentPadding: padding,
+          leading: leadingIcon,
           title: Text(
             leading,
             overflow: TextOverflow.fade,
@@ -45,21 +55,16 @@ class TextRow extends StatelessWidget {
                   fontSize: 20.0,
                 ),
               ),
-              if (icon != null) ...[
+              if (trailingIcon != null) ...[
                 const Padding(padding: EdgeInsets.only(right: 24)),
                 Icon(
-                  icon,
+                  trailingIcon,
                   size: 24.0,
                 ),
               ]
             ],
           ),
         ),
-        if (!isChild)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
-          ),
       ],
     );
   }
@@ -169,6 +174,60 @@ class ResultRow extends StatelessWidget {
             child: Divider(height: 1, thickness: 3, color: Theme.of(context).colorScheme.surfaceVariant),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SubjectTile extends StatelessWidget {
+  const SubjectTile({
+    Key? key,
+    required this.s,
+    required this.listKey,
+    required this.index,
+    this.index2 = 0,
+    required this.reorderIndex,
+    required this.rebuild,
+    required this.nameController,
+    required this.coeffController,
+  }) : super(key: key);
+
+  final Subject s;
+  final GlobalKey listKey;
+  final int index;
+  final int index2;
+  final int reorderIndex;
+  final Function rebuild;
+  final TextEditingController nameController;
+  final TextEditingController coeffController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      key: UniqueKey(),
+      padding: s.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
+      child: TextRow(
+        listKey: listKey,
+        leading: s.name,
+        padding: EdgeInsets.only(left: s.isChild ? 32 : 24, right: 24),
+        trailing: Calculator.format(s.coefficient, ignoreZero: true),
+        onTap: () async {
+          showListMenu(context, listKey).then((result) {
+            if (result == "edit") {
+              showSubjectDialog(context, nameController, coeffController, index: index, index2: s.isChild ? index2 : null).then((_) => rebuild());
+            } else if (result == "delete") {
+              Manager.termTemplate.removeAt(index);
+              Manager.sortSubjectsAZ();
+
+              for (Term t in Manager.getCurrentYear().terms) {
+                t.subjects.removeAt(index);
+              }
+
+              Manager.calculate();
+              rebuild();
+            }
+          });
+        },
       ),
     );
   }

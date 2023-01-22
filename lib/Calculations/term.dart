@@ -24,9 +24,6 @@ class Term extends CalculationObject {
         }
       }
     }
-
-    //TODO remove test code
-    subjects.add(Subject("Group", 1, isGroup: true)..children.addAll([Subject("Subject1", 1), Subject("Subject2", 1)]));
   }
 
   void calculate() {

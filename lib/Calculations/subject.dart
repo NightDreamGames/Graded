@@ -17,8 +17,9 @@ class Subject extends CalculationObject {
   double get value2 => coefficient * Storage.getPreference<double>("total_grades");
   int bonus = 0;
   bool isGroup = false;
+  bool isChild = false;
 
-  Subject(String name, double coefficient, {this.isGroup = false}) {
+  Subject(String name, double coefficient, {this.isGroup = false, this.isChild = false}) {
     super.name = name;
     super.coefficient = coefficient;
   }
@@ -86,7 +87,7 @@ class Subject extends CalculationObject {
     }
     if (json['children'] != null) {
       var childrenList = json["children"] as List;
-      children = childrenList.map((childJson) => Subject.fromJson(childJson)).toList();
+      children = childrenList.map((childJson) => Subject.fromJson(childJson)..isChild = true).toList();
     }
 
     isGroup = json['type'] != null && json['type'];

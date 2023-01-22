@@ -2,9 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
-import '../../Calculations/term.dart';
+import '../../Calculations/subject.dart';
 import '../../Translations/translations.dart';
 import '../Widgets/dialogs.dart';
 import '../Widgets/list_widgets.dart';
@@ -47,43 +46,54 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           SortSelector(rebuild: rebuild, type: 2),
         ],
       ),
-      body: CustomScrollView(
-        primary: true,
-        slivers: [
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                GlobalKey listKey = GlobalKey();
-                return TextRow(
-                  listKey: listKey,
-                  leading: Manager.termTemplate[index].name,
-                  trailing: Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true),
-                  onTap: () async {
-                    showListMenu(context, listKey).then((result) {
-                      if (result == "edit") {
-                        showSubjectDialog(context, nameController, coeffController, index: index).then((_) => rebuild());
-                      } else if (result == "delete") {
-                        Manager.termTemplate.removeAt(index);
-                        Manager.sortSubjectsAZ();
-
-                        for (Term p in Manager.getCurrentYear().terms) {
-                          p.subjects.removeAt(index);
-                        }
-
-                        Manager.calculate();
-                        rebuild();
-                      }
-                    });
-                  },
-                );
-              },
-              addAutomaticKeepAlives: true,
-              childCount: Manager.termTemplate.length,
-            ),
-          ),
-          const SliverPadding(padding: EdgeInsets.only(bottom: 88)),
-        ],
+      body: ReorderableListView(
+        buildDefaultDragHandles: false,
+        onReorder: (int oldIndex, int newIndex) {
+          //TODO Implement reordering
+        },
+        children: (buildTiles()),
       ),
     );
+  }
+
+  List<Widget> buildTiles() {
+    List<Widget> result = [];
+    int reorderIndex = 0;
+
+    for (int i = 0; i < Manager.termTemplate.length; i++) {
+      Subject element = Manager.termTemplate[i];
+      result.add(SubjectTile(
+        key: UniqueKey(),
+        s: element,
+        listKey: GlobalKey(),
+        index: i,
+        reorderIndex: reorderIndex,
+        rebuild: rebuild,
+        nameController: nameController,
+        coeffController: coeffController,
+      ));
+      reorderIndex++;
+      for (int j = 0; j < element.children.length; j++) {
+        Subject child = element.children[j];
+        result.add(SubjectTile(
+          key: UniqueKey(),
+          s: child,
+          listKey: GlobalKey(),
+          index: i,
+          index2: j,
+          reorderIndex: reorderIndex,
+          rebuild: rebuild,
+          nameController: nameController,
+          coeffController: coeffController,
+        ));
+        reorderIndex++;
+      }
+    }
+
+    result.add(Padding(
+      padding: const EdgeInsets.only(bottom: 88),
+      key: UniqueKey(),
+    ));
+    return result;
   }
 }

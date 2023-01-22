@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                     return TextRow(
                       leading: term.subjects[index].name,
                       trailing: term.subjects[index].getResult(),
-                      icon: Icons.navigate_next,
+                      trailingIcon: Icons.navigate_next,
                       onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, null]).then((_) => rebuild()),
                     );
                   } else {
@@ -108,8 +108,8 @@ class _HomePageState extends State<HomePage> {
                           TextRow(
                             leading: term.subjects[index].children[i].name,
                             trailing: term.subjects[index].children[i].getResult(),
-                            icon: Icons.navigate_next,
-                            isChild: true,
+                            trailingIcon: Icons.navigate_next,
+                            padding: const EdgeInsets.only(left: 32, right: 24),
                             onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, i]).then((_) => rebuild()),
                           ),
                       ],

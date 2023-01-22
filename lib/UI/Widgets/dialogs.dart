@@ -220,13 +220,19 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
 }
 
 Future<void> showSubjectDialog(BuildContext context, TextEditingController nameController, TextEditingController coeffController,
-    {int? index}) async {
+    {int? index, int? index2}) async {
   coeffController.clear();
   nameController.clear();
 
   bool add = index == null;
-  coeffController.text = add ? "" : Calculator.format(Manager.termTemplate[index].coefficient, ignoreZero: true);
-  nameController.text = add ? "" : Manager.termTemplate[index].name;
+
+  Subject subject = add
+      ? Subject("empty", 0)
+      : index2 == null
+          ? Manager.termTemplate[index]
+          : Manager.termTemplate[index].children[index2];
+  coeffController.text = add ? "" : Calculator.format(subject.coefficient, ignoreZero: true);
+  nameController.text = add ? "" : subject.name;
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
   FocusNode focusNode = FocusNode();
@@ -249,8 +255,8 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
               t.subjects.add(Subject(name, coefficient));
             }
           } else {
-            Manager.termTemplate[index].name = name;
-            Manager.termTemplate[index].coefficient = coefficient;
+            subject.name = name;
+            subject.coefficient = coefficient;
 
             Manager.sortSubjectsAZ();
 
@@ -279,7 +285,7 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
                   if (Manager.termTemplate.any((element) {
-                    if (!add && element.name == Manager.termTemplate[index].name) {
+                    if (!add && element.name == subject.name) {
                       return false;
                     }
                     return element.name == newValue;
