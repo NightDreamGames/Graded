@@ -147,6 +147,8 @@ class _SubjectRouteState extends State<SubjectRoute> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
+              addAutomaticKeepAlives: true,
+              childCount: subject.tests.length,
               (context, index) {
                 GlobalKey listKey = GlobalKey();
                 return TextRow(
@@ -167,8 +169,6 @@ class _SubjectRouteState extends State<SubjectRoute> {
                   },
                 );
               },
-              addAutomaticKeepAlives: true,
-              childCount: subject.tests.length,
             ),
           ),
           const SliverPadding(padding: EdgeInsets.only(bottom: 88)),

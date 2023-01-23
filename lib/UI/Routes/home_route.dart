@@ -91,6 +91,8 @@ class _HomePageState extends State<HomePage> {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
+                addAutomaticKeepAlives: true,
+                childCount: term.subjects.length,
                 (context, index) {
                   if (!term.subjects[index].isGroup) {
                     return TextRow(
@@ -116,8 +118,6 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
                 },
-                addAutomaticKeepAlives: true,
-                childCount: term.subjects.length,
               ),
             ),
             const SliverPadding(padding: EdgeInsets.only(bottom: 16)),
