@@ -9152,9 +9152,7 @@
         "fundamental": false,
         "coefficient": 2
       }
-    ],
-    "fundamental": false,
-    "coefficient": null
+    ]
   },
   {
     "name": "5G-FR",
@@ -9321,9 +9319,7 @@
         "fundamental": false,
         "coefficient": 1
       }
-    ],
-    "fundamental": false,
-    "coefficient": null
+    ]
   },
   {
     "name": "5GIA",
@@ -9458,9 +9454,7 @@
         "fundamental": false,
         "coefficient": 1
       }
-    ],
-    "fundamental": false,
-    "coefficient": null
+    ]
   },
   {
     "name": "5GIF",
