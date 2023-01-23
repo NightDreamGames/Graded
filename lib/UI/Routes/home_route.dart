@@ -113,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                             trailingIcon: Icons.navigate_next,
                             padding: const EdgeInsets.only(left: 32, right: 24),
                             onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, i]).then((_) => rebuild()),
+                            isChild: true,
                           ),
                       ],
                     );

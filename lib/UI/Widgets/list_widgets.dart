@@ -10,29 +10,36 @@ import 'dialogs.dart';
 import 'popup_menus.dart';
 
 class TextRow extends StatelessWidget {
-  const TextRow(
-      {Key? key,
-      this.listKey,
-      this.leadingIcon,
-      this.onTap,
-      required this.leading,
-      required this.trailing,
-      this.trailingIcon,
-      this.padding = const EdgeInsets.symmetric(horizontal: 24)})
-      : super(key: key);
+  const TextRow({
+    Key? key,
+    required this.leading,
+    required this.trailing,
+    this.leadingIcon,
+    this.trailingIcon,
+    this.padding = const EdgeInsets.symmetric(horizontal: 24),
+    this.listKey,
+    this.onTap,
+    this.isChild = false,
+  }) : super(key: key);
 
-  final Key? listKey;
-  final Function()? onTap;
-  final IconData? trailingIcon;
   final String leading;
   final String trailing;
   final Widget? leadingIcon;
+  final IconData? trailingIcon;
   final EdgeInsets padding;
+  final Key? listKey;
+  final Function()? onTap;
+  final bool isChild;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        if (isChild)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
+          ),
         ListTile(
           key: listKey,
           onTap: onTap,
@@ -61,22 +68,26 @@ class TextRow extends StatelessWidget {
                   trailingIcon,
                   size: 24.0,
                 ),
-              ]
+              ],
             ],
           ),
         ),
+        if (!isChild)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
+          ),
       ],
     );
   }
 }
 
 class GroupRow extends StatefulWidget {
-  const GroupRow({Key? key, required this.children, required this.leading, required this.trailing, this.initiallyExpanded = false}) : super(key: key);
+  const GroupRow({Key? key, required this.children, required this.leading, required this.trailing}) : super(key: key);
 
   final String leading;
   final String trailing;
   final List<Widget> children;
-  final bool initiallyExpanded;
 
   @override
   State<GroupRow> createState() => _GroupRowState();
@@ -129,7 +140,6 @@ class _GroupRowState extends State<GroupRow> {
               });
             },
             childrenPadding: const EdgeInsets.only(left: 16),
-            initiallyExpanded: widget.initiallyExpanded,
             children: widget.children,
           ),
         ),
