@@ -16,14 +16,14 @@ class Manager {
   static int _currentTerm = 0;
   static int get currentTerm => _currentTerm;
   static set currentTerm(int newValue) {
-    Storage.setPreference<int>("current_term", newValue);
+    setPreference<int>("current_term", newValue);
     _currentTerm = newValue;
   }
 
   static int _lastTerm = 0;
   static int get lastTerm => _lastTerm;
   static set lastTerm(int newValue) {
-    Storage.setPreference<int>("last_term", newValue);
+    setPreference<int>("last_term", newValue);
     _lastTerm = newValue;
   }
 
@@ -31,7 +31,7 @@ class Manager {
 
   static Future<void> init() async {
     await Compatibility.upgradeDataVersion();
-    currentTerm = Storage.getPreference<int>("current_term");
+    currentTerm = getPreference<int>("current_term");
 
     Manager.calculate();
   }
@@ -54,7 +54,7 @@ class Manager {
 
   static Year getCurrentYear() {
     if (years.isEmpty) {
-      Storage.deserialize();
+      deserialize();
     }
 
     if (years.isEmpty) {
@@ -80,13 +80,12 @@ class Manager {
             for (int k = 0; k < s.children.length; k++) {
               double? subjectResult = t.subjects[j].children[k].result;
               s.children[k].addTest(
-                  Test(subjectResult ?? 0, Storage.getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
+                  Test(subjectResult ?? 0, getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
                   calculate: false);
             }
           } else {
             double? subjectResult = t.subjects[j].result;
-            s.addTest(
-                Test(subjectResult ?? 0, Storage.getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
+            s.addTest(Test(subjectResult ?? 0, getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
                 calculate: false);
           }
         }
@@ -113,7 +112,7 @@ class Manager {
 
     Calculator.sortObjects(termTemplate, 3);
 
-    Storage.serialize();
+    serialize();
   }
 
   static void sortSubjectsAZ() {

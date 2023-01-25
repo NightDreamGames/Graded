@@ -20,7 +20,7 @@ String getTitle({int? termOverride}) {
   int currentTerm = termOverride ?? Manager.currentTerm;
   if (currentTerm == -1) return Translations.year_overview;
 
-  switch (Storage.getPreference<int>("term")) {
+  switch (getPreference<int>("term")) {
     case 3:
       return "${Translations.trimester} ${currentTerm + 1}";
     case 2:

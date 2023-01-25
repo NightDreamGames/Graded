@@ -14,11 +14,11 @@ class Subject extends CalculationObject {
   @override
   double? get value1 => result != null ? coefficient * result! : null;
   @override
-  double get value2 => coefficient * Storage.getPreference<double>("total_grades");
+  double get value2 => coefficient * getPreference<double>("total_grades");
   int bonus = 0;
   bool isGroup = false;
   bool isChild = false;
-
+//TODO add nullable coefficient
   Subject(String name, double coefficient, {this.isGroup = false, this.isChild = false}) {
     super.name = name;
     super.coefficient = coefficient;

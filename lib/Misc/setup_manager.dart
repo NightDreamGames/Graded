@@ -1,15 +1,13 @@
 // Dart imports:
-import 'dart:typed_data';
+import 'dart:convert';
 
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 // Package imports:
-import 'package:excel/excel.dart';
+import 'package:collection/collection.dart';
 
 // Project imports:
-import '../Calculations/calculator.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Translations/translations.dart';
@@ -17,44 +15,34 @@ import 'compatibility.dart';
 import 'storage.dart';
 
 class SetupManager {
-  static String classicPath = "assets/class_data/Classique.xlsx";
-  static String generalPath = "assets/class_data/General.xlsx";
+  static String classicPath = "assets/class_data/classique.json";
+  static String generalPath = "assets/class_data/general.json";
 
-  static List<Excel?> excelFiles = [null, null];
+  static Map<int, String> getYears() {
+    return {
+      7: "7e",
+      6: "6e",
+      5: "5e",
+      4: "4e",
+      3: "3e",
+      2: "2e",
+      1: "1e",
+    };
+  }
 
-  static bool loaded = false;
-
-  static Map<String, String> getYears = {
-    "7C": "7e",
-    "6C": "6e",
-    "5C": "5e",
-    "4C": "4e",
-    "3C": "3e",
-    "2C": "2e",
-    "1C": "1e",
-  };
-
-  static bool hasSections(String year) {
-    String luxSystem = Storage.getPreference("lux_system");
-
-    if (luxSystem.isEmpty) {
-      return false;
-    } else if (luxSystem == "classic") {
-      if (year.isEmpty) {
-        return false;
-      } else if (int.parse(year.substring(0, 1)) <= 3) {
-        return true;
-      }
-      return false;
-    } else {
-      return false;
-      //throw UnimplementedError();
-    }
+  static bool hasSections() {
+    return getSections().isNotEmpty;
   }
 
   static Map<String, String> getSections() {
-    if (Storage.getPreference("lux_system") == "classic") {
-      return {
+    Map<String, String> result = <String, String>{};
+    String luxSystem = getPreference("lux_system");
+    int year = getPreference("year");
+
+    if (year == -1 || luxSystem.isEmpty) return result;
+
+    if (luxSystem == "classic" && year <= 3) {
+      result.addAll({
         "A": Translations.section_classic_a,
         "B": Translations.section_classic_b,
         "C": Translations.section_classic_c,
@@ -63,98 +51,131 @@ class SetupManager {
         "F": Translations.section_classic_f,
         "G": Translations.section_classic_g,
         "I": Translations.section_classic_i,
-      };
-    } else {
-      throw UnimplementedError();
+      });
+    } else if (luxSystem == "general") {
+      if (year <= 4) {
+        result.addAll({
+          "GH": Translations.section_general_gh,
+          "SO": Translations.section_general_so,
+          "A3D": Translations.section_general_a3d,
+          "IG": Translations.section_general_ig,
+          "SN": Translations.section_general_sn,
+          "ACV": Translations.section_general_acv,
+        });
+      }
+      if (year == 4 || year == 3) {
+        result.addAll({
+          "CM": Translations.section_general_cm,
+          "PS": Translations.section_general_ps,
+        });
+      } else if (year == 2 || year == 1) {
+        result.addAll({
+          "CG": Translations.section_general_cg,
+          "CC": Translations.section_general_cc,
+          "CF": Translations.section_general_cf,
+          "MM": Translations.section_general_mm,
+          "ED": Translations.section_general_ed,
+          "SI": Translations.section_general_si,
+          "SH": Translations.section_general_sh,
+          "IN": Translations.section_general_in,
+          "SE": Translations.section_general_se,
+        });
+      }
     }
+
+    return Map.fromEntries(result.entries.toList()..sort((e1, e2) => e1.key.compareTo(e2.key)));
   }
 
-  static bool hasVariants(String year) {
-    String luxSystem = Storage.getPreference("lux_system");
-
-    if (luxSystem.isEmpty) {
-      return false;
-    } else if (luxSystem == "classic") {
-      if (year.isEmpty) {
-        return false;
-      }
-      return year != "7C";
-    } else {
-      return false;
-      //throw UnimplementedError();
-    }
+  static bool hasVariants() {
+    return getVariants().isNotEmpty;
   }
 
-  static Map<String, String> getVariants(String year) {
-    String luxSystem = Storage.getPreference("lux_system");
+  static Map<String, String> getVariants() {
+    String luxSystem = getPreference("lux_system");
+    int year = getPreference("year");
+    String section = getPreference("section");
 
-    if (luxSystem.isEmpty) {
-      return {};
-    } else if (luxSystem == "classic") {
-      if (!hasVariants(year)) {
-        return {};
+    Map<String, String> result = <String, String>{};
+
+    if (year == -1 || luxSystem.isEmpty) return result;
+
+    if (luxSystem == "classic") {
+      result.addAll({
+        "": Translations.basic,
+        "L": Translations.variant_classic_l,
+      });
+      if (year != 1) {
+        result.addAll({
+          "ZH": Translations.variant_classic_zh,
+        });
       }
-
-      Map<String, String> result = <String, String>{};
-      if (year == "1C") {
-        result["basic"] = Translations.basic;
-        result["latin"] = Translations.latin;
-      } else {
-        result["basic"] = Translations.basic;
-        result["latin"] = Translations.latin;
-        result["chinese"] = Translations.chinese;
-      }
-
-      return result;
     } else {
-      throw UnimplementedError();
+      if (year >= 5 && year <= 7) {
+        result.addAll({
+          "": Translations.basic,
+          "-FR": Translations.variant_general_fr,
+          "P": Translations.variant_general_p,
+          "PF": Translations.variant_general_pf,
+          "IA": Translations.variant_general_ia,
+          "IF": Translations.variant_general_if,
+        });
+        if (year == 5) {
+          result.addAll({
+            "AD": Translations.variant_general_ad,
+            "ADF": Translations.variant_general_adf,
+          });
+        }
+      }
+      if (section.isNotEmpty) {
+        if (section == "CM" || section == "CG" || section == "PS" || section == "SO" || section == "IG" || section == "SN") {
+          result.addAll({
+            "": Translations.basic,
+            "A": Translations.variant_general_a,
+            "F": Translations.variant_general_f,
+          });
+        } else if (section == "CC" || section == "SI") {
+          result.addAll({
+            "": Translations.basic,
+            "F": Translations.variant_general_f,
+          });
+        }
+      }
     }
+
+    return Map.fromEntries(result.entries.toList()..sort((e1, e2) => e1.key.compareTo(e2.key)));
   }
 
-  static Future<void> readFiles() async {
-    if (loaded) return;
-
-    //TODO Change when general system is supported
-    //for (int i = 0; i < 2; i++) {
-    for (int i = 0; i < 1; i++) {
-      String file = i == 1 ? generalPath : classicPath;
-
-      ByteData data = await rootBundle.load(file);
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      excelFiles[i] = Excel.decodeBytes(bytes);
-    }
-
-    loaded = true;
+  static void init() {
+    rootBundle.loadString(classicPath);
+    rootBundle.loadString(generalPath);
   }
 
   static Future<void> completeSetup() async {
-    Storage.setPreference("validated_school_system", Storage.getPreference("school_system"));
+    setPreference("validated_school_system", getPreference("school_system"));
 
-    if (Storage.getPreference("school_system") == "lux") {
-      Storage.setPreference("validated_lux_system", Storage.getPreference("lux_system"));
-      Storage.setPreference("validated_year", Storage.getPreference("year"));
+    if (getPreference("school_system") == "lux") {
+      setPreference("validated_lux_system", getPreference("lux_system"));
+      setPreference("validated_year", getPreference("year"));
 
-      if (Storage.getPreference("lux_system") == "classic") {
-        if (!hasSections(Storage.getPreference("year"))) {
-          Storage.setPreference<String>("section", defaultValues["section"]);
-        } else {
-          Storage.setPreference("validated_section", Storage.getPreference("section"));
-        }
-
-        if (!hasVariants(Storage.getPreference("year")) || getVariants(Storage.getPreference("year"))[Storage.getPreference("variant")] == null) {
-          Storage.setPreference<String>("variant", defaultValues["variant"]);
-        } else {
-          Storage.setPreference("validated_variant", Storage.getPreference("variant"));
-        }
-
-        if (Storage.getPreference("year") == "1C") {
-          Storage.setPreference("term", 2);
-        }
+      if (!hasSections()) {
+        setPreference<String>("section", defaultValues["section"]);
+      } else {
+        setPreference("validated_section", getPreference("section"));
       }
 
-      Storage.setPreference<double>("total_grades", 60);
-      Storage.setPreference("rounding_mode", "rounding_up");
-      Storage.setPreference("round_to", 1);
+      if (!hasVariants() || getVariants()[getPreference("variant")] == null) {
+        setPreference<String>("variant", defaultValues["variant"]);
+      } else {
+        setPreference("validated_variant", getPreference("variant"));
+      }
+
+      if (getPreference("year") == 1) {
+        setPreference("term", 2);
+      }
+
+      setPreference<double>("total_grades", 60);
+      setPreference("rounding_mode", "rounding_up");
+      setPreference("round_to", 1);
 
       await fillSubjects();
     }
@@ -163,37 +184,34 @@ class SetupManager {
     Manager.clear();
     Manager.calculate();
 
-    Storage.setPreference<bool>("is_first_run", false);
+    setPreference<bool>("is_first_run", false);
   }
 
   static Future<void> fillSubjects() async {
-    await readFiles();
-
     Manager.termTemplate.clear();
-    String variant = Storage.getPreference("variant");
+    int year = getPreference("year");
+    String section = getPreference("section");
+    String variant = getPreference("variant");
 
-    int position = 4;
+    bool classic = getPreference("lux_system") == "classic";
+    String letter = classic ? "C" : "G";
+    if (variant == "P" || variant == "PF" || variant == "AD" || variant == "ADF") letter = "";
 
-    switch (variant) {
-      case "latin":
-        position = 6;
-        break;
-      case "chinese":
-        position = 8;
-        break;
-    }
+    String className = year.toString() + letter + (classic ? variant : "") + section + (classic ? "" : variant);
 
-    int index = Storage.getPreference("lux_system") == "classic" ? 0 : 1;
+    String file = await rootBundle.loadString(classic ? classicPath : generalPath);
+    final data = jsonDecode(file) as List;
 
-    String className = Storage.getPreference("year") + Storage.getPreference("section");
-    Sheet sheet = excelFiles[index]!.sheets[className]!;
+    var classObject = data[binarySearch(data, {"name": className},
+        compare: (element1, element2) => (element1 as Map<String, dynamic>)["name"].compareTo((element2 as Map<String, dynamic>)["name"]))];
 
-    for (int i = 1; i < sheet.maxRows; i++) {
-      if (sheet.row(i)[position] != null) {
-        String name = sheet.row(i)[0]!.value.toString();
-        double coefficient = Calculator.tryParse(sheet.row(i)[position]!.value.toString()) ?? 1;
-
-        Manager.termTemplate.add(Subject(name, coefficient));
+    for (var subject in classObject["subjects"]) {
+      Subject newSubject = Subject(subject["name"], (subject["coefficient"] ?? 0).toDouble(), isGroup: subject["children"] != null);
+      Manager.termTemplate.add(newSubject);
+      if (subject["children"] != null) {
+        for (var child in subject["children"]) {
+          newSubject.children.add(Subject(child["name"], (child["coefficient"] ?? 0).toDouble(), isChild: true));
+        }
       }
     }
   }

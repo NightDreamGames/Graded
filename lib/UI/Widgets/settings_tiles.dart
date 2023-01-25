@@ -35,7 +35,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       icon: Icons.vertical_align_top,
       onChange: (value) {
         double d = double.parse(value);
-        Storage.setPreference<double>("total_grades", d);
+        setPreference<double>("total_grades", d);
 
         Manager.calculate();
       },

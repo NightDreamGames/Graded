@@ -8,7 +8,7 @@ import 'calculation_object.dart';
 class Calculator {
   static void sortObjects(List<CalculationObject> data, int sortMode, {int? sortModeOverride}) {
     if (data.length >= 2) {
-      switch (sortModeOverride ?? Storage.getPreference<int>("sort_mode$sortMode")) {
+      switch (sortModeOverride ?? getPreference<int>("sort_mode$sortMode")) {
         case 0:
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) => a.processedName.compareTo(b.processedName));
           break;
@@ -49,7 +49,7 @@ class Calculator {
       }
     }
 
-    double result = numerator * (Storage.getPreference<double>("total_grades") / denominator) + bonus;
+    double result = numerator * (getPreference<double>("total_grades") / denominator) + bonus;
 
     if (!empty) {
       return Calculator.round(result);
@@ -59,8 +59,8 @@ class Calculator {
   }
 
   static double round(double number) {
-    String roundingMode = Storage.getPreference<String>("rounding_mode");
-    int roundTo = Storage.getPreference<int>("round_to");
+    String roundingMode = getPreference<String>("rounding_mode");
+    int roundTo = getPreference<int>("round_to");
 
     double a = number * roundTo;
 

@@ -148,7 +148,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
         onConfirm: () {
           String name = nameController.text.isEmpty ? getHint(Translations.test, subject.tests) : nameController.text;
           double value1 = Calculator.tryParse(gradeController.text) ?? 1;
-          double value2 = Calculator.tryParse(maximumController.text) ?? Storage.getPreference<double>("total_grades");
+          double value2 = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
           if (add) {
             subject.addTest(Test(value1, value2, name));
@@ -198,7 +198,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                     focusNode: focusNode,
                     controller: maximumController,
                     label: Translations.maximum,
-                    hint: Calculator.format(Storage.getPreference<double>("total_grades")),
+                    hint: Calculator.format(getPreference<double>("total_grades")),
                     numeric: true,
                     onSubmitted: () {
                       maximumController.clearComposing();

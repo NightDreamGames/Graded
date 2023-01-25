@@ -43,8 +43,6 @@ class Translations {
 
   static String get change_class_summary => _getText("change_class_summary");
 
-  static String get chinese => _getText("chinese");
-
   static String get class_string => _getText("class_string");
 
   static String get classic => _getText("classic");
@@ -121,8 +119,6 @@ class Translations {
 
   static String get language => _getText("language");
 
-  static String get latin => _getText("latin");
-
   static String get licenses => _getText("licenses");
 
   static String get lux_system => _getText("lux_system");
@@ -185,6 +181,40 @@ class Translations {
 
   static String get section_classic_i => _getText("section_classic_i");
 
+  static String get section_general_a3d => _getText("section_general_a3d");
+
+  static String get section_general_acv => _getText("section_general_acv");
+
+  static String get section_general_cc => _getText("section_general_cc");
+
+  static String get section_general_cf => _getText("section_general_cf");
+
+  static String get section_general_cg => _getText("section_general_cg");
+
+  static String get section_general_cm => _getText("section_general_cm");
+
+  static String get section_general_ed => _getText("section_general_ed");
+
+  static String get section_general_gh => _getText("section_general_gh");
+
+  static String get section_general_ig => _getText("section_general_ig");
+
+  static String get section_general_in => _getText("section_general_in");
+
+  static String get section_general_mm => _getText("section_general_mm");
+
+  static String get section_general_ps => _getText("section_general_ps");
+
+  static String get section_general_se => _getText("section_general_se");
+
+  static String get section_general_sh => _getText("section_general_sh");
+
+  static String get section_general_si => _getText("section_general_si");
+
+  static String get section_general_sn => _getText("section_general_sn");
+
+  static String get section_general_so => _getText("section_general_so");
+
   static String get select_term => _getText("select_term");
 
   static String get semester => _getText("semester");
@@ -231,6 +261,28 @@ class Translations {
 
   static String get variant => _getText("variant");
 
+  static String get variant_classic_l => _getText("variant_classic_l");
+
+  static String get variant_classic_zh => _getText("variant_classic_zh");
+
+  static String get variant_general_a => _getText("variant_general_a");
+
+  static String get variant_general_ad => _getText("variant_general_ad");
+
+  static String get variant_general_adf => _getText("variant_general_adf");
+
+  static String get variant_general_f => _getText("variant_general_f");
+
+  static String get variant_general_fr => _getText("variant_general_fr");
+
+  static String get variant_general_ia => _getText("variant_general_ia");
+
+  static String get variant_general_if => _getText("variant_general_if");
+
+  static String get variant_general_p => _getText("variant_general_p");
+
+  static String get variant_general_pf => _getText("variant_general_pf");
+
   static String get year => _getText("year");
 
   static String get year_overview => _getText("year_overview");
@@ -259,7 +311,6 @@ class Translations {
     "cancel": "Cancel",
     "change_class": "Change class",
     "change_class_summary": "Click to change your current class. This will delete all your saved grades.",
-    "chinese": "Chinese",
     "class_string": "Class",
     "classic": "Classic",
     "coefficient": "Coefficient",
@@ -299,7 +350,6 @@ class Translations {
     "half_up": "Half up",
     "invalid": "Invalid",
     "language": "Language",
-    "latin": "Latin",
     "licenses": "Licenses",
     "lux_system": "Luxemburgish school system",
     "luxemburgish": "Lëtzebuergesch",
@@ -331,6 +381,23 @@ class Translations {
     "section_classic_f": "F - Music",
     "section_classic_g": "G - Human and social sciences",
     "section_classic_i": "I - Informatics & Communication",
+    "section_general_a3d": "A3D - Architecture, design and sustainable development",
+    "section_general_acv": "ACV - Arts and visual communication",
+    "section_general_cc": "CC - Communication and organization",
+    "section_general_cf": "CF - Finance",
+    "section_general_cg": "CG - Management",
+    "section_general_cm": "CM - Administrative and commercial",
+    "section_general_ed": "ED - Educator training",
+    "section_general_gh": "GH - Hospitality management",
+    "section_general_ig": "IG - Engineering",
+    "section_general_in": "IN - Informatics",
+    "section_general_mm": "MM - Marketing, media and communication",
+    "section_general_ps": "PS - Health and social professions",
+    "section_general_se": "SE - Environmental sciences",
+    "section_general_sh": "SH - Health sciences",
+    "section_general_si": "SI - Nurse training",
+    "section_general_sn": "SN - Natural sciences",
+    "section_general_so": "SO - Social sciences",
     "select_term": "Select term",
     "semester": "Semester",
     "semesters": "Semesters",
@@ -354,6 +421,17 @@ class Translations {
     "trimesters": "Trimesters",
     "up": "Up",
     "variant": "Variant",
+    "variant_classic_l": "L - Latin",
+    "variant_classic_zh": "ZH - Chinese",
+    "variant_general_a": "A - Continuation of german",
+    "variant_general_ad": "AD - Adaptation class",
+    "variant_general_adf": "ADF - French adaptation class",
+    "variant_general_f": "F - Beginning of german",
+    "variant_general_fr": "FR - Francophone regime",
+    "variant_general_ia": "IA - Learning german",
+    "variant_general_if": "IF - Learning french",
+    "variant_general_p": "P - Preparation route",
+    "variant_general_pf": "PF - French preparation way",
     "year": "Year",
     "year_overview": "Year overview",
     "yearly_average": "Yearly average",
@@ -378,7 +456,6 @@ class Translations {
     "cancel": "Annuler",
     "change_class": "Changer la classe",
     "change_class_summary": "Cliquez pour changer votre classe actuelle. Cela supprimera toutes vos notes sauvegardées.",
-    "chinese": "Chinois",
     "class_string": "Classe",
     "classic": "Classique",
     "coefficient": "Coefficient",
@@ -418,7 +495,6 @@ class Translations {
     "half_up": "A moitié vers le haut",
     "invalid": "Invalide",
     "language": "Langue",
-    "latin": "Latin",
     "licenses": "Licenses",
     "lux_system": "Système scolaire luxembourgeois",
     "luxemburgish": "Lëtzebuergesch",
@@ -450,6 +526,23 @@ class Translations {
     "section_classic_f": "F - Musique",
     "section_classic_g": "G - Sciences humaines et sociales",
     "section_classic_i": "I - Informatique & Communication",
+    "section_general_a3d": "A3D - Architecture, design et développement durable",
+    "section_general_acv": "ACV - Arts et communication visuelle",
+    "section_general_cc": "CC - Communication et organisation",
+    "section_general_cf": "CF - Finance",
+    "section_general_cg": "CG - Gestion",
+    "section_general_cm": "CM - Administratif et commercial",
+    "section_general_ed": "ED - Formation de l'éducateur",
+    "section_general_gh": "GH - Gestion de l'hospitalité",
+    "section_general_ig": "IG - Ingénierie",
+    "section_general_in": "IN - Informatique",
+    "section_general_mm": "MM - Marketing, médias et communication",
+    "section_general_ps": "PS - Professions de santé et professions sociales",
+    "section_general_se": "SE - Sciences environnementales",
+    "section_general_sh": "SH - Sciences de la santé",
+    "section_general_si": "SI - Formation de l'infirmier",
+    "section_general_sn": "SN - Sciences naturelles",
+    "section_general_so": "SO - Sciences sociales",
     "select_term": "Sélectionner période",
     "semester": "Semestre",
     "semesters": "Semestres",
@@ -473,6 +566,17 @@ class Translations {
     "trimesters": "Trimestres",
     "up": "Vers le haut",
     "variant": "Variante",
+    "variant_classic_l": "L - Latin",
+    "variant_classic_zh": "ZH - Chinois",
+    "variant_general_a": "A - Continuation de l'allemand",
+    "variant_general_ad": "AD - Classe d'adaptation",
+    "variant_general_adf": "ADF - Classe d'adaptation française",
+    "variant_general_f": "F - Début de l'allemand",
+    "variant_general_fr": "FR - Régime francophone",
+    "variant_general_ia": "IA - Apprentissage de l'allemand",
+    "variant_general_if": "IF - Apprentissage du français",
+    "variant_general_p": "P - Voie de préparation",
+    "variant_general_pf": "PF - Voie de préparation française",
     "year": "Année",
     "year_overview": "Aperçu de l'année",
     "yearly_average": "Moyenne annuelle",
@@ -497,7 +601,6 @@ class Translations {
     "cancel": "Abbrechen",
     "change_class": "Klasse ändern",
     "change_class_summary": "Klicken Sie um Ihre aktuelle Klasse zu ändern. Alle gespeicherten Noten werden dabei gelöscht.",
-    "chinese": "Chinesisch",
     "class_string": "Klasse",
     "classic": "Klassik",
     "coefficient": "Koeffizient",
@@ -537,7 +640,6 @@ class Translations {
     "half_up": "Halb nach oben",
     "invalid": "Ungültig",
     "language": "Sprache",
-    "latin": "Lateinisch",
     "licenses": "Lizenzen",
     "lux_system": "Luxemburgisches Schulsystem",
     "luxemburgish": "Lëtzebuergesch",
@@ -569,6 +671,23 @@ class Translations {
     "section_classic_f": "F - Musik",
     "section_classic_g": "G -Menschliche und soziale Wissenschaften",
     "section_classic_i": "I - Informatik & Kommunikation",
+    "section_general_a3d": "A3D - Architektur, Design und nachhaltige Entwicklung",
+    "section_general_acv": "ACV - Kunst und visuelle Kommunikation",
+    "section_general_cc": "CC - Kommunikation und Organisation",
+    "section_general_cf": "CF - Finanzen",
+    "section_general_cg": "CG - Management",
+    "section_general_cm": "CM - Verwaltung und Handel",
+    "section_general_ed": "ED - Pädagogenausbildung",
+    "section_general_gh": "GH - Hospitality Management",
+    "section_general_ig": "IG - Ingenieurwesen",
+    "section_general_in": "IN - Informatik",
+    "section_general_mm": "MM - Marketing, Medien und Kommunikation",
+    "section_general_ps": "PS - Gesundheits- und Sozialberufe",
+    "section_general_se": "SE - Umweltwissenschaften",
+    "section_general_sh": "SH - Gesundheitswissenschaften",
+    "section_general_si": "SI - Ausbildung zur Krankenschwester",
+    "section_general_sn": "SN - Naturwissenschaften",
+    "section_general_so": "SO - Sozialwissenschaften",
     "select_term": "Periode auswählen",
     "semester": "Semester",
     "semesters": "Semester",
@@ -592,6 +711,17 @@ class Translations {
     "trimesters": "Trimester",
     "up": "Nach oben",
     "variant": "Variante",
+    "variant_classic_l": "L - Lateinisch",
+    "variant_classic_zh": "ZH - Chinesisch",
+    "variant_general_a": "A - Fortsetzung des Deutschen",
+    "variant_general_ad": "AD - Anpassungsklasse",
+    "variant_general_adf": "ADF - Französische Anpassungsklasse",
+    "variant_general_f": "F - Beginn des Deutschen",
+    "variant_general_fr": "FR - Frankophones Regime",
+    "variant_general_ia": "IA - Deutsch lernen",
+    "variant_general_if": "IF - Französisch lernen",
+    "variant_general_p": "P - Vorbereitungsweg",
+    "variant_general_pf": "PF - French Preparation Way",
     "year": "Jahr",
     "year_overview": "Jahresübersicht",
     "yearly_average": "Jahresdurchschnitt",
@@ -616,7 +746,6 @@ class Translations {
     "cancel": "Ofbriechen",
     "change_class": "Klass änneren",
     "change_class_summary": "Klickt fir är aktuell Klass ze änneren. All gespäichert Notten ginn dobäi geläscht.",
-    "chinese": "Chineesesch",
     "class_string": "Klass",
     "classic": "Klassik",
     "coefficient": "Koeffizient",
@@ -656,7 +785,6 @@ class Translations {
     "half_up": "Hallef no uewen",
     "invalid": "Ongëlteg",
     "language": "Sprooch",
-    "latin": "Latäin",
     "licenses": "Lizenzen",
     "lux_system": "Lëtzebuergeschen Schoulsystem",
     "luxemburgish": "Lëtzebuergesch",
@@ -688,6 +816,23 @@ class Translations {
     "section_classic_f": "F - Musek",
     "section_classic_g": "G - Mënschlech an sozial Wëssenschaften",
     "section_classic_i": "I - Informatik & Kommunikatioun",
+    "section_general_a3d": "//TODO",
+    "section_general_acv": "//TODO",
+    "section_general_cc": "//TODO",
+    "section_general_cf": "//TODO",
+    "section_general_cg": "//TODO",
+    "section_general_cm": "//TODO",
+    "section_general_ed": "//TODO",
+    "section_general_gh": "//TODO",
+    "section_general_ig": "//TODO",
+    "section_general_in": "//TODO",
+    "section_general_mm": "//TODO",
+    "section_general_ps": "//TODO",
+    "section_general_se": "//TODO",
+    "section_general_sh": "//TODO",
+    "section_general_si": "//TODO",
+    "section_general_sn": "//TODO",
+    "section_general_so": "//TODO",
     "select_term": "Period auswielen",
     "semester": "Semester",
     "semesters": "Semester",
@@ -711,6 +856,17 @@ class Translations {
     "trimesters": "Trimester",
     "up": "No uewen",
     "variant": "Variante",
+    "variant_classic_l": "L - Latäin",
+    "variant_classic_zh": "ZH - Chineesesch",
+    "variant_general_a": "//TODO",
+    "variant_general_ad": "//TODO",
+    "variant_general_adf": "//TODO",
+    "variant_general_f": "//TODO",
+    "variant_general_fr": "//TODO",
+    "variant_general_ia": "//TODO",
+    "variant_general_if": "//TODO",
+    "variant_general_p": "//TODO",
+    "variant_general_pf": "//TODO",
     "year": "Joer",
     "year_overview": "Joresiwwersiicht",
     "yearly_average": "Joresmoyenne",

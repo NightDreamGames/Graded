@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:graded/Misc/storage.dart';
 import '../../../../Calculations/calculator.dart';
 import '../../../../Translations/translations.dart';
 import '../../../Widgets/dialogs.dart';
@@ -1543,7 +1544,7 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
       builder: (BuildContext context, T value, OnChanged<T> onChanged) {
         return _ModalSettingsTile<T>(
           title: widget.title,
-          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[value] ?? Translations.not_set),
+          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[getPreference(widget.settingKey)] ?? Translations.not_set),
           icon: widget.icon,
           titleTextStyle: widget.titleTextStyle,
           subtitleTextStyle: widget.subtitleTextStyle,

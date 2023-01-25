@@ -21,7 +21,6 @@ dependencies:
   url_launcher: ^6.0.20
   xml: ^6.1.0
   dynamic_color: ^1.4.0
-  excel: ^2.0.1
   animations: ^2.0.0
   collection: ^1.16.0
   flutter_exit_app: ^1.0.5

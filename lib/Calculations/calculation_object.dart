@@ -16,5 +16,5 @@ abstract class CalculationObject {
   double coefficient = 1;
   double? result;
   double? get value1 => result;
-  double get value2 => Storage.getPreference<double>("total_grades");
+  double get value2 => getPreference<double>("total_grades");
 }

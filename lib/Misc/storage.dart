@@ -25,9 +25,9 @@ final Map<String, dynamic> defaultValues = {
   //Setup
   "school_system": "",
   "lux_system": "",
-  "year": "",
+  "year": -1,
   "section": "",
-  "variant": "basic",
+  "variant": "",
   "is_first_run": true,
   //App settings
   "theme": "system",
@@ -35,40 +35,34 @@ final Map<String, dynamic> defaultValues = {
   "language": "system",
 };
 
-class Storage {
-  static void serialize() {
-    setPreference<String?>("data", jsonEncode(Manager.years));
-    setPreference<String?>("default_data", jsonEncode(Manager.termTemplate));
-  }
+void serialize() {
+  setPreference<String?>("data", jsonEncode(Manager.years));
+  setPreference<String?>("default_data", jsonEncode(Manager.termTemplate));
+}
 
-  static String serializeString(Map<String, dynamic> map) {
-    return jsonEncode(map);
-  }
+Future<void> deserialize() async {
+  if (existsPreference("data")) {
+    try {
+      var termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
+      Manager.termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson)).toList();
 
-  static Future<void> deserialize() async {
-    if (existsPreference("data")) {
-      try {
-        var termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
-        Manager.termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson)).toList();
-
-        var data = jsonDecode(getPreference<String>("data")) as List;
-        Manager.years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
-      } catch (e) {
-        Manager.deserializationError = true;
-        Manager.clear();
-      }
+      var data = jsonDecode(getPreference<String>("data")) as List;
+      Manager.years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
+    } catch (e) {
+      Manager.deserializationError = true;
+      Manager.clear();
     }
   }
+}
 
-  static void setPreference<T>(String key, T value) {
-    Settings.setValue<T>(key, value);
-  }
+Future<void> setPreference<T>(String key, T value) async {
+  await Settings.setValue<T>(key, value);
+}
 
-  static T getPreference<T>(String key, {T? defaultValue}) {
-    return Settings.getValue<T>(key, defaultValue ?? defaultValues[key]);
-  }
+T getPreference<T>(String key, {T? defaultValue}) {
+  return Settings.getValue<T>(key, defaultValue ?? defaultValues[key]);
+}
 
-  static bool existsPreference(String key) {
-    return Settings.containsKey(key)!;
-  }
+bool existsPreference(String key) {
+  return Settings.containsKey(key)!;
 }

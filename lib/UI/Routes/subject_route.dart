@@ -42,7 +42,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
   }
 
   void rebuild() {
-    if (Storage.getPreference("sort_mode1") != 1) {
+    if (getPreference("sort_mode1") != 1) {
       subject = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
     } else {
       subjectIndex = term.subjects.indexOf(subjectGroupIndex == -1 ? subject : subjectGroup);

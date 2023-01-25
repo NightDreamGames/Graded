@@ -34,7 +34,7 @@ void main() async {
 
   String initialRoute = "/home";
 
-  if (Storage.getPreference("is_first_run")) {
+  if (getPreference("is_first_run")) {
     initialRoute = "/setup_first";
   }
 
@@ -60,8 +60,8 @@ class _AppContainerState extends State<AppContainer> {
   Widget build(BuildContext context) {
     setOptimalDisplayMode();
 
-    String brightness = Storage.getPreference("theme");
-    String localeName = Storage.getPreference("language");
+    String brightness = getPreference("theme");
+    String localeName = getPreference("language");
 
     return ChangeNotifierProvider(
       create: (context) => LocaleProvider(locale: localeName != defaultValues["language"] ? Locale(localeName) : null),
