@@ -36,9 +36,9 @@ class TextRow extends StatelessWidget {
     return Column(
       children: [
         if (isChild)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Divider(),
           ),
         ListTile(
           key: listKey,
@@ -67,15 +67,16 @@ class TextRow extends StatelessWidget {
                 Icon(
                   trailingIcon,
                   size: 24.0,
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                 ),
               ],
             ],
           ),
         ),
         if (!isChild)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Divider(),
           ),
       ],
     );
@@ -129,7 +130,11 @@ class _GroupRowState extends State<GroupRow> {
                   AnimatedRotation(
                     turns: _isExpanded ? .5 : 0,
                     duration: const Duration(milliseconds: 200),
-                    child: const Icon(Icons.expand_more),
+                    child: Icon(
+                      Icons.expand_more,
+                      size: 24.0,
+                      color: _isExpanded ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                    ),
                   ),
                 ],
               ),
@@ -143,9 +148,9 @@ class _GroupRowState extends State<GroupRow> {
             children: widget.children,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Divider(height: 1, color: Theme.of(context).colorScheme.surfaceVariant),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Divider(),
         ),
       ],
     );
@@ -179,9 +184,11 @@ class ResultRow extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(height: 1, thickness: 3, color: Theme.of(context).colorScheme.surfaceVariant),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Divider(
+              thickness: 3,
+            ),
           ),
         ],
       ),

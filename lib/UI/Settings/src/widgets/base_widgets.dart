@@ -467,12 +467,9 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
 class _SettingsTileDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Divider(
-        height: 1,
-        color: Theme.of(context).colorScheme.surfaceVariant,
-      ),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Divider(),
     );
   }
 }

@@ -23,6 +23,11 @@ class AppTheme {
       primaryTextTheme: theme.textTheme.apply(
         fontFamily: 'RobotoMono',
       ),
+      dividerTheme: theme.dividerTheme.copyWith(
+        thickness: 0.5,
+        space: 1,
+        color: theme.colorScheme.surfaceVariant,
+      ),
     );
   }
 
