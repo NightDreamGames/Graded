@@ -42,8 +42,6 @@ class _HomePageState extends State<HomePage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(Translations.storage_error),
-            backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-            elevation: 3,
           ),
         );
 

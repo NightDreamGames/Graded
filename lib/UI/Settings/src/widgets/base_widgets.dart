@@ -497,7 +497,6 @@ class _SettingsCheckbox extends StatelessWidget {
     return Checkbox(
       value: value,
       onChanged: enabled ? onChanged : null,
-      //activeColor: Theme.of(context).colorScheme.secondary,
     );
   }
 }
@@ -522,10 +521,9 @@ class _SettingsSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Switch.adaptive(
+    return Switch(
       value: value,
       onChanged: enabled ? onChanged : null,
-      //activeColor: Theme.of(context).colorScheme.secondary,
     );
   }
 }
@@ -555,7 +553,6 @@ class _SettingsRadio<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Radio<T>(
-      activeColor: Theme.of(context).colorScheme.primary,
       groupValue: groupValue,
       value: value,
       onChanged: enabled ? onChanged : null,

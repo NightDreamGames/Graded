@@ -60,7 +60,6 @@ class EasyDialogState extends State<EasyDialog> {
       title: Text(widget.title),
       scrollable: true,
       icon: widget.icon != null ? Icon(widget.icon) : null,
-      iconColor: Theme.of(context).colorScheme.secondary,
       actions: [
         TextButton(
           onPressed: () {
