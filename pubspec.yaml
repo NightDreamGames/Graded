@@ -1,7 +1,7 @@
 name: graded
 description: A clean and open-source app to track and manage your school grades.
 publish_to: "none"
-version: 2.0.5+51
+version: 2.1.0+52
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
