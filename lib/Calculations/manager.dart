@@ -68,7 +68,7 @@ class Manager {
     if (currentTerm == -1) {
       Year currentYear = getCurrentYear();
       Term yearTerm = Term();
-      Manager.sortSubjectsAZ();
+      Manager.sortAll(sortModeOverride: 0);
       Calculator.sortObjects(yearTerm.subjects, 0, sortModeOverride: 0);
 
       for (int i = 0; i < currentYear.terms.length; i++) {
@@ -100,29 +100,24 @@ class Manager {
     return getCurrentYear().terms[currentTerm];
   }
 
-  static void sortAll() {
+  static void sortAll({int? sortModeOverride}) {
     for (Year y in years) {
       for (Term t in y.terms) {
         for (Subject s in t.subjects) {
-          s.sort();
+          s.sort(sortModeOverride: sortModeOverride);
         }
-        t.sort();
+        t.sort(sortModeOverride: sortModeOverride);
       }
     }
 
-    Calculator.sortObjects(termTemplate, 3);
-
-    serialize();
-  }
-
-  static void sortSubjectsAZ() {
-    for (Year y in years) {
-      for (Term t in y.terms) {
-        t.sort(sortModeOverride: 0);
-      }
+    for (Subject element in termTemplate) {
+      element.sort(sortModeOverride: sortModeOverride);
     }
+    Calculator.sortObjects(termTemplate, 3, sortModeOverride: sortModeOverride);
 
-    Calculator.sortObjects(termTemplate, 0, sortModeOverride: 0);
+    if (sortModeOverride == null) {
+      serialize();
+    }
   }
 
   Map<String, dynamic> toJson() => {

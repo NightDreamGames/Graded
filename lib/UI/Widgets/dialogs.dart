@@ -254,15 +254,22 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
               t.subjects.add(Subject(name, coefficient));
             }
           } else {
+            Manager.sortAll(sortModeOverride: 0);
+
             subject.name = name;
             subject.coefficient = coefficient;
 
-            Manager.sortSubjectsAZ();
-
             for (Term t in Manager.getCurrentYear().terms) {
               for (int i = 0; i < t.subjects.length; i++) {
-                t.subjects[i].name = Manager.termTemplate[i].name;
-                t.subjects[i].coefficient = Manager.termTemplate[i].coefficient;
+                Subject s = t.subjects[i];
+                Subject template = Manager.termTemplate[i];
+
+                s.name = template.name;
+                s.coefficient = template.coefficient;
+                for (int j = 0; j < t.subjects[i].children.length; j++) {
+                  s.children[j].name = template.children[j].name;
+                  s.children[j].coefficient = template.children[j].coefficient;
+                }
               }
             }
           }
@@ -284,8 +291,16 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
                   if (Manager.termTemplate.any((element) {
-                    if (!add && element.name == subject.name) {
+                    if (!add && element == subject) {
                       return false;
+                    }
+                    if (element.children.any((child) {
+                      if (!add && child == subject) {
+                        return false;
+                      }
+                      return child.name == newValue;
+                    })) {
+                      return true;
                     }
                     return element.name == newValue;
                   })) {

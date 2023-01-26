@@ -68,8 +68,9 @@ class Subject extends CalculationObject {
     }
   }
 
-  void sort() {
-    Calculator.sortObjects(tests, 2);
+  void sort({int? sortModeOverride}) {
+    Calculator.sortObjects(children, 1, sortModeOverride: sortModeOverride);
+    Calculator.sortObjects(tests, 2, sortModeOverride: sortModeOverride);
   }
 
   String getResult() {
