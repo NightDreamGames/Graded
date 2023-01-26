@@ -97,8 +97,6 @@ class Translations {
 
   static String get general => _getText("general");
 
-  static String get general_note => _getText("general_note");
-
   static String get german => _getText("german");
 
   static String get github => _getText("github");
@@ -338,8 +336,6 @@ class Translations {
     "exams": "Exams",
     "french": "Français",
     "general": "General",
-    "general_note":
-        "The general system is currently being implemented and is not ready yet. In the meantime, you can select \"Other school system\" and enter your subjects manually.",
     "german": "Deutsch",
     "github": "GitHub repository",
     "github_summary": "https://github.com/NightDreamGames/Graded",
@@ -483,8 +479,6 @@ class Translations {
     "exams": "Examens",
     "french": "Français",
     "general": "Général",
-    "general_note":
-        "Le système général est en cours d'implémentation et n'est pas encore prêt. En attendant, vous pouvez sélectionner \"Autre système scolaire\" et saisir vos matières manuellement.",
     "german": "Deutsch",
     "github": "Repository GitHub",
     "github_summary": "https://github.com/NightDreamGames/Graded",
@@ -628,8 +622,6 @@ class Translations {
     "exams": "Examen",
     "french": "Français",
     "general": "General",
-    "general_note":
-        "Das generale System wird gerade implementiert und ist noch nicht fertig. In der Zwischenzeit können Sie \"Anderes Schulsystem\" wählen und Ihre Fächer manuell eingeben.",
     "german": "Deutsch",
     "github": "GitHub Repository",
     "github_summary": "https://github.com/NightDreamGames/Graded",
@@ -773,8 +765,6 @@ class Translations {
     "exams": "Examen",
     "french": "Français",
     "general": "General",
-    "general_note":
-        "Den Système general gëtt grad implementéiert an ass nach net fäerdeg. An der Zwëschenzäit kënnt dir \"Aneren Schoulsystem\" wielen an är Fächer manuell aginn.",
     "german": "Deutsch",
     "github": "GitHub Repository",
     "github_summary": "https://github.com/NightDreamGames/Graded",
