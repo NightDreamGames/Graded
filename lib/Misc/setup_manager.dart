@@ -100,14 +100,16 @@ class SetupManager {
     if (year == -1 || luxSystem.isEmpty) return result;
 
     if (luxSystem == "classic") {
-      result.addAll({
-        "": Translations.basic,
-        "L": Translations.variant_classic_l,
-      });
-      if (year != 1) {
+      if (year != 7) {
         result.addAll({
-          "ZH": Translations.variant_classic_zh,
+          "": Translations.basic,
+          "L": Translations.variant_classic_l,
         });
+        if (year != 1) {
+          result.addAll({
+            "ZH": Translations.variant_classic_zh,
+          });
+        }
       }
     } else {
       if (year >= 5 && year <= 7) {

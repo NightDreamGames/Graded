@@ -95,22 +95,23 @@ class _SetupPageState extends State<SetupPage> {
                           "general": Translations.general,
                         },
                       ),
-                      RadioModalSettingsTile<int>(
-                        title: Translations.year,
-                        icon: Icons.timelapse,
-                        settingKey: 'year',
-                        onChange: (_) {
-                          if (SetupManager.hasSections()) {
-                            setPreference<String>("section", defaultValues["section"]);
-                          }
-                          if (SetupManager.getVariants()[getPreference("variant")] == null) {
-                            setPreference<String>("variant", defaultValues["variant"]);
-                          }
-                          rebuild();
-                        },
-                        values: SetupManager.getYears(),
-                        selected: -1,
-                      ),
+                      if (getPreference("lux_system") != null && getPreference("lux_system").isNotEmpty)
+                        RadioModalSettingsTile<int>(
+                          title: Translations.year,
+                          icon: Icons.timelapse,
+                          settingKey: 'year',
+                          onChange: (_) {
+                            if (SetupManager.hasSections()) {
+                              setPreference<String>("section", defaultValues["section"]);
+                            }
+                            if (SetupManager.getVariants()[getPreference("variant")] == null) {
+                              setPreference<String>("variant", defaultValues["variant"]);
+                            }
+                            rebuild();
+                          },
+                          values: SetupManager.getYears(),
+                          selected: -1,
+                        ),
                       if (SetupManager.hasSections())
                         RadioModalSettingsTile<String>(
                           title: Translations.section,
@@ -128,7 +129,7 @@ class _SetupPageState extends State<SetupPage> {
                           onChange: (_) => rebuild(),
                           values: SetupManager.getVariants(),
                         ),
-                      if (getPreference("year") != "" && getPreference("year") != "1C")
+                      if (getPreference("year") != -1 && getPreference("year") != 1)
                         RadioModalSettingsTile<int>(
                           title: Translations.term,
                           icon: Icons.access_time_outlined,
