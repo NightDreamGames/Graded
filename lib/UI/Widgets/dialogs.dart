@@ -332,6 +332,15 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
                         (dialogKey.currentState as EasyDialogState).submit();
                       }
                     },
+                    additionalValidator: (newValue) {
+                      double? number = double.tryParse(newValue);
+
+                      if (number != null && number < 0) {
+                        return Translations.invalid;
+                      }
+
+                      return null;
+                    },
                   ),
                 ),
               ],

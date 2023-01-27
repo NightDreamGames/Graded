@@ -31,7 +31,16 @@ class Term extends CalculationObject {
       s.calculate();
     }
 
-    result = Calculator.calculate(subjects);
+    List<Subject> toBeCalculated = [...subjects];
+    for (int i = 0; i < toBeCalculated.length; i++) {
+      if (toBeCalculated[i].coefficient == 0) {
+        toBeCalculated.addAll(toBeCalculated[i].children);
+        toBeCalculated.removeAt(i);
+        i--;
+      }
+    }
+
+    result = Calculator.calculate(toBeCalculated);
   }
 
   void sort({int? sortModeOverride}) {

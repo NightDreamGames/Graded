@@ -37,12 +37,12 @@ class Calculator {
       return null;
     }
 
+    bool empty = true;
     double numerator = 0;
     double denominator = 0;
-    bool empty = true;
 
     for (CalculationObject c in data) {
-      if (c.value1 != null) {
+      if (c.value1 != null && c.value2 != 0) {
         empty = false;
         numerator += c.value1!;
         denominator += c.value2;
