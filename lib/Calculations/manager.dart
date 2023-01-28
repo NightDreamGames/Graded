@@ -20,12 +20,7 @@ class Manager {
     _currentTerm = newValue;
   }
 
-  static int _lastTerm = 0;
-  static int get lastTerm => _lastTerm;
-  static set lastTerm(int newValue) {
-    setPreference<int>("last_term", newValue);
-    _lastTerm = newValue;
-  }
+  static int lastTerm = 0;
 
   static bool deserializationError = false;
 

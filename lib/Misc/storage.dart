@@ -12,7 +12,6 @@ final Map<String, dynamic> defaultValues = {
   "data": "",
   "default_data": "",
   "current_term": 0,
-  "last_term": 0,
   "sort_mode1": 0,
   "sort_mode2": 0,
   "sort_mode3": 0,

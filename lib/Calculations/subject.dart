@@ -18,7 +18,7 @@ class Subject extends CalculationObject {
   int bonus = 0;
   bool isGroup = false;
   bool isChild = false;
-//TODO add nullable coefficient
+
   Subject(String name, double coefficient, {this.isGroup = false, this.isChild = false}) {
     super.name = name;
     super.coefficient = coefficient;
