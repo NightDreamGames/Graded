@@ -17,6 +17,7 @@ import 'storage.dart';
 class SetupManager {
   static String classicPath = "assets/class_data/classique.json";
   static String generalPath = "assets/class_data/general.json";
+  static List<String?> cache = [null, null];
 
   static Map<int, String> getYears() {
     return {
@@ -147,9 +148,9 @@ class SetupManager {
     return Map.fromEntries(result.entries.toList()..sort((e1, e2) => e1.key.compareTo(e2.key)));
   }
 
-  static void init() {
-    rootBundle.loadString(classicPath);
-    rootBundle.loadString(generalPath);
+  static void init() async {
+    cache[0] = await rootBundle.loadString(classicPath);
+    cache[1] = await rootBundle.loadString(generalPath);
   }
 
   static Future<void> completeSetup() async {
@@ -201,10 +202,10 @@ class SetupManager {
 
     String className = year.toString() + letter + (classic ? variant : "") + section + (classic ? "" : variant);
 
-    String file = await rootBundle.loadString(classic ? classicPath : generalPath);
-    final data = jsonDecode(file) as List;
+    String data = cache[classic ? 0 : 1] ?? (cache[classic ? 0 : 1] = await rootBundle.loadString(classic ? classicPath : generalPath));
+    final json = jsonDecode(data) as List;
 
-    var classObject = data[binarySearch(data, {"name": className},
+    var classObject = json[binarySearch(json, {"name": className},
         compare: (element1, element2) => (element1 as Map<String, dynamic>)["name"].compareTo((element2 as Map<String, dynamic>)["name"]))];
 
     for (var subject in classObject["subjects"]) {
