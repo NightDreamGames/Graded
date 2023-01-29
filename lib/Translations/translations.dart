@@ -93,6 +93,10 @@ class Translations {
 
   static String get exams => _getText("exams");
 
+  static String get export_details => _getText("export_details");
+
+  static String get export_string => _getText("export_string");
+
   static String get french => _getText("french");
 
   static String get general => _getText("general");
@@ -112,6 +116,14 @@ class Translations {
   static String get half_down => _getText("half_down");
 
   static String get half_up => _getText("half_up");
+
+  static String get import_details => _getText("import_details");
+
+  static String get import_error => _getText("import_error");
+
+  static String get import_string => _getText("import_string");
+
+  static String get import_success => _getText("import_success");
 
   static String get invalid => _getText("invalid");
 
@@ -334,6 +346,8 @@ class Translations {
     "enter_unique": "Enter a unique name",
     "exam": "Exam",
     "exams": "Exams",
+    "export_details": "Export the current configuration and saved data",
+    "export_string": "Export",
     "french": "Français",
     "general": "General",
     "german": "Deutsch",
@@ -344,6 +358,10 @@ class Translations {
     "group": "Group",
     "half_down": "Half down",
     "half_up": "Half up",
+    "import_details": "Import a previously exported backup file",
+    "import_error": "There was an error importing your backup.",
+    "import_string": "Import",
+    "import_success": "Backup imported successfully.",
     "invalid": "Invalid",
     "language": "Language",
     "licenses": "Licenses",
@@ -477,6 +495,8 @@ class Translations {
     "enter_unique": "Entrez un nom unique",
     "exam": "Examen",
     "exams": "Examens",
+    "export_details": "Exporter la configuration actuelle et les données sauvegardées",
+    "export_string": "Exporter",
     "french": "Français",
     "general": "Général",
     "german": "Deutsch",
@@ -487,6 +507,10 @@ class Translations {
     "group": "Groupe",
     "half_down": "A moitié vers le bas",
     "half_up": "A moitié vers le haut",
+    "import_details": "Importer un fichier de sauvegarde précédemment exporté",
+    "import_error": "Une erreur s'est produite lors de l'import de votre sauvegarde.",
+    "import_string": "Importer",
+    "import_success": "Sauvegarde importée avec succès.",
     "invalid": "Invalide",
     "language": "Langue",
     "licenses": "Licenses",
@@ -620,6 +644,8 @@ class Translations {
     "enter_unique": "Geben Sie einen eindeutigen Namen ein",
     "exam": "Examen",
     "exams": "Examen",
+    "export_details": "Exportieren der aktuellen Konfiguration und der gespeicherten Daten",
+    "export_string": "Exportieren",
     "french": "Français",
     "general": "General",
     "german": "Deutsch",
@@ -630,6 +656,10 @@ class Translations {
     "group": "Gruppe",
     "half_down": "Halb nach unten",
     "half_up": "Halb nach oben",
+    "import_details": "Importieren einer zuvor exportierten Backup-Datei",
+    "import_error": "Es ist ein Fehler beim Importieren Ihrer Backup aufgetreten.",
+    "import_string": "Importieren",
+    "import_success": "Backup erfolgreich importiert.",
     "invalid": "Ungültig",
     "language": "Sprache",
     "licenses": "Lizenzen",
@@ -763,6 +793,8 @@ class Translations {
     "enter_unique": "Gidd en eendeitegen Numm un",
     "exam": "Examen",
     "exams": "Examen",
+    "export_details": "//TODO",
+    "export_string": "Exportéieren",
     "french": "Français",
     "general": "General",
     "german": "Deutsch",
@@ -773,6 +805,10 @@ class Translations {
     "group": "Grupp",
     "half_down": "Hallef no ënnen",
     "half_up": "Hallef no uewen",
+    "import_details": "//TODO",
+    "import_error": "Et ass e Feeler beim Importéieren vun ärem Backup opgetrueden.",
+    "import_string": "Importéieren",
+    "import_success": "Backup erfollegräich importéiert.",
     "invalid": "Ongëlteg",
     "language": "Sprooch",
     "licenses": "Lizenzen",

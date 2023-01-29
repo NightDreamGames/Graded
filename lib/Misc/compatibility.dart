@@ -111,7 +111,7 @@ class Compatibility {
       periodPreferences();
     }
 
-    await deserialize();
+    deserialize();
 
     if (currentDataVersion < 5) {
       termCount();

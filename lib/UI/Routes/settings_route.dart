@@ -79,6 +79,23 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
               SettingsGroup(
+                title: "${Translations.import_string}/${Translations.export_string}",
+                children: [
+                  SimpleSettingsTile(
+                    icon: Icons.file_upload_outlined,
+                    title: Translations.export_string,
+                    subtitle: Translations.export_details,
+                    onTap: () => exportData(),
+                  ),
+                  SimpleSettingsTile(
+                    icon: Icons.file_download_outlined,
+                    title: Translations.import_string,
+                    subtitle: Translations.import_details,
+                    onTap: () => importData(context),
+                  ),
+                ],
+              ),
+              SettingsGroup(
                 title: Translations.appearance,
                 children: [
                   RadioModalSettingsTile<String>(
