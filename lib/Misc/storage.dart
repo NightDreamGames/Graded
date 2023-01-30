@@ -7,6 +7,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:intl/intl.dart';
 
@@ -117,7 +118,16 @@ void exportData() async {
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   final String formatted = formatter.format(now);
 
-  String fileName = "graded-export-$formatted${Platform.isIOS ? '.json' : ''}";
+  String extension = ".json";
+
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+
+  if (Platform.isAndroid && androidInfo.version.sdkInt >= 29) {
+    extension = "";
+  }
+
+  String fileName = "graded-export-$formatted$extension";
 
   final params = SaveFileDialogParams(
     fileName: fileName,
