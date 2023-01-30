@@ -115,7 +115,7 @@ void exportData() async {
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   final String formatted = formatter.format(now);
 
-  String fileName = "graded-export-$formatted";
+  String fileName = "graded-export-$formatted${Platform.isIOS ? '.json' : ''}";
 
   final params = SaveFileDialogParams(
     fileName: fileName,
