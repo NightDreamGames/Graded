@@ -16,6 +16,7 @@ import '../Calculations/subject.dart';
 import '../Calculations/year.dart';
 import '../Translations/translations.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
+import 'compatibility.dart';
 
 final Map<String, dynamic> defaultValues = {
   //System
@@ -82,6 +83,7 @@ bool existsPreference(String key) {
 }
 
 List<String> keys = [
+  "data_version",
   "data",
   "default_data",
   "current_term",
@@ -143,14 +145,14 @@ void importData(BuildContext context) async {
     String data = String.fromCharCodes(file.readAsBytesSync());
 
     restoreData(data);
-
-    deserialize();
+    Compatibility.upgradeDataVersion();
   } catch (e) {
     error = true;
     restoreData(backup);
-    deserialize();
+    Compatibility.upgradeDataVersion();
   }
 
+  Manager.calculate();
   Manager.currentTerm = 0;
   Manager.lastTerm = 0;
 
