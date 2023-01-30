@@ -56,12 +56,11 @@ class EasyDialogState extends State<EasyDialog> {
     return AlertDialog(
       actionsPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
       contentPadding: const EdgeInsets.only(left: 24, top: 16, right: 24, bottom: 20),
-      backgroundColor: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
-      elevation: 0,
       semanticLabel: widget.title,
       title: Text(widget.title),
       scrollable: true,
       icon: widget.icon != null ? Icon(widget.icon) : null,
+      elevation: 3,
       actions: [
         TextButton(
           onPressed: () {
