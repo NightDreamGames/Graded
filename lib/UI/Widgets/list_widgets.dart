@@ -245,7 +245,9 @@ class SubjectTile extends StatelessWidget {
 
               for (Term t in Manager.getCurrentYear().terms) {
                 if (s.isChild) {
-                  t.subjects[index].children.removeAt(index2);
+                  Subject parent = t.subjects[index];
+                  parent.children.removeAt(index2);
+                  parent.isGroup = parent.children.isNotEmpty;
                 } else {
                   t.subjects.removeAt(index);
                 }
