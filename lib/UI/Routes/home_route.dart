@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         systemNavigationBarColor: Theme.of(context).colorScheme.surface,
-        systemNavigationBarIconBrightness: Theme.of(context).brightness != Brightness.light ? Brightness.dark : Brightness.light,
+        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
         systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
       ));
 
