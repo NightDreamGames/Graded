@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:animations/animations.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -137,7 +138,10 @@ Route buildSharedAxisTransitionPageRoute(Widget Function(BuildContext) builder, 
 }
 
 Future<void> setOptimalDisplayMode() async {
-  if (Platform.isAndroid) {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+
+  if (Platform.isAndroid && androidInfo.version.sdkInt >= 23) {
     await FlutterDisplayMode.setHighRefreshRate();
   }
 }
