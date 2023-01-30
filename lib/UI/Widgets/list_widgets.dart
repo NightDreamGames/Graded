@@ -221,7 +221,6 @@ class SubjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String coefficientString = Calculator.format(s.coefficient, ignoreZero: true);
-    if (coefficientString == "0" && s.isGroup) coefficientString = "";
 
     return Padding(
       key: UniqueKey(),
@@ -229,8 +228,8 @@ class SubjectTile extends StatelessWidget {
       child: TextRow(
         listKey: listKey,
         leading: s.name,
+        trailing: coefficientString == "0" && s.isGroup ? "" : coefficientString,
         padding: EdgeInsets.only(left: s.isChild ? 32 : 24, right: 24),
-        trailing: coefficientString,
         onTap: () async {
           showListMenu(context, listKey).then((result) {
             if (result == "edit") {
