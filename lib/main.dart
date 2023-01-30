@@ -113,7 +113,7 @@ class _AppContainerState extends State<AppContainer> {
                   break;
               }
 
-              return buildSharedAxisTransitionPageRoute((_) => Material(child: route), settings: settings);
+              return buildSharedAxisTransitionPageRoute((_) => SafeArea(top: false, left: false, right: false, child: route), settings: settings);
             },
           ),
         ),

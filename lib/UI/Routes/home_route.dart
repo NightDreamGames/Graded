@@ -75,48 +75,56 @@ class _HomePageState extends State<HomePage> {
               ],
               automaticallyImplyLeading: false,
             ),
-            ResultRow(
-              result: term.getResult(),
-              leading: Text(
-                Manager.currentTerm != -1 ? Translations.average : Translations.yearly_average,
-                overflow: TextOverflow.fade,
-                softWrap: false,
-                style: const TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
+            SliverSafeArea(
+              top: false,
+              bottom: false,
+              sliver: ResultRow(
+                result: term.getResult(),
+                leading: Text(
+                  Manager.currentTerm != -1 ? Translations.average : Translations.yearly_average,
+                  overflow: TextOverflow.fade,
+                  softWrap: false,
+                  style: const TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                addAutomaticKeepAlives: true,
-                childCount: term.subjects.length,
-                (context, index) {
-                  if (!term.subjects[index].isGroup) {
-                    return TextRow(
-                      leading: term.subjects[index].name,
-                      trailing: term.subjects[index].getResult(),
-                      trailingIcon: Icons.navigate_next,
-                      onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, null]).then((_) => rebuild()),
-                    );
-                  } else {
-                    return GroupRow(
-                      leading: term.subjects[index].name,
-                      trailing: term.subjects[index].getResult(),
-                      children: [
-                        for (int i = 0; i < term.subjects[index].children.length; i++)
-                          TextRow(
-                            leading: term.subjects[index].children[i].name,
-                            trailing: term.subjects[index].children[i].getResult(),
-                            trailingIcon: Icons.navigate_next,
-                            padding: const EdgeInsets.only(left: 32, right: 24),
-                            onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, i]).then((_) => rebuild()),
-                            isChild: true,
-                          ),
-                      ],
-                    );
-                  }
-                },
+            SliverSafeArea(
+              top: false,
+              bottom: false,
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  addAutomaticKeepAlives: true,
+                  childCount: term.subjects.length,
+                  (context, index) {
+                    if (!term.subjects[index].isGroup) {
+                      return TextRow(
+                        leading: term.subjects[index].name,
+                        trailing: term.subjects[index].getResult(),
+                        trailingIcon: Icons.navigate_next,
+                        onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, null]).then((_) => rebuild()),
+                      );
+                    } else {
+                      return GroupRow(
+                        leading: term.subjects[index].name,
+                        trailing: term.subjects[index].getResult(),
+                        children: [
+                          for (int i = 0; i < term.subjects[index].children.length; i++)
+                            TextRow(
+                              leading: term.subjects[index].children[i].name,
+                              trailing: term.subjects[index].children[i].getResult(),
+                              trailingIcon: Icons.navigate_next,
+                              padding: const EdgeInsets.only(left: 32, right: 24),
+                              onTap: () => Navigator.pushNamed(context, "/subject", arguments: [index, i]).then((_) => rebuild()),
+                              isChild: true,
+                            ),
+                        ],
+                      );
+                    }
+                  },
+                ),
               ),
             ),
             const SliverPadding(padding: EdgeInsets.only(bottom: 16)),

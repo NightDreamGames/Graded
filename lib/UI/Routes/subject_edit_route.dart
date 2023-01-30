@@ -46,12 +46,16 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           SortSelector(rebuild: rebuild, type: 2),
         ],
       ),
-      body: ReorderableListView(
-        buildDefaultDragHandles: false,
-        onReorder: (int oldIndex, int newIndex) {
-          //TODO Implement reordering
-        },
-        children: (buildTiles()),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: ReorderableListView(
+          buildDefaultDragHandles: false,
+          onReorder: (int oldIndex, int newIndex) {
+            //TODO Implement reordering
+          },
+          children: (buildTiles()),
+        ),
       ),
     );
   }
