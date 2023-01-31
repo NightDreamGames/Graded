@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
@@ -65,10 +66,16 @@ class TermSelector extends StatelessWidget {
 }
 
 class SortSelector extends StatelessWidget {
-  const SortSelector({Key? key, required this.rebuild, required this.type}) : super(key: key);
+  const SortSelector({
+    Key? key,
+    required this.rebuild,
+    required this.type,
+    this.showSettings = false,
+  }) : super(key: key);
 
   final Function rebuild;
   final int type;
+  final bool showSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -82,42 +89,38 @@ class SortSelector extends StatelessWidget {
         }
       },
       itemBuilder: (context) {
-        List<PopupMenuEntry<String>> popupList = [
+        return [
           PopupSubMenuItem<String>(
             title: Translations.sort_by,
-            items: type == 0
-                ? [Translations.az, Translations.grade, Translations.coefficient]
-                : type == 1
-                    ? [Translations.az, Translations.grade]
-                    : [Translations.az, Translations.coefficient],
+            items: type == SortType.subject
+                ? [Translations.az, Translations.grade, Translations.coefficient, Translations.custom]
+                : [Translations.az, Translations.grade],
             onSelected: (value) {
-              int sortMode = 0;
+              int sortMode = SortMode.name;
 
               if (value == Translations.az) {
-                sortMode = 0;
+                sortMode = SortMode.name;
               } else if (value == Translations.grade) {
-                sortMode = 1;
+                sortMode = SortMode.result;
               } else if (value == Translations.coefficient) {
-                sortMode = 2;
+                sortMode = SortMode.coefficient;
+              } else if (value == Translations.custom) {
+                sortMode = SortMode.custom;
               }
 
-              setPreference<int>("sort_mode${type + 1}", sortMode);
+              setPreference<int>("sort_mode$type", sortMode);
 
               Manager.sortAll();
 
               rebuild();
             },
           ),
+          if (showSettings)
+            PopupMenuItem<String>(
+              value: "settings",
+              child: Text(Translations.settings),
+            ),
         ];
-
-        if (type == 0) {
-          popupList.add(PopupMenuItem<String>(
-            value: "settings",
-            child: Text(Translations.settings),
-          ));
-        }
-
-        return popupList;
       },
     );
   }

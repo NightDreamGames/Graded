@@ -255,7 +255,7 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
               t.subjects.add(Subject(name, coefficient));
             }
           } else {
-            Manager.sortAll(sortModeOverride: 0);
+            Manager.sortAll(sortModeOverride: SortMode.name);
 
             subject.name = name;
             subject.coefficient = coefficient;

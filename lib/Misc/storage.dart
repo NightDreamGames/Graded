@@ -12,6 +12,7 @@ import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
+import '../Calculations/calculator.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Calculations/year.dart';
@@ -24,9 +25,8 @@ final Map<String, dynamic> defaultValues = {
   "data": "",
   "default_data": "",
   "current_term": 0,
-  "sort_mode1": 0,
-  "sort_mode2": 0,
-  "sort_mode3": 0,
+  "sort_mode1": SortMode.name,
+  "sort_mode2": SortMode.name,
   "data_version": -1,
   //Calculation settings
   "term": 3,
@@ -90,7 +90,6 @@ List<String> keys = [
   "current_term",
   "sort_mode1",
   "sort_mode2",
-  "sort_mode3",
   "term",
   "total_grades",
   "rounding_mode",

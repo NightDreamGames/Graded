@@ -9,20 +9,23 @@ abstract class SortMode {
   static const int name = 0;
   static const int result = 1;
   static const int coefficient = 2;
+  static const int custom = 3;
 }
 
 abstract class SortType {
   static const int subject = 1;
   static const int test = 2;
-  static const int subjectEdit = 3;
 }
 
 class Calculator {
-  static void sortObjects(List<CalculationObject> data, {int? sortType, int? sortModeOverride}) {
-    assert(sortType != null || sortModeOverride != null);
-
+  static void sortObjects(List<CalculationObject> data, {required int sortType, int? sortModeOverride}) {
     if (data.length >= 2) {
-      switch (sortModeOverride ?? getPreference<int>("sort_mode$sortType")) {
+      int sortMode = getPreference<int>("sort_mode$sortType");
+      if (sortModeOverride != null && sortMode != SortMode.custom) {
+        sortMode = sortModeOverride;
+      }
+
+      switch (sortMode) {
         case SortMode.name:
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) => a.processedName.compareTo(b.processedName));
           break;
@@ -41,6 +44,8 @@ class Calculator {
           break;
         case SortMode.coefficient:
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) => b.coefficient.compareTo(a.coefficient));
+          break;
+        case SortMode.custom:
           break;
       }
     }

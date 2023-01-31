@@ -64,7 +64,7 @@ class Manager {
       Year currentYear = getCurrentYear();
       Term yearTerm = Term();
       Manager.sortAll(sortModeOverride: SortMode.name);
-      Calculator.sortObjects(yearTerm.subjects, sortModeOverride: SortMode.name);
+      Calculator.sortObjects(yearTerm.subjects, sortType: SortType.subject, sortModeOverride: SortMode.name);
 
       for (int i = 0; i < currentYear.terms.length; i++) {
         Term t = currentYear.terms[i];
@@ -108,7 +108,7 @@ class Manager {
     for (Subject element in termTemplate) {
       element.sort(sortModeOverride: sortModeOverride);
     }
-    Calculator.sortObjects(termTemplate, sortType: SortType.subjectEdit, sortModeOverride: sortModeOverride);
+    Calculator.sortObjects(termTemplate, sortType: SortType.subject, sortModeOverride: sortModeOverride);
 
     if (sortModeOverride == null) {
       serialize();

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:graded/Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
 import '../../Translations/translations.dart';
@@ -43,7 +44,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         titleSpacing: 0,
         toolbarHeight: 64,
         actions: [
-          SortSelector(rebuild: rebuild, type: 2),
+          SortSelector(rebuild: rebuild, type: SortType.subject),
         ],
       ),
       body: SafeArea(

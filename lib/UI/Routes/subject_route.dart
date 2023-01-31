@@ -5,6 +5,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
 import '../../Calculations/term.dart';
@@ -42,7 +43,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
   }
 
   void rebuild() {
-    if (getPreference("sort_mode1") != 1) {
+    if (getPreference("sort_mode1") != SortMode.result) {
       subject = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
     } else {
       subjectIndex = term.subjects.indexOf(subjectGroupIndex == -1 ? subject : subjectGroup);
@@ -92,7 +93,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
             ),
             actions: [
               TermSelector(rebuild: switchTerm),
-              SortSelector(rebuild: rebuild, type: 1),
+              SortSelector(rebuild: rebuild, type: SortType.test),
             ],
           ),
           SliverSafeArea(

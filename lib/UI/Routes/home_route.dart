@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
 
 // Project imports:
+import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Calculations/term.dart';
 import '../../Translations/translations.dart';
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               ),
               actions: [
                 TermSelector(rebuild: rebuild),
-                SortSelector(rebuild: rebuild, type: 0),
+                SortSelector(rebuild: rebuild, type: SortType.subject, showSettings: true),
               ],
               automaticallyImplyLeading: false,
             ),

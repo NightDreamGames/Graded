@@ -240,7 +240,7 @@ class SubjectTile extends StatelessWidget {
               } else {
                 Manager.termTemplate.removeAt(index);
               }
-              Manager.sortAll(sortModeOverride: 0);
+              Manager.sortAll(sortModeOverride: SortMode.name);
 
               for (Term t in Manager.getCurrentYear().terms) {
                 if (s.isChild) {
