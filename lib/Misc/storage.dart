@@ -120,11 +120,13 @@ void exportData() async {
 
   String extension = ".json";
 
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  if (Platform.isAndroid) {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-  if (Platform.isAndroid && androidInfo.version.sdkInt >= 29) {
-    extension = "";
+    if (androidInfo.version.sdkInt >= 29) {
+      extension = "";
+    }
   }
 
   String fileName = "graded-export-$formatted$extension";
