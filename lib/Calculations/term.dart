@@ -44,7 +44,7 @@ class Term extends CalculationObject {
   }
 
   void sort({int? sortModeOverride}) {
-    Calculator.sortObjects(subjects, 1, sortModeOverride: sortModeOverride);
+    Calculator.sortObjects(subjects, sortType: SortType.subject, sortModeOverride: sortModeOverride);
   }
 
   String getResult() {

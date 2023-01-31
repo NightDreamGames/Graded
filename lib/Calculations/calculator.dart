@@ -5,14 +5,28 @@ import 'package:collection/collection.dart';
 import '../Misc/storage.dart';
 import 'calculation_object.dart';
 
+abstract class SortMode {
+  static const int name = 0;
+  static const int result = 1;
+  static const int coefficient = 2;
+}
+
+abstract class SortType {
+  static const int subject = 1;
+  static const int test = 2;
+  static const int subjectEdit = 3;
+}
+
 class Calculator {
-  static void sortObjects(List<CalculationObject> data, int sortMode, {int? sortModeOverride}) {
+  static void sortObjects(List<CalculationObject> data, {int? sortType, int? sortModeOverride}) {
+    assert(sortType != null || sortModeOverride != null);
+
     if (data.length >= 2) {
-      switch (sortModeOverride ?? getPreference<int>("sort_mode$sortMode")) {
-        case 0:
+      switch (sortModeOverride ?? getPreference<int>("sort_mode$sortType")) {
+        case SortMode.name:
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) => a.processedName.compareTo(b.processedName));
           break;
-        case 1:
+        case SortMode.result:
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) {
             if (a.result == null && b.result == null) {
               return 0;
@@ -25,7 +39,7 @@ class Calculator {
             return b.result!.compareTo(a.result!);
           });
           break;
-        case 2:
+        case SortMode.coefficient:
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) => b.coefficient.compareTo(a.coefficient));
           break;
       }
