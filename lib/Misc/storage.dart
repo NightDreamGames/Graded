@@ -139,7 +139,7 @@ void exportData() async {
   await FlutterFileDialog.saveFile(params: params);
 }
 
-void importData(BuildContext context) async {
+Future<bool> importData(BuildContext context) async {
   String backup = getExportData();
   bool error = false;
 
@@ -156,28 +156,25 @@ void importData(BuildContext context) async {
     String data = String.fromCharCodes(file.readAsBytesSync());
 
     restoreData(data);
-    Compatibility.upgradeDataVersion();
   } catch (e) {
     error = true;
     restoreData(backup);
-    Compatibility.upgradeDataVersion();
   }
+  Compatibility.upgradeDataVersion();
 
   Manager.calculate();
   Manager.currentTerm = 0;
   Manager.lastTerm = 0;
 
   // ignore: use_build_context_synchronously
-  if (!context.mounted) return;
+  if (!context.mounted) return false;
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(error ? Translations.import_error : Translations.import_success),
     ),
   );
 
-  if (!error) {
-    Navigator.pop(context);
-  }
+  return !error;
 }
 
 void restoreData(String data) {

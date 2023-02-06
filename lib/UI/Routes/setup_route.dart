@@ -45,7 +45,6 @@ class _SetupPageState extends State<SetupPage> {
               if (widget.dismissible) {
                 Navigator.popUntil(context, ModalRoute.withName("/home"));
               } else {
-                if (!context.mounted) return;
                 Navigator.pushReplacementNamed(context, "/home");
               }
             },
@@ -69,6 +68,24 @@ class _SetupPageState extends State<SetupPage> {
             sliver: SliverToBoxAdapter(
               child: SettingsContainer(
                 children: [
+                  SimpleSettingsTile(
+                    icon: Icons.file_download_outlined,
+                    title: Translations.import_string,
+                    subtitle: Translations.import_details,
+                    onTap: () => importData(context).then((value) {
+                      if (value) {
+                        setPreference<bool>("is_first_run", false);
+
+                        // ignore: use_build_context_synchronously
+                        if (!context.mounted) return;
+                        if (widget.dismissible) {
+                          Navigator.popUntil(context, ModalRoute.withName("/home"));
+                        } else {
+                          Navigator.pushReplacementNamed(context, "/home");
+                        }
+                      }
+                    }),
+                  ),
                   RadioModalSettingsTile<String>(
                     title: Translations.school_system,
                     icon: Icons.school,

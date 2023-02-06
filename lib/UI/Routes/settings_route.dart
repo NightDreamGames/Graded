@@ -94,7 +94,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       icon: Icons.file_download_outlined,
                       title: Translations.import_string,
                       subtitle: Translations.import_details,
-                      onTap: () => importData(context),
+                      onTap: () => importData(context).then((value) {
+                        if (value) Navigator.pop(context);
+                      }),
                     ),
                   ],
                 ),

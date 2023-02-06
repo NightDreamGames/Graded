@@ -99,7 +99,7 @@ class Compatibility {
   static Future<void> upgradeDataVersion() async {
     int currentDataVersion = getPreference<int>("data_version");
 
-    if (getPreference<bool>("is_first_run")) {
+    if (getPreference<bool>("is_first_run") && currentDataVersion == -1) {
       try {
         await importPreferences();
       } catch (e) {
