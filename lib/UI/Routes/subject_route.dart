@@ -85,6 +85,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
             )
           : null,
       body: CustomScrollView(
+        primary: true,
         slivers: [
           SliverAppBar.large(
             title: AppBarTitle(

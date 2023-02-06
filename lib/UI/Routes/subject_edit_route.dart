@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:graded/Calculations/calculator.dart';
+import 'package:graded/Misc/storage.dart';
 import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
+import '../../Calculations/term.dart';
 import '../../Translations/translations.dart';
 import '../Widgets/dialogs.dart';
 import '../Widgets/list_widgets.dart';
@@ -51,11 +53,53 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         top: false,
         bottom: false,
         child: ReorderableListView(
+          padding: const EdgeInsets.only(bottom: 88),
+          primary: true,
           buildDefaultDragHandles: false,
           onReorder: (int oldIndex, int newIndex) {
-            //TODO Implement reordering
+            setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
+
+            var oldIndexes = getSubjectIndexes(oldIndex);
+            var newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
+            int oldIndex1 = oldIndexes[0], oldIndex2 = oldIndexes[1];
+            int newIndex1 = newIndexes[0], newIndex2 = newIndexes[1];
+
+            if (oldIndex1 == newIndex1 && oldIndex2 < newIndex2) {
+              newIndex2--;
+            }
+            if (oldIndex1 < newIndex1 && oldIndex2 == -1) {
+              newIndex1--;
+            } else if (newIndex1 == oldIndex1 && oldIndex2 == -1 && newIndex2 != -1) {
+              return;
+            }
+
+            List<List<Subject>> lists = [Manager.termTemplate];
+            lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
+
+            for (List<Subject> list in lists) {
+              Subject item;
+              if (oldIndex2 == -1) {
+                item = list.removeAt(oldIndex1);
+              } else {
+                item = list[oldIndex1].children.removeAt(oldIndex2);
+                if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
+              }
+              item.isChild = newIndex2 != -1;
+              if (newIndex2 == -1) {
+                list.insert(newIndex1, item);
+              } else {
+                list[newIndex1].children.insert(newIndex2, item);
+                list[newIndex1].isGroup = true;
+                list[newIndex1].children.addAll(item.children);
+                item.isGroup = false;
+                item.isChild = true;
+              }
+            }
+
+            serialize();
+            rebuild();
           },
-          children: (buildTiles()),
+          children: buildTiles(),
         ),
       ),
     );
@@ -68,7 +112,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     for (int i = 0; i < Manager.termTemplate.length; i++) {
       Subject element = Manager.termTemplate[i];
       result.add(SubjectTile(
-        key: UniqueKey(),
+        key: ValueKey(element),
         s: element,
         listKey: GlobalKey(),
         index: i,
@@ -81,7 +125,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       for (int j = 0; j < element.children.length; j++) {
         Subject child = element.children[j];
         result.add(SubjectTile(
-          key: UniqueKey(),
+          key: ValueKey(child),
           s: child,
           listKey: GlobalKey(),
           index: i,
@@ -95,10 +139,23 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       }
     }
 
-    result.add(Padding(
-      padding: const EdgeInsets.only(bottom: 88),
-      key: UniqueKey(),
-    ));
     return result;
   }
+}
+
+List<int> getSubjectIndexes(int absoluteIndex, {int addedIndex = 0}) {
+  int subjectCount = 0, index1 = 0, index2 = -1;
+
+  for (int i = 0; i < Manager.termTemplate.length; i++) {
+    int childAmount = Manager.termTemplate[i].children.length;
+    if (subjectCount + childAmount + (childAmount > 0 ? addedIndex : 0) >= absoluteIndex) {
+      break;
+    }
+    subjectCount += childAmount;
+    index1 = i + 1;
+    subjectCount++;
+  }
+  index2 = absoluteIndex - subjectCount - 1;
+
+  return [index1, index2];
 }

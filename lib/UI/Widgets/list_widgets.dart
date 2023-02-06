@@ -6,6 +6,7 @@ import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
 import '../../Calculations/term.dart';
+import '../../Misc/storage.dart';
 import 'dialogs.dart';
 import 'popup_menus.dart';
 
@@ -20,6 +21,7 @@ class TextRow extends StatelessWidget {
     this.listKey,
     this.onTap,
     this.isChild = false,
+    this.horizontalTitleGap = 16,
   }) : super(key: key);
 
   final String leading;
@@ -30,6 +32,7 @@ class TextRow extends StatelessWidget {
   final Key? listKey;
   final Function()? onTap;
   final bool isChild;
+  final double horizontalTitleGap;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class TextRow extends StatelessWidget {
             child: Divider(),
           ),
         ListTile(
+          horizontalTitleGap: horizontalTitleGap,
           key: listKey,
           onTap: onTap,
           contentPadding: padding,
@@ -222,14 +226,47 @@ class SubjectTile extends StatelessWidget {
   Widget build(BuildContext context) {
     String coefficientString = Calculator.format(s.coefficient, ignoreZero: true);
 
-    return Padding(
-      key: UniqueKey(),
+    return AnimatedPadding(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
       padding: s.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
       child: TextRow(
         listKey: listKey,
         leading: s.name,
         trailing: coefficientString == "0" && s.isGroup ? "" : coefficientString,
-        padding: EdgeInsets.only(left: s.isChild ? 32 : 24, right: 24),
+        padding: const EdgeInsets.only(left: 4, right: 24),
+        horizontalTitleGap: 8,
+        leadingIcon: ReorderableDragStartListener(
+          index: reorderIndex,
+          child: IconButton(
+            icon: const Icon(Icons.drag_handle),
+            onPressed: () {
+              if (index == 0 && !s.isChild) return;
+              List<List<Subject>> lists = [Manager.termTemplate];
+              for (Term term in Manager.getCurrentYear().terms) {
+                lists.add(term.subjects);
+              }
+
+              bool isChild = s.isChild;
+
+              for (List<Subject> list in lists) {
+                if (!isChild) {
+                  Subject parent = list[index - 1]..isGroup = true;
+                  Subject temp2 = list.removeAt(index);
+                  parent.children.addAll([temp2..isChild = true, ...temp2.children]);
+                  temp2.children.clear();
+                } else {
+                  Subject parent = list[index];
+                  Subject temp2 = parent.children.removeAt(index2);
+                  list.insert(index + 1, temp2..isChild = false);
+                  if (parent.children.isEmpty) parent.isGroup = false;
+                }
+              }
+              serialize();
+              rebuild();
+            },
+          ),
+        ),
         onTap: () async {
           showListMenu(context, listKey).then((result) {
             if (result == "edit") {
