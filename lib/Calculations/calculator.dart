@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 // Project imports:
 import '../Misc/storage.dart';
 import 'calculation_object.dart';
+import 'manager.dart';
 
 abstract class SortMode {
   static const int name = 0;
@@ -18,7 +19,7 @@ abstract class SortType {
 }
 
 class Calculator {
-  static void sortObjects(List<CalculationObject> data, {required int sortType, int? sortModeOverride}) {
+  static void sortObjects(List<CalculationObject> data, {required int sortType, int? sortModeOverride, List<CalculationObject>? comparisonData}) {
     if (data.length >= 2) {
       int sortMode = getPreference<int>("sort_mode$sortType");
       if (sortModeOverride != null && sortMode != SortMode.custom) {
@@ -46,6 +47,11 @@ class Calculator {
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) => b.coefficient.compareTo(a.coefficient));
           break;
         case SortMode.custom:
+          var compare = comparisonData ?? Manager.termTemplate;
+          data.sort((a, b) {
+            return compare.indexWhere((element) => a.processedName == element.processedName) -
+                compare.indexWhere((element) => b.processedName == element.processedName);
+          });
           break;
       }
     }

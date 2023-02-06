@@ -272,20 +272,23 @@ class SubjectTile extends StatelessWidget {
             if (result == "edit") {
               showSubjectDialog(context, nameController, coeffController, index: index, index2: s.isChild ? index2 : null).then((_) => rebuild());
             } else if (result == "delete") {
-              if (s.isChild) {
-                Manager.termTemplate[index].children.removeAt(index2);
-              } else {
-                Manager.termTemplate.removeAt(index);
-              }
+              var parent = Manager.termTemplate[index];
               Manager.sortAll(sortModeOverride: SortMode.name);
+              int newIndex = Manager.termTemplate.indexOf(parent);
+
+              if (s.isChild) {
+                Manager.termTemplate[newIndex].children.removeWhere((element) => element.processedName == s.processedName);
+              } else {
+                Manager.termTemplate.removeWhere((element) => element.processedName == s.processedName);
+              }
 
               for (Term t in Manager.getCurrentYear().terms) {
                 if (s.isChild) {
-                  Subject parent = t.subjects[index];
-                  parent.children.removeAt(index2);
+                  Subject parent = t.subjects[newIndex];
+                  parent.children.removeWhere((element) => element.processedName == s.processedName);
                   parent.isGroup = parent.children.isNotEmpty;
                 } else {
-                  t.subjects.removeAt(index);
+                  t.subjects.removeWhere((element) => element.processedName == s.processedName);
                 }
               }
 

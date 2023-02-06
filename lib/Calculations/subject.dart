@@ -69,7 +69,12 @@ class Subject extends CalculationObject {
   }
 
   void sort({int? sortModeOverride}) {
-    Calculator.sortObjects(children, sortType: SortType.subject, sortModeOverride: sortModeOverride);
+    if (children.isNotEmpty) {
+      Calculator.sortObjects(children,
+          sortType: SortType.subject,
+          sortModeOverride: sortModeOverride,
+          comparisonData: Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children);
+    }
     Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride);
   }
 

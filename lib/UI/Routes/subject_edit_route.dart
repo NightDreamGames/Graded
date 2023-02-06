@@ -58,6 +58,8 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           onReorder: (int oldIndex, int newIndex) {
             setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
 
+            Manager.sortAll();
+
             var oldIndexes = getSubjectIndexes(oldIndex);
             var newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
             int oldIndex1 = oldIndexes[0], oldIndex2 = oldIndexes[1];
