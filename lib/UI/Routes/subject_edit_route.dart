@@ -6,7 +6,6 @@ import 'package:graded/Calculations/calculator.dart';
 import 'package:graded/Misc/storage.dart';
 import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
-import '../../Calculations/term.dart';
 import '../../Translations/translations.dart';
 import '../Widgets/dialogs.dart';
 import '../Widgets/list_widgets.dart';
