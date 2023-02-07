@@ -24,11 +24,11 @@ class SubjectRoute extends StatefulWidget {
 }
 
 class _SubjectRouteState extends State<SubjectRoute> {
-  late int subjectIndex = -1;
-  late int subjectGroupIndex = -1;
+  late int index1 = -1;
+  late int index2 = -1;
   late Term term = Manager.getCurrentTerm();
-  late Subject subject = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
-  late Subject subjectGroup = subjectGroupIndex != -1 ? term.subjects[subjectIndex] : Subject("", 1);
+  late Subject subject = index2 == -1 ? term.subjects[index1] : term.subjects[index1].children[index2];
+  late Subject? parent = index2 != -1 ? term.subjects[index1] : null;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController gradeController = TextEditingController();
@@ -43,38 +43,43 @@ class _SubjectRouteState extends State<SubjectRoute> {
   }
 
   void rebuild() {
-    if (getPreference("sort_mode1") != SortMode.result) {
-      subject = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
+    if (getPreference("sort_mode${SortType.subject}") != SortMode.result) {
+      subject = index2 == -1 ? term.subjects[index1] : term.subjects[index1].children[index2];
+      parent = index2 != -1 ? term.subjects[index1] : null;
     } else {
-      subjectIndex = term.subjects.indexOf(subjectGroupIndex == -1 ? subject : subjectGroup);
+      index1 = term.subjects.indexOf(parent ?? subject);
+      index2 = term.subjects[index1].children.indexOf(subject);
     }
 
     setState(() {});
   }
 
   void switchTerm() {
-    Subject tmp = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
     term = Manager.getCurrentTerm();
-    subjectIndex = term.subjects.indexWhere((element) {
-      if (element.name == tmp.name) {
+    index1 = term.subjects.indexWhere((element) {
+      if (element.processedName == subject.processedName) {
         return true;
       }
       if (element.isGroup) {
-        return element.children.indexWhere((element) => element.name == tmp.name) != -1;
+        return element.children.indexWhere((element) => element.processedName == subject.processedName) != -1;
       }
       return false;
     });
-    subject = subjectGroupIndex == -1 ? term.subjects[subjectIndex] : term.subjects[subjectIndex].children[subjectGroupIndex];
+    index2 = term.subjects[index1].children.indexWhere((element) {
+      return element.processedName == subject.processedName;
+    });
+    subject = index2 == -1 ? term.subjects[index1] : term.subjects[index1].children[index2];
+    parent = index2 != -1 ? term.subjects[index1] : null;
 
     rebuild();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (subjectIndex == -1) {
+    if (index1 == -1) {
       List<int?> arguments = ModalRoute.of(context)?.settings.arguments as List<int?>;
-      subjectIndex = arguments[0] ?? 0;
-      subjectGroupIndex = arguments[1] ?? -1;
+      index1 = arguments[0] ?? 0;
+      index2 = arguments[1] ?? -1;
     }
 
     return Scaffold(
