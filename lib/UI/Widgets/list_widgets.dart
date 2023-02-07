@@ -267,6 +267,8 @@ class SubjectTile extends StatelessWidget {
                   if (parent.children.isEmpty) parent.isGroup = false;
                 }
               }
+
+              Manager.calculate();
               serialize();
               rebuild();
             },

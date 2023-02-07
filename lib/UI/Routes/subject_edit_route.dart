@@ -99,6 +99,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
             }
 
             serialize();
+            Manager.calculate();
             rebuild();
           },
           children: buildTiles(),
