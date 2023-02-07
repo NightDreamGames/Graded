@@ -251,14 +251,19 @@ class SubjectTile extends StatelessWidget {
 
               for (List<Subject> list in lists) {
                 if (!isChild) {
-                  Subject parent = list[index - 1]..isGroup = true;
-                  Subject temp2 = list.removeAt(index);
-                  parent.children.addAll([temp2..isChild = true, ...temp2.children]);
-                  temp2.children.clear();
+                  Subject parent = list[index - 1];
+                  Subject child = list.removeAt(index);
+
+                  parent.isGroup = true;
+                  child.isChild = true;
+                  child.isGroup = false;
+
+                  parent.children.addAll([child, ...child.children]);
+                  child.children.clear();
                 } else {
                   Subject parent = list[index];
-                  Subject temp2 = parent.children.removeAt(index2);
-                  list.insert(index + 1, temp2..isChild = false);
+                  Subject child = parent.children.removeAt(index2);
+                  list.insert(index + 1, child..isChild = false);
                   if (parent.children.isEmpty) parent.isGroup = false;
                 }
               }

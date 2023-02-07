@@ -85,15 +85,16 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
                 item = list[oldIndex1].children.removeAt(oldIndex2);
                 if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
               }
+
+              item.isGroup = false;
               item.isChild = newIndex2 != -1;
+
               if (newIndex2 == -1) {
                 list.insert(newIndex1, item);
               } else {
                 list[newIndex1].children.insert(newIndex2, item);
                 list[newIndex1].isGroup = true;
                 list[newIndex1].children.addAll(item.children);
-                item.isGroup = false;
-                item.isChild = true;
               }
             }
 
