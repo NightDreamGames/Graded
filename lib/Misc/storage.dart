@@ -75,7 +75,7 @@ Future<void> setPreference<T>(String key, T value) async {
   await Settings.setValue<T>(key, value);
 }
 
-T getPreference<T>(String key, {T? defaultValue}) {
+T getPreference<T>(String key, [T? defaultValue]) {
   return Settings.getValue<T>(key, defaultValue ?? defaultValues[key]);
 }
 

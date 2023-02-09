@@ -129,7 +129,7 @@ class Compatibility {
       }
       setPreference("variant", newVariant);
 
-      String year = getPreference("year", defaultValue: "");
+      String year = getPreference("year", "");
       setPreference<int>("year", year.isNotEmpty ? int.parse(year.substring(0, 1)) : -1);
 
       setPreference("validated_school_system", getPreference("school_system"));

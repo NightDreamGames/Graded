@@ -1,6 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:showcaseview/showcaseview.dart';
+
 // Project imports:
 import 'package:graded/Calculations/calculator.dart';
 import 'package:graded/Misc/storage.dart';
@@ -35,76 +38,82 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => showSubjectDialog(context, nameController, coeffController).then((_) => rebuild()),
-        child: const Icon(Icons.add),
-      ),
-      appBar: AppBar(
-        title: Text(Translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
-        titleSpacing: 0,
-        toolbarHeight: 64,
-        actions: [
-          SortSelector(rebuild: rebuild, type: SortType.subject),
-        ],
-      ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: ReorderableListView(
-          padding: const EdgeInsets.only(bottom: 88),
-          primary: true,
-          buildDefaultDragHandles: false,
-          onReorder: (int oldIndex, int newIndex) {
-            setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
+    return ShowCaseWidget(
+      blurValue: 1,
+      builder: Builder(builder: (context) {
+        return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => showSubjectDialog(context, nameController, coeffController).then((_) => rebuild()),
+            child: const Icon(Icons.add),
+          ),
+          appBar: AppBar(
+            title: Text(Translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
+            titleSpacing: 0,
+            toolbarHeight: 64,
+            actions: [
+              SortSelector(rebuild: rebuild, type: SortType.subject),
+            ],
+          ),
+          body: SafeArea(
+            top: false,
+            bottom: false,
+            child: ReorderableListView(
+              padding: const EdgeInsets.only(bottom: 88),
+              primary: true,
+              buildDefaultDragHandles: false,
+              onReorder: (int oldIndex, int newIndex) {
+                setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
+                ShowCaseWidget.of(context).next();
 
-            Manager.sortAll();
+                Manager.sortAll();
 
-            var oldIndexes = getSubjectIndexes(oldIndex);
-            var newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
-            int oldIndex1 = oldIndexes[0], oldIndex2 = oldIndexes[1];
-            int newIndex1 = newIndexes[0], newIndex2 = newIndexes[1];
+                var oldIndexes = getSubjectIndexes(oldIndex);
+                var newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
+                int oldIndex1 = oldIndexes[0], oldIndex2 = oldIndexes[1];
+                int newIndex1 = newIndexes[0], newIndex2 = newIndexes[1];
 
-            if (oldIndex1 == newIndex1 && oldIndex2 < newIndex2) {
-              newIndex2--;
-            }
-            if (oldIndex1 < newIndex1 && oldIndex2 == -1) {
-              newIndex1--;
-            } else if (newIndex1 == oldIndex1 && oldIndex2 == -1 && newIndex2 != -1) {
-              return;
-            }
+                if (oldIndex1 == newIndex1 && oldIndex2 < newIndex2) {
+                  newIndex2--;
+                }
+                if (oldIndex1 < newIndex1 && oldIndex2 == -1) {
+                  newIndex1--;
+                } else if (newIndex1 == oldIndex1 && oldIndex2 == -1 && newIndex2 != -1) {
+                  return;
+                }
 
-            List<List<Subject>> lists = [Manager.termTemplate];
-            lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
+                List<List<Subject>> lists = [Manager.termTemplate];
+                lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
 
-            for (List<Subject> list in lists) {
-              Subject item;
-              if (oldIndex2 == -1) {
-                item = list.removeAt(oldIndex1);
-              } else {
-                item = list[oldIndex1].children.removeAt(oldIndex2);
-                if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
-              }
+                for (List<Subject> list in lists) {
+                  Subject item;
+                  if (oldIndex2 == -1) {
+                    item = list.removeAt(oldIndex1);
+                  } else {
+                    item = list[oldIndex1].children.removeAt(oldIndex2);
+                    if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
+                  }
 
-              item.isGroup = false;
-              item.isChild = newIndex2 != -1;
+                  item.isGroup = false;
+                  item.isChild = newIndex2 != -1;
 
-              if (newIndex2 == -1) {
-                list.insert(newIndex1, item);
-              } else {
-                list[newIndex1].children.insert(newIndex2, item);
-                list[newIndex1].isGroup = true;
-                list[newIndex1].children.addAll(item.children);
-              }
-            }
+                  if (newIndex2 == -1) {
+                    list.insert(newIndex1, item);
+                  } else {
+                    list[newIndex1].children.insert(newIndex2, item);
+                    list[newIndex1].isGroup = true;
+                    list[newIndex1].children.addAll(item.children);
+                  }
+                }
 
-            serialize();
-            Manager.calculate();
-            rebuild();
-          },
-          children: buildTiles(),
-        ),
-      ),
+                serialize();
+                Manager.calculate();
+                rebuild();
+              },
+              children: buildTiles(),
+            ),
+          ),
+        );
+      }),
     );
   }
 
@@ -118,7 +127,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         key: ValueKey(element),
         s: element,
         listKey: GlobalKey(),
-        index: i,
+        index1: i,
         reorderIndex: reorderIndex,
         rebuild: rebuild,
         nameController: nameController,
@@ -131,7 +140,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           key: ValueKey(child),
           s: child,
           listKey: GlobalKey(),
-          index: i,
+          index1: i,
           index2: j,
           reorderIndex: reorderIndex,
           rebuild: rebuild,

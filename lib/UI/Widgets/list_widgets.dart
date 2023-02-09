@@ -1,12 +1,16 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:showcaseview/showcaseview.dart';
+
 // Project imports:
 import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Calculations/subject.dart';
 import '../../Calculations/term.dart';
 import '../../Misc/storage.dart';
+import '../../Translations/translations.dart';
 import 'dialogs.dart';
 import 'popup_menus.dart';
 
@@ -200,12 +204,12 @@ class ResultRow extends StatelessWidget {
   }
 }
 
-class SubjectTile extends StatelessWidget {
+class SubjectTile extends StatefulWidget {
   const SubjectTile({
     Key? key,
     required this.s,
     required this.listKey,
-    required this.index,
+    required this.index1,
     this.index2 = 0,
     required this.reorderIndex,
     required this.rebuild,
@@ -215,7 +219,7 @@ class SubjectTile extends StatelessWidget {
 
   final Subject s;
   final GlobalKey listKey;
-  final int index;
+  final int index1;
   final int index2;
   final int reorderIndex;
   final Function rebuild;
@@ -223,84 +227,130 @@ class SubjectTile extends StatelessWidget {
   final TextEditingController coeffController;
 
   @override
+  State<SubjectTile> createState() => _SubjectTileState();
+}
+
+class _SubjectTileState extends State<SubjectTile> {
+  final GlobalKey showCaseKey1 = GlobalKey();
+  final GlobalKey showCaseKey2 = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String coefficientString = Calculator.format(s.coefficient, ignoreZero: true);
+    String coefficientString = Calculator.format(widget.s.coefficient, ignoreZero: true);
+
+    if (widget.index1 == 1 && Manager.termTemplate.length >= 3 && getPreference<bool>("showcase_subject_edit", true)) {
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() != null) {
+          ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
+          setPreference("showcase_subject_edit", false);
+        }
+      });
+    }
 
     return AnimatedPadding(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-      padding: s.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
+      padding: widget.s.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
       child: TextRow(
-        listKey: listKey,
-        leading: s.name,
-        trailing: coefficientString == "0" && s.isGroup ? "" : coefficientString,
+        listKey: widget.listKey,
+        leading: widget.s.name,
+        trailing: coefficientString == "0" && widget.s.isGroup ? "" : coefficientString,
         padding: const EdgeInsets.only(left: 4, right: 24),
         horizontalTitleGap: 8,
         leadingIcon: ReorderableDragStartListener(
-          index: reorderIndex,
-          child: IconButton(
-            icon: const Icon(Icons.drag_handle),
-            onPressed: () {
-              if (index == 0 && !s.isChild) return;
-              List<List<Subject>> lists = [Manager.termTemplate];
-              for (Term term in Manager.getCurrentYear().terms) {
-                lists.add(term.subjects);
-              }
-
-              bool isChild = s.isChild;
-
-              for (List<Subject> list in lists) {
-                if (!isChild) {
-                  Subject parent = list[index - 1];
-                  Subject child = list.removeAt(index);
-
-                  parent.isGroup = true;
-                  child.isChild = true;
-                  child.isGroup = false;
-
-                  parent.children.addAll([child, ...child.children]);
-                  child.children.clear();
-                } else {
-                  Subject parent = list[index];
-                  Subject child = parent.children.removeAt(index2);
-                  list.insert(index + 1, child..isChild = false);
-                  if (parent.children.isEmpty) parent.isGroup = false;
-                }
-              }
-
-              Manager.calculate();
-              serialize();
-              rebuild();
+          index: widget.reorderIndex,
+          child: Showcase(
+            key: showCaseKey1,
+            description: Translations.showcase_tap_subject,
+            disableDefaultTargetGestures: true,
+            disposeOnTap: true,
+            onTargetClick: () {
+              ShowCaseWidget.of(context).next();
             },
+            scaleAnimationCurve: Curves.easeInOut,
+            child: Showcase(
+              key: showCaseKey2,
+              description: Translations.showcase_drag_subject,
+              disableDefaultTargetGestures: true,
+              disposeOnTap: true,
+              onTargetClick: () {
+                ShowCaseWidget.of(context).next();
+              },
+              scaleAnimationCurve: Curves.easeInOut,
+              child: IconButton(
+                icon: const Icon(Icons.drag_handle),
+                onPressed: () {
+                  ShowCaseWidget.of(context).next();
+
+                  if (widget.index1 == 0 && !widget.s.isChild) return;
+                  List<List<Subject>> lists = [Manager.termTemplate];
+                  for (Term term in Manager.getCurrentYear().terms) {
+                    lists.add(term.subjects);
+                  }
+
+                  bool isChild = widget.s.isChild;
+
+                  for (List<Subject> list in lists) {
+                    if (!isChild) {
+                      Subject parent = list[widget.index1 - 1];
+                      Subject child = list.removeAt(widget.index1);
+
+                      parent.isGroup = true;
+                      child.isChild = true;
+                      child.isGroup = false;
+
+                      parent.children.addAll([child, ...child.children]);
+                      child.children.clear();
+                    } else {
+                      Subject parent = list[widget.index1];
+                      Subject child = parent.children.removeAt(widget.index2);
+                      list.insert(widget.index1 + 1, child..isChild = false);
+                      if (parent.children.isEmpty) parent.isGroup = false;
+                    }
+                  }
+
+                  Manager.calculate();
+                  serialize();
+                  widget.rebuild();
+                },
+              ),
+            ),
           ),
         ),
         onTap: () async {
-          showListMenu(context, listKey).then((result) {
+          showListMenu(context, widget.listKey).then((result) {
             if (result == "edit") {
-              showSubjectDialog(context, nameController, coeffController, index: index, index2: s.isChild ? index2 : null).then((_) => rebuild());
+              showSubjectDialog(context, widget.nameController, widget.coeffController,
+                      index: widget.index1, index2: widget.s.isChild ? widget.index2 : null)
+                  .then((_) => widget.rebuild());
             } else if (result == "delete") {
-              var parent = Manager.termTemplate[index];
+              var parent = Manager.termTemplate[widget.index1];
               Manager.sortAll(sortModeOverride: SortMode.name);
               int newIndex = Manager.termTemplate.indexOf(parent);
 
-              if (s.isChild) {
-                Manager.termTemplate[newIndex].children.removeWhere((element) => element.processedName == s.processedName);
+              if (widget.s.isChild) {
+                Manager.termTemplate[newIndex].children.removeWhere((element) => element.processedName == widget.s.processedName);
               } else {
-                Manager.termTemplate.removeWhere((element) => element.processedName == s.processedName);
+                Manager.termTemplate.removeWhere((element) => element.processedName == widget.s.processedName);
               }
 
               for (Term t in Manager.getCurrentYear().terms) {
-                if (s.isChild) {
+                if (widget.s.isChild) {
                   Subject parent = t.subjects[newIndex];
-                  parent.children.removeWhere((element) => element.processedName == s.processedName);
+                  parent.children.removeWhere((element) => element.processedName == widget.s.processedName);
                   parent.isGroup = parent.children.isNotEmpty;
                 } else {
-                  t.subjects.removeWhere((element) => element.processedName == s.processedName);
+                  t.subjects.removeWhere((element) => element.processedName == widget.s.processedName);
                 }
               }
 
               Manager.calculate();
-              rebuild();
+              widget.rebuild();
             }
           });
         },

@@ -235,6 +235,10 @@ class Translations {
 
   static String get setup => _getText("setup");
 
+  static String get showcase_drag_subject => _getText("showcase_drag_subject");
+
+  static String get showcase_tap_subject => _getText("showcase_tap_subject");
+
   static String get sort_by => _getText("sort_by");
 
   static String get storage_error => _getText("storage_error");
@@ -417,6 +421,8 @@ class Translations {
     "semesters": "Semesters",
     "settings": "Settings",
     "setup": "Setup",
+    "showcase_drag_subject": "Drag to change subject order",
+    "showcase_tap_subject": "Tap to make the subject above a subject group",
     "sort_by": "Sort by",
     "storage_error": "There was an error loading your saved data, so it has been deleted.",
     "subject": "Subject",
@@ -566,6 +572,8 @@ class Translations {
     "semesters": "Semestres",
     "settings": "Options",
     "setup": "Configuration",
+    "showcase_drag_subject": "Glissez pour changer l'ordre des matières",
+    "showcase_tap_subject": "Appuyez pour faire du sujet au-dessus un groupe de matières",
     "sort_by": "Trier par",
     "storage_error": "Une erreur s'est produite lors du chargement de vos données sauvegardées, elles ont donc été supprimées.",
     "subject": "Matière",
@@ -715,6 +723,8 @@ class Translations {
     "semesters": "Semester",
     "settings": "Einstellungen",
     "setup": "Einrichtung",
+    "showcase_drag_subject": "Ziehe, um die Reihenfolge der Fächer zu ändern",
+    "showcase_tap_subject": "Berühre um aus dem Fach drüber eine Fachgruppe zu machen",
     "sort_by": "Sortieren",
     "storage_error": "Es ist ein Fehler beim Laden Ihrer gespeicherten Daten aufgetreten, daher wurden sie gelöscht.",
     "subject": "Fach",
@@ -864,6 +874,8 @@ class Translations {
     "semesters": "Semester",
     "settings": "Astellungen",
     "setup": "Ariichtung",
+    "showcase_drag_subject": "Zéi fir d'Reiefolleg vun de Fächer ze änneren",
+    "showcase_tap_subject": "//TODO",
     "sort_by": "Sortéieren",
     "storage_error": "Et ass e Feeler beim Lueden vun ären gespäicherten Donnéeën opgetrueden, dofir goufen se geläscht.",
     "subject": "Fach",
