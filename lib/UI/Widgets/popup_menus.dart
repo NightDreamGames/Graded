@@ -20,18 +20,18 @@ class TermSelector extends StatelessWidget {
             icon: Icon(Icons.access_time_outlined, color: Theme.of(context).colorScheme.secondary),
             tooltip: Translations.select_term,
             itemBuilder: (BuildContext context) {
-              List<String> a = [];
+              List<String> items = [];
 
               switch (getPreference<int>("term")) {
                 case 2:
-                  a = [
+                  items = [
                     "${Translations.semester} 1",
                     "${Translations.semester} 2",
                     Translations.year_overview,
                   ];
                   break;
                 case 3:
-                  a = [
+                  items = [
                     "${Translations.trimester} 1",
                     "${Translations.trimester} 2",
                     "${Translations.trimester} 3",
@@ -41,7 +41,7 @@ class TermSelector extends StatelessWidget {
               }
 
               List<PopupMenuEntry<String>> entries = [];
-              for (int i = 0; i < a.length; i++) {
+              for (int i = 0; i < items.length; i++) {
                 entries.add(PopupMenuItem<String>(
                   value: i.toString(),
                   onTap: () {
@@ -54,7 +54,13 @@ class TermSelector extends StatelessWidget {
 
                     rebuild();
                   },
-                  child: Text(a[i]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(items[i]),
+                      if (Manager.currentTerm == i || (Manager.currentTerm == -1 && i == items.length - 1)) const Icon(Icons.check, size: 20),
+                    ],
+                  ),
                 ));
               }
 
