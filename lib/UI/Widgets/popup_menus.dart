@@ -79,7 +79,7 @@ class SortSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
+    return PopupMenuButton<dynamic>(
       color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
       icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.secondary),
       tooltip: Translations.more_options,
@@ -90,25 +90,18 @@ class SortSelector extends StatelessWidget {
       },
       itemBuilder: (context) {
         return [
-          PopupSubMenuItem<String>(
+          PopupSubMenuItem<int>(
             title: Translations.sort_by,
-            items: type == SortType.subject
-                ? [Translations.az, Translations.grade, Translations.coefficient, Translations.custom]
-                : [Translations.az, Translations.grade],
+            items: [
+              getPopupSubMenuItem(SortMode.name, Translations.name),
+              getPopupSubMenuItem(SortMode.result, Translations.result),
+              if (type == SortType.subject) ...[
+                getPopupSubMenuItem(SortMode.coefficient, Translations.coefficient),
+                getPopupSubMenuItem(SortMode.custom, Translations.custom),
+              ]
+            ],
             onSelected: (value) {
-              int sortMode = SortMode.name;
-
-              if (value == Translations.az) {
-                sortMode = SortMode.name;
-              } else if (value == Translations.grade) {
-                sortMode = SortMode.result;
-              } else if (value == Translations.coefficient) {
-                sortMode = SortMode.coefficient;
-              } else if (value == Translations.custom) {
-                sortMode = SortMode.custom;
-              }
-
-              setPreference<int>("sort_mode$type", sortMode);
+              setPreference<int>("sort_mode$type", value);
 
               Manager.sortAll();
 
@@ -124,6 +117,19 @@ class SortSelector extends StatelessWidget {
       },
     );
   }
+
+  PopupMenuItem<int> getPopupSubMenuItem(int value, String title) {
+    return PopupMenuItem<int>(
+      value: value,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title),
+          if (getPreference("sort_mode$type") == value) const Icon(Icons.check, size: 20),
+        ],
+      ),
+    );
+  }
 }
 
 class PopupSubMenuItem<T> extends PopupMenuEntry<T> {
@@ -135,7 +141,7 @@ class PopupSubMenuItem<T> extends PopupMenuEntry<T> {
   });
 
   final String title;
-  final List<T> items;
+  final List<PopupMenuEntry<T>> items;
   final Function(T) onSelected;
 
   @override
@@ -167,14 +173,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
       },
       offset: const Offset(0, -8),
       itemBuilder: (context) {
-        return widget.items
-            .map(
-              (item) => PopupMenuItem<T>(
-                value: item,
-                child: Text(item.toString()),
-              ),
-            )
-            .toList();
+        return widget.items;
       },
       child: IgnorePointer(
         child: PopupMenuItem(

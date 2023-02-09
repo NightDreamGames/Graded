@@ -165,6 +165,8 @@ class Translations {
 
   static String get reset_summary => _getText("reset_summary");
 
+  static String get result => _getText("result");
+
   static String get round_to => _getText("round_to");
 
   static String get rounding_mode => _getText("rounding_mode");
@@ -386,6 +388,7 @@ class Translations {
     "rating_system": "Rating system",
     "reset": "Reset Grades",
     "reset_summary": "Delete all saved grades and reset app",
+    "result": "Result",
     "round_to": "Round to",
     "rounding_mode": "Rounding mode",
     "save": "Save",
@@ -537,6 +540,7 @@ class Translations {
     "rating_system": "Système de notation",
     "reset": "Réinitialiser les notes",
     "reset_summary": "Supprimer toutes les notes enregistrées et réinitialiser l'application",
+    "result": "Résultat",
     "round_to": "Arrondir à",
     "rounding_mode": "Mode arrondissage",
     "save": "Sauvegarder",
@@ -688,6 +692,7 @@ class Translations {
     "rating_system": "Bewertungssystem",
     "reset": "Noten zurücksetzen",
     "reset_summary": "Alle gespeicherten Noten löschen und App zurücksetzen",
+    "result": "Resultat",
     "round_to": "Runden bis",
     "rounding_mode": "Abrundungsmodus",
     "save": "Speichern",
@@ -839,6 +844,7 @@ class Translations {
     "rating_system": "Bewäertungssystem",
     "reset": "Notten zerécksetzen",
     "reset_summary": "All gespäichert Notten läschen an d'App zeréckzesetzen",
+    "result": "Resultat",
     "round_to": "Ronnen bis",
     "rounding_mode": "Ofronnungsmodus",
     "save": "Späicheren",
