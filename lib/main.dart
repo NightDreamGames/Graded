@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:animations/animations.dart';
@@ -33,10 +34,10 @@ void main() async {
   await Settings.init();
   await Manager.init();
 
-  String initialRoute = "/home";
+  String initialRoute = "/";
 
   if (getPreference("is_first_run")) {
-    initialRoute = "/setup_first";
+    initialRoute = "setup_first";
   }
 
   runApp(
@@ -61,7 +62,12 @@ class _AppContainerState extends State<AppContainer> {
   Widget build(BuildContext context) {
     setOptimalDisplayMode();
 
-    String brightness = getPreference("theme");
+    String brightnessSetting = getPreference("theme");
+    ThemeMode brightness = brightnessSetting == "system"
+        ? ThemeMode.system
+        : brightnessSetting == "light"
+            ? ThemeMode.light
+            : ThemeMode.dark;
     String localeName = getPreference("language");
 
     return ChangeNotifierProvider(
@@ -71,11 +77,7 @@ class _AppContainerState extends State<AppContainer> {
           builder: (ColorScheme? light, ColorScheme? dark) => MaterialApp(
             theme: AppTheme.getTheme(Brightness.light, light, dark),
             darkTheme: AppTheme.getTheme(Brightness.dark, light, dark),
-            themeMode: brightness == "system"
-                ? ThemeMode.system
-                : brightness == "light"
-                    ? ThemeMode.light
-                    : ThemeMode.dark,
+            themeMode: brightness,
             localizationsDelegates: const [
               TranslationsDelegate(),
               GlobalMaterialLocalizations.delegate,
@@ -90,7 +92,7 @@ class _AppContainerState extends State<AppContainer> {
               Widget route;
 
               switch (settings.name) {
-                case "/home":
+                case "/":
                   route = const HomePage();
                   break;
                 case "/subject":
@@ -102,7 +104,7 @@ class _AppContainerState extends State<AppContainer> {
                 case "/setup":
                   route = const SetupPage();
                   break;
-                case "/setup_first":
+                case "setup_first":
                   route = const SetupPage(dismissible: false);
                   break;
                 case "/subject_edit":
@@ -113,7 +115,19 @@ class _AppContainerState extends State<AppContainer> {
                   break;
               }
 
-              return buildSharedAxisTransitionPageRoute((_) => SafeArea(top: false, left: false, right: false, child: route), settings: settings);
+              return buildSharedAxisTransitionPageRoute(
+                  (_) => Builder(builder: (context) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                            systemNavigationBarColor: Theme.of(context).colorScheme.surface,
+                            systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+                            systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
+                          ));
+                        });
+
+                        return SafeArea(top: false, left: false, right: false, child: route);
+                      }),
+                  settings: settings);
             },
           ),
         ),

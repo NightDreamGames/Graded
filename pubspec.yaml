@@ -24,7 +24,6 @@ dependencies:
   xml: ^6.1.0
   device_info_plus: ^8.0.0
   flutter_displaymode: ^0.5.0
-  flutter_exit_app: ^1.0.5
   flutter_file_dialog: ^3.0.0
   package_info_plus: ^3.0.1
 

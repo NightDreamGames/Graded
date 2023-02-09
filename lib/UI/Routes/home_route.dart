@@ -1,9 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-// Package imports:
-import 'package:flutter_exit_app/flutter_exit_app.dart';
 
 // Project imports:
 import '../../Calculations/calculator.dart';
@@ -33,12 +29,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).colorScheme.surface,
-        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-        systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
-      ));
-
       if (Manager.deserializationError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -53,14 +43,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
+          bool exit = true;
           if (Manager.currentTerm == -1) {
             Manager.currentTerm = Manager.lastTerm;
             rebuild();
-          } else {
-            FlutterExitApp.exitApp();
+            exit = false;
           }
-
-          return Future<bool>.value(false);
+          return Future<bool>.value(exit);
         },
         child: CustomScrollView(
           primary: true,
