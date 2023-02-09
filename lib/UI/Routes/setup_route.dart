@@ -43,9 +43,9 @@ class _SetupPageState extends State<SetupPage> {
               // ignore: use_build_context_synchronously
               if (!context.mounted) return;
               if (widget.dismissible) {
-                Navigator.popUntil(context, ModalRoute.withName("/home"));
+                Navigator.popUntil(context, ModalRoute.withName("/"));
               } else {
-                Navigator.pushReplacementNamed(context, "/home");
+                Navigator.pushReplacementNamed(context, "/");
               }
             },
             child: const Icon(Icons.navigate_next),
@@ -79,9 +79,9 @@ class _SetupPageState extends State<SetupPage> {
                         // ignore: use_build_context_synchronously
                         if (!context.mounted) return;
                         if (widget.dismissible) {
-                          Navigator.popUntil(context, ModalRoute.withName("/home"));
+                          Navigator.popUntil(context, ModalRoute.withName("/"));
                         } else {
-                          Navigator.pushReplacementNamed(context, "/home");
+                          Navigator.pushReplacementNamed(context, "/");
                         }
                       }
                     }),
