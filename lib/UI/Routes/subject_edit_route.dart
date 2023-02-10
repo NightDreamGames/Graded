@@ -99,9 +99,9 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
                   if (newIndex2 == -1) {
                     list.insert(newIndex1, item);
                   } else {
-                    list[newIndex1].children.insert(newIndex2, item);
+                    list[newIndex1].children.insertAll(newIndex2, [item, ...item.children]);
+                    item.children.clear();
                     list[newIndex1].isGroup = true;
-                    list[newIndex1].children.addAll(item.children);
                   }
                 }
 
