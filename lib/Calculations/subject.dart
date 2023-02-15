@@ -1,7 +1,4 @@
 // Project imports:
-
-// Project imports:
-import '../Misc/storage.dart';
 import 'calculation_object.dart';
 import 'calculator.dart';
 import 'manager.dart';
@@ -11,10 +8,6 @@ class Subject extends CalculationObject {
   List<Subject> children = [];
   List<Test> tests = [];
 
-  @override
-  double? get value1 => result != null ? coefficient * result! : null;
-  @override
-  double get value2 => coefficient * getPreference<double>("total_grades");
   int bonus = 0;
   bool isGroup = false;
   bool isChild = false;
