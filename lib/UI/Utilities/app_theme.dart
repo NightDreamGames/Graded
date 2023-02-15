@@ -1,6 +1,9 @@
 // Flutter imports:
 import "package:flutter/material.dart";
 
+// Package imports:
+import "package:animations/animations.dart";
+
 class AppTheme {
   static ColorScheme? lightColorScheme;
   static ColorScheme? darkColorScheme;
@@ -28,6 +31,12 @@ class AppTheme {
         space: 1,
         color: theme.colorScheme.surfaceVariant,
       ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: SharedAxisTransitionBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
     );
   }
 
@@ -45,5 +54,25 @@ class AppTheme {
     //scheme = const ColorScheme.dark();
 
     return scheme;
+  }
+}
+
+class SharedAxisTransitionBuilder extends PageTransitionsBuilder {
+  const SharedAxisTransitionBuilder();
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T>? route,
+    BuildContext? context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget? child,
+  ) {
+    return SharedAxisTransition(
+      animation: animation,
+      secondaryAnimation: secondaryAnimation,
+      transitionType: SharedAxisTransitionType.horizontal,
+      child: child,
+    );
   }
 }

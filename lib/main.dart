@@ -115,40 +115,26 @@ class _AppContainerState extends State<AppContainer> {
                   break;
               }
 
-              return buildSharedAxisTransitionPageRoute(
-                  (_) => Builder(builder: (context) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-                            systemNavigationBarColor: Theme.of(context).colorScheme.surface,
-                            systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-                            systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
-                          ));
-                        });
+              return MaterialPageRoute(
+                builder: (context) => Builder(builder: (context) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                      systemNavigationBarColor: Theme.of(context).colorScheme.surface,
+                      systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+                      systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
+                    ));
+                  });
 
-                        return SafeArea(top: false, left: false, right: false, child: route);
-                      }),
-                  settings: settings);
+                  return SafeArea(top: false, left: false, right: false, child: route);
+                }),
+                settings: settings,
+              );
             },
           ),
         ),
       ),
     );
   }
-}
-
-Route buildSharedAxisTransitionPageRoute(Widget Function(BuildContext) builder, {RouteSettings? settings}) {
-  return PageRouteBuilder(
-    settings: settings,
-    pageBuilder: (context, animation, secondaryAnimation) => builder(context),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return SharedAxisTransition(
-        animation: animation,
-        secondaryAnimation: secondaryAnimation,
-        transitionType: SharedAxisTransitionType.horizontal,
-        child: child,
-      );
-    },
-  );
 }
 
 Future<void> setOptimalDisplayMode() async {
