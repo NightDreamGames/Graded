@@ -93,7 +93,6 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
                     if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
                   }
 
-                  item.isGroup = false;
                   item.isChild = newIndex2 != -1;
 
                   if (newIndex2 == -1) {
@@ -101,6 +100,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
                   } else {
                     list[newIndex1].children.insertAll(newIndex2, [item, ...item.children]);
                     item.children.clear();
+                    item.isGroup = false;
                     list[newIndex1].isGroup = true;
                   }
                 }
