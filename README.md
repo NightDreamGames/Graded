@@ -59,12 +59,12 @@ keeping the Default values.
 
 ► Grade Editing -- Update or Remove your Grades at any time.
 
-► Luxemburgish School System Integration -- Easily set up the app by selecting your Class if you're
-in a Luxemburgish School and avoid setting your Subjects by hand.
+► Luxembourgish School System Integration -- Easily set up the app by selecting your Class if you're
+in a Luxembourgish School and avoid setting your Subjects by hand.
 
 ► Custom Grading Systems -- You can completely customize the Calculation System to fit your needs.
 
-► Easy Subject Setup -- You can easily set up your Subjects with the Luxemburgish System Integration
+► Easy Subject Setup -- You can easily set up your Subjects with the Luxembourgish System Integration
 by selecting your Class, or else by creating your own Subjects with Weights.
 
 ► Rounding -- Choose how your Grades get rounded: Up, Down, To Integer, 10th, 100th, or 1000th.

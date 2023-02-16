@@ -133,7 +133,7 @@ class Translations {
 
   static String get lux_system => _getText("lux_system");
 
-  static String get luxemburgish => _getText("luxemburgish");
+  static String get luxembourgish => _getText("luxembourgish");
 
   static String get maximum => _getText("maximum");
 
@@ -371,8 +371,8 @@ class Translations {
     "invalid": "Invalid",
     "language": "Language",
     "licenses": "Licenses",
-    "lux_system": "Luxemburgish school system",
-    "luxemburgish": "Lëtzebuergesch",
+    "lux_system": "Luxembourgish school system",
+    "luxembourgish": "Lëtzebuergesch",
     "maximum": "Maximum",
     "more_options": "More options",
     "name": "Name",
@@ -524,7 +524,7 @@ class Translations {
     "language": "Langue",
     "licenses": "Licenses",
     "lux_system": "Système scolaire luxembourgeois",
-    "luxemburgish": "Lëtzebuergesch",
+    "luxembourgish": "Lëtzebuergesch",
     "maximum": "Maximum",
     "more_options": "Plus d'options",
     "name": "Nom",
@@ -676,7 +676,7 @@ class Translations {
     "language": "Sprache",
     "licenses": "Lizenzen",
     "lux_system": "Luxemburgisches Schulsystem",
-    "luxemburgish": "Lëtzebuergesch",
+    "luxembourgish": "Lëtzebuergesch",
     "maximum": "Maximum",
     "more_options": "Mehr Optionen",
     "name": "Name",
@@ -828,7 +828,7 @@ class Translations {
     "language": "Sprooch",
     "licenses": "Lizenzen",
     "lux_system": "Lëtzebuergeschen Schoulsystem",
-    "luxemburgish": "Lëtzebuergesch",
+    "luxembourgish": "Lëtzebuergesch",
     "maximum": "Maximum",
     "more_options": "Méi Optiounen",
     "name": "Numm",
