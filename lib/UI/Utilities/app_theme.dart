@@ -37,6 +37,9 @@ class AppTheme {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         },
       ),
+      appBarTheme: theme.appBarTheme.copyWith(
+        centerTitle: false,
+      ),
     );
   }
 
