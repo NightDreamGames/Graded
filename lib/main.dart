@@ -124,7 +124,9 @@ class _AppContainerState extends State<AppContainer> {
                     ));
                   });
 
-                  return SafeArea(top: false, left: false, right: false, child: route);
+                  return Material(
+                    child: SafeArea(top: false, left: false, right: false, child: route),
+                  );
                 }),
                 settings: settings,
               );
