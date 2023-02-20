@@ -1,5 +1,4 @@
 // Project imports:
-import '../Misc/storage.dart';
 import 'calculation_object.dart';
 import 'calculator.dart';
 import 'manager.dart';
@@ -9,7 +8,6 @@ class Year extends CalculationObject {
   List<Term> terms = [];
 
   Year() {
-    terms = List.generate(getPreference<int>("term"), (_) => Term());
     Manager.calculate();
   }
 

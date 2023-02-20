@@ -131,8 +131,8 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
   nameController.clear();
 
   bool add = index == null;
-  gradeController.text = add ? "" : Calculator.format(subject.tests[index].value1, ignoreZero: true);
-  maximumController.text = add ? "" : Calculator.format(subject.tests[index].value2, ignoreZero: true);
+  gradeController.text = add ? "" : Calculator.format(subject.tests[index].numerator, ignoreZero: true);
+  maximumController.text = add ? "" : Calculator.format(subject.tests[index].denominator, ignoreZero: true);
   nameController.text = add ? "" : subject.tests[index].name;
 
   return showDialog(
@@ -147,13 +147,13 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
         icon: add ? Icons.add : Icons.edit,
         onConfirm: () {
           String name = nameController.text.isEmpty ? getHint(Translations.test, subject.tests) : nameController.text;
-          double value1 = Calculator.tryParse(gradeController.text) ?? 1;
-          double value2 = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
+          double numerator = Calculator.tryParse(gradeController.text) ?? 1;
+          double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
           if (add) {
-            subject.addTest(Test(value1, value2, name));
+            subject.addTest(Test(numerator, denominator, name));
           } else {
-            subject.editTest(index, value1, value2, name);
+            subject.editTest(index, numerator, denominator, name);
           }
 
           return true;

@@ -16,7 +16,7 @@ import '../Calculations/term.dart';
 import 'storage.dart';
 
 class Compatibility {
-  static const dataVersion = 6;
+  static const dataVersion = 7;
 
   static Future<void> importPreferences() async {
     Uri uri;
@@ -139,28 +139,42 @@ class Compatibility {
       setPreference("validated_variant", getPreference("variant"));
     }
 
+    if (currentDataVersion < 7) {
+      termCount();
+    }
+
     setPreference<int>("data_version", dataVersion);
   }
 
   static void termCount() {
-    int newValue = getPreference("term");
-
-    while (Manager.getCurrentYear().terms.length > newValue) {
-      Manager.getCurrentYear().terms.removeLast();
+    List<Term> terms = Manager.getCurrentYear().terms;
+    int termCount = getPreference("term");
+    bool hasExam = getPreference("validated_year") == 1;
+    bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
+    if (termCount == 1) {
+      hasExam = false;
+      examPresent = false;
     }
 
-    while (Manager.getCurrentYear().terms.length < newValue) {
-      Manager.getCurrentYear().terms.add(Term());
+    Manager.currentTerm = 0;
+
+    while (terms.length > termCount + (hasExam ? 1 : 0)) {
+      int index = terms.length - 1 - (hasExam ? 1 : 0);
+      terms.removeAt(index);
     }
 
-    if (Manager.currentTerm >= Manager.getCurrentYear().terms.length) {
-      Manager.currentTerm = 0;
-      setPreference<int>("current_term", Manager.currentTerm);
+    while (terms.length < termCount + (examPresent ? 1 : 0)) {
+      int index = terms.length - (examPresent ? 1 : 0);
+      if (hasExam && !examPresent && terms.length > index) {
+        index++;
+      }
+      terms.insert(index, Term());
     }
 
-    if (newValue == 1) {
-      Manager.currentTerm = 0;
+    if (hasExam && !examPresent && terms.length < termCount + 1) {
+      terms.add(Term(coefficient: 2));
     }
+
     serialize();
   }
 

@@ -27,7 +27,6 @@ class TermSelector extends StatelessWidget {
                   items = [
                     "${Translations.semester} 1",
                     "${Translations.semester} 2",
-                    Translations.year_overview,
                   ];
                   break;
                 case 3:
@@ -35,17 +34,21 @@ class TermSelector extends StatelessWidget {
                     "${Translations.trimester} 1",
                     "${Translations.trimester} 2",
                     "${Translations.trimester} 3",
-                    Translations.year_overview,
                   ];
                   break;
               }
+
+              if (getPreference("validated_year") == 1) {
+                items.add(Translations.exams);
+              }
+              items.add(Translations.year_overview);
 
               List<PopupMenuEntry<String>> entries = [];
               for (int i = 0; i < items.length; i++) {
                 entries.add(PopupMenuItem<String>(
                   value: i.toString(),
                   onTap: () {
-                    if (i == getPreference<int>("term")) {
+                    if (i == getPreference<int>("term") + (getPreference("validated_year") == 1 ? 1 : 0)) {
                       Manager.lastTerm = Manager.currentTerm;
                       Manager.currentTerm = -1;
                     } else {

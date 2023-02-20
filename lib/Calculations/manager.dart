@@ -42,6 +42,7 @@ class Manager {
   static void clear() {
     years.clear();
     years.add(Year());
+    Compatibility.termCount();
     Manager.currentTerm = 0;
 
     calculate();
@@ -54,6 +55,7 @@ class Manager {
 
     if (years.isEmpty) {
       years.add(Year());
+      Compatibility.termCount();
     }
 
     return years[currentYear];
@@ -75,12 +77,16 @@ class Manager {
             for (int k = 0; k < s.children.length; k++) {
               double? subjectResult = t.subjects[j].children[k].result;
               s.children[k].addTest(
-                  Test(subjectResult ?? 0, getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
+                  Test(subjectResult ?? 0, getPreference<double>("total_grades"), getTitle(termOverride: i),
+                      coefficient: t.coefficient, isEmpty: subjectResult == null),
                   calculate: false);
             }
           } else {
             double? subjectResult = t.subjects[j].result;
-            s.addTest(Test(subjectResult ?? 0, getPreference<double>("total_grades"), getTitle(termOverride: i), isEmpty: subjectResult == null),
+
+            s.addTest(
+                Test(subjectResult ?? 0, getPreference<double>("total_grades"), getTitle(termOverride: i),
+                    coefficient: t.coefficient, isEmpty: subjectResult == null),
                 calculate: false);
           }
         }

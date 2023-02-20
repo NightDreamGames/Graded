@@ -44,11 +44,11 @@ class Subject extends CalculationObject {
     if (calculate) Manager.calculate();
   }
 
-  void editTest(int position, double grade1, double grade2, String name) {
+  void editTest(int position, double numerator, double denominator, String name) {
     Test t = tests[position];
 
-    t.value1 = grade1;
-    t.value2 = grade2;
+    t.numerator = numerator;
+    t.denominator = denominator;
     t.name = name;
     t.result = Calculator.calculate([this]);
     Manager.calculate();

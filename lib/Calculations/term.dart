@@ -63,10 +63,12 @@ class Term extends CalculationObject {
       }).toList();
 
       subjects = s;
+      coefficient = json['coefficient'] ?? 1;
     }
   }
 
   Map<String, dynamic> toJson() => {
         "subjects": subjects,
+        "coefficient": coefficient,
       };
 }

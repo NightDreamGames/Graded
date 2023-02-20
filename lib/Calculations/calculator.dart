@@ -63,18 +63,18 @@ class Calculator {
     }
 
     bool empty = true;
-    double numerator = 0;
-    double denominator = 0;
+    double totalNumerator = 0;
+    double totalDenominator = 0;
 
     for (CalculationObject c in data) {
-      if (c.value1 != null && c.value2 != 0) {
+      if (c.numerator != null && c.denominator != 0) {
         empty = false;
-        numerator += c.value1!;
-        denominator += c.value2;
+        totalNumerator += c.numerator! * c.coefficient;
+        totalDenominator += c.denominator * c.coefficient;
       }
     }
 
-    double result = numerator * (getPreference<double>("total_grades") / denominator) + bonus;
+    double result = totalNumerator * (getPreference<double>("total_grades") / totalDenominator) + bonus;
 
     if (!empty) {
       return Calculator.round(result);

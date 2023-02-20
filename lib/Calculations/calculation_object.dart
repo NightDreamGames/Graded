@@ -15,6 +15,6 @@ abstract class CalculationObject {
   String processedName = "";
   double coefficient = 1;
   double? result;
-  double? get value1 => result != null ? coefficient * result! : null;
-  double get value2 => coefficient * getPreference<double>("total_grades");
+  double? get numerator => result != null ? result! : null;
+  double get denominator => getPreference<double>("total_grades");
 }

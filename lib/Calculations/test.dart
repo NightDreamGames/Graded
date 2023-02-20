@@ -4,36 +4,39 @@ import 'calculator.dart';
 
 class Test extends CalculationObject {
   @override
-  double? value1;
+  double? numerator;
   @override
-  double value2 = 0;
+  double denominator = 0;
 
-  Test(this.value1, this.value2, String name, {bool isEmpty = false}) {
+  Test(this.numerator, this.denominator, String name, {double coefficient = 1, bool isEmpty = false}) {
     super.name = name;
+    super.coefficient = coefficient;
     result = isEmpty ? null : Calculator.calculate([this]);
-    if (result == null) value1 = null;
+    if (result == null) numerator = null;
   }
 
   @override
   String toString() {
     if (result != null) {
-      return "${Calculator.format(value1)}/${Calculator.format(value2)}";
+      return "${Calculator.format(numerator)}/${Calculator.format(denominator)}";
     } else {
       return "-";
     }
   }
 
   Test.fromJson(Map<String, dynamic> json) {
-    value1 = json['grade1'];
-    value2 = json['grade2'];
+    numerator = json['grade1'];
+    denominator = json['grade2'];
     name = json['name'];
+    coefficient = json['coefficient'] ?? 1;
     result = Calculator.calculate([this]);
-    if (result == null) value1 = null;
+    if (result == null) numerator = null;
   }
 
   Map<String, dynamic> toJson() => {
-        "grade1": value1,
-        "grade2": value2,
+        "grade1": numerator,
+        "grade2": denominator,
         "name": name,
+        "coefficient": coefficient,
       };
 }
