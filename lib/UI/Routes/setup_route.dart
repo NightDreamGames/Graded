@@ -35,7 +35,7 @@ class _SetupPageState extends State<SetupPage> {
     return Scaffold(
       floatingActionButton: () {
         if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
-            getPreference("school_system") == "other") {
+            getPreference<String>("school_system") == "other") {
           return FloatingActionButton(
             onPressed: () async {
               await SetupManager.completeSetup();
@@ -96,7 +96,7 @@ class _SetupPageState extends State<SetupPage> {
                       "other": Translations.other_system,
                     },
                   ),
-                  if (getPreference("school_system") == "lux")
+                  if (getPreference<String>("school_system") == "lux")
                     SettingsGroup(
                       title: Translations.lux_system,
                       children: [
@@ -115,7 +115,7 @@ class _SetupPageState extends State<SetupPage> {
                             "general": Translations.general,
                           },
                         ),
-                        if (getPreference("lux_system") != null && getPreference("lux_system").isNotEmpty)
+                        if (getPreference<String>("lux_system").isNotEmpty)
                           RadioModalSettingsTile<int>(
                             title: Translations.year,
                             icon: Icons.timelapse,
@@ -124,7 +124,7 @@ class _SetupPageState extends State<SetupPage> {
                               if (SetupManager.hasSections()) {
                                 setPreference<String>("section", defaultValues["section"]);
                               }
-                              if (SetupManager.getVariants()[getPreference("variant")] == null) {
+                              if (SetupManager.getVariants()[getPreference<String>("variant")] == null) {
                                 setPreference<String>("variant", defaultValues["variant"]);
                               }
                               rebuild();
@@ -149,7 +149,7 @@ class _SetupPageState extends State<SetupPage> {
                             onChange: (_) => rebuild(),
                             values: SetupManager.getVariants(),
                           ),
-                        if (getPreference("year") != -1 && getPreference("year") != 1)
+                        if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1)
                           RadioModalSettingsTile<int>(
                             title: Translations.term,
                             icon: Icons.access_time_outlined,
@@ -163,7 +163,7 @@ class _SetupPageState extends State<SetupPage> {
                           ),
                       ],
                     )
-                  else if (getPreference("school_system") == "other")
+                  else if (getPreference<String>("school_system") == "other")
                     SettingsGroup(
                       title: Translations.other_system,
                       children: getSettingsTiles(context, true),

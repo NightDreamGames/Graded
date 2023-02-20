@@ -43,7 +43,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
   }
 
   void rebuild() {
-    if (getPreference("sort_mode${SortType.subject}") != SortMode.result) {
+    if (getPreference<int>("sort_mode${SortType.subject}") != SortMode.result) {
       subject = index2 == -1 ? term.subjects[index1] : term.subjects[index1].children[index2];
       parent = index2 != -1 ? term.subjects[index1] : null;
     } else {

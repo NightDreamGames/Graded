@@ -117,27 +117,27 @@ class Compatibility {
     if (currentDataVersion < 5) {
       termCount();
 
-      setPreference("language", defaultValues["language"]);
+      setPreference<String>("language", defaultValues["language"]);
     }
 
     if (currentDataVersion < 6) {
-      String variant = getPreference("variant");
+      String variant = getPreference<String>("variant");
       String newVariant = "";
       if (variant == "latin") {
         newVariant = "L";
       } else if (variant == "chinese") {
         newVariant = "ZH";
       }
-      setPreference("variant", newVariant);
+      setPreference<String>("variant", newVariant);
 
-      String year = getPreference("year", "");
+      String year = getPreference<String>("year", "");
       setPreference<int>("year", year.isNotEmpty ? int.parse(year.substring(0, 1)) : -1);
 
-      setPreference("validated_school_system", getPreference("school_system"));
-      setPreference("validated_lux_system", getPreference("lux_system"));
-      setPreference("validated_year", getPreference("year"));
-      setPreference("validated_section", getPreference("section"));
-      setPreference("validated_variant", getPreference("variant"));
+      setPreference<String>("validated_school_system", getPreference<String>("school_system"));
+      setPreference<String>("validated_lux_system", getPreference<String>("lux_system"));
+      setPreference<int>("validated_year", getPreference<int>("year"));
+      setPreference<String>("validated_section", getPreference<String>("section"));
+      setPreference<String>("validated_variant", getPreference<String>("variant"));
     }
 
     if (currentDataVersion < 7) {
@@ -176,8 +176,8 @@ class Compatibility {
 
   static void termCount() {
     List<Term> terms = Manager.getCurrentYear().terms;
-    int termCount = getPreference("term");
-    bool hasExam = getPreference("validated_year") == 1;
+    int termCount = getPreference<int>("term");
+    bool hasExam = getPreference<int>("validated_year") == 1;
     bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
     if (termCount == 1) {
       hasExam = false;
@@ -209,8 +209,8 @@ class Compatibility {
   static void periodPreferences() {
     if (!getPreference<bool>("is_first_run") && getPreference<int>("data_version") < 2) {
       if (existsPreference("data")) {
-        setPreference<String?>("data", getPreference("data").replaceAll("period", "term").replaceAll("mark", "grade"));
-        setPreference<String?>("default_data", getPreference("default_data").replaceAll("period", "term").replaceAll("mark", "grade"));
+        setPreference<String?>("data", getPreference<String>("data").replaceAll("period", "term").replaceAll("mark", "grade"));
+        setPreference<String?>("default_data", getPreference<String>("default_data").replaceAll("period", "term").replaceAll("mark", "grade"));
       }
     }
   }

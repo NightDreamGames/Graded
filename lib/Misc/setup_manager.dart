@@ -162,29 +162,29 @@ class SetupManager {
 
     setPreference<String>("validated_school_system", getPreference<String>("school_system"));
 
-    if (getPreference("school_system") == "lux") {
-      setPreference("validated_lux_system", getPreference("lux_system"));
-      setPreference("validated_year", getPreference("year"));
+    if (getPreference<String>("school_system") == "lux") {
+      setPreference<String>("validated_lux_system", getPreference<String>("lux_system"));
+      setPreference<String>("validated_year", getPreference<String>("year"));
 
       if (!hasSections()) {
         setPreference<String>("section", defaultValues["section"]);
       } else {
-        setPreference("validated_section", getPreference("section"));
+        setPreference<String>("validated_section", getPreference<String>("section"));
       }
 
-      if (!hasVariants() || getVariants()[getPreference("variant")] == null) {
+      if (!hasVariants() || getVariants()[getPreference<String>("variant")] == null) {
         setPreference<String>("variant", defaultValues["variant"]);
       } else {
-        setPreference("validated_variant", getPreference("variant"));
+        setPreference<String>("validated_variant", getPreference<String>("variant"));
       }
 
-      if (getPreference("year") == 1) {
-        setPreference("term", 2);
+      if (getPreference<int>("year") == 1) {
+        setPreference<int>("term", 2);
       }
 
       setPreference<double>("total_grades", 60);
-      setPreference("rounding_mode", "rounding_up");
-      setPreference("round_to", 1);
+      setPreference<String>("rounding_mode", "rounding_up");
+      setPreference<int>("round_to", 1);
 
       await fillSubjects();
     }
@@ -198,11 +198,11 @@ class SetupManager {
 
   static Future<void> fillSubjects() async {
     Manager.termTemplate.clear();
-    int year = getPreference("year");
-    String section = getPreference("section");
-    String variant = getPreference("variant");
+    int year = getPreference<int>("year");
+    String section = getPreference<String>("section");
+    String variant = getPreference<String>("variant");
 
-    bool classic = getPreference("lux_system") == "classic";
+    bool classic = getPreference<String>("lux_system") == "classic";
     String letter = classic ? "C" : "G";
     if (variant == "P" || variant == "PF" || variant == "AD" || variant == "ADF") letter = "";
 

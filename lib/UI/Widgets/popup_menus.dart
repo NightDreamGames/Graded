@@ -38,7 +38,7 @@ class TermSelector extends StatelessWidget {
                   break;
               }
 
-              if (getPreference("validated_year") == 1) {
+              if (getPreference<int>("validated_year") == 1) {
                 items.add(Translations.exams);
               }
               items.add(Translations.year_overview);
@@ -48,7 +48,7 @@ class TermSelector extends StatelessWidget {
                 entries.add(PopupMenuItem<String>(
                   value: i.toString(),
                   onTap: () {
-                    if (i == getPreference<int>("term") + (getPreference("validated_year") == 1 ? 1 : 0)) {
+                    if (i == getPreference<int>("term") + (getPreference<int>("validated_year") == 1 ? 1 : 0)) {
                       Manager.lastTerm = Manager.currentTerm;
                       Manager.currentTerm = -1;
                     } else {
@@ -134,7 +134,7 @@ class SortSelector extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title),
-          if (getPreference("sort_mode$type") == value) const Icon(Icons.check, size: 20),
+          if (getPreference<int>("sort_mode$type") == value) const Icon(Icons.check, size: 20),
         ],
       ),
     );

@@ -35,7 +35,7 @@ void main() async {
 
   String initialRoute = "/";
 
-  if (getPreference("is_first_run")) {
+  if (getPreference<bool>("is_first_run")) {
     initialRoute = "setup_first";
   }
 
@@ -61,13 +61,13 @@ class _AppContainerState extends State<AppContainer> {
   Widget build(BuildContext context) {
     setOptimalDisplayMode();
 
-    String brightnessSetting = getPreference("theme");
+    String brightnessSetting = getPreference<String>("theme");
     ThemeMode brightness = brightnessSetting == "system"
         ? ThemeMode.system
         : brightnessSetting == "light"
             ? ThemeMode.light
             : ThemeMode.dark;
-    String localeName = getPreference("language");
+    String localeName = getPreference<String>("language");
 
     return ChangeNotifierProvider(
       create: (context) => LocaleProvider(locale: localeName != defaultValues["language"] ? Locale(localeName) : null),

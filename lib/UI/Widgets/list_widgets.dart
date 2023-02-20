@@ -239,7 +239,7 @@ class _SubjectTileState extends State<SubjectTile> {
       await Future.delayed(const Duration(milliseconds: 300), () {
         if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() != null) {
           ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
-          setPreference("showcase_subject_edit", false);
+          setPreference<bool>("showcase_subject_edit", false);
         }
       });
     }
