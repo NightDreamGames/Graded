@@ -13,10 +13,11 @@ import 'package:xml/xml.dart';
 // Project imports:
 import '../Calculations/manager.dart';
 import '../Calculations/term.dart';
+import 'setup_manager.dart';
 import 'storage.dart';
 
 class Compatibility {
-  static const dataVersion = 7;
+  static const dataVersion = 8;
 
   static Future<void> importPreferences() async {
     Uri uri;
@@ -141,6 +142,33 @@ class Compatibility {
 
     if (currentDataVersion < 7) {
       termCount();
+    }
+
+    if (currentDataVersion < 8) {
+      if (getPreference<String>("validated_school_system") == "lux") {
+        try {
+          if (!SetupManager.hasSections(getPreference<String>("validated_lux_system"), getPreference<int>("validated_year"))) {
+            setPreference<String>("validated_section", defaultValues["validated_section"]);
+          }
+        } catch (e) {
+          setPreference<String>("validated_section", defaultValues["validated_section"]);
+        }
+        try {
+          if (!SetupManager.hasVariants(
+                  getPreference<String>("validated_lux_system"), getPreference<int>("validated_year"), getPreference<String>("validated_section")) ||
+              SetupManager.getVariants()[getPreference<String>("validated_variant")] == null) {
+            setPreference<String>("validated_variant", defaultValues["validated_variant"]);
+          }
+        } catch (e) {
+          setPreference<String>("validated_variant", defaultValues["validated_variant"]);
+        }
+      } else {
+        List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
+
+        for (String key in keys) {
+          setPreference(key, defaultValues[key]);
+        }
+      }
     }
 
     setPreference<int>("data_version", dataVersion);

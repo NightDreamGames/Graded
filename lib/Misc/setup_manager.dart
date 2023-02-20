@@ -31,14 +31,14 @@ class SetupManager {
     };
   }
 
-  static bool hasSections() {
-    return getSections().isNotEmpty;
+  static bool hasSections([String? luxSystemOverride, int? yearOverride]) {
+    return getSections(luxSystemOverride, yearOverride).isNotEmpty;
   }
 
-  static Map<String, String> getSections() {
+  static Map<String, String> getSections([String? luxSystemOverride, int? yearOverride]) {
     Map<String, String> result = <String, String>{};
-    String luxSystem = getPreference("lux_system");
-    int year = getPreference("year");
+    String luxSystem = luxSystemOverride ?? getPreference<String>("lux_system");
+    int year = yearOverride ?? getPreference<int>("year");
 
     if (year == -1 || luxSystem.isEmpty) return result;
 
@@ -87,14 +87,14 @@ class SetupManager {
     return Map.fromEntries(result.entries.toList()..sort((e1, e2) => e1.key.compareTo(e2.key)));
   }
 
-  static bool hasVariants() {
-    return getVariants().isNotEmpty;
+  static bool hasVariants([String? luxSystemOverride, int? yearOverride, String? sectionOverride]) {
+    return getVariants(luxSystemOverride, yearOverride, sectionOverride).isNotEmpty;
   }
 
-  static Map<String, String> getVariants() {
-    String luxSystem = getPreference("lux_system");
-    int year = getPreference("year");
-    String section = getPreference("section");
+  static Map<String, String> getVariants([String? luxSystemOverride, int? yearOverride, String? sectionOverride]) {
+    String luxSystem = luxSystemOverride ?? getPreference<String>("lux_system");
+    int year = yearOverride ?? getPreference<int>("year");
+    String section = sectionOverride ?? getPreference<String>("section");
 
     Map<String, String> result = <String, String>{};
 
@@ -154,7 +154,13 @@ class SetupManager {
   }
 
   static Future<void> completeSetup() async {
-    setPreference("validated_school_system", getPreference("school_system"));
+    List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
+
+    for (String key in keys) {
+      setPreference(key, defaultValues[key]);
+    }
+
+    setPreference<String>("validated_school_system", getPreference<String>("school_system"));
 
     if (getPreference("school_system") == "lux") {
       setPreference("validated_lux_system", getPreference("lux_system"));
