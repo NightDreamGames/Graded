@@ -164,7 +164,7 @@ class SetupManager {
 
     if (getPreference<String>("school_system") == "lux") {
       setPreference<String>("validated_lux_system", getPreference<String>("lux_system"));
-      setPreference<String>("validated_year", getPreference<String>("year"));
+      setPreference<int>("validated_year", getPreference<int>("year"));
 
       if (!hasSections()) {
         setPreference<String>("section", defaultValues["section"]);
