@@ -22,13 +22,16 @@ class AppBarTitle extends StatelessWidget {
           bottom: false,
           child: Padding(
             padding: EdgeInsets.only(left: 8, right: collapsed ? actionAmount * 48 : 8),
-            child: Text(
-              title,
-              softWrap: false,
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.fade,
-              style: collapsed ? const TextStyle(fontWeight: FontWeight.bold) : const TextStyle(fontWeight: FontWeight.bold, fontSize: 42),
+            child: MediaQuery(
+              data: collapsed ? MediaQuery.of(context) : MediaQuery.of(context).copyWith(textScaleFactor: 1),
+              child: Text(
+                title,
+                softWrap: false,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.fade,
+                style: collapsed ? const TextStyle(fontWeight: FontWeight.bold) : const TextStyle(fontWeight: FontWeight.bold, fontSize: 42),
+              ),
             ),
           ),
         );
