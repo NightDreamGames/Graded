@@ -233,6 +233,8 @@ class Translations {
 
   static String get semesters => _getText("semesters");
 
+  static String get send_feedback => _getText("send_feedback");
+
   static String get settings => _getText("settings");
 
   static String get setup => _getText("setup");
@@ -422,6 +424,7 @@ class Translations {
     "select_term": "Select term",
     "semester": "Semester",
     "semesters": "Semesters",
+    "send_feedback": "Give feedback",
     "settings": "Settings",
     "setup": "Setup",
     "showcase_drag_subject": "Drag to change subject order",
@@ -574,6 +577,7 @@ class Translations {
     "select_term": "Sélectionner période",
     "semester": "Semestre",
     "semesters": "Semestres",
+    "send_feedback": "Donnez votre avis",
     "settings": "Options",
     "setup": "Configuration",
     "showcase_drag_subject": "Glissez pour changer l'ordre des matières",
@@ -726,6 +730,7 @@ class Translations {
     "select_term": "Periode auswählen",
     "semester": "Semester",
     "semesters": "Semester",
+    "send_feedback": "Feedback geben",
     "settings": "Einstellungen",
     "setup": "Einrichtung",
     "showcase_drag_subject": "Ziehe, um die Reihenfolge der Fächer zu ändern",
@@ -878,6 +883,7 @@ class Translations {
     "select_term": "Period auswielen",
     "semester": "Semester",
     "semesters": "Semester",
+    "send_feedback": "Feedback ginn",
     "settings": "Astellungen",
     "setup": "Ariichtung",
     "showcase_drag_subject": "Zéi fir d'Reiefolleg vun de Fächer ze änneren",

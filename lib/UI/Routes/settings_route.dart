@@ -167,7 +167,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     SimpleSettingsTile(
                       icon: Icons.feedback_outlined,
-                      title: Translations.contact,
+                      title: Translations.send_feedback,
                       subtitle: Translations.email,
                       onTap: () => launchURL(3),
                     ),
