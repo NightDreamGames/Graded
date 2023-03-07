@@ -34,6 +34,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.12.0
   flappy_translator: ^2.0.0-nullsafety.3
   import_sorter: ^4.6.0
+  import_path_converter: ^1.0.1
 
 flutter:
   uses-material-design: true
@@ -80,3 +81,6 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
+
+import_path_converter:
+  relative: true

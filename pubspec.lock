@@ -325,6 +325,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.15"
+  import_path_converter:
+    dependency: "direct dev"
+    description:
+      name: import_path_converter
+      sha256: d0bc2ebbd8381af42e8cfb9b480696b2b27cdaea46391f1d7f2069d3d79a03a0
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   import_sorter:
     dependency: "direct dev"
     description:
