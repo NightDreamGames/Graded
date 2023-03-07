@@ -26,8 +26,10 @@ class Subject extends CalculationObject {
       }
 
       result = Calculator.calculate(children);
+      preciseResult = Calculator.calculate(children, precise: true);
     } else {
       result = Calculator.calculate(tests, bonus: bonus);
+      preciseResult = Calculator.calculate(tests, bonus: bonus, precise: true);
     }
   }
 
@@ -69,14 +71,6 @@ class Subject extends CalculationObject {
           comparisonData: Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children);
     }
     Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride);
-  }
-
-  String getResult() {
-    if (result == null) {
-      return "-";
-    } else {
-      return Calculator.format(result);
-    }
   }
 
   Subject.fromJson(Map<String, dynamic> json) {

@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:math';
+
 // Package imports:
 import 'package:collection/collection.dart';
 
@@ -57,7 +60,7 @@ class Calculator {
     }
   }
 
-  static double? calculate(List<CalculationObject> data, {int bonus = 0}) {
+  static double? calculate(List<CalculationObject> data, {int bonus = 0, bool precise = false}) {
     if (data.isEmpty) {
       return null;
     }
@@ -77,15 +80,15 @@ class Calculator {
     double result = totalNumerator * (getPreference<double>("total_grades") / totalDenominator) + bonus;
 
     if (!empty) {
-      return Calculator.round(result);
+      return round(result, roundToOverride: precise ? 100 : null);
     } else {
       return null;
     }
   }
 
-  static double round(double number) {
+  static double round(double number, {int? roundToOverride}) {
     String roundingMode = getPreference<String>("rounding_mode");
-    int roundTo = getPreference<int>("round_to");
+    int roundTo = roundToOverride ?? getPreference<int>("round_to");
 
     double a = number * roundTo;
 
@@ -112,17 +115,15 @@ class Calculator {
     return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
   }
 
-  static String format(double? d, {bool ignoreZero = false}) {
+  static String format(double? d, {bool ignoreZero = false, int? roundToOverride}) {
     if (d == null) {
       return "-";
     }
 
-    String result;
-    if (d % 1 == 0) {
-      result = d.toStringAsFixed(0);
-    } else {
-      result = d.toString();
-    }
+    int roundTo = roundToOverride ?? getPreference<int>("round_to");
+    if (roundTo > 1) ignoreZero = true;
+
+    String result = d.toStringAsFixed(log(roundTo) ~/ log(10));
 
     if (!ignoreZero && d > 0 && d < 10 && d % 1 == 0) {
       result = "0$result";

@@ -29,6 +29,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
   late Term term = Manager.getCurrentTerm();
   late Subject subject = index2 == -1 ? term.subjects[index1] : term.subjects[index1].children[index2];
   late Subject? parent = index2 != -1 ? term.subjects[index1] : null;
+  bool resultTapped = false;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController gradeController = TextEditingController();
@@ -106,7 +107,11 @@ class _SubjectRouteState extends State<SubjectRoute> {
             top: false,
             bottom: false,
             sliver: ResultRow(
-              result: subject.getResult(),
+              result: subject.getResult(precise: resultTapped),
+              onResultTap: () {
+                resultTapped = !resultTapped;
+                rebuild();
+              },
               leading: () {
                 if (Manager.currentTerm != -1) {
                   return Row(

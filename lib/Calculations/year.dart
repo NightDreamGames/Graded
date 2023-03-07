@@ -17,14 +17,7 @@ class Year extends CalculationObject {
     }
 
     result = Calculator.calculate(terms);
-  }
-
-  String getResult() {
-    if (result != null) {
-      return Calculator.format(result);
-    } else {
-      return "-";
-    }
+    preciseResult = Calculator.calculate(terms, precise: true);
   }
 
   Year.fromJson(Map<String, dynamic> json) {

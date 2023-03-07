@@ -166,29 +166,34 @@ class _GroupRowState extends State<GroupRow> {
 }
 
 class ResultRow extends StatelessWidget {
-  const ResultRow({Key? key, required this.result, required this.leading}) : super(key: key);
+  const ResultRow({Key? key, required this.result, required this.leading, this.onResultTap}) : super(key: key);
 
   final String result;
   final Widget leading;
+  final Function()? onResultTap;
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Column(
         children: [
-          SizedBox(
-            height: 54,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  leading,
-                  Text(
-                    result,
-                    style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-                  ),
-                ],
+          GestureDetector(
+            onTap: onResultTap,
+            behavior: HitTestBehavior.translucent,
+            child: SizedBox(
+              height: 54,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    leading,
+                    Text(
+                      result,
+                      style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

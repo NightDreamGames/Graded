@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late Term term = Manager.getCurrentTerm();
+  bool resultTapped = false;
 
   void rebuild() {
     term = Manager.getCurrentTerm();
@@ -69,7 +70,11 @@ class _HomePageState extends State<HomePage> {
               top: false,
               bottom: false,
               sliver: ResultRow(
-                result: term.getResult(),
+                result: term.getResult(precise: resultTapped),
+                onResultTap: () {
+                  resultTapped = !resultTapped;
+                  rebuild();
+                },
                 leading: Text(
                   Manager.currentTerm != -1 ? Translations.average : Translations.yearly_average,
                   overflow: TextOverflow.fade,

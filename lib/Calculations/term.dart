@@ -41,18 +41,19 @@ class Term extends CalculationObject {
     }
 
     result = Calculator.calculate(toBeCalculated);
+    preciseResult = Calculator.calculate(toBeCalculated, precise: true);
   }
 
   void sort({int? sortModeOverride}) {
     Calculator.sortObjects(subjects, sortType: SortType.subject, sortModeOverride: sortModeOverride);
   }
 
-  String getResult() {
-    if (subjects.every((element) => element.getResult() == "-") || result == null) {
+  @override
+  String getResult({bool precise = false}) {
+    if (subjects.every((element) => element.getResult() == "-")) {
       return "-";
-    } else {
-      return Calculator.format(result);
     }
+    return super.getResult(precise: precise);
   }
 
   Term.fromJson(Map<String, dynamic> json) {

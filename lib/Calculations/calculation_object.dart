@@ -3,6 +3,7 @@ import 'package:diacritic/diacritic.dart';
 
 // Project imports:
 import '../Misc/storage.dart';
+import 'calculator.dart';
 
 abstract class CalculationObject {
   String _name = "";
@@ -15,6 +16,15 @@ abstract class CalculationObject {
   String processedName = "";
   double coefficient = 1;
   double? result;
+  double? preciseResult;
   double? get numerator => result != null ? result! : null;
   double get denominator => getPreference<double>("total_grades");
+
+  String getResult({bool precise = false}) {
+    if (result == null) {
+      return "-";
+    } else {
+      return Calculator.format(precise ? preciseResult : result, roundToOverride: precise ? 100 : null);
+    }
+  }
 }
