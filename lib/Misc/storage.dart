@@ -31,7 +31,7 @@ final Map<String, dynamic> defaultValues = {
   //Calculation settings
   "term": 3,
   "total_grades": 60.0,
-  "rounding_mode": "rounding_up",
+  "rounding_mode": RoundingMode.up,
   "round_to": 1,
   //Setup
   "is_first_run": true,

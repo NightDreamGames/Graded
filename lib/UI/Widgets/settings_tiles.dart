@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Misc/compatibility.dart';
 import '../../Misc/storage.dart';
@@ -56,10 +57,10 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       settingKey: 'rounding_mode',
       onChange: (_) => Manager.calculate(),
       values: <String, String>{
-        "rounding_up": Translations.up,
-        "rounding_down": Translations.down,
-        "rounding_half_up": Translations.half_up,
-        "rounding_half_down": Translations.half_down,
+        RoundingMode.up: Translations.up,
+        RoundingMode.down: Translations.down,
+        RoundingMode.halfUp: Translations.half_up,
+        RoundingMode.halfDown: Translations.half_down,
       },
       selected: defaultValues["rounding_mode"],
     ),

@@ -21,6 +21,13 @@ abstract class SortType {
   static const int test = 2;
 }
 
+abstract class RoundingMode {
+  static const String up = "rounding_up";
+  static const String down = "rounding_down";
+  static const String halfUp = "rounding_half_up";
+  static const String halfDown = "rounding_half_down";
+}
+
 class Calculator {
   static void sortObjects(List<CalculationObject> data, {required int sortType, int? sortModeOverride, List<CalculationObject>? comparisonData}) {
     if (data.length >= 2) {
@@ -92,17 +99,17 @@ class Calculator {
 
     double a = number * roundTo;
 
-    if (roundingMode == "rounding_up") {
+    if (roundingMode == RoundingMode.up) {
       return a.ceilToDouble() / roundTo;
-    } else if (roundingMode == "rounding_down") {
+    } else if (roundingMode == RoundingMode.down) {
       return a.floorToDouble() / roundTo;
     } else {
       double i = a.floorToDouble();
       double f = number - i;
 
-      if (roundingMode == "rounding_half_up") {
+      if (roundingMode == RoundingMode.halfUp) {
         return (f < 0.5 ? i : i + 1) / roundTo;
-      } else if (roundingMode == "rounding_half_down") {
+      } else if (roundingMode == RoundingMode.halfDown) {
         return (f <= 0.5 ? i : i + 1) / roundTo;
       }
     }

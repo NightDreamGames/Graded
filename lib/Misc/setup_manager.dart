@@ -8,6 +8,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:collection/collection.dart';
 
 // Project imports:
+import '../Calculations/calculator.dart';
 import '../Calculations/manager.dart';
 import '../Calculations/subject.dart';
 import '../Translations/translations.dart';
@@ -183,7 +184,7 @@ class SetupManager {
       }
 
       setPreference<double>("total_grades", 60);
-      setPreference<String>("rounding_mode", "rounding_up");
+      setPreference<String>("rounding_mode", RoundingMode.up);
       setPreference<int>("round_to", 1);
 
       await fillSubjects();
