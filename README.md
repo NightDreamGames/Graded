@@ -52,6 +52,8 @@ A clean and open-source app to track and manage your school grades.
 
 # 📒 FEATURES
 
+### You can find our roadmap with all the planned features on our [Trello board](https://trello.com/b/kfWs3e3h/graded).
+
 ► Grade and Average Tracking -- Averages automatically calculated through every Term and Subject.
 
 ► Easy Grade Entry -- Enter your Grade quickly without bothering with the unnecessary stuff by
