@@ -46,10 +46,11 @@ workflows:
             exit 0
           fi
 
+          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${CM_TAG}.apk
+
           gh release create "${CM_TAG}" \
             --title "Graded ${CM_TAG}" \
-            path/to/build-artifact.ipa \
-            path/to/build-artifact.apk
+            build/app/outputs/apk/release/graded-${CM_TAG}.apk
     artifacts:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/apk/release/*.apk
