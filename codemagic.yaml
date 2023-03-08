@@ -11,13 +11,12 @@ workflows:
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         GOOGLE_PLAY_TRACK: "internal"
-        GITHUB_TOKEN
       flutter: stable
     triggering:
       events:
         - tag
       branch_patterns:
-        - pattern: '*'
+        - pattern: "*"
           include: true
           source: true
     scripts:
@@ -39,7 +38,7 @@ workflows:
           flutter build apk --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
       - name: Publish to GitHub
-        script: | 
+        script: |
           #!/usr/bin/env zsh
 
           # Publish only for tag builds
