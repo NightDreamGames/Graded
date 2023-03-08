@@ -30,6 +30,10 @@ workflows:
         script: |
           flutter build appbundle --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      - name: Build APK with Flutter
+        script: |
+          flutter build apk --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
       - name: Build universal apk
         script: |
           android-app-bundle build-universal-apk \
