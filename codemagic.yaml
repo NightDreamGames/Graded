@@ -27,10 +27,6 @@ workflows:
         script: |
           flutter build appbundle --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
-      - name: Build APK with Flutter
-        script: |
-          flutter build apk --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
     artifacts:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/*.apk
@@ -43,3 +39,51 @@ workflows:
         notify:
           success: true
           failure: false
+  ios-workflow:
+    name: iOS Workflow
+    max_build_duration: 15
+    instance_type: mac_mini_m1
+    integrations:
+      app_store_connect: codemagic
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.NightDreamGames.Gradely
+      vars:
+        APP_ID: 1111111111 # <-- Put your APP ID here
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+      - name: Install pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+      - name: Flutter build ipa and automatic versioning
+        script: |
+          flutter build ipa --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - support@nightdreamgames.com
+        notify:
+          success: true
+          failure: false
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: false
