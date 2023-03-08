@@ -8,19 +8,18 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.NightDreamGames.Grade.ly&label=Play%20Store&color=brightgreen)](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly "Play Store")
 [![](https://img.shields.io/itunes/v/6444681284?label=App%20Store&color=brightgreen)](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284 "App Store")
 
-### A clean and open-source app to track and manage your school grades with ease
+### Track and manage your school grades with ease
 
 ---
 
 ### Quick Links
 
-[![](https://img.shields.io/badge/HOMEPAGE-gray?style=for-the-badge)](https://nightdreamgames.com "nightdreamgames.com")
-
+[![](https://img.shields.io/badge/HOMEPAGE-gray?style=for-the-badge)](https://nightdreamgames.com "nightdreamgames.com")  
 <a href="https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
-  <img src="https://user-images.githubusercontent.com/74767551/207097083-e375553d-ee3c-43fd-83e9-8389159a663e.png" title="Get it on Google Play" height="60">
+<img src="https://user-images.githubusercontent.com/74767551/207097083-e375553d-ee3c-43fd-83e9-8389159a663e.png" title="Get it on Google Play" height="60">
 </a>
 <a href="https://apps.apple.com/us/app/graded-grade-tracker/id6444681284?itsct=apps_box_badge&itscg=30200">
-  <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=200x80&releaseDate=1670803200?h=def57059473046f918fe9659af2338b3" title="Download on the App Store" height="60">
+<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=200x80&releaseDate=1670803200?h=def57059473046f918fe9659af2338b3" title="Download on the App Store" height="60">
 </a>
 
 </div>
@@ -46,7 +45,7 @@
 - Customizable grading system - Whether your school uses a different grading system, or you want to customize it to fit your needs, Graded makes it easy to adapt to your specific requirements.
 - Easy grade entry - Enter your grades quickly without bothering with the unnecessary details by keeping the default values.
 - Clean interface - Enjoy a clean and easy-to-use interface, available in light and dark mode, and in English, French and German.
-- Automatic data backup - Your grades are automatically backed up on your Google/iCloud account, so you can easily restore them on your new device.
+- Data backup - You can export your grades whenever you feel like, and they are also automatically backed up on your Google account, so you can easily restore them on your new device.
 
 # 👨‍💻 Tech stack
 
