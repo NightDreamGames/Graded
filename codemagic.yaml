@@ -11,12 +11,19 @@ workflows:
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         GOOGLE_PLAY_TRACK: "internal"
+        GITHUB_TOKEN
       flutter: stable
+    triggering:
+      events:
+        - tag
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
     scripts:
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
-          echo "$PROJECT_BUILD_NUMBER"
       - name: Get Flutter packages
         script: |
           flutter packages pub get
@@ -31,6 +38,20 @@ workflows:
         script: |
           flutter build apk --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      - name: Publish to GitHub
+        script: | 
+          #!/usr/bin/env zsh
+
+          # Publish only for tag builds
+          if [ -z ${CM_TAG} ]; then
+            echo "Not a tag build, will not publish GitHub release"
+            exit 0
+          fi
+
+          gh release create "${CM_TAG}" \
+            --title "Graded ${CM_TAG}" \
+            path/to/build-artifact.ipa \
+            path/to/build-artifact.apk
     artifacts:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/apk/release/*.apk
@@ -81,12 +102,6 @@ workflows:
       - /tmp/xcodebuild_logs/*.log
       - flutter_drive.log
     publishing:
-      email:
-        recipients:
-          - support@nightdreamgames.com
-        notify:
-          success: true
-          failure: false
       app_store_connect:
         auth: integration
         submit_to_testflight: false
