@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://nightdreamgames.com">
-  <img src="https://user-images.githubusercontent.com/49079695/212137017-0834b56d-d03a-45eb-8362-da7b2966d438.png" title="Graded" width="500" style="border-radius:40px">
+  <img src="https://user-images.githubusercontent.com/49079695/212137017-0834b56d-d03a-45eb-8362-da7b2966d438.png" title="Graded" width="500">
 </a>
 <br>
 
