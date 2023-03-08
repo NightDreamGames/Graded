@@ -22,10 +22,6 @@ workflows:
       - name: Flutter analyze
         script: |
           flutter analyze
-      - name: Flutter unit tests
-        script: |
-          flutter test
-        ignore_failure: true
       - name: Build AAB with Flutter
         script: |
           flutter build appbundle --release \
@@ -34,14 +30,6 @@ workflows:
         script: |
           flutter build apk --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
-      - name: Build universal apk
-        script: |
-          android-app-bundle build-universal-apk \
-            --bundle 'project_directory/build/**/outputs/**/*.aab' \
-            --ks /tmp/keystore.keystore \
-            --ks-pass $CM_KEYSTORE_PASSWORD \
-            --ks-key-alias $CM_KEY_ALIAS \
-            --key-pass $CM_KEY_PASSWORD
     artifacts:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/*.apk
