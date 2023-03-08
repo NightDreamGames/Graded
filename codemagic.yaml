@@ -27,9 +27,13 @@ workflows:
         script: |
           flutter build appbundle --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      - name: Build APK with Flutter
+        script: |
+          flutter build apk --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
     artifacts:
       - build/**/outputs/**/*.aab
-      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/apk/release/*.apk
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
     publishing:
