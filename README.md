@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://nightdreamgames.com">
-  <img src="https://user-images.githubusercontent.com/49079695/212137017-0834b56d-d03a-45eb-8362-da7b2966d438.png" title="Graded" width="500">
+  <img src="https://user-images.githubusercontent.com/49079695/212137017-0834b56d-d03a-45eb-8362-da7b2966d438.png" title="Graded" width="500" style="border-radius:40px">
 </a>
 <br>
 
@@ -14,7 +14,7 @@
 
 ### Quick Links
 
-[![](https://img.shields.io/badge/HOMEPAGE-gray?style=for-the-badge)](https://nightdreamgames.com "nightdreamgames.com")  
+[![](https://img.shields.io/badge/HOMEPAGE-316189?style=for-the-badge)](https://nightdreamgames.com "nightdreamgames.com")  
 <a href="https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
 <img src="https://user-images.githubusercontent.com/74767551/207097083-e375553d-ee3c-43fd-83e9-8389159a663e.png" title="Get it on Google Play" height="60">
 </a>
