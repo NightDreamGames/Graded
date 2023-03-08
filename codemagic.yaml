@@ -22,16 +22,17 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+          echo "$GITHUB_TOKEN"
       - name: Get Flutter packages
         script: |
           flutter packages pub get
       - name: Flutter analyze
         script: |
           flutter analyze
-      #   - name: Build AAB with Flutter
-      #     script: |
-      #       flutter build appbundle --release \
-      #         --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      - name: Build AAB with Flutter
+        script: |
+          flutter build appbundle --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
       - name: Build APK with Flutter
         script: |
           flutter build apk --release \
@@ -56,13 +57,11 @@ workflows:
       - build/**/outputs/**/apk/release/*.apk
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
-    publishing:
-      email:
-        recipients:
-          - support@nightdreamgames.com
-        notify:
-          success: true
-          failure: false
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT/.pub-cache
+        - $HOME/.gradle/caches
+        - $HOME/Library/Caches/CocoaPods
   ios-workflow:
     name: iOS Workflow
     max_build_duration: 15
