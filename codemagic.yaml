@@ -1,7 +1,7 @@
 workflows:
   android-workflow:
     name: Android Workflow
-    max_build_duration: 10
+    max_build_duration: 15
     instance_type: mac_mini_m1
     environment:
       android_signing:
@@ -16,6 +16,7 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+          echo "$PROJECT_BUILD_NUMBER"
       - name: Get Flutter packages
         script: |
           flutter packages pub get
@@ -35,3 +36,14 @@ workflows:
       - build/**/outputs/**/*.apk
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - support@nightdreamgames.com
+        notify:
+          success: true
+          failure: false
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: $GOOGLE_PLAY_TRACK
+        submit_as_draft: true
