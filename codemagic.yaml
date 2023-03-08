@@ -7,7 +7,7 @@ workflows:
       android_signing:
         - Graded
       groups:
-        - GITHUB_TOKEN
+        - gh-auth
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         GOOGLE_PLAY_TRACK: "internal"
@@ -23,7 +23,6 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
-          echo "$GITHUB_TOKEN"
       - name: Get Flutter packages
         script: |
           flutter packages pub get
