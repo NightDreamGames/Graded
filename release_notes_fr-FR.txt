@@ -1,0 +1,5 @@
+Version 2.1.6:
+Vous pouvez désormais jeter un coup d'œil à la moyenne précise d'une matière ou d'une période en tapant dessus !
+- Ajout de la possibilité de taper sur un résultat pour afficher le résultat précis
+- Correction de quelques bugs de mise en page
+- Correction de plusieurs bugs

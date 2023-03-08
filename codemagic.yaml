@@ -50,7 +50,8 @@ workflows:
           mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${CM_TAG}.apk
 
           gh release create "${CM_TAG}" \
-            --title "Graded ${CM_TAG}" \
+            --title "${CM_TAG}" \
+            --notes-file release_notes_gh.txt \
             build/app/outputs/apk/release/graded-${CM_TAG}.apk
     artifacts:
       - build/**/outputs/**/*.aab
@@ -59,7 +60,6 @@ workflows:
     cache:
       cache_paths:
         - $FLUTTER_ROOT/.pub-cache
-        - $HOME/.gradle/caches
         - $HOME/Library/Caches/CocoaPods
   ios-workflow:
     name: iOS Workflow
@@ -72,7 +72,7 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.NightDreamGames.Gradely
       vars:
-        APP_ID: 1111111111 # <-- Put your APP ID here
+        APP_ID: 6444681284
       flutter: stable
       xcode: latest
       cocoapods: default

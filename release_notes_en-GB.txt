@@ -1,0 +1,5 @@
+Version 2.1.6:
+You can now take a look at the precise average from a subject or a term by tapping in it!
+- Added the possibility tap on a result to show the precise result
+- Fixed a few layout bugs
+- Fixed some bugs
