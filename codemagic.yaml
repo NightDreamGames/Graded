@@ -28,10 +28,10 @@ workflows:
       - name: Flutter analyze
         script: |
           flutter analyze
-      - name: Build AAB with Flutter
-        script: |
-          flutter build appbundle --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      #   - name: Build AAB with Flutter
+      #     script: |
+      #       flutter build appbundle --release \
+      #         --build-number=$(($PROJECT_BUILD_NUMBER + 50))
       - name: Build APK with Flutter
         script: |
           flutter build apk --release \
