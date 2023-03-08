@@ -5,7 +5,7 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       android_signing:
-        - keystore_reference
+        - Graded
       groups:
         - google_play # <-- (Includes GCLOUD_SERVICE_ACCOUNT_CREDENTIALS)
       vars:
