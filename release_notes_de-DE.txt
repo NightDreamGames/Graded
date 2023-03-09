@@ -1,4 +1,3 @@
-Version 2.1.6:
 Sie können sich jetzt den genauen Durchschnitt eines Faches oder einer Periode ansehen, indem Sie darauf tippen!
 - Möglichkeit hinzugefügt, auf ein Resultat zu tippen, um das genaue Resultat anzuzeigen
 - Einige Layout-Fehler behoben
