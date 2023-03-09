@@ -42,14 +42,20 @@ workflows:
         script: |
           #!/usr/bin/env zsh
 
+        # Publish only for tag builds
+          if [ -z ${CM_TAG} ]; then
+            echo "Not a tag build, will not publish GitHub release"
+            exit 0
+          fi
+
           files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
 
           for str in ${files[@]}; do
-            { echo "Version ${str}:"; cat ${str}; } >${str}.new
+            { echo "Version ${CM_TAG}:"; cat ${str}; } >${str}.new
             mv $str{.new,}
+            cat $str
           done
 
-          cat release_notes_en-GB.txt
         # script: |
         #   #!/usr/bin/env zsh
 
