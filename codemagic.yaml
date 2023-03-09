@@ -42,9 +42,12 @@ workflows:
         script: |
           #!/usr/bin/env zsh
 
-          sed -i '1s/^/Version:\n/' release_notes_en-GB.txt
-          sed -i '1s/^/Version ${CM_TAG}:\n/' release_notes_fr-FR.txt
-          sed -i '1s/^/Version ${CM_TAG}:\n/' release_notes_de-DE.txt
+          files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
+
+          for str in ${files[@]}; do
+            { echo "Version ${str}:"; cat ${str}; } >${str}.new
+            mv $str{.new,}
+          done
 
           cat release_notes_en-GB.txt
         # script: |
