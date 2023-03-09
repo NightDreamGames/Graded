@@ -1,9 +1,9 @@
 workflows:
-  android-workflow:
+  android-workflow: &android
     name: Android Workflow
     max_build_duration: 15
     instance_type: mac_mini_m1
-    environment:
+    environment: &android_env
       android_signing:
         - Graded
       groups:
@@ -13,14 +13,7 @@ workflows:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         GOOGLE_PLAY_TRACK: "internal"
       flutter: stable
-    triggering:
-      events:
-        - tag
-      branch_patterns:
-        - pattern: "*"
-          include: true
-          source: true
-    scripts:
+    scripts: &android_scripts
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
@@ -34,6 +27,106 @@ workflows:
         script: |
           flutter build appbundle --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+    artifacts:
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/apk/release/*.apk
+      - build/**/outputs/**/mapping.txt
+    publishing:
+      email:
+        recipients:
+          - build@nightdreamgames.com
+        notify:
+          success: false
+          failure: true
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: $GOOGLE_PLAY_TRACK
+        submit_as_draft: false
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT/.pub-cache
+        - $HOME/Library/Caches/CocoaPods
+  ios-workflow: &ios
+    name: iOS Workflow
+    max_build_duration: 15
+    instance_type: mac_mini_m1
+    integrations:
+      app_store_connect: NightDream Games
+    environment: &ios_env
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.NightDreamGames.Gradely
+      vars:
+        APP_ID: 6444681284
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts: &ios_scripts
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+      - name: Install pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+      - name: Flutter build ipa and automatic versioning
+        script: |
+          flutter build ipa --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: false
+  release-workflow:
+    name: Release Workflow
+    max_build_duration: 30
+    instance_type: mac_mini_m1
+    triggering:
+      events:
+        - tag
+      branch_patterns:
+        - pattern: "*"
+          include: true
+          source: true
+    integrations:
+      app_store_connect: NightDream Games
+    environment:
+      <<: *ios_env
+      android_signing:
+        - Graded
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.NightDreamGames.Gradely
+      groups:
+        - gh-auth
+        - playstore-auth
+      vars:
+        PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
+        GOOGLE_PLAY_TRACK: "internal"
+        APP_ID: 6444681284
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+      - <<: *android_scripts
+      - <<: *ios_scripts
       - name: Build APK with Flutter
         script: |
           flutter build apk --release \
@@ -77,6 +170,8 @@ workflows:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/apk/release/*.apk
       - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
     publishing:
       email:
         recipients:
@@ -88,49 +183,11 @@ workflows:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: $GOOGLE_PLAY_TRACK
         submit_as_draft: false
-    cache:
-      cache_paths:
-        - $FLUTTER_ROOT/.pub-cache
-        - $HOME/Library/Caches/CocoaPods
-  ios-workflow:
-    name: iOS Workflow
-    max_build_duration: 15
-    instance_type: mac_mini_m1
-    integrations:
-      app_store_connect: NightDream Games
-    environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.NightDreamGames.Gradely
-      vars:
-        APP_ID: 6444681284
-      flutter: stable
-      xcode: latest
-      cocoapods: default
-    scripts:
-      - name: Set up code signing settings on Xcode project
-        script: |
-          xcode-project use-profiles
-      - name: Get Flutter packages
-        script: |
-          flutter packages pub get
-      - name: Install pods
-        script: |
-          find . -name "Podfile" -execdir pod install \;
-      - name: Flutter analyze
-        script: |
-          flutter analyze
-      - name: Flutter build ipa and automatic versioning
-        script: |
-          flutter build ipa --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
-            --export-options-plist=/Users/builder/export_options.plist
-    artifacts:
-      - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - flutter_drive.log
-    publishing:
       app_store_connect:
         auth: integration
         submit_to_testflight: false
         submit_to_app_store: false
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT/.pub-cache
+        - $HOME/Library/Caches/CocoaPods
