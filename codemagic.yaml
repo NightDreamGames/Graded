@@ -3,16 +3,12 @@ workflows:
     name: Base Workflow
     max_build_duration: 30
     instance_type: mac_mini_m1
-    integrations:
-      app_store_connect: NightDream Games
     environment:
       android_signing:
         - Graded
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.NightDreamGames.Gradely
-      groups:
-        - playstore-auth
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         APP_ID: 6444681284
@@ -71,6 +67,8 @@ workflows:
         - pattern: "*"
           include: true
           source: true
+    integrations:
+      app_store_connect: NightDream Games
     environment:
       groups:
         - gh-auth
@@ -127,6 +125,11 @@ workflows:
   internal-workflow:
     <<: *base
     name: Internal Workflow
+    integrations:
+      app_store_connect: NightDream Games
+    environment:
+      groups:
+        - playstore-auth
     publishing:
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
