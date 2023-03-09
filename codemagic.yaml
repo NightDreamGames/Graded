@@ -3,8 +3,6 @@ workflows:
     name: Base Workflow
     max_build_duration: 30
     instance_type: mac_mini_m1
-    integrations:
-      app_store_connect: NightDream Games
     environment:
       android_signing:
         - Graded
@@ -15,7 +13,6 @@ workflows:
         - playstore-auth
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
-        GOOGLE_PLAY_TRACK: "internal"
         APP_ID: 6444681284
       flutter: stable
       xcode: latest
@@ -75,6 +72,8 @@ workflows:
     environment:
       groups:
         - gh-auth
+    integrations:
+      app_store_connect: NightDream Games
     scripts:
       - name: Build APK with Flutter
         script: |
