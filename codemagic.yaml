@@ -8,6 +8,7 @@ workflows:
         - Graded
       groups:
         - gh-auth
+        - playstore-auth
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         GOOGLE_PLAY_TRACK: "internal"
@@ -57,6 +58,17 @@ workflows:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/apk/release/*.apk
       - build/**/outputs/**/mapping.txt
+    publishing:
+      email:
+        recipients:
+          - build@nightdreamgames.com
+        notify:
+          success: false
+          failure: true
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: $GOOGLE_PLAY_TRACK
+        submit_as_draft: false
     cache:
       cache_paths:
         - $FLUTTER_ROOT/.pub-cache
