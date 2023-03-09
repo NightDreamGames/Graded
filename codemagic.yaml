@@ -3,6 +3,8 @@ workflows:
     name: Base Workflow
     max_build_duration: 30
     instance_type: mac_mini_m1
+    integrations:
+      app_store_connect: NightDream Games
     environment:
       android_signing:
         - Graded
@@ -72,8 +74,6 @@ workflows:
     environment:
       groups:
         - gh-auth
-    integrations:
-      app_store_connect: NightDream Games
     scripts:
       - name: Build APK with Flutter
         script: |
