@@ -34,15 +34,15 @@ workflows:
       #  script: |
       #    flutter build appbundle --release \
       #      --build-number=$(($PROJECT_BUILD_NUMBER + 50))
-      - name: Build APK with Flutter
-        script: |
-          flutter build apk --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      # - name: Build APK with Flutter
+      #   script: |
+      #     flutter build apk --release \
+      #       --build-number=$(($PROJECT_BUILD_NUMBER + 50))
       - name: Create release notes
         script: |
           #!/usr/bin/env zsh
 
-          sed -i '1s/^/Version ${CM_TAG}:\n/' release_notes_en-GB.txt
+          sed -i '1s/^/Version:\n/' release_notes_en-GB.txt
           sed -i '1s/^/Version ${CM_TAG}:\n/' release_notes_fr-FR.txt
           sed -i '1s/^/Version ${CM_TAG}:\n/' release_notes_de-DE.txt
 
@@ -67,17 +67,17 @@ workflows:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/apk/release/*.apk
       - build/**/outputs/**/mapping.txt
-    publishing:
-      email:
-        recipients:
-          - build@nightdreamgames.com
-        notify:
-          success: false
-          failure: true
-      google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: $GOOGLE_PLAY_TRACK
-        submit_as_draft: false
+    # publishing:
+    #   email:
+    #     recipients:
+    #       - build@nightdreamgames.com
+    #     notify:
+    #       success: false
+    #       failure: true
+    #   google_play:
+    #     credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+    #     track: $GOOGLE_PLAY_TRACK
+    #     submit_as_draft: false
     cache:
       cache_paths:
         - $FLUTTER_ROOT/.pub-cache
