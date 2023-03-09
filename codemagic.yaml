@@ -56,7 +56,6 @@ workflows:
           for str in ${files[@]}; do
             { echo "Version ${CM_TAG}:"; cat ${str}; } >${str}.new
             mv $str{.new,}
-            cat $str
           done
       - name: Publish to GitHub
         script: |
@@ -98,7 +97,7 @@ workflows:
     max_build_duration: 15
     instance_type: mac_mini_m1
     integrations:
-      app_store_connect: codemagic
+      app_store_connect: BYBRLVVNK7
     environment:
       ios_signing:
         distribution_type: app_store
