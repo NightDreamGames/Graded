@@ -73,11 +73,34 @@ workflows:
           include: true
           source: true
     scripts:
-      - <<: *base_scripts
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Build AAB with Flutter
+        script: |
+          flutter build appbundle --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
       - name: Build APK with Flutter
         script: |
           flutter build apk --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+      - name: Install pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Build IPA with Flutter
+        script: |
+          flutter build ipa --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --export-options-plist=/Users/builder/export_options.plist
       - name: Create release notes
         script: |
           #!/usr/bin/env zsh
