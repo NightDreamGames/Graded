@@ -9,12 +9,17 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.NightDreamGames.Gradely
+      groups:
+        - gh-auth
+        - playstore-auth
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         APP_ID: 6444681284
       flutter: stable
       xcode: latest
       cocoapods: default
+    integrations:
+      app_store_connect: NightDream Games
     scripts:
       - name: Get Flutter packages
         script: |
@@ -67,12 +72,6 @@ workflows:
         - pattern: "*"
           include: true
           source: true
-    integrations:
-      app_store_connect: NightDream Games
-    environment:
-      groups:
-        - gh-auth
-        - playstore-auth
     scripts:
       - name: Build APK with Flutter
         script: |
@@ -125,11 +124,6 @@ workflows:
   internal-workflow:
     <<: *base
     name: Internal Workflow
-    integrations:
-      app_store_connect: NightDream Games
-    environment:
-      groups:
-        - playstore-auth
     publishing:
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
