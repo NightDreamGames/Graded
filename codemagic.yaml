@@ -3,7 +3,7 @@ workflows:
     name: Base Workflow
     max_build_duration: 30
     instance_type: mac_mini_m1
-    environment:
+    environment: &base_environment
       android_signing:
         - Graded
       ios_signing:
@@ -20,7 +20,7 @@ workflows:
       cocoapods: default
     integrations:
       app_store_connect: NightDream Games
-    scripts:
+    scripts: &base_scripts
       - name: Get Flutter packages
         script: |
           flutter packages pub get
@@ -51,7 +51,7 @@ workflows:
       - build/**/outputs/**/mapping.txt
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-    publishing:
+    publishing: &base_publishing
       email:
         recipients:
           - build@nightdreamgames.com
@@ -73,6 +73,7 @@ workflows:
           include: true
           source: true
     scripts:
+      - <<: *base_scripts
       - name: Build APK with Flutter
         script: |
           flutter build apk --release \
@@ -113,6 +114,7 @@ workflows:
             --notes-file release_notes_gh.txt \
             build/app/outputs/apk/release/graded-${CM_TAG}.apk
     publishing:
+      <<: *base_publishing
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: internal
@@ -125,6 +127,7 @@ workflows:
     <<: *base
     name: Internal Workflow
     publishing:
+      <<: *base_publishing
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: "internal"
