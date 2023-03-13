@@ -142,12 +142,12 @@ workflows:
       <<: *base_publishing
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: internal
+        track: production
         submit_as_draft: false
       app_store_connect:
         auth: integration
         submit_to_testflight: false
-        submit_to_app_store: false
+        submit_to_app_store: true
         cancel_previous_submissions: true
         release_type: AFTER_APPROVAL
   internal-workflow:
