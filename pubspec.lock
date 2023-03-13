@@ -189,10 +189,10 @@ packages:
     dependency: transitive
     description:
       name: excel
-      sha256: a637cecff4f20ff9c0e7d7b223af2ece252b8a31f018f9d46d4da88440c72c3c
+      sha256: "3b0751b14128f10e7bfde4e13cefb82e7c020006d1270efa82e138cb80605a99"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.4"
   fake_async:
     dependency: transitive
     description:
@@ -601,10 +601,10 @@ packages:
     dependency: "direct main"
     description:
       name: showcaseview
-      sha256: "333b0cce48c281ecdb929a3f85b8958e38da3fb7d26d2811a272201d9c94eef0"
+      sha256: d420ebe8dc6946814f492a9c9e476f7a7083fa1adf3ed0443ab92eedf1b1052c
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   sky_engine:
     dependency: transitive
     description: flutter
