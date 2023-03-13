@@ -15,11 +15,15 @@
 ### Quick Links
 
 [![](https://img.shields.io/badge/HOMEPAGE-316189?style=for-the-badge)](https://nightdreamgames.com "nightdreamgames.com")  
-<a href="https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
-<img src="https://user-images.githubusercontent.com/74767551/207097083-e375553d-ee3c-43fd-83e9-8389159a663e.png" title="Get it on Google Play" height="60">
+<a href="https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly">
+<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" title="Get it on Google Play" height="80">
 </a>
-<a href="https://apps.apple.com/us/app/graded-grade-tracker/id6444681284?itsct=apps_box_badge&itscg=30200">
-<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=200x80&releaseDate=1670803200?h=def57059473046f918fe9659af2338b3" title="Download on the App Store" height="60">
+<a href="https://apt.izzysoft.de/fdroid/index/apk/com.NightDreamGames.Grade.ly">
+<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" title="Get it on IzzyOnDroid" height="80">
+</a>
+
+<a href="https://apps.apple.com/us/app/graded-grade-tracker/id6444681284">
+<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us" title="Download on the App Store" height="60">
 </a>
 
 </div>
@@ -30,6 +34,7 @@
 
 - Android: Search for "Graded" on the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
 - iOS: Search for "Graded" on the [Apple App Store](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284)
+- From the [Releases Section on GitHub](https://github.com/NightDreamGames/Graded/releases/latest)
 - Web: Consideration
 
 ---
