@@ -1,0 +1,165 @@
+workflows:
+  base-workflow: &base
+    name: Base Workflow
+    max_build_duration: 30
+    instance_type: mac_mini_m1
+    environment: &base_environment
+      android_signing:
+        - Graded
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.NightDreamGames.Gradely
+      groups:
+        - gh-auth
+        - playstore-auth
+      vars:
+        PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
+        APP_ID: 6444681284
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    integrations:
+      app_store_connect: NightDream Games
+    scripts: &base_scripts
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Build AAB with Flutter
+        script: |
+          flutter build appbundle --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+      - name: Install pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Build IPA with Flutter
+        script: |
+          flutter build ipa --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/apk/release/*.apk
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing: &base_publishing
+      email:
+        recipients:
+          - build@nightdreamgames.com
+        notify:
+          success: false
+          failure: true
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT/.pub-cache
+        - $HOME/Library/Caches/CocoaPods
+  release-workflow:
+    <<: *base
+    name: Release Workflow
+    triggering:
+      events:
+        - tag
+      branch_patterns:
+        - pattern: "*"
+          include: true
+          source: true
+    scripts:
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+      - name: Flutter analyze
+        script: |
+          flutter analyze
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Build AAB with Flutter
+        script: |
+          flutter build appbundle --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      - name: Build APK with Flutter
+        script: |
+          flutter build apk --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+      - name: Install pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Build IPA with Flutter
+        script: |
+          flutter build ipa --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --export-options-plist=/Users/builder/export_options.plist
+      - name: Create release notes
+        script: |
+          #!/usr/bin/env zsh
+
+          files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
+
+          # Publish only for tag builds
+          if [ -z ${CM_TAG} ]; then
+            echo "Not a tag build, will not publish GitHub release"
+            for file in "${files[@]}"; do
+              rm -f "$file"
+            done
+            exit 0
+          fi
+
+          for file in ${files[@]}; do
+            { echo "Version ${CM_TAG}:"; cat ${file}; } >${file}.new
+            mv $file{.new,}
+            cat $file
+            echo
+          done
+      - name: Publish to GitHub
+        script: |
+          #!/usr/bin/env zsh
+
+          # Publish only for tag builds
+          if [ -z ${CM_TAG} ]; then
+            echo "Not a tag build, will not publish GitHub release"
+            exit 0
+          fi
+
+          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${CM_TAG}.apk
+
+          gh release create "${CM_TAG}" \
+            --title "${CM_TAG}" \
+            --notes-file release_notes_gh.txt \
+            build/app/outputs/apk/release/graded-${CM_TAG}.apk
+    publishing:
+      <<: *base_publishing
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: internal
+        submit_as_draft: false
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: false
+        cancel_previous_submissions: true
+        release_type: AFTER_APPROVAL
+  internal-workflow:
+    <<: *base
+    name: Internal Workflow
+    publishing:
+      <<: *base_publishing
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: "internal"
+        submit_as_draft: false
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: false
