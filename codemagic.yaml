@@ -21,6 +21,10 @@ workflows:
     integrations:
       app_store_connect: NightDream Games
     scripts: &base_scripts
+      - name: Remove problematic folders
+        script: |
+          rm -rf .flutter
+          rm -rf fastlane
       - name: Get Flutter packages
         script: |
           flutter packages pub get
@@ -73,6 +77,10 @@ workflows:
           include: true
           source: true
     scripts:
+      - name: Remove problematic folders
+        script: |
+          rm -rf .flutter
+          rm -rf fastlane
       - name: Get Flutter packages
         script: |
           flutter packages pub get
