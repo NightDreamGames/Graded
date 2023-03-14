@@ -1,4 +1,3 @@
-Sie können sich jetzt den genauen Durchschnitt eines Faches oder einer Periode ansehen, indem Sie darauf tippen!
-- Möglichkeit hinzugefügt, auf ein Resultat zu tippen, um das genaue Resultat anzuzeigen
-- Einige Layout-Fehler behoben
+Diese Version enthält einige UI-Korrekturen und Optimierungen
+- Behebung verschiedener Probleme bei der Anzeige von Dezimalzahlen
 - Behebung von einigen Bugs

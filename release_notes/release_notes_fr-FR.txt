@@ -1,4 +1,3 @@
-Vous pouvez désormais jeter un coup d'œil à la moyenne précise d'une matière ou d'une période en tapant dessus !
-- Ajout de la possibilité de taper sur un résultat pour afficher le résultat précis
-- Correction de quelques bugs de mise en page
+Cette version inclut quelques corrections et optimisations de l'interface utilisateur
+- Correction de divers problèmes liés à l'affichage des nombres décimaux
 - Correction de plusieurs bugs

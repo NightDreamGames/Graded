@@ -1,4 +1,5 @@
-### You can now take a look at the precise average from a subject or a term by tapping in it!
-- Added the possibility tap on a result to show the precise result
-- Fixed a few layout bugs
+### This release includes some UI fixes and optimizations
+- Fix various issues whith displaying decimal numbers
+- Code cleanup
+- Implemented CI for automated publishing
 - Fixed some bugs
