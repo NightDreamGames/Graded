@@ -86,18 +86,14 @@ class Calculator {
 
     double result = totalNumerator * (getPreference<double>("total_grades") / totalDenominator) + bonus;
 
-    if (!empty) {
-      return round(result, roundToOverride: precise ? 100 : null);
-    } else {
-      return null;
-    }
+    return empty ? null : round(result, roundToOverride: precise ? 100 : null);
   }
 
-  static double round(double number, {int? roundToOverride}) {
+  static double round(double n, {int? roundToOverride}) {
     String roundingMode = getPreference<String>("rounding_mode");
     int roundTo = roundToOverride ?? getPreference<int>("round_to");
 
-    double a = number * roundTo;
+    double a = n * roundTo;
 
     if (roundingMode == RoundingMode.up) {
       return a.ceilToDouble() / roundTo;
@@ -105,7 +101,7 @@ class Calculator {
       return a.floorToDouble() / roundTo;
     } else {
       double i = a.floorToDouble();
-      double f = number - i;
+      double f = n - i;
 
       if (roundingMode == RoundingMode.halfUp) {
         return (f < 0.5 ? i : i + 1) / roundTo;
@@ -114,7 +110,7 @@ class Calculator {
       }
     }
 
-    return number;
+    return n;
   }
 
   static double? tryParse(String? input) {
@@ -122,20 +118,25 @@ class Calculator {
     return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
   }
 
-  static String format(double? d, {bool ignoreZero = false, int? roundToOverride}) {
-    if (d == null) {
+  static String format(double? n, {bool addZero = true, bool round = true, int? roundToOverride}) {
+    if (n == null) {
       return "-";
     }
 
-    int roundTo = roundToOverride ?? getPreference<int>("round_to");
-    if (roundTo > 1) ignoreZero = true;
+    String result;
 
-    String result = d.toStringAsFixed(log(roundTo) ~/ log(10));
-
-    if (!ignoreZero && d > 0 && d < 10 && d % 1 == 0) {
-      result = "0$result";
+    int decimals = log(roundToOverride ?? getPreference<int>("round_to")) ~/ log(10);
+    if (!round) {
+      if (n % 1 != 0) {
+        decimals = max(n.toString().split('.')[1].length, decimals);
+      }
     }
 
+    result = n.toStringAsFixed(decimals);
+
+    if (addZero && decimals == 0 && n > 0 && n < 10) {
+      result = "0$result";
+    }
     return result;
   }
 }

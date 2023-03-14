@@ -167,16 +167,16 @@ class SetupManager {
       setPreference<String>("validated_lux_system", getPreference<String>("lux_system"));
       setPreference<int>("validated_year", getPreference<int>("year"));
 
-      if (!hasSections()) {
-        setPreference<String>("section", defaultValues["section"]);
-      } else {
+      if (hasSections()) {
         setPreference<String>("validated_section", getPreference<String>("section"));
+      } else {
+        setPreference<String>("section", defaultValues["section"]);
       }
 
-      if (!hasVariants() || getVariants()[getPreference<String>("variant")] == null) {
-        setPreference<String>("variant", defaultValues["variant"]);
-      } else {
+      if (hasVariants() && getVariants()[getPreference<String>("variant")] != null) {
         setPreference<String>("validated_variant", getPreference<String>("variant"));
+      } else {
+        setPreference<String>("variant", defaultValues["variant"]);
       }
 
       if (getPreference<int>("year") == 1) {

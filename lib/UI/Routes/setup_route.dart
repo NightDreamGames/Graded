@@ -76,7 +76,6 @@ class _SetupPageState extends State<SetupPage> {
                       if (value) {
                         setPreference<bool>("is_first_run", false);
 
-                        // ignore: use_build_context_synchronously
                         if (!context.mounted) return;
                         if (widget.dismissible) {
                           Navigator.popUntil(context, ModalRoute.withName("/"));

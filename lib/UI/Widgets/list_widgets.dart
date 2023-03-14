@@ -252,7 +252,7 @@ class _SubjectTileState extends State<SubjectTile> {
 
   @override
   Widget build(BuildContext context) {
-    String coefficientString = Calculator.format(widget.s.coefficient, ignoreZero: true);
+    String coefficientString = Calculator.format(widget.s.coefficient, addZero: false);
 
     showTutorial();
 

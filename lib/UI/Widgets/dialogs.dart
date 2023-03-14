@@ -111,10 +111,12 @@ class EasyDialogState extends State<EasyDialog> {
       return false;
     }
 
-    if (!submitText()) {
-      closeDialog = false;
-    } else if (widget.onConfirm != null) {
-      closeDialog = widget.onConfirm!.call();
+    if (submitText()) {
+      if (widget.onConfirm != null) {
+        closeDialog = widget.onConfirm!.call();
+      } else {
+        closeDialog = false;
+      }
     }
 
     if (closeDialog) {
@@ -131,8 +133,8 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
   nameController.clear();
 
   bool add = index == null;
-  gradeController.text = add ? "" : Calculator.format(subject.tests[index].numerator, ignoreZero: true);
-  maximumController.text = add ? "" : Calculator.format(subject.tests[index].denominator, ignoreZero: true);
+  gradeController.text = add ? "" : Calculator.format(subject.tests[index].numerator, addZero: false, round: false);
+  maximumController.text = add ? "" : Calculator.format(subject.tests[index].denominator, addZero: false, round: false);
   nameController.text = add ? "" : subject.tests[index].name;
 
   return showDialog(
@@ -231,7 +233,7 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
       : index2 == null
           ? Manager.termTemplate[index]
           : Manager.termTemplate[index].children[index2];
-  coeffController.text = add ? "" : Calculator.format(subject.coefficient, ignoreZero: true);
+  coeffController.text = add ? "" : Calculator.format(subject.coefficient, addZero: false);
   nameController.text = add ? "" : subject.name;
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
