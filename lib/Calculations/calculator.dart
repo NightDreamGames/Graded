@@ -89,24 +89,24 @@ class Calculator {
     return empty ? null : round(result, roundToOverride: precise ? 100 : null);
   }
 
-  static double round(double n, {int? roundToOverride}) {
-    String roundingMode = getPreference<String>("rounding_mode");
+  static double round(double n, {String? roundingModeOverride, int? roundToOverride}) {
+    String roundingMode = roundingModeOverride ?? getPreference<String>("rounding_mode");
     int roundTo = roundToOverride ?? getPreference<int>("round_to");
 
-    double a = n * roundTo;
+    double round = n * roundTo;
 
     if (roundingMode == RoundingMode.up) {
-      return a.ceilToDouble() / roundTo;
+      return round.ceilToDouble() / roundTo;
     } else if (roundingMode == RoundingMode.down) {
-      return a.floorToDouble() / roundTo;
+      return round.floorToDouble() / roundTo;
     } else {
-      double i = a.floorToDouble();
-      double f = n - i;
+      double base = round.floorToDouble();
+      double decimals = n - base;
 
       if (roundingMode == RoundingMode.halfUp) {
-        return (f < 0.5 ? i : i + 1) / roundTo;
+        return (decimals < 0.5 ? base : base + 1) / roundTo;
       } else if (roundingMode == RoundingMode.halfDown) {
-        return (f <= 0.5 ? i : i + 1) / roundTo;
+        return (decimals <= 0.5 ? base : base + 1) / roundTo;
       }
     }
 
@@ -125,14 +125,14 @@ class Calculator {
 
     String result;
 
-    int decimals = log(roundToOverride ?? getPreference<int>("round_to")) ~/ log(10);
+    int nbDecimals = log(roundToOverride ?? getPreference<int>("round_to")) ~/ log(10);
     if (n % 1 != 0) {
-      decimals = max(n.toString().split('.')[1].length, decimals);
+      nbDecimals = max(n.toString().split('.')[1].length, nbDecimals);
     }
 
-    result = n.toStringAsFixed(decimals);
+    result = n.toStringAsFixed(nbDecimals);
 
-    if (addZero && decimals == 0 && n > 0 && n < 10) {
+    if (addZero && nbDecimals == 0 && n > 0 && n < 10) {
       result = "0$result";
     }
     return result;
