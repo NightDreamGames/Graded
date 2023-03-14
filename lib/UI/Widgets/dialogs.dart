@@ -133,8 +133,8 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
   nameController.clear();
 
   bool add = index == null;
-  gradeController.text = add ? "" : Calculator.format(subject.tests[index].numerator, addZero: false, round: false);
-  maximumController.text = add ? "" : Calculator.format(subject.tests[index].denominator, addZero: false, round: false);
+  gradeController.text = add ? "" : Calculator.format(subject.tests[index].numerator, addZero: false);
+  maximumController.text = add ? "" : Calculator.format(subject.tests[index].denominator, addZero: false);
   nameController.text = add ? "" : subject.tests[index].name;
 
   return showDialog(

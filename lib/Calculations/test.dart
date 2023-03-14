@@ -18,7 +18,7 @@ class Test extends CalculationObject {
   @override
   String toString() {
     if (result != null) {
-      return "${Calculator.format(numerator, round: false)}/${Calculator.format(denominator, round: false)}";
+      return "${Calculator.format(numerator)}/${Calculator.format(denominator)}";
     } else {
       return "-";
     }
@@ -29,7 +29,7 @@ class Test extends CalculationObject {
     if (result == null) {
       return "-";
     } else {
-      return Calculator.format(result, round: false);
+      return Calculator.format(result);
     }
   }
 

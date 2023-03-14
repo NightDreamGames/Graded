@@ -118,7 +118,7 @@ class Calculator {
     return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
   }
 
-  static String format(double? n, {bool addZero = true, bool round = true, int? roundToOverride}) {
+  static String format(double? n, {bool addZero = true, int? roundToOverride}) {
     if (n == null) {
       return "-";
     }
@@ -126,10 +126,8 @@ class Calculator {
     String result;
 
     int decimals = log(roundToOverride ?? getPreference<int>("round_to")) ~/ log(10);
-    if (!round) {
-      if (n % 1 != 0) {
-        decimals = max(n.toString().split('.')[1].length, decimals);
-      }
+    if (n % 1 != 0) {
+      decimals = max(n.toString().split('.')[1].length, decimals);
     }
 
     result = n.toStringAsFixed(decimals);
