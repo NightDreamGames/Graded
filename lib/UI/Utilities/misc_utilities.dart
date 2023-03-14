@@ -4,6 +4,10 @@ import 'dart:io' show Platform;
 // Package imports:
 import 'package:url_launcher/url_launcher.dart';
 
+enum MenuAction { add, edit, delete }
+
+enum Link { website, store, github, email }
+
 String? encodeQueryParameters(Map<String, String> params) {
   return params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
 }
@@ -21,14 +25,14 @@ final Uri emailLaunchUri = Uri(
   }),
 );
 
-void launchURL(int type) async {
+void launchURL(Link type) async {
   Uri link = websiteLaunchUri;
 
   switch (type) {
-    case 0:
+    case Link.website:
       link = websiteLaunchUri;
       break;
-    case 1:
+    case Link.store:
       if (Platform.isAndroid) {
         link = playStoreLaunchUri;
       } else if (Platform.isIOS) {
@@ -37,10 +41,10 @@ void launchURL(int type) async {
         link = websiteLaunchUri;
       }
       break;
-    case 2:
+    case Link.github:
       link = githubLaunchUri;
       break;
-    case 3:
+    case Link.email:
       link = emailLaunchUri;
       break;
   }

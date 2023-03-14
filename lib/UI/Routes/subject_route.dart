@@ -11,6 +11,7 @@ import '../../Calculations/subject.dart';
 import '../../Calculations/term.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
+import '../Utilities/misc_utilities.dart';
 import '../Widgets/dialogs.dart';
 import '../Widgets/list_widgets.dart';
 import '../Widgets/misc_widgets.dart';
@@ -177,9 +178,9 @@ class _SubjectRouteState extends State<SubjectRoute> {
                     onTap: () async {
                       if (Manager.currentTerm != -1) {
                         showListMenu(context, listKey).then((result) {
-                          if (result == "edit") {
+                          if (result == MenuAction.edit) {
                             showTestDialog(context, subject, nameController, gradeController, maximumController, index: index).then((_) => rebuild());
-                          } else if (result == "delete") {
+                          } else if (result == MenuAction.delete) {
                             subject.removeTest(index);
                             rebuild();
                           }

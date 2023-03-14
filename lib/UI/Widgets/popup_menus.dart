@@ -6,6 +6,7 @@ import '../../Calculations/calculator.dart';
 import '../../Calculations/manager.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
+import '../Utilities/misc_utilities.dart';
 
 class TermSelector extends StatelessWidget {
   const TermSelector({Key? key, required this.rebuild}) : super(key: key);
@@ -202,7 +203,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
   }
 }
 
-Future<String?> showListMenu(BuildContext context, GlobalKey listKey) async {
+Future<MenuAction?> showListMenu(BuildContext context, GlobalKey listKey) async {
   RenderBox box = listKey.currentContext?.findRenderObject() as RenderBox;
   Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
 
@@ -211,8 +212,8 @@ Future<String?> showListMenu(BuildContext context, GlobalKey listKey) async {
     color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
     position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
     items: [
-      PopupMenuItem<String>(value: "edit", child: Text(Translations.edit)),
-      PopupMenuItem<String>(value: "delete", child: Text(Translations.delete)),
+      PopupMenuItem<MenuAction>(value: MenuAction.edit, child: Text(Translations.edit)),
+      PopupMenuItem<MenuAction>(value: MenuAction.delete, child: Text(Translations.delete)),
     ],
   );
 }

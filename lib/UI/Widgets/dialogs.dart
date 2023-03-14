@@ -10,6 +10,7 @@ import '../../Calculations/test.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
 import '../Utilities/hints.dart';
+import '../Utilities/misc_utilities.dart';
 import '/UI/Settings/flutter_settings_screens.dart';
 import 'easy_form_field.dart';
 
@@ -132,10 +133,12 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
   maximumController.clear();
   nameController.clear();
 
-  bool add = index == null;
-  gradeController.text = add ? "" : Calculator.format(subject.tests[index].numerator, addZero: false);
-  maximumController.text = add ? "" : Calculator.format(subject.tests[index].denominator, addZero: false);
-  nameController.text = add ? "" : subject.tests[index].name;
+  MenuAction action = index == null ? MenuAction.add : MenuAction.edit;
+
+  index == null;
+  gradeController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].numerator, addZero: false) : "";
+  maximumController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].denominator, addZero: false) : "";
+  nameController.text = action == MenuAction.edit ? subject.tests[index!].name : "";
 
   return showDialog(
     context: context,
@@ -145,17 +148,17 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
 
       return EasyDialog(
         key: dialogKey,
-        title: add ? Translations.add_test : Translations.edit_test,
-        icon: add ? Icons.add : Icons.edit,
+        title: action == MenuAction.add ? Translations.add_test : Translations.edit_test,
+        icon: action == MenuAction.add ? Icons.add : Icons.edit,
         onConfirm: () {
           String name = nameController.text.isEmpty ? getHint(Translations.test, subject.tests) : nameController.text;
           double numerator = Calculator.tryParse(gradeController.text) ?? 1;
           double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
-          if (add) {
+          if (action == MenuAction.add) {
             subject.addTest(Test(numerator, denominator, name));
           } else {
-            subject.editTest(index, numerator, denominator, name);
+            subject.editTest(index!, numerator, denominator, name);
           }
 
           return true;
@@ -226,15 +229,15 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
   coeffController.clear();
   nameController.clear();
 
-  bool add = index == null;
+  MenuAction action = index == null ? MenuAction.add : MenuAction.edit;
 
-  Subject subject = add
+  Subject subject = action == MenuAction.add
       ? Subject("empty", 0)
       : index2 == null
-          ? Manager.termTemplate[index]
-          : Manager.termTemplate[index].children[index2];
-  coeffController.text = add ? "" : Calculator.format(subject.coefficient, addZero: false);
-  nameController.text = add ? "" : subject.name;
+          ? Manager.termTemplate[index!]
+          : Manager.termTemplate[index!].children[index2];
+  coeffController.text = action == MenuAction.edit ? Calculator.format(subject.coefficient, addZero: false) : "";
+  nameController.text = action == MenuAction.edit ? subject.name : "";
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
   FocusNode focusNode = FocusNode();
@@ -244,13 +247,13 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
     builder: (context) {
       return EasyDialog(
         key: dialogKey,
-        title: add ? Translations.add_subject : Translations.edit_subject,
-        icon: add ? Icons.add : Icons.edit,
+        title: action == MenuAction.add ? Translations.add_subject : Translations.edit_subject,
+        icon: action == MenuAction.add ? Icons.add : Icons.edit,
         onConfirm: () {
           String name = nameController.text.isEmpty ? getHint(Translations.subject, Manager.termTemplate) : nameController.text;
           double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
-          if (add) {
+          if (action == MenuAction.add) {
             Manager.termTemplate.add(Subject(name, coefficient));
 
             for (Term t in Manager.getCurrentYear().terms) {
@@ -294,11 +297,11 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
                   if (Manager.termTemplate.any((element) {
-                    if (!add && element == subject) {
+                    if (action == MenuAction.edit && element == subject) {
                       return false;
                     }
                     if (element.children.any((child) {
-                      if (!add && child == subject) {
+                      if (action == MenuAction.edit && child == subject) {
                         return false;
                       }
                       return child.name == newValue;

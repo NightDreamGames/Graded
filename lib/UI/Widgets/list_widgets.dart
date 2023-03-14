@@ -11,6 +11,7 @@ import '../../Calculations/subject.dart';
 import '../../Calculations/term.dart';
 import '../../Misc/storage.dart';
 import '../../Translations/translations.dart';
+import '../Utilities/misc_utilities.dart';
 import 'dialogs.dart';
 import 'popup_menus.dart';
 
@@ -328,11 +329,11 @@ class _SubjectTileState extends State<SubjectTile> {
         ),
         onTap: () async {
           showListMenu(context, widget.listKey).then((result) {
-            if (result == "edit") {
+            if (result == MenuAction.edit) {
               showSubjectDialog(context, widget.nameController, widget.coeffController,
                       index: widget.index1, index2: widget.s.isChild ? widget.index2 : null)
                   .then((_) => widget.rebuild());
-            } else if (result == "delete") {
+            } else if (result == MenuAction.delete) {
               var parent = Manager.termTemplate[widget.index1];
               Manager.sortAll(sortModeOverride: SortMode.name);
               int newIndex = Manager.termTemplate.indexOf(parent);
