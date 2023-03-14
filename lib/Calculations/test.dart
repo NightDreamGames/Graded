@@ -18,7 +18,7 @@ class Test extends CalculationObject {
   @override
   String toString() {
     if (result != null) {
-      return "${Calculator.format(numerator)}/${Calculator.format(denominator)}";
+      return "${Calculator.format(numerator)}/${Calculator.format(denominator, roundToOverride: 1)}";
     } else {
       return "-";
     }

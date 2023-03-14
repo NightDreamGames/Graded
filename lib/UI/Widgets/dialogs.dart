@@ -137,7 +137,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
 
   index == null;
   gradeController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].numerator, addZero: false) : "";
-  maximumController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].denominator, addZero: false) : "";
+  maximumController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].denominator, addZero: false, roundToOverride: 1) : "";
   nameController.text = action == MenuAction.edit ? subject.tests[index!].name : "";
 
   return showDialog(
@@ -203,7 +203,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                     focusNode: focusNode,
                     controller: maximumController,
                     label: Translations.maximum,
-                    hint: Calculator.format(getPreference<double>("total_grades")),
+                    hint: Calculator.format(getPreference<double>("total_grades"), roundToOverride: 1),
                     numeric: true,
                     onSubmitted: () {
                       maximumController.clearComposing();
@@ -236,7 +236,7 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
       : index2 == null
           ? Manager.termTemplate[index!]
           : Manager.termTemplate[index!].children[index2];
-  coeffController.text = action == MenuAction.edit ? Calculator.format(subject.coefficient, addZero: false) : "";
+  coeffController.text = action == MenuAction.edit ? Calculator.format(subject.coefficient, addZero: false, roundToOverride: 1) : "";
   nameController.text = action == MenuAction.edit ? subject.name : "";
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();

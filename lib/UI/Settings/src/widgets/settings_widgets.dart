@@ -588,7 +588,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
   void _onSave(String? newValue, OnChanged<String> onChanged) {
     if (newValue == null) return;
-    newValue = Calculator.format(Calculator.tryParse(newValue), addZero: false).toString();
+    newValue = Calculator.format(Calculator.tryParse(newValue), addZero: false, roundToOverride: 1).toString();
     _controller.text = newValue;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onChanged(newValue!);
