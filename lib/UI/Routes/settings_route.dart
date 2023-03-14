@@ -144,7 +144,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       icon: CustomIcons.graded,
                       title: Translations.app_name,
                       subtitle: Translations.about_text,
-                      onTap: () => launchURL(0),
+                      onTap: () => launchURL(Link.website),
                     ),
                     FutureBuilder(
                       builder: (context, snapshot) {
@@ -152,7 +152,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           icon: Icons.info_outline,
                           title: Translations.app_version,
                           subtitle: snapshot.data as String? ?? "2.0.0",
-                          onTap: () => launchURL(1),
+                          onTap: () => launchURL(Link.store),
                         );
                       },
                       future: PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
@@ -163,13 +163,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       icon: CustomIcons.github,
                       title: Translations.github,
                       subtitle: Translations.github_summary,
-                      onTap: () => launchURL(2),
+                      onTap: () => launchURL(Link.github),
                     ),
                     SimpleSettingsTile(
                       icon: Icons.feedback_outlined,
                       title: Translations.send_feedback,
                       subtitle: Translations.email,
-                      onTap: () => launchURL(3),
+                      onTap: () => launchURL(Link.email),
                     ),
                   ],
                 ),
