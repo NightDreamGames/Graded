@@ -1,0 +1,4 @@
+Version 2.1.7:
+Cette version inclut quelques corrections et optimisations de l'interface utilisateur
+- Correction de divers problèmes liés à l'affichage des nombres décimaux
+- Correction de plusieurs bugs
