@@ -89,8 +89,7 @@ workflows:
           #!/usr/bin/env zsh
 
           perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
-          git submodule update --init
-          git submodule update --remote
+          git submodule foreach git pull origin stable
 
           files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
 
@@ -104,9 +103,9 @@ workflows:
           mkdir -p fastlane/metadata/android/fr-FR/changelogs
           mkdir -p fastlane/metadata/android/de-DE/changelogs
 
-          cp release_notes_en-GB.txt fastlane/metadata/en-US/changelogs/$BUILD_NUMBER.txt
-          cp release_notes_fr-FR.txt fastlane/metadata/fr-FR/changelogs/$BUILD_NUMBER.txt
-          cp release_notes_de-DE.txt fastlane/metadata/de-DE/changelogs/$BUILD_NUMBER.txt
+          cp release_notes_en-GB.txt fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt
+          cp release_notes_fr-FR.txt fastlane/metadata/android/fr-FR/changelogs/$BUILD_NUMBER.txt
+          cp release_notes_de-DE.txt fastlane/metadata/android/de-DE/changelogs/$BUILD_NUMBER.txt
       - name: Commit versioning changes
         script: |
           gh auth setup-git
