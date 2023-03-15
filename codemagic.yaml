@@ -89,7 +89,7 @@ workflows:
           #!/usr/bin/env zsh
 
           perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
-          git pull --recurse-submodules
+          git submodule update --init
           git submodule update --remote
 
           files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
@@ -100,9 +100,9 @@ workflows:
             echo; echo
           done
 
-          mkdir fastlane/metadata/en-US/changelogs
-          mkdir fastlane/metadata/fr-FR/changelogs
-          mkdir fastlane/metadata/de-DE/changelogs
+          mkdir -p fastlane/metadata/android/en-US/changelogs
+          mkdir -p fastlane/metadata/android/fr-FR/changelogs
+          mkdir -p fastlane/metadata/android/de-DE/changelogs
 
           cp release_notes_en-GB.txt fastlane/metadata/en-US/changelogs/$BUILD_NUMBER.txt
           cp release_notes_fr-FR.txt fastlane/metadata/fr-FR/changelogs/$BUILD_NUMBER.txt
