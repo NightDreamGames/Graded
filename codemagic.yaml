@@ -69,35 +69,59 @@ workflows:
   release-workflow:
     <<: *base
     name: Release Workflow
-    triggering:
-      events:
-        - tag
-      branch_patterns:
-        - pattern: "*"
-          include: true
-          source: true
     scripts:
-      - name: Remove problematic folders
+      - name: Set up environment variables
         script: |
-          rm -rf .flutter
-          rm -rf fastlane
+          file=$(cat pubspec.yaml)
+          fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
+          export BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
+          export BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER+50))
+          echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
       - name: Get Flutter packages
         script: |
           flutter packages pub get
       - name: Flutter analyze
         script: |
           flutter analyze
+      - name: Automatic versioning
+        script: |
+          #!/usr/bin/env zsh
+
+          perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
+          git submodule update --remote
+
+          files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
+
+          for file in ${files[@]}; do
+            { echo "Version ${BUILD_NAME}:"; cat release_notes/${file}; } >${file}
+            cat $file
+            echo; echo
+          done
+
+          cp release_notes_en-GB.txt fastlane/metadata/en-US/changelogs/$BUILD_NUMBER.txt
+          cp release_notes_fr-FR.txt fastlane/metadata/fr-FR/changelogs/$BUILD_NUMBER.txt
+          cp release_notes_de-DE.txt fastlane/metadata/de-DE/changelogs/$BUILD_NUMBER.txt
+      - name: Commit versioning changes
+        script: |
+          gh auth setup-git
+          git add --all
+          git commit -m "Versioning changes for ${BUILD_NAME}"
+          git push
+      - name: Remove problematic folders
+        script: |
+          rm -rf .flutter
+          rm -rf fastlane
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
       - name: Build AAB with Flutter
         script: |
           flutter build appbundle --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+            --build-number=$BUILD_NUMBER
       - name: Build APK with Flutter
         script: |
           flutter build apk --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+            --build-number=$BUILD_NUMBER
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
@@ -109,53 +133,30 @@ workflows:
           flutter build ipa --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
             --export-options-plist=/Users/builder/export_options.plist
-      - name: Create release notes
-        script: |
-          #!/usr/bin/env zsh
-
-          files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
-
-          # Publish only for tag builds
-          if [ -z ${CM_TAG} ]; then
-            echo "Not a tag build, will not publish GitHub release"
-            exit 0
-          fi
-
-          for file in ${files[@]}; do
-            { echo "Version ${CM_TAG}:"; cat release_notes/${file}; } >${file}
-            cat $file
-            echo; echo
-          done
       - name: Publish to GitHub
         script: |
           #!/usr/bin/env zsh
 
-          # Publish only for tag builds
-          if [ -z ${CM_TAG} ]; then
-            echo "Not a tag build, will not publish GitHub release"
-            exit 0
-          fi
+          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
+          mv build/ios/ipa/Graded.ipa build/ios/ipa/graded-${BUILD_NAME}.ipa
 
-          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${CM_TAG}.apk
-          mv build/ios/ipa/Graded.ipa build/ios/ipa/graded-${CM_TAG}.ipa
-
-          gh release create "${CM_TAG}" \
-            --title "${CM_TAG}" \
+          gh release create "${BUILD_NAME}" \
+            --title "${BUILD_NAME}" \
             --notes-file release_notes/release_notes_gh.txt \
-            build/app/outputs/apk/release/graded-${CM_TAG}.apk \
-            build/ios/ipa/graded-${CM_TAG}.ipa
-    publishing:
-      <<: *base_publishing
-      google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: production
-        submit_as_draft: false
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: false
-        submit_to_app_store: true
-        cancel_previous_submissions: true
-        release_type: AFTER_APPROVAL
+            build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
+            build/ios/ipa/graded-${BUILD_NAME}.ipa
+  #  publishing:
+  #    <<: *base_publishing
+  #    google_play:
+  #      credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+  #      track: production
+  #      submit_as_draft: false
+  #    app_store_connect:
+  #      auth: integration
+  #      submit_to_testflight: false
+  #      submit_to_app_store: true
+  #      cancel_previous_submissions: true
+  #      release_type: AFTER_APPROVAL
   internal-workflow:
     <<: *base
     name: Internal Workflow
