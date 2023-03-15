@@ -74,8 +74,9 @@ workflows:
         script: |
           file=$(cat pubspec.yaml)
           fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
-          export BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
-          export BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER+50))
+          echo "BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)" >> $CM_ENV
+          echo "BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER+50))" >> $CM_ENV
+
           echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
       - name: Get Flutter packages
         script: |
@@ -88,6 +89,7 @@ workflows:
           #!/usr/bin/env zsh
 
           perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
+          git pull --recurse-submodules
           git submodule update --remote
 
           files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
@@ -97,6 +99,10 @@ workflows:
             cat $file
             echo; echo
           done
+
+          mkdir fastlane/metadata/en-US/changelogs
+          mkdir fastlane/metadata/fr-FR/changelogs
+          mkdir fastlane/metadata/de-DE/changelogs
 
           cp release_notes_en-GB.txt fastlane/metadata/en-US/changelogs/$BUILD_NUMBER.txt
           cp release_notes_fr-FR.txt fastlane/metadata/fr-FR/changelogs/$BUILD_NUMBER.txt
