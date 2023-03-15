@@ -1,0 +1,4 @@
+Version 2.1.8:
+This release includes some UI fixes and optimizations
+- Fix various issues with displaying decimal numbers
+- Fixed some bugs
