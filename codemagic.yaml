@@ -153,18 +153,18 @@ workflows:
             --notes-file release_notes/release_notes_gh.txt \
             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
             build/ios/ipa/graded-${BUILD_NAME}.ipa
-  #  publishing:
-  #    <<: *base_publishing
-  #    google_play:
-  #      credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-  #      track: production
-  #      submit_as_draft: false
-  #    app_store_connect:
-  #      auth: integration
-  #      submit_to_testflight: false
-  #      submit_to_app_store: true
-  #      cancel_previous_submissions: true
-  #      release_type: AFTER_APPROVAL
+    publishing:
+      <<: *base_publishing
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: production
+        submit_as_draft: false
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: true
+        cancel_previous_submissions: true
+        release_type: AFTER_APPROVAL
   internal-workflow:
     <<: *base
     name: Internal Workflow
