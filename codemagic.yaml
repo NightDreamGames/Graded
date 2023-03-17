@@ -81,7 +81,8 @@ workflows:
       - name: Check version number
         script: |
           if [ $(git tag -l "$BUILD_NAME") ]; then
-              (exit 42); echo "$?"
+              echo "Version $BUILD_NAME already exists"
+              exit 1
           fi
       - name: Get Flutter packages
         script: |
