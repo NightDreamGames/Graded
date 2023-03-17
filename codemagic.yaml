@@ -78,6 +78,11 @@ workflows:
           echo "BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER+50))" >> $CM_ENV
 
           echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
+      - name: Check version number
+        script: |
+          if [ $(git tag -l "$BUILD_NAME") ]; then
+              (exit 42); echo "$?"
+          fi
       - name: Get Flutter packages
         script: |
           flutter packages pub get
