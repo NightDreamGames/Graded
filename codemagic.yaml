@@ -34,7 +34,7 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Build AAB with Flutter
+      - name: Build AAB
         script: |
           flutter build appbundle --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
@@ -44,7 +44,7 @@ workflows:
       - name: Install pods
         script: |
           find . -name "Podfile" -execdir pod install \;
-      - name: Build IPA with Flutter
+      - name: Build IPA
         script: |
           flutter build ipa --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
@@ -128,11 +128,11 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Build AAB with Flutter
+      - name: Build AAB
         script: |
           flutter build appbundle --release \
             --build-number=$BUILD_NUMBER
-      - name: Build APK with Flutter
+      - name: Build APK
         script: |
           flutter build apk --release \
             --build-number=$BUILD_NUMBER
@@ -142,7 +142,7 @@ workflows:
       - name: Install pods
         script: |
           find . -name "Podfile" -execdir pod install \;
-      - name: Build IPA with Flutter
+      - name: Build IPA
         script: |
           flutter build ipa --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
