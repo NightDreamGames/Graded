@@ -112,12 +112,10 @@ class EasyDialogState extends State<EasyDialog> {
       return false;
     }
 
-    if (submitText()) {
-      if (widget.onConfirm != null) {
-        closeDialog = widget.onConfirm!.call();
-      } else {
-        closeDialog = false;
-      }
+    if (!submitText()) {
+      closeDialog = false;
+    } else if (widget.onConfirm != null) {
+      closeDialog = widget.onConfirm!.call();
     }
 
     if (closeDialog) {
@@ -339,7 +337,7 @@ Future<void> showSubjectDialog(BuildContext context, TextEditingController nameC
                       }
                     },
                     additionalValidator: (newValue) {
-                      double? number = double.tryParse(newValue);
+                      double? number = Calculator.tryParse(newValue);
 
                       if (number != null && number < 0) {
                         return Translations.invalid;
