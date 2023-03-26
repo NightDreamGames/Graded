@@ -8,7 +8,7 @@ class Test extends CalculationObject {
   @override
   double denominator = 0;
 
-  Test(this.numerator, this.denominator, String name, {double coefficient = 1, bool isEmpty = false}) {
+  Test(this.numerator, this.denominator, {String name = "", double coefficient = 1, bool isEmpty = false}) {
     super.name = name;
     super.coefficient = coefficient;
     result = isEmpty ? null : Calculator.calculate([this]);

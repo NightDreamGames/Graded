@@ -154,7 +154,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
           double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
           if (action == MenuAction.add) {
-            subject.addTest(Test(numerator, denominator, name));
+            subject.addTest(Test(numerator, denominator, name: name));
           } else {
             subject.editTest(index!, numerator, denominator, name);
           }
