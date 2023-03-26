@@ -35,14 +35,16 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       initialValue: defaultValues["total_grades"].toString(),
       icon: Icons.vertical_align_top,
       onChange: (value) {
-        double d = double.parse(value);
-        setPreference<double>("total_grades", d);
+        double? parsed = Calculator.tryParse(value);
+        if (parsed != null) {
+          setPreference<double>("total_grades", parsed);
+        }
 
         Manager.calculate();
       },
       numeric: true,
       additionalValidator: (newValue) {
-        double? number = double.tryParse(newValue);
+        double? number = Calculator.tryParse(newValue);
 
         if (number == null || number <= 0) {
           return Translations.invalid;
