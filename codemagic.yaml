@@ -31,6 +31,9 @@ workflows:
       - name: Flutter analyze
         script: |
           flutter analyze
+      - name: Flutter unit tests
+        script: |
+          flutter test
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
@@ -90,6 +93,9 @@ workflows:
       - name: Flutter analyze
         script: |
           flutter analyze
+      - name: Flutter unit tests
+        script: |
+          flutter test
       - name: Automatic versioning
         script: |
           #!/usr/bin/env zsh
