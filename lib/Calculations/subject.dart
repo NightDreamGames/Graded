@@ -52,7 +52,7 @@ class Subject extends CalculationObject {
     t.numerator = numerator;
     t.denominator = denominator;
     t.name = name;
-    t.result = Calculator.calculate([this]);
+    t.result = Calculator.calculate([t]);
     Manager.calculate();
   }
 
