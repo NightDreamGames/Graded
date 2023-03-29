@@ -21,7 +21,7 @@ workflows:
     integrations:
       app_store_connect: NightDream Games
     scripts: &base_scripts
-      - name: Remove problematic folders
+      - name: Delete fastlane folder
         script: |
           rm -rf .flutter
           rm -rf fastlane
@@ -127,7 +127,7 @@ workflows:
           git reset HEAD -- release_notes_de-DE.txt
           git commit -m "Versioning changes for ${BUILD_NAME}"
           git push
-      - name: Remove problematic folders
+      - name: Delete fastlane folder
         script: |
           rm -rf .flutter
           rm -rf fastlane
