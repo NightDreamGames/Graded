@@ -1,0 +1,6 @@
+Version 2.2.0:
+You can now easily add speaking tests with their own weight! You can edit the speaking weight on the subject editing page.
+- Added speaking tests
+- Improved number parsing
+- Fixed input validation
+- Fixed some layout bugs
