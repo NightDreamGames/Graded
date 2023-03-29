@@ -1,3 +1,5 @@
-Diese Version enthält einige UI-Korrekturen und Optimierungen
-- Behebung verschiedener Probleme bei der Anzeige von Dezimalzahlen
-- Behebung von einigen Bugs
+Sie können jetzt ganz einfach mündliche Prüfungen mit eigener Gewichtung hinzufügen! Sie können die Gewichtung für mündliche Prüfungen auf der Fachbearbeitungsseite bearbeiten.
+- Mündliche Prüfungen hinzugefügt
+- Verbessertes Zahlen-Parsing
+- Eingabevalidierung korrigiert
+- Einige Layout-Fehler behoben
