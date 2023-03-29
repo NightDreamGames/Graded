@@ -26,6 +26,7 @@ class EasyDialog extends StatefulWidget {
   final VoidCallback? onCancel;
   final OnConfirmedCallback? onConfirm;
   final String? action;
+  final double bottomPadding;
 
   const EasyDialog({
     Key? key,
@@ -40,6 +41,7 @@ class EasyDialog extends StatefulWidget {
     this.titleTextStyle,
     this.subtitleTextStyle,
     this.action,
+    this.bottomPadding = 20,
   }) : super(key: key);
 
   @override
@@ -51,7 +53,7 @@ class EasyDialogState extends State<EasyDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       actionsPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
-      contentPadding: const EdgeInsets.only(left: 24, top: 16, right: 24, bottom: 20),
+      contentPadding: EdgeInsets.only(left: 24, top: 16, right: 24, bottom: widget.bottomPadding),
       semanticLabel: widget.title,
       title: Text(widget.title),
       scrollable: true,
@@ -144,6 +146,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
           key: dialogKey,
           title: action == MenuAction.add ? Translations.add_test : Translations.edit_test,
           icon: action == MenuAction.add ? Icons.add : Icons.edit,
+          bottomPadding: 0,
           onConfirm: () {
             String name = nameController.text.isEmpty ? getHint(Translations.test, subject.tests) : nameController.text;
             double numerator = Calculator.tryParse(gradeController.text) ?? 1;
@@ -208,21 +211,21 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Checkbox(
-                    value: isSpeaking,
-                    onChanged: (value) {
-                      isSpeaking = value ?? false;
-                      setState(() {});
-                    },
-                  ),
-                  Text(
+              const Padding(
+                padding: EdgeInsets.all(4.0),
+              ),
+              Flexible(
+                child: CheckboxListTile(
+                  value: isSpeaking,
+                  onChanged: (value) {
+                    isSpeaking = value ?? false;
+                    setState(() {});
+                  },
+                  title: Text(
                     Translations.speaking,
-                    style: const TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                   ),
-                ],
+                ),
               )
             ],
           ),
