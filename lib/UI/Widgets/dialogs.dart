@@ -368,7 +368,7 @@ Future<void> showSubjectDialog(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 8, top: 18, bottom: 18),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
                   child: Row(
                     children: const [
                       Text("1 /", style: TextStyle(fontSize: 20)),
