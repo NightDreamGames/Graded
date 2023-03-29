@@ -12,9 +12,9 @@ class Subject extends CalculationObject {
   int bonus = 0;
   bool isGroup = false;
   bool isChild = false;
-  double oralWeight = defaultValues["oral_weight"];
+  double speakingWeight = defaultValues["speaking_weight"];
 
-  Subject(String name, double coefficient, this.oralWeight, {this.isGroup = false, this.isChild = false}) {
+  Subject(String name, double coefficient, this.speakingWeight, {this.isGroup = false, this.isChild = false}) {
     super.name = name;
     super.coefficient = coefficient;
   }
@@ -30,8 +30,8 @@ class Subject extends CalculationObject {
       result = Calculator.calculate(children);
       preciseResult = Calculator.calculate(children, precise: true);
     } else {
-      result = Calculator.calculate(tests, bonus: bonus, oralWeight: oralWeight);
-      preciseResult = Calculator.calculate(tests, bonus: bonus, precise: true, oralWeight: oralWeight);
+      result = Calculator.calculate(tests, bonus: bonus, speakingWeight: speakingWeight);
+      preciseResult = Calculator.calculate(tests, bonus: bonus, precise: true, speakingWeight: speakingWeight);
     }
   }
 
@@ -48,13 +48,13 @@ class Subject extends CalculationObject {
     if (calculate) Manager.calculate();
   }
 
-  void editTest(int position, double numerator, double denominator, String name, {bool isOral = false}) {
+  void editTest(int position, double numerator, double denominator, String name, {bool isSpeaking = false}) {
     Test t = tests[position];
 
     t.numerator = numerator;
     t.denominator = denominator;
     t.name = name;
-    t.isOral = isOral;
+    t.isSpeaking = isSpeaking;
     t.result = Calculator.calculate([t]);
     Manager.calculate();
   }
@@ -90,7 +90,7 @@ class Subject extends CalculationObject {
     name = json['name'];
     coefficient = json['coefficient'];
     bonus = json['bonus'];
-    oralWeight = json['oralWeight'] ?? defaultValues["oral_weight"];
+    speakingWeight = json['speakingWeight'] ?? defaultValues["speaking_weight"];
   }
 
   Map<String, dynamic> toJson() => {
@@ -100,6 +100,6 @@ class Subject extends CalculationObject {
         "coefficient": coefficient,
         "bonus": bonus,
         "type": isGroup,
-        "oralWeight": oralWeight,
+        "speakingWeight": speakingWeight,
       };
 }

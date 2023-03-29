@@ -17,26 +17,26 @@ void main() async {
 
   test('Calculations', () async {
     Manager.termTemplate.addAll({
-      Subject("Test1", 3, defaultValues["oral_weight"]),
-      Subject("Test2", 3, defaultValues["oral_weight"]),
-      Subject("Test3", 3, defaultValues["oral_weight"]),
-      Subject("Test4", 2, defaultValues["oral_weight"]),
-      Subject("Test5", 1, defaultValues["oral_weight"]),
-      Subject("Test6", 3, defaultValues["oral_weight"]),
-      Subject("Test7", 3, defaultValues["oral_weight"])
+      Subject("Test1", 3, defaultValues["speaking_weight"]),
+      Subject("Test2", 3, defaultValues["speaking_weight"]),
+      Subject("Test3", 3, defaultValues["speaking_weight"]),
+      Subject("Test4", 2, defaultValues["speaking_weight"]),
+      Subject("Test5", 1, defaultValues["speaking_weight"]),
+      Subject("Test6", 3, defaultValues["speaking_weight"]),
+      Subject("Test7", 3, defaultValues["speaking_weight"])
         ..isGroup = true
         ..children.addAll({
-          Subject("Child1", 1, defaultValues["oral_weight"])..isChild = true,
-          Subject("Child2", 2, defaultValues["oral_weight"])..isChild = true,
+          Subject("Child1", 1, defaultValues["speaking_weight"])..isChild = true,
+          Subject("Child2", 2, defaultValues["speaking_weight"])..isChild = true,
         }),
-      Subject("Test8", 2, defaultValues["oral_weight"]),
-      Subject("Test9", 2, defaultValues["oral_weight"]),
-      Subject("Test10", 3, defaultValues["oral_weight"]),
-      Subject("Test11", 2, defaultValues["oral_weight"])
+      Subject("Test8", 2, defaultValues["speaking_weight"]),
+      Subject("Test9", 2, defaultValues["speaking_weight"]),
+      Subject("Test10", 3, defaultValues["speaking_weight"]),
+      Subject("Test11", 2, defaultValues["speaking_weight"])
         ..isGroup = true
         ..children.addAll({
-          Subject("Child3", 1, defaultValues["oral_weight"])..isChild = true,
-          Subject("Child4", 1, defaultValues["oral_weight"])..isChild = true,
+          Subject("Child3", 1, defaultValues["speaking_weight"])..isChild = true,
+          Subject("Child4", 1, defaultValues["speaking_weight"])..isChild = true,
         }),
     });
 

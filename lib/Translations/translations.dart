@@ -155,10 +155,6 @@ class Translations {
 
   static String get open => _getText("open");
 
-  static String get oral => _getText("oral");
-
-  static String get oral_weight => _getText("oral_weight");
-
   static String get other_system => _getText("other_system");
 
   static String get previous => _getText("previous");
@@ -248,6 +244,10 @@ class Translations {
   static String get showcase_tap_subject => _getText("showcase_tap_subject");
 
   static String get sort_by => _getText("sort_by");
+
+  static String get speaking => _getText("speaking");
+
+  static String get speaking_weight => _getText("speaking_weight");
 
   static String get storage_error => _getText("storage_error");
 
@@ -389,8 +389,6 @@ class Translations {
     "note_text": "You can always edit your subjects and other options in the settings later",
     "ok": "OK",
     "open": "Open",
-    "oral": "Oral",
-    "oral_weight": "Oral weight",
     "other_system": "Other school system",
     "previous": "Previous",
     "rating_system": "Rating system",
@@ -436,6 +434,8 @@ class Translations {
     "showcase_drag_subject": "Drag to change subject order",
     "showcase_tap_subject": "Tap to make the subject above a subject group",
     "sort_by": "Sort by",
+    "speaking": "Speaking",
+    "speaking_weight": "Speaking weight",
     "storage_error": "There was an error loading your saved data, so it has been deleted.",
     "subject": "Subject",
     "system": "System",
@@ -544,8 +544,6 @@ class Translations {
     "note_text": "Vous pouvez toujours modifier vos matières et les autres options dans les paramètres plus tard",
     "ok": "OK",
     "open": "Ouvrir",
-    "oral": "Oral",
-    "oral_weight": "Coefficient d'oral",
     "other_system": "Autre système scolaire",
     "previous": "Précédent",
     "rating_system": "Système de notation",
@@ -591,6 +589,8 @@ class Translations {
     "showcase_drag_subject": "Glissez pour changer l'ordre des matières",
     "showcase_tap_subject": "Appuyez pour faire du sujet au-dessus un groupe de matières",
     "sort_by": "Trier par",
+    "speaking": "Oral",
+    "speaking_weight": "Coefficient d'oral",
     "storage_error": "Une erreur s'est produite lors du chargement de vos données sauvegardées, elles ont donc été supprimées.",
     "subject": "Matière",
     "system": "Système",
@@ -699,8 +699,6 @@ class Translations {
     "note_text": "Sie können Ihre Fächer und andere Optionen später immer noch in den Einstellungen bearbeiten",
     "ok": "OK",
     "open": "Öffnen",
-    "oral": "Oral",
-    "oral_weight": "Oral Koeffizient",
     "other_system": "Anderes Schulsystem",
     "previous": "Zurück",
     "rating_system": "Bewertungssystem",
@@ -746,6 +744,8 @@ class Translations {
     "showcase_drag_subject": "Ziehe, um die Reihenfolge der Fächer zu ändern",
     "showcase_tap_subject": "Berühre um aus dem Fach drüber eine Fachgruppe zu machen",
     "sort_by": "Sortieren",
+    "speaking": "Oral",
+    "speaking_weight": "Oral Koeffizient",
     "storage_error": "Es ist ein Fehler beim Laden Ihrer gespeicherten Daten aufgetreten, daher wurden sie gelöscht.",
     "subject": "Fach",
     "system": "System",
@@ -854,8 +854,6 @@ class Translations {
     "note_text": "Dir kënnt är Fächer an aner Optiounen spéider ëmmer nach an den Astellungen beaarbechten",
     "ok": "OK",
     "open": "Öffnen",
-    "oral": "Oral",
-    "oral_weight": "Oral Koeffizient",
     "other_system": "Aneren Schoulsystem",
     "previous": "Zeréck",
     "rating_system": "Bewäertungssystem",
@@ -901,6 +899,8 @@ class Translations {
     "showcase_drag_subject": "Zéi fir d'Reiefolleg vun de Fächer ze änneren",
     "showcase_tap_subject": "//TODO",
     "sort_by": "Sortéieren",
+    "speaking": "Oral",
+    "speaking_weight": "Oral Koeffizient",
     "storage_error": "Et ass e Feeler beim Lueden vun ären gespäicherten Donnéeën opgetrueden, dofir goufen se geläscht.",
     "subject": "Fach",
     "system": "System",

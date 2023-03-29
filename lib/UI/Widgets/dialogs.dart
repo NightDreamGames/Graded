@@ -132,7 +132,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
   gradeController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].numerator, addZero: false) : "";
   maximumController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].denominator, addZero: false, roundToOverride: 1) : "";
   nameController.text = action == MenuAction.edit ? subject.tests[index!].name : "";
-  bool isOral = action == MenuAction.edit ? subject.tests[index!].isOral : false;
+  bool isSpeaking = action == MenuAction.edit ? subject.tests[index!].isSpeaking : false;
 
   return showDialog(
     context: context,
@@ -150,9 +150,9 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
             double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
             if (action == MenuAction.add) {
-              subject.addTest(Test(numerator, denominator, name: name, isOral: isOral));
+              subject.addTest(Test(numerator, denominator, name: name, isSpeaking: isSpeaking));
             } else {
-              subject.editTest(index!, numerator, denominator, name, isOral: isOral);
+              subject.editTest(index!, numerator, denominator, name, isSpeaking: isSpeaking);
             }
 
             return true;
@@ -212,14 +212,14 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Checkbox(
-                    value: isOral,
+                    value: isSpeaking,
                     onChanged: (value) {
-                      isOral = value ?? false;
+                      isSpeaking = value ?? false;
                       setState(() {});
                     },
                   ),
                   Text(
-                    Translations.oral,
+                    Translations.speaking,
                     style: const TextStyle(fontSize: 14),
                   ),
                 ],
@@ -233,11 +233,11 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
 }
 
 Future<void> showSubjectDialog(
-    BuildContext context, TextEditingController nameController, TextEditingController coeffController, TextEditingController oralController,
+    BuildContext context, TextEditingController nameController, TextEditingController coeffController, TextEditingController speakingController,
     {int? index, int? index2}) async {
   coeffController.clear();
   nameController.clear();
-  oralController.clear();
+  speakingController.clear();
 
   MenuAction action = index == null ? MenuAction.add : MenuAction.edit;
 
@@ -248,7 +248,7 @@ Future<void> showSubjectDialog(
           : Manager.termTemplate[index!].children[index2];
   coeffController.text = action == MenuAction.edit ? Calculator.format(subject.coefficient, addZero: false, roundToOverride: 1) : "";
   nameController.text = action == MenuAction.edit ? subject.name : "";
-  oralController.text = action == MenuAction.edit ? Calculator.format(subject.oralWeight + 1, addZero: false) : "";
+  speakingController.text = action == MenuAction.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false) : "";
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
   return showDialog(
@@ -262,22 +262,22 @@ Future<void> showSubjectDialog(
           String name = nameController.text.isEmpty ? getHint(Translations.subject, Manager.termTemplate) : nameController.text;
           double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
-          double oralWeight = Calculator.tryParse(oralController.text) ?? defaultValues["oral_weight"] + 1;
-          oralWeight--;
-          if (oralWeight <= 0) oralWeight = 1;
+          double speakingWeight = Calculator.tryParse(speakingController.text) ?? defaultValues["speaking_weight"] + 1;
+          speakingWeight--;
+          if (speakingWeight <= 0) speakingWeight = 1;
 
           if (action == MenuAction.add) {
-            Manager.termTemplate.add(Subject(name, coefficient, oralWeight));
+            Manager.termTemplate.add(Subject(name, coefficient, speakingWeight));
 
             for (Term t in Manager.getCurrentYear().terms) {
-              t.subjects.add(Subject(name, coefficient, oralWeight));
+              t.subjects.add(Subject(name, coefficient, speakingWeight));
             }
           } else {
             Manager.sortAll(sortModeOverride: SortMode.name);
 
             subject.name = name;
             subject.coefficient = coefficient;
-            subject.oralWeight = oralWeight;
+            subject.speakingWeight = speakingWeight;
 
             for (Term t in Manager.getCurrentYear().terms) {
               for (int i = 0; i < t.subjects.length; i++) {
@@ -286,11 +286,11 @@ Future<void> showSubjectDialog(
 
                 s.name = template.name;
                 s.coefficient = template.coefficient;
-                s.oralWeight = template.oralWeight;
+                s.speakingWeight = template.speakingWeight;
                 for (int j = 0; j < t.subjects[i].children.length; j++) {
                   s.children[j].name = template.children[j].name;
                   s.children[j].coefficient = template.children[j].coefficient;
-                  s.children[j].oralWeight = template.children[j].oralWeight;
+                  s.children[j].speakingWeight = template.children[j].speakingWeight;
                 }
               }
             }
@@ -377,9 +377,9 @@ Future<void> showSubjectDialog(
                 ),
                 Flexible(
                   child: EasyFormField(
-                    controller: oralController,
-                    label: Translations.oral_weight,
-                    hint: Calculator.format(defaultValues["oral_weight"] + 1, addZero: false),
+                    controller: speakingController,
+                    label: Translations.speaking_weight,
+                    hint: Calculator.format(defaultValues["speaking_weight"] + 1, addZero: false),
                     numeric: true,
                     onSubmitted: () {
                       if (dialogKey.currentState is EasyDialogState) {

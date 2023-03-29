@@ -68,7 +68,7 @@ class Calculator {
     }
   }
 
-  static double? calculate(Iterable<CalculationObject> data, {int bonus = 0, bool precise = false, double oralWeight = 1}) {
+  static double? calculate(Iterable<CalculationObject> data, {int bonus = 0, bool precise = false, double speakingWeight = 1}) {
     if (data.isEmpty || !data.any((element) => element.numerator != null && element.denominator != 0)) {
       return null;
     }
@@ -77,14 +77,14 @@ class Calculator {
 
     double totalNumerator = 0;
     double totalDenominator = 0;
-    double totalNumeratorOral = 0;
-    double totalDenominatorOral = 0;
+    double totalNumeratorSpeaking = 0;
+    double totalDenominatorSpeaking = 0;
 
     for (CalculationObject c in data) {
       if (c.numerator != null && c.denominator != 0) {
-        if (c is Test && c.isOral) {
-          totalNumeratorOral += c.numerator! * c.coefficient;
-          totalDenominatorOral += c.denominator * c.coefficient;
+        if (c is Test && c.isSpeaking) {
+          totalNumeratorSpeaking += c.numerator! * c.coefficient;
+          totalDenominatorSpeaking += c.denominator * c.coefficient;
         } else {
           totalNumerator += c.numerator! * c.coefficient;
           totalDenominator += c.denominator * c.coefficient;
@@ -93,11 +93,11 @@ class Calculator {
     }
 
     double result = totalNumerator * (totalGrades / totalDenominator);
-    double resultOral = totalNumeratorOral * (totalGrades / totalDenominatorOral);
-    if (result.isNaN) result = resultOral;
-    if (resultOral.isNaN) resultOral = result;
+    double resultSpeaking = totalNumeratorSpeaking * (totalGrades / totalDenominatorSpeaking);
+    if (result.isNaN) result = resultSpeaking;
+    if (resultSpeaking.isNaN) resultSpeaking = result;
 
-    double totalResult = (result * oralWeight + resultOral) / (oralWeight + 1) + bonus;
+    double totalResult = (result * speakingWeight + resultSpeaking) / (speakingWeight + 1) + bonus;
 
     return round(totalResult, roundToOverride: precise ? 100 : null);
   }

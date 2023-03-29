@@ -217,11 +217,11 @@ class SetupManager {
 
     for (var subject in classObject["subjects"]) {
       Subject newSubject =
-          Subject(subject["name"], (subject["coefficient"] ?? 0).toDouble(), defaultValues["oral_weight"], isGroup: subject["children"] != null);
+          Subject(subject["name"], (subject["coefficient"] ?? 0).toDouble(), defaultValues["speaking_weight"], isGroup: subject["children"] != null);
       Manager.termTemplate.add(newSubject);
       if (subject["children"] != null) {
         for (var child in subject["children"]) {
-          newSubject.children.add(Subject(child["name"], (child["coefficient"] ?? 0).toDouble(), defaultValues["oral_weight"], isChild: true));
+          newSubject.children.add(Subject(child["name"], (child["coefficient"] ?? 0).toDouble(), defaultValues["speaking_weight"], isChild: true));
         }
       }
     }
