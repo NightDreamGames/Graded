@@ -17,10 +17,12 @@ void main() async {
   await Manager.init();
 
   test('Calculations', () async {
+    List<CalculationObject> emptyList = [Test(null, 0), Test(null, 0), Test(null, 0)];
     List<CalculationObject> oneItemList = [Test(80, 100)];
     List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(68.7, 70), Test(50, 55)];
 
     expect(Calculator.calculate([]), equals(null));
+    expect(Calculator.calculate(emptyList), equals(null));
     expect(Calculator.calculate(multipleItemsList), equals(57.0));
     expect(Calculator.calculate(multipleItemsList, bonus: -3), equals(54.0));
     expect(Calculator.calculate(multipleItemsList, bonus: 3, precise: true), equals(59.99));
