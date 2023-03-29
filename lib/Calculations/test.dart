@@ -7,8 +7,9 @@ class Test extends CalculationObject {
   double? numerator;
   @override
   double denominator = 0;
+  bool isOral = false;
 
-  Test(this.numerator, this.denominator, {String name = "", double coefficient = 1, bool isEmpty = false}) {
+  Test(this.numerator, this.denominator, {String name = "", double coefficient = 1, bool isEmpty = false, this.isOral = false}) {
     super.name = name;
     super.coefficient = coefficient;
     result = isEmpty ? null : Calculator.calculate([this]);
@@ -38,6 +39,7 @@ class Test extends CalculationObject {
     denominator = json['grade2'];
     name = json['name'];
     coefficient = json['coefficient'] ?? 1;
+    isOral = json['isOral'] ?? false;
     result = Calculator.calculate([this]);
     if (result == null) numerator = null;
   }
@@ -47,5 +49,6 @@ class Test extends CalculationObject {
         "grade2": denominator,
         "name": name,
         "coefficient": coefficient,
+        "isOral": isOral,
       };
 }

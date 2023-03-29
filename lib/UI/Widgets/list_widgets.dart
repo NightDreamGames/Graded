@@ -221,6 +221,7 @@ class SubjectTile extends StatefulWidget {
     required this.rebuild,
     required this.nameController,
     required this.coeffController,
+    required this.oralController,
   }) : super(key: key);
 
   final Subject s;
@@ -231,6 +232,7 @@ class SubjectTile extends StatefulWidget {
   final Function rebuild;
   final TextEditingController nameController;
   final TextEditingController coeffController;
+  final TextEditingController oralController;
 
   @override
   State<SubjectTile> createState() => _SubjectTileState();
@@ -330,7 +332,7 @@ class _SubjectTileState extends State<SubjectTile> {
         onTap: () async {
           showListMenu(context, widget.listKey).then((result) {
             if (result == MenuAction.edit) {
-              showSubjectDialog(context, widget.nameController, widget.coeffController,
+              showSubjectDialog(context, widget.nameController, widget.coeffController, widget.oralController,
                       index: widget.index1, index2: widget.s.isChild ? widget.index2 : null)
                   .then((_) => widget.rebuild());
             } else if (result == MenuAction.delete) {

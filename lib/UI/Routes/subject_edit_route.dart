@@ -24,11 +24,13 @@ class SubjectEditRoute extends StatefulWidget {
 class _SubjectEditRouteState extends State<SubjectEditRoute> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController coeffController = TextEditingController();
+  final TextEditingController oralController = TextEditingController();
 
   @override
   void dispose() {
     nameController.dispose();
     coeffController.dispose();
+    oralController.dispose();
     super.dispose();
   }
 
@@ -43,7 +45,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       builder: Builder(builder: (context) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
-            onPressed: () => showSubjectDialog(context, nameController, coeffController).then((_) => rebuild()),
+            onPressed: () => showSubjectDialog(context, nameController, coeffController, oralController).then((_) => rebuild()),
             child: const Icon(Icons.add),
           ),
           appBar: AppBar(
@@ -132,6 +134,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         rebuild: rebuild,
         nameController: nameController,
         coeffController: coeffController,
+        oralController: oralController,
       ));
       reorderIndex++;
       for (int j = 0; j < element.children.length; j++) {
@@ -146,6 +149,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           rebuild: rebuild,
           nameController: nameController,
           coeffController: coeffController,
+          oralController: oralController,
         ));
         reorderIndex++;
       }

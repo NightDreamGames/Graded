@@ -8,6 +8,7 @@ import 'package:collection/collection.dart';
 import '../Misc/storage.dart';
 import 'calculation_object.dart';
 import 'manager.dart';
+import 'test.dart';
 
 abstract class SortMode {
   static const int name = 0;
@@ -67,26 +68,38 @@ class Calculator {
     }
   }
 
-  static double? calculate(List<CalculationObject> data, {int bonus = 0, bool precise = false}) {
-    if (data.isEmpty) {
+  static double? calculate(Iterable<CalculationObject> data, {int bonus = 0, bool precise = false, double oralWeight = 1}) {
+    if (data.isEmpty || !data.any((element) => element.numerator != null && element.denominator != 0)) {
       return null;
     }
 
-    bool empty = true;
+    double totalGrades = getPreference<double>("total_grades");
+
     double totalNumerator = 0;
     double totalDenominator = 0;
+    double totalNumeratorOral = 0;
+    double totalDenominatorOral = 0;
 
     for (CalculationObject c in data) {
       if (c.numerator != null && c.denominator != 0) {
-        empty = false;
-        totalNumerator += c.numerator! * c.coefficient;
-        totalDenominator += c.denominator * c.coefficient;
+        if (c is Test && c.isOral) {
+          totalNumeratorOral += c.numerator! * c.coefficient;
+          totalDenominatorOral += c.denominator * c.coefficient;
+        } else {
+          totalNumerator += c.numerator! * c.coefficient;
+          totalDenominator += c.denominator * c.coefficient;
+        }
       }
     }
 
-    double result = totalNumerator * (getPreference<double>("total_grades") / totalDenominator) + bonus;
+    double result = totalNumerator * (totalGrades / totalDenominator);
+    double resultOral = totalNumeratorOral * (totalGrades / totalDenominatorOral);
+    if (result.isNaN) result = resultOral;
+    if (resultOral.isNaN) resultOral = result;
 
-    return empty ? null : round(result, roundToOverride: precise ? 100 : null);
+    double totalResult = (result * oralWeight + resultOral) / (oralWeight + 1) + bonus;
+
+    return round(totalResult, roundToOverride: precise ? 100 : null);
   }
 
   static double round(double n, {String? roundingModeOverride, int? roundToOverride}) {
@@ -119,7 +132,7 @@ class Calculator {
   }
 
   static String format(double? n, {bool addZero = true, int? roundToOverride}) {
-    if (n == null) {
+    if (n == null || n == double.nan) {
       return "-";
     }
 

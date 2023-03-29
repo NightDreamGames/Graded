@@ -155,6 +155,10 @@ class Translations {
 
   static String get open => _getText("open");
 
+  static String get oral => _getText("oral");
+
+  static String get oral_weight => _getText("oral_weight");
+
   static String get other_system => _getText("other_system");
 
   static String get previous => _getText("previous");
@@ -385,6 +389,8 @@ class Translations {
     "note_text": "You can always edit your subjects and other options in the settings later",
     "ok": "OK",
     "open": "Open",
+    "oral": "Oral",
+    "oral_weight": "Oral weight",
     "other_system": "Other school system",
     "previous": "Previous",
     "rating_system": "Rating system",
@@ -538,6 +544,8 @@ class Translations {
     "note_text": "Vous pouvez toujours modifier vos matières et les autres options dans les paramètres plus tard",
     "ok": "OK",
     "open": "Ouvrir",
+    "oral": "Oral",
+    "oral_weight": "Coefficient d'oral",
     "other_system": "Autre système scolaire",
     "previous": "Précédent",
     "rating_system": "Système de notation",
@@ -691,6 +699,8 @@ class Translations {
     "note_text": "Sie können Ihre Fächer und andere Optionen später immer noch in den Einstellungen bearbeiten",
     "ok": "OK",
     "open": "Öffnen",
+    "oral": "Oral",
+    "oral_weight": "Oral Koeffizient",
     "other_system": "Anderes Schulsystem",
     "previous": "Zurück",
     "rating_system": "Bewertungssystem",
@@ -844,6 +854,8 @@ class Translations {
     "note_text": "Dir kënnt är Fächer an aner Optiounen spéider ëmmer nach an den Astellungen beaarbechten",
     "ok": "OK",
     "open": "Öffnen",
+    "oral": "Oral",
+    "oral_weight": "Oral Koeffizient",
     "other_system": "Aneren Schoulsystem",
     "previous": "Zeréck",
     "rating_system": "Bewäertungssystem",

@@ -216,11 +216,12 @@ class SetupManager {
         compare: (element1, element2) => (element1 as Map<String, dynamic>)["name"].compareTo((element2 as Map<String, dynamic>)["name"]))];
 
     for (var subject in classObject["subjects"]) {
-      Subject newSubject = Subject(subject["name"], (subject["coefficient"] ?? 0).toDouble(), isGroup: subject["children"] != null);
+      Subject newSubject =
+          Subject(subject["name"], (subject["coefficient"] ?? 0).toDouble(), defaultValues["oral_weight"], isGroup: subject["children"] != null);
       Manager.termTemplate.add(newSubject);
       if (subject["children"] != null) {
         for (var child in subject["children"]) {
-          newSubject.children.add(Subject(child["name"], (child["coefficient"] ?? 0).toDouble(), isChild: true));
+          newSubject.children.add(Subject(child["name"], (child["coefficient"] ?? 0).toDouble(), defaultValues["oral_weight"], isChild: true));
         }
       }
     }

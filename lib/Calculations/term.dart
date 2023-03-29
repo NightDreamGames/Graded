@@ -14,12 +14,12 @@ class Term extends CalculationObject {
     if (Manager.termTemplate.isNotEmpty) {
       for (Subject s in Manager.termTemplate) {
         if (!s.isGroup) {
-          subjects.add(Subject(s.name, s.coefficient));
+          subjects.add(Subject(s.name, s.coefficient, s.oralWeight));
         } else {
-          Subject group = Subject(s.name, s.coefficient, isGroup: true);
+          Subject group = Subject(s.name, s.coefficient, s.oralWeight, isGroup: true);
           subjects.add(group);
           for (Subject s1 in s.children) {
-            group.children.add(Subject(s1.name, s1.coefficient));
+            group.children.add(Subject(s1.name, s1.coefficient, s1.oralWeight));
           }
         }
       }
