@@ -32,9 +32,9 @@
 
 ### Graded is available for download! 🥳 🚀
 
-- Android: Search for "Graded" on the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
-- iOS: Search for "Graded" on the [Apple App Store](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284)
-- From the [Releases Section on GitHub](https://github.com/NightDreamGames/Graded/releases/latest)
+- Android: On the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly) or on [IzzyOnDroid](https://apt.izzysoft.de/fdroid/index/apk/com.NightDreamGames.Grade.ly)
+- iOS: On the [Apple App Store](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284)
+- GitHub: In the [latest GitHub release](https://github.com/NightDreamGames/Graded/releases/latest) (APK & IPA)
 
 ---
 
