@@ -12,7 +12,7 @@
 
 ---
 
-### Quick Links
+# Quick Links
 
 [![](https://img.shields.io/badge/HOMEPAGE-316189?style=for-the-badge)](https://nightdreamgames.com "nightdreamgames.com")  
 <a href="https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly">
@@ -30,11 +30,22 @@
 
 ---
 
-### Graded is available for download! 🥳 🚀
+# Graded is available for download! 🥳 🚀
 
 - Android: On the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly) or on [IzzyOnDroid](https://apt.izzysoft.de/fdroid/index/apk/com.NightDreamGames.Grade.ly)
 - iOS: On the [Apple App Store](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284)
 - GitHub: In the [latest GitHub release](https://github.com/NightDreamGames/Graded/releases/latest) (APK & IPA)
+
+---
+
+# 🫰 Support me
+
+Graded is free and open source and will always stay like this. If you like this project and want to support me, you can [buy me a Ko-Fi](https://ko-fi.com/faucon) or [buy me a coffee but on PayPal](https://paypal.me/FauconSpartiate). Thank you! 💸
+
+<div align="center">
+<a href='https://ko-fi.com/faucon' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a href="https://paypal.me/FauconSpartiate"><img src="https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg" /></a>
+</div>
 
 ---
 
