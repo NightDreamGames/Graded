@@ -207,6 +207,15 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                           (dialogKey.currentState as EasyDialogState).submit();
                         }
                       },
+                      additionalValidator: (newValue) {
+                        double? number = Calculator.tryParse(newValue);
+
+                        if (number != null && number <= 0) {
+                          return Translations.invalid;
+                        }
+
+                        return null;
+                      },
                     ),
                   ),
                 ],
