@@ -6,17 +6,17 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import '../../Calculations/manager.dart';
-import '../../Misc/locale_provider.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
+import '../../calculations/manager.dart';
+import '../../misc/locale_provider.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
 import '../../main.dart';
-import '../Utilities/custom_icons.dart';
-import '../Utilities/misc_utilities.dart';
-import '../Widgets/dialogs.dart';
-import '../Widgets/misc_widgets.dart';
-import '../Widgets/settings_tiles.dart';
-import '/UI/Settings/flutter_settings_screens.dart';
+import '../utilities/custom_icons.dart';
+import '../utilities/misc_utilities.dart';
+import '../widgets/dialogs.dart';
+import '../widgets/misc_widgets.dart';
+import '../widgets/settings_tiles.dart';
+import '/ui/settings/flutter_settings_screens.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);

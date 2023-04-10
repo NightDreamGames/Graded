@@ -5,17 +5,17 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
-import '../../Calculations/manager.dart';
-import '../../Calculations/subject.dart';
-import '../../Calculations/term.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
-import '../Utilities/misc_utilities.dart';
-import '../Widgets/dialogs.dart';
-import '../Widgets/list_widgets.dart';
-import '../Widgets/misc_widgets.dart';
-import '../Widgets/popup_menus.dart';
+import '../../calculations/calculator.dart';
+import '../../calculations/manager.dart';
+import '../../calculations/subject.dart';
+import '../../calculations/term.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
+import '../utilities/misc_utilities.dart';
+import '../widgets/dialogs.dart';
+import '../widgets/list_widgets.dart';
+import '../widgets/misc_widgets.dart';
+import '../widgets/popup_menus.dart';
 
 class SubjectRoute extends StatefulWidget {
   const SubjectRoute({Key? key}) : super(key: key);

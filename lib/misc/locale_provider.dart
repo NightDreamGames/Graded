@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../Translations/translations.dart';
+import '../translations/translations.dart';
 
 class LocaleProvider with ChangeNotifier {
   LocaleProvider({this.locale});

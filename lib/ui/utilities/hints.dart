@@ -1,8 +1,8 @@
 // Project imports:
-import '../../Calculations/calculation_object.dart';
-import '../../Calculations/manager.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
+import '../../calculations/calculation_object.dart';
+import '../../calculations/manager.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
 
 String getHint(String prefix, List<CalculationObject> data) {
   String hint = "";

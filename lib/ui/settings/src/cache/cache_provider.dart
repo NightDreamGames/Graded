@@ -1,5 +1,5 @@
 // Project imports:
-import '/UI/Settings/flutter_settings_screens.dart';
+import '/ui/settings/flutter_settings_screens.dart';
 
 /// This is an abstract class to provide access of storage/preferences platform
 /// from the developer's existing app to this settings screen

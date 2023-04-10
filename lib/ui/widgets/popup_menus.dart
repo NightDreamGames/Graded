@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
-import '../../Calculations/manager.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
-import '../Utilities/misc_utilities.dart';
+import '../../calculations/calculator.dart';
+import '../../calculations/manager.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
+import '../utilities/misc_utilities.dart';
 
 class TermSelector extends StatelessWidget {
   const TermSelector({Key? key, required this.rebuild}) : super(key: key);

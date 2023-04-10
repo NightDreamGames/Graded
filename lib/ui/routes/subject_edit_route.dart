@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
-import '../../Calculations/manager.dart';
-import '../../Calculations/subject.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
-import '../Widgets/dialogs.dart';
-import '../Widgets/list_widgets.dart';
-import '../Widgets/popup_menus.dart';
+import '../../calculations/calculator.dart';
+import '../../calculations/manager.dart';
+import '../../calculations/subject.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
+import '../widgets/dialogs.dart';
+import '../widgets/list_widgets.dart';
+import '../widgets/popup_menus.dart';
 
 class SubjectEditRoute extends StatefulWidget {
   const SubjectEditRoute({Key? key}) : super(key: key);

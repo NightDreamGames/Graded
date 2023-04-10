@@ -1,7 +1,7 @@
 // Project imports:
-import '../Misc/compatibility.dart';
-import '../Misc/storage.dart';
-import '../UI/Utilities/hints.dart';
+import '../misc/compatibility.dart';
+import '../misc/storage.dart';
+import '../ui/utilities/hints.dart';
 import 'calculator.dart';
 import 'subject.dart';
 import 'term.dart';

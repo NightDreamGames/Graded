@@ -2,16 +2,16 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
-import '../../Calculations/manager.dart';
-import '../../Calculations/subject.dart';
-import '../../Calculations/term.dart';
-import '../../Calculations/test.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
-import '../Utilities/hints.dart';
-import '../Utilities/misc_utilities.dart';
-import '/UI/Settings/flutter_settings_screens.dart';
+import '../../calculations/calculator.dart';
+import '../../calculations/manager.dart';
+import '../../calculations/subject.dart';
+import '../../calculations/term.dart';
+import '../../calculations/test.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
+import '../utilities/hints.dart';
+import '../utilities/misc_utilities.dart';
+import '/ui/settings/flutter_settings_screens.dart';
 import 'easy_form_field.dart';
 
 class EasyDialog extends StatefulWidget {

@@ -1,5 +1,5 @@
 // Project imports:
-import '../Misc/storage.dart';
+import '../misc/storage.dart';
 import 'calculation_object.dart';
 import 'calculator.dart';
 import 'manager.dart';

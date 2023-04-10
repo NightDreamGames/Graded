@@ -2,7 +2,7 @@
 import 'package:diacritic/diacritic.dart';
 
 // Project imports:
-import '../Misc/storage.dart';
+import '../misc/storage.dart';
 import 'calculator.dart';
 
 abstract class CalculationObject {

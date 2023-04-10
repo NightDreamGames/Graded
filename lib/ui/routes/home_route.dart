@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
-import '../../Calculations/manager.dart';
-import '../../Calculations/term.dart';
-import '../../Translations/translations.dart';
-import '../Utilities/hints.dart';
-import '../Widgets/list_widgets.dart';
-import '../Widgets/misc_widgets.dart';
-import '../Widgets/popup_menus.dart';
+import '../../calculations/calculator.dart';
+import '../../calculations/manager.dart';
+import '../../calculations/term.dart';
+import '../../translations/translations.dart';
+import '../utilities/hints.dart';
+import '../widgets/list_widgets.dart';
+import '../widgets/misc_widgets.dart';
+import '../widgets/popup_menus.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

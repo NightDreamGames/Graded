@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Misc/compatibility.dart';
-import '../../Misc/setup_manager.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
-import '../Widgets/misc_widgets.dart';
-import '../Widgets/settings_tiles.dart';
-import '/UI/Settings/flutter_settings_screens.dart';
+import '../../misc/compatibility.dart';
+import '../../misc/setup_manager.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
+import '../widgets/misc_widgets.dart';
+import '../widgets/settings_tiles.dart';
+import '/ui/settings/flutter_settings_screens.dart';
 
 class SetupPage extends StatefulWidget {
   const SetupPage({Key? key, this.dismissible = true}) : super(key: key);

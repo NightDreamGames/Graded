@@ -3,13 +3,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
 // Project imports:
-import 'package:graded/Calculations/Calculator.dart';
-import 'package:graded/Calculations/calculation_object.dart';
-import 'package:graded/Calculations/manager.dart';
-import 'package:graded/Calculations/term.dart';
-import 'package:graded/Calculations/test.dart';
-import 'package:graded/Misc/storage.dart';
-import 'package:graded/UI/Settings/flutter_settings_screens.dart';
+import 'package:graded/calculations/Calculator.dart';
+import 'package:graded/calculations/calculation_object.dart';
+import 'package:graded/calculations/manager.dart';
+import 'package:graded/calculations/term.dart';
+import 'package:graded/calculations/test.dart';
+import 'package:graded/misc/storage.dart';
+import 'package:graded/ui/settings/flutter_settings_screens.dart';
 
 void main() async {
   SharedPreferences.setMockInitialValues({});

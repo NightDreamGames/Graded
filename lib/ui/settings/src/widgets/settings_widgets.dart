@@ -4,11 +4,11 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../../../Calculations/calculator.dart';
-import '../../../../Misc/storage.dart';
-import '../../../../Translations/translations.dart';
-import '../../../Widgets/dialogs.dart';
-import '../../../Widgets/easy_form_field.dart';
+import '../../../../calculations/calculator.dart';
+import '../../../../misc/storage.dart';
+import '../../../../translations/translations.dart';
+import '../../../widgets/dialogs.dart';
+import '../../../widgets/easy_form_field.dart';
 import '../../flutter_settings_screens.dart';
 import '../utils/widget_utils.dart';
 

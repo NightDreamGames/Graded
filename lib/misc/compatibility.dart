@@ -11,8 +11,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xml/xml.dart';
 
 // Project imports:
-import '../Calculations/manager.dart';
-import '../Calculations/term.dart';
+import '../calculations/manager.dart';
+import '../calculations/term.dart';
 import 'setup_manager.dart';
 import 'storage.dart';
 

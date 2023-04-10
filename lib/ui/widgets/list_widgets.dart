@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
-import '../../Calculations/manager.dart';
-import '../../Calculations/subject.dart';
-import '../../Calculations/term.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
-import '../Utilities/misc_utilities.dart';
+import '../../calculations/calculator.dart';
+import '../../calculations/manager.dart';
+import '../../calculations/subject.dart';
+import '../../calculations/term.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
+import '../utilities/misc_utilities.dart';
 import 'dialogs.dart';
 import 'popup_menus.dart';
 

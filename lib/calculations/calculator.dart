@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 
 // Project imports:
-import '../Misc/storage.dart';
+import '../misc/storage.dart';
 import 'calculation_object.dart';
 import 'manager.dart';
 import 'test.dart';

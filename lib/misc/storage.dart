@@ -12,12 +12,12 @@ import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
-import '../Calculations/calculator.dart';
-import '../Calculations/manager.dart';
-import '../Calculations/subject.dart';
-import '../Calculations/year.dart';
-import '../Translations/translations.dart';
-import '/UI/Settings/flutter_settings_screens.dart';
+import '../calculations/calculator.dart';
+import '../calculations/manager.dart';
+import '../calculations/subject.dart';
+import '../calculations/year.dart';
+import '../translations/translations.dart';
+import '../ui/settings/flutter_settings_screens.dart';
 import 'compatibility.dart';
 
 final Map<String, dynamic> defaultValues = {

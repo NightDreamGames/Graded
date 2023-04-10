@@ -13,17 +13,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import '/UI/Settings/flutter_settings_screens.dart';
-import 'Calculations/manager.dart';
-import 'Misc/locale_provider.dart';
-import 'Misc/storage.dart';
-import 'Translations/translations.dart';
-import 'UI/Routes/home_route.dart';
-import 'UI/Routes/settings_route.dart';
-import 'UI/Routes/setup_route.dart';
-import 'UI/Routes/subject_edit_route.dart';
-import 'UI/Routes/subject_route.dart';
-import 'UI/Utilities/app_theme.dart';
+import '/ui/settings/flutter_settings_screens.dart';
+import 'calculations/manager.dart';
+import 'misc/locale_provider.dart';
+import 'misc/storage.dart';
+import 'translations/translations.dart';
+import 'ui/Routes/home_route.dart';
+import 'ui/Routes/settings_route.dart';
+import 'ui/Routes/setup_route.dart';
+import 'ui/Routes/subject_edit_route.dart';
+import 'ui/Routes/subject_route.dart';
+import 'ui/utilities/app_theme.dart';
 
 final GlobalKey appContainerKey = GlobalKey();
 

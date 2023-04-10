@@ -8,10 +8,10 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:collection/collection.dart';
 
 // Project imports:
-import '../Calculations/calculator.dart';
-import '../Calculations/manager.dart';
-import '../Calculations/subject.dart';
-import '../Translations/translations.dart';
+import '../calculations/calculator.dart';
+import '../calculations/manager.dart';
+import '../calculations/subject.dart';
+import '../translations/translations.dart';
 import 'compatibility.dart';
 import 'storage.dart';
 

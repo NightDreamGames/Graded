@@ -5,8 +5,8 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
-import '../../Translations/translations.dart';
+import '../../calculations/calculator.dart';
+import '../../translations/translations.dart';
 
 class EasyFormField extends StatelessWidget {
   const EasyFormField({

@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../../Calculations/calculator.dart';
-import '../../Calculations/manager.dart';
-import '../../Misc/compatibility.dart';
-import '../../Misc/storage.dart';
-import '../../Translations/translations.dart';
-import '../Settings/flutter_settings_screens.dart';
+import '../../calculations/calculator.dart';
+import '../../calculations/manager.dart';
+import '../../misc/compatibility.dart';
+import '../../misc/storage.dart';
+import '../../translations/translations.dart';
+import '../settings/flutter_settings_screens.dart';
 
 List<Widget> getSettingsTiles(BuildContext context, bool type) {
   return [
