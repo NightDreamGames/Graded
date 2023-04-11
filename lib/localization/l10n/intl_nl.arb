@@ -58,7 +58,7 @@
         "description": "Do not translate",
         "type": "text"
     },
-    "general": "Algemeen",
+    "general": "Generaal",
     "german": "Deutsch",
     "@german": {
         "description": "Do not translate",
@@ -74,7 +74,15 @@
     "grades": "Cijfers",
     "group": "Groep",
     "half_down": "Half naar beneden",
+    "@half_down": {
+        "description": "Rounding half down",
+        "type": "text"
+    },
     "half_up": "Half omhoog",
+    "@half_up": {
+        "description": "Rounding half up",
+        "type": "text"
+    },
     "invalid": "Ongeldig",
     "language": "Taal",
     "licenses": "Licenties",
@@ -89,7 +97,7 @@
     "note_text": "U kunt kater altijd uw onderwerpen en endere opties in de instellingen bewerken",
     "ok": "OK",
     "open": "Open",
-    "other_system": "Andere schoolsystemen",
+    "other_school_system": "Andere schoolsystemen",
     "previous": "Vorige",
     "rating_system": "Beoordelingssystem",
     "reset": "Cijfers terugzetten",
@@ -120,8 +128,8 @@
     "school_term": "Schoolperiode",
     "test": "Test",
     "theme": "Thema",
-    "theme_dark": "Donkere modus",
-    "theme_light": "Licht modus",
+    "theme_dark": "Donkere",
+    "theme_light": "Licht",
     "theme_system": "Systeem (aanbelvolen)",
     "to_100th": "Naar 100e",
     "to_10th": "Naar 10e",
