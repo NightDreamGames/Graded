@@ -43,8 +43,8 @@
 Graded is free and open source and will always stay like this. If you like this project and want to support me, you can [buy me a Ko-Fi](https://ko-fi.com/faucon) or [buy me a coffee but on PayPal](https://paypal.me/FauconSpartiate). Thank you! 💸
 
 <div align="center">
-<a href='https://ko-fi.com/faucon' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-<a href="https://paypal.me/FauconSpartiate"><img src="https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg" /></a>
+<a href='https://ko-fi.com/faucon' target='_blank'><img height='40' style='height:40px;' src='https://user-images.githubusercontent.com/49079695/231236561-6ad5e66e-2754-4e3f-acca-2b60041cab3b.png' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a href="https://paypal.me/FauconSpartiate" target='_blank'><img height='40' style='height:40px;' src="https://user-images.githubusercontent.com/49079695/231236575-e5434014-e836-4c89-9e4b-82277019d840.png" alt='Donate on PayPal.com' /></a>
 </div>
 
 ---
