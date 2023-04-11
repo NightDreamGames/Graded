@@ -74,7 +74,15 @@
     "grades": "Noten",
     "group": "Gruppe",
     "half_down": "Halb nach unten",
+    "@half_down": {
+        "description": "Rounding half down",
+        "type": "text"
+    },
     "half_up": "Halb nach oben",
+    "@half_up": {
+        "description": "Rounding half up",
+        "type": "text"
+    },
     "invalid": "Ungültig",
     "language": "Sprache",
     "licenses": "Lizenzen",
@@ -89,7 +97,7 @@
     "note_text": "Sie können Ihre Fächer und andere Optionen später immer noch in den Einstellungen bearbeiten",
     "ok": "OK",
     "open": "Öffnen",
-    "other_system": "Anderes Schulsystem",
+    "other_school_system": "Anderes Schulsystem",
     "previous": "Zurück",
     "rating_system": "Bewertungssystem",
     "reset": "Noten zurücksetzen",
