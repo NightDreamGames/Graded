@@ -1,6 +1,10 @@
 {
     "about": "À propos",
     "about_text": "NightDream Games\\nDéveloppeur - Damien Pirotte\\nIdentité visuelle - Ellia Walrave\\nTesting - Louis Colbus",
+    "@about_text": {
+        "description": "Do not translate names, keep formatting and line breaks",
+        "type": "text"
+    },
     "add": "Ajouter",
     "add_group": "Ajouter un groupe",
     "add_subject": "Ajouter une matière",
@@ -37,6 +41,10 @@
     "edit_subjects_summary": "Cliquez pour modifier vos matières.",
     "edit_test": "Modifier un devoir",
     "email": "contact@nightdreamgames.com",
+    "@email": {
+        "description": "Do not translate",
+        "type": "text"
+    },
     "english": "English",
     "@english": {
         "description": "Do not translate",
@@ -58,6 +66,10 @@
     },
     "github": "Repository GitHub",
     "github_summary": "https://github.com/NightDreamGames/Graded",
+    "@github_summary": {
+        "description": "Do not translate",
+        "type": "text"
+    },
     "grade": "Note",
     "grades": "Notes",
     "group": "Groupe",
@@ -93,9 +105,9 @@
     "section_classic_d": "D - Economie",
     "section_classic_e": "E - Artistique",
     "section_classic_f": "F - Musique",
-    "section_classic_g": "G - Sciences humaines et sociales",
+    "section_classic_g": "G - Sciences humaines & sociales",
     "section_classic_i": "I - Informatique & Communication",
-    "select_term": "Sélectionner période",
+    "select_term": "Sélectionner période scolaire",
     "semester": "Semestre",
     "semesters": "Semestres",
     "settings": "Options",
@@ -105,7 +117,7 @@
     "subject": "Matière",
     "system": "Système",
     "system_language": "Langue du système",
-    "term": "Période",
+    "term": "Période scolaire",
     "test": "Devoir",
     "theme": "Thème",
     "theme_dark": "Sombre",
@@ -122,7 +134,11 @@
     "year_overview": "Aperçu de l'année",
     "yearly_average": "Moyenne annuelle",
     "yes": "Oui",
-    "keys": "fr",
+    "language_code": "fr",
+    "@language_code": {
+        "description": "ISO 639-1 code of the language, 2 letters",
+        "type": "text"
+    },
     "export_details": "Exporter la configuration actuelle et les données sauvegardées",
     "export_string": "Exporter",
     "import_details": "Importer un fichier de sauvegarde précédemment exporté",
@@ -135,18 +151,18 @@
         "type": "text"
     },
     "result": "Résultat",
-    "section_general_a3d": "A3D - Architecture, design et développement durable",
-    "section_general_acv": "ACV - Arts et communication visuelle",
-    "section_general_cc": "CC - Communication et organisation",
+    "section_general_a3d": "A3D - Architecture, design & développement durable",
+    "section_general_acv": "ACV - Arts & communication visuelle",
+    "section_general_cc": "CC - Communication & organisation",
     "section_general_cf": "CF - Finance",
     "section_general_cg": "CG - Gestion",
-    "section_general_cm": "CM - Administratif et commercial",
+    "section_general_cm": "CM - Administratif & commercial",
     "section_general_ed": "ED - Formation de l'éducateur",
     "section_general_gh": "GH - Gestion de l'hospitalité",
     "section_general_ig": "IG - Ingénierie",
     "section_general_in": "IN - Informatique",
-    "section_general_mm": "MM - Marketing, médias et communication",
-    "section_general_ps": "PS - Professions de santé et professions sociales",
+    "section_general_mm": "MM - Marketing, médias & communication",
+    "section_general_ps": "PS - Professions de santé & professions sociales",
     "section_general_se": "SE - Sciences environnementales",
     "section_general_sh": "SH - Sciences de la santé",
     "section_general_si": "SI - Formation de l'infirmier",
@@ -154,14 +170,22 @@
     "section_general_so": "SO - Sciences sociales",
     "send_feedback": "Donnez votre avis",
     "showcase_drag_subject": "Glissez pour changer l'ordre des matières",
-    "showcase_tap_subject": "Appuyez pour faire du sujet au-dessus un groupe de matières",
+    "showcase_tap_subject": "Appuyez ici pour faire du sujet au-dessus un groupe de matières",
     "spanish": "Español",
     "@spanish": {
         "description": "Do not translate",
         "type": "text"
     },
     "speaking": "Oral",
+    "@speaking": {
+        "description": "Attention: \"Speaking\" as in \"oral exam\", not the verb \"to speak\". Make sure to use the appropriate translation.",
+        "type": "text"
+    },
     "speaking_weight": "Coefficient d'oral",
+    "@speaking_weight": {
+        "description": "Attention: \"Speaking\" as in \"oral exam\", not the verb \"to speak\". Make sure to use the appropriate translation.",
+        "type": "text"
+    },
     "variant_classic_l": "L - Latin",
     "variant_classic_zh": "ZH - Chinois",
     "variant_general_a": "A - Continuation de l'allemand",
@@ -172,5 +196,10 @@
     "variant_general_ia": "IA - Apprentissage de l'allemand",
     "variant_general_if": "IF - Apprentissage du français",
     "variant_general_p": "P - Voie de préparation",
-    "variant_general_pf": "PF - Voie de préparation française"
+    "variant_general_pf": "PF - Voie de préparation française",
+    "dutch": "Nederlands",
+    "@dutch": {
+        "description": "Do not translate",
+        "type": "text"
+    }
 }
