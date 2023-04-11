@@ -18,7 +18,7 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       subtitle: translations.edit_subjects_summary,
     ),
     RadioModalSettingsTile<int>(
-      title: translations.term,
+      title: translations.school_term,
       icon: Icons.access_time_outlined,
       settingKey: 'term',
       onChange: (_) => Compatibility.termCount(),

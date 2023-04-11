@@ -125,6 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         "de": translations.german,
                         "fr": translations.french,
                         "es": translations.spanish,
+                        "nl": translations.dutch,
                       },
                       selected: defaultValues["language"],
                       onChange: (value) {

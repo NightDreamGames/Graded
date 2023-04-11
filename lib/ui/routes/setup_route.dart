@@ -92,7 +92,7 @@ class _SetupPageState extends State<SetupPage> {
                     onChange: (_) => rebuild(),
                     values: <String, String>{
                       "lux": translations.lux_system,
-                      "other": translations.other_system,
+                      "other": translations.other_school_system,
                     },
                   ),
                   if (getPreference<String>("school_system") == "lux")
@@ -150,7 +150,7 @@ class _SetupPageState extends State<SetupPage> {
                           ),
                         if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1)
                           RadioModalSettingsTile<int>(
-                            title: translations.term,
+                            title: translations.school_term,
                             icon: Icons.access_time_outlined,
                             settingKey: 'term',
                             onChange: (_) => Compatibility.termCount(),
@@ -164,7 +164,7 @@ class _SetupPageState extends State<SetupPage> {
                     )
                   else if (getPreference<String>("school_system") == "other")
                     SettingsGroup(
-                      title: translations.other_system,
+                      title: translations.other_school_system,
                       children: getSettingsTiles(context, true),
                     ),
                   SimpleSettingsTile(

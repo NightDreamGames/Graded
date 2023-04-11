@@ -65,7 +65,7 @@ class TranslationsClass {
     return Intl.message(
       'NightDream Games\\nDeveloper - Damien Pirotte\\nVisual identity - Ellia Walrave\\nTesting - Louis Colbus',
       name: 'about_text',
-      desc: '',
+      desc: 'Do not translate names, keep formatting and line breaks',
       args: [],
     );
   }
@@ -425,7 +425,7 @@ class TranslationsClass {
     return Intl.message(
       'contact@nightdreamgames.com',
       name: 'email',
-      desc: '',
+      desc: 'Do not translate',
       args: [],
     );
   }
@@ -465,26 +465,6 @@ class TranslationsClass {
     return Intl.message(
       'Exams',
       name: 'exams',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Export the current configuration and saved data`
-  String get export_details {
-    return Intl.message(
-      'Export the current configuration and saved data',
-      name: 'export_details',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Export`
-  String get export_string {
-    return Intl.message(
-      'Export',
-      name: 'export_string',
       desc: '',
       args: [],
     );
@@ -535,7 +515,7 @@ class TranslationsClass {
     return Intl.message(
       'https://github.com/NightDreamGames/Graded',
       name: 'github_summary',
-      desc: '',
+      desc: 'Do not translate',
       args: [],
     );
   }
@@ -575,7 +555,7 @@ class TranslationsClass {
     return Intl.message(
       'Half down',
       name: 'half_down',
-      desc: '',
+      desc: 'Rounding half down',
       args: [],
     );
   }
@@ -585,47 +565,7 @@ class TranslationsClass {
     return Intl.message(
       'Half up',
       name: 'half_up',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Import a previously exported backup file`
-  String get import_details {
-    return Intl.message(
-      'Import a previously exported backup file',
-      name: 'import_details',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `There was an error importing your backup.`
-  String get import_error {
-    return Intl.message(
-      'There was an error importing your backup.',
-      name: 'import_error',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Import`
-  String get import_string {
-    return Intl.message(
-      'Import',
-      name: 'import_string',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Backup imported successfully.`
-  String get import_success {
-    return Intl.message(
-      'Backup imported successfully.',
-      name: 'import_success',
-      desc: '',
+      desc: 'Rounding half up',
       args: [],
     );
   }
@@ -635,16 +575,6 @@ class TranslationsClass {
     return Intl.message(
       'Invalid',
       name: 'invalid',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `en`
-  String get keys {
-    return Intl.message(
-      'en',
-      name: 'keys',
       desc: '',
       args: [],
     );
@@ -676,16 +606,6 @@ class TranslationsClass {
       'Luxembourgish school system',
       name: 'lux_system',
       desc: '',
-      args: [],
-    );
-  }
-
-  /// `Lëtzebuergesch`
-  String get luxembourgish {
-    return Intl.message(
-      'Lëtzebuergesch',
-      name: 'luxembourgish',
-      desc: 'Do not translate',
       args: [],
     );
   }
@@ -791,10 +711,10 @@ class TranslationsClass {
   }
 
   /// `Other school system`
-  String get other_system {
+  String get other_school_system {
     return Intl.message(
       'Other school system',
-      name: 'other_system',
+      name: 'other_school_system',
       desc: '',
       args: [],
     );
@@ -835,16 +755,6 @@ class TranslationsClass {
     return Intl.message(
       'Delete all saved grades and reset app',
       name: 'reset_summary',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Result`
-  String get result {
-    return Intl.message(
-      'Result',
-      name: 'result',
       desc: '',
       args: [],
     );
@@ -960,10 +870,10 @@ class TranslationsClass {
     );
   }
 
-  /// `G - Human and social sciences`
+  /// `G - Human & social sciences`
   String get section_classic_g {
     return Intl.message(
-      'G - Human and social sciences',
+      'G - Human & social sciences',
       name: 'section_classic_g',
       desc: '',
       args: [],
@@ -980,181 +890,11 @@ class TranslationsClass {
     );
   }
 
-  /// `A3D - Architecture, design and sustainable development`
-  String get section_general_a3d {
+  /// `Select school term`
+  String get select_school_term {
     return Intl.message(
-      'A3D - Architecture, design and sustainable development',
-      name: 'section_general_a3d',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `ACV - Arts and visual communication`
-  String get section_general_acv {
-    return Intl.message(
-      'ACV - Arts and visual communication',
-      name: 'section_general_acv',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `CC - Communication and organization`
-  String get section_general_cc {
-    return Intl.message(
-      'CC - Communication and organization',
-      name: 'section_general_cc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `CF - Finance`
-  String get section_general_cf {
-    return Intl.message(
-      'CF - Finance',
-      name: 'section_general_cf',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `CG - Management`
-  String get section_general_cg {
-    return Intl.message(
-      'CG - Management',
-      name: 'section_general_cg',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `CM - Administrative and commercial`
-  String get section_general_cm {
-    return Intl.message(
-      'CM - Administrative and commercial',
-      name: 'section_general_cm',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `ED - Educator training`
-  String get section_general_ed {
-    return Intl.message(
-      'ED - Educator training',
-      name: 'section_general_ed',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `GH - Hospitality management`
-  String get section_general_gh {
-    return Intl.message(
-      'GH - Hospitality management',
-      name: 'section_general_gh',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `IG - Engineering`
-  String get section_general_ig {
-    return Intl.message(
-      'IG - Engineering',
-      name: 'section_general_ig',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `IN - Informatics`
-  String get section_general_in {
-    return Intl.message(
-      'IN - Informatics',
-      name: 'section_general_in',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `MM - Marketing, media and communication`
-  String get section_general_mm {
-    return Intl.message(
-      'MM - Marketing, media and communication',
-      name: 'section_general_mm',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `PS - Health and social professions`
-  String get section_general_ps {
-    return Intl.message(
-      'PS - Health and social professions',
-      name: 'section_general_ps',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `SE - Environmental sciences`
-  String get section_general_se {
-    return Intl.message(
-      'SE - Environmental sciences',
-      name: 'section_general_se',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `SH - Health sciences`
-  String get section_general_sh {
-    return Intl.message(
-      'SH - Health sciences',
-      name: 'section_general_sh',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `SI - Nurse training`
-  String get section_general_si {
-    return Intl.message(
-      'SI - Nurse training',
-      name: 'section_general_si',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `SN - Natural sciences`
-  String get section_general_sn {
-    return Intl.message(
-      'SN - Natural sciences',
-      name: 'section_general_sn',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `SO - Social sciences`
-  String get section_general_so {
-    return Intl.message(
-      'SO - Social sciences',
-      name: 'section_general_so',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select term`
-  String get select_term {
-    return Intl.message(
-      'Select term',
-      name: 'select_term',
+      'Select school term',
+      name: 'select_school_term',
       desc: '',
       args: [],
     );
@@ -1180,16 +920,6 @@ class TranslationsClass {
     );
   }
 
-  /// `Give feedback`
-  String get send_feedback {
-    return Intl.message(
-      'Give feedback',
-      name: 'send_feedback',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Settings`
   String get settings {
     return Intl.message(
@@ -1210,61 +940,11 @@ class TranslationsClass {
     );
   }
 
-  /// `Drag to change subject order`
-  String get showcase_drag_subject {
-    return Intl.message(
-      'Drag to change subject order',
-      name: 'showcase_drag_subject',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Tap to make the subject above a subject group`
-  String get showcase_tap_subject {
-    return Intl.message(
-      'Tap to make the subject above a subject group',
-      name: 'showcase_tap_subject',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Sort by`
   String get sort_by {
     return Intl.message(
       'Sort by',
       name: 'sort_by',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Español`
-  String get spanish {
-    return Intl.message(
-      'Español',
-      name: 'spanish',
-      desc: 'Do not translate',
-      args: [],
-    );
-  }
-
-  /// `Speaking`
-  String get speaking {
-    return Intl.message(
-      'Speaking',
-      name: 'speaking',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Speaking weight`
-  String get speaking_weight {
-    return Intl.message(
-      'Speaking weight',
-      name: 'speaking_weight',
       desc: '',
       args: [],
     );
@@ -1310,11 +990,11 @@ class TranslationsClass {
     );
   }
 
-  /// `Term`
-  String get term {
+  /// `School term`
+  String get school_term {
     return Intl.message(
-      'Term',
-      name: 'term',
+      'School term',
+      name: 'school_term',
       desc: '',
       args: [],
     );
@@ -1440,6 +1120,368 @@ class TranslationsClass {
     );
   }
 
+  /// `Year`
+  String get year {
+    return Intl.message(
+      'Year',
+      name: 'year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Year overview`
+  String get year_overview {
+    return Intl.message(
+      'Year overview',
+      name: 'year_overview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yearly average`
+  String get yearly_average {
+    return Intl.message(
+      'Yearly average',
+      name: 'yearly_average',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `en`
+  String get language_code {
+    return Intl.message(
+      'en',
+      name: 'language_code',
+      desc: 'ISO 639-1 code of the language, 2 letters',
+      args: [],
+    );
+  }
+
+  /// `Export the current configuration and saved data`
+  String get export_details {
+    return Intl.message(
+      'Export the current configuration and saved data',
+      name: 'export_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export`
+  String get export_string {
+    return Intl.message(
+      'Export',
+      name: 'export_string',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import a previously exported backup file`
+  String get import_details {
+    return Intl.message(
+      'Import a previously exported backup file',
+      name: 'import_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There was an error importing your backup.`
+  String get import_error {
+    return Intl.message(
+      'There was an error importing your backup.',
+      name: 'import_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import`
+  String get import_string {
+    return Intl.message(
+      'Import',
+      name: 'import_string',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backup imported successfully.`
+  String get import_success {
+    return Intl.message(
+      'Backup imported successfully.',
+      name: 'import_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lëtzebuergesch`
+  String get luxembourgish {
+    return Intl.message(
+      'Lëtzebuergesch',
+      name: 'luxembourgish',
+      desc: 'Do not translate',
+      args: [],
+    );
+  }
+
+  /// `Result`
+  String get result {
+    return Intl.message(
+      'Result',
+      name: 'result',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A3D - Architecture, design & sustainable development`
+  String get section_general_a3d {
+    return Intl.message(
+      'A3D - Architecture, design & sustainable development',
+      name: 'section_general_a3d',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ACV - Arts & visual communication`
+  String get section_general_acv {
+    return Intl.message(
+      'ACV - Arts & visual communication',
+      name: 'section_general_acv',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CC - Communication & organization`
+  String get section_general_cc {
+    return Intl.message(
+      'CC - Communication & organization',
+      name: 'section_general_cc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CF - Finance`
+  String get section_general_cf {
+    return Intl.message(
+      'CF - Finance',
+      name: 'section_general_cf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CG - Management`
+  String get section_general_cg {
+    return Intl.message(
+      'CG - Management',
+      name: 'section_general_cg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CM - Administrative & commercial`
+  String get section_general_cm {
+    return Intl.message(
+      'CM - Administrative & commercial',
+      name: 'section_general_cm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ED - Educator training`
+  String get section_general_ed {
+    return Intl.message(
+      'ED - Educator training',
+      name: 'section_general_ed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GH - Hospitality management`
+  String get section_general_gh {
+    return Intl.message(
+      'GH - Hospitality management',
+      name: 'section_general_gh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `IG - Engineering`
+  String get section_general_ig {
+    return Intl.message(
+      'IG - Engineering',
+      name: 'section_general_ig',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `IN - Informatics`
+  String get section_general_in {
+    return Intl.message(
+      'IN - Informatics',
+      name: 'section_general_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MM - Marketing, media & communication`
+  String get section_general_mm {
+    return Intl.message(
+      'MM - Marketing, media & communication',
+      name: 'section_general_mm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PS - Health & social professions`
+  String get section_general_ps {
+    return Intl.message(
+      'PS - Health & social professions',
+      name: 'section_general_ps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SE - Environmental sciences`
+  String get section_general_se {
+    return Intl.message(
+      'SE - Environmental sciences',
+      name: 'section_general_se',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SH - Health sciences`
+  String get section_general_sh {
+    return Intl.message(
+      'SH - Health sciences',
+      name: 'section_general_sh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SI - Nurse training`
+  String get section_general_si {
+    return Intl.message(
+      'SI - Nurse training',
+      name: 'section_general_si',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SN - Natural sciences`
+  String get section_general_sn {
+    return Intl.message(
+      'SN - Natural sciences',
+      name: 'section_general_sn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SO - Social sciences`
+  String get section_general_so {
+    return Intl.message(
+      'SO - Social sciences',
+      name: 'section_general_so',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Give feedback`
+  String get send_feedback {
+    return Intl.message(
+      'Give feedback',
+      name: 'send_feedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drag to change subject order`
+  String get showcase_drag_subject {
+    return Intl.message(
+      'Drag to change subject order',
+      name: 'showcase_drag_subject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap here to make the subject above a subject group`
+  String get showcase_tap_subject {
+    return Intl.message(
+      'Tap here to make the subject above a subject group',
+      name: 'showcase_tap_subject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Español`
+  String get spanish {
+    return Intl.message(
+      'Español',
+      name: 'spanish',
+      desc: 'Do not translate',
+      args: [],
+    );
+  }
+
+  /// `Speaking`
+  String get speaking {
+    return Intl.message(
+      'Speaking',
+      name: 'speaking',
+      desc:
+          'Attention: "Speaking" as in "oral exam", not the verb "to speak". Make sure to use the appropriate translation.',
+      args: [],
+    );
+  }
+
+  /// `Speaking weight`
+  String get speaking_weight {
+    return Intl.message(
+      'Speaking weight',
+      name: 'speaking_weight',
+      desc:
+          'Attention: "Speaking" as in "oral exam", not the verb "to speak". Make sure to use the appropriate translation.',
+      args: [],
+    );
+  }
+
   /// `L - Latin`
   String get variant_classic_l {
     return Intl.message(
@@ -1550,42 +1592,12 @@ class TranslationsClass {
     );
   }
 
-  /// `Year`
-  String get year {
+  /// `Nederlands`
+  String get dutch {
     return Intl.message(
-      'Year',
-      name: 'year',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Year overview`
-  String get year_overview {
-    return Intl.message(
-      'Year overview',
-      name: 'year_overview',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yearly average`
-  String get yearly_average {
-    return Intl.message(
-      'Yearly average',
-      name: 'yearly_average',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yes`
-  String get yes {
-    return Intl.message(
-      'Yes',
-      name: 'yes',
-      desc: '',
+      'Nederlands',
+      name: 'dutch',
+      desc: 'Do not translate',
       args: [],
     );
   }
@@ -1601,6 +1613,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<TranslationsClass> {
       Locale.fromSubtags(languageCode: 'es'),
       Locale.fromSubtags(languageCode: 'fr'),
       Locale.fromSubtags(languageCode: 'lb'),
+      Locale.fromSubtags(languageCode: 'nl'),
     ];
   }
 

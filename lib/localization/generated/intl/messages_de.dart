@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "default_string": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
         "down": MessageLookupByLibrary.simpleMessage("Nach unten"),
+        "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
         "edit_group": MessageLookupByLibrary.simpleMessage("Gruppe bearbeiten"),
         "edit_subject": MessageLookupByLibrary.simpleMessage("Fach bearbeiten"),
@@ -97,8 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup erfolgreich importiert."),
         "invalid": MessageLookupByLibrary.simpleMessage("Ungültig"),
-        "keys": MessageLookupByLibrary.simpleMessage("de"),
         "language": MessageLookupByLibrary.simpleMessage("Sprache"),
+        "language_code": MessageLookupByLibrary.simpleMessage("de"),
         "licenses": MessageLookupByLibrary.simpleMessage("Lizenzen"),
         "lux_system":
             MessageLookupByLibrary.simpleMessage("Luxemburgisches Schulsystem"),
@@ -114,7 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sie können Ihre Fächer und andere Optionen später immer noch in den Einstellungen bearbeiten"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open": MessageLookupByLibrary.simpleMessage("Öffnen"),
-        "other_system":
+        "other_school_system":
             MessageLookupByLibrary.simpleMessage("Anderes Schulsystem"),
         "previous": MessageLookupByLibrary.simpleMessage("Zurück"),
         "rating_system":
@@ -128,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Abrundungsmodus"),
         "save": MessageLookupByLibrary.simpleMessage("Speichern"),
         "school_system": MessageLookupByLibrary.simpleMessage("Schulsystem"),
+        "school_term": MessageLookupByLibrary.simpleMessage("Schulperiode"),
         "section": MessageLookupByLibrary.simpleMessage("Sektion"),
         "section_classic_a":
             MessageLookupByLibrary.simpleMessage("A - Sprachen"),
@@ -140,33 +142,33 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_classic_e": MessageLookupByLibrary.simpleMessage("E - Kunst"),
         "section_classic_f": MessageLookupByLibrary.simpleMessage("F - Musik"),
         "section_classic_g": MessageLookupByLibrary.simpleMessage(
-            "G -Menschliche und soziale Wissenschaften"),
+            "G - Menschliche & soziale Wissenschaften"),
         "section_classic_i": MessageLookupByLibrary.simpleMessage(
             "I - Informatik & Kommunikation"),
         "section_general_a3d": MessageLookupByLibrary.simpleMessage(
-            "A3D - Architektur, Design und nachhaltige Entwicklung"),
+            "A3D - Architektur, Design & nachhaltige Entwicklung"),
         "section_general_acv": MessageLookupByLibrary.simpleMessage(
-            "ACV - Kunst und visuelle Kommunikation"),
+            "ACV - Kunst & visuelle Kommunikation"),
         "section_general_cc": MessageLookupByLibrary.simpleMessage(
-            "CC - Kommunikation und Organisation"),
+            "CC - Kommunikation & Organisation"),
         "section_general_cf":
             MessageLookupByLibrary.simpleMessage("CF - Finanzen"),
         "section_general_cg":
             MessageLookupByLibrary.simpleMessage("CG - Management"),
         "section_general_cm":
-            MessageLookupByLibrary.simpleMessage("CM - Verwaltung und Handel"),
+            MessageLookupByLibrary.simpleMessage("CM - Verwaltung & Handel"),
         "section_general_ed":
             MessageLookupByLibrary.simpleMessage("ED - Pädagogenausbildung"),
         "section_general_gh":
-            MessageLookupByLibrary.simpleMessage("GH - Hospitality Management"),
+            MessageLookupByLibrary.simpleMessage("GH - Gastgewerbe-Management"),
         "section_general_ig":
             MessageLookupByLibrary.simpleMessage("IG - Ingenieurwesen"),
         "section_general_in":
             MessageLookupByLibrary.simpleMessage("IN - Informatik"),
         "section_general_mm": MessageLookupByLibrary.simpleMessage(
-            "MM - Marketing, Medien und Kommunikation"),
+            "MM - Marketing, Medien & Kommunikation"),
         "section_general_ps": MessageLookupByLibrary.simpleMessage(
-            "PS - Gesundheits- und Sozialberufe"),
+            "PS - Gesundheits- & Sozialberufe"),
         "section_general_se":
             MessageLookupByLibrary.simpleMessage("SE - Umweltwissenschaften"),
         "section_general_sh": MessageLookupByLibrary.simpleMessage(
@@ -177,8 +179,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SN - Naturwissenschaften"),
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sozialwissenschaften"),
-        "select_term":
-            MessageLookupByLibrary.simpleMessage("Periode auswählen"),
+        "select_school_term":
+            MessageLookupByLibrary.simpleMessage("Schulperiode auswählen"),
         "semester": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesters": MessageLookupByLibrary.simpleMessage("Semester"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback geben"),
@@ -187,7 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Ziehe, um die Reihenfolge der Fächer zu ändern"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Berühre um aus dem Fach drüber eine Fachgruppe zu machen"),
+            "Tippe hier um aus dem Fach drüber eine Fachgruppe zu machen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortieren"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
@@ -199,7 +201,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("Systemsprache"),
-        "term": MessageLookupByLibrary.simpleMessage("Periode"),
         "test": MessageLookupByLibrary.simpleMessage("Prüfung"),
         "theme": MessageLookupByLibrary.simpleMessage("Design"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Dunkel"),
@@ -226,15 +227,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "variant_general_f":
             MessageLookupByLibrary.simpleMessage("F - Beginn des Deutschen"),
         "variant_general_fr":
-            MessageLookupByLibrary.simpleMessage("FR - Frankophones Regime"),
+            MessageLookupByLibrary.simpleMessage("FR - Frankofones Regime"),
         "variant_general_ia":
             MessageLookupByLibrary.simpleMessage("IA - Deutsch lernen"),
         "variant_general_if":
             MessageLookupByLibrary.simpleMessage("IF - Französisch lernen"),
         "variant_general_p":
             MessageLookupByLibrary.simpleMessage("P - Vorbereitungsweg"),
-        "variant_general_pf":
-            MessageLookupByLibrary.simpleMessage("PF - French Preparation Way"),
+        "variant_general_pf": MessageLookupByLibrary.simpleMessage(
+            "PF - Französischer Vorbereitungsweg"),
         "year": MessageLookupByLibrary.simpleMessage("Jahr"),
         "year_overview":
             MessageLookupByLibrary.simpleMessage("Jahresübersicht"),

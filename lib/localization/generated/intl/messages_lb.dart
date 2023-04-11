@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "default_string": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Läschen"),
         "down": MessageLookupByLibrary.simpleMessage("No ënnen"),
+        "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Beaarbechten"),
         "edit_group":
             MessageLookupByLibrary.simpleMessage("Grupp beaarbechten"),
@@ -78,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examen"),
         "export_details": MessageLookupByLibrary.simpleMessage(
-            "Export the current configuration and saved data"),
+            "Exportéieren vun der aktueller Konfiguratioun an den gespäicherten Donnéeën"),
         "export_string": MessageLookupByLibrary.simpleMessage("Exportéieren"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
@@ -92,15 +93,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "half_down": MessageLookupByLibrary.simpleMessage("Hallef no ënnen"),
         "half_up": MessageLookupByLibrary.simpleMessage("Hallef no uewen"),
         "import_details": MessageLookupByLibrary.simpleMessage(
-            "Import a previously exported backup file"),
+            "Importéieren vun enger virdrun exportéierten Backup-Datei"),
         "import_error": MessageLookupByLibrary.simpleMessage(
             "Et ass e Feeler beim Importéieren vun ärem Backup opgetrueden."),
         "import_string": MessageLookupByLibrary.simpleMessage("Importéieren"),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup erfollegräich importéiert."),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongëlteg"),
-        "keys": MessageLookupByLibrary.simpleMessage("lb"),
         "language": MessageLookupByLibrary.simpleMessage("Sprooch"),
+        "language_code": MessageLookupByLibrary.simpleMessage("lb"),
         "licenses": MessageLookupByLibrary.simpleMessage("Lizenzen"),
         "lux_system": MessageLookupByLibrary.simpleMessage(
             "Lëtzebuergeschen Schoulsystem"),
@@ -116,7 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Dir kënnt är Fächer an aner Optiounen spéider ëmmer nach an den Astellungen beaarbechten"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open": MessageLookupByLibrary.simpleMessage("Öffnen"),
-        "other_system":
+        "other_school_system":
             MessageLookupByLibrary.simpleMessage("Aneren Schoulsystem"),
         "previous": MessageLookupByLibrary.simpleMessage("Zeréck"),
         "rating_system":
@@ -130,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ofronnungsmodus"),
         "save": MessageLookupByLibrary.simpleMessage("Späicheren"),
         "school_system": MessageLookupByLibrary.simpleMessage("Schoulsystem"),
+        "school_term": MessageLookupByLibrary.simpleMessage("Schoulperiod"),
         "section": MessageLookupByLibrary.simpleMessage("Sektioun"),
         "section_classic_a":
             MessageLookupByLibrary.simpleMessage("A - Sproochen"),
@@ -143,44 +145,45 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("E - Konscht"),
         "section_classic_f": MessageLookupByLibrary.simpleMessage("F - Musek"),
         "section_classic_g": MessageLookupByLibrary.simpleMessage(
-            "G - Mënschlech an sozial Wëssenschaften"),
+            "G - Mënschlech & sozial Wëssenschaften"),
         "section_classic_i": MessageLookupByLibrary.simpleMessage(
             "I - Informatik & Kommunikatioun"),
         "section_general_a3d": MessageLookupByLibrary.simpleMessage(
-            "A3D - Architecture, design and sustainable development"),
+            "A3D - Architektur, Design & nohalteg Entwécklung"),
         "section_general_acv": MessageLookupByLibrary.simpleMessage(
-            "ACV - Arts and visual communication"),
+            "ACV - Konscht & visuell Kommunikatioun"),
         "section_general_cc": MessageLookupByLibrary.simpleMessage(
-            "CC - Communication and organization"),
+            "CC - Kommunikatioun & Organisatioun"),
         "section_general_cf":
-            MessageLookupByLibrary.simpleMessage("CF - Finance"),
+            MessageLookupByLibrary.simpleMessage("CF - Finanzen"),
         "section_general_cg":
             MessageLookupByLibrary.simpleMessage("CG - Management"),
-        "section_general_cm": MessageLookupByLibrary.simpleMessage(
-            "CM - Administrative and commercial"),
+        "section_general_cm":
+            MessageLookupByLibrary.simpleMessage("CM - Verwaltung & Handel"),
         "section_general_ed":
-            MessageLookupByLibrary.simpleMessage("ED - Educator training"),
+            MessageLookupByLibrary.simpleMessage("ED - Pedagogenausbildung"),
         "section_general_gh":
-            MessageLookupByLibrary.simpleMessage("GH - Hospitality management"),
+            MessageLookupByLibrary.simpleMessage("GH - Gastgewerbe-Management"),
         "section_general_ig":
-            MessageLookupByLibrary.simpleMessage("IG - Engineering"),
+            MessageLookupByLibrary.simpleMessage("IG - Ingenieurswiesen"),
         "section_general_in":
-            MessageLookupByLibrary.simpleMessage("IN - Informatics"),
+            MessageLookupByLibrary.simpleMessage("IN - Informatik"),
         "section_general_mm": MessageLookupByLibrary.simpleMessage(
-            "MM - Marketing, media and communication"),
+            "MM - Marketing, Medien & Kommunikatioun"),
         "section_general_ps": MessageLookupByLibrary.simpleMessage(
-            "PS - Health and social professions"),
+            "PS - Gesondheets- & Sozialberuffer"),
         "section_general_se":
-            MessageLookupByLibrary.simpleMessage("SE - Environmental sciences"),
-        "section_general_sh":
-            MessageLookupByLibrary.simpleMessage("SH - Health sciences"),
-        "section_general_si":
-            MessageLookupByLibrary.simpleMessage("SI - Nurse training"),
+            MessageLookupByLibrary.simpleMessage("SE - Ëmweltwëssenschaften"),
+        "section_general_sh": MessageLookupByLibrary.simpleMessage(
+            "SH - Gesondheetswëssenschaften"),
+        "section_general_si": MessageLookupByLibrary.simpleMessage(
+            "SI - Ausbildung zur Krankeschwëster"),
         "section_general_sn":
-            MessageLookupByLibrary.simpleMessage("SN - Natural sciences"),
+            MessageLookupByLibrary.simpleMessage("SN - Naturwëssenschaften"),
         "section_general_so":
-            MessageLookupByLibrary.simpleMessage("SO - Social sciences"),
-        "select_term": MessageLookupByLibrary.simpleMessage("Period auswielen"),
+            MessageLookupByLibrary.simpleMessage("SO - Sozialwëssenschaften"),
+        "select_school_term":
+            MessageLookupByLibrary.simpleMessage("Schoulperiod auswielen"),
         "semester": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesters": MessageLookupByLibrary.simpleMessage("Semester"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback ginn"),
@@ -189,7 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Zéi fir d\'Reiefolleg vun de Fächer ze änneren"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Tap to make the subject above a subject group"),
+            "Tipp hei fir aus dem Fach driwwer eng Fachgrupp ze maachen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortéieren"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
@@ -201,7 +204,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("Systemsprooch"),
-        "term": MessageLookupByLibrary.simpleMessage("Periode"),
         "test": MessageLookupByLibrary.simpleMessage("Prüfung"),
         "theme": MessageLookupByLibrary.simpleMessage("Design"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Donkel"),
@@ -218,24 +220,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "variant_classic_l": MessageLookupByLibrary.simpleMessage("L - Latäin"),
         "variant_classic_zh":
             MessageLookupByLibrary.simpleMessage("ZH - Chineesesch"),
-        "variant_general_a":
-            MessageLookupByLibrary.simpleMessage("A - Continuation of german"),
+        "variant_general_a": MessageLookupByLibrary.simpleMessage(
+            "A - Fortsetzung vum Däitschen"),
         "variant_general_ad":
-            MessageLookupByLibrary.simpleMessage("AD - Adaptation class"),
+            MessageLookupByLibrary.simpleMessage("AD - Upassungsklass"),
         "variant_general_adf": MessageLookupByLibrary.simpleMessage(
-            "ADF - French adaptation class"),
+            "ADF - Franséisch Upassungsklass"),
         "variant_general_f":
-            MessageLookupByLibrary.simpleMessage("F - Beginning of german"),
+            MessageLookupByLibrary.simpleMessage("F - Ufank vum Däitschen"),
         "variant_general_fr":
-            MessageLookupByLibrary.simpleMessage("FR - Francophone regime"),
+            MessageLookupByLibrary.simpleMessage("FR - Francophonen Regime"),
         "variant_general_ia":
-            MessageLookupByLibrary.simpleMessage("IA - Learning german"),
+            MessageLookupByLibrary.simpleMessage("IA - Däitsch léieren"),
         "variant_general_if":
-            MessageLookupByLibrary.simpleMessage("IF - Learning french"),
+            MessageLookupByLibrary.simpleMessage("IF - Franséisch léieren"),
         "variant_general_p":
-            MessageLookupByLibrary.simpleMessage("P - Preparation route"),
-        "variant_general_pf":
-            MessageLookupByLibrary.simpleMessage("PF - French preparation way"),
+            MessageLookupByLibrary.simpleMessage("P - Virbereedungswee"),
+        "variant_general_pf": MessageLookupByLibrary.simpleMessage(
+            "PF - Franséischen Virbereedungswee"),
         "year": MessageLookupByLibrary.simpleMessage("Joer"),
         "year_overview":
             MessageLookupByLibrary.simpleMessage("Joresiwwersiicht"),

@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "default_string": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),
+        "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "edit_group": MessageLookupByLibrary.simpleMessage("Edit group"),
         "edit_subject": MessageLookupByLibrary.simpleMessage("Edit subject"),
@@ -94,8 +95,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup imported successfully."),
         "invalid": MessageLookupByLibrary.simpleMessage("Invalid"),
-        "keys": MessageLookupByLibrary.simpleMessage("en"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "language_code": MessageLookupByLibrary.simpleMessage("en"),
         "licenses": MessageLookupByLibrary.simpleMessage("Licenses"),
         "lux_system":
             MessageLookupByLibrary.simpleMessage("Luxembourgish school system"),
@@ -111,7 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "You can always edit your subjects and other options in the settings later"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
-        "other_system":
+        "other_school_system":
             MessageLookupByLibrary.simpleMessage("Other school system"),
         "previous": MessageLookupByLibrary.simpleMessage("Previous"),
         "rating_system": MessageLookupByLibrary.simpleMessage("Rating system"),
@@ -123,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "rounding_mode": MessageLookupByLibrary.simpleMessage("Rounding mode"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "school_system": MessageLookupByLibrary.simpleMessage("School system"),
+        "school_term": MessageLookupByLibrary.simpleMessage("School term"),
         "section": MessageLookupByLibrary.simpleMessage("Section"),
         "section_classic_a":
             MessageLookupByLibrary.simpleMessage("A - Languages"),
@@ -134,22 +136,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("D - Economics"),
         "section_classic_e": MessageLookupByLibrary.simpleMessage("E - Art"),
         "section_classic_f": MessageLookupByLibrary.simpleMessage("F - Music"),
-        "section_classic_g": MessageLookupByLibrary.simpleMessage(
-            "G - Human and social sciences"),
+        "section_classic_g":
+            MessageLookupByLibrary.simpleMessage("G - Human & social sciences"),
         "section_classic_i": MessageLookupByLibrary.simpleMessage(
             "I - Informatics & Communication"),
         "section_general_a3d": MessageLookupByLibrary.simpleMessage(
-            "A3D - Architecture, design and sustainable development"),
+            "A3D - Architecture, design & sustainable development"),
         "section_general_acv": MessageLookupByLibrary.simpleMessage(
-            "ACV - Arts and visual communication"),
+            "ACV - Arts & visual communication"),
         "section_general_cc": MessageLookupByLibrary.simpleMessage(
-            "CC - Communication and organization"),
+            "CC - Communication & organization"),
         "section_general_cf":
             MessageLookupByLibrary.simpleMessage("CF - Finance"),
         "section_general_cg":
             MessageLookupByLibrary.simpleMessage("CG - Management"),
         "section_general_cm": MessageLookupByLibrary.simpleMessage(
-            "CM - Administrative and commercial"),
+            "CM - Administrative & commercial"),
         "section_general_ed":
             MessageLookupByLibrary.simpleMessage("ED - Educator training"),
         "section_general_gh":
@@ -159,9 +161,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_in":
             MessageLookupByLibrary.simpleMessage("IN - Informatics"),
         "section_general_mm": MessageLookupByLibrary.simpleMessage(
-            "MM - Marketing, media and communication"),
+            "MM - Marketing, media & communication"),
         "section_general_ps": MessageLookupByLibrary.simpleMessage(
-            "PS - Health and social professions"),
+            "PS - Health & social professions"),
         "section_general_se":
             MessageLookupByLibrary.simpleMessage("SE - Environmental sciences"),
         "section_general_sh":
@@ -172,7 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SN - Natural sciences"),
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Social sciences"),
-        "select_term": MessageLookupByLibrary.simpleMessage("Select term"),
+        "select_school_term":
+            MessageLookupByLibrary.simpleMessage("Select school term"),
         "semester": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesters": MessageLookupByLibrary.simpleMessage("Semesters"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Give feedback"),
@@ -181,7 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Drag to change subject order"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Tap to make the subject above a subject group"),
+            "Tap here to make the subject above a subject group"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sort by"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Speaking"),
@@ -193,7 +196,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("System language"),
-        "term": MessageLookupByLibrary.simpleMessage("Term"),
         "test": MessageLookupByLibrary.simpleMessage("Test"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Dark"),

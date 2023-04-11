@@ -19,7 +19,7 @@ class TermSelector extends StatelessWidget {
         ? PopupMenuButton<String>(
             color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
             icon: Icon(Icons.access_time_outlined, color: Theme.of(context).colorScheme.secondary),
-            tooltip: translations.select_term,
+            tooltip: translations.select_school_term,
             itemBuilder: (BuildContext context) {
               List<String> items = [];
 
