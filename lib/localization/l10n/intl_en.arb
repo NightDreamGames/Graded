@@ -74,7 +74,15 @@
     "grades": "Grades",
     "group": "Group",
     "half_down": "Half down",
+    "@half_down": {
+        "description": "Rounding half down",
+        "type": "text"
+    },
     "half_up": "Half up",
+    "@half_up": {
+        "description": "Rounding half up",
+        "type": "text"
+    },
     "invalid": "Invalid",
     "language": "Language",
     "licenses": "Licenses",
@@ -89,7 +97,7 @@
     "note_text": "You can always edit your subjects and other options in the settings later",
     "ok": "OK",
     "open": "Open",
-    "other_system": "Other school system",
+    "other_school_system": "Other school system",
     "previous": "Previous",
     "rating_system": "Rating system",
     "reset": "Reset Grades",
