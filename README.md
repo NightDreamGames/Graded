@@ -36,8 +36,6 @@
 - iOS: On the [Apple App Store](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284)
 - GitHub: In the [latest GitHub release](https://github.com/NightDreamGames/Graded/releases/latest) (APK & IPA)
 
----
-
 # 🫰 Support me
 
 Graded is free and open source and will always stay like this. If you like this project and want to support me, you can [buy me a Ko-Fi](https://ko-fi.com/faucon) or [buy me a coffee but on PayPal](https://paypal.me/FauconSpartiate). Thank you! 💸
