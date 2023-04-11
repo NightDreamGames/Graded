@@ -74,7 +74,15 @@
     "grades": "Notten",
     "group": "Grupp",
     "half_down": "Hallef no ënnen",
+    "@half_down": {
+        "description": "Rounding half down",
+        "type": "text"
+    },
     "half_up": "Hallef no uewen",
+    "@half_up": {
+        "description": "Rounding half up",
+        "type": "text"
+    },
     "invalid": "Ongëlteg",
     "language": "Sprooch",
     "licenses": "Lizenzen",
@@ -89,7 +97,7 @@
     "note_text": "Dir kënnt är Fächer an aner Optiounen spéider ëmmer nach an den Astellungen beaarbechten",
     "ok": "OK",
     "open": "Öffnen",
-    "other_system": "Aneren Schoulsystem",
+    "other_school_system": "Aneren Schoulsystem",
     "previous": "Zeréck",
     "rating_system": "Bewäertungssystem",
     "reset": "Notten zerécksetzen",
