@@ -15,14 +15,14 @@ import 'package:provider/provider.dart';
 // Project imports:
 import '/ui/settings/flutter_settings_screens.dart';
 import 'calculations/manager.dart';
+import 'localization/generated/l10n.dart';
 import 'misc/locale_provider.dart';
 import 'misc/storage.dart';
-import 'translations/translations.dart';
-import 'ui/Routes/home_route.dart';
-import 'ui/Routes/settings_route.dart';
-import 'ui/Routes/setup_route.dart';
-import 'ui/Routes/subject_edit_route.dart';
-import 'ui/Routes/subject_route.dart';
+import 'ui/routes/home_route.dart';
+import 'ui/routes/settings_route.dart';
+import 'ui/routes/setup_route.dart';
+import 'ui/routes/subject_edit_route.dart';
+import 'ui/routes/subject_route.dart';
 import 'ui/utilities/app_theme.dart';
 
 final GlobalKey appContainerKey = GlobalKey();
@@ -78,12 +78,19 @@ class _AppContainerState extends State<AppContainer> {
             darkTheme: AppTheme.getTheme(Brightness.dark, light, dark),
             themeMode: brightness,
             localizationsDelegates: const [
-              TranslationsDelegate(),
+              AppLocalizationDelegate(),
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: TranslationsDelegate.supportedLocals,
+            supportedLocales: TranslationsClass.delegate.supportedLocales,
+            localeResolutionCallback: (deviceLocale, supportedLocales) {
+              if (supportedLocales.map((e) => e.languageCode).contains(deviceLocale?.languageCode)) {
+                return deviceLocale;
+              } else {
+                return const Locale('en', '');
+              }
+            },
             locale: provider.locale,
             debugShowCheckedModeBanner: false,
             initialRoute: widget.initialRoute,

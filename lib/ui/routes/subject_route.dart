@@ -9,8 +9,8 @@ import '../../calculations/calculator.dart';
 import '../../calculations/manager.dart';
 import '../../calculations/subject.dart';
 import '../../calculations/term.dart';
+import '../../localization/translations.dart';
 import '../../misc/storage.dart';
-import '../../translations/translations.dart';
 import '../utilities/misc_utilities.dart';
 import '../widgets/dialogs.dart';
 import '../widgets/list_widgets.dart';
@@ -120,7 +120,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                       SizedBox(
                         width: (Platform.isAndroid ? 100 : 110) * MediaQuery.textScaleFactorOf(context),
                         child: Text(
-                          "${Translations.bonus} ${subject.bonus}${subject.bonus < 0 ? "" : "  "}",
+                          "${translations.bonus} ${subject.bonus}${subject.bonus < 0 ? "" : "  "}",
                           overflow: TextOverflow.visible,
                           softWrap: false,
                           style: const TextStyle(
@@ -150,7 +150,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                   );
                 } else {
                   return Text(
-                    Translations.yearly_average,
+                    translations.yearly_average,
                     overflow: TextOverflow.fade,
                     softWrap: false,
                     style: const TextStyle(

@@ -16,7 +16,7 @@ import '../calculations/calculator.dart';
 import '../calculations/manager.dart';
 import '../calculations/subject.dart';
 import '../calculations/year.dart';
-import '../translations/translations.dart';
+import '../localization/translations.dart';
 import '../ui/settings/flutter_settings_screens.dart';
 import 'compatibility.dart';
 
@@ -171,7 +171,7 @@ Future<bool> importData(BuildContext context) async {
   if (!context.mounted) return false;
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text(error ? Translations.import_error : Translations.import_success),
+      content: Text(error ? translations.import_error : translations.import_success),
     ),
   );
 

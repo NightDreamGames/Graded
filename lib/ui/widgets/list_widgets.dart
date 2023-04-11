@@ -9,8 +9,8 @@ import '../../calculations/calculator.dart';
 import '../../calculations/manager.dart';
 import '../../calculations/subject.dart';
 import '../../calculations/term.dart';
+import '../../localization/translations.dart';
 import '../../misc/storage.dart';
-import '../../translations/translations.dart';
 import '../utilities/misc_utilities.dart';
 import 'dialogs.dart';
 import 'popup_menus.dart';
@@ -273,7 +273,7 @@ class _SubjectTileState extends State<SubjectTile> {
           index: widget.reorderIndex,
           child: Showcase(
             key: showCaseKey1,
-            description: Translations.showcase_tap_subject,
+            description: translations.showcase_tap_subject,
             disableDefaultTargetGestures: true,
             disposeOnTap: true,
             onTargetClick: () {
@@ -282,7 +282,7 @@ class _SubjectTileState extends State<SubjectTile> {
             scaleAnimationCurve: Curves.easeInOut,
             child: Showcase(
               key: showCaseKey2,
-              description: Translations.showcase_drag_subject,
+              description: translations.showcase_drag_subject,
               disableDefaultTargetGestures: true,
               disposeOnTap: true,
               onTargetClick: () {

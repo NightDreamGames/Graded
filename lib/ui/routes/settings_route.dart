@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import '../../calculations/manager.dart';
+import '../../localization/translations.dart';
+import '../../main.dart';
 import '../../misc/locale_provider.dart';
 import '../../misc/storage.dart';
-import '../../translations/translations.dart';
-import '../../main.dart';
 import '../utilities/custom_icons.dart';
 import '../utilities/misc_utilities.dart';
 import '../widgets/dialogs.dart';
@@ -37,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
       slivers: [
         SliverAppBar.large(
           title: AppBarTitle(
-            title: Translations.settings,
+            title: translations.settings,
             actionAmount: 0,
           ),
         ),
@@ -48,13 +48,13 @@ class _SettingsPageState extends State<SettingsPage> {
             child: SettingsContainer(
               children: [
                 SettingsGroup(
-                  title: Translations.general,
+                  title: translations.general,
                   children: [
                     SimpleSettingsTile(
                       icon: Icons.class_,
                       onTap: () => Navigator.pushNamed(context, "/setup"),
-                      title: Translations.change_class,
-                      subtitle: Translations.change_class_summary,
+                      title: translations.change_class,
+                      subtitle: translations.change_class_summary,
                     ),
                     ...getSettingsTiles(context, false),
                     SimpleSettingsTile(
@@ -64,36 +64,36 @@ class _SettingsPageState extends State<SettingsPage> {
                           context: context,
                           builder: (context) {
                             return EasyDialog(
-                              title: Translations.confirm,
+                              title: translations.confirm,
                               icon: Icons.clear_all,
-                              action: Translations.confirm,
+                              action: translations.confirm,
                               onConfirm: () {
                                 Manager.clear();
                                 Navigator.pop(context);
                                 return true;
                               },
-                              child: Text(Translations.confirm_delete),
+                              child: Text(translations.confirm_delete),
                             );
                           },
                         );
                       },
-                      title: Translations.reset,
+                      title: translations.reset,
                     ),
                   ],
                 ),
                 SettingsGroup(
-                  title: "${Translations.import_string}/${Translations.export_string}",
+                  title: "${translations.import_string}/${translations.export_string}",
                   children: [
                     SimpleSettingsTile(
                       icon: Icons.file_upload_outlined,
-                      title: Translations.export_string,
-                      subtitle: Translations.export_details,
+                      title: translations.export_string,
+                      subtitle: translations.export_details,
                       onTap: () => exportData(),
                     ),
                     SimpleSettingsTile(
                       icon: Icons.file_download_outlined,
-                      title: Translations.import_string,
-                      subtitle: Translations.import_details,
+                      title: translations.import_string,
+                      subtitle: translations.import_details,
                       onTap: () => importData(context).then((value) {
                         if (value) Navigator.pop(context);
                       }),
@@ -101,30 +101,30 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
                 SettingsGroup(
-                  title: Translations.appearance,
+                  title: translations.appearance,
                   children: [
                     RadioModalSettingsTile<String>(
-                      title: Translations.theme,
+                      title: translations.theme,
                       icon: Icons.dark_mode,
                       settingKey: 'theme',
                       values: <String, String>{
-                        "system": Translations.theme_system,
-                        "light": Translations.theme_light,
-                        "dark": Translations.theme_dark,
+                        "system": translations.theme_system,
+                        "light": translations.theme_light,
+                        "dark": translations.theme_dark,
                       },
                       selected: defaultValues["theme"],
                       onChange: (_) => appContainerKey.currentState?.setState(() {}),
                     ),
                     RadioModalSettingsTile<String>(
-                      title: Translations.language,
+                      title: translations.language,
                       icon: Icons.language,
                       settingKey: 'language',
                       values: <String, String>{
-                        "system": Translations.system_language,
-                        "en": Translations.english,
-                        "de": Translations.german,
-                        "fr": Translations.french,
-                        "es": Translations.spanish,
+                        "system": translations.system_language,
+                        "en": translations.english,
+                        "de": translations.german,
+                        "fr": translations.french,
+                        "es": translations.spanish,
                       },
                       selected: defaultValues["language"],
                       onChange: (value) {
@@ -139,19 +139,19 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
                 SettingsGroup(
-                  title: Translations.about,
+                  title: translations.about,
                   children: [
                     SimpleSettingsTile(
                       icon: CustomIcons.graded,
-                      title: Translations.app_name,
-                      subtitle: Translations.about_text,
+                      title: translations.app_name,
+                      subtitle: translations.about_text,
                       onTap: () => launchURL(Link.website),
                     ),
                     FutureBuilder(
                       builder: (context, snapshot) {
                         return SimpleSettingsTile(
                           icon: Icons.info_outline,
-                          title: Translations.app_version,
+                          title: translations.app_version,
                           subtitle: snapshot.data as String? ?? "2.0.0",
                           onTap: () => launchURL(Link.store),
                         );
@@ -162,14 +162,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     SimpleSettingsTile(
                       icon: CustomIcons.github,
-                      title: Translations.github,
-                      subtitle: Translations.github_summary,
+                      title: translations.github,
+                      subtitle: translations.github_summary,
                       onTap: () => launchURL(Link.github),
                     ),
                     SimpleSettingsTile(
                       icon: Icons.feedback_outlined,
-                      title: Translations.send_feedback,
-                      subtitle: Translations.email,
+                      title: translations.send_feedback,
+                      subtitle: translations.email,
                       onTap: () => launchURL(Link.email),
                     ),
                   ],

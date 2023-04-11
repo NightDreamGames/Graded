@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 // Project imports:
 import '../../calculations/calculator.dart';
 import '../../calculations/manager.dart';
+import '../../localization/translations.dart';
 import '../../misc/storage.dart';
-import '../../translations/translations.dart';
 import '../utilities/misc_utilities.dart';
 
 class TermSelector extends StatelessWidget {
@@ -19,30 +19,30 @@ class TermSelector extends StatelessWidget {
         ? PopupMenuButton<String>(
             color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
             icon: Icon(Icons.access_time_outlined, color: Theme.of(context).colorScheme.secondary),
-            tooltip: Translations.select_term,
+            tooltip: translations.select_term,
             itemBuilder: (BuildContext context) {
               List<String> items = [];
 
               switch (getPreference<int>("term")) {
                 case 2:
                   items = [
-                    "${Translations.semester} 1",
-                    "${Translations.semester} 2",
+                    "${translations.semester} 1",
+                    "${translations.semester} 2",
                   ];
                   break;
                 case 3:
                   items = [
-                    "${Translations.trimester} 1",
-                    "${Translations.trimester} 2",
-                    "${Translations.trimester} 3",
+                    "${translations.trimester} 1",
+                    "${translations.trimester} 2",
+                    "${translations.trimester} 3",
                   ];
                   break;
               }
 
               if (getPreference<int>("validated_year") == 1) {
-                items.add(Translations.exams);
+                items.add(translations.exams);
               }
-              items.add(Translations.year_overview);
+              items.add(translations.year_overview);
 
               List<PopupMenuEntry<String>> entries = [];
               for (int i = 0; i < items.length; i++) {
@@ -92,7 +92,7 @@ class SortSelector extends StatelessWidget {
     return PopupMenuButton<dynamic>(
       color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
       icon: Icon(Icons.more_vert, color: Theme.of(context).colorScheme.secondary),
-      tooltip: Translations.more_options,
+      tooltip: translations.more_options,
       onSelected: (value) {
         if (value == "settings") {
           Navigator.pushNamed(context, "/settings").then((_) => rebuild());
@@ -101,13 +101,13 @@ class SortSelector extends StatelessWidget {
       itemBuilder: (context) {
         return [
           PopupSubMenuItem<int>(
-            title: Translations.sort_by,
+            title: translations.sort_by,
             items: [
-              getPopupSubMenuItem(SortMode.name, Translations.name),
-              getPopupSubMenuItem(SortMode.result, Translations.result),
+              getPopupSubMenuItem(SortMode.name, translations.name),
+              getPopupSubMenuItem(SortMode.result, translations.result),
               if (type == SortType.subject) ...[
-                getPopupSubMenuItem(SortMode.coefficient, Translations.coefficient),
-                getPopupSubMenuItem(SortMode.custom, Translations.custom),
+                getPopupSubMenuItem(SortMode.coefficient, translations.coefficient),
+                getPopupSubMenuItem(SortMode.custom, translations.custom),
               ]
             ],
             onSelected: (value) {
@@ -121,7 +121,7 @@ class SortSelector extends StatelessWidget {
           if (showSettings)
             PopupMenuItem<String>(
               value: "settings",
-              child: Text(Translations.settings),
+              child: Text(translations.settings),
             ),
         ];
       },
@@ -212,8 +212,8 @@ Future<MenuAction?> showListMenu(BuildContext context, GlobalKey listKey) async 
     color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
     position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
     items: [
-      PopupMenuItem<MenuAction>(value: MenuAction.edit, child: Text(Translations.edit)),
-      PopupMenuItem<MenuAction>(value: MenuAction.delete, child: Text(Translations.delete)),
+      PopupMenuItem<MenuAction>(value: MenuAction.edit, child: Text(translations.edit)),
+      PopupMenuItem<MenuAction>(value: MenuAction.delete, child: Text(translations.delete)),
     ],
   );
 }

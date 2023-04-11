@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import '../translations/translations.dart';
+import '../localization/generated/l10n.dart';
 
 class LocaleProvider with ChangeNotifier {
   LocaleProvider({this.locale});
@@ -10,7 +10,7 @@ class LocaleProvider with ChangeNotifier {
   Locale? locale;
 
   void setLocale(Locale loc) {
-    if (!TranslationsDelegate.supportedLocals.contains(loc)) return;
+    if (!TranslationsClass.delegate.supportedLocales.contains(loc)) return;
     locale = loc;
     notifyListeners();
   }

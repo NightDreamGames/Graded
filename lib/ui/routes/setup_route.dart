@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import '../../localization/translations.dart';
 import '../../misc/compatibility.dart';
 import '../../misc/setup_manager.dart';
 import '../../misc/storage.dart';
-import '../../translations/translations.dart';
 import '../widgets/misc_widgets.dart';
 import '../widgets/settings_tiles.dart';
 import '/ui/settings/flutter_settings_screens.dart';
@@ -57,7 +57,7 @@ class _SetupPageState extends State<SetupPage> {
         slivers: [
           SliverAppBar.large(
             title: AppBarTitle(
-              title: Translations.setup,
+              title: translations.setup,
               actionAmount: 0,
             ),
             automaticallyImplyLeading: widget.dismissible,
@@ -70,8 +70,8 @@ class _SetupPageState extends State<SetupPage> {
                 children: [
                   SimpleSettingsTile(
                     icon: Icons.file_download_outlined,
-                    title: Translations.import_string,
-                    subtitle: Translations.import_details,
+                    title: translations.import_string,
+                    subtitle: translations.import_details,
                     onTap: () => importData(context).then((value) {
                       if (value) {
                         setPreference<bool>("is_first_run", false);
@@ -86,21 +86,21 @@ class _SetupPageState extends State<SetupPage> {
                     }),
                   ),
                   RadioModalSettingsTile<String>(
-                    title: Translations.school_system,
+                    title: translations.school_system,
                     icon: Icons.school,
                     settingKey: 'school_system',
                     onChange: (_) => rebuild(),
                     values: <String, String>{
-                      "lux": Translations.lux_system,
-                      "other": Translations.other_system,
+                      "lux": translations.lux_system,
+                      "other": translations.other_system,
                     },
                   ),
                   if (getPreference<String>("school_system") == "lux")
                     SettingsGroup(
-                      title: Translations.lux_system,
+                      title: translations.lux_system,
                       children: [
                         RadioModalSettingsTile<String>(
-                          title: Translations.system,
+                          title: translations.system,
                           icon: Icons.build,
                           settingKey: 'lux_system',
                           onChange: (_) {
@@ -110,13 +110,13 @@ class _SetupPageState extends State<SetupPage> {
                             rebuild();
                           },
                           values: <String, String>{
-                            "classic": Translations.classic,
-                            "general": Translations.general,
+                            "classic": translations.classic,
+                            "general": translations.general,
                           },
                         ),
                         if (getPreference<String>("lux_system").isNotEmpty)
                           RadioModalSettingsTile<int>(
-                            title: Translations.year,
+                            title: translations.year,
                             icon: Icons.timelapse,
                             settingKey: 'year',
                             onChange: (_) {
@@ -133,7 +133,7 @@ class _SetupPageState extends State<SetupPage> {
                           ),
                         if (SetupManager.hasSections())
                           RadioModalSettingsTile<String>(
-                            title: Translations.section,
+                            title: translations.section,
                             icon: Icons.fork_right,
                             settingKey: 'section',
                             onChange: (_) => rebuild(),
@@ -141,7 +141,7 @@ class _SetupPageState extends State<SetupPage> {
                           ),
                         if (SetupManager.hasVariants())
                           RadioModalSettingsTile<String>(
-                            title: Translations.variant,
+                            title: translations.variant,
                             icon: Icons.edit,
                             settingKey: 'variant',
                             selected: defaultValues["variant"],
@@ -150,13 +150,13 @@ class _SetupPageState extends State<SetupPage> {
                           ),
                         if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1)
                           RadioModalSettingsTile<int>(
-                            title: Translations.term,
+                            title: translations.term,
                             icon: Icons.access_time_outlined,
                             settingKey: 'term',
                             onChange: (_) => Compatibility.termCount(),
                             values: <int, String>{
-                              3: Translations.trimesters,
-                              2: Translations.semesters,
+                              3: translations.trimesters,
+                              2: translations.semesters,
                             },
                             selected: defaultValues["term"],
                           ),
@@ -164,12 +164,12 @@ class _SetupPageState extends State<SetupPage> {
                     )
                   else if (getPreference<String>("school_system") == "other")
                     SettingsGroup(
-                      title: Translations.other_system,
+                      title: translations.other_system,
                       children: getSettingsTiles(context, true),
                     ),
                   SimpleSettingsTile(
-                    title: Translations.note,
-                    subtitle: Translations.note_text,
+                    title: translations.note,
+                    subtitle: translations.note_text,
                     icon: Icons.info_outline,
                     enabled: false,
                   ),

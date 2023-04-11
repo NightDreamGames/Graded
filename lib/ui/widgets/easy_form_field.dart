@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../calculations/calculator.dart';
-import '../../translations/translations.dart';
+import '../../localization/translations.dart';
 
 class EasyFormField extends StatelessWidget {
   const EasyFormField({
@@ -51,7 +51,7 @@ class EasyFormField extends StatelessWidget {
       validator: (String? input) {
         if (input != null && input.isNotEmpty) {
           if (numeric && Calculator.tryParse(input) == null) {
-            return Translations.invalid;
+            return translations.invalid;
           }
         }
         return additionalValidator?.call(input!);

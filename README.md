@@ -71,13 +71,13 @@ Here's a brief high-level overview of the tech stack Graded uses:
 
 # ✍️ Contributing
 
-Interested in contributing to the Graded project? Thanks so much for your interest! We are always
-looking for improvements to the project and contributions from open-source developers are greatly
-appreciated.
+Interested in contributing to the Graded project? Thanks so much for your interest! I'm always looking for improvements to the project and contributions from open-source developers are greatly appreciated.
 
-If you find an error in the class presets, you can open an issue explaining it, we will fix it quickly.
+If you find an error in the class presets, you can open an issue explaining it, I'll fix it quickly.
 
-If you have another contribution in mind, don't hesitate to contact us, so we can work together.
+If you'd like to help us translate the app, you can do so on [our POEditor project](https://poeditor.com/join/project/6qnhP0EM5w). Any language is welcome!
+
+If you have another contribution in mind, don't hesitate to open a PR or contact us, so we can work together.
 
 # ⚠️ License
 

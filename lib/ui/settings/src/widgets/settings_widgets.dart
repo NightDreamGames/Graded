@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import '../../../../calculations/calculator.dart';
+import '../../../../localization/translations.dart';
 import '../../../../misc/storage.dart';
-import '../../../../translations/translations.dart';
 import '../../../widgets/dialogs.dart';
 import '../../../widgets/easy_form_field.dart';
 import '../../flutter_settings_screens.dart';
@@ -1541,7 +1541,7 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
       builder: (BuildContext context, T value, OnChanged<T> onChanged) {
         return _ModalSettingsTile<T>(
           title: widget.title,
-          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[getPreference(widget.settingKey)] ?? Translations.not_set),
+          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[getPreference(widget.settingKey)] ?? translations.not_set),
           icon: widget.icon,
           titleTextStyle: widget.titleTextStyle,
           subtitleTextStyle: widget.subtitleTextStyle,

@@ -7,8 +7,8 @@ import '../../calculations/manager.dart';
 import '../../calculations/subject.dart';
 import '../../calculations/term.dart';
 import '../../calculations/test.dart';
+import '../../localization/translations.dart';
 import '../../misc/storage.dart';
-import '../../translations/translations.dart';
 import '../utilities/hints.dart';
 import '../utilities/misc_utilities.dart';
 import '/ui/settings/flutter_settings_screens.dart';
@@ -66,7 +66,7 @@ class EasyDialogState extends State<EasyDialog> {
             _disposeDialog(context);
           },
           child: Text(
-            Translations.cancel,
+            translations.cancel,
           ),
         ),
         TextButton(
@@ -74,7 +74,7 @@ class EasyDialogState extends State<EasyDialog> {
             submit();
           },
           child: Text(
-            widget.action ?? Translations.save,
+            widget.action ?? translations.save,
           ),
         )
       ],
@@ -144,11 +144,11 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
       return StatefulBuilder(builder: (context, setState) {
         return EasyDialog(
           key: dialogKey,
-          title: action == MenuAction.add ? Translations.add_test : Translations.edit_test,
+          title: action == MenuAction.add ? translations.add_test : translations.edit_test,
           icon: action == MenuAction.add ? Icons.add : Icons.edit,
           bottomPadding: 0,
           onConfirm: () {
-            String name = nameController.text.isEmpty ? getHint(Translations.test, subject.tests) : nameController.text;
+            String name = nameController.text.isEmpty ? getHint(translations.test, subject.tests) : nameController.text;
             double numerator = Calculator.tryParse(gradeController.text) ?? 1;
             double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
@@ -167,8 +167,8 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
               Flexible(
                 child: EasyFormField(
                   controller: nameController,
-                  label: Translations.name,
-                  hint: getHint(Translations.test, subject.tests),
+                  label: translations.name,
+                  hint: getHint(translations.test, subject.tests),
                   textInputAction: TextInputAction.next,
                 ),
               ),
@@ -183,7 +183,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                   Flexible(
                     child: EasyFormField(
                       controller: gradeController,
-                      label: Translations.grade,
+                      label: translations.grade,
                       hint: "01",
                       textAlign: TextAlign.end,
                       autofocus: true,
@@ -198,7 +198,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                   Flexible(
                     child: EasyFormField(
                       controller: maximumController,
-                      label: Translations.maximum,
+                      label: translations.maximum,
                       hint: Calculator.format(getPreference<double>("total_grades"), roundToOverride: 1),
                       numeric: true,
                       signed: false,
@@ -211,7 +211,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                         double? number = Calculator.tryParse(newValue);
 
                         if (number != null && number <= 0) {
-                          return Translations.invalid;
+                          return translations.invalid;
                         }
 
                         return null;
@@ -231,7 +231,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingCo
                     setState(() {});
                   },
                   title: Text(
-                    Translations.speaking,
+                    translations.speaking,
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                   ),
                 ),
@@ -268,10 +268,10 @@ Future<void> showSubjectDialog(
     builder: (context) {
       return EasyDialog(
         key: dialogKey,
-        title: action == MenuAction.add ? Translations.add_subject : Translations.edit_subject,
+        title: action == MenuAction.add ? translations.add_subject : translations.edit_subject,
         icon: action == MenuAction.add ? Icons.add : Icons.edit,
         onConfirm: () {
-          String name = nameController.text.isEmpty ? getHint(Translations.subject, Manager.termTemplate) : nameController.text;
+          String name = nameController.text.isEmpty ? getHint(translations.subject, Manager.termTemplate) : nameController.text;
           double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
           double speakingWeight = Calculator.tryParse(speakingController.text) ?? defaultValues["speaking_weight"] + 1;
@@ -320,8 +320,8 @@ Future<void> showSubjectDialog(
               child: EasyFormField(
                 controller: nameController,
                 autofocus: true,
-                label: Translations.name,
-                hint: getHint(Translations.subject, Manager.termTemplate),
+                label: translations.name,
+                hint: getHint(translations.subject, Manager.termTemplate),
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
                   if (Manager.termTemplate.any((element) {
@@ -338,7 +338,7 @@ Future<void> showSubjectDialog(
                     }
                     return element.name == newValue;
                   })) {
-                    return Translations.enter_unique;
+                    return translations.enter_unique;
                   }
                   return null;
                 },
@@ -354,7 +354,7 @@ Future<void> showSubjectDialog(
                 Flexible(
                   child: EasyFormField(
                     controller: coeffController,
-                    label: Translations.coefficient,
+                    label: translations.coefficient,
                     hint: "1",
                     numeric: true,
                     textInputAction: TextInputAction.next,
@@ -362,7 +362,7 @@ Future<void> showSubjectDialog(
                       double? number = Calculator.tryParse(newValue);
 
                       if (number != null && number < 0) {
-                        return Translations.invalid;
+                        return translations.invalid;
                       }
 
                       return null;
@@ -390,7 +390,7 @@ Future<void> showSubjectDialog(
                 Flexible(
                   child: EasyFormField(
                     controller: speakingController,
-                    label: Translations.speaking_weight,
+                    label: translations.speaking_weight,
                     hint: Calculator.format(defaultValues["speaking_weight"] + 1, addZero: false),
                     numeric: true,
                     onSubmitted: () {
@@ -402,7 +402,7 @@ Future<void> showSubjectDialog(
                       double? number = Calculator.tryParse(newValue);
 
                       if (number != null && number < 1) {
-                        return Translations.invalid;
+                        return translations.invalid;
                       }
 
                       return null;

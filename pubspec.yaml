@@ -33,7 +33,6 @@ dev_dependencies:
   test: ^1.22.0
   flutter_native_splash: ^2.2.16
   flutter_launcher_icons: ^0.13.0
-  flappy_translator: ^2.0.0-nullsafety.3
   import_sorter: ^4.6.0
 
 flutter:
@@ -46,12 +45,12 @@ flutter:
   assets:
     - assets/class_data/
 
-flappy_translator:
-  input_file_path: "assets/Localizations.xlsx"
-  output_dir: "lib/Translations"
-  file_name: "translations"
-  class_name: "Translations"
-  depend_on_context: false
+flutter_intl:
+  enabled: true
+  class_name: TranslationsClass
+  main_locale: en
+  arb_dir: lib/localization/l10n
+  output_dir: lib/localization/generated
 
 flutter_icons:
   android: true
@@ -84,3 +83,7 @@ flutter_native_splash:
 
 import_path_converter:
   relative: true
+
+import_sorter:
+  ignored_files:
+    - \/lib\\localization\\.*

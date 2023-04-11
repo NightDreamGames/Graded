@@ -1,8 +1,8 @@
 // Project imports:
 import '../../calculations/calculation_object.dart';
 import '../../calculations/manager.dart';
+import '../../localization/translations.dart';
 import '../../misc/storage.dart';
-import '../../translations/translations.dart';
 
 String getHint(String prefix, List<CalculationObject> data) {
   String hint = "";
@@ -19,17 +19,17 @@ String getHint(String prefix, List<CalculationObject> data) {
 String getTitle({int? termOverride}) {
   int maxTerms = getPreference<int>("term");
   int currentTerm = termOverride ?? Manager.currentTerm;
-  if (currentTerm == -1) return Translations.year_overview;
+  if (currentTerm == -1) return translations.year_overview;
 
-  if (currentTerm == maxTerms) return termOverride == null ? Translations.exams : Translations.exam;
+  if (currentTerm == maxTerms) return termOverride == null ? translations.exams : translations.exam;
   switch (maxTerms) {
     case 3:
-      return "${Translations.trimester} ${currentTerm + 1}";
+      return "${translations.trimester} ${currentTerm + 1}";
     case 2:
-      return "${Translations.semester} ${currentTerm + 1}";
+      return "${translations.semester} ${currentTerm + 1}";
     case 1:
-      return Translations.year;
+      return translations.year;
     default:
-      return Translations.app_name;
+      return translations.app_name;
   }
 }

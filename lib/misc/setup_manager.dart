@@ -11,7 +11,7 @@ import 'package:collection/collection.dart';
 import '../calculations/calculator.dart';
 import '../calculations/manager.dart';
 import '../calculations/subject.dart';
-import '../translations/translations.dart';
+import '../localization/translations.dart';
 import 'compatibility.dart';
 import 'storage.dart';
 
@@ -45,42 +45,42 @@ class SetupManager {
 
     if (luxSystem == "classic" && year <= 3) {
       result.addAll({
-        "A": Translations.section_classic_a,
-        "B": Translations.section_classic_b,
-        "C": Translations.section_classic_c,
-        "D": Translations.section_classic_d,
-        "E": Translations.section_classic_e,
-        "F": Translations.section_classic_f,
-        "G": Translations.section_classic_g,
-        "I": Translations.section_classic_i,
+        "A": translations.section_classic_a,
+        "B": translations.section_classic_b,
+        "C": translations.section_classic_c,
+        "D": translations.section_classic_d,
+        "E": translations.section_classic_e,
+        "F": translations.section_classic_f,
+        "G": translations.section_classic_g,
+        "I": translations.section_classic_i,
       });
     } else if (luxSystem == "general") {
       if (year <= 4) {
         result.addAll({
-          "GH": Translations.section_general_gh,
-          "SO": Translations.section_general_so,
-          "A3D": Translations.section_general_a3d,
-          "IG": Translations.section_general_ig,
-          "SN": Translations.section_general_sn,
-          "ACV": Translations.section_general_acv,
+          "GH": translations.section_general_gh,
+          "SO": translations.section_general_so,
+          "A3D": translations.section_general_a3d,
+          "IG": translations.section_general_ig,
+          "SN": translations.section_general_sn,
+          "ACV": translations.section_general_acv,
         });
       }
       if (year == 4 || year == 3) {
         result.addAll({
-          "CM": Translations.section_general_cm,
-          "PS": Translations.section_general_ps,
+          "CM": translations.section_general_cm,
+          "PS": translations.section_general_ps,
         });
       } else if (year == 2 || year == 1) {
         result.addAll({
-          "CG": Translations.section_general_cg,
-          "CC": Translations.section_general_cc,
-          "CF": Translations.section_general_cf,
-          "MM": Translations.section_general_mm,
-          "ED": Translations.section_general_ed,
-          "SI": Translations.section_general_si,
-          "SH": Translations.section_general_sh,
-          "IN": Translations.section_general_in,
-          "SE": Translations.section_general_se,
+          "CG": translations.section_general_cg,
+          "CC": translations.section_general_cc,
+          "CF": translations.section_general_cf,
+          "MM": translations.section_general_mm,
+          "ED": translations.section_general_ed,
+          "SI": translations.section_general_si,
+          "SH": translations.section_general_sh,
+          "IN": translations.section_general_in,
+          "SE": translations.section_general_se,
         });
       }
     }
@@ -104,43 +104,43 @@ class SetupManager {
     if (luxSystem == "classic") {
       if (year != 7) {
         result.addAll({
-          "": Translations.basic,
-          "L": Translations.variant_classic_l,
+          "": translations.basic,
+          "L": translations.variant_classic_l,
         });
         if (year != 1) {
           result.addAll({
-            "ZH": Translations.variant_classic_zh,
+            "ZH": translations.variant_classic_zh,
           });
         }
       }
     } else {
       if (year >= 5 && year <= 7) {
         result.addAll({
-          "": Translations.basic,
-          "-FR": Translations.variant_general_fr,
-          "P": Translations.variant_general_p,
-          "PF": Translations.variant_general_pf,
-          "IA": Translations.variant_general_ia,
-          "IF": Translations.variant_general_if,
+          "": translations.basic,
+          "-FR": translations.variant_general_fr,
+          "P": translations.variant_general_p,
+          "PF": translations.variant_general_pf,
+          "IA": translations.variant_general_ia,
+          "IF": translations.variant_general_if,
         });
         if (year == 5) {
           result.addAll({
-            "AD": Translations.variant_general_ad,
-            "ADF": Translations.variant_general_adf,
+            "AD": translations.variant_general_ad,
+            "ADF": translations.variant_general_adf,
           });
         }
       }
       if (section.isNotEmpty) {
         if (section == "CM" || section == "CG" || section == "PS" || section == "SO" || section == "IG" || section == "SN") {
           result.addAll({
-            "": Translations.basic,
-            "A": Translations.variant_general_a,
-            "F": Translations.variant_general_f,
+            "": translations.basic,
+            "A": translations.variant_general_a,
+            "F": translations.variant_general_f,
           });
         } else if (section == "CC" || section == "SI") {
           result.addAll({
-            "": Translations.basic,
-            "F": Translations.variant_general_f,
+            "": translations.basic,
+            "F": translations.variant_general_f,
           });
         }
       }

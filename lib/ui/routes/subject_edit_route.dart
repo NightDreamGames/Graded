@@ -8,8 +8,8 @@ import 'package:showcaseview/showcaseview.dart';
 import '../../calculations/calculator.dart';
 import '../../calculations/manager.dart';
 import '../../calculations/subject.dart';
+import '../../localization/translations.dart';
 import '../../misc/storage.dart';
-import '../../translations/translations.dart';
 import '../widgets/dialogs.dart';
 import '../widgets/list_widgets.dart';
 import '../widgets/popup_menus.dart';
@@ -49,7 +49,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
             child: const Icon(Icons.add),
           ),
           appBar: AppBar(
-            title: Text(Translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
             titleSpacing: 0,
             toolbarHeight: 64,
             actions: [

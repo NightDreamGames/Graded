@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../calculations/calculator.dart';
 import '../../calculations/manager.dart';
 import '../../calculations/term.dart';
-import '../../translations/translations.dart';
+import '../../localization/translations.dart';
 import '../utilities/hints.dart';
 import '../widgets/list_widgets.dart';
 import '../widgets/misc_widgets.dart';
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       if (Manager.deserializationError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(Translations.storage_error),
+            content: Text(translations.storage_error),
           ),
         );
 
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                   rebuild();
                 },
                 leading: Text(
-                  Manager.currentTerm != -1 ? Translations.average : Translations.yearly_average,
+                  Manager.currentTerm != -1 ? translations.average : translations.yearly_average,
                   overflow: TextOverflow.fade,
                   softWrap: false,
                   style: const TextStyle(
