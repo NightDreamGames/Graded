@@ -107,7 +107,7 @@
     "section_classic_f": "F - Musik",
     "section_classic_g": "G - Menschliche & soziale Wissenschaften",
     "section_classic_i": "I - Informatik & Kommunikation",
-    "select_term": "Schulperiode auswählen",
+    "select_school_term": "Schulperiode auswählen",
     "semester": "Semester",
     "semesters": "Semester",
     "settings": "Einstellungen",
@@ -117,8 +117,8 @@
     "subject": "Fach",
     "system": "System",
     "system_language": "Systemsprache",
-    "term": "Schulperiode",
-    "@term": {
+    "school_term": "Schulperiode",
+    "@school_term": {
         "description": "Attention: \"Term\" is meant here in the sense of \"School period\", not \"Word\". Make sure to use the proper translation.",
         "type": "text"
     },
