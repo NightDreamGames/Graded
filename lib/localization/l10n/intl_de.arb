@@ -1,6 +1,10 @@
 {
     "about": "Informationen",
     "about_text": "NightDream Games\\nEntwickler - Damien Pirotte\\nVisuelle Identität - Ellia Walrave\\nTesting - Louis Colbus",
+    "@about_text": {
+        "description": "Do not translate names, keep formatting and line breaks",
+        "type": "text"
+    },
     "add": "Hinzufügen",
     "add_group": "Gruppe hinzufügen",
     "add_subject": "Fach hinzufügen",
@@ -37,6 +41,10 @@
     "edit_subjects_summary": "Klicken Sie um Ihre Fächer zu bearbeiten",
     "edit_test": "Prüfing bearbeiten",
     "email": "contact@nightdreamgames.com",
+    "@email": {
+        "description": "Do not translate",
+        "type": "text"
+    },
     "english": "English",
     "@english": {
         "description": "Do not translate",
@@ -58,6 +66,10 @@
     },
     "github": "GitHub Repository",
     "github_summary": "https://github.com/NightDreamGames/Graded",
+    "@github_summary": {
+        "description": "Do not translate",
+        "type": "text"
+    },
     "grade": "Note",
     "grades": "Noten",
     "group": "Gruppe",
@@ -93,9 +105,9 @@
     "section_classic_d": "D - Wirtschaft",
     "section_classic_e": "E - Kunst",
     "section_classic_f": "F - Musik",
-    "section_classic_g": "G -Menschliche und soziale Wissenschaften",
+    "section_classic_g": "G - Menschliche & soziale Wissenschaften",
     "section_classic_i": "I - Informatik & Kommunikation",
-    "select_term": "Periode auswählen",
+    "select_term": "Schulperiode auswählen",
     "semester": "Semester",
     "semesters": "Semester",
     "settings": "Einstellungen",
@@ -105,7 +117,11 @@
     "subject": "Fach",
     "system": "System",
     "system_language": "Systemsprache",
-    "term": "Periode",
+    "term": "Schulperiode",
+    "@term": {
+        "description": "Attention: \"Term\" is meant here in the sense of \"School period\", not \"Word\". Make sure to use the proper translation.",
+        "type": "text"
+    },
     "test": "Prüfung",
     "theme": "Design",
     "theme_dark": "Dunkel",
@@ -122,7 +138,11 @@
     "year_overview": "Jahresübersicht",
     "yearly_average": "Jahresdurchschnitt",
     "yes": "Ja",
-    "keys": "de",
+    "language_code": "de",
+    "@language_code": {
+        "description": "ISO 639-1 code of the language, 2 letters",
+        "type": "text"
+    },
     "export_details": "Exportieren der aktuellen Konfiguration und der gespeicherten Daten",
     "export_string": "Exportieren",
     "import_details": "Importieren einer zuvor exportierten Backup-Datei",
@@ -135,18 +155,18 @@
         "type": "text"
     },
     "result": "Resultat",
-    "section_general_a3d": "A3D - Architektur, Design und nachhaltige Entwicklung",
-    "section_general_acv": "ACV - Kunst und visuelle Kommunikation",
-    "section_general_cc": "CC - Kommunikation und Organisation",
+    "section_general_a3d": "A3D - Architektur, Design & nachhaltige Entwicklung",
+    "section_general_acv": "ACV - Kunst & visuelle Kommunikation",
+    "section_general_cc": "CC - Kommunikation & Organisation",
     "section_general_cf": "CF - Finanzen",
     "section_general_cg": "CG - Management",
-    "section_general_cm": "CM - Verwaltung und Handel",
+    "section_general_cm": "CM - Verwaltung & Handel",
     "section_general_ed": "ED - Pädagogenausbildung",
-    "section_general_gh": "GH - Hospitality Management",
+    "section_general_gh": "GH - Gastgewerbe-Management",
     "section_general_ig": "IG - Ingenieurwesen",
     "section_general_in": "IN - Informatik",
-    "section_general_mm": "MM - Marketing, Medien und Kommunikation",
-    "section_general_ps": "PS - Gesundheits- und Sozialberufe",
+    "section_general_mm": "MM - Marketing, Medien & Kommunikation",
+    "section_general_ps": "PS - Gesundheits- & Sozialberufe",
     "section_general_se": "SE - Umweltwissenschaften",
     "section_general_sh": "SH - Gesundheitswissenschaften",
     "section_general_si": "SI - Ausbildung zur Krankenschwester",
@@ -154,23 +174,36 @@
     "section_general_so": "SO - Sozialwissenschaften",
     "send_feedback": "Feedback geben",
     "showcase_drag_subject": "Ziehe, um die Reihenfolge der Fächer zu ändern",
-    "showcase_tap_subject": "Berühre um aus dem Fach drüber eine Fachgruppe zu machen",
+    "showcase_tap_subject": "Tippe hier um aus dem Fach drüber eine Fachgruppe zu machen",
     "spanish": "Español",
     "@spanish": {
         "description": "Do not translate",
         "type": "text"
     },
     "speaking": "Oral",
+    "@speaking": {
+        "description": "Attention: \"Speaking\" as in \"oral exam\", not the verb \"to speak\". Make sure to use the appropriate translation.",
+        "type": "text"
+    },
     "speaking_weight": "Oral Koeffizient",
+    "@speaking_weight": {
+        "description": "Attention: \"Speaking\" as in \"oral exam\", not the verb \"to speak\". Make sure to use the appropriate translation.",
+        "type": "text"
+    },
     "variant_classic_l": "L - Lateinisch",
     "variant_classic_zh": "ZH - Chinesisch",
     "variant_general_a": "A - Fortsetzung des Deutschen",
     "variant_general_ad": "AD - Anpassungsklasse",
     "variant_general_adf": "ADF - Französische Anpassungsklasse",
     "variant_general_f": "F - Beginn des Deutschen",
-    "variant_general_fr": "FR - Frankophones Regime",
+    "variant_general_fr": "FR - Frankofones Regime",
     "variant_general_ia": "IA - Deutsch lernen",
     "variant_general_if": "IF - Französisch lernen",
     "variant_general_p": "P - Vorbereitungsweg",
-    "variant_general_pf": "PF - French Preparation Way"
+    "variant_general_pf": "PF - Französischer Vorbereitungsweg",
+    "dutch": "Nederlands",
+    "@dutch": {
+        "description": "Do not translate",
+        "type": "text"
+    }
 }
