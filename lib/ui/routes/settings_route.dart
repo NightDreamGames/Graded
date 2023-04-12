@@ -124,6 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         "en": translations.english,
                         "de": translations.german,
                         "fr": translations.french,
+                        "lb": translations.luxembourgish,
                         //"es": translations.spanish,
                         "nl": translations.dutch,
                       },

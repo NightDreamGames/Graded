@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import '/ui/settings/flutter_settings_screens.dart';
 import 'calculations/manager.dart';
 import 'localization/generated/l10n.dart';
+import 'localization/material_localization/lb_intl.dart';
 import 'misc/locale_provider.dart';
 import 'misc/storage.dart';
 import 'ui/routes/home_route.dart';
@@ -80,8 +81,10 @@ class _AppContainerState extends State<AppContainer> {
             localizationsDelegates: const [
               AppLocalizationDelegate(),
               GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              LbMaterialLocalizations.delegate,
+              LbCupertinoLocalizations.delegate,
             ],
             supportedLocales: TranslationsClass.delegate.supportedLocales,
             localeResolutionCallback: (deviceLocale, supportedLocales) {
