@@ -1,6 +1,6 @@
 {
     "about": "À propos",
-    "about_text": "NightDream Games\\nDéveloppeur - Damien Pirotte\\nIdentité visuelle - Ellia Walrave\\nTesting - Louis Colbus",
+    "about_text": "NightDream Games\nDéveloppeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus",
     "@about_text": {
         "description": "Do not translate names, keep formatting and line breaks",
         "type": "text"
