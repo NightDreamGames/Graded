@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Over"),
         "about_text": MessageLookupByLibrary.simpleMessage(
-            "NightDream Games\\nOntwikkelaar - Damien Pirotte\\nVisuele identiteit\\n - Ellia Walrave\\nTesting - Louis Colbus"),
+            "NightDream Games\nOntwikkelaar - Damien Pirotte\nVisuele identiteit - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Toevoegen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Groep toevoegen"),
         "add_subject":

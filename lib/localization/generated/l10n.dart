@@ -63,7 +63,7 @@ class TranslationsClass {
   /// `NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus`
   String get about_text {
     return Intl.message(
-      'NightDream Games\\nDeveloper - Damien Pirotte\\nVisual identity - Ellia Walrave\\nTesting - Louis Colbus',
+      'NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus',
       name: 'about_text',
       desc: 'Do not translate names, keep formatting and line breaks',
       args: [],
