@@ -111,6 +111,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("Numm"),
         "next": MessageLookupByLibrary.simpleMessage("Weider"),
         "no": MessageLookupByLibrary.simpleMessage("Nee"),
+        "no_grades": MessageLookupByLibrary.simpleMessage("Keng Notten"),
+        "no_items": MessageLookupByLibrary.simpleMessage("Keng Elementer"),
+        "no_subjects": MessageLookupByLibrary.simpleMessage("Keng Fächer"),
         "not_set": MessageLookupByLibrary.simpleMessage("Net definéiert"),
         "note": MessageLookupByLibrary.simpleMessage("Umierkung:"),
         "note_text": MessageLookupByLibrary.simpleMessage(

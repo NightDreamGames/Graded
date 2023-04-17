@@ -12,6 +12,7 @@ import '../../localization/translations.dart';
 import '../../misc/storage.dart';
 import '../widgets/dialogs.dart';
 import '../widgets/list_widgets.dart';
+import '../widgets/misc_widgets.dart';
 import '../widgets/popup_menus.dart';
 
 class SubjectEditRoute extends StatefulWidget {
@@ -59,60 +60,62 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           body: SafeArea(
             top: false,
             bottom: false,
-            child: ReorderableListView(
-              padding: const EdgeInsets.only(bottom: 88),
-              primary: true,
-              buildDefaultDragHandles: false,
-              onReorder: (int oldIndex, int newIndex) {
-                setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
-                ShowCaseWidget.of(context).next();
+            child: Manager.termTemplate.isNotEmpty
+                ? ReorderableListView(
+                    padding: const EdgeInsets.only(bottom: 88),
+                    primary: true,
+                    buildDefaultDragHandles: false,
+                    onReorder: (int oldIndex, int newIndex) {
+                      setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
+                      ShowCaseWidget.of(context).next();
 
-                Manager.sortAll();
+                      Manager.sortAll();
 
-                var oldIndexes = getSubjectIndexes(oldIndex);
-                var newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
-                int oldIndex1 = oldIndexes[0], oldIndex2 = oldIndexes[1];
-                int newIndex1 = newIndexes[0], newIndex2 = newIndexes[1];
+                      var oldIndexes = getSubjectIndexes(oldIndex);
+                      var newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
+                      int oldIndex1 = oldIndexes[0], oldIndex2 = oldIndexes[1];
+                      int newIndex1 = newIndexes[0], newIndex2 = newIndexes[1];
 
-                if (oldIndex1 == newIndex1 && oldIndex2 < newIndex2) {
-                  newIndex2--;
-                }
-                if (oldIndex1 < newIndex1 && oldIndex2 == -1) {
-                  newIndex1--;
-                } else if (newIndex1 == oldIndex1 && oldIndex2 == -1 && newIndex2 != -1) {
-                  return;
-                }
+                      if (oldIndex1 == newIndex1 && oldIndex2 < newIndex2) {
+                        newIndex2--;
+                      }
+                      if (oldIndex1 < newIndex1 && oldIndex2 == -1) {
+                        newIndex1--;
+                      } else if (newIndex1 == oldIndex1 && oldIndex2 == -1 && newIndex2 != -1) {
+                        return;
+                      }
 
-                List<List<Subject>> lists = [Manager.termTemplate];
-                lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
+                      List<List<Subject>> lists = [Manager.termTemplate];
+                      lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
 
-                for (List<Subject> list in lists) {
-                  Subject item;
-                  if (oldIndex2 == -1) {
-                    item = list.removeAt(oldIndex1);
-                  } else {
-                    item = list[oldIndex1].children.removeAt(oldIndex2);
-                    if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
-                  }
+                      for (List<Subject> list in lists) {
+                        Subject item;
+                        if (oldIndex2 == -1) {
+                          item = list.removeAt(oldIndex1);
+                        } else {
+                          item = list[oldIndex1].children.removeAt(oldIndex2);
+                          if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
+                        }
 
-                  item.isChild = newIndex2 != -1;
+                        item.isChild = newIndex2 != -1;
 
-                  if (newIndex2 == -1) {
-                    list.insert(newIndex1, item);
-                  } else {
-                    list[newIndex1].children.insertAll(newIndex2, [item, ...item.children]);
-                    item.children.clear();
-                    item.isGroup = false;
-                    list[newIndex1].isGroup = true;
-                  }
-                }
+                        if (newIndex2 == -1) {
+                          list.insert(newIndex1, item);
+                        } else {
+                          list[newIndex1].children.insertAll(newIndex2, [item, ...item.children]);
+                          item.children.clear();
+                          item.isGroup = false;
+                          list[newIndex1].isGroup = true;
+                        }
+                      }
 
-                serialize();
-                Manager.calculate();
-                rebuild();
-              },
-              children: buildTiles(),
-            ),
+                      serialize();
+                      Manager.calculate();
+                      rebuild();
+                    },
+                    children: buildTiles(),
+                  )
+                : EmptyWidget(message: translations.no_subjects),
           ),
         );
       }),

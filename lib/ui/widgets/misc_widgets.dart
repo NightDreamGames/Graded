@@ -1,6 +1,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_svg/svg.dart';
+
 class AppBarTitle extends StatelessWidget {
   const AppBarTitle({
     Key? key,
@@ -36,6 +39,45 @@ class AppBarTitle extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class EmptyWidget extends StatelessWidget {
+  const EmptyWidget({
+    required this.message,
+    super.key,
+  });
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 50),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: SizedBox(
+                height: 180,
+                width: 180,
+                child: SvgPicture.asset(
+                  'assets/illustrations/empty_list.svg',
+                  semanticsLabel: message,
+                  colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.outlineVariant, BlendMode.srcIn),
+                ),
+              ),
+            ),
+            Text(
+              message,
+              style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.outlineVariant),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

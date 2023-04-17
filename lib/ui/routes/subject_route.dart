@@ -192,6 +192,11 @@ class _SubjectRouteState extends State<SubjectRoute> {
               ),
             ),
           ),
+          if (subject.tests.isEmpty)
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: EmptyWidget(message: translations.no_grades),
+            ),
           const SliverPadding(padding: EdgeInsets.only(bottom: 88)),
         ],
       ),

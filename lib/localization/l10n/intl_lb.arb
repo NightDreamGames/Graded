@@ -209,5 +209,8 @@
     "@dutch": {
         "description": "Do not translate",
         "type": "text"
-    }
+    },
+    "no_subjects": "Keng Fächer",
+    "no_grades": "Keng Notten",
+    "no_items": "Keng Elementer"
 }

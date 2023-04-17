@@ -27,6 +27,7 @@ dependencies:
   flutter_file_dialog: ^3.0.0
   package_info_plus: ^3.0.1
   showcaseview: ^2.0.0
+  flutter_svg: ^2.0.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -44,6 +45,7 @@ flutter:
         - asset: assets/fonts/CustomIcons.ttf
   assets:
     - assets/class_data/
+    - assets/illustrations/
 
 flutter_intl:
   enabled: true

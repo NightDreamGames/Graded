@@ -209,5 +209,8 @@
     "@dutch": {
         "description": "Do not translate",
         "type": "text"
-    }
+    },
+    "no_subjects": "Pas de matières",
+    "no_grades": "Pas de nottes",
+    "no_items": "Pas d'éléments"
 }

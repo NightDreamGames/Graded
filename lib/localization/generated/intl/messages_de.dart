@@ -109,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Weiter"),
         "no": MessageLookupByLibrary.simpleMessage("Nein"),
+        "no_grades": MessageLookupByLibrary.simpleMessage("Keine Noten"),
+        "no_items": MessageLookupByLibrary.simpleMessage("Keine Elemente"),
+        "no_subjects": MessageLookupByLibrary.simpleMessage("Keine Fächer"),
         "not_set": MessageLookupByLibrary.simpleMessage("Nicht definiert"),
         "note": MessageLookupByLibrary.simpleMessage("Anmerkung:"),
         "note_text": MessageLookupByLibrary.simpleMessage(

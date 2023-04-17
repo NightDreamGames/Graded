@@ -360,6 +360,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Nederlands`
+  String get dutch {
+    return Intl.message(
+      'Nederlands',
+      name: 'dutch',
+      desc: 'Do not translate',
+      args: [],
+    );
+  }
+
   /// `Edit`
   String get edit {
     return Intl.message(
@@ -470,6 +480,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Export the current configuration and saved data`
+  String get export_details {
+    return Intl.message(
+      'Export the current configuration and saved data',
+      name: 'export_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export`
+  String get export_string {
+    return Intl.message(
+      'Export',
+      name: 'export_string',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Français`
   String get french {
     return Intl.message(
@@ -570,6 +600,46 @@ class TranslationsClass {
     );
   }
 
+  /// `Import a previously exported backup file`
+  String get import_details {
+    return Intl.message(
+      'Import a previously exported backup file',
+      name: 'import_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There was an error importing your backup.`
+  String get import_error {
+    return Intl.message(
+      'There was an error importing your backup.',
+      name: 'import_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import`
+  String get import_string {
+    return Intl.message(
+      'Import',
+      name: 'import_string',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backup imported successfully.`
+  String get import_success {
+    return Intl.message(
+      'Backup imported successfully.',
+      name: 'import_success',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Invalid`
   String get invalid {
     return Intl.message(
@@ -590,6 +660,16 @@ class TranslationsClass {
     );
   }
 
+  /// `en`
+  String get language_code {
+    return Intl.message(
+      'en',
+      name: 'language_code',
+      desc: 'ISO 639-1 code of the language, 2 letters',
+      args: [],
+    );
+  }
+
   /// `Licenses`
   String get licenses {
     return Intl.message(
@@ -606,6 +686,16 @@ class TranslationsClass {
       'Luxembourgish school system',
       name: 'lux_system',
       desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lëtzebuergesch`
+  String get luxembourgish {
+    return Intl.message(
+      'Lëtzebuergesch',
+      name: 'luxembourgish',
+      desc: 'Do not translate',
       args: [],
     );
   }
@@ -655,6 +745,36 @@ class TranslationsClass {
     return Intl.message(
       'No',
       name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No grades`
+  String get no_grades {
+    return Intl.message(
+      'No grades',
+      name: 'no_grades',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No items`
+  String get no_items {
+    return Intl.message(
+      'No items',
+      name: 'no_items',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No subjects`
+  String get no_subjects {
+    return Intl.message(
+      'No subjects',
+      name: 'no_subjects',
       desc: '',
       args: [],
     );
@@ -760,6 +880,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Result`
+  String get result {
+    return Intl.message(
+      'Result',
+      name: 'result',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Round to`
   String get round_to {
     return Intl.message(
@@ -795,6 +925,16 @@ class TranslationsClass {
     return Intl.message(
       'School system',
       name: 'school_system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `School term`
+  String get school_term {
+    return Intl.message(
+      'School term',
+      name: 'school_term',
       desc: '',
       args: [],
     );
@@ -885,366 +1025,6 @@ class TranslationsClass {
     return Intl.message(
       'I - Informatics & Communication',
       name: 'section_classic_i',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select school term`
-  String get select_school_term {
-    return Intl.message(
-      'Select school term',
-      name: 'select_school_term',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Semester`
-  String get semester {
-    return Intl.message(
-      'Semester',
-      name: 'semester',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Semesters`
-  String get semesters {
-    return Intl.message(
-      'Semesters',
-      name: 'semesters',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Settings`
-  String get settings {
-    return Intl.message(
-      'Settings',
-      name: 'settings',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Setup`
-  String get setup {
-    return Intl.message(
-      'Setup',
-      name: 'setup',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sort by`
-  String get sort_by {
-    return Intl.message(
-      'Sort by',
-      name: 'sort_by',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `There was an error loading your saved data, so it has been deleted.`
-  String get storage_error {
-    return Intl.message(
-      'There was an error loading your saved data, so it has been deleted.',
-      name: 'storage_error',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Subject`
-  String get subject {
-    return Intl.message(
-      'Subject',
-      name: 'subject',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `System`
-  String get system {
-    return Intl.message(
-      'System',
-      name: 'system',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `System language`
-  String get system_language {
-    return Intl.message(
-      'System language',
-      name: 'system_language',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `School term`
-  String get school_term {
-    return Intl.message(
-      'School term',
-      name: 'school_term',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Test`
-  String get test {
-    return Intl.message(
-      'Test',
-      name: 'test',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Theme`
-  String get theme {
-    return Intl.message(
-      'Theme',
-      name: 'theme',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Dark`
-  String get theme_dark {
-    return Intl.message(
-      'Dark',
-      name: 'theme_dark',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Light`
-  String get theme_light {
-    return Intl.message(
-      'Light',
-      name: 'theme_light',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `System (recommended)`
-  String get theme_system {
-    return Intl.message(
-      'System (recommended)',
-      name: 'theme_system',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `To 100-th`
-  String get to_100th {
-    return Intl.message(
-      'To 100-th',
-      name: 'to_100th',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `To 10-th`
-  String get to_10th {
-    return Intl.message(
-      'To 10-th',
-      name: 'to_10th',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `To integer`
-  String get to_integer {
-    return Intl.message(
-      'To integer',
-      name: 'to_integer',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Trimester`
-  String get trimester {
-    return Intl.message(
-      'Trimester',
-      name: 'trimester',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Trimesters`
-  String get trimesters {
-    return Intl.message(
-      'Trimesters',
-      name: 'trimesters',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Up`
-  String get up {
-    return Intl.message(
-      'Up',
-      name: 'up',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Variant`
-  String get variant {
-    return Intl.message(
-      'Variant',
-      name: 'variant',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Year`
-  String get year {
-    return Intl.message(
-      'Year',
-      name: 'year',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Year overview`
-  String get year_overview {
-    return Intl.message(
-      'Year overview',
-      name: 'year_overview',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yearly average`
-  String get yearly_average {
-    return Intl.message(
-      'Yearly average',
-      name: 'yearly_average',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yes`
-  String get yes {
-    return Intl.message(
-      'Yes',
-      name: 'yes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `en`
-  String get language_code {
-    return Intl.message(
-      'en',
-      name: 'language_code',
-      desc: 'ISO 639-1 code of the language, 2 letters',
-      args: [],
-    );
-  }
-
-  /// `Export the current configuration and saved data`
-  String get export_details {
-    return Intl.message(
-      'Export the current configuration and saved data',
-      name: 'export_details',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Export`
-  String get export_string {
-    return Intl.message(
-      'Export',
-      name: 'export_string',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Import a previously exported backup file`
-  String get import_details {
-    return Intl.message(
-      'Import a previously exported backup file',
-      name: 'import_details',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `There was an error importing your backup.`
-  String get import_error {
-    return Intl.message(
-      'There was an error importing your backup.',
-      name: 'import_error',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Import`
-  String get import_string {
-    return Intl.message(
-      'Import',
-      name: 'import_string',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Backup imported successfully.`
-  String get import_success {
-    return Intl.message(
-      'Backup imported successfully.',
-      name: 'import_success',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Lëtzebuergesch`
-  String get luxembourgish {
-    return Intl.message(
-      'Lëtzebuergesch',
-      name: 'luxembourgish',
-      desc: 'Do not translate',
-      args: [],
-    );
-  }
-
-  /// `Result`
-  String get result {
-    return Intl.message(
-      'Result',
-      name: 'result',
       desc: '',
       args: [],
     );
@@ -1420,11 +1200,61 @@ class TranslationsClass {
     );
   }
 
+  /// `Select school term`
+  String get select_school_term {
+    return Intl.message(
+      'Select school term',
+      name: 'select_school_term',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Semester`
+  String get semester {
+    return Intl.message(
+      'Semester',
+      name: 'semester',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Semesters`
+  String get semesters {
+    return Intl.message(
+      'Semesters',
+      name: 'semesters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Give feedback`
   String get send_feedback {
     return Intl.message(
       'Give feedback',
       name: 'send_feedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setup`
+  String get setup {
+    return Intl.message(
+      'Setup',
+      name: 'setup',
       desc: '',
       args: [],
     );
@@ -1445,6 +1275,16 @@ class TranslationsClass {
     return Intl.message(
       'Tap here to make the subject above a subject group',
       name: 'showcase_tap_subject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort by`
+  String get sort_by {
+    return Intl.message(
+      'Sort by',
+      name: 'sort_by',
       desc: '',
       args: [],
     );
@@ -1478,6 +1318,166 @@ class TranslationsClass {
       name: 'speaking_weight',
       desc:
           'Attention: "Speaking" as in "oral exam", not the verb "to speak". Make sure to use the appropriate translation.',
+      args: [],
+    );
+  }
+
+  /// `There was an error loading your saved data, so it has been deleted.`
+  String get storage_error {
+    return Intl.message(
+      'There was an error loading your saved data, so it has been deleted.',
+      name: 'storage_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subject`
+  String get subject {
+    return Intl.message(
+      'Subject',
+      name: 'subject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System`
+  String get system {
+    return Intl.message(
+      'System',
+      name: 'system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System language`
+  String get system_language {
+    return Intl.message(
+      'System language',
+      name: 'system_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Test`
+  String get test {
+    return Intl.message(
+      'Test',
+      name: 'test',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message(
+      'Theme',
+      name: 'theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get theme_dark {
+    return Intl.message(
+      'Dark',
+      name: 'theme_dark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light`
+  String get theme_light {
+    return Intl.message(
+      'Light',
+      name: 'theme_light',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System (recommended)`
+  String get theme_system {
+    return Intl.message(
+      'System (recommended)',
+      name: 'theme_system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To 100-th`
+  String get to_100th {
+    return Intl.message(
+      'To 100-th',
+      name: 'to_100th',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To 10-th`
+  String get to_10th {
+    return Intl.message(
+      'To 10-th',
+      name: 'to_10th',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To integer`
+  String get to_integer {
+    return Intl.message(
+      'To integer',
+      name: 'to_integer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trimester`
+  String get trimester {
+    return Intl.message(
+      'Trimester',
+      name: 'trimester',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trimesters`
+  String get trimesters {
+    return Intl.message(
+      'Trimesters',
+      name: 'trimesters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Up`
+  String get up {
+    return Intl.message(
+      'Up',
+      name: 'up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Variant`
+  String get variant {
+    return Intl.message(
+      'Variant',
+      name: 'variant',
+      desc: '',
       args: [],
     );
   }
@@ -1592,12 +1592,42 @@ class TranslationsClass {
     );
   }
 
-  /// `Nederlands`
-  String get dutch {
+  /// `Year`
+  String get year {
     return Intl.message(
-      'Nederlands',
-      name: 'dutch',
-      desc: 'Do not translate',
+      'Year',
+      name: 'year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Year overview`
+  String get year_overview {
+    return Intl.message(
+      'Year overview',
+      name: 'year_overview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yearly average`
+  String get yearly_average {
+    return Intl.message(
+      'Yearly average',
+      name: 'yearly_average',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
       args: [],
     );
   }
