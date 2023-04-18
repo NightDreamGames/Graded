@@ -72,7 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_subjects":
             MessageLookupByLibrary.simpleMessage("Modifier matières"),
         "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
-            "Cliquez pour modifier vos matières."),
+            "Cliquez pour modifier vos matières"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Modifier un devoir"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),
