@@ -247,7 +247,6 @@ class _SubjectTileState extends State<SubjectTile> {
       await Future.delayed(const Duration(milliseconds: 300), () {
         if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() != null) {
           ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
-          setPreference<bool>("showcase_subject_edit", false);
         }
       });
     }
@@ -271,63 +270,19 @@ class _SubjectTileState extends State<SubjectTile> {
         horizontalTitleGap: 8,
         leadingIcon: ReorderableDragStartListener(
           index: widget.reorderIndex,
-          child: Showcase(
-            key: showCaseKey1,
-            description: translations.showcase_tap_subject,
-            disableDefaultTargetGestures: true,
-            disposeOnTap: true,
-            onTargetClick: () {
-              ShowCaseWidget.of(context).next();
-            },
-            scaleAnimationCurve: Curves.easeInOut,
-            child: Showcase(
-              key: showCaseKey2,
-              description: translations.showcase_drag_subject,
-              disableDefaultTargetGestures: true,
-              disposeOnTap: true,
-              onTargetClick: () {
-                ShowCaseWidget.of(context).next();
-              },
-              scaleAnimationCurve: Curves.easeInOut,
-              child: IconButton(
-                icon: const Icon(Icons.drag_handle),
-                onPressed: () {
-                  ShowCaseWidget.of(context).next();
-
-                  if (widget.index1 == 0 && !widget.s.isChild) return;
-                  List<List<Subject>> lists = [Manager.termTemplate];
-                  for (Term term in Manager.getCurrentYear().terms) {
-                    lists.add(term.subjects);
-                  }
-
-                  bool isChild = widget.s.isChild;
-
-                  for (List<Subject> list in lists) {
-                    if (!isChild) {
-                      Subject parent = list[widget.index1 - 1];
-                      Subject child = list.removeAt(widget.index1);
-
-                      parent.isGroup = true;
-                      child.isChild = true;
-                      child.isGroup = false;
-
-                      parent.children.addAll([child, ...child.children]);
-                      child.children.clear();
-                    } else {
-                      Subject parent = list[widget.index1];
-                      Subject child = parent.children.removeAt(widget.index2);
-                      list.insert(widget.index1 + 1, child..isChild = false);
-                      if (parent.children.isEmpty) parent.isGroup = false;
-                    }
-                  }
-
-                  Manager.calculate();
-                  serialize();
-                  widget.rebuild();
-                },
-              ),
-            ),
-          ),
+          child: (widget.index1 == 1 && Manager.termTemplate.length >= 3 && getPreference<bool>("showcase_subject_edit", true))
+              ? Showcase(
+                  key: showCaseKey1,
+                  description: translations.showcase_tap_subject,
+                  scaleAnimationCurve: Curves.easeInOut,
+                  child: Showcase(
+                    key: showCaseKey2,
+                    description: translations.showcase_drag_subject,
+                    scaleAnimationCurve: Curves.easeInOut,
+                    child: IgnorePointer(child: createIconButton(context)),
+                  ),
+                )
+              : createIconButton(context),
         ),
         onTap: () async {
           showListMenu(context, widget.listKey).then((result) {
@@ -362,6 +317,44 @@ class _SubjectTileState extends State<SubjectTile> {
           });
         },
       ),
+    );
+  }
+
+  IconButton createIconButton(BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.drag_handle),
+      onPressed: () {
+        if (widget.index1 == 0 && !widget.s.isChild) return;
+        List<List<Subject>> lists = [Manager.termTemplate];
+        for (Term term in Manager.getCurrentYear().terms) {
+          lists.add(term.subjects);
+        }
+
+        bool isChild = widget.s.isChild;
+
+        for (List<Subject> list in lists) {
+          if (!isChild) {
+            Subject parent = list[widget.index1 - 1];
+            Subject child = list.removeAt(widget.index1);
+
+            parent.isGroup = true;
+            child.isChild = true;
+            child.isGroup = false;
+
+            parent.children.addAll([child, ...child.children]);
+            child.children.clear();
+          } else {
+            Subject parent = list[widget.index1];
+            Subject child = parent.children.removeAt(widget.index2);
+            list.insert(widget.index1 + 1, child..isChild = false);
+            if (parent.children.isEmpty) parent.isGroup = false;
+          }
+        }
+
+        Manager.calculate();
+        serialize();
+        widget.rebuild();
+      },
     );
   }
 }

@@ -41,23 +41,27 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return ShowCaseWidget(
-      blurValue: 1,
-      builder: Builder(builder: (context) {
-        return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => showSubjectDialog(context, nameController, coeffController, speakingController).then((_) => rebuild()),
-            child: const Icon(Icons.add),
-          ),
-          appBar: AppBar(
-            title: Text(translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
-            titleSpacing: 0,
-            toolbarHeight: 64,
-            actions: [
-              SortSelector(rebuild: rebuild, type: SortType.subject),
-            ],
-          ),
-          body: SafeArea(
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showSubjectDialog(context, nameController, coeffController, speakingController).then((_) => rebuild()),
+        child: const Icon(Icons.add),
+      ),
+      appBar: AppBar(
+        title: Text(translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
+        titleSpacing: 0,
+        toolbarHeight: 64,
+        actions: [
+          SortSelector(rebuild: rebuild, type: SortType.subject),
+        ],
+      ),
+      body: ShowCaseWidget(
+        blurValue: 1,
+        onFinish: () {
+          setPreference<bool>("showcase_subject_edit", false);
+          rebuild();
+        },
+        builder: Builder(builder: (context) {
+          return SafeArea(
             top: false,
             bottom: false,
             child: Manager.termTemplate.isNotEmpty
@@ -69,7 +73,6 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
                       if (oldIndex == newIndex - 1) return;
 
                       setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
-                      ShowCaseWidget.of(context).next();
 
                       Manager.sortAll();
 
@@ -118,9 +121,9 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
                     children: buildTiles(),
                   )
                 : EmptyWidget(message: translations.no_subjects),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 
