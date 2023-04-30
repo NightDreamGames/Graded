@@ -1,7 +1,7 @@
 name: graded
 description: Track and manage your school grades with ease
 publish_to: "none"
-version: 2.2.1+143
+version: 2.2.1+150
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
