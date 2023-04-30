@@ -17,6 +17,12 @@ abstract class SortMode {
   static const int custom = 3;
 }
 
+abstract class SortDirection {
+  static const int ascending = 1;
+  static const int descending = -1;
+  static const int notApplicable = 0;
+}
+
 abstract class SortType {
   static const int subject = 1;
   static const int test = 2;
@@ -30,16 +36,18 @@ abstract class RoundingMode {
 }
 
 class Calculator {
-  static void sortObjects(List<CalculationObject> data, {required int sortType, int? sortModeOverride, List<CalculationObject>? comparisonData}) {
+  static void sortObjects(List<CalculationObject> data,
+      {required int sortType, int? sortModeOverride, int? sortDirectionOverride, List<CalculationObject>? comparisonData}) {
     if (data.length >= 2) {
       int sortMode = getPreference<int>("sort_mode$sortType");
       if (sortModeOverride != null && sortMode != SortMode.custom) {
         sortMode = sortModeOverride;
       }
+      int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
 
       switch (sortMode) {
         case SortMode.name:
-          insertionSort(data, compare: (CalculationObject a, CalculationObject b) => a.processedName.compareTo(b.processedName));
+          insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.processedName.compareTo(b.processedName));
           break;
         case SortMode.result:
           insertionSort(data, compare: (CalculationObject a, CalculationObject b) {
@@ -51,11 +59,11 @@ class Calculator {
               return 1;
             }
 
-            return b.result!.compareTo(a.result!);
+            return sortDirection * a.result!.compareTo(b.result!);
           });
           break;
         case SortMode.coefficient:
-          insertionSort(data, compare: (CalculationObject a, CalculationObject b) => b.coefficient.compareTo(a.coefficient));
+          insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.coefficient.compareTo(b.coefficient));
           break;
         case SortMode.custom:
           var compare = comparisonData ?? Manager.termTemplate;

@@ -111,6 +111,31 @@ class SortSelector extends StatelessWidget {
               ]
             ],
             onSelected: (value) {
+              if (getPreference("sort_mode$type") == value) {
+                setPreference<int>("sort_direction$type", -getPreference("sort_direction$type"));
+              } else {
+                int direction = 0;
+
+                switch (value) {
+                  case SortMode.name:
+                    direction = 1;
+                    break;
+                  case SortMode.result:
+                    direction = -1;
+                    break;
+                  case SortMode.coefficient:
+                    direction = -1;
+                    break;
+                  case SortMode.custom:
+                    direction = 0;
+                    break;
+                  default:
+                    direction = 0;
+                    break;
+                }
+                setPreference<int>("sort_direction$type", direction);
+              }
+
               setPreference<int>("sort_mode$type", value);
 
               Manager.sortAll();
@@ -129,13 +154,27 @@ class SortSelector extends StatelessWidget {
   }
 
   PopupMenuItem<int> getPopupSubMenuItem(int value, String title) {
+    int sortDirection = getPreference<int>("sort_direction$type");
+    IconData icon = Icons.check;
+    switch (sortDirection) {
+      case 0:
+        icon = Icons.check;
+        break;
+      case 1:
+        icon = Icons.arrow_upward;
+        break;
+      case -1:
+        icon = Icons.arrow_downward;
+        break;
+    }
+
     return PopupMenuItem<int>(
       value: value,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title),
-          if (getPreference<int>("sort_mode$type") == value) const Icon(Icons.check, size: 20),
+          if (getPreference<int>("sort_mode$type") == value) Icon(icon, size: 20),
         ],
       ),
     );

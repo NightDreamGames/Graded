@@ -11,13 +11,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xml/xml.dart';
 
 // Project imports:
+import '../calculations/calculator.dart';
 import '../calculations/manager.dart';
 import '../calculations/term.dart';
 import 'setup_manager.dart';
 import 'storage.dart';
 
 class Compatibility {
-  static const dataVersion = 8;
+  static const dataVersion = 9;
 
   static Future<void> importPreferences() async {
     Uri uri;
@@ -167,6 +168,30 @@ class Compatibility {
 
         for (String key in keys) {
           setPreference(key, defaultValues[key]);
+        }
+      }
+    }
+
+    if (currentDataVersion < 9) {
+      for (var i = 1; i <= 2; i++) {
+        int sortMode = getPreference<int>("sort_mode$i");
+
+        switch (sortMode) {
+          case SortMode.name:
+            setPreference<int>("sort_direction$i", 1);
+            break;
+          case SortMode.result:
+            setPreference<int>("sort_direction$i", -1);
+            break;
+          case SortMode.coefficient:
+            setPreference<int>("sort_direction$i", -1);
+            break;
+          case SortMode.custom:
+            setPreference<int>("sort_direction$i", 0);
+            break;
+          default:
+            setPreference<int>("sort_direction$i", 0);
+            break;
         }
       }
     }

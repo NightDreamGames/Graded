@@ -27,6 +27,8 @@ final Map<String, dynamic> defaultValues = {
   "current_term": 0,
   "sort_mode1": SortMode.name,
   "sort_mode2": SortMode.name,
+  "sort_direction1": SortDirection.ascending,
+  "sort_direction2": SortDirection.ascending,
   "data_version": -1,
   //Calculation settings
   "term": 3,
