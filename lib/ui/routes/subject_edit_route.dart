@@ -66,6 +66,8 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
                     primary: true,
                     buildDefaultDragHandles: false,
                     onReorder: (int oldIndex, int newIndex) {
+                      if (oldIndex == newIndex - 1) return;
+
                       setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
                       ShowCaseWidget.of(context).next();
 
