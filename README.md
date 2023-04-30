@@ -38,7 +38,7 @@
 
 ---
 
-# 🫰 Support me
+# 💸 Support me
 
 Graded is free and open source and will always stay like this. If you like this project and want to support me, you can [buy me a Ko-Fi](https://ko-fi.com/faucon) or [buy me a coffee but on PayPal](https://paypal.me/FauconSpartiate). Thank you! 💸
 
