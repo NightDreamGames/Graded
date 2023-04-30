@@ -1,5 +1,8 @@
-Sie können jetzt ganz einfach mündliche Prüfungen mit eigener Gewichtung hinzufügen! Sie können die Gewichtung für mündliche Prüfungen auf der Fachbearbeitungsseite bearbeiten.
-- Mündliche Prüfungen hinzugefügt
-- Verbessertes Zahlen-Parsing
-- Eingabevalidierung korrigiert
-- Einige Layout-Fehler behoben
+Diese Version enthält mehrere Sprachverbesserungen, fügt einige neue UI-Funktionen hinzu und behebt eine Reihe von Fehlern
+- Übersetzungen für Niederländisch und Luxemburgisch hinzugefügt
+- Zahlreiche Inkonsistenzen in den Übersetzungen behoben
+- Illustrationen für leere Listen hinzugefügt
+- Der weiße Bildschirm bei der Neuordnung von Fächern wurde behoben
+- Fehler mit dem Showcase im Bearbeitungsbildschirm für Fächer behoben
+- Die Handhabung der iOS-Tastatur wurde verbessert
+- Einige zusätzliche Fehler behoben

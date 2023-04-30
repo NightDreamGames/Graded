@@ -1,5 +1,8 @@
-Vous pouvez maintenant facilement ajouter des tests oraux avec leur propre pondération ! Vous pouvez modifier la pondération des épreuves orales dans la page d'édition des matières.
-- Ajout de tests oraux
-- Amélioration de la saisie des nombres
-- Correction de la validation des saisies
-- Correction de quelques bugs de mise en page
+Cette version comporte plusieurs améliorations au niveau des traductions, ajoute de nouvelles fonctionnalités à l'interface utilisateur et corrige de nombreux bugs.
+- Ajout de traductions pour le néerlandais et le luxembourgeois
+- Correction de nombreuses incohérences dans les traductions
+- Ajout d'illustrations pour les listes vides
+- Correction de l'écran blanc lors de la réorganisation des sujets
+- Correction de bugs avec la présentation de l'écran d'édition des sujets
+- Amélioration de la gestion du clavier iOS
+- Correction de quelques bugs supplémentaires.
