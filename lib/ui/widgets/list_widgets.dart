@@ -243,13 +243,13 @@ class _SubjectTileState extends State<SubjectTile> {
   final GlobalKey showCaseKey2 = GlobalKey();
 
   void showTutorial() async {
-    if (widget.index1 == 1 && Manager.termTemplate.length >= 3 && getPreference<bool>("showcase_subject_edit", true)) {
-      await Future.delayed(const Duration(milliseconds: 300), () {
-        if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() != null) {
-          ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
-        }
-      });
-    }
+    if (widget.index1 != 2 || Manager.termTemplate.length < 3 || !getPreference<bool>("showcase_subject_edit", true)) return;
+
+    await Future.delayed(const Duration(milliseconds: 300), () {
+      if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
+
+      ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
+    });
   }
 
   @override
@@ -279,48 +279,63 @@ class _SubjectTileState extends State<SubjectTile> {
                     key: showCaseKey2,
                     description: translations.showcase_drag_subject,
                     scaleAnimationCurve: Curves.easeInOut,
-                    child: IgnorePointer(child: createIconButton(context)),
+                    child: IgnorePointer(child: ReorderableHandle(widget: widget)),
                   ),
                 )
-              : createIconButton(context),
+              : ReorderableHandle(widget: widget),
         ),
         onTap: () async {
           showListMenu(context, widget.listKey).then((result) {
-            if (result == MenuAction.edit) {
-              showSubjectDialog(context, widget.nameController, widget.coeffController, widget.speakingController,
-                      index: widget.index1, index2: widget.s.isChild ? widget.index2 : null)
-                  .then((_) => widget.rebuild());
-            } else if (result == MenuAction.delete) {
-              var parent = Manager.termTemplate[widget.index1];
-              Manager.sortAll(sortModeOverride: SortMode.name);
-              int newIndex = Manager.termTemplate.indexOf(parent);
+            switch (result) {
+              case MenuAction.edit:
+                showSubjectDialog(context, widget.nameController, widget.coeffController, widget.speakingController,
+                        index: widget.index1, index2: widget.s.isChild ? widget.index2 : null)
+                    .then((_) => widget.rebuild());
+                break;
+              case MenuAction.delete:
+                var parent = Manager.termTemplate[widget.index1];
+                Manager.sortAll(sortModeOverride: SortMode.name);
+                int newIndex = Manager.termTemplate.indexOf(parent);
 
-              if (widget.s.isChild) {
-                Manager.termTemplate[newIndex].children.removeWhere((element) => element.processedName == widget.s.processedName);
-              } else {
-                Manager.termTemplate.removeWhere((element) => element.processedName == widget.s.processedName);
-              }
-
-              for (Term t in Manager.getCurrentYear().terms) {
                 if (widget.s.isChild) {
-                  Subject parent = t.subjects[newIndex];
-                  parent.children.removeWhere((element) => element.processedName == widget.s.processedName);
-                  parent.isGroup = parent.children.isNotEmpty;
+                  Manager.termTemplate[newIndex].children.removeWhere((element) => element.processedName == widget.s.processedName);
                 } else {
-                  t.subjects.removeWhere((element) => element.processedName == widget.s.processedName);
+                  Manager.termTemplate.removeWhere((element) => element.processedName == widget.s.processedName);
                 }
-              }
 
-              Manager.calculate();
-              widget.rebuild();
+                for (Term t in Manager.getCurrentYear().terms) {
+                  if (widget.s.isChild) {
+                    Subject parent = t.subjects[newIndex];
+                    parent.children.removeWhere((element) => element.processedName == widget.s.processedName);
+                    parent.isGroup = parent.children.isNotEmpty;
+                  } else {
+                    t.subjects.removeWhere((element) => element.processedName == widget.s.processedName);
+                  }
+                }
+
+                Manager.calculate();
+                widget.rebuild();
+                break;
+              default:
+                break;
             }
           });
         },
       ),
     );
   }
+}
 
-  IconButton createIconButton(BuildContext context) {
+class ReorderableHandle extends StatelessWidget {
+  const ReorderableHandle({
+    super.key,
+    required this.widget,
+  });
+
+  final SubjectTile widget;
+
+  @override
+  Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.drag_handle),
       onPressed: () {

@@ -21,10 +21,7 @@ abstract class CalculationObject {
   double get denominator => getPreference<double>("total_grades");
 
   String getResult({bool precise = false}) {
-    if (result == null) {
-      return "-";
-    } else {
-      return Calculator.format(precise ? preciseResult : result, roundToOverride: precise ? 100 : null);
-    }
+    if (result == null) return "-";
+    return Calculator.format(precise ? preciseResult : result, roundToOverride: precise ? 100 : null);
   }
 }

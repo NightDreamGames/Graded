@@ -62,12 +62,7 @@ class _AppContainerState extends State<AppContainer> {
   Widget build(BuildContext context) {
     setOptimalDisplayMode();
 
-    String brightnessSetting = getPreference<String>("theme");
-    ThemeMode brightness = brightnessSetting == "system"
-        ? ThemeMode.system
-        : brightnessSetting == "light"
-            ? ThemeMode.light
-            : ThemeMode.dark;
+    ThemeMode brightness = ThemeMode.values.byName(getPreference<String>("theme"));
     String localeName = getPreference<String>("language");
 
     return ChangeNotifierProvider(
@@ -90,9 +85,8 @@ class _AppContainerState extends State<AppContainer> {
             localeResolutionCallback: (deviceLocale, supportedLocales) {
               if (supportedLocales.map((e) => e.languageCode).contains(deviceLocale?.languageCode)) {
                 return deviceLocale;
-              } else {
-                return const Locale('en', '');
               }
+              return const Locale('en', '');
             },
             locale: provider.locale,
             debugShowCheckedModeBanner: false,
@@ -152,7 +146,7 @@ Future<void> setOptimalDisplayMode() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-  if (Platform.isAndroid && androidInfo.version.sdkInt >= 23) {
-    await FlutterDisplayMode.setHighRefreshRate();
-  }
+  if (!Platform.isAndroid || androidInfo.version.sdkInt < 23) return;
+
+  await FlutterDisplayMode.setHighRefreshRate();
 }

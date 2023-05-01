@@ -164,30 +164,7 @@ class SetupManager {
     setPreference<String>("validated_school_system", getPreference<String>("school_system"));
 
     if (getPreference<String>("school_system") == "lux") {
-      setPreference<String>("validated_lux_system", getPreference<String>("lux_system"));
-      setPreference<int>("validated_year", getPreference<int>("year"));
-
-      if (hasSections()) {
-        setPreference<String>("validated_section", getPreference<String>("section"));
-      } else {
-        setPreference<String>("section", defaultValues["section"]);
-      }
-
-      if (hasVariants() && getVariants()[getPreference<String>("variant")] != null) {
-        setPreference<String>("validated_variant", getPreference<String>("variant"));
-      } else {
-        setPreference<String>("variant", defaultValues["variant"]);
-      }
-
-      if (getPreference<int>("year") == 1) {
-        setPreference<int>("term", 2);
-      }
-
-      setPreference<double>("total_grades", 60);
-      setPreference<String>("rounding_mode", RoundingMode.up);
-      setPreference<int>("round_to", 1);
-
-      await fillSubjects();
+      await completeLuxSystem();
     }
 
     Compatibility.termCount();
@@ -195,6 +172,33 @@ class SetupManager {
     Manager.calculate();
 
     setPreference<bool>("is_first_run", false);
+  }
+
+  static Future<void> completeLuxSystem() async {
+    setPreference<String>("validated_lux_system", getPreference<String>("lux_system"));
+    setPreference<int>("validated_year", getPreference<int>("year"));
+
+    if (hasSections()) {
+      setPreference<String>("validated_section", getPreference<String>("section"));
+    } else {
+      setPreference<String>("section", defaultValues["section"]);
+    }
+
+    if (hasVariants() && getVariants()[getPreference<String>("variant")] != null) {
+      setPreference<String>("validated_variant", getPreference<String>("variant"));
+    } else {
+      setPreference<String>("variant", defaultValues["variant"]);
+    }
+
+    if (getPreference<int>("year") == 1) {
+      setPreference<int>("term", 2);
+    }
+
+    setPreference<double>("total_grades", 60);
+    setPreference<String>("rounding_mode", RoundingMode.up);
+    setPreference<int>("round_to", 1);
+
+    await fillSubjects();
   }
 
   static Future<void> fillSubjects() async {

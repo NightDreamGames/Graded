@@ -61,8 +61,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
     index1 = term.subjects.indexWhere((element) {
       if (element.processedName == subject.processedName) {
         return true;
-      }
-      if (element.isGroup) {
+      } else if (element.isGroup) {
         return element.children.indexWhere((element) => element.processedName == subject.processedName) != -1;
       }
       return false;
@@ -87,7 +86,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
     return Scaffold(
       floatingActionButton: Manager.currentTerm != -1
           ? FloatingActionButton(
-              onPressed: () => {showTestDialog(context, subject, nameController, gradeController, maximumController).then((_) => rebuild())},
+              onPressed: () => showTestDialog(context, subject, nameController, gradeController, maximumController).then((_) => rebuild()),
               child: const Icon(Icons.add),
             )
           : null,
@@ -113,53 +112,49 @@ class _SubjectRouteState extends State<SubjectRoute> {
                 resultTapped = !resultTapped;
                 rebuild();
               },
-              leading: () {
-                if (Manager.currentTerm != -1) {
-                  return Row(
-                    children: [
-                      SizedBox(
-                        width: (Platform.isAndroid ? 100 : 110) * MediaQuery.textScaleFactorOf(context),
-                        child: Text(
-                          "${translations.bonus} ${subject.bonus}${subject.bonus < 0 ? "" : "  "}",
-                          overflow: TextOverflow.visible,
-                          softWrap: false,
-                          style: const TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold,
+              leading: Manager.currentTerm != -1
+                  ? Row(
+                      children: [
+                        SizedBox(
+                          width: (Platform.isAndroid ? 100 : 110) * MediaQuery.textScaleFactorOf(context),
+                          child: Text(
+                            "${translations.bonus} ${subject.bonus}${subject.bonus < 0 ? "" : "  "}",
+                            overflow: TextOverflow.visible,
+                            softWrap: false,
+                            style: const TextStyle(
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
+                        const Padding(padding: EdgeInsets.only(left: 8)),
+                        IconButton(
+                          icon: const Icon(Icons.remove, size: 20),
+                          onPressed: () {
+                            subject.changeBonus(-1);
+                            rebuild();
+                          },
+                          style: getIconButtonStyle(context),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add, size: 20),
+                          onPressed: () {
+                            subject.changeBonus(1);
+                            rebuild();
+                          },
+                          style: getIconButtonStyle(context),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      translations.yearly_average,
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                      style: const TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const Padding(padding: EdgeInsets.only(left: 8)),
-                      IconButton(
-                        icon: const Icon(Icons.remove, size: 20),
-                        onPressed: () {
-                          subject.changeBonus(-1);
-                          rebuild();
-                        },
-                        style: getIconButtonStyle(context),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.add, size: 20),
-                        onPressed: () {
-                          subject.changeBonus(1);
-                          rebuild();
-                        },
-                        style: getIconButtonStyle(context),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Text(
-                    translations.yearly_average,
-                    overflow: TextOverflow.fade,
-                    softWrap: false,
-                    style: const TextStyle(
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.bold,
                     ),
-                  );
-                }
-              }(),
             ),
           ),
           SliverSafeArea(

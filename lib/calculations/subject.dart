@@ -45,7 +45,9 @@ class Subject extends CalculationObject {
 
   void removeTest(int position, {bool calculate = true}) {
     tests.removeAt(position);
-    if (calculate) Manager.calculate();
+    if (calculate) {
+      Manager.calculate();
+    }
   }
 
   void editTest(int position, double numerator, double denominator, String name, {bool isSpeaking = false}) {
@@ -60,19 +62,18 @@ class Subject extends CalculationObject {
   }
 
   void changeBonus(int direction) {
-    if ((bonus + direction).abs() < 10) {
-      bonus += direction;
-      Manager.calculate();
-    }
+    if ((bonus + direction).abs() >= 10) return;
+
+    bonus += direction;
+    Manager.calculate();
   }
 
   void sort({int? sortModeOverride}) {
-    if (children.isNotEmpty) {
-      Calculator.sortObjects(children,
-          sortType: SortType.subject,
-          sortModeOverride: sortModeOverride,
-          comparisonData: Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children);
-    }
+    Calculator.sortObjects(children,
+        sortType: SortType.subject,
+        sortModeOverride: sortModeOverride,
+        comparisonData: Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children);
+
     Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride);
   }
 

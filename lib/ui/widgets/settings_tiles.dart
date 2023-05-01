@@ -36,10 +36,9 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
       icon: Icons.vertical_align_top,
       onChange: (value) {
         double? parsed = Calculator.tryParse(value);
-        if (parsed != null) {
-          setPreference<double>("total_grades", parsed);
-        }
+        if (parsed == null) return;
 
+        setPreference<double>("total_grades", parsed);
         Manager.calculate();
       },
       numeric: true,
@@ -49,8 +48,6 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
         if (number == null || number <= 0) {
           return translations.invalid;
         }
-
-        return null;
       },
     ),
     RadioModalSettingsTile<String>(

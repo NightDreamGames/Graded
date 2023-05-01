@@ -121,14 +121,10 @@ class SortSelector extends StatelessWidget {
                     direction = 1;
                     break;
                   case SortMode.result:
-                    direction = -1;
-                    break;
                   case SortMode.coefficient:
                     direction = -1;
                     break;
                   case SortMode.custom:
-                    direction = 0;
-                    break;
                   default:
                     direction = 0;
                     break;
@@ -139,7 +135,6 @@ class SortSelector extends StatelessWidget {
               setPreference<int>("sort_mode$type", value);
 
               Manager.sortAll();
-
               rebuild();
             },
           ),

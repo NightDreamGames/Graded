@@ -60,17 +60,17 @@ void serialize() {
 }
 
 void deserialize() {
-  if (existsPreference("data")) {
-    try {
-      var termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
-      Manager.termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson)).toList();
+  if (!existsPreference("data")) return;
 
-      var data = jsonDecode(getPreference<String>("data")) as List;
-      Manager.years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
-    } catch (e) {
-      Manager.deserializationError = true;
-      Manager.clear();
-    }
+  try {
+    var termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
+    Manager.termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson)).toList();
+
+    var data = jsonDecode(getPreference<String>("data")) as List;
+    Manager.years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
+  } catch (e) {
+    Manager.deserializationError = true;
+    Manager.clear();
   }
 }
 

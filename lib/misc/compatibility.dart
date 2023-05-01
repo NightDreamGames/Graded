@@ -20,7 +20,7 @@ import 'storage.dart';
 class Compatibility {
   static const dataVersion = 9;
 
-  static Future<void> importPreferences() async {
+  static Future<void> importFromV1() async {
     Uri uri;
 
     if (kDebugMode) {
@@ -103,14 +103,15 @@ class Compatibility {
 
     if (getPreference<bool>("is_first_run") && currentDataVersion == -1) {
       try {
-        await importPreferences();
+        await importFromV1();
       } catch (e) {
         log("Error while importing old data: $e");
       }
     }
 
     if (currentDataVersion < 2) {
-      periodPreferences();
+      setPreference<String?>("data", getPreference<String>("data").replaceAll("period", "term").replaceAll("mark", "grade"));
+      setPreference<String?>("default_data", getPreference<String>("default_data").replaceAll("period", "term").replaceAll("mark", "grade"));
     }
 
     deserialize();
@@ -204,6 +205,7 @@ class Compatibility {
     int termCount = getPreference<int>("term");
     bool hasExam = getPreference<int>("validated_year") == 1;
     bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
+
     if (termCount == 1) {
       hasExam = false;
       examPresent = false;
@@ -229,14 +231,5 @@ class Compatibility {
     }
 
     serialize();
-  }
-
-  static void periodPreferences() {
-    if (!getPreference<bool>("is_first_run") && getPreference<int>("data_version") < 2) {
-      if (existsPreference("data")) {
-        setPreference<String?>("data", getPreference<String>("data").replaceAll("period", "term").replaceAll("mark", "grade"));
-        setPreference<String?>("default_data", getPreference<String>("default_data").replaceAll("period", "term").replaceAll("mark", "grade"));
-      }
-    }
   }
 }

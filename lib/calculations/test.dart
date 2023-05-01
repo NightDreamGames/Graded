@@ -18,20 +18,14 @@ class Test extends CalculationObject {
 
   @override
   String toString() {
-    if (result != null) {
-      return "${Calculator.format(numerator)}/${Calculator.format(denominator, roundToOverride: 1)}";
-    } else {
-      return "-";
-    }
+    if (result == null) return "-";
+    return "${Calculator.format(numerator)}/${Calculator.format(denominator, roundToOverride: 1)}";
   }
 
   @override
   String getResult({bool precise = false}) {
-    if (result == null) {
-      return "-";
-    } else {
-      return Calculator.format(result);
-    }
+    if (result == null) return "-";
+    return Calculator.format(result);
   }
 
   Test.fromJson(Map<String, dynamic> json) {

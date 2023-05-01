@@ -38,48 +38,48 @@ abstract class RoundingMode {
 class Calculator {
   static void sortObjects(List<CalculationObject> data,
       {required int sortType, int? sortModeOverride, int? sortDirectionOverride, List<CalculationObject>? comparisonData}) {
-    if (data.length >= 2) {
-      int sortMode = getPreference<int>("sort_mode$sortType");
-      if (sortModeOverride != null && sortMode != SortMode.custom) {
-        sortMode = sortModeOverride;
-      }
-      int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
+    if (data.length < 2) return;
 
-      switch (sortMode) {
-        case SortMode.name:
-          insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.processedName.compareTo(b.processedName));
-          break;
-        case SortMode.result:
-          insertionSort(data, compare: (CalculationObject a, CalculationObject b) {
-            if (a.result == null && b.result == null) {
-              return 0;
-            } else if (b.result == null) {
-              return -1;
-            } else if (a.result == null) {
-              return 1;
-            }
+    int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
+    int sortMode = getPreference<int>("sort_mode$sortType");
+    if (sortModeOverride != null && sortMode != SortMode.custom) {
+      sortMode = sortModeOverride;
+    }
 
-            return sortDirection * a.result!.compareTo(b.result!);
-          });
-          break;
-        case SortMode.coefficient:
-          insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.coefficient.compareTo(b.coefficient));
-          break;
-        case SortMode.custom:
-          var compare = comparisonData ?? Manager.termTemplate;
-          data.sort((a, b) {
-            return compare.indexWhere((element) => a.processedName == element.processedName) -
-                compare.indexWhere((element) => b.processedName == element.processedName);
-          });
-          break;
-      }
+    switch (sortMode) {
+      case SortMode.name:
+        insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.processedName.compareTo(b.processedName));
+        break;
+      case SortMode.result:
+        insertionSort(data, compare: (CalculationObject a, CalculationObject b) {
+          if (a.result == null && b.result == null) {
+            return 0;
+          } else if (b.result == null) {
+            return -1;
+          } else if (a.result == null) {
+            return 1;
+          }
+
+          return sortDirection * a.result!.compareTo(b.result!);
+        });
+        break;
+      case SortMode.coefficient:
+        insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.coefficient.compareTo(b.coefficient));
+        break;
+      case SortMode.custom:
+        var compare = comparisonData ?? Manager.termTemplate;
+        data.sort((a, b) {
+          return compare.indexWhere((element) => a.processedName == element.processedName) -
+              compare.indexWhere((element) => b.processedName == element.processedName);
+        });
+        break;
     }
   }
 
   static double? calculate(Iterable<CalculationObject> data, {int bonus = 0, bool precise = false, double speakingWeight = 1}) {
-    if (data.isEmpty || !data.any((element) => element.numerator != null && element.denominator != 0)) {
-      return null;
-    }
+    bool isNullFilled = data.every((element) => element.numerator == null || element.denominator == 0);
+
+    if (data.isEmpty || isNullFilled) return null;
 
     double totalGrades = getPreference<double>("total_grades");
 
@@ -88,15 +88,13 @@ class Calculator {
     double totalNumeratorSpeaking = 0;
     double totalDenominatorSpeaking = 0;
 
-    for (CalculationObject c in data) {
-      if (c.numerator != null && c.denominator != 0) {
-        if (c is Test && c.isSpeaking) {
-          totalNumeratorSpeaking += c.numerator! * c.coefficient;
-          totalDenominatorSpeaking += c.denominator * c.coefficient;
-        } else {
-          totalNumerator += c.numerator! * c.coefficient;
-          totalDenominator += c.denominator * c.coefficient;
-        }
+    for (CalculationObject c in data.where((element) => element.numerator != null && element.denominator != 0)) {
+      if (c is Test && c.isSpeaking) {
+        totalNumeratorSpeaking += c.numerator! * c.coefficient;
+        totalDenominatorSpeaking += c.denominator * c.coefficient;
+      } else {
+        totalNumerator += c.numerator! * c.coefficient;
+        totalDenominator += c.denominator * c.coefficient;
       }
     }
 
@@ -116,22 +114,24 @@ class Calculator {
 
     double round = n * roundTo;
 
-    if (roundingMode == RoundingMode.up) {
-      return round.ceilToDouble() / roundTo;
-    } else if (roundingMode == RoundingMode.down) {
-      return round.floorToDouble() / roundTo;
-    } else {
-      double base = round.floorToDouble();
-      double decimals = n - base;
+    switch (roundingMode) {
+      case RoundingMode.up:
+        return round.ceilToDouble() / roundTo;
+      case RoundingMode.down:
+        return round.floorToDouble() / roundTo;
+      case RoundingMode.halfUp:
+        double base = round.floorToDouble();
+        double decimals = n - base;
 
-      if (roundingMode == RoundingMode.halfUp) {
         return (decimals < 0.5 ? base : base + 1) / roundTo;
-      } else if (roundingMode == RoundingMode.halfDown) {
-        return (decimals <= 0.5 ? base : base + 1) / roundTo;
-      }
-    }
+      case RoundingMode.halfDown:
+        double base = round.floorToDouble();
+        double decimals = n - base;
 
-    return n;
+        return (decimals <= 0.5 ? base : base + 1) / roundTo;
+      default:
+        return n;
+    }
   }
 
   static double? tryParse(String? input) {
@@ -140,13 +140,12 @@ class Calculator {
   }
 
   static String format(double? n, {bool addZero = true, int? roundToOverride}) {
-    if (n == null || n == double.nan) {
-      return "-";
-    }
+    if (n == null || n == double.nan) return "-";
 
+    int roundTo = roundToOverride ?? getPreference<int>("round_to");
     String result;
 
-    int nbDecimals = log(roundToOverride ?? getPreference<int>("round_to")) ~/ log(10);
+    int nbDecimals = log(roundTo) ~/ log(10);
     if (n % 1 != 0) {
       nbDecimals = max(n.toString().split('.')[1].length, nbDecimals);
     }
