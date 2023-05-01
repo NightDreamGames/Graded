@@ -48,6 +48,8 @@ List<Widget> getSettingsTiles(BuildContext context, bool type) {
         if (number == null || number <= 0) {
           return translations.invalid;
         }
+
+        return null;
       },
     ),
     RadioModalSettingsTile<String>(
