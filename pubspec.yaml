@@ -22,10 +22,10 @@ dependencies:
   shared_preferences: ^2.0.0
   url_launcher: ^6.0.0
   xml: ^6.1.0
-  device_info_plus: ^8.0.0
+  device_info_plus: ^9.0.0
   flutter_displaymode: ^0.6.0
   flutter_file_dialog: ^3.0.0
-  package_info_plus: ^3.0.1
+  package_info_plus: ^4.0.0
   showcaseview: ^2.0.0
   flutter_svg: ^2.0.0
 
