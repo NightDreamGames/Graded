@@ -1,24 +1,23 @@
 // Dart imports:
-import 'dart:io' show Platform;
+import "dart:io" show Platform;
 
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import '../../calculations/calculator.dart';
-import '../../calculations/manager.dart';
-import '../../calculations/subject.dart';
-import '../../calculations/term.dart';
-import '../../localization/translations.dart';
-import '../../misc/storage.dart';
-import '../utilities/misc_utilities.dart';
-import '../widgets/dialogs.dart';
-import '../widgets/list_widgets.dart';
-import '../widgets/misc_widgets.dart';
-import '../widgets/popup_menus.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/term.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/widgets/dialogs.dart";
+import "package:graded/ui/widgets/list_widgets.dart";
+import "package:graded/ui/widgets/misc_widgets.dart";
+import "package:graded/ui/widgets/popup_menus.dart";
 
 class SubjectRoute extends StatefulWidget {
-  const SubjectRoute({Key? key}) : super(key: key);
+  const SubjectRoute({super.key});
 
   @override
   State<SubjectRoute> createState() => _SubjectRouteState();
@@ -77,8 +76,8 @@ class _SubjectRouteState extends State<SubjectRoute> {
 
   @override
   Widget build(BuildContext context) {
-    if (index1 == -1) {
-      List<int?> arguments = ModalRoute.of(context)?.settings.arguments as List<int?>;
+    if (index1 == -1 && ModalRoute.of(context)?.settings.arguments != null) {
+      List<int?> arguments = ModalRoute.of(context)!.settings.arguments! as List<int?>;
       index1 = arguments[0] ?? 0;
       index2 = arguments[1] ?? -1;
     }
@@ -162,7 +161,6 @@ class _SubjectRouteState extends State<SubjectRoute> {
             bottom: false,
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                addAutomaticKeepAlives: true,
                 childCount: subject.tests.length,
                 (context, index) {
                   GlobalKey listKey = GlobalKey();
@@ -171,16 +169,21 @@ class _SubjectRouteState extends State<SubjectRoute> {
                     leading: subject.tests[index].name,
                     trailing: subject.tests[index].toString(),
                     onTap: () async {
-                      if (Manager.currentTerm != -1) {
-                        showListMenu(context, listKey).then((result) {
-                          if (result == MenuAction.edit) {
+                      if (Manager.currentTerm == -1) return;
+
+                      showListMenu(context, listKey).then((result) {
+                        switch (result) {
+                          case MenuAction.edit:
                             showTestDialog(context, subject, nameController, gradeController, maximumController, index: index).then((_) => rebuild());
-                          } else if (result == MenuAction.delete) {
+                            break;
+                          case MenuAction.delete:
                             subject.removeTest(index);
                             rebuild();
-                          }
-                        });
-                      }
+                            break;
+                          default:
+                            break;
+                        }
+                      });
                     },
                   );
                 },

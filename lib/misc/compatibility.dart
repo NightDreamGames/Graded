@@ -1,21 +1,22 @@
 // Dart imports:
-import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
+import "dart:async";
+import "dart:developer";
+import "dart:io";
 
 // Flutter imports:
-import 'package:flutter/foundation.dart';
+import "package:flutter/foundation.dart";
 
 // Package imports:
-import 'package:path_provider/path_provider.dart';
-import 'package:xml/xml.dart';
+import "package:path_provider/path_provider.dart";
+import "package:xml/xml.dart";
 
 // Project imports:
-import '../calculations/calculator.dart';
-import '../calculations/manager.dart';
-import '../calculations/term.dart';
-import 'setup_manager.dart';
-import 'storage.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/term.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/setup_manager.dart";
+import "package:graded/misc/storage.dart";
 
 class Compatibility {
   static const dataVersion = 9;
@@ -68,10 +69,10 @@ class Compatibility {
     }
     setPreference<double>("total_grades", totalGrades);
 
-    setPreference<bool>("is_first_run", elements["isFirstRun"]?.toLowerCase() == 'true');
+    setPreference<bool>("is_first_run", elements["isFirstRun"]?.toLowerCase() == "true");
 
     if (existsPreference("period")) {
-      elements.update("term", (value) => elements["period"]?.replaceFirst("period", "term") ?? defaultValues["term"]);
+      elements.update("term", (value) => elements["period"]?.replaceFirst("period", "term") ?? defaultValues["term"] as String);
     }
     switch (elements["term"]) {
       case "term_trimester":
@@ -84,7 +85,7 @@ class Compatibility {
         setPreference<int>("term", 1);
         break;
       default:
-        setPreference<int>("term", defaultValues["term"]);
+        setPreference<int>("term", defaultValues["term"] as int);
         break;
     }
 
@@ -119,7 +120,7 @@ class Compatibility {
     if (currentDataVersion < 5) {
       termCount();
 
-      setPreference<String>("language", defaultValues["language"]);
+      setPreference<String>("language", defaultValues["language"] as String);
     }
 
     if (currentDataVersion < 6) {
@@ -150,24 +151,27 @@ class Compatibility {
       if (getPreference<String>("validated_school_system") == "lux") {
         try {
           if (!SetupManager.hasSections(getPreference<String>("validated_lux_system"), getPreference<int>("validated_year"))) {
-            setPreference<String>("validated_section", defaultValues["validated_section"]);
+            setPreference<String>("validated_section", defaultValues["validated_section"] as String);
           }
         } catch (e) {
-          setPreference<String>("validated_section", defaultValues["validated_section"]);
+          setPreference<String>("validated_section", defaultValues["validated_section"] as String);
         }
         try {
           if (!SetupManager.hasVariants(
-                  getPreference<String>("validated_lux_system"), getPreference<int>("validated_year"), getPreference<String>("validated_section")) ||
+                getPreference<String>("validated_lux_system"),
+                getPreference<int>("validated_year"),
+                getPreference<String>("validated_section"),
+              ) ||
               SetupManager.getVariants()[getPreference<String>("validated_variant")] == null) {
-            setPreference<String>("validated_variant", defaultValues["validated_variant"]);
+            setPreference<String>("validated_variant", defaultValues["validated_variant"] as String);
           }
         } catch (e) {
-          setPreference<String>("validated_variant", defaultValues["validated_variant"]);
+          setPreference<String>("validated_variant", defaultValues["validated_variant"] as String);
         }
       } else {
         List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
 
-        for (String key in keys) {
+        for (final String key in keys) {
           setPreference(key, defaultValues[key]);
         }
       }

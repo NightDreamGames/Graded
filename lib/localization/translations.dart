@@ -1,4 +1,4 @@
 // Project imports:
-import 'package:graded/localization/generated/l10n.dart';
+import "package:graded/localization/generated/l10n.dart";
 
-var translations = TranslationsClass.current;
+TranslationsClass translations = TranslationsClass.current;

@@ -1,18 +1,19 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import '../../calculations/calculator.dart';
-import '../../calculations/manager.dart';
-import '../../calculations/subject.dart';
-import '../../calculations/term.dart';
-import '../../calculations/test.dart';
-import '../../localization/translations.dart';
-import '../../misc/storage.dart';
-import '../utilities/hints.dart';
-import '../utilities/misc_utilities.dart';
-import '/ui/settings/flutter_settings_screens.dart';
-import 'easy_form_field.dart';
+import "package:graded/calculations/calculator.dart";
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/term.dart";
+import "package:graded/calculations/test.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/hints.dart";
+import "package:graded/ui/widgets/easy_form_field.dart";
 
 class EasyDialog extends StatefulWidget {
   final String title;
@@ -29,10 +30,10 @@ class EasyDialog extends StatefulWidget {
   final double bottomPadding;
 
   const EasyDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.child,
-    this.subtitle = '',
+    this.subtitle = "",
     this.enabled = true,
     this.icon,
     this.showConfirmation = true,
@@ -42,7 +43,7 @@ class EasyDialog extends StatefulWidget {
     this.subtitleTextStyle,
     this.action,
     this.bottomPadding = 20,
-  }) : super(key: key);
+  });
 
   @override
   State<EasyDialog> createState() => EasyDialogState();
@@ -121,146 +122,154 @@ class EasyDialogState extends State<EasyDialog> {
   }
 }
 
-Future<void> showTestDialog(BuildContext context, Subject subject, TextEditingController nameController, TextEditingController gradeController,
-    TextEditingController maximumController,
-    {int? index}) async {
+Future<void> showTestDialog(
+  BuildContext context,
+  Subject subject,
+  TextEditingController nameController,
+  TextEditingController gradeController,
+  TextEditingController maximumController, {
+  int? index,
+}) async {
   gradeController.clear();
   maximumController.clear();
   nameController.clear();
 
-  MenuAction action = index == null ? MenuAction.add : MenuAction.edit;
+  CreationType action = index == null ? CreationType.add : CreationType.edit;
 
-  index == null;
-  gradeController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].numerator, addZero: false) : "";
-  maximumController.text = action == MenuAction.edit ? Calculator.format(subject.tests[index!].denominator, addZero: false, roundToOverride: 1) : "";
-  nameController.text = action == MenuAction.edit ? subject.tests[index!].name : "";
-  bool isSpeaking = action == MenuAction.edit ? subject.tests[index!].isSpeaking : false;
+  gradeController.text = action == CreationType.edit ? Calculator.format(subject.tests[index!].numerator, addZero: false) : "";
+  maximumController.text =
+      action == CreationType.edit ? Calculator.format(subject.tests[index!].denominator, addZero: false, roundToOverride: 1) : "";
+  nameController.text = action == CreationType.edit ? subject.tests[index!].name : "";
+  bool isSpeaking = action == CreationType.edit && subject.tests[index!].isSpeaking;
 
   return showDialog(
     context: context,
     builder: (context) {
       final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
 
-      return StatefulBuilder(builder: (context, setState) {
-        return EasyDialog(
-          key: dialogKey,
-          title: action == MenuAction.add ? translations.add_test : translations.edit_test,
-          icon: action == MenuAction.add ? Icons.add : Icons.edit,
-          bottomPadding: 0,
-          onConfirm: () {
-            String name = nameController.text.isEmpty ? getHint(translations.test, subject.tests) : nameController.text;
-            double numerator = Calculator.tryParse(gradeController.text) ?? 1;
-            double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return EasyDialog(
+            key: dialogKey,
+            title: action == CreationType.add ? translations.add_test : translations.edit_test,
+            icon: action == CreationType.add ? Icons.add : Icons.edit,
+            bottomPadding: 0,
+            onConfirm: () {
+              String name = nameController.text.isEmpty ? getHint(translations.test, subject.tests) : nameController.text;
+              double numerator = Calculator.tryParse(gradeController.text) ?? 1;
+              double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
-            if (action == MenuAction.add) {
-              subject.addTest(Test(numerator, denominator, name: name, isSpeaking: isSpeaking));
-            } else {
-              subject.editTest(index!, numerator, denominator, name, isSpeaking: isSpeaking);
-            }
+              if (action == CreationType.add) {
+                subject.addTest(Test(numerator, denominator, name: name, isSpeaking: isSpeaking));
+              } else {
+                subject.editTest(index!, numerator, denominator, name, isSpeaking: isSpeaking);
+              }
 
-            return true;
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(
-                child: EasyFormField(
-                  controller: nameController,
-                  label: translations.name,
-                  hint: getHint(translations.test, subject.tests),
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: EasyFormField(
-                      controller: gradeController,
-                      label: translations.grade,
-                      hint: "01",
-                      textAlign: TextAlign.end,
-                      autofocus: true,
-                      numeric: true,
-                      textInputAction: TextInputAction.next,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
-                    child: Text("/", style: TextStyle(fontSize: 20)),
-                  ),
-                  Flexible(
-                    child: EasyFormField(
-                      controller: maximumController,
-                      label: translations.maximum,
-                      hint: Calculator.format(getPreference<double>("total_grades"), roundToOverride: 1),
-                      numeric: true,
-                      signed: false,
-                      onSubmitted: () {
-                        if (dialogKey.currentState is EasyDialogState) {
-                          (dialogKey.currentState as EasyDialogState).submit();
-                        }
-                      },
-                      additionalValidator: (newValue) {
-                        double? number = Calculator.tryParse(newValue);
-
-                        if (number != null && number <= 0) {
-                          return translations.invalid;
-                        }
-
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.all(4.0),
-              ),
-              Flexible(
-                child: CheckboxListTile(
-                  value: isSpeaking,
-                  onChanged: (value) {
-                    isSpeaking = value ?? false;
-                    setState(() {});
-                  },
-                  title: Text(
-                    translations.speaking,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              return true;
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: EasyFormField(
+                    controller: nameController,
+                    label: translations.name,
+                    hint: getHint(translations.test, subject.tests),
+                    textInputAction: TextInputAction.next,
                   ),
                 ),
-              )
-            ],
-          ),
-        );
-      });
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: EasyFormField(
+                        controller: gradeController,
+                        label: translations.grade,
+                        hint: "01",
+                        textAlign: TextAlign.end,
+                        autofocus: true,
+                        numeric: true,
+                        textInputAction: TextInputAction.next,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+                      child: Text("/", style: TextStyle(fontSize: 20)),
+                    ),
+                    Flexible(
+                      child: EasyFormField(
+                        controller: maximumController,
+                        label: translations.maximum,
+                        hint: Calculator.format(getPreference<double>("total_grades"), roundToOverride: 1),
+                        numeric: true,
+                        signed: false,
+                        onSubmitted: () {
+                          dialogKey.currentState?.submit();
+                        },
+                        additionalValidator: (newValue) {
+                          double? number = Calculator.tryParse(newValue);
+
+                          if (number != null && number <= 0) {
+                            return translations.invalid;
+                          }
+
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(4.0),
+                ),
+                Flexible(
+                  child: CheckboxListTile(
+                    value: isSpeaking,
+                    onChanged: (value) {
+                      isSpeaking = value ?? false;
+                      setState(() {});
+                    },
+                    title: Text(
+                      translations.speaking,
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      );
     },
   );
 }
 
 Future<void> showSubjectDialog(
-    BuildContext context, TextEditingController nameController, TextEditingController coeffController, TextEditingController speakingController,
-    {int? index, int? index2}) async {
+  BuildContext context,
+  TextEditingController nameController,
+  TextEditingController coeffController,
+  TextEditingController speakingController, {
+  int? index,
+  int? index2,
+}) async {
   coeffController.clear();
   nameController.clear();
   speakingController.clear();
 
-  MenuAction action = index == null ? MenuAction.add : MenuAction.edit;
+  CreationType action = index == null ? CreationType.add : CreationType.edit;
 
-  Subject subject = action == MenuAction.add
+  Subject subject = action == CreationType.add
       ? Subject("", 0, 0)
       : index2 == null
           ? Manager.termTemplate[index!]
           : Manager.termTemplate[index!].children[index2];
-  coeffController.text = action == MenuAction.edit ? Calculator.format(subject.coefficient, addZero: false, roundToOverride: 1) : "";
-  nameController.text = action == MenuAction.edit ? subject.name : "";
-  speakingController.text = action == MenuAction.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false) : "";
+  coeffController.text = action == CreationType.edit ? Calculator.format(subject.coefficient, addZero: false, roundToOverride: 1) : "";
+  nameController.text = action == CreationType.edit ? subject.name : "";
+  speakingController.text = action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false) : "";
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
   return showDialog(
@@ -268,20 +277,20 @@ Future<void> showSubjectDialog(
     builder: (context) {
       return EasyDialog(
         key: dialogKey,
-        title: action == MenuAction.add ? translations.add_subject : translations.edit_subject,
-        icon: action == MenuAction.add ? Icons.add : Icons.edit,
+        title: action == CreationType.add ? translations.add_subject : translations.edit_subject,
+        icon: action == CreationType.add ? Icons.add : Icons.edit,
         onConfirm: () {
           String name = nameController.text.isEmpty ? getHint(translations.subject, Manager.termTemplate) : nameController.text;
           double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
-          double speakingWeight = Calculator.tryParse(speakingController.text) ?? defaultValues["speaking_weight"] + 1;
+          double speakingWeight = Calculator.tryParse(speakingController.text) ?? (defaultValues["speaking_weight"] as double) + 1;
           speakingWeight--;
           if (speakingWeight <= 0) speakingWeight = 1;
 
-          if (action == MenuAction.add) {
+          if (action == CreationType.add) {
             Manager.termTemplate.add(Subject(name, coefficient, speakingWeight));
 
-            for (Term t in Manager.getCurrentYear().terms) {
+            for (final Term t in Manager.getCurrentYear().terms) {
               t.subjects.add(Subject(name, coefficient, speakingWeight));
             }
           } else {
@@ -291,7 +300,7 @@ Future<void> showSubjectDialog(
             subject.coefficient = coefficient;
             subject.speakingWeight = speakingWeight;
 
-            for (Term t in Manager.getCurrentYear().terms) {
+            for (final Term t in Manager.getCurrentYear().terms) {
               for (int i = 0; i < t.subjects.length; i++) {
                 Subject s = t.subjects[i];
                 Subject template = Manager.termTemplate[i];
@@ -313,7 +322,6 @@ Future<void> showSubjectDialog(
           return true;
         },
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
@@ -325,11 +333,11 @@ Future<void> showSubjectDialog(
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
                   if (Manager.termTemplate.any((element) {
-                    if (action == MenuAction.edit && element == subject) {
+                    if (action == CreationType.edit && element == subject) {
                       return false;
                     }
                     if (element.children.any((child) {
-                      if (action == MenuAction.edit && child == subject) {
+                      if (action == CreationType.edit && child == subject) {
                         return false;
                       }
                       return child.name == newValue;
@@ -348,7 +356,6 @@ Future<void> showSubjectDialog(
               padding: EdgeInsets.all(8.0),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Flexible(
@@ -376,7 +383,6 @@ Future<void> showSubjectDialog(
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
@@ -391,12 +397,10 @@ Future<void> showSubjectDialog(
                   child: EasyFormField(
                     controller: speakingController,
                     label: translations.speaking_weight,
-                    hint: Calculator.format(defaultValues["speaking_weight"] + 1, addZero: false),
+                    hint: Calculator.format((defaultValues["speaking_weight"] as double) + 1, addZero: false),
                     numeric: true,
                     onSubmitted: () {
-                      if (dialogKey.currentState is EasyDialogState) {
-                        (dialogKey.currentState as EasyDialogState).submit();
-                      }
+                      dialogKey.currentState?.submit();
                     },
                     additionalValidator: (newValue) {
                       double? number = Calculator.tryParse(newValue);

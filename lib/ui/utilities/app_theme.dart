@@ -21,10 +21,10 @@ class AppTheme {
 
     return theme.copyWith(
       textTheme: theme.textTheme.apply(
-        fontFamily: 'RobotoMono',
+        fontFamily: "RobotoMono",
       ),
       primaryTextTheme: theme.textTheme.apply(
-        fontFamily: 'RobotoMono',
+        fontFamily: "RobotoMono",
       ),
       dividerTheme: theme.dividerTheme.copyWith(
         thickness: 0.5,
@@ -44,7 +44,7 @@ class AppTheme {
   }
 
   static ColorScheme lightTheme() {
-    ColorScheme scheme = lightColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.light);
+    ColorScheme scheme = lightColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3));
     //scheme = ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.light);
     //scheme = const ColorScheme.light();
 

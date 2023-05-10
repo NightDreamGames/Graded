@@ -1,43 +1,24 @@
 // Dart imports:
-import 'dart:math';
+import "dart:math";
 
 // Package imports:
-import 'package:collection/collection.dart';
+import "package:collection/collection.dart";
 
 // Project imports:
-import '../misc/storage.dart';
-import 'calculation_object.dart';
-import 'manager.dart';
-import 'test.dart';
-
-abstract class SortMode {
-  static const int name = 0;
-  static const int result = 1;
-  static const int coefficient = 2;
-  static const int custom = 3;
-}
-
-abstract class SortDirection {
-  static const int ascending = 1;
-  static const int descending = -1;
-  static const int notApplicable = 0;
-}
-
-abstract class SortType {
-  static const int subject = 1;
-  static const int test = 2;
-}
-
-abstract class RoundingMode {
-  static const String up = "rounding_up";
-  static const String down = "rounding_down";
-  static const String halfUp = "rounding_half_up";
-  static const String halfDown = "rounding_half_down";
-}
+import "package:graded/calculations/calculation_object.dart";
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/test.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
 
 class Calculator {
-  static void sortObjects(List<CalculationObject> data,
-      {required int sortType, int? sortModeOverride, int? sortDirectionOverride, List<CalculationObject>? comparisonData}) {
+  static void sortObjects(
+    List<CalculationObject> data, {
+    required int sortType,
+    int? sortModeOverride,
+    int? sortDirectionOverride,
+    List<CalculationObject>? comparisonData,
+  }) {
     if (data.length < 2) return;
 
     int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
@@ -51,23 +32,26 @@ class Calculator {
         insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.processedName.compareTo(b.processedName));
         break;
       case SortMode.result:
-        insertionSort(data, compare: (CalculationObject a, CalculationObject b) {
-          if (a.result == null && b.result == null) {
-            return 0;
-          } else if (b.result == null) {
-            return -1;
-          } else if (a.result == null) {
-            return 1;
-          }
+        insertionSort(
+          data,
+          compare: (CalculationObject a, CalculationObject b) {
+            if (a.result == null && b.result == null) {
+              return 0;
+            } else if (b.result == null) {
+              return -1;
+            } else if (a.result == null) {
+              return 1;
+            }
 
-          return sortDirection * a.result!.compareTo(b.result!);
-        });
+            return sortDirection * a.result!.compareTo(b.result!);
+          },
+        );
         break;
       case SortMode.coefficient:
         insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.coefficient.compareTo(b.coefficient));
         break;
       case SortMode.custom:
-        var compare = comparisonData ?? Manager.termTemplate;
+        final compare = comparisonData ?? Manager.termTemplate;
         data.sort((a, b) {
           return compare.indexWhere((element) => a.processedName == element.processedName) -
               compare.indexWhere((element) => b.processedName == element.processedName);
@@ -88,7 +72,7 @@ class Calculator {
     double totalNumeratorSpeaking = 0;
     double totalDenominatorSpeaking = 0;
 
-    for (CalculationObject c in data.where((element) => element.numerator != null && element.denominator != 0)) {
+    for (final CalculationObject c in data.where((element) => element.numerator != null && element.denominator != 0)) {
       if (c is Test && c.isSpeaking) {
         totalNumeratorSpeaking += c.numerator! * c.coefficient;
         totalDenominatorSpeaking += c.denominator * c.coefficient;
@@ -147,7 +131,7 @@ class Calculator {
 
     int nbDecimals = log(roundTo) ~/ log(10);
     if (n % 1 != 0) {
-      nbDecimals = max(n.toString().split('.')[1].length, nbDecimals);
+      nbDecimals = max(n.toString().split(".")[1].length, nbDecimals);
     }
 
     result = n.toStringAsFixed(nbDecimals);

@@ -1,23 +1,23 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Package imports:
-import 'package:showcaseview/showcaseview.dart';
+import "package:showcaseview/showcaseview.dart";
 
 // Project imports:
-import '../../calculations/calculator.dart';
-import '../../calculations/manager.dart';
-import '../../calculations/subject.dart';
-import '../../calculations/term.dart';
-import '../../localization/translations.dart';
-import '../../misc/storage.dart';
-import '../utilities/misc_utilities.dart';
-import 'dialogs.dart';
-import 'popup_menus.dart';
+import "package:graded/calculations/calculator.dart";
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/term.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/widgets/dialogs.dart";
+import "package:graded/ui/widgets/popup_menus.dart";
 
 class TextRow extends StatelessWidget {
   const TextRow({
-    Key? key,
+    super.key,
     required this.leading,
     required this.trailing,
     this.leadingIcon,
@@ -27,7 +27,7 @@ class TextRow extends StatelessWidget {
     this.onTap,
     this.isChild = false,
     this.horizontalTitleGap = 16,
-  }) : super(key: key);
+  });
 
   final String leading;
   final String trailing;
@@ -93,7 +93,12 @@ class TextRow extends StatelessWidget {
 }
 
 class GroupRow extends StatefulWidget {
-  const GroupRow({Key? key, required this.children, required this.leading, required this.trailing}) : super(key: key);
+  const GroupRow({
+    super.key,
+    required this.children,
+    required this.leading,
+    required this.trailing,
+  });
 
   final String leading;
   final String trailing;
@@ -167,7 +172,12 @@ class _GroupRowState extends State<GroupRow> {
 }
 
 class ResultRow extends StatelessWidget {
-  const ResultRow({Key? key, required this.result, required this.leading, this.onResultTap}) : super(key: key);
+  const ResultRow({
+    super.key,
+    required this.result,
+    required this.leading,
+    this.onResultTap,
+  });
 
   final String result;
   final Widget leading;
@@ -212,7 +222,7 @@ class ResultRow extends StatelessWidget {
 
 class SubjectTile extends StatefulWidget {
   const SubjectTile({
-    Key? key,
+    super.key,
     required this.s,
     required this.listKey,
     required this.index1,
@@ -222,14 +232,14 @@ class SubjectTile extends StatefulWidget {
     required this.nameController,
     required this.coeffController,
     required this.speakingController,
-  }) : super(key: key);
+  });
 
   final Subject s;
   final GlobalKey listKey;
   final int index1;
   final int index2;
   final int reorderIndex;
-  final Function rebuild;
+  final Function() rebuild;
   final TextEditingController nameController;
   final TextEditingController coeffController;
   final TextEditingController speakingController;
@@ -242,7 +252,7 @@ class _SubjectTileState extends State<SubjectTile> {
   final GlobalKey showCaseKey1 = GlobalKey();
   final GlobalKey showCaseKey2 = GlobalKey();
 
-  void showTutorial() async {
+  Future<void> showTutorial() async {
     if (widget.index1 != 2 || Manager.termTemplate.length < 3 || !getPreference<bool>("showcase_subject_edit", true)) return;
 
     await Future.delayed(const Duration(milliseconds: 300), () {
@@ -288,12 +298,17 @@ class _SubjectTileState extends State<SubjectTile> {
           showListMenu(context, widget.listKey).then((result) {
             switch (result) {
               case MenuAction.edit:
-                showSubjectDialog(context, widget.nameController, widget.coeffController, widget.speakingController,
-                        index: widget.index1, index2: widget.s.isChild ? widget.index2 : null)
-                    .then((_) => widget.rebuild());
+                showSubjectDialog(
+                  context,
+                  widget.nameController,
+                  widget.coeffController,
+                  widget.speakingController,
+                  index: widget.index1,
+                  index2: widget.s.isChild ? widget.index2 : null,
+                ).then((_) => widget.rebuild());
                 break;
               case MenuAction.delete:
-                var parent = Manager.termTemplate[widget.index1];
+                final parent = Manager.termTemplate[widget.index1];
                 Manager.sortAll(sortModeOverride: SortMode.name);
                 int newIndex = Manager.termTemplate.indexOf(parent);
 
@@ -303,7 +318,7 @@ class _SubjectTileState extends State<SubjectTile> {
                   Manager.termTemplate.removeWhere((element) => element.processedName == widget.s.processedName);
                 }
 
-                for (Term t in Manager.getCurrentYear().terms) {
+                for (final Term t in Manager.getCurrentYear().terms) {
                   if (widget.s.isChild) {
                     Subject parent = t.subjects[newIndex];
                     parent.children.removeWhere((element) => element.processedName == widget.s.processedName);
@@ -341,13 +356,13 @@ class ReorderableHandle extends StatelessWidget {
       onPressed: () {
         if (widget.index1 == 0 && !widget.s.isChild) return;
         List<List<Subject>> lists = [Manager.termTemplate];
-        for (Term term in Manager.getCurrentYear().terms) {
+        for (final Term term in Manager.getCurrentYear().terms) {
           lists.add(term.subjects);
         }
 
         bool isChild = widget.s.isChild;
 
-        for (List<Subject> list in lists) {
+        for (final List<Subject> list in lists) {
           if (!isChild) {
             Subject parent = list[widget.index1 - 1];
             Subject child = list.removeAt(widget.index1);

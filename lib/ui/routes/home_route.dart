@@ -1,18 +1,18 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import '../../calculations/calculator.dart';
-import '../../calculations/manager.dart';
-import '../../calculations/term.dart';
-import '../../localization/translations.dart';
-import '../utilities/hints.dart';
-import '../widgets/list_widgets.dart';
-import '../widgets/misc_widgets.dart';
-import '../widgets/popup_menus.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/term.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/ui/utilities/hints.dart";
+import "package:graded/ui/widgets/list_widgets.dart";
+import "package:graded/ui/widgets/misc_widgets.dart";
+import "package:graded/ui/widgets/popup_menus.dart";
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -91,7 +91,6 @@ class _HomePageState extends State<HomePage> {
               bottom: false,
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  addAutomaticKeepAlives: true,
                   childCount: term.subjects.length,
                   (context, index) {
                     if (!term.subjects[index].isGroup) {

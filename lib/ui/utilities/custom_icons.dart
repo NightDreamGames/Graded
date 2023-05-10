@@ -18,7 +18,6 @@
 ///         Homepage:  http://fortawesome.github.com/Font-Awesome/
 ///
 
-// Flutter imports:
 import 'package:flutter/widgets.dart';
 
 class CustomIcons {

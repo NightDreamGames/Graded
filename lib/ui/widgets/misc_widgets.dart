@@ -1,15 +1,15 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Package imports:
-import 'package:flutter_svg/svg.dart';
+import "package:flutter_svg/svg.dart";
 
 class AppBarTitle extends StatelessWidget {
   const AppBarTitle({
-    Key? key,
+    super.key,
     required this.title,
     this.actionAmount = 1,
-  }) : super(key: key);
+  });
 
   final String title;
   final int actionAmount;
@@ -57,7 +57,6 @@ class EmptyWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 50),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
@@ -65,7 +64,7 @@ class EmptyWidget extends StatelessWidget {
                 height: 180,
                 width: 180,
                 child: SvgPicture.asset(
-                  'assets/illustrations/empty_list.svg',
+                  "assets/illustrations/empty_list.svg",
                   semanticsLabel: message,
                   colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.outlineVariant, BlendMode.srcIn),
                 ),

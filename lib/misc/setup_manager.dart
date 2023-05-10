@@ -1,19 +1,20 @@
 // Dart imports:
-import 'dart:convert';
+import "dart:convert";
 
 // Flutter imports:
-import 'package:flutter/services.dart' show rootBundle;
+import "package:flutter/services.dart" show rootBundle;
 
 // Package imports:
-import 'package:collection/collection.dart';
+import "package:collection/collection.dart";
 
 // Project imports:
-import '../calculations/calculator.dart';
-import '../calculations/manager.dart';
-import '../calculations/subject.dart';
-import '../localization/translations.dart';
-import 'compatibility.dart';
-import 'storage.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/compatibility.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
 
 class SetupManager {
   static String classicPath = "assets/class_data/classique.json";
@@ -149,7 +150,7 @@ class SetupManager {
     return Map.fromEntries(result.entries.toList()..sort((e1, e2) => e1.key.compareTo(e2.key)));
   }
 
-  static void init() async {
+  static Future<void> init() async {
     cache[0] = await rootBundle.loadString(classicPath);
     cache[1] = await rootBundle.loadString(generalPath);
   }
@@ -157,7 +158,7 @@ class SetupManager {
   static Future<void> completeSetup() async {
     List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
 
-    for (String key in keys) {
+    for (final String key in keys) {
       setPreference(key, defaultValues[key]);
     }
 
@@ -181,13 +182,13 @@ class SetupManager {
     if (hasSections()) {
       setPreference<String>("validated_section", getPreference<String>("section"));
     } else {
-      setPreference<String>("section", defaultValues["section"]);
+      setPreference<String>("section", defaultValues["section"] as String);
     }
 
     if (hasVariants() && getVariants()[getPreference<String>("variant")] != null) {
       setPreference<String>("validated_variant", getPreference<String>("variant"));
     } else {
-      setPreference<String>("variant", defaultValues["variant"]);
+      setPreference<String>("variant", defaultValues["variant"] as String);
     }
 
     if (getPreference<int>("year") == 1) {
@@ -216,17 +217,32 @@ class SetupManager {
     String data = cache[classic ? 0 : 1] ?? (cache[classic ? 0 : 1] = await rootBundle.loadString(classic ? classicPath : generalPath));
     final json = jsonDecode(data) as List;
 
-    var classObject = json[binarySearch(json, {"name": className},
-        compare: (element1, element2) => (element1 as Map<String, dynamic>)["name"].compareTo((element2 as Map<String, dynamic>)["name"]))];
+    final Map<String, dynamic> classObject = json[binarySearch(
+      json,
+      {"name": className},
+      compare: (element1, element2) =>
+          ((element1! as Map<String, dynamic>)["name"] as String).compareTo((element2! as Map<String, dynamic>)["name"] as String),
+    )] as Map<String, dynamic>;
 
-    for (var subject in classObject["subjects"]) {
-      Subject newSubject =
-          Subject(subject["name"], (subject["coefficient"] ?? 0).toDouble(), defaultValues["speaking_weight"], isGroup: subject["children"] != null);
+    for (final subject in (classObject["subjects"] as List<dynamic>).cast<Map<String, dynamic>>()) {
+      Subject newSubject = Subject(
+        subject["name"] as String,
+        (subject["coefficient"] as int?)?.toDouble() ?? 0,
+        defaultValues["speaking_weight"] as double,
+        isGroup: subject["children"] != null,
+      );
       Manager.termTemplate.add(newSubject);
-      if (subject["children"] != null) {
-        for (var child in subject["children"]) {
-          newSubject.children.add(Subject(child["name"], (child["coefficient"] ?? 0).toDouble(), defaultValues["speaking_weight"], isChild: true));
-        }
+
+      if (subject["children"] == null) continue;
+      for (final childSubject in (subject["children"] as List<dynamic>).cast<Map<String, dynamic>>()) {
+        newSubject.children.add(
+          Subject(
+            childSubject["name"] as String,
+            (childSubject["coefficient"] as int?)?.toDouble() ?? 0,
+            defaultValues["speaking_weight"] as double,
+            isChild: true,
+          ),
+        );
       }
     }
   }

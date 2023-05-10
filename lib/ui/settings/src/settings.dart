@@ -1,11 +1,11 @@
 // Dart imports:
-import 'dart:developer';
+import "dart:developer";
 
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import 'cache/cache.dart';
+import "package:graded/ui/settings/src/cache/cache.dart";
 
 /// This function type is used for rebuilding any given child widgets
 ///
@@ -40,20 +40,20 @@ typedef OnConfirmedCallback = bool Function();
 ///
 ///
 class Settings {
+  /// Public factory method to provide the
+  factory Settings() {
+    assert(
+        _cacheProvider != null,
+        "Must call Settings.init(cacheProvider)"
+        " before using settings!");
+    return _instance;
+  }
+
   /// Private constructor
   Settings._internal();
 
   /// Private instance of this class to keep it singleton
   static final Settings _instance = Settings._internal();
-
-  /// Public factory method to provide the
-  factory Settings() {
-    assert(
-        _cacheProvider != null,
-        'Must call Settings.init(cacheProvider)'
-        ' before using settings!');
-    return _instance;
-  }
 
   /// Private instance of [CacheProvider] which will allow access to the
   /// underlying cache mechanism, which can be any of [SharedPreference],[Hive]
@@ -65,8 +65,8 @@ class Settings {
   static void ensureCacheProvider() {
     assert(
         isInitialized,
-        'Must call Settings.init(cacheProvider)'
-        ' before using settings!');
+        "Must call Settings.init(cacheProvider)"
+        " before using settings!");
   }
 
   /// A getter to know if the settings are already initialized or not
@@ -137,7 +137,7 @@ class ValueChangeNotifier<T> extends ValueNotifier<T> {
   /// A String which represents a setting (assumed to be unique)
   final String key;
 
-  ValueChangeNotifier(this.key, value) : super(value);
+  ValueChangeNotifier(this.key, value) : super(value as T);
 
   @override
   set value(T newValue) {
@@ -153,7 +153,7 @@ class ValueChangeNotifier<T> extends ValueNotifier<T> {
 
   @override
   String toString() {
-    return '\n{VCN: \n\tkey: $key  \n\tvalue: $value\n}';
+    return "\n{VCN: \n\tkey: $key  \n\tvalue: $value\n}";
   }
 }
 
@@ -161,11 +161,11 @@ void _notifyGlobally<T>(String key, T newValue) {
   final notifiers = _fetchNotifiersForKey(key);
   if (notifiers == null || notifiers.isEmpty) return;
 
-  for (var notifier in notifiers) {
+  for (final notifier in notifiers) {
     final currentValue = notifier.value;
     if (currentValue != newValue) {
       notifier.value = newValue;
-      log(': _notifyGlobally: updating $key notifier');
+      log(": _notifyGlobally: updating $key notifier");
     }
   }
 }
@@ -193,11 +193,11 @@ class ValueChangeObserver<T> extends StatefulWidget {
   final InternalWidgetBuilder<T> builder;
 
   const ValueChangeObserver({
-    Key? key,
+    super.key,
     required this.cacheKey,
     this.defaultValue,
     required this.builder,
-  }) : super(key: key);
+  });
 
   @override
   State<ValueChangeObserver<T>> createState() => _ValueChangeObserverState<T>();

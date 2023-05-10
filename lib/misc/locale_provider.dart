@@ -1,8 +1,8 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import '../localization/generated/l10n.dart';
+import "package:graded/localization/generated/l10n.dart";
 
 class LocaleProvider with ChangeNotifier {
   LocaleProvider({this.locale});

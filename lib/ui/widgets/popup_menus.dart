@@ -1,17 +1,19 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import '../../calculations/calculator.dart';
-import '../../calculations/manager.dart';
-import '../../localization/translations.dart';
-import '../../misc/storage.dart';
-import '../utilities/misc_utilities.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
 
 class TermSelector extends StatelessWidget {
-  const TermSelector({Key? key, required this.rebuild}) : super(key: key);
+  const TermSelector({
+    super.key,
+    required this.rebuild,
+  });
 
-  final Function rebuild;
+  final Function() rebuild;
 
   @override
   Widget build(BuildContext context) {
@@ -46,26 +48,28 @@ class TermSelector extends StatelessWidget {
 
               List<PopupMenuEntry<String>> entries = [];
               for (int i = 0; i < items.length; i++) {
-                entries.add(PopupMenuItem<String>(
-                  value: i.toString(),
-                  onTap: () {
-                    if (i == getPreference<int>("term") + (getPreference<int>("validated_year") == 1 ? 1 : 0)) {
-                      Manager.lastTerm = Manager.currentTerm;
-                      Manager.currentTerm = -1;
-                    } else {
-                      Manager.currentTerm = i;
-                    }
+                entries.add(
+                  PopupMenuItem<String>(
+                    value: i.toString(),
+                    onTap: () {
+                      if (i == getPreference<int>("term") + (getPreference<int>("validated_year") == 1 ? 1 : 0)) {
+                        Manager.lastTerm = Manager.currentTerm;
+                        Manager.currentTerm = -1;
+                      } else {
+                        Manager.currentTerm = i;
+                      }
 
-                    rebuild();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(items[i]),
-                      if (Manager.currentTerm == i || (Manager.currentTerm == -1 && i == items.length - 1)) const Icon(Icons.check, size: 20),
-                    ],
+                      rebuild();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(items[i]),
+                        if (Manager.currentTerm == i || (Manager.currentTerm == -1 && i == items.length - 1)) const Icon(Icons.check, size: 20),
+                      ],
+                    ),
                   ),
-                ));
+                );
               }
 
               return entries;
@@ -77,13 +81,13 @@ class TermSelector extends StatelessWidget {
 
 class SortSelector extends StatelessWidget {
   const SortSelector({
-    Key? key,
+    super.key,
     required this.rebuild,
     required this.type,
     this.showSettings = false,
-  }) : super(key: key);
+  });
 
-  final Function rebuild;
+  final Function() rebuild;
   final int type;
   final bool showSettings;
 
@@ -112,7 +116,7 @@ class SortSelector extends StatelessWidget {
             ],
             onSelected: (value) {
               if (getPreference("sort_mode$type") == value) {
-                setPreference<int>("sort_direction$type", -getPreference("sort_direction$type"));
+                setPreference<int>("sort_direction$type", -getPreference<int>("sort_direction$type"));
               } else {
                 int direction = 0;
 
@@ -222,7 +226,6 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
       child: IgnorePointer(
         child: PopupMenuItem(
           child: Row(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -238,10 +241,12 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
 }
 
 Future<MenuAction?> showListMenu(BuildContext context, GlobalKey listKey) async {
-  RenderBox box = listKey.currentContext?.findRenderObject() as RenderBox;
+  RenderBox? box = listKey.currentContext?.findRenderObject() as RenderBox?;
+  if (box == null) return Future.value();
+
   Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
 
-  return await showMenu(
+  return showMenu(
     context: context,
     color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
     position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),

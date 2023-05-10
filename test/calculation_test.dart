@@ -1,22 +1,23 @@
 // Package imports:
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test/test.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "package:test/test.dart";
 
 // Project imports:
-import 'package:graded/calculations/Calculator.dart';
-import 'package:graded/calculations/calculation_object.dart';
-import 'package:graded/calculations/manager.dart';
-import 'package:graded/calculations/term.dart';
-import 'package:graded/calculations/test.dart';
-import 'package:graded/misc/storage.dart';
-import 'package:graded/ui/settings/flutter_settings_screens.dart';
+import "package:graded/calculations/calculation_object.dart";
+import "package:graded/calculations/calculator.dart";
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/term.dart";
+import "package:graded/calculations/test.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 void main() async {
   SharedPreferences.setMockInitialValues({});
   await Settings.init();
   await Manager.init();
 
-  test('Calculations', () async {
+  test("Calculations", () async {
     List<CalculationObject> emptyList = [Test(null, 0), Test(null, 0), Test(null, 0)];
     List<CalculationObject> oneItemList = [Test(80, 100)];
     List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(68.7, 70), Test(50, 55)];
@@ -34,7 +35,7 @@ void main() async {
     expect(Calculator.calculate(oneItemList), equals(80));
   });
 
-  test('Number formatting', () {
+  test("Number formatting", () {
     expect(Calculator.format(null), equals("-"));
     expect(Calculator.format(47), equals("47"));
     expect(Calculator.format(3.14159), equals("3.14159"));
@@ -47,7 +48,7 @@ void main() async {
     expect(Calculator.format(1), equals("01"));
   });
 
-  test('Number rounding', () {
+  test("Number rounding", () {
     expect(Calculator.round(47), equals(47));
     expect(Calculator.round(47.11), equals(48));
     expect(Calculator.round(47.111, roundToOverride: 10), equals(47.2));
@@ -57,7 +58,7 @@ void main() async {
     expect(Calculator.round(47.15, roundingModeOverride: RoundingMode.halfDown, roundToOverride: 10), equals(47.1));
   });
 
-  test('Number parsing', () {
+  test("Number parsing", () {
     expect(Calculator.tryParse(null), equals(null));
     expect(Calculator.tryParse(""), equals(null));
     expect(Calculator.tryParse("abc"), equals(null));
@@ -72,73 +73,78 @@ void main() async {
     expect(Calculator.tryParse(".89"), equals(0.89));
   });
 
-  test('Object sorting', () {
+  test("Object sorting", () {
     // Test sorting by name in ascending order
     List<CalculationObject> data = [
-      Test(30, 100, name: 'Beta'),
-      Test(30, 100, name: 'Alpha'),
-      Test(30, 100, name: 'Delta'),
-      Test(30, 100, name: 'Gamma'),
+      Test(30, 100, name: "Beta"),
+      Test(30, 100, name: "Alpha"),
+      Test(30, 100, name: "Delta"),
+      Test(30, 100, name: "Gamma"),
     ];
 
     Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.name);
 
-    expect(data[0].name, 'Alpha');
-    expect(data[1].name, 'Beta');
-    expect(data[2].name, 'Delta');
-    expect(data[3].name, 'Gamma');
+    expect(data[0].name, "Alpha");
+    expect(data[1].name, "Beta");
+    expect(data[2].name, "Delta");
+    expect(data[3].name, "Gamma");
 
     // Test sorting by result in descending order
     data = [
-      Test(50, 100, name: 'Beta'),
-      Test(40, 100, name: 'Alpha'),
-      Test(86, 100, name: 'Delta'),
-      Test(99, 100, name: 'Gamma'),
+      Test(50, 100, name: "Beta"),
+      Test(40, 100, name: "Alpha"),
+      Test(86, 100, name: "Delta"),
+      Test(99, 100, name: "Gamma"),
     ];
 
     Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.result, sortDirectionOverride: SortDirection.descending);
 
-    expect(data[0].name, 'Gamma');
-    expect(data[1].name, 'Delta');
-    expect(data[2].name, 'Beta');
-    expect(data[3].name, 'Alpha');
+    expect(data[0].name, "Gamma");
+    expect(data[1].name, "Delta");
+    expect(data[2].name, "Beta");
+    expect(data[3].name, "Alpha");
 
     // Test sorting by coefficient in descending order
     data = [
-      Term(name: 'Alpha', coefficient: 0.5),
-      Term(name: 'Beta', coefficient: 0.3),
-      Term(name: 'Delta', coefficient: 0.8),
-      Term(name: 'Gamma', coefficient: 0.1),
+      Term(name: "Alpha", coefficient: 0.5),
+      Term(name: "Beta", coefficient: 0.3),
+      Term(name: "Delta", coefficient: 0.8),
+      Term(name: "Gamma", coefficient: 0.1),
     ];
 
     Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.coefficient, sortDirectionOverride: SortDirection.descending);
 
-    expect(data[0].name, 'Delta');
-    expect(data[1].name, 'Alpha');
-    expect(data[2].name, 'Beta');
-    expect(data[3].name, 'Gamma');
+    expect(data[0].name, "Delta");
+    expect(data[1].name, "Alpha");
+    expect(data[2].name, "Beta");
+    expect(data[3].name, "Gamma");
 
     // Test sorting using custom order
     data = [
-      Term(name: 'Gamma'),
-      Term(name: 'Beta'),
-      Term(name: 'Alpha'),
-      Term(name: 'Delta'),
+      Term(name: "Gamma"),
+      Term(name: "Beta"),
+      Term(name: "Alpha"),
+      Term(name: "Delta"),
     ];
 
     List<CalculationObject> comparisonData = [
-      Term(name: 'Alpha'),
-      Term(name: 'Beta'),
-      Term(name: 'Gamma'),
-      Term(name: 'Delta'),
+      Term(name: "Alpha"),
+      Term(name: "Beta"),
+      Term(name: "Gamma"),
+      Term(name: "Delta"),
     ];
 
-    Calculator.sortObjects(data,
-        sortType: 1, sortModeOverride: SortMode.custom, comparisonData: comparisonData, sortDirectionOverride: SortDirection.notApplicable);
+    Calculator.sortObjects(
+      data,
+      sortType: 1,
+      sortModeOverride: SortMode.custom,
+      comparisonData: comparisonData,
+      sortDirectionOverride: SortDirection.notApplicable,
+    );
 
-    expect(data[0].name, 'Alpha');
-    expect(data[1].name, 'Beta');
-    expect(data[2].name, 'Gamma');
-    expect(data[3].name, 'Delta');
+    expect(data[0].name, "Alpha");
+    expect(data[1].name, "Beta");
+    expect(data[2].name, "Gamma");
+    expect(data[3].name, "Delta");
   });
 }

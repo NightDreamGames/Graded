@@ -1,18 +1,18 @@
 // @dart = 2.12
 
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import '../../../../calculations/calculator.dart';
-import '../../../../localization/translations.dart';
-import '../../../../misc/storage.dart';
-import '../../../widgets/dialogs.dart';
-import '../../../widgets/easy_form_field.dart';
-import '../../flutter_settings_screens.dart';
-import '../utils/widget_utils.dart';
+import "package:graded/calculations/calculator.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/settings/src/utils/widget_utils.dart";
+import "package:graded/ui/widgets/dialogs.dart";
+import "package:graded/ui/widgets/easy_form_field.dart";
 
-part 'base_widgets.dart';
+part "base_widgets.dart";
 
 /// --------- Types of Settings widgets ---------- ///
 
@@ -82,7 +82,7 @@ class SimpleSettingsTile extends StatelessWidget {
       subtitleTextStyle: subtitleTextStyle,
       enabled: enabled,
       onTap: () => _handleTap(context),
-      child: child != null ? getIcon(context) : const Text(''),
+      child: child != null ? getIcon(context) : const Text(""),
     );
   }
 
@@ -160,7 +160,7 @@ class ModalSettingsTile<T> extends StatelessWidget {
     Key? key,
     required this.title,
     required this.child,
-    this.subtitle = '',
+    this.subtitle = "",
     this.enabled = true,
     this.icon,
     this.showConfirmation = false,
@@ -241,7 +241,7 @@ class ExpandableSettingsTile extends StatelessWidget {
     Key? key,
     required this.title,
     required this.children,
-    this.subtitle = '',
+    this.subtitle = "",
     this.enabled = true,
     this.expanded = false,
     this.onExpansionChanged,
@@ -301,7 +301,7 @@ class SettingsContainer extends StatelessWidget {
   }
 
   Widget _buildChild() {
-    var child = allowScrollInternally ? getList(children) : getColumn(children);
+    final child = allowScrollInternally ? getList(children) : getColumn(children);
     return Material(
       child: Padding(
         padding: EdgeInsets.only(left: leftPadding),
@@ -322,7 +322,6 @@ class SettingsContainer extends StatelessWidget {
 
   Widget getColumn(List<Widget> children) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: children,
     );
@@ -372,12 +371,12 @@ class SettingsGroup extends StatelessWidget {
     Key? key,
     required this.title,
     required this.children,
-    this.subtitle = '',
+    this.subtitle = "",
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var elements = <Widget>[
+    final elements = <Widget>[
       Padding(
         padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 22.0),
         child: Align(
@@ -494,7 +493,7 @@ class TextInputSettingsTile extends StatefulWidget {
     Key? key,
     required this.title,
     required this.settingKey,
-    this.initialValue = '',
+    this.initialValue = "",
     this.enabled = true,
     this.autoFocus = true,
     this.icon,
@@ -535,9 +534,8 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
           title: widget.title,
           subtitle: value,
           icon: widget.icon,
-          showConfirmation: true,
           onConfirm: () => _submitText(_controller.text),
-          onCancel: () => _controller.text = Settings.getValue(widget.settingKey, ''),
+          onCancel: () => _controller.text = Settings.getValue(widget.settingKey, ""),
           child: _buildTextField(context, value, onChanged),
         );
       },
@@ -563,9 +561,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
           _controller.clearComposing();
           focusNode.unfocus();
 
-          if (_dialogKey.currentState is EasyDialogState) {
-            (_dialogKey.currentState as EasyDialogState).submit();
-          }
+          _dialogKey.currentState?.submit();
         },
       ),
     );
@@ -588,10 +584,10 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
   void _onSave(String? newValue, OnChanged<String> onChanged) {
     if (newValue == null) return;
-    newValue = Calculator.format(Calculator.tryParse(newValue), addZero: false, roundToOverride: 1).toString();
+    String value = Calculator.format(Calculator.tryParse(newValue), addZero: false, roundToOverride: 1);
     _controller.text = newValue;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      onChanged(newValue!);
+      onChanged(value);
       widget.onChange?.call(newValue);
     });
   }
@@ -690,10 +686,10 @@ class SwitchSettingsTile extends StatelessWidget {
     this.enabled = true,
     this.onChange,
     this.leading,
-    this.enabledLabel = '',
-    this.disabledLabel = '',
+    this.enabledLabel = "",
+    this.disabledLabel = "",
     this.childrenIfEnabled,
-    this.subtitle = '',
+    this.subtitle = "",
     this.titleTextStyle,
     this.subtitleTextStyle,
   }) : super(key: key);
@@ -707,7 +703,7 @@ class SwitchSettingsTile extends StatelessWidget {
         Widget mainWidget = _SettingsTile(
           leading: leading,
           title: title,
-          subtitle: getSubtitle(value),
+          subtitle: getSubtitle(enabled: value),
           onTap: () => _onSwitchChange(context, !value, onChanged),
           enabled: enabled,
           titleTextStyle: titleTextStyle,
@@ -719,11 +715,11 @@ class SwitchSettingsTile extends StatelessWidget {
           ),
         );
 
-        var finalWidget = getFinalWidget(
+        final finalWidget = getFinalWidget(
           context,
           mainWidget,
-          value,
           childrenIfEnabled,
+          currentValue: value,
         );
         return finalWidget;
       },
@@ -736,27 +732,27 @@ class SwitchSettingsTile extends StatelessWidget {
     onChange?.call(value);
   }
 
-  String getSubtitle(bool currentStatus) {
+  String getSubtitle({required bool enabled}) {
     if (subtitle.isNotEmpty) {
       return subtitle;
     }
-    var label = '';
-    if (currentStatus && enabledLabel.isNotEmpty) {
+    String label = "";
+    if (enabled && enabledLabel.isNotEmpty) {
       label = enabledLabel;
     }
-    if (!currentStatus && disabledLabel.isNotEmpty) {
+    if (!enabled && disabledLabel.isNotEmpty) {
       label = disabledLabel;
     }
     return label;
   }
 
-  Widget getFinalWidget(BuildContext context, Widget mainWidget, bool currentValue, List<Widget>? childrenIfEnabled) {
+  Widget getFinalWidget(BuildContext context, Widget mainWidget, List<Widget>? childrenIfEnabled, {required bool currentValue}) {
     if (childrenIfEnabled == null || !currentValue) {
       return SettingsContainer(
         children: [mainWidget],
       );
     }
-    var children = getPaddedParentChildrenList(childrenIfEnabled);
+    final children = getPaddedParentChildrenList(childrenIfEnabled);
     children.insert(0, mainWidget);
 
     return SettingsContainer(
@@ -853,10 +849,10 @@ class CheckboxSettingsTile extends StatelessWidget {
     this.enabled = true,
     this.onChange,
     this.leading,
-    this.enabledLabel = '',
-    this.disabledLabel = '',
+    this.enabledLabel = "",
+    this.disabledLabel = "",
     this.childrenIfEnabled,
-    this.subtitle = '',
+    this.subtitle = "",
     this.titleTextStyle,
     this.subtitleTextStyle,
   }) : super(key: key);
@@ -867,11 +863,11 @@ class CheckboxSettingsTile extends StatelessWidget {
       cacheKey: settingKey,
       defaultValue: defaultValue,
       builder: (BuildContext context, bool value, OnChanged<bool> onChanged) {
-        var mainWidget = _SettingsTile(
+        final mainWidget = _SettingsTile(
           leading: leading,
           title: title,
           enabled: enabled,
-          subtitle: getSubtitle(value),
+          subtitle: getSubtitle(enabled: value),
           onTap: () => _onCheckboxChange(!value, onChanged),
           titleTextStyle: titleTextStyle,
           subtitleTextStyle: subtitleTextStyle,
@@ -882,11 +878,11 @@ class CheckboxSettingsTile extends StatelessWidget {
           ),
         );
 
-        var finalWidget = getFinalWidget(
+        final finalWidget = getFinalWidget(
           context,
           mainWidget,
-          value,
           childrenIfEnabled,
+          currentValue: value,
         );
         return finalWidget;
       },
@@ -899,28 +895,28 @@ class CheckboxSettingsTile extends StatelessWidget {
     onChange?.call(value);
   }
 
-  String getSubtitle(bool currentStatus) {
+  String getSubtitle({required bool enabled}) {
     if (subtitle.isNotEmpty) {
       return subtitle;
     }
 
-    var label = '';
-    if (currentStatus && enabledLabel.isNotEmpty) {
+    var label = "";
+    if (enabled && enabledLabel.isNotEmpty) {
       label = enabledLabel;
     }
-    if (!currentStatus && disabledLabel.isNotEmpty) {
+    if (!enabled && disabledLabel.isNotEmpty) {
       label = disabledLabel;
     }
     return label;
   }
 
-  Widget getFinalWidget(BuildContext context, Widget mainWidget, bool currentValue, List<Widget>? childrenIfEnabled) {
+  Widget getFinalWidget(BuildContext context, Widget mainWidget, List<Widget>? childrenIfEnabled, {required bool currentValue}) {
     if (childrenIfEnabled == null || !currentValue) {
       return SettingsContainer(
         children: [mainWidget],
       );
     }
-    var children = getPaddedParentChildrenList(childrenIfEnabled);
+    final children = getPaddedParentChildrenList(childrenIfEnabled);
     children.insert(0, mainWidget);
 
     return SettingsContainer(
@@ -1011,7 +1007,7 @@ class RadioSettingsTile<T> extends StatefulWidget {
     this.onChange,
     this.leading,
     this.showTitles = true,
-    this.subtitle = '',
+    this.subtitle = "",
     this.titleTextStyle,
     this.subtitleTextStyle,
   }) : super(key: key);
@@ -1065,7 +1061,7 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
   bool get showTitles => widget.showTitles;
 
   Widget _buildRadioTiles(BuildContext context, T groupValue, OnChanged<T> onChanged) {
-    var radioList = widget.values.entries.map<Widget>((MapEntry<T, String> entry) {
+    final radioList = widget.values.entries.map<Widget>((MapEntry<T, String> entry) {
       return Material(
         color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
         child: _SettingsTile(
@@ -1170,7 +1166,7 @@ class DropDownSettingsTile<T> extends StatefulWidget {
     required this.values,
     this.enabled = true,
     this.onChange,
-    this.subtitle = '',
+    this.subtitle = "",
     this.leading,
     this.alignment = AlignmentDirectional.centerEnd,
     this.titleTextStyle,
@@ -1353,7 +1349,7 @@ class SliderSettingsTile extends StatefulWidget {
     required this.settingKey,
     required this.min,
     required this.max,
-    this.subtitle = '',
+    this.subtitle = "",
     this.defaultValue = 0.0,
     this.enabled = true,
     this.eagerUpdate = true,
@@ -1507,7 +1503,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
     this.enabled = true,
     this.showTitles = false,
     this.onChange,
-    this.subtitle = '',
+    this.subtitle = "",
     this.icon,
     this.titleTextStyle,
     this.subtitleTextStyle,
@@ -1546,7 +1542,7 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
           titleTextStyle: widget.titleTextStyle,
           subtitleTextStyle: widget.subtitleTextStyle,
           child: RadioSettingsTile<T>(
-            title: '',
+            title: "",
             showTitles: widget.showTitles,
             enabled: widget.enabled,
             values: widget.values,
@@ -1661,7 +1657,7 @@ class SliderModalSettingsTile extends StatefulWidget {
     this.onChange,
     this.onChangeStart,
     this.onChangeEnd,
-    this.subtitle = '',
+    this.subtitle = "",
     this.icon,
     this.eagerUpdate = true,
     this.titleTextStyle,
@@ -1691,22 +1687,23 @@ class _SliderModalSettingsTileState extends State<SliderModalSettingsTile> {
         return SettingsContainer(
           children: <Widget>[
             _ModalSettingsTile<double>(
-                title: widget.title,
-                subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : value.toString(),
-                icon: widget.icon,
-                titleTextStyle: widget.titleTextStyle,
-                subtitleTextStyle: widget.subtitleTextStyle,
-                child: _SettingsSlider(
-                  onChanged: (double newValue) => _handleSliderChanged(newValue, onChanged),
-                  onChangeStart: (double newValue) => _handleSliderChangeStart(newValue, onChanged),
-                  onChangeEnd: (double newValue) => _handleSliderChangeEnd(newValue, onChanged),
-                  enabled: widget.enabled,
-                  eagerUpdate: widget.eagerUpdate,
-                  value: value,
-                  max: widget.max,
-                  min: widget.min,
-                  step: widget.step,
-                )),
+              title: widget.title,
+              subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : value.toString(),
+              icon: widget.icon,
+              titleTextStyle: widget.titleTextStyle,
+              subtitleTextStyle: widget.subtitleTextStyle,
+              child: _SettingsSlider(
+                onChanged: (double newValue) => _handleSliderChanged(newValue, onChanged),
+                onChangeStart: (double newValue) => _handleSliderChangeStart(newValue, onChanged),
+                onChangeEnd: (double newValue) => _handleSliderChangeEnd(newValue, onChanged),
+                enabled: widget.enabled,
+                eagerUpdate: widget.eagerUpdate,
+                value: value,
+                max: widget.max,
+                min: widget.min,
+                step: widget.step,
+              ),
+            ),
           ],
         );
       },
@@ -1798,7 +1795,7 @@ class SimpleRadioSettingsTile extends StatelessWidget {
     required this.values,
     this.enabled = true,
     this.onChange,
-    this.subtitle = '',
+    this.subtitle = "",
     this.leading,
     this.titleTextStyle,
     this.subtitleTextStyle,
@@ -1821,8 +1818,8 @@ class SimpleRadioSettingsTile extends StatelessWidget {
   }
 
   Map<String, String> getValues(List<String> values) {
-    var valueMap = <String, String>{};
-    for (var value in values) {
+    final valueMap = <String, String>{};
+    for (final value in values) {
       valueMap[value] = value;
     }
     return valueMap;
@@ -1895,7 +1892,7 @@ class SimpleDropDownSettingsTile extends StatelessWidget {
     required this.values,
     this.enabled = true,
     this.onChange,
-    this.subtitle = '',
+    this.subtitle = "",
     this.leading,
     this.titleTextStyle,
     this.subtitleTextStyle,
@@ -1918,8 +1915,8 @@ class SimpleDropDownSettingsTile extends StatelessWidget {
   }
 
   Map<String, String> getValues(List<String> values) {
-    var valueMap = <String, String>{};
-    for (var value in values) {
+    final valueMap = <String, String>{};
+    for (final value in values) {
       valueMap[value] = value;
     }
     return valueMap;

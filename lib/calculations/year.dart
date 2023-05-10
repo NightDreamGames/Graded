@@ -1,8 +1,8 @@
 // Project imports:
-import 'calculation_object.dart';
-import 'calculator.dart';
-import 'manager.dart';
-import 'term.dart';
+import "package:graded/calculations/calculation_object.dart";
+import "package:graded/calculations/calculator.dart";
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/term.dart";
 
 class Year extends CalculationObject {
   List<Term> terms = [];
@@ -12,7 +12,7 @@ class Year extends CalculationObject {
   }
 
   void calculate() {
-    for (Term t in terms) {
+    for (final Term t in terms) {
       t.calculate();
     }
 
@@ -21,8 +21,8 @@ class Year extends CalculationObject {
   }
 
   Year.fromJson(Map<String, dynamic> json) {
-    var termList = json["terms"] as List;
-    List<Term> t = termList.map((termJson) => Term.fromJson(termJson)).toList();
+    final termList = json["terms"] as List;
+    List<Term> t = termList.map((termJson) => Term.fromJson(termJson as Map<String, dynamic>)).toList();
 
     terms = t;
   }

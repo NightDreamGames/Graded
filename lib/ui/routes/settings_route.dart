@@ -1,25 +1,27 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Package imports:
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
+import "package:package_info_plus/package_info_plus.dart";
+import "package:provider/provider.dart";
 
 // Project imports:
-import '../../calculations/manager.dart';
-import '../../localization/translations.dart';
-import '../../main.dart';
-import '../../misc/locale_provider.dart';
-import '../../misc/storage.dart';
-import '../utilities/custom_icons.dart';
-import '../utilities/misc_utilities.dart';
-import '../widgets/dialogs.dart';
-import '../widgets/misc_widgets.dart';
-import '../widgets/settings_tiles.dart';
-import '/ui/settings/flutter_settings_screens.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/main.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/locale_provider.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/custom_icons.dart";
+import "package:graded/ui/utilities/misc_utilities.dart";
+import "package:graded/ui/widgets/dialogs.dart";
+import "package:graded/ui/widgets/misc_widgets.dart";
+import "package:graded/ui/widgets/settings_tiles.dart";
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -56,7 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       title: translations.change_class,
                       subtitle: translations.change_class_summary,
                     ),
-                    ...getSettingsTiles(context, false),
+                    ...getSettingsTiles(context, CreationType.edit),
                     SimpleSettingsTile(
                       icon: Icons.clear_all,
                       onTap: () {
@@ -106,19 +108,19 @@ class _SettingsPageState extends State<SettingsPage> {
                     RadioModalSettingsTile<String>(
                       title: translations.theme,
                       icon: Icons.dark_mode,
-                      settingKey: 'theme',
+                      settingKey: "theme",
                       values: <String, String>{
                         "system": translations.theme_system,
                         "light": translations.theme_light,
                         "dark": translations.theme_dark,
                       },
-                      selected: defaultValues["theme"],
+                      selected: defaultValues["theme"] as String,
                       onChange: (_) => appContainerKey.currentState?.setState(() {}),
                     ),
                     RadioModalSettingsTile<String>(
                       title: translations.language,
                       icon: Icons.language,
-                      settingKey: 'language',
+                      settingKey: "language",
                       values: <String, String>{
                         "system": translations.system_language,
                         "en": translations.english,
@@ -128,7 +130,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         //"es": translations.spanish,
                         "nl": translations.dutch,
                       },
-                      selected: defaultValues["language"],
+                      selected: defaultValues["language"] as String,
                       onChange: (value) {
                         if (value != defaultValues["language"]) {
                           context.read<LocaleProvider>().setLocale(Locale(value));

@@ -1,5 +1,5 @@
 // Project imports:
-import '/ui/settings/flutter_settings_screens.dart';
+import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 /// This is an abstract class to provide access of storage/preferences platform
 /// from the developer's existing app to this settings screen
@@ -64,6 +64,7 @@ abstract class CacheProvider {
 
   Future<void> setDouble(String key, double? value, {double? defaultValue});
 
+  // ignore: avoid_positional_boolean_parameters
   Future<void> setBool(String key, bool? value, {bool? defaultValue});
 
   bool? containsKey(String key);

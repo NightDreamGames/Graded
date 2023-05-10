@@ -1,9 +1,9 @@
 // Package imports:
-import 'package:diacritic/diacritic.dart';
+import "package:diacritic/diacritic.dart";
 
 // Project imports:
-import '../misc/storage.dart';
-import 'calculator.dart';
+import "package:graded/calculations/calculator.dart";
+import "package:graded/misc/storage.dart";
 
 abstract class CalculationObject {
   String _name = "";

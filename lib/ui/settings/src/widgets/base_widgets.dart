@@ -1,5 +1,5 @@
 // @dart = 2.12
-part of 'settings_widgets.dart';
+part of "settings_widgets.dart";
 
 /// [SettingsScreen] is a simple Screen widget that may contain Tiles or other
 /// widgets.
@@ -78,7 +78,7 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({
     Key? key,
     required this.children,
-    this.title = 'Settings',
+    this.title = "Settings",
   }) : super(key: key);
 
   @override
@@ -137,7 +137,7 @@ class _SettingsTile extends StatefulWidget {
     required this.title,
     required this.child,
     this.color,
-    this.subtitle = '',
+    this.subtitle = "",
     this.titleTextStyle,
     this.subtitleTextStyle,
     this.onTap,
@@ -218,7 +218,7 @@ class _SimpleHeaderTile extends StatefulWidget {
   const _SimpleHeaderTile({
     Key? key,
     this.title,
-    this.subtitle = '',
+    this.subtitle = "",
     this.leading,
     this.titleTextStyle,
     this.subtitleTextStyle,
@@ -234,7 +234,7 @@ class __SimpleHeaderTileState extends State<_SimpleHeaderTile> {
     return AbsorbPointer(
       child: ListTile(
         title: Text(
-          widget.title ?? '',
+          widget.title ?? "",
           style: widget.titleTextStyle ?? headerTextStyle(context),
         ),
         subtitle: (widget.subtitle?.isNotEmpty ?? false)
@@ -286,7 +286,7 @@ class _ExpansionSettingsTile extends StatefulWidget {
   const _ExpansionSettingsTile({
     required this.title,
     required this.child,
-    this.subtitle = '',
+    this.subtitle = "",
     this.enabled = true,
     this.expanded = false,
     this.onExpansionChanged,
@@ -314,7 +314,7 @@ class _ExpansionSettingsTileState extends State<_ExpansionSettingsTile> {
       subtitle: widget.subtitle,
       enabled: false,
       leading: widget.leading,
-      child: const Text(''),
+      child: const Text(""),
     );
   }
 
@@ -397,7 +397,7 @@ class _ModalSettingsTile<T> extends StatefulWidget {
     Key? key,
     required this.title,
     required this.child,
-    this.subtitle = '',
+    this.subtitle = "",
     this.enabled = true,
     this.icon,
     this.showConfirmation = true,
@@ -667,7 +667,7 @@ class _SettingsSlider extends StatelessWidget {
       value: value,
       min: min,
       max: max,
-      divisions: (max - min) ~/ (step),
+      divisions: (max - min) ~/ step,
       onChangeStart: enabled && !eagerUpdate ? (value) => onChangeStart?.call(value) : null,
       onChanged: enabled ? (value) => onChanged?.call(value) : null,
       onChangeEnd: enabled && !eagerUpdate ? (value) => onChangeEnd?.call(value) : null,

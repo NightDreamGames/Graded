@@ -1,30 +1,31 @@
 // Dart imports:
-import 'dart:io' show Platform;
+import "dart:io" show Platform;
 
 // Flutter imports:
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 // Package imports:
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
+import "package:device_info_plus/device_info_plus.dart";
+import "package:dynamic_color/dynamic_color.dart";
+import "package:flutter_displaymode/flutter_displaymode.dart";
+import "package:flutter_localizations/flutter_localizations.dart";
+import "package:provider/provider.dart";
 
 // Project imports:
-import '/ui/settings/flutter_settings_screens.dart';
-import 'calculations/manager.dart';
-import 'localization/generated/l10n.dart';
-import 'localization/material_localization/lb_intl.dart';
-import 'misc/locale_provider.dart';
-import 'misc/storage.dart';
-import 'ui/routes/home_route.dart';
-import 'ui/routes/settings_route.dart';
-import 'ui/routes/setup_route.dart';
-import 'ui/routes/subject_edit_route.dart';
-import 'ui/routes/subject_route.dart';
-import 'ui/utilities/app_theme.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/localization/generated/l10n.dart";
+import "package:graded/localization/material_localization/lb_intl.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/misc/locale_provider.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/routes/home_route.dart";
+import "package:graded/ui/routes/settings_route.dart";
+import "package:graded/ui/routes/setup_route.dart";
+import "package:graded/ui/routes/subject_edit_route.dart";
+import "package:graded/ui/routes/subject_route.dart";
+import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/app_theme.dart";
 
 final GlobalKey appContainerKey = GlobalKey();
 
@@ -47,9 +48,9 @@ void main() async {
 
 class AppContainer extends StatefulWidget {
   const AppContainer({
-    Key? key,
+    super.key,
     required this.initialRoute,
-  }) : super(key: key);
+  });
 
   final String initialRoute;
 
@@ -86,7 +87,7 @@ class _AppContainerState extends State<AppContainer> {
               if (supportedLocales.map((e) => e.languageCode).contains(deviceLocale?.languageCode)) {
                 return deviceLocale;
               }
-              return const Locale('en', '');
+              return const Locale("en", "");
             },
             locale: provider.locale,
             debugShowCheckedModeBanner: false,

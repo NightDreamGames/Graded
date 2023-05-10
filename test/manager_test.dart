@@ -1,46 +1,47 @@
 // Package imports:
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test/test.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "package:test/test.dart";
 
 // Project imports:
-import 'package:graded/calculations/Calculator.dart';
-import 'package:graded/calculations/manager.dart';
-import 'package:graded/calculations/subject.dart';
-import 'package:graded/calculations/test.dart';
-import 'package:graded/misc/storage.dart';
-import 'package:graded/ui/settings/flutter_settings_screens.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/test.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 void main() async {
   SharedPreferences.setMockInitialValues({});
   await Settings.init();
   await Manager.init();
 
-  test('Calculations', () async {
+  test("Calculations", () async {
     Manager.termTemplate.addAll({
-      Subject("Test1", 3, defaultValues["speaking_weight"]),
-      Subject("Test2", 3, defaultValues["speaking_weight"]),
-      Subject("Test3", 3, defaultValues["speaking_weight"]),
-      Subject("Test4", 2, defaultValues["speaking_weight"]),
-      Subject("Test5", 1, defaultValues["speaking_weight"]),
-      Subject("Test6", 3, defaultValues["speaking_weight"]),
-      Subject("Test7", 3, defaultValues["speaking_weight"])
+      Subject("Test1", 3, defaultValues["speaking_weight"] as double),
+      Subject("Test2", 3, defaultValues["speaking_weight"] as double),
+      Subject("Test3", 3, defaultValues["speaking_weight"] as double),
+      Subject("Test4", 2, defaultValues["speaking_weight"] as double),
+      Subject("Test5", 1, defaultValues["speaking_weight"] as double),
+      Subject("Test6", 3, defaultValues["speaking_weight"] as double),
+      Subject("Test7", 3, defaultValues["speaking_weight"] as double)
         ..isGroup = true
         ..children.addAll({
-          Subject("Child1", 1, defaultValues["speaking_weight"])..isChild = true,
-          Subject("Child2", 2, defaultValues["speaking_weight"])..isChild = true,
+          Subject("Child1", 1, defaultValues["speaking_weight"] as double)..isChild = true,
+          Subject("Child2", 2, defaultValues["speaking_weight"] as double)..isChild = true,
         }),
-      Subject("Test8", 2, defaultValues["speaking_weight"]),
-      Subject("Test9", 2, defaultValues["speaking_weight"]),
-      Subject("Test10", 3, defaultValues["speaking_weight"]),
-      Subject("Test11", 2, defaultValues["speaking_weight"])
+      Subject("Test8", 2, defaultValues["speaking_weight"] as double),
+      Subject("Test9", 2, defaultValues["speaking_weight"] as double),
+      Subject("Test10", 3, defaultValues["speaking_weight"] as double),
+      Subject("Test11", 2, defaultValues["speaking_weight"] as double)
         ..isGroup = true
         ..children.addAll({
-          Subject("Child3", 1, defaultValues["speaking_weight"])..isChild = true,
-          Subject("Child4", 1, defaultValues["speaking_weight"])..isChild = true,
+          Subject("Child3", 1, defaultValues["speaking_weight"] as double)..isChild = true,
+          Subject("Child4", 1, defaultValues["speaking_weight"] as double)..isChild = true,
         }),
     });
 
-    var list = Manager.getCurrentTerm().subjects = Manager.termTemplate;
+    final list = Manager.getCurrentTerm().subjects = Manager.termTemplate;
     list[0].tests.addAll({Test(58, 60), Test(43, 60)});
     list[1].tests.addAll({Test(54, 60), Test(51, 60)});
     list[2].tests.addAll({Test(54, 60), Test(44, 60)});

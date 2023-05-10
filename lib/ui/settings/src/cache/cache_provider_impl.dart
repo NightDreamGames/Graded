@@ -1,11 +1,11 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Package imports:
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:shared_preferences/shared_preferences.dart";
 
 // Project imports:
-import 'cache_provider.dart';
+import "package:graded/ui/settings/src/cache/cache_provider.dart";
 
 /// A cache access provider class for shared preferences using shared_preferences library.
 ///
@@ -75,7 +75,7 @@ class SharePreferenceCache extends CacheProvider {
     if (value is String) {
       return _preferences.setString(key, value);
     }
-    throw Exception('No Implementation Found');
+    throw Exception("No Implementation Found");
   }
 
   @override
@@ -114,6 +114,6 @@ class SharePreferenceCache extends CacheProvider {
     if (defaultValue is String || defaultValue == null) {
       return _preferences.getString(key) as T;
     }
-    throw Exception('No Implementation Found');
+    throw Exception("No Implementation Found");
   }
 }

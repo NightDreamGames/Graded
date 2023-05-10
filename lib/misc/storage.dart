@@ -1,58 +1,24 @@
 // Dart imports:
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
+import "dart:convert";
+import "dart:io";
+import "dart:typed_data";
 
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Package imports:
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter_file_dialog/flutter_file_dialog.dart';
-import 'package:intl/intl.dart';
+import "package:device_info_plus/device_info_plus.dart";
+import "package:flutter_file_dialog/flutter_file_dialog.dart";
+import "package:intl/intl.dart";
 
 // Project imports:
-import '../calculations/calculator.dart';
-import '../calculations/manager.dart';
-import '../calculations/subject.dart';
-import '../calculations/year.dart';
-import '../localization/translations.dart';
-import '../ui/settings/flutter_settings_screens.dart';
-import 'compatibility.dart';
-
-final Map<String, dynamic> defaultValues = {
-  //System
-  "data": "",
-  "default_data": "",
-  "current_term": 0,
-  "sort_mode1": SortMode.name,
-  "sort_mode2": SortMode.name,
-  "sort_direction1": SortDirection.ascending,
-  "sort_direction2": SortDirection.ascending,
-  "data_version": -1,
-  //Calculation settings
-  "term": 3,
-  "total_grades": 60.0,
-  "rounding_mode": RoundingMode.up,
-  "round_to": 1,
-  "speaking_weight": 3.0,
-  //Setup
-  "is_first_run": true,
-  "school_system": "",
-  "lux_system": "",
-  "year": -1,
-  "section": "",
-  "variant": "",
-  "validated_school_system": "",
-  "validated_lux_system": "",
-  "validated_year": -1,
-  "validated_section": "",
-  "validated_variant": "",
-  //App settings
-  "theme": "system",
-  "brightness": "dark",
-  "language": "system",
-};
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/year.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/compatibility.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 void serialize() {
   setPreference<String?>("data", jsonEncode(Manager.years));
@@ -63,11 +29,11 @@ void deserialize() {
   if (!existsPreference("data")) return;
 
   try {
-    var termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
-    Manager.termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson)).toList();
+    final termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
+    Manager.termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)).toList();
 
-    var data = jsonDecode(getPreference<String>("data")) as List;
-    Manager.years = data.map((yearJson) => Year.fromJson(yearJson)).toList();
+    final data = jsonDecode(getPreference<String>("data")) as List;
+    Manager.years = data.map((yearJson) => Year.fromJson(yearJson as Map<String, dynamic>)).toList();
   } catch (e) {
     Manager.deserializationError = true;
     Manager.clear();
@@ -79,7 +45,7 @@ Future<void> setPreference<T>(String key, T value) async {
 }
 
 T getPreference<T>(String key, [T? defaultValue]) {
-  return Settings.getValue<T>(key, defaultValue ?? defaultValues[key]);
+  return Settings.getValue<T>(key, defaultValue ?? defaultValues[key] as T);
 }
 
 bool existsPreference(String key) {
@@ -107,8 +73,8 @@ List<String> keys = [
 ];
 
 String getExportData() {
-  var jsonObject = {};
-  for (String s in keys) {
+  final jsonObject = {};
+  for (final String s in keys) {
     jsonObject.putIfAbsent(s, () => getPreference(s));
   }
 
@@ -117,9 +83,9 @@ String getExportData() {
   return json;
 }
 
-void exportData() async {
+Future<void> exportData() async {
   DateTime now = DateTime.now();
-  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  final DateFormat formatter = DateFormat("yyyy-MM-dd");
   final String formatted = formatter.format(now);
 
   String extension = ".json";
@@ -152,8 +118,6 @@ Future<bool> importData(BuildContext context) async {
     const params = OpenFileDialogParams(
       allowedUtiTypes: ["public.json"],
       mimeTypesFilter: ["application/json"],
-      dialogType: OpenFileDialogType.document,
-      sourceType: SourceType.photoLibrary,
     );
     final filePath = await FlutterFileDialog.pickFile(params: params);
 
@@ -183,9 +147,9 @@ Future<bool> importData(BuildContext context) async {
 }
 
 void restoreData(String data) {
-  var json = jsonDecode(data);
+  final json = jsonDecode(data) as Map<String, dynamic>;
 
-  for (String s in keys) {
-    setPreference(s, json[s]);
+  for (final String key in keys) {
+    setPreference(key, json[key]);
   }
 }

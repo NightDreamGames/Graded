@@ -1,12 +1,13 @@
 // Project imports:
-import '../misc/compatibility.dart';
-import '../misc/storage.dart';
-import '../ui/utilities/hints.dart';
-import 'calculator.dart';
-import 'subject.dart';
-import 'term.dart';
-import 'test.dart';
-import 'year.dart';
+import "package:graded/calculations/calculator.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/term.dart";
+import "package:graded/calculations/test.dart";
+import "package:graded/calculations/year.dart";
+import "package:graded/misc/compatibility.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/utilities/hints.dart";
 
 class Manager {
   static List<Year> years = [];
@@ -32,7 +33,7 @@ class Manager {
   }
 
   static void calculate() {
-    for (Year y in years) {
+    for (final Year y in years) {
       y.calculate();
     }
 
@@ -77,17 +78,29 @@ class Manager {
             for (int k = 0; k < s.children.length; k++) {
               double? subjectResult = t.subjects[j].children[k].result;
               s.children[k].addTest(
-                  Test(subjectResult ?? 0, getPreference<double>("total_grades"),
-                      name: getTitle(termOverride: i), coefficient: t.coefficient, isEmpty: subjectResult == null),
-                  calculate: false);
+                Test(
+                  subjectResult ?? 0,
+                  getPreference<double>("total_grades"),
+                  name: getTitle(termOverride: i),
+                  coefficient: t.coefficient,
+                  isEmpty: subjectResult == null,
+                ),
+                calculate: false,
+              );
             }
           } else {
             double? subjectResult = t.subjects[j].result;
 
             s.addTest(
-                Test(subjectResult ?? 0, getPreference<double>("total_grades"),
-                    name: getTitle(termOverride: i), coefficient: t.coefficient, isEmpty: subjectResult == null),
-                calculate: false);
+              Test(
+                subjectResult ?? 0,
+                getPreference<double>("total_grades"),
+                name: getTitle(termOverride: i),
+                coefficient: t.coefficient,
+                isEmpty: subjectResult == null,
+              ),
+              calculate: false,
+            );
           }
         }
       }
@@ -102,16 +115,16 @@ class Manager {
   }
 
   static void sortAll({int? sortModeOverride}) {
-    for (Year y in years) {
-      for (Term t in y.terms) {
-        for (Subject s in t.subjects) {
+    for (final Year y in years) {
+      for (final Term t in y.terms) {
+        for (final Subject s in t.subjects) {
           s.sort(sortModeOverride: sortModeOverride);
         }
         t.sort(sortModeOverride: sortModeOverride);
       }
     }
 
-    for (Subject element in termTemplate) {
+    for (final Subject element in termTemplate) {
       element.sort(sortModeOverride: sortModeOverride);
     }
     Calculator.sortObjects(termTemplate, sortType: SortType.subject, sortModeOverride: sortModeOverride);

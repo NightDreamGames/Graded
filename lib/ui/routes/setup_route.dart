@@ -1,17 +1,19 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import '../../localization/translations.dart';
-import '../../misc/compatibility.dart';
-import '../../misc/setup_manager.dart';
-import '../../misc/storage.dart';
-import '../widgets/misc_widgets.dart';
-import '../widgets/settings_tiles.dart';
-import '/ui/settings/flutter_settings_screens.dart';
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/compatibility.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/setup_manager.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/widgets/misc_widgets.dart";
+import "package:graded/ui/widgets/settings_tiles.dart";
 
 class SetupPage extends StatefulWidget {
-  const SetupPage({Key? key, this.dismissible = true}) : super(key: key);
+  const SetupPage({super.key, this.dismissible = true});
 
   final bool dismissible;
 
@@ -89,7 +91,7 @@ class _SetupPageState extends State<SetupPage> {
                   RadioModalSettingsTile<String>(
                     title: translations.school_system,
                     icon: Icons.school,
-                    settingKey: 'school_system',
+                    settingKey: "school_system",
                     onChange: (_) => rebuild(),
                     values: <String, String>{
                       "lux": translations.lux_system,
@@ -103,11 +105,11 @@ class _SetupPageState extends State<SetupPage> {
                         RadioModalSettingsTile<String>(
                           title: translations.system,
                           icon: Icons.build,
-                          settingKey: 'lux_system',
+                          settingKey: "lux_system",
                           onChange: (_) {
-                            setPreference<int>("year", defaultValues["year"]);
-                            setPreference<String>("section", defaultValues["section"]);
-                            setPreference<String>("variant", defaultValues["variant"]);
+                            setPreference<int>("year", defaultValues["year"] as int);
+                            setPreference<String>("section", defaultValues["section"] as String);
+                            setPreference<String>("variant", defaultValues["variant"] as String);
                             rebuild();
                           },
                           values: <String, String>{
@@ -119,13 +121,13 @@ class _SetupPageState extends State<SetupPage> {
                           RadioModalSettingsTile<int>(
                             title: translations.year,
                             icon: Icons.timelapse,
-                            settingKey: 'year',
+                            settingKey: "year",
                             onChange: (_) {
                               if (SetupManager.hasSections()) {
-                                setPreference<String>("section", defaultValues["section"]);
+                                setPreference<String>("section", defaultValues["section"] as String);
                               }
                               if (SetupManager.getVariants()[getPreference<String>("variant")] == null) {
-                                setPreference<String>("variant", defaultValues["variant"]);
+                                setPreference<String>("variant", defaultValues["variant"] as String);
                               }
                               rebuild();
                             },
@@ -136,7 +138,7 @@ class _SetupPageState extends State<SetupPage> {
                           RadioModalSettingsTile<String>(
                             title: translations.section,
                             icon: Icons.fork_right,
-                            settingKey: 'section',
+                            settingKey: "section",
                             onChange: (_) => rebuild(),
                             values: SetupManager.getSections(),
                           ),
@@ -144,8 +146,8 @@ class _SetupPageState extends State<SetupPage> {
                           RadioModalSettingsTile<String>(
                             title: translations.variant,
                             icon: Icons.edit,
-                            settingKey: 'variant',
-                            selected: defaultValues["variant"],
+                            settingKey: "variant",
+                            selected: defaultValues["variant"] as String,
                             onChange: (_) => rebuild(),
                             values: SetupManager.getVariants(),
                           ),
@@ -153,20 +155,20 @@ class _SetupPageState extends State<SetupPage> {
                           RadioModalSettingsTile<int>(
                             title: translations.school_term,
                             icon: Icons.access_time_outlined,
-                            settingKey: 'term',
+                            settingKey: "term",
                             onChange: (_) => Compatibility.termCount(),
                             values: <int, String>{
                               3: translations.trimesters,
                               2: translations.semesters,
                             },
-                            selected: defaultValues["term"],
+                            selected: defaultValues["term"] as int,
                           ),
                       ],
                     )
                   else if (getPreference<String>("school_system") == "other")
                     SettingsGroup(
                       title: translations.other_school_system,
-                      children: getSettingsTiles(context, true),
+                      children: getSettingsTiles(context, CreationType.add),
                     ),
                   SimpleSettingsTile(
                     title: translations.note,

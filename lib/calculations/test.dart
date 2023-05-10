@@ -1,6 +1,6 @@
 // Project imports:
-import 'calculation_object.dart';
-import 'calculator.dart';
+import "package:graded/calculations/calculation_object.dart";
+import "package:graded/calculations/calculator.dart";
 
 class Test extends CalculationObject {
   @override
@@ -29,11 +29,11 @@ class Test extends CalculationObject {
   }
 
   Test.fromJson(Map<String, dynamic> json) {
-    numerator = json['grade1'];
-    denominator = json['grade2'];
-    name = json['name'];
-    coefficient = json['coefficient'] ?? 1;
-    isSpeaking = json['isSpeaking'] ?? false;
+    numerator = json["grade1"] as double?;
+    denominator = json["grade2"] as double;
+    name = json["name"] as String;
+    coefficient = json["coefficient"] as double? ?? 1;
+    isSpeaking = json["isSpeaking"] as bool? ?? false;
     result = Calculator.calculate([this]);
     if (result == null) numerator = null;
   }

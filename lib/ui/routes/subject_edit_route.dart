@@ -1,22 +1,22 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Package imports:
-import 'package:showcaseview/showcaseview.dart';
+import "package:showcaseview/showcaseview.dart";
 
 // Project imports:
-import '../../calculations/calculator.dart';
-import '../../calculations/manager.dart';
-import '../../calculations/subject.dart';
-import '../../localization/translations.dart';
-import '../../misc/storage.dart';
-import '../widgets/dialogs.dart';
-import '../widgets/list_widgets.dart';
-import '../widgets/misc_widgets.dart';
-import '../widgets/popup_menus.dart';
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/localization/translations.dart";
+import "package:graded/misc/enums.dart";
+import "package:graded/misc/storage.dart";
+import "package:graded/ui/widgets/dialogs.dart";
+import "package:graded/ui/widgets/list_widgets.dart";
+import "package:graded/ui/widgets/misc_widgets.dart";
+import "package:graded/ui/widgets/popup_menus.dart";
 
 class SubjectEditRoute extends StatefulWidget {
-  const SubjectEditRoute({Key? key}) : super(key: key);
+  const SubjectEditRoute({super.key});
 
   @override
   State<SubjectEditRoute> createState() => _SubjectEditRouteState();
@@ -60,21 +60,23 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           setPreference<bool>("showcase_subject_edit", false);
           rebuild();
         },
-        builder: Builder(builder: (context) {
-          return SafeArea(
-            top: false,
-            bottom: false,
-            child: Manager.termTemplate.isNotEmpty
-                ? ReorderableListView(
-                    padding: const EdgeInsets.only(bottom: 88),
-                    primary: true,
-                    buildDefaultDragHandles: false,
-                    onReorder: onReorderListView,
-                    children: buildTiles(),
-                  )
-                : EmptyWidget(message: translations.no_subjects),
-          );
-        }),
+        builder: Builder(
+          builder: (context) {
+            return SafeArea(
+              top: false,
+              bottom: false,
+              child: Manager.termTemplate.isNotEmpty
+                  ? ReorderableListView(
+                      padding: const EdgeInsets.only(bottom: 88),
+                      primary: true,
+                      buildDefaultDragHandles: false,
+                      onReorder: onReorderListView,
+                      children: buildTiles(),
+                    )
+                  : EmptyWidget(message: translations.no_subjects),
+            );
+          },
+        ),
       ),
     );
   }
@@ -86,10 +88,12 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
     Manager.sortAll();
 
-    var oldIndexes = getSubjectIndexes(oldIndex);
-    var newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
-    int oldIndex1 = oldIndexes[0], oldIndex2 = oldIndexes[1];
-    int newIndex1 = newIndexes[0], newIndex2 = newIndexes[1];
+    final oldIndexes = getSubjectIndexes(oldIndex);
+    final newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
+    int oldIndex1 = oldIndexes[0];
+    int oldIndex2 = oldIndexes[1];
+    int newIndex1 = newIndexes[0];
+    int newIndex2 = newIndexes[1];
 
     if (oldIndex1 == newIndex1 && oldIndex2 < newIndex2) {
       newIndex2--;
@@ -103,7 +107,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     List<List<Subject>> lists = [Manager.termTemplate];
     lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
 
-    for (List<Subject> list in lists) {
+    for (final List<Subject> list in lists) {
       Subject item;
       if (oldIndex2 == -1) {
         item = list.removeAt(oldIndex1);
@@ -135,32 +139,36 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
     for (int i = 0; i < Manager.termTemplate.length; i++) {
       Subject element = Manager.termTemplate[i];
-      result.add(SubjectTile(
-        key: ValueKey(element),
-        s: element,
-        listKey: GlobalKey(),
-        index1: i,
-        reorderIndex: reorderIndex,
-        rebuild: rebuild,
-        nameController: nameController,
-        coeffController: coeffController,
-        speakingController: speakingController,
-      ));
-      reorderIndex++;
-      for (int j = 0; j < element.children.length; j++) {
-        Subject child = element.children[j];
-        result.add(SubjectTile(
-          key: ValueKey(child),
-          s: child,
+      result.add(
+        SubjectTile(
+          key: ValueKey(element),
+          s: element,
           listKey: GlobalKey(),
           index1: i,
-          index2: j,
           reorderIndex: reorderIndex,
           rebuild: rebuild,
           nameController: nameController,
           coeffController: coeffController,
           speakingController: speakingController,
-        ));
+        ),
+      );
+      reorderIndex++;
+      for (int j = 0; j < element.children.length; j++) {
+        Subject child = element.children[j];
+        result.add(
+          SubjectTile(
+            key: ValueKey(child),
+            s: child,
+            listKey: GlobalKey(),
+            index1: i,
+            index2: j,
+            reorderIndex: reorderIndex,
+            rebuild: rebuild,
+            nameController: nameController,
+            coeffController: coeffController,
+            speakingController: speakingController,
+          ),
+        );
         reorderIndex++;
       }
     }
@@ -170,7 +178,9 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 }
 
 List<int> getSubjectIndexes(int absoluteIndex, {int addedIndex = 0}) {
-  int subjectCount = 0, index1 = 0, index2 = -1;
+  int subjectCount = 0;
+  int index1 = 0;
+  int index2 = -1;
 
   for (int i = 0; i < Manager.termTemplate.length; i++) {
     int childAmount = Manager.termTemplate[i].children.length;

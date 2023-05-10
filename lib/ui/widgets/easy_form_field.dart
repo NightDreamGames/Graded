@@ -1,16 +1,16 @@
 // Dart imports:
-import 'dart:io' show Platform;
+import "dart:io" show Platform;
 
 // Flutter imports:
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 // Project imports:
-import '../../calculations/calculator.dart';
-import '../../localization/translations.dart';
+import "package:graded/calculations/calculator.dart";
+import "package:graded/localization/translations.dart";
 
 class EasyFormField extends StatelessWidget {
   const EasyFormField({
-    Key? key,
+    super.key,
     required this.controller,
     this.label,
     this.hint,
@@ -23,7 +23,7 @@ class EasyFormField extends StatelessWidget {
     this.additionalValidator,
     this.signed = true,
     this.focusNode,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
   final String? label;
@@ -45,7 +45,7 @@ class EasyFormField extends StatelessWidget {
       textInputAction: textInputAction,
       autofocus: autofocus,
       autovalidateMode: numeric || additionalValidator != null ? AutovalidateMode.onUserInteraction : null,
-      keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: Platform.isIOS ? false : signed) : TextInputType.text,
+      keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: !Platform.isIOS && signed) : TextInputType.text,
       textAlign: textAlign,
       textCapitalization: TextCapitalization.sentences,
       validator: (String? input) {
@@ -64,13 +64,13 @@ class EasyFormField extends StatelessWidget {
   }
 }
 
-InputDecoration inputDecoration(context, {String? hintText, String? labelText}) {
+InputDecoration inputDecoration(BuildContext context, {String? hintText, String? labelText}) {
   return InputDecoration(
     hintText: hintText,
     labelText: labelText,
     floatingLabelBehavior: FloatingLabelBehavior.always,
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.primary),
+      borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
       borderRadius: BorderRadius.circular(16.0),
     ),
     focusedBorder: OutlineInputBorder(
@@ -78,7 +78,7 @@ InputDecoration inputDecoration(context, {String? hintText, String? labelText}) 
       borderRadius: BorderRadius.circular(8.0),
     ),
     errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 1, color: Theme.of(context).colorScheme.error),
+      borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
       borderRadius: BorderRadius.circular(16.0),
     ),
     focusedErrorBorder: OutlineInputBorder(

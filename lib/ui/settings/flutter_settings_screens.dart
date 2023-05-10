@@ -6,6 +6,6 @@
 ///   https://github.com/BarthaBRW/shared_preferences_settings
 library flutter_settings_screens;
 
-export 'src/cache/cache.dart';
-export 'src/settings.dart';
-export 'src/widgets/settings_widgets.dart';
+export "src/cache/cache.dart";
+export "src/settings.dart";
+export "src/widgets/settings_widgets.dart";

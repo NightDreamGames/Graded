@@ -1,9 +1,10 @@
 // Project imports:
-import '../misc/storage.dart';
-import 'calculation_object.dart';
-import 'calculator.dart';
-import 'manager.dart';
-import 'test.dart';
+import "package:graded/calculations/calculation_object.dart";
+import "package:graded/calculations/calculator.dart";
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/test.dart";
+import "package:graded/misc/default_values.dart";
+import "package:graded/misc/enums.dart";
 
 class Subject extends CalculationObject {
   List<Subject> children = [];
@@ -12,7 +13,7 @@ class Subject extends CalculationObject {
   int bonus = 0;
   bool isGroup = false;
   bool isChild = false;
-  double speakingWeight = defaultValues["speaking_weight"];
+  double speakingWeight = defaultValues["speaking_weight"] as double;
 
   Subject(String name, double coefficient, this.speakingWeight, {this.isGroup = false, this.isChild = false}) {
     super.name = name;
@@ -22,7 +23,7 @@ class Subject extends CalculationObject {
   void calculate() {
     if (isGroup) {
       if (isGroup) {
-        for (Subject element in children) {
+        for (final Subject element in children) {
           element.calculate();
         }
       }
@@ -69,29 +70,31 @@ class Subject extends CalculationObject {
   }
 
   void sort({int? sortModeOverride}) {
-    Calculator.sortObjects(children,
-        sortType: SortType.subject,
-        sortModeOverride: sortModeOverride,
-        comparisonData: Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children);
+    Calculator.sortObjects(
+      children,
+      sortType: SortType.subject,
+      sortModeOverride: sortModeOverride,
+      comparisonData: Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children,
+    );
 
     Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride);
   }
 
   Subject.fromJson(Map<String, dynamic> json) {
-    if (json['tests'] != null) {
-      var testsList = json["tests"] as List;
-      tests = testsList.map((testJson) => Test.fromJson(testJson)).toList();
+    if (json["tests"] != null) {
+      final testsList = json["tests"] as List;
+      tests = testsList.map((testJson) => Test.fromJson(testJson as Map<String, dynamic>)).toList();
     }
-    if (json['children'] != null) {
-      var childrenList = json["children"] as List;
-      children = childrenList.map((childJson) => Subject.fromJson(childJson)..isChild = true).toList();
+    if (json["children"] != null) {
+      final childrenList = json["children"] as List;
+      children = childrenList.map((childJson) => Subject.fromJson(childJson as Map<String, dynamic>)..isChild = true).toList();
     }
 
-    isGroup = json['type'] != null && json['type'];
-    name = json['name'];
-    coefficient = json['coefficient'];
-    bonus = json['bonus'];
-    speakingWeight = json['speakingWeight'] ?? defaultValues["speaking_weight"];
+    isGroup = json["type"] != null && json["type"] as bool;
+    name = json["name"] as String;
+    coefficient = json["coefficient"] as double;
+    bonus = json["bonus"] as int;
+    speakingWeight = json["speakingWeight"] as double? ?? defaultValues["speaking_weight"] as double;
   }
 
   Map<String, dynamic> toJson() => {

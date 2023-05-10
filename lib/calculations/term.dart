@@ -1,8 +1,9 @@
 // Project imports:
-import 'calculation_object.dart';
-import 'calculator.dart';
-import 'manager.dart';
-import 'subject.dart';
+import "package:graded/calculations/calculation_object.dart";
+import "package:graded/calculations/calculator.dart";
+import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/misc/enums.dart";
 
 class Term extends CalculationObject {
   List<Subject> subjects = [];
@@ -13,21 +14,21 @@ class Term extends CalculationObject {
 
     if (Manager.termTemplate.isEmpty) return;
 
-    for (Subject s in Manager.termTemplate) {
+    for (final Subject s in Manager.termTemplate) {
       if (!s.isGroup) {
         subjects.add(Subject(s.name, s.coefficient, s.speakingWeight));
       } else {
         Subject group = Subject(s.name, s.coefficient, s.speakingWeight, isGroup: true);
         subjects.add(group);
-        for (Subject s1 in s.children) {
-          group.children.add(Subject(s1.name, s1.coefficient, s1.speakingWeight));
+        for (final Subject child in s.children) {
+          group.children.add(Subject(child.name, child.coefficient, child.speakingWeight));
         }
       }
     }
   }
 
   void calculate() {
-    for (Subject s in subjects) {
+    for (final Subject s in subjects) {
       s.calculate();
     }
 
@@ -55,15 +56,15 @@ class Term extends CalculationObject {
   }
 
   Term.fromJson(Map<String, dynamic> json) {
-    if (json['subjects'] == null) return;
+    if (json["subjects"] == null) return;
 
-    var subjectList = json["subjects"] as List;
+    final subjectList = json["subjects"] as List;
     List<Subject> s = subjectList.map((subjectJson) {
-      return Subject.fromJson(subjectJson);
+      return Subject.fromJson(subjectJson as Map<String, dynamic>);
     }).toList();
 
     subjects = s;
-    coefficient = json['coefficient'] ?? 1;
+    coefficient = json["coefficient"] as double? ?? 1;
   }
 
   Map<String, dynamic> toJson() => {
