@@ -83,9 +83,6 @@ flutter_native_splash:
   ios: true
   web: false
 
-import_path_converter:
-  relative: true
-
 import_sorter:
   ignored_files:
     - \/lib\\localization\\.*
