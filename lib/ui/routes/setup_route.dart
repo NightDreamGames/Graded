@@ -68,23 +68,24 @@ class _SetupPageState extends State<SetupPage> {
             sliver: SliverToBoxAdapter(
               child: SettingsContainer(
                 children: [
-                  SimpleSettingsTile(
-                    icon: Icons.file_download_outlined,
-                    title: translations.import_string,
-                    subtitle: translations.import_details,
-                    onTap: () => importData(context).then((value) {
-                      if (value) {
-                        setPreference<bool>("is_first_run", false);
+                  if (!widget.dismissible)
+                    SimpleSettingsTile(
+                      icon: Icons.file_download_outlined,
+                      title: translations.import_string,
+                      subtitle: translations.import_details,
+                      onTap: () => importData(context).then((value) {
+                        if (value) {
+                          setPreference<bool>("is_first_run", false);
 
-                        if (!context.mounted) return;
-                        if (widget.dismissible) {
-                          Navigator.popUntil(context, ModalRoute.withName("/"));
-                        } else {
-                          Navigator.pushReplacementNamed(context, "/");
+                          if (!context.mounted) return;
+                          if (widget.dismissible) {
+                            Navigator.popUntil(context, ModalRoute.withName("/"));
+                          } else {
+                            Navigator.pushReplacementNamed(context, "/");
+                          }
                         }
-                      }
-                    }),
-                  ),
+                      }),
+                    ),
                   RadioModalSettingsTile<String>(
                     title: translations.school_system,
                     icon: Icons.school,
