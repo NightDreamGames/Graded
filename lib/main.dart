@@ -119,19 +119,21 @@ class _AppContainerState extends State<AppContainer> {
               }
 
               return MaterialPageRoute(
-                builder: (context) => Builder(builder: (context) {
+                builder: (context) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-                      systemNavigationBarColor: Theme.of(context).colorScheme.surface,
-                      systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-                      systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
-                    ));
+                    SystemChrome.setSystemUIOverlayStyle(
+                      SystemUiOverlayStyle(
+                        systemNavigationBarColor: Theme.of(context).colorScheme.surface,
+                        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+                        systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
+                      ),
+                    );
                   });
 
                   return Material(
                     child: SafeArea(top: false, left: false, right: false, child: route),
                   );
-                }),
+                },
                 settings: settings,
               );
             },
