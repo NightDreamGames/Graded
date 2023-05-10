@@ -93,6 +93,8 @@ List<String> keys = [
   "current_term",
   "sort_mode1",
   "sort_mode2",
+  "sort_direction1",
+  "sort_direction2",
   "term",
   "total_grades",
   "rounding_mode",
