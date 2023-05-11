@@ -26,6 +26,12 @@ class AppTheme {
       primaryTextTheme: theme.textTheme.apply(
         fontFamily: "RobotoMono",
       ),
+      listTileTheme: theme.listTileTheme.copyWith(
+        titleTextStyle: theme.textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: 18,
+        ),
+      ),
       dividerTheme: theme.dividerTheme.copyWith(
         thickness: 0.5,
         space: 1,

@@ -58,9 +58,6 @@ class TextRow extends StatelessWidget {
             leading,
             overflow: TextOverflow.fade,
             softWrap: false,
-            style: const TextStyle(
-              fontSize: 18.0,
-            ),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
@@ -124,34 +121,28 @@ class _GroupRowState extends State<GroupRow> {
                 widget.leading,
                 overflow: TextOverflow.fade,
                 softWrap: false,
-                style: const TextStyle(
-                  fontSize: 18.0,
-                ),
               ),
             ),
-            trailing: Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    widget.trailing,
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                    ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  widget.trailing,
+                  style: const TextStyle(
+                    fontSize: 20.0,
                   ),
-                  const Padding(padding: EdgeInsets.only(right: 24)),
-                  AnimatedRotation(
-                    turns: _isExpanded ? .5 : 0,
-                    duration: const Duration(milliseconds: 200),
-                    child: Icon(
-                      Icons.expand_more,
-                      size: 24.0,
-                      color: _isExpanded ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
-                    ),
+                ),
+                const Padding(padding: EdgeInsets.only(right: 24)),
+                AnimatedRotation(
+                  turns: _isExpanded ? .5 : 0,
+                  duration: const Duration(milliseconds: 200),
+                  child: Icon(
+                    Icons.expand_more,
+                    size: 24.0,
+                    color: _isExpanded ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             onExpansionChanged: (value) {
               setState(() {
