@@ -211,6 +211,9 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
   String get backButtonTooltip => 'Zerèck';
 
   @override
+  String get bottomSheetLabel => 'Usiicht am ënneren Rand';
+
+  @override
   String get calendarModeButtonLabel => 'Zum Kalenner wiesselen';
 
   @override
@@ -230,6 +233,9 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
 
   @override
   String get copyButtonLabel => 'Kopéieren';
+
+  @override
+  String get currentDateLabel => 'Haut';
 
   @override
   String get cutButtonLabel => 'Ausschneiden';
@@ -436,6 +442,9 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
   String get keyboardKeySelect => 'Auswielen';
 
   @override
+  String get keyboardKeyShift => 'Ëmschalttast';
+
+  @override
   String get keyboardKeySpace => 'Leertast';
 
   @override
@@ -467,6 +476,9 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
 
   @override
   String get modalBarrierDismissLabel => 'Schléissen';
+
+  @override
+  String get noSpellCheckReplacementsLabel => 'Keen Ersatz fonnt';
 
   @override
   String get moreButtonTooltip => 'Méi';
@@ -547,7 +559,13 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
   String get rowsPerPageTitle => 'Zeilen pro Säit:';
 
   @override
-  String get saveButtonLabel => 'SPÄICHEREN';
+  String get saveButtonLabel => 'Späicheren';
+
+  @override
+  String get scrimLabel => 'Gitter';
+
+  @override
+  String get scrimOnTapHintRaw => r'$modalRouteContentName schléissen';
 
   @override
   ScriptCategory get scriptCategory => ScriptCategory.englishLike;
@@ -697,6 +715,9 @@ class LbCupertinoLocalizations extends GlobalCupertinoLocalizations {
 
   @override
   String get modalBarrierDismissLabel => 'Schléissen';
+
+  @override
+  String get noSpellCheckReplacementsLabel => 'Keen Ersatz fonnt';
 
   @override
   String get pasteButtonLabel => 'Asetzen';

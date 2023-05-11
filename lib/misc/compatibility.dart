@@ -39,7 +39,7 @@ class Compatibility {
     List<String> values = <String>[];
 
     xml.findAllElements("string").map((e) => e.getAttribute("name")!).forEach(keys.add);
-    xml.findAllElements("string").map((e) => e.text).forEach(values.add);
+    xml.findAllElements("string").map((e) => e.innerText).forEach(values.add);
 
     Map<String, String> elements = {for (int i = 0; i < keys.length; i++) keys[i]: values[i]};
 

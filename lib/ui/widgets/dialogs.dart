@@ -385,10 +385,10 @@ Future<void> showSubjectDialog(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
                   child: Row(
-                    children: const [
+                    children: [
                       Text("1 /", style: TextStyle(fontSize: 20)),
                     ],
                   ),

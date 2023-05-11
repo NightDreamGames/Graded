@@ -124,7 +124,7 @@ class Calculator {
   }
 
   static String format(double? n, {bool addZero = true, int? roundToOverride}) {
-    if (n == null || n == double.nan) return "-";
+    if (n == null || n.isNaN) return "-";
 
     int roundTo = roundToOverride ?? getPreference<int>("round_to");
     String result;
