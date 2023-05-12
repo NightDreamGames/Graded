@@ -12,6 +12,7 @@ import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/routes/subject_edit_route.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/popup_menus.dart";
 
@@ -240,16 +241,15 @@ class SubjectTile extends StatefulWidget {
 }
 
 class _SubjectTileState extends State<SubjectTile> {
-  final GlobalKey showCaseKey1 = GlobalKey();
-  final GlobalKey showCaseKey2 = GlobalKey();
-
-  Future<void> showTutorial() async {
+  Future<void> showTutorial(BuildContext context) async {
     if (widget.index1 != 2 || Manager.termTemplate.length < 3 || !getPreference<bool>("showcase_subject_edit", true)) return;
 
-    await Future.delayed(const Duration(milliseconds: 300), () {
-      if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 300), () {
+        if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
 
-      ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
+        ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
+      });
     });
   }
 
@@ -257,7 +257,7 @@ class _SubjectTileState extends State<SubjectTile> {
   Widget build(BuildContext context) {
     String coefficientString = Calculator.format(widget.s.coefficient, addZero: false, roundToOverride: 1);
 
-    showTutorial();
+    showTutorial(context);
 
     return AnimatedPadding(
       duration: const Duration(milliseconds: 300),

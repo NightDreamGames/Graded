@@ -15,6 +15,9 @@ import "package:graded/ui/widgets/list_widgets.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/popup_menus.dart";
 
+final GlobalKey showCaseKey1 = GlobalKey();
+final GlobalKey showCaseKey2 = GlobalKey();
+
 class SubjectEditRoute extends StatefulWidget {
   const SubjectEditRoute({super.key});
 
