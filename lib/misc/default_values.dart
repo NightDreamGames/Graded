@@ -17,6 +17,7 @@ final Map<String, dynamic> defaultValues = {
   "rounding_mode": RoundingMode.up,
   "round_to": 1,
   "speaking_weight": 3.0,
+  "exam_coefficient": 2.0,
   //Setup
   "is_first_run": true,
   "school_system": "",

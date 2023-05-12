@@ -7,8 +7,13 @@ import "package:graded/misc/enums.dart";
 
 class Term extends CalculationObject {
   List<Subject> subjects = [];
+  bool isExam = false;
 
-  Term({double coefficient = 1, String name = ""}) {
+  Term({
+    double coefficient = 1,
+    String name = "",
+    this.isExam = false,
+  }) {
     super.coefficient = coefficient;
     super.name = name;
 
@@ -65,10 +70,12 @@ class Term extends CalculationObject {
 
     subjects = s;
     coefficient = json["coefficient"] as double? ?? 1;
+    isExam = json["isExam"] as bool? ?? false;
   }
 
   Map<String, dynamic> toJson() => {
         "subjects": subjects,
         "coefficient": coefficient,
+        "isExam": isExam,
       };
 }

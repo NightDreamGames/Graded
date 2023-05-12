@@ -19,7 +19,7 @@ import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 
 class Compatibility {
-  static const dataVersion = 9;
+  static const dataVersion = 10;
 
   static Future<void> importFromV1() async {
     Uri uri;
@@ -192,6 +192,16 @@ class Compatibility {
       }
     }
 
+    if (currentDataVersion < 10) {
+      if (getPreference<String>("validated_school_system") == "lux" && getPreference<int>("validated_year") == 1) {
+        Iterable<Term> examTerms = Manager.getCurrentYear().terms.where((element) => element.coefficient == 2);
+
+        for (final examTerm in examTerms) {
+          examTerm.isExam = true;
+        }
+      }
+    }
+
     setPreference<int>("data_version", dataVersion);
   }
 
@@ -222,7 +232,7 @@ class Compatibility {
     }
 
     if (hasExam && !examPresent && terms.length < termCount + 1) {
-      terms.add(Term(coefficient: 2));
+      terms.add(Term(isExam: true));
     }
 
     serialize();

@@ -3,6 +3,7 @@ import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/term.dart";
+import "package:graded/misc/default_values.dart";
 
 class Year extends CalculationObject {
   List<Term> terms = [];
@@ -14,6 +15,15 @@ class Year extends CalculationObject {
   void calculate() {
     for (final Term t in terms) {
       t.calculate();
+    }
+
+    double examCoefficient = defaultValues["exam_coefficient"] as double;
+    int notEmptyTerms = terms.where((element) => element.result != null && !element.isExam).length;
+
+    for (final Term t in terms) {
+      if (t.isExam) {
+        t.coefficient = examCoefficient * notEmptyTerms;
+      }
     }
 
     result = Calculator.calculate(terms);
