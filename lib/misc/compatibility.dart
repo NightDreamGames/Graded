@@ -173,26 +173,26 @@ class Compatibility {
     }
 
     if (currentDataVersion < 9) {
-      for (var i = 1; i <= 2; i++) {
-        int sortMode = getPreference<int>("sort_mode$i");
+      //Sort direction
+      for (var sortType = 1; sortType <= 2; sortType++) {
+        int sortMode = getPreference<int>("sort_mode$sortType");
+        int sortDirection = SortDirection.notApplicable;
 
         switch (sortMode) {
           case SortMode.name:
-            setPreference<int>("sort_direction$i", 1);
+            sortDirection = SortDirection.ascending;
           case SortMode.result:
-            setPreference<int>("sort_direction$i", -1);
           case SortMode.coefficient:
-            setPreference<int>("sort_direction$i", -1);
+            sortDirection = SortDirection.descending;
           case SortMode.custom:
-            setPreference<int>("sort_direction$i", 0);
-          default:
-            setPreference<int>("sort_direction$i", 0);
-            break;
+            sortDirection = SortDirection.notApplicable;
         }
+        setPreference<int>("sort_direction$sortType", sortDirection);
       }
     }
 
     if (currentDataVersion < 10) {
+      //Fix exam coefficient
       if (getPreference<String>("validated_school_system") == "lux" && getPreference<int>("validated_year") == 1) {
         Iterable<Term> examTerms = Manager.getCurrentYear().terms.where((element) => element.coefficient == 2);
 

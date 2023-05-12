@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
               ),
               actions: [
                 TermSelector(rebuild: rebuild),
-                SortSelector(rebuild: rebuild, type: SortType.subject, showSettings: true),
+                SortSelector(rebuild: rebuild, sortType: SortType.subject, showSettings: true),
               ],
               automaticallyImplyLeading: false,
             ),

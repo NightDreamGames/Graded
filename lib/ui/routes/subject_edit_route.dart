@@ -51,7 +51,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         titleSpacing: 0,
         toolbarHeight: 64,
         actions: [
-          SortSelector(rebuild: rebuild, type: SortType.subject),
+          SortSelector(rebuild: rebuild, sortType: SortType.subject),
         ],
       ),
       body: ShowCaseWidget(
@@ -85,6 +85,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     if (oldIndex == newIndex - 1) return;
 
     setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
+    setPreference<int>("sort_direction${SortType.subject}", SortDirection.notApplicable);
 
     Manager.sortAll();
 

@@ -99,7 +99,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
             ),
             actions: [
               TermSelector(rebuild: switchTerm),
-              SortSelector(rebuild: rebuild, type: SortType.test),
+              SortSelector(rebuild: rebuild, sortType: SortType.test),
             ],
           ),
           SliverSafeArea(
