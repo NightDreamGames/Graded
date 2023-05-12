@@ -31,14 +31,12 @@ class TermSelector extends StatelessWidget {
                     "${translations.semester} 1",
                     "${translations.semester} 2",
                   ];
-                  break;
                 case 3:
                   items = [
                     "${translations.trimester} 1",
                     "${translations.trimester} 2",
                     "${translations.trimester} 3",
                   ];
-                  break;
               }
 
               if (getPreference<int>("validated_year") == 1) {
@@ -123,11 +121,9 @@ class SortSelector extends StatelessWidget {
                 switch (value) {
                   case SortMode.name:
                     direction = 1;
-                    break;
                   case SortMode.result:
                   case SortMode.coefficient:
                     direction = -1;
-                    break;
                   case SortMode.custom:
                   default:
                     direction = 0;
@@ -158,13 +154,10 @@ class SortSelector extends StatelessWidget {
     switch (sortDirection) {
       case 0:
         icon = Icons.check;
-        break;
       case 1:
         icon = Icons.arrow_upward;
-        break;
       case -1:
         icon = Icons.arrow_downward;
-        break;
     }
 
     return PopupMenuItem<int>(

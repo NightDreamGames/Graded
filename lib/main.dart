@@ -98,22 +98,16 @@ class _AppContainerState extends State<AppContainer> {
               switch (settings.name) {
                 case "/":
                   route = const HomePage();
-                  break;
                 case "/subject":
                   route = const SubjectRoute();
-                  break;
                 case "/settings":
                   route = const SettingsPage();
-                  break;
                 case "/setup":
                   route = const SetupPage();
-                  break;
                 case "setup_first":
                   route = const SetupPage(dismissible: false);
-                  break;
                 case "/subject_edit":
                   route = const SubjectEditRoute();
-                  break;
                 default:
                   route = const HomePage();
                   break;

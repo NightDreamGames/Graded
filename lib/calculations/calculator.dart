@@ -30,7 +30,6 @@ class Calculator {
     switch (sortMode) {
       case SortMode.name:
         insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.processedName.compareTo(b.processedName));
-        break;
       case SortMode.result:
         insertionSort(
           data,
@@ -46,17 +45,14 @@ class Calculator {
             return sortDirection * a.result!.compareTo(b.result!);
           },
         );
-        break;
       case SortMode.coefficient:
         insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.coefficient.compareTo(b.coefficient));
-        break;
       case SortMode.custom:
         final compare = comparisonData ?? Manager.termTemplate;
         data.sort((a, b) {
           return compare.indexWhere((element) => a.processedName == element.processedName) -
               compare.indexWhere((element) => b.processedName == element.processedName);
         });
-        break;
     }
   }
 

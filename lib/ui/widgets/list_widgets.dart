@@ -297,7 +297,6 @@ class _SubjectTileState extends State<SubjectTile> {
                   index: widget.index1,
                   index2: widget.s.isChild ? widget.index2 : null,
                 ).then((_) => widget.rebuild());
-                break;
               case MenuAction.delete:
                 final parent = Manager.termTemplate[widget.index1];
                 Manager.sortAll(sortModeOverride: SortMode.name);
@@ -321,7 +320,6 @@ class _SubjectTileState extends State<SubjectTile> {
 
                 Manager.calculate();
                 widget.rebuild();
-                break;
               default:
                 break;
             }

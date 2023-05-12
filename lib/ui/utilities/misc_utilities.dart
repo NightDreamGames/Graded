@@ -29,7 +29,6 @@ Future<void> launchURL(Link type) async {
   switch (type) {
     case Link.website:
       link = websiteLaunchUri;
-      break;
     case Link.store:
       if (Platform.isAndroid) {
         link = playStoreLaunchUri;
@@ -38,13 +37,10 @@ Future<void> launchURL(Link type) async {
       } else {
         link = websiteLaunchUri;
       }
-      break;
     case Link.github:
       link = githubLaunchUri;
-      break;
     case Link.email:
       link = emailLaunchUri;
-      break;
   }
 
   if (!await launchUrl(

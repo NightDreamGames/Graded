@@ -175,11 +175,9 @@ class _SubjectRouteState extends State<SubjectRoute> {
                         switch (result) {
                           case MenuAction.edit:
                             showTestDialog(context, subject, nameController, gradeController, maximumController, index: index).then((_) => rebuild());
-                            break;
                           case MenuAction.delete:
                             subject.removeTest(index);
                             rebuild();
-                            break;
                           default:
                             break;
                         }

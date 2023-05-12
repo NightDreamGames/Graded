@@ -52,10 +52,8 @@ class Compatibility {
     switch (elements["dark_theme"]) {
       case "on":
         theme = "dark";
-        break;
       case "off":
         theme = "light";
-        break;
     }
     setPreference<String?>("theme", theme);
 
@@ -77,13 +75,10 @@ class Compatibility {
     switch (elements["term"]) {
       case "term_trimester":
         setPreference<int>("term", 3);
-        break;
       case "term_semester":
         setPreference<int>("term", 2);
-        break;
       case "term_year":
         setPreference<int>("term", 1);
-        break;
       default:
         setPreference<int>("term", defaultValues["term"] as int);
         break;
@@ -184,16 +179,12 @@ class Compatibility {
         switch (sortMode) {
           case SortMode.name:
             setPreference<int>("sort_direction$i", 1);
-            break;
           case SortMode.result:
             setPreference<int>("sort_direction$i", -1);
-            break;
           case SortMode.coefficient:
             setPreference<int>("sort_direction$i", -1);
-            break;
           case SortMode.custom:
             setPreference<int>("sort_direction$i", 0);
-            break;
           default:
             setPreference<int>("sort_direction$i", 0);
             break;
