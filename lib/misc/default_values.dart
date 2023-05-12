@@ -3,8 +3,8 @@ import "package:graded/misc/enums.dart";
 
 final Map<String, dynamic> defaultValues = {
   //System
-  "data": "",
-  "default_data": "",
+  "data": "[]",
+  "default_data": "[]",
   "current_term": 0,
   "sort_mode1": SortMode.name,
   "sort_mode2": SortMode.name,
