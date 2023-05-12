@@ -133,6 +133,8 @@ class _SettingsTile extends StatefulWidget {
 
   final EdgeInsets? padding;
 
+  final bool dense;
+
   const _SettingsTile({
     required this.title,
     required this.child,
@@ -146,6 +148,7 @@ class _SettingsTile extends StatefulWidget {
     this.showChildBelow = false,
     this.leading,
     this.padding,
+    this.dense = false,
   });
 
   @override
@@ -183,7 +186,7 @@ class __SettingsTileState extends State<_SettingsTile> {
             visible: !widget.showChildBelow,
             child: widget.child,
           ),
-          //dense: true,
+          dense: widget.dense,
           // wrap only if the subtitle is longer than 70 characters
           //isThreeLine: (widget.subtitle?.isNotEmpty ?? false) && widget.subtitle!.length > 70,
         ),
@@ -438,7 +441,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
             ),
             enabled: widget.enabled,
             onTap: () => _showWidget(context, widget.child),
-            dense: true,
+            //dense: true,
           ),
           _SettingsTileDivider(),
         ],
@@ -596,7 +599,7 @@ class _SettingsDropDown<T> extends StatelessWidget {
       alignment: WrapAlignment.end,
       children: <Widget>[
         DropdownButton<T>(
-          isDense: true,
+          //isDense: true,
           value: selected,
           alignment: alignment,
           onChanged: enabled ? onChanged : null,

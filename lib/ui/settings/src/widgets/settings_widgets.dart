@@ -1066,10 +1066,12 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
         color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
         child: _SettingsTile(
           title: entry.value,
+          titleTextStyle: radioTextStyle(context),
           onTap: () => _onRadioChange(entry.key, onChanged),
           color: Theme.of(context).dialogBackgroundColor,
           enabled: widget.enabled,
           padding: EdgeInsets.zero,
+          dense: true,
           child: _SettingsRadio<T>(
             value: entry.key,
             onChanged: (newValue) => _onRadioChange(newValue, onChanged),

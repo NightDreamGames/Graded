@@ -20,3 +20,7 @@ TextStyle? subtitleTextStyle(BuildContext context) => Theme.of(context).textThem
       fontSize: 13.0,
       fontWeight: FontWeight.normal,
     );
+
+TextStyle? radioTextStyle(BuildContext context) => Theme.of(context).textTheme.titleLarge?.copyWith(
+      fontSize: 16.0,
+    );
