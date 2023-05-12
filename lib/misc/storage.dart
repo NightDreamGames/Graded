@@ -29,10 +29,10 @@ void deserialize() {
   if (!existsPreference("data")) return;
 
   try {
-    final termTemplateList = jsonDecode(getPreference<String>("default_data")) as List;
+    final termTemplateList = jsonDecode(getPreference<String>("default_data")) as List<dynamic>;
     Manager.termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)).toList();
 
-    final data = jsonDecode(getPreference<String>("data")) as List;
+    final data = jsonDecode(getPreference<String>("data")) as List<dynamic>;
     Manager.years = data.map((yearJson) => Year.fromJson(yearJson as Map<String, dynamic>)).toList();
   } catch (e) {
     Manager.deserializationError = true;
