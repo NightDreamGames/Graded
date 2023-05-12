@@ -30,8 +30,8 @@ dependencies:
   xml: ^6.1.0
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.0
   flutter_native_splash: ^2.2.0
+  icons_launcher: ^2.1.0
   import_sorter: ^4.6.0
   lint: ^2.0.0
   test: ^1.22.0
@@ -57,21 +57,18 @@ flutter_intl:
   arb_dir: lib/localization/l10n
   output_dir: lib/localization/generated
 
-flutter_launcher_icons:
-  android: true
-  ios: true
-  web:
-    generate: false
-  windows:
-    generate: false
-  macos:
-    generate: false
+icons_launcher:
   image_path: "assets/icons/GRADED-Icon.png"
-  image_path_android: "assets/icons/GRADED-Icon-RoundRect.png"
-  adaptive_icon_foreground: "assets/icons/GRADED-Icon-Foreground-Large.png"
-  adaptive_icon_background: "#62A9E1"
-  min_sdk_android: 21
-  remove_alpha_ios: true
+  platforms:
+    android:
+      enable: true
+      image_path: "assets/icons/GRADED-Icon-RoundRect.png"
+      adaptive_foreground_image: "assets/icons/GRADED-Icon-Foreground-Large.png"
+      adaptive_background_color: "#62A9E1"
+      adaptive_round_image: "assets/icons/GRADED-Icon-Round.png"
+    ios:
+      enable: true
+      image_path: "assets/icons/GRADED-Icon.png"
 
 flutter_native_splash:
   color: "#FDFCFF"
