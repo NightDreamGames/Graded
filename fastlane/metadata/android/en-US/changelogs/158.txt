@@ -1,0 +1,13 @@
+## [2.2.2] - 2023-05-14
+
+### Lists can now be sorted in ascending and descending order, and the app now has a monochrome icon!
+
+- Added ascending and descending sorting
+- Added monochrome icon
+- Changed style in the settings screen
+- Changed changelog workflow
+- Cleaned up the project by changing linter rules
+- Upgrade to Dart 3 and Flutter 3.10
+- Fixed wrong exam calculation weight
+- Fixed UI showcase not starting
+- Fixed some additional bugs
