@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.2] - 2023-05-14
+
+### Lists can now be sorted in ascending and descending order, and the app now has a monochrome icon!
+
+- Added ascending and descending sorting
+- Added monochrome icon
+- Changed style in the settings screen
+- Changed changelog workflow
+- Cleaned up the project by changing linter rules
+- Upgrade to Dart 3 and Flutter 3.10
+- Fixed wrong exam calculation weight
+- Fixed UI showcase not starting
+- Fixed some additional bugs
+
 ## [2.2.1] - 2023-04-30
 
 ### This version has several language improvements, adds some new UI features and fixes a lot of bugs
