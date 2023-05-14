@@ -101,7 +101,8 @@ workflows:
           #!/usr/bin/env zsh
 
           perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
-          git submodule foreach git pull origin stable
+          git submodule foreach git fetch --all
+          git submodule foreach git reset --hard origin/stable
 
           changelog_file="CHANGELOG.md"
           file="release_notes_en-GB.txt"
