@@ -95,7 +95,6 @@ class _SubjectRouteState extends State<SubjectRoute> {
           SliverAppBar.large(
             title: AppBarTitle(
               title: subject.name,
-              actionAmount: 2,
             ),
             actions: [
               TermSelector(rebuild: switchTerm),

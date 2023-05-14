@@ -40,7 +40,6 @@ class _SettingsPageState extends State<SettingsPage> {
         SliverAppBar.large(
           title: AppBarTitle(
             title: translations.settings,
-            actionAmount: 0,
           ),
         ),
         SliverSafeArea(

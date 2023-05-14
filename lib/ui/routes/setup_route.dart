@@ -60,7 +60,6 @@ class _SetupPageState extends State<SetupPage> {
           SliverAppBar.large(
             title: AppBarTitle(
               title: translations.setup,
-              actionAmount: 0,
             ),
             automaticallyImplyLeading: widget.dismissible,
           ),

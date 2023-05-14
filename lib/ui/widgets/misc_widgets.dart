@@ -8,11 +8,9 @@ class AppBarTitle extends StatelessWidget {
   const AppBarTitle({
     super.key,
     required this.title,
-    this.actionAmount = 1,
   });
 
   final String title;
-  final int actionAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +18,14 @@ class AppBarTitle extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         final bool collapsed = constraints.biggest.height == 64;
 
+        double paddingLeft = collapsed && Navigator.canPop(context) ? 40 : 8;
+        double paddingRight = collapsed ? 0 : 8;
+
         return SafeArea(
           top: false,
           bottom: false,
           child: Padding(
-            padding: EdgeInsets.only(left: 8, right: collapsed ? actionAmount * 48 : 8),
+            padding: EdgeInsets.only(left: paddingLeft, right: paddingRight),
             child: MediaQuery(
               data: collapsed ? MediaQuery.of(context) : MediaQuery.of(context).copyWith(textScaleFactor: 1),
               child: Text(
