@@ -103,28 +103,27 @@ workflows:
           perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
           git submodule foreach git pull origin stable
 
-          files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
+          changelog_file="CHANGELOG.md"
+          file="release_notes_en-GB.txt"
 
-          for file in ${files[@]}; do
-            { echo "Version ${BUILD_NAME}:"; cat release_notes/${file}; } >${file}
-            cat $file
-            echo; echo
-          done
+          changelog=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d')
+
+          if [[ -z "$changelog" ]]; then
+            echo "Changelog not found for version $BUILD_NAME."
+            exit 1
+          fi
+
+          { echo "$changelog"; } >${file}
+          cat $file
+          echo; echo
 
           mkdir -p fastlane/metadata/android/en-US/changelogs
-          mkdir -p fastlane/metadata/android/fr-FR/changelogs
-          mkdir -p fastlane/metadata/android/de-DE/changelogs
-
           cp release_notes_en-GB.txt fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt
-          cp release_notes_fr-FR.txt fastlane/metadata/android/fr-FR/changelogs/$BUILD_NUMBER.txt
-          cp release_notes_de-DE.txt fastlane/metadata/android/de-DE/changelogs/$BUILD_NUMBER.txt
       - name: Commit versioning changes
         script: |
           gh auth setup-git
           git add --all
           git reset HEAD -- release_notes_en-GB.txt
-          git reset HEAD -- release_notes_fr-FR.txt
-          git reset HEAD -- release_notes_de-DE.txt
           git commit -m "Versioning changes for ${BUILD_NAME}"
           git push
       - name: Delete fastlane folder
@@ -162,7 +161,7 @@ workflows:
 
           gh release create "${BUILD_NAME}" \
             --title "${BUILD_NAME}" \
-            --notes-file release_notes/release_notes_gh.txt \
+            --notes-file release_notes_en-GB.txt \
             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
             build/ios/ipa/graded-${BUILD_NAME}.ipa
     publishing:

@@ -1,8 +1,0 @@
-This version has several language improvements, adds some new UI features and fixes a lot of bugs
-- Added translations for Dutch and Luxembourgish
-- Fixed numerous translation inconsistencies
-- Added an illustrations for empty lists
-- Fixed the white screen when reordering subjects
-- Fixed bugs with the showcase in the subject editing screen
-- Improve iOS keyboard handling
-- Fixed some additional bugs

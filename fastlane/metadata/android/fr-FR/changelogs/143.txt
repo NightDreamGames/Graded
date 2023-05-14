@@ -1,6 +1,0 @@
-Version 2.2.0:
-Vous pouvez maintenant facilement ajouter des tests oraux avec leur propre pondération ! Vous pouvez modifier la pondération des épreuves orales dans la page d'édition des matières.
-- Ajout de tests oraux
-- Amélioration de la saisie des nombres
-- Correction de la validation des saisies
-- Correction de quelques bugs de mise en page

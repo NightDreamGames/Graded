@@ -1,9 +1,0 @@
-Version 2.2.1:
-Diese Version enthält mehrere Sprachverbesserungen, fügt einige neue UI-Funktionen hinzu und behebt eine Reihe von Fehlern
-- Übersetzungen für Niederländisch und Luxemburgisch hinzugefügt
-- Zahlreiche Inkonsistenzen in den Übersetzungen behoben
-- Illustrationen für leere Listen hinzugefügt
-- Der weiße Bildschirm bei der Neuordnung von Fächern wurde behoben
-- Fehler mit dem Showcase im Bearbeitungsbildschirm für Fächer behoben
-- Die Handhabung der iOS-Tastatur wurde verbessert
-- Einige zusätzliche Fehler behoben
