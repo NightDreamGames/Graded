@@ -96,8 +96,6 @@ class _AppContainerState extends State<AppContainer> {
               Widget route;
 
               switch (settings.name) {
-                case "/":
-                  route = const HomePage();
                 case "/subject":
                   route = const SubjectRoute();
                 case "/settings":
@@ -108,6 +106,7 @@ class _AppContainerState extends State<AppContainer> {
                   route = const SetupPage(dismissible: false);
                 case "/subject_edit":
                   route = const SubjectEditRoute();
+                case "/":
                 default:
                   route = const HomePage();
                   break;
