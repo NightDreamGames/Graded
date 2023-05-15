@@ -149,10 +149,10 @@ packages:
     dependency: "direct main"
     description:
       name: dynamic_color
-      sha256: "1ffc93e3794696af22ff11d75adcd6f5fb67b45bd54f9d8735a5d1cf8c013841"
+      sha256: "74dff1435a695887ca64899b8990004f8d1232b0e84bfc4faa1fdda7c6f57cc1"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.4"
+    version: "1.6.5"
   fake_async:
     dependency: transitive
     description:
@@ -358,13 +358,13 @@ packages:
     source: hosted
     version: "0.12.15"
   material_color_utilities:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: material_color_utilities
-      sha256: "9528f2f296073ff54cb9fee677df673ace1218163c3bc7628093e7eed5203d41"
+      sha256: d92141dc6fe1dad30722f9aa826c7fbc896d021d792f80678280601aff8cf724
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.0"
+    version: "0.2.0"
   meta:
     dependency: transitive
     description:
