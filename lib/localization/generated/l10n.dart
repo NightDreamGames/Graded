@@ -125,7 +125,7 @@ class TranslationsClass {
     return Intl.message(
       'Graded',
       name: 'app_name',
-      desc: '',
+      desc: 'Do not translate',
       args: [],
     );
   }
@@ -155,16 +155,6 @@ class TranslationsClass {
     return Intl.message(
       'Average',
       name: 'average',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `A-Z`
-  String get az {
-    return Intl.message(
-      'A-Z',
-      name: 'az',
       desc: '',
       args: [],
     );
@@ -210,10 +200,10 @@ class TranslationsClass {
     );
   }
 
-  /// `Click to change your current class. This will delete all your saved grades.`
+  /// `Tap here to select a new class. This will delete all your saved grades.`
   String get change_class_summary {
     return Intl.message(
-      'Click to change your current class. This will delete all your saved grades.',
+      'Tap here to select a new class. This will delete all your saved grades.',
       name: 'change_class_summary',
       desc: '',
       args: [],
@@ -245,16 +235,6 @@ class TranslationsClass {
     return Intl.message(
       'Coefficient',
       name: 'coefficient',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Coefficient:`
-  String get coefficient_dots {
-    return Intl.message(
-      'Coefficient:',
-      name: 'coefficient_dots',
       desc: '',
       args: [],
     );
@@ -315,16 +295,6 @@ class TranslationsClass {
     return Intl.message(
       'Custom',
       name: 'custom',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Custom rating system`
-  String get custom_rating_system {
-    return Intl.message(
-      'Custom rating system',
-      name: 'custom_rating_system',
       desc: '',
       args: [],
     );
@@ -410,10 +380,10 @@ class TranslationsClass {
     );
   }
 
-  /// `Click to edit your subjects`
+  /// `Tap here to edit your subjects`
   String get edit_subjects_summary {
     return Intl.message(
-      'Click to edit your subjects',
+      'Tap here to edit your subjects',
       name: 'edit_subjects_summary',
       desc: '',
       args: [],

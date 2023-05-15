@@ -34,18 +34,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_version": MessageLookupByLibrary.simpleMessage("App version"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
         "average": MessageLookupByLibrary.simpleMessage("Average"),
-        "az": MessageLookupByLibrary.simpleMessage("A-Z"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "change_class": MessageLookupByLibrary.simpleMessage("Change class"),
         "change_class_summary": MessageLookupByLibrary.simpleMessage(
-            "Click to change your current class. This will delete all your saved grades."),
+            "Tap here to select a new class. This will delete all your saved grades."),
         "class_string": MessageLookupByLibrary.simpleMessage("Class"),
         "classic": MessageLookupByLibrary.simpleMessage("Classic"),
         "coefficient": MessageLookupByLibrary.simpleMessage("Coefficient"),
-        "coefficient_dots":
-            MessageLookupByLibrary.simpleMessage("Coefficient:"),
         "coefficients": MessageLookupByLibrary.simpleMessage("Coefficients"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Coming soon"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
@@ -53,8 +50,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to delete all your saved grades?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contact us"),
         "custom": MessageLookupByLibrary.simpleMessage("Custom"),
-        "custom_rating_system":
-            MessageLookupByLibrary.simpleMessage("Custom rating system"),
         "default_string": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),
@@ -63,8 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_group": MessageLookupByLibrary.simpleMessage("Edit group"),
         "edit_subject": MessageLookupByLibrary.simpleMessage("Edit subject"),
         "edit_subjects": MessageLookupByLibrary.simpleMessage("Edit subjects"),
-        "edit_subjects_summary":
-            MessageLookupByLibrary.simpleMessage("Click to edit your subjects"),
+        "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
+            "Tap here to edit your subjects"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Edit test"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),

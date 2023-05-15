@@ -36,18 +36,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_version": MessageLookupByLibrary.simpleMessage("App versie"),
         "appearance": MessageLookupByLibrary.simpleMessage("Verschijning"),
         "average": MessageLookupByLibrary.simpleMessage("Gemiddeld"),
-        "az": MessageLookupByLibrary.simpleMessage("A-Z"),
         "basic": MessageLookupByLibrary.simpleMessage("Basis"),
-        "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
+        "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuleren"),
         "change_class": MessageLookupByLibrary.simpleMessage("Wijzig klasse"),
         "change_class_summary": MessageLookupByLibrary.simpleMessage(
-            "Klik om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen."),
+            "Tik hier om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen."),
         "class_string": MessageLookupByLibrary.simpleMessage("Klasse"),
         "classic": MessageLookupByLibrary.simpleMessage("Klassiek"),
         "coefficient": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
-        "coefficient_dots":
-            MessageLookupByLibrary.simpleMessage("Coëfficiënt:"),
         "coefficients": MessageLookupByLibrary.simpleMessage("Coëfficiënten"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Binnekort"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bevestig"),
@@ -55,8 +52,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Weet je zeker dat je al je opgeslagen cijfers wilt verwijderen?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
-        "custom_rating_system": MessageLookupByLibrary.simpleMessage(
-            "Aangepast beoordelingssysteem"),
         "default_string": MessageLookupByLibrary.simpleMessage("Standaard"),
         "delete": MessageLookupByLibrary.simpleMessage("Verwijder"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),
@@ -68,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_subjects":
             MessageLookupByLibrary.simpleMessage("Onderwerpen bewerken"),
         "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
-            "Klik om uw onderwerpen te bewerken"),
+            "Tik hier om uw onderwerpen te bewerken"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Test bewerken"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),

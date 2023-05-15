@@ -34,18 +34,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_version": MessageLookupByLibrary.simpleMessage("App-Versioun"),
         "appearance": MessageLookupByLibrary.simpleMessage("Ausgesinn"),
         "average": MessageLookupByLibrary.simpleMessage("Moyenne"),
-        "az": MessageLookupByLibrary.simpleMessage("A-Z"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Ofbriechen"),
         "change_class": MessageLookupByLibrary.simpleMessage("Klass änneren"),
         "change_class_summary": MessageLookupByLibrary.simpleMessage(
-            "Klickt fir är aktuell Klass ze änneren. All gespäichert Notten ginn dobäi geläscht."),
+            "Dréckt hei fir eng nei Klass auszewielen. All gespäichert Notten ginn dobäi geläscht."),
         "class_string": MessageLookupByLibrary.simpleMessage("Klass"),
         "classic": MessageLookupByLibrary.simpleMessage("Klassik"),
         "coefficient": MessageLookupByLibrary.simpleMessage("Koeffizient"),
-        "coefficient_dots":
-            MessageLookupByLibrary.simpleMessage("Koeffizient:"),
         "coefficients": MessageLookupByLibrary.simpleMessage("Koeffizienten"),
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Deemnächst verfügbar"),
@@ -54,8 +51,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sidd Dir sécher datt Dir all Är gespäichert Notten läschen wëllt?"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personaliséiert"),
-        "custom_rating_system": MessageLookupByLibrary.simpleMessage(
-            "Personaliséierten Bewäertungssystem"),
         "default_string": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Läschen"),
         "down": MessageLookupByLibrary.simpleMessage("No ënnen"),
@@ -68,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_subjects":
             MessageLookupByLibrary.simpleMessage("Fächer beaarbechten"),
         "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
-            "Klickt fir är Fächer ze beaarbechten"),
+            "Dréckt hei fir är Fächer ze beaarbechten"),
         "edit_test":
             MessageLookupByLibrary.simpleMessage("Prüfung beaarbechten"),
         "email":
@@ -195,7 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Zéi fir d\'Reiefolleg vun de Fächer ze änneren"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Tipp hei fir aus dem Fach driwwer eng Fachgrupp ze maachen"),
+            "Dréckt hei fir aus dem Fach driwwer eng Fachgrupp ze maachen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortéieren"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),

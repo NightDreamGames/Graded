@@ -35,18 +35,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_version": MessageLookupByLibrary.simpleMessage("App-Version"),
         "appearance": MessageLookupByLibrary.simpleMessage("Aussehen"),
         "average": MessageLookupByLibrary.simpleMessage("Durchschnitt"),
-        "az": MessageLookupByLibrary.simpleMessage("A-Z"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
         "change_class": MessageLookupByLibrary.simpleMessage("Klasse ändern"),
         "change_class_summary": MessageLookupByLibrary.simpleMessage(
-            "Klicken Sie um Ihre aktuelle Klasse zu ändern. Alle gespeicherten Noten werden dabei gelöscht."),
+            "Tippen Sie hier um eine neue Klasse auszuwählen. Alle gespeicherten Noten werden dabei gelöscht."),
         "class_string": MessageLookupByLibrary.simpleMessage("Klasse"),
         "classic": MessageLookupByLibrary.simpleMessage("Klassik"),
         "coefficient": MessageLookupByLibrary.simpleMessage("Koeffizient"),
-        "coefficient_dots":
-            MessageLookupByLibrary.simpleMessage("Koeffizient:"),
         "coefficients": MessageLookupByLibrary.simpleMessage("Koeffiziente"),
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Demnächst verfügbar"),
@@ -55,8 +52,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sind Sie sicher, dass Sie alle Ihre gespeicherten Noten löschen wollen?"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personalisiert"),
-        "custom_rating_system": MessageLookupByLibrary.simpleMessage(
-            "Personalisiertes Bewertungssystem"),
         "default_string": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
         "down": MessageLookupByLibrary.simpleMessage("Nach unten"),
@@ -67,7 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_subjects":
             MessageLookupByLibrary.simpleMessage("Fächer bearbeiten"),
         "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
-            "Klicken Sie um Ihre Fächer zu bearbeiten"),
+            "Tippen Sie hier um Ihre Fächer zu bearbeiten"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Prüfing bearbeiten"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),
@@ -192,7 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Ziehe, um die Reihenfolge der Fächer zu ändern"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Tippe hier um aus dem Fach drüber eine Fachgruppe zu machen"),
+            "Tippen Sie hier um aus dem Fach drüber eine Fachgruppe zu machen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortieren"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),

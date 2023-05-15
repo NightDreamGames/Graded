@@ -37,19 +37,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Version de l\'application"),
         "appearance": MessageLookupByLibrary.simpleMessage("Apparence"),
         "average": MessageLookupByLibrary.simpleMessage("Moyenne"),
-        "az": MessageLookupByLibrary.simpleMessage("A-Z"),
         "basic": MessageLookupByLibrary.simpleMessage("Basique"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
         "change_class":
             MessageLookupByLibrary.simpleMessage("Changer la classe"),
         "change_class_summary": MessageLookupByLibrary.simpleMessage(
-            "Cliquez pour changer votre classe actuelle. Cela supprimera toutes vos notes sauvegardées."),
+            "Appuyez ici pour sélectionner une nouvelle classe. Cela supprimera toutes vos notes sauvegardées."),
         "class_string": MessageLookupByLibrary.simpleMessage("Classe"),
         "classic": MessageLookupByLibrary.simpleMessage("Classique"),
         "coefficient": MessageLookupByLibrary.simpleMessage("Coefficient"),
-        "coefficient_dots":
-            MessageLookupByLibrary.simpleMessage("Coefficient:"),
         "coefficients": MessageLookupByLibrary.simpleMessage("Coefficients"),
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Bientôt disponible"),
@@ -58,8 +55,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Êtes-vous sûr de vouloir supprimer toutes vos notes enregistrées ?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contact"),
         "custom": MessageLookupByLibrary.simpleMessage("Personnalisé"),
-        "custom_rating_system": MessageLookupByLibrary.simpleMessage(
-            "Système de notation personnalisé"),
         "default_string": MessageLookupByLibrary.simpleMessage("Par défaut"),
         "delete": MessageLookupByLibrary.simpleMessage("Supprimer"),
         "down": MessageLookupByLibrary.simpleMessage("Vers le bas"),
@@ -72,7 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_subjects":
             MessageLookupByLibrary.simpleMessage("Modifier matières"),
         "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
-            "Cliquez pour modifier vos matières"),
+            "Appuyez ici pour modifier vos matières"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Modifier un devoir"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),
