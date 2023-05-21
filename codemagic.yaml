@@ -21,9 +21,6 @@ workflows:
     integrations:
       app_store_connect: NightDream Games
     scripts: &base_scripts
-      - name: Clone app sources
-        script: |
-          git clone --progress --branch master --depth 50 https://NightDreamGames@github.com/NightDreamGames/Graded /tmp/build
       - name: Delete fastlane folder
         script: |
           rm -rf .flutter
