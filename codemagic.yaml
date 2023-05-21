@@ -3,6 +3,7 @@ workflows:
     name: Base Workflow
     max_build_duration: 30
     instance_type: mac_mini_m1
+    working_directory: /tmp/build
     environment: &base_environment
       android_signing:
         - Graded
