@@ -185,6 +185,7 @@
     },
     "storage_error": "Une erreur s'est produite lors du chargement de vos données sauvegardées, elles ont donc été supprimées.",
     "subject": "Matière",
+    "subjects": "Matières",
     "system": "Système",
     "system_language": "Langue du système",
     "test": "Devoir",
