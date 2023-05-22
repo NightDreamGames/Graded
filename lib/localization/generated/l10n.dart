@@ -1312,6 +1312,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Subjects`
+  String get subjects {
+    return Intl.message(
+      'Subjects',
+      name: 'subjects',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `System`
   String get system {
     return Intl.message(

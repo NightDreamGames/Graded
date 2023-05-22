@@ -191,6 +191,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "storage_error": MessageLookupByLibrary.simpleMessage(
             "There was an error loading your saved data, so it has been deleted."),
         "subject": MessageLookupByLibrary.simpleMessage("Subject"),
+        "subjects": MessageLookupByLibrary.simpleMessage("Subjects"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("System language"),

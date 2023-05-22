@@ -208,6 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "storage_error": MessageLookupByLibrary.simpleMessage(
             "Une erreur s\'est produite lors du chargement de vos données sauvegardées, elles ont donc été supprimées."),
         "subject": MessageLookupByLibrary.simpleMessage("Matière"),
+        "subjects": MessageLookupByLibrary.simpleMessage("Matières"),
         "system": MessageLookupByLibrary.simpleMessage("Système"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("Langue du système"),

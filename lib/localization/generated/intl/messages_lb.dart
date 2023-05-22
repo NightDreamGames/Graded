@@ -199,6 +199,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "storage_error": MessageLookupByLibrary.simpleMessage(
             "Et ass e Feeler beim Lueden vun ären gespäicherten Donnéeën opgetrueden, dofir goufen se geläscht."),
         "subject": MessageLookupByLibrary.simpleMessage("Fach"),
+        "subjects": MessageLookupByLibrary.simpleMessage("Fächer"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("Systemsprooch"),

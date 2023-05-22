@@ -105,9 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("Naam"),
         "next": MessageLookupByLibrary.simpleMessage("Volgende"),
         "no": MessageLookupByLibrary.simpleMessage("Nee"),
-        "no_grades": MessageLookupByLibrary.simpleMessage("No grades"),
-        "no_items": MessageLookupByLibrary.simpleMessage("No items"),
-        "no_subjects": MessageLookupByLibrary.simpleMessage("No subjects"),
+        "no_grades": MessageLookupByLibrary.simpleMessage("Geen cijfers"),
+        "no_items": MessageLookupByLibrary.simpleMessage("Geen items"),
+        "no_subjects": MessageLookupByLibrary.simpleMessage("Geen onderwerpen"),
         "not_set": MessageLookupByLibrary.simpleMessage("Niet ingesteld"),
         "note": MessageLookupByLibrary.simpleMessage("Opmerking:"),
         "note_text": MessageLookupByLibrary.simpleMessage(
@@ -195,6 +195,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "storage_error": MessageLookupByLibrary.simpleMessage(
             "Er is een fout opgetreden bij het laden van uw opgeslagen gegevens, dus deze zijn verwijdered."),
         "subject": MessageLookupByLibrary.simpleMessage("Onderwerp"),
+        "subjects": MessageLookupByLibrary.simpleMessage("Onderwerpen"),
         "system": MessageLookupByLibrary.simpleMessage("Systeem"),
         "system_language": MessageLookupByLibrary.simpleMessage("Systeemtaal"),
         "test": MessageLookupByLibrary.simpleMessage("Test"),
