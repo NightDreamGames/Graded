@@ -185,6 +185,7 @@
     },
     "storage_error": "There was an error loading your saved data, so it has been deleted.",
     "subject": "Subject",
+    "subjects": "Subjects",
     "system": "System",
     "system_language": "System language",
     "test": "Test",
