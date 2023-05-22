@@ -189,6 +189,7 @@
     },
     "storage_error": "Es ist ein Fehler beim Laden Ihrer gespeicherten Daten aufgetreten, daher wurden sie gelöscht.",
     "subject": "Fach",
+    "subjects": "Fächer",
     "system": "System",
     "system_language": "Systemsprache",
     "test": "Prüfung",
