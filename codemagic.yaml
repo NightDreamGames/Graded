@@ -105,7 +105,7 @@ workflows:
           git submodule foreach git reset --hard origin/stable
 
           changelog_file="CHANGELOG.md"
-          file="release_notes_en-GB.txt"
+          files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
 
           changelog=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d')
 
@@ -114,9 +114,11 @@ workflows:
             exit 1
           fi
 
-          { echo "$changelog"; } >${file}
-          cat $file
-          echo; echo
+          for file in ${files[@]}; do
+            { echo "$changelog"; } >${file}
+            cat $file
+            echo; echo
+          done
 
           mkdir -p fastlane/metadata/android/en-US/changelogs
           cp release_notes_en-GB.txt fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt
