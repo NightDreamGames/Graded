@@ -15,41 +15,36 @@ workflows:
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         APP_ID: 6444681284
-      flutter: stable
       xcode: latest
       cocoapods: default
     integrations:
       app_store_connect: NightDream Games
     scripts: &base_scripts
-      - name: Delete fastlane folder
-        script: |
-          rm -rf .flutter
-          rm -rf fastlane
       - name: Get Flutter packages
         script: |
-          flutter packages pub get
+          .flutter/bin/flutter pub get
       - name: Flutter analyze
         script: |
-          flutter analyze
+          .flutter/bin/flutter analyze
       - name: Flutter unit tests
         script: |
-          flutter test
+          .flutter/bin/flutter test
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
       - name: Build AAB
         script: |
-          flutter build appbundle --release \
+          .flutter/bin/flutter build appbundle --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
       - name: Set up code signing settings on Xcode project
         script: |
-          xcode-project use-profiles
+          xcode-project use-profiles --project="ios/**/*.xcodeproj"
       - name: Install pods
         script: |
           find . -name "Podfile" -execdir pod install \;
       - name: Build IPA
         script: |
-          flutter build ipa --release \
+          .flutter/bin/flutter build ipa --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
             --export-options-plist=/Users/builder/export_options.plist
     artifacts:
@@ -73,6 +68,11 @@ workflows:
     <<: *base
     name: Release Workflow
     scripts:
+      - name: Bump Flutter submodule
+        working_directory: .flutter/
+        script: |
+          git fetch --all
+          git reset --hard origin/stable
       - name: Set up environment variables
         script: |
           file=$(cat pubspec.yaml)
@@ -89,20 +89,16 @@ workflows:
           fi
       - name: Get Flutter packages
         script: |
-          flutter packages pub get
+          .flutter/bin/flutter pub get
       - name: Flutter analyze
         script: |
-          flutter analyze
+          .flutter/bin/flutter analyze
       - name: Flutter unit tests
         script: |
-          flutter test
+          .flutter/bin/flutter test
       - name: Automatic versioning
         script: |
-          #!/usr/bin/env zsh
-
           perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
-          git submodule foreach git fetch --all
-          git submodule foreach git reset --hard origin/stable
 
           changelog_file="CHANGELOG.md"
           files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
@@ -120,7 +116,6 @@ workflows:
             echo; echo
           done
 
-          mkdir -p fastlane/metadata/android/en-US/changelogs
           cp release_notes_en-GB.txt fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt
       - name: Commit versioning changes
         script: |
@@ -131,30 +126,26 @@ workflows:
           git reset HEAD -- release_notes_de-DE.txt
           git commit -m "Versioning changes for ${BUILD_NAME}"
           git push
-      - name: Delete fastlane folder
-        script: |
-          rm -rf .flutter
-          rm -rf fastlane
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
       - name: Build AAB
         script: |
-          flutter build appbundle --release \
+          .flutter/bin/flutter build appbundle --release \
             --build-number=$BUILD_NUMBER
       - name: Build APK
         script: |
-          flutter build apk --release \
+          .flutter/bin/flutter build apk --release \
             --build-number=$BUILD_NUMBER
       - name: Set up code signing settings on Xcode project
         script: |
-          xcode-project use-profiles
+          xcode-project use-profiles --project="ios/**/*.xcodeproj"
       - name: Install pods
         script: |
           find . -name "Podfile" -execdir pod install \;
       - name: Build IPA
         script: |
-          flutter build ipa --release \
+          .flutter/bin/flutter build ipa --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
             --export-options-plist=/Users/builder/export_options.plist
       - name: Publish to GitHub
