@@ -127,6 +127,8 @@ workflows:
           gh auth setup-git
           git add --all
           git reset HEAD -- release_notes_en-GB.txt
+          git reset HEAD -- release_notes_fr-FR.txt
+          git reset HEAD -- release_notes_de-DE.txt
           git commit -m "Versioning changes for ${BUILD_NAME}"
           git push
       - name: Delete fastlane folder
