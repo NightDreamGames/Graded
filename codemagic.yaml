@@ -20,6 +20,12 @@ workflows:
     integrations:
       app_store_connect: NightDream Games
     scripts: &base_scripts
+      - name: Bump Flutter submodule
+        working_directory: .flutter/
+        script: |
+          git fetch --all
+          git reset --hard origin/stable
+          .flutter/bin/flutter --version
       - name: Get Flutter packages
         script: |
           .flutter/bin/flutter pub get
@@ -73,6 +79,7 @@ workflows:
         script: |
           git fetch --all
           git reset --hard origin/stable
+          .flutter/bin/flutter --version
       - name: Set up environment variables
         script: |
           file=$(cat pubspec.yaml)
