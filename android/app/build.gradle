@@ -54,6 +54,11 @@ android {
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        vectorDrawables.generatedDensities = []
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
     }
 
     signingConfigs {
