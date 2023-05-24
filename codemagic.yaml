@@ -23,9 +23,8 @@ workflows:
       - name: Bump Flutter submodule
         working_directory: .flutter/
         script: |
-          git fetch --all
-          git reset --hard origin/stable
-          .flutter/bin/flutter --version
+          git pull origin stable
+          bin/flutter --version
       - name: Get Flutter packages
         script: |
           .flutter/bin/flutter pub get
@@ -77,9 +76,8 @@ workflows:
       - name: Bump Flutter submodule
         working_directory: .flutter/
         script: |
-          git fetch --all
-          git reset --hard origin/stable
-          .flutter/bin/flutter --version
+          git pull origin stable
+          bin/flutter --version
       - name: Set up environment variables
         script: |
           file=$(cat pubspec.yaml)
