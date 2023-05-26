@@ -73,6 +73,8 @@ Here's a brief high-level overview of the tech stack Graded uses:
 
 Interested in contributing to the Graded project? Thanks so much for your interest! I'm always looking for improvements to the project and contributions from open-source developers are greatly appreciated.
 
+You can can take a look at our roadmap on our [Trello board](https://trello.com/b/kfWs3e3h/graded) for any inspiration or to look at what's already being worked on.
+
 If you find an error in the class presets, you can open an issue explaining it, I'll fix it quickly.
 
 If you'd like to help us translate the app, you can do so on [our POEditor project](https://poeditor.com/join/project/6qnhP0EM5w). Any language is welcome!
