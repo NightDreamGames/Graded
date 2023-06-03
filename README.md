@@ -2,45 +2,38 @@
 <a href="https://nightdreamgames.com">
   <img src="https://user-images.githubusercontent.com/49079695/212137017-0834b56d-d03a-45eb-8362-da7b2966d438.png" title="Graded" width="500">
 </a>
+
 <br>
 
-[![](https://img.shields.io/github/v/release/NightDreamGames/Graded?label=GitHub&color=brightgreen)](https://github.com/NightDreamGames/Graded/releases "GitHub")
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.NightDreamGames.Grade.ly&label=Play%20Store&color=brightgreen)](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly "Play Store")
-[![](https://img.shields.io/itunes/v/6444681284?label=App%20Store&color=brightgreen)](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284 "App Store")
-[![](https://img.shields.io/f-droid/v/com.NightDreamGames.Grade.ly?label=F-Droid&color=brightgreen)](https://apt.izzysoft.de/fdroid/index/apk/com.NightDreamGames.Grade.ly "F-Droid")
+[![NightDream Games Homepage](https://img.shields.io/badge/HOMEPAGE-316189?style=for-the-badge)](https://nightdreamgames.com)
+![API 21+](https://img.shields.io/badge/Api%2021+-50f270?logo=android&logoColor=black&style=for-the-badge)
+![Dart](https://img.shields.io/badge/Dart-4285F4?logo=dart&logoColor=FFFFFF&style=for-the-badge)
+![Flutter](https://img.shields.io/badge/Flutter-a503fc?logo=flutter&logoColor=white&style=for-the-badge)
+![Material You](https://custom-icon-badges.demolab.com/badge/Material%20You-lightblue?logo=material-you&logoColor=333&style=for-the-badge)
+
+![GitHub views](https://hits.sh/github.com/NightDreamGames/Graded.svg?style=for-the-badge&label=Views&extraCount=7500&color=3b8963)
+[![GitHub downloads](https://img.shields.io/github/downloads/NightDreamGames/Graded/total?color=orange&label=GitHub%20Downloads&style=for-the-badge)](https://github.com/NightDreamGames/Graded/releases)
+[![GitHub stars](https://img.shields.io/github/stars/NightDreamGames/Graded?color=ffff00&style=for-the-badge)](https://github.com/NightDreamGames/Graded/stargazers)  
+[![GitHub version](https://img.shields.io/github/v/release/NightDreamGames/Graded?label=GitHub&color=brightgreen&style=for-the-badge)](https://github.com/NightDreamGames/Graded/releases)
+[![Play Store version](https://img.shields.io/endpoint?url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Dcom.NightDreamGames.Grade.ly&label=Play%20Store&color=brightgreen&style=for-the-badge)](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
+[![App Store version](https://img.shields.io/itunes/v/6444681284?label=App%20Store&color=brightgreen&style=for-the-badge)](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284)
+[![F-Droid version](https://img.shields.io/f-droid/v/com.NightDreamGames.Grade.ly?label=F-Droid&color=brightgreen&style=for-the-badge)](https://f-droid.org/en/packages/com.NightDreamGames.Grade.ly)
 
 ### Track and manage your school grades with ease
 
 ---
 
-# Quick Links
+# ⬇️ Download
 
-[![](https://img.shields.io/badge/HOMEPAGE-316189?style=for-the-badge)](https://nightdreamgames.com "nightdreamgames.com")  
-<a href="https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly">
-<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" title="Get it on Google Play" height="80">
-</a>
-<a href="https://f-droid.org/en/packages/com.NightDreamGames.Grade.ly/">
-<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en-au.png" title="Get it on F-Droid" height="80">
-</a>
-<a href="https://apt.izzysoft.de/fdroid/index/apk/com.NightDreamGames.Grade.ly">
-<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" title="Get it on IzzyOnDroid" height="80">
-</a>
+Go to the [Releases](https://github.com/NightDreamGames/Graded/releases) and download latest APK/IPA or click the badges below:
 
-<a href="https://apps.apple.com/us/app/graded-grade-tracker/id6444681284">
-<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us" title="Download on the App Store" height="60">
-</a>
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" title="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
+[<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en-au.png" title="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.NightDreamGames.Grade.ly)
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" title="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.NightDreamGames.Grade.ly)
+
+[<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us" title="Download on the App Store" height="60">](https://apps.apple.com/us/app/graded-grade-tracker/id644468128)
 
 </div>
-
----
-
-# Graded is available for download! 🥳 🚀
-
-- Android: On the [Google Play Store](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly), on [F-Droid](https://f-droid.org/en/packages/com.NightDreamGames.Grade.ly) or on [IzzyOnDroid](https://apt.izzysoft.de/fdroid/index/apk/com.NightDreamGames.Grade.ly)
-- iOS: On the [Apple App Store](https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284)
-- GitHub: In the [latest GitHub release](https://github.com/NightDreamGames/Graded/releases/latest) (APK & IPA)
-
----
 
 # 💸 Support me
 
@@ -51,11 +44,9 @@ Graded is free and open source and will always stay like this. If you like this 
 <a href="https://paypal.me/FauconSpartiate"><img height='40' style='height:40px;' src="https://user-images.githubusercontent.com/49079695/231236575-e5434014-e836-4c89-9e4b-82277019d840.png" alt='Donate on PayPal.com' /></a>
 </div>
 
----
-
 # 📒 FEATURES
 
-### You can find our roadmap with all the planned features on our [Trello board](https://trello.com/b/kfWs3e3h/graded).
+## You can find our roadmap with all the planned features on our [Trello board](https://trello.com/b/kfWs3e3h/graded)
 
 - Luxembourgish school system integration - Easily set up the app by selecting your class if you're in a Luxembourgish school and avoid setting your subjects by hand. All the classes are up to date with the 2022-2023 school year.
 - Easy subject setup - Create and customize your subjects with ease, including coefficients and subject groups.
@@ -88,5 +79,3 @@ If you have another contribution in mind, don't hesitate to open a PR or contact
 # ⚠️ License
 
 [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/)
-
----
