@@ -18,3 +18,4 @@ linter:
     directives_ordering: false
     prefer_final_locals: false
     prefer_double_quotes: true
+    flutter_style_todos: true
