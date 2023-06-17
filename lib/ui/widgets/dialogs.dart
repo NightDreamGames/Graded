@@ -294,7 +294,7 @@ Future<void> showSubjectDialog(
               t.subjects.add(Subject(name, coefficient, speakingWeight));
             }
           } else {
-            Manager.sortAll(sortModeOverride: SortMode.name);
+            Manager.sortAll(sortModeOverride: SortMode.name, sortDirectionOverride: SortDirection.ascending);
 
             subject.name = name;
             subject.coefficient = coefficient;

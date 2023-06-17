@@ -114,22 +114,27 @@ class Manager {
     return getCurrentYear().terms[currentTerm];
   }
 
-  static void sortAll({int? sortModeOverride}) {
+  static void sortAll({int? sortModeOverride, int? sortDirectionOverride}) {
     for (final Year y in years) {
       for (final Term t in y.terms) {
         for (final Subject s in t.subjects) {
-          s.sort(sortModeOverride: sortModeOverride);
+          s.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
         }
-        t.sort(sortModeOverride: sortModeOverride);
+        t.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
       }
     }
 
     for (final Subject element in termTemplate) {
-      element.sort(sortModeOverride: sortModeOverride);
+      element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
     }
-    Calculator.sortObjects(termTemplate, sortType: SortType.subject, sortModeOverride: sortModeOverride);
+    Calculator.sortObjects(
+      termTemplate,
+      sortType: SortType.subject,
+      sortModeOverride: sortModeOverride,
+      sortDirectionOverride: sortDirectionOverride,
+    );
 
-    if (sortModeOverride == null) {
+    if (sortModeOverride == null && sortDirectionOverride == null) {
       serialize();
     }
   }

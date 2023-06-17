@@ -50,8 +50,13 @@ class Term extends CalculationObject {
     preciseResult = Calculator.calculate(toBeCalculated, precise: true);
   }
 
-  void sort({int? sortModeOverride}) {
-    Calculator.sortObjects(subjects, sortType: SortType.subject, sortModeOverride: sortModeOverride);
+  void sort({int? sortModeOverride, int? sortDirectionOverride}) {
+    Calculator.sortObjects(
+      subjects,
+      sortType: SortType.subject,
+      sortModeOverride: sortModeOverride,
+      sortDirectionOverride: sortDirectionOverride,
+    );
   }
 
   @override

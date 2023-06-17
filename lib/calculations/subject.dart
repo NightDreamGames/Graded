@@ -69,15 +69,16 @@ class Subject extends CalculationObject {
     Manager.calculate();
   }
 
-  void sort({int? sortModeOverride}) {
+  void sort({int? sortModeOverride, int? sortDirectionOverride}) {
     Calculator.sortObjects(
       children,
       sortType: SortType.subject,
       sortModeOverride: sortModeOverride,
+      sortDirectionOverride: sortDirectionOverride,
       comparisonData: Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children,
     );
 
-    Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride);
+    Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
   }
 
   Subject.fromJson(Map<String, dynamic> json) {
