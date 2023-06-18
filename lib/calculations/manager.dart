@@ -66,7 +66,10 @@ class Manager {
     if (currentTerm == -1) {
       Year currentYear = getCurrentYear();
       Term yearTerm = Term();
-      Manager.sortAll(sortModeOverride: SortMode.name);
+      Manager.sortAll(
+        sortModeOverride: SortMode.name,
+        sortDirectionOverride: SortDirection.ascending,
+      );
       Calculator.sortObjects(yearTerm.subjects, sortType: SortType.subject, sortModeOverride: SortMode.name);
 
       for (int i = 0; i < currentYear.terms.length; i++) {

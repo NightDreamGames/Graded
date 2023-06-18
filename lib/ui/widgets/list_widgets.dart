@@ -299,7 +299,10 @@ class _SubjectTileState extends State<SubjectTile> {
                 ).then((_) => widget.rebuild());
               case MenuAction.delete:
                 final parent = Manager.termTemplate[widget.index1];
-                Manager.sortAll(sortModeOverride: SortMode.name);
+                Manager.sortAll(
+                  sortModeOverride: SortMode.name,
+                  sortDirectionOverride: SortDirection.ascending,
+                );
                 int newIndex = Manager.termTemplate.indexOf(parent);
 
                 if (widget.s.isChild) {
