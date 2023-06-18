@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
           slivers: [
             SliverAppBar.large(
               title: AppBarTitle(
-                title: getTitle(),
+                title: getTitle(termIndex: Manager.currentTerm),
               ),
               actions: [
                 TermSelector(rebuild: rebuild),

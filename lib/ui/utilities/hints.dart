@@ -1,6 +1,5 @@
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
-import "package:graded/calculations/manager.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/storage.dart";
 
@@ -16,17 +15,18 @@ String getHint(String prefix, List<CalculationObject> data) {
   return hint;
 }
 
-String getTitle({int? termOverride}) {
+String getTitle({required int termIndex}) {
   int maxTerms = getPreference<int>("term");
-  int currentTerm = termOverride ?? Manager.currentTerm;
-  if (currentTerm == -1) return translations.year_overview;
 
-  if (currentTerm == maxTerms) return termOverride == null ? translations.exams : translations.exam;
+  if (termIndex == -1) return translations.year_overview;
+
+  if (termIndex == maxTerms) return translations.exams;
+
   switch (maxTerms) {
     case 3:
-      return "${translations.trimester} ${currentTerm + 1}";
+      return "${translations.trimester} ${termIndex + 1}";
     case 2:
-      return "${translations.semester} ${currentTerm + 1}";
+      return "${translations.semester} ${termIndex + 1}";
     case 1:
       return translations.year;
     default:

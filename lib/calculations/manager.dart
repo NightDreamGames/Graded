@@ -81,7 +81,7 @@ class Manager {
                 Test(
                   subjectResult ?? 0,
                   getPreference<double>("total_grades"),
-                  name: getTitle(termOverride: i),
+                  name: getTitle(termIndex: i),
                   coefficient: t.coefficient,
                   isEmpty: subjectResult == null,
                 ),
@@ -95,7 +95,7 @@ class Manager {
               Test(
                 subjectResult ?? 0,
                 getPreference<double>("total_grades"),
-                name: getTitle(termOverride: i),
+                name: getTitle(termIndex: i),
                 coefficient: t.coefficient,
                 isEmpty: subjectResult == null,
               ),
