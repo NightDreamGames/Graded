@@ -77,7 +77,7 @@ class Manager {
   }
 
   static Term getTerm(int index) {
-    if (index == -1) return getYearOverview();
+    if (index == getCurrentYear().terms.length) return getYearOverview();
 
     return getCurrentYear().terms[index];
   }

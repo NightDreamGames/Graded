@@ -107,10 +107,9 @@ class _AppContainerState extends State<AppContainer> {
 Route<dynamic> createRoute(RouteSettings settings) {
   Widget route;
 
-  int tabAmount = 1 + getPreference<int>("term") + (getPreference<int>("validated_year") == 1 ? 1 : 0);
-  if (tabAmount == 2) {
-    tabAmount = 1;
-  }
+  int tabAmount = getPreference<int>("term");
+  if (getPreference<int>("validated_year") == 1) tabAmount++;
+  if (tabAmount > 1) tabAmount++;
 
   switch (settings.name) {
     case "setup_first":
@@ -130,21 +129,15 @@ Route<dynamic> createRoute(RouteSettings settings) {
       Subject? parent = arguments[0];
       Subject subject = arguments[1]!;
 
-      List<Widget> children = [];
-      List<int> termIndexes = List<int>.generate(tabAmount - 1, (i) => i);
-      termIndexes.add(-1);
-
-      for (int j = 0; j < termIndexes.length; j++) {
-        Term term = Manager.getTerm(termIndexes[j]);
+      List<Widget> children = List.generate(tabAmount, (index) {
+        Term term = Manager.getTerm(index);
         Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
         Subject newSubject = newParent != null
             ? newParent.children.firstWhere((element) => element.name == subject.name)
             : term.subjects.firstWhere((element) => element.name == subject.name);
 
-        children.add(
-          SubjectRoute(key: GlobalKey(), term: term, parent: newParent, subject: newSubject),
-        );
-      }
+        return SubjectRoute(key: GlobalKey(), term: term, parent: newParent, subject: newSubject);
+      });
 
       route = RouteWidget(
         routeType: RouteType.subject,
@@ -153,10 +146,10 @@ Route<dynamic> createRoute(RouteSettings settings) {
       );
     case "/":
     default:
-      List<Widget> children = [
-        for (int i = 0; i < tabAmount - 1; i++) HomePage(key: GlobalKey(), term: Manager.getTerm(i)),
-        HomePage(key: GlobalKey(), term: Manager.getYearOverview()),
-      ];
+      List<Widget> children = List.generate(
+        tabAmount,
+        (index) => HomePage(key: GlobalKey(), term: Manager.getTerm(index)),
+      );
 
       route = RouteWidget(
         routeType: RouteType.home,

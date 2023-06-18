@@ -219,11 +219,6 @@ class Compatibility {
     bool hasExam = getPreference<int>("validated_year") == 1;
     bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
 
-    if (termCount == 1) {
-      hasExam = false;
-      examPresent = false;
-    }
-
     Manager.currentTerm = 0;
 
     while (terms.length > termCount + (hasExam ? 1 : 0)) {
