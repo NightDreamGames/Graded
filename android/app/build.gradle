@@ -57,10 +57,6 @@ android {
         vectorDrawables.generatedDensities = []
     }
 
-    aaptOptions {
-        cruncherEnabled = false
-    }
-
     signingConfigs {
        release {
               if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
