@@ -46,6 +46,9 @@ class AppTheme {
       appBarTheme: theme.appBarTheme.copyWith(
         centerTitle: false,
       ),
+      iconTheme: theme.iconTheme.copyWith(
+        color: theme.colorScheme.secondary,
+      ),
     );
   }
 
