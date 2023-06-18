@@ -7,6 +7,7 @@ import "package:graded/misc/default_values.dart";
 
 class Year extends CalculationObject {
   List<Term> terms = [];
+  late Term yearOverview = Manager.createYearOverview(year: this);
 
   Year() {
     Manager.calculate();

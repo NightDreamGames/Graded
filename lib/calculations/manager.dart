@@ -21,8 +21,6 @@ class Manager {
     _currentTerm = newValue;
   }
 
-  static int lastTerm = 0;
-
   static bool deserializationError = false;
 
   static Future<void> init() async {
@@ -40,7 +38,23 @@ class Manager {
     sortAll();
   }
 
-  static void clear() {
+  static void clearSubjects() {
+    getCurrentYear().terms.forEach((term) {
+      for (final subject in term.subjects) {
+        subject.bonus = 0;
+        subject.tests.clear();
+        for (final child in subject.children) {
+          child.bonus = 0;
+          child.tests.clear();
+        }
+      }
+    });
+
+    calculate();
+  }
+
+  static void clearYears() {
+    //TODO Don't delete all years
     years.clear();
     years.add(Year());
     Compatibility.termCount();
@@ -62,39 +76,52 @@ class Manager {
     return years[currentYear];
   }
 
-  static Term getCurrentTerm() {
-    if (currentTerm == -1) {
-      Year currentYear = getCurrentYear();
-      Term yearTerm = Term();
-      Manager.sortAll(
-        sortModeOverride: SortMode.name,
-        sortDirectionOverride: SortDirection.ascending,
-      );
-      Calculator.sortObjects(yearTerm.subjects, sortType: SortType.subject, sortModeOverride: SortMode.name);
+  static Term getTerm(int index) {
+    if (index == -1) return getYearOverview();
 
-      for (int i = 0; i < currentYear.terms.length; i++) {
-        Term t = currentYear.terms[i];
-        for (int j = 0; j < t.subjects.length; j++) {
-          Subject s = yearTerm.subjects[j];
+    return getCurrentYear().terms[index];
+  }
 
-          if (s.isGroup) {
-            for (int k = 0; k < s.children.length; k++) {
-              double? subjectResult = t.subjects[j].children[k].result;
-              s.children[k].addTest(
-                Test(
-                  subjectResult ?? 0,
-                  getPreference<double>("total_grades"),
-                  name: getTitle(termIndex: i),
-                  coefficient: t.coefficient,
-                  isEmpty: subjectResult == null,
-                ),
-                calculate: false,
-              );
-            }
-          } else {
-            double? subjectResult = t.subjects[j].result;
+  static Term getYearOverview() {
+    return getCurrentYear().yearOverview;
+  }
 
-            s.addTest(
+  static Term createYearOverview({required Year year}) {
+    Term yearOverview = Term(isYearOverview: true);
+
+    refreshYearOverview(yearOverview: yearOverview, year: year);
+
+    return yearOverview;
+  }
+
+  static Term refreshYearOverview({required Term yearOverview, required Year year}) {
+    Manager.sortAll(
+      sortModeOverride: SortMode.name,
+      sortDirectionOverride: SortDirection.ascending,
+    );
+    Calculator.sortObjects(
+      yearOverview.subjects,
+      sortType: SortType.subject,
+      sortModeOverride: SortMode.name,
+      sortDirectionOverride: SortDirection.ascending,
+    );
+
+    for (final subject in yearOverview.subjects) {
+      subject.tests.clear();
+      for (final child in subject.children) {
+        child.tests.clear();
+      }
+    }
+
+    for (int i = 0; i < year.terms.length; i++) {
+      Term t = year.terms[i];
+      for (int j = 0; j < t.subjects.length; j++) {
+        Subject s = yearOverview.subjects[j];
+
+        if (s.isGroup) {
+          for (int k = 0; k < s.children.length; k++) {
+            double? subjectResult = t.subjects[j].children[k].result;
+            s.children[k].addTest(
               Test(
                 subjectResult ?? 0,
                 getPreference<double>("total_grades"),
@@ -105,16 +132,32 @@ class Manager {
               calculate: false,
             );
           }
+        } else {
+          double? subjectResult = t.subjects[j].result;
+
+          s.addTest(
+            Test(
+              subjectResult ?? 0,
+              getPreference<double>("total_grades"),
+              name: getTitle(termIndex: i),
+              coefficient: t.coefficient,
+              isEmpty: subjectResult == null,
+            ),
+            calculate: false,
+          );
         }
       }
-
-      yearTerm.calculate();
-      Calculator.sortObjects(yearTerm.subjects, sortType: SortType.subject);
-
-      return yearTerm;
     }
 
-    return getCurrentYear().terms[currentTerm];
+    yearOverview.calculate();
+    Manager.sortAll();
+    Calculator.sortObjects(yearOverview.subjects, sortType: SortType.subject);
+
+    return yearOverview;
+  }
+
+  static Term getCurrentTerm() {
+    return getTerm(currentTerm);
   }
 
   static void sortAll({int? sortModeOverride, int? sortDirectionOverride}) {

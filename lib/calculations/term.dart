@@ -8,14 +8,22 @@ import "package:graded/misc/enums.dart";
 class Term extends CalculationObject {
   List<Subject> subjects = [];
   bool isExam = false;
+  bool isYearOverview = false;
 
   Term({
     double coefficient = 1,
     String name = "",
     this.isExam = false,
+    this.isYearOverview = false,
   }) {
     super.coefficient = coefficient;
     super.name = name;
+
+    populateSubjects();
+  }
+
+  void populateSubjects() {
+    subjects.clear();
 
     if (Manager.termTemplate.isEmpty) return;
 

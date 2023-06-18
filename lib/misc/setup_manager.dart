@@ -169,7 +169,7 @@ class SetupManager {
     }
 
     Compatibility.termCount();
-    Manager.clear();
+    Manager.clearYears();
     Manager.calculate();
 
     setPreference<bool>("is_first_run", false);

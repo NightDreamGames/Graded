@@ -36,7 +36,7 @@ void deserialize() {
     Manager.years = data.map((yearJson) => Year.fromJson(yearJson as Map<String, dynamic>)).toList();
   } catch (e) {
     Manager.deserializationError = true;
-    Manager.clear();
+    Manager.clearYears();
   }
 }
 
@@ -133,7 +133,6 @@ Future<bool> importData(BuildContext context) async {
 
   Manager.calculate();
   Manager.currentTerm = 0;
-  Manager.lastTerm = 0;
 
   // ignore: use_build_context_synchronously
   if (!context.mounted) return false;

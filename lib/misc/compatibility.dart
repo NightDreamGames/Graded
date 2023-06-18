@@ -19,7 +19,7 @@ import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 
 class Compatibility {
-  static const dataVersion = 10;
+  static const dataVersion = 11;
 
   static Future<void> importFromV1() async {
     Uri uri;
@@ -199,6 +199,14 @@ class Compatibility {
         for (final examTerm in examTerms) {
           examTerm.isExam = true;
         }
+      }
+    }
+
+    if (currentDataVersion < 11) {
+      //Change currentTerm behavior
+      int currentTerm = getPreference<int>("current_term");
+      if (currentTerm == -1) {
+        setPreference("current_term", 0);
       }
     }
 

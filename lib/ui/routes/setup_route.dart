@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 
 // Project imports:
 import "package:graded/localization/translations.dart";
+import "package:graded/main.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
@@ -32,6 +33,10 @@ class _SetupPageState extends State<SetupPage> {
     SetupManager.init();
   }
 
+  void replaceRoute(BuildContext context) {
+    Navigator.pushAndRemoveUntil(context, createRoute(const RouteSettings(name: "/")), (_) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +49,7 @@ class _SetupPageState extends State<SetupPage> {
 
               // ignore: use_build_context_synchronously
               if (!context.mounted) return;
-              if (widget.dismissible) {
-                Navigator.popUntil(context, ModalRoute.withName("/"));
-              } else {
-                Navigator.pushReplacementNamed(context, "/");
-              }
+              replaceRoute(context);
             },
             child: const Icon(Icons.navigate_next),
           );
@@ -75,16 +76,10 @@ class _SetupPageState extends State<SetupPage> {
                       title: translations.import_string,
                       subtitle: translations.import_details,
                       onTap: () => importData(context).then((value) {
-                        if (value) {
-                          setPreference<bool>("is_first_run", false);
+                        if (!value) return;
 
-                          if (!context.mounted) return;
-                          if (widget.dismissible) {
-                            Navigator.popUntil(context, ModalRoute.withName("/"));
-                          } else {
-                            Navigator.pushReplacementNamed(context, "/");
-                          }
-                        }
+                        setPreference<bool>("is_first_run", false);
+                        replaceRoute(context);
                       }),
                     ),
                   RadioModalSettingsTile<String>(

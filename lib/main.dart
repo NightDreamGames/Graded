@@ -14,12 +14,16 @@ import "package:provider/provider.dart";
 
 // Project imports:
 import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/term.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/localization/material_localization/lb_intl.dart";
+import "package:graded/localization/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/locale_provider.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/routes/home_route.dart";
+import "package:graded/ui/routes/main_route.dart";
 import "package:graded/ui/routes/settings_route.dart";
 import "package:graded/ui/routes/setup_route.dart";
 import "package:graded/ui/routes/subject_edit_route.dart";
@@ -92,50 +96,94 @@ class _AppContainerState extends State<AppContainer> {
             locale: provider.locale,
             debugShowCheckedModeBanner: false,
             initialRoute: widget.initialRoute,
-            onGenerateRoute: (settings) {
-              Widget route;
-
-              switch (settings.name) {
-                case "/subject":
-                  route = const SubjectRoute();
-                case "/settings":
-                  route = const SettingsPage();
-                case "/setup":
-                  route = const SetupPage();
-                case "setup_first":
-                  route = const SetupPage(dismissible: false);
-                case "/subject_edit":
-                  route = const SubjectEditRoute();
-                case "/":
-                default:
-                  route = const HomePage();
-                  break;
-              }
-
-              return MaterialPageRoute(
-                builder: (context) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    SystemChrome.setSystemUIOverlayStyle(
-                      SystemUiOverlayStyle(
-                        systemNavigationBarColor: Theme.of(context).colorScheme.surface,
-                        systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-                        systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
-                      ),
-                    );
-                  });
-
-                  return Material(
-                    child: SafeArea(top: false, left: false, right: false, child: route),
-                  );
-                },
-                settings: settings,
-              );
-            },
+            onGenerateRoute: createRoute,
           ),
         ),
       ),
     );
   }
+}
+
+Route<dynamic> createRoute(RouteSettings settings) {
+  Widget route;
+
+  int tabAmount = 1 + getPreference<int>("term") + (getPreference<int>("validated_year") == 1 ? 1 : 0);
+  if (tabAmount == 2) {
+    tabAmount = 1;
+  }
+
+  switch (settings.name) {
+    case "setup_first":
+      route = const SetupPage(dismissible: false);
+    case "/setup":
+      route = const SetupPage();
+    case "/settings":
+      route = const SettingsPage();
+    case "/subject_edit":
+      route = const SubjectEditRoute();
+    case "/subject":
+      if (settings.arguments == null) {
+        throw ArgumentError("No arguments passed to route");
+      }
+
+      List<Subject?> arguments = settings.arguments! as List<Subject?>;
+      Subject? parent = arguments[0];
+      Subject subject = arguments[1]!;
+
+      List<Widget> children = [];
+      List<int> termIndexes = List<int>.generate(tabAmount - 1, (i) => i);
+      termIndexes.add(-1);
+
+      for (int j = 0; j < termIndexes.length; j++) {
+        Term term = Manager.getTerm(termIndexes[j]);
+        Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
+        Subject newSubject = newParent != null
+            ? newParent.children.firstWhere((element) => element.name == subject.name)
+            : term.subjects.firstWhere((element) => element.name == subject.name);
+
+        children.add(
+          SubjectRoute(key: GlobalKey(), term: term, parent: newParent, subject: newSubject),
+        );
+      }
+
+      route = RouteWidget(
+        routeType: RouteType.subject,
+        title: subject.name,
+        children: children,
+      );
+    case "/":
+    default:
+      List<Widget> children = [
+        for (int i = 0; i < tabAmount - 1; i++) HomePage(key: GlobalKey(), term: Manager.getTerm(i)),
+        HomePage(key: GlobalKey(), term: Manager.getYearOverview()),
+      ];
+
+      route = RouteWidget(
+        routeType: RouteType.home,
+        title: translations.subjects,
+        children: children,
+      );
+      break;
+  }
+
+  return MaterialPageRoute(
+    builder: (context) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            systemNavigationBarColor: Theme.of(context).colorScheme.surface,
+            systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
+            systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
+          ),
+        );
+      });
+
+      return Material(
+        child: SafeArea(top: false, left: false, right: false, child: route),
+      );
+    },
+    settings: settings,
+  );
 }
 
 Future<void> setOptimalDisplayMode() async {

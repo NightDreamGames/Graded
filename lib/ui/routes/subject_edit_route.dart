@@ -54,7 +54,10 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         titleSpacing: 0,
         toolbarHeight: 64,
         actions: [
-          SortSelector(rebuild: rebuild, sortType: SortType.subject),
+          SortAction(
+            onTap: rebuild,
+            sortType: SortType.subject,
+          ),
         ],
       ),
       body: ShowCaseWidget(
@@ -146,11 +149,11 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       result.add(
         SubjectTile(
           key: ValueKey(element),
-          s: element,
+          subject: element,
           listKey: GlobalKey(),
           index1: i,
           reorderIndex: reorderIndex,
-          rebuild: rebuild,
+          onActionCompleted: rebuild,
           nameController: nameController,
           coeffController: coeffController,
           speakingController: speakingController,
@@ -162,12 +165,12 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         result.add(
           SubjectTile(
             key: ValueKey(child),
-            s: child,
+            subject: child,
             listKey: GlobalKey(),
             index1: i,
             index2: j,
             reorderIndex: reorderIndex,
-            rebuild: rebuild,
+            onActionCompleted: rebuild,
             nameController: nameController,
             coeffController: coeffController,
             speakingController: speakingController,

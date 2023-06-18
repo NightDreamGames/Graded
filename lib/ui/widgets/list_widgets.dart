@@ -163,17 +163,24 @@ class _GroupRowState extends State<GroupRow> {
   }
 }
 
-class ResultRow extends StatelessWidget {
+class ResultRow extends StatefulWidget {
   const ResultRow({
     super.key,
     required this.result,
+    required this.preciseResult,
     required this.leading,
-    this.onResultTap,
   });
 
   final String result;
+  final String preciseResult;
   final Widget leading;
-  final Function()? onResultTap;
+
+  @override
+  State<ResultRow> createState() => _ResultRowState();
+}
+
+class _ResultRowState extends State<ResultRow> {
+  bool showPreciseResult = false;
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +188,9 @@ class ResultRow extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: onResultTap,
+            onTap: () => setState(() {
+              showPreciseResult = !showPreciseResult;
+            }),
             behavior: HitTestBehavior.translucent,
             child: SizedBox(
               height: 54,
@@ -190,9 +199,9 @@ class ResultRow extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    leading,
+                    widget.leading,
                     Text(
-                      result,
+                      showPreciseResult ? widget.preciseResult : widget.result,
                       style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -215,23 +224,23 @@ class ResultRow extends StatelessWidget {
 class SubjectTile extends StatefulWidget {
   const SubjectTile({
     super.key,
-    required this.s,
+    required this.subject,
     required this.listKey,
     required this.index1,
     this.index2 = 0,
     required this.reorderIndex,
-    required this.rebuild,
+    this.onActionCompleted,
     required this.nameController,
     required this.coeffController,
     required this.speakingController,
   });
 
-  final Subject s;
+  final Subject subject;
   final GlobalKey listKey;
   final int index1;
   final int index2;
   final int reorderIndex;
-  final Function() rebuild;
+  final Function()? onActionCompleted;
   final TextEditingController nameController;
   final TextEditingController coeffController;
   final TextEditingController speakingController;
@@ -255,18 +264,18 @@ class _SubjectTileState extends State<SubjectTile> {
 
   @override
   Widget build(BuildContext context) {
-    String coefficientString = Calculator.format(widget.s.coefficient, addZero: false, roundToOverride: 1);
+    String coefficientString = Calculator.format(widget.subject.coefficient, addZero: false, roundToOverride: 1);
 
     showTutorial(context);
 
     return AnimatedPadding(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-      padding: widget.s.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
+      padding: widget.subject.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
       child: TextRow(
         listKey: widget.listKey,
-        leading: widget.s.name,
-        trailing: coefficientString == "0" && widget.s.isGroup ? "" : coefficientString,
+        leading: widget.subject.name,
+        trailing: coefficientString == "0" && widget.subject.isGroup ? "" : coefficientString,
         padding: const EdgeInsets.only(left: 4, right: 24),
         horizontalTitleGap: 8,
         leadingIcon: ReorderableDragStartListener(
@@ -280,13 +289,13 @@ class _SubjectTileState extends State<SubjectTile> {
                     key: showCaseKey2,
                     description: translations.showcase_drag_subject,
                     scaleAnimationCurve: Curves.easeInOut,
-                    child: IgnorePointer(child: ReorderableHandle(widget: widget)),
+                    child: IgnorePointer(child: ReorderableHandle(target: widget)),
                   ),
                 )
-              : ReorderableHandle(widget: widget),
+              : ReorderableHandle(target: widget),
         ),
         onTap: () async {
-          showListMenu(context, widget.listKey).then((result) {
+          showMenuActions(context, widget.listKey).then((result) {
             switch (result) {
               case MenuAction.edit:
                 showSubjectDialog(
@@ -295,8 +304,8 @@ class _SubjectTileState extends State<SubjectTile> {
                   widget.coeffController,
                   widget.speakingController,
                   index: widget.index1,
-                  index2: widget.s.isChild ? widget.index2 : null,
-                ).then((_) => widget.rebuild());
+                  index2: widget.subject.isChild ? widget.index2 : null,
+                ).then((_) => widget.onActionCompleted?.call());
               case MenuAction.delete:
                 final parent = Manager.termTemplate[widget.index1];
                 Manager.sortAll(
@@ -305,24 +314,24 @@ class _SubjectTileState extends State<SubjectTile> {
                 );
                 int newIndex = Manager.termTemplate.indexOf(parent);
 
-                if (widget.s.isChild) {
-                  Manager.termTemplate[newIndex].children.removeWhere((element) => element.processedName == widget.s.processedName);
+                if (widget.subject.isChild) {
+                  Manager.termTemplate[newIndex].children.removeWhere((element) => element.processedName == widget.subject.processedName);
                 } else {
-                  Manager.termTemplate.removeWhere((element) => element.processedName == widget.s.processedName);
+                  Manager.termTemplate.removeWhere((element) => element.processedName == widget.subject.processedName);
                 }
 
                 for (final Term t in Manager.getCurrentYear().terms) {
-                  if (widget.s.isChild) {
+                  if (widget.subject.isChild) {
                     Subject parent = t.subjects[newIndex];
-                    parent.children.removeWhere((element) => element.processedName == widget.s.processedName);
+                    parent.children.removeWhere((element) => element.processedName == widget.subject.processedName);
                     parent.isGroup = parent.children.isNotEmpty;
                   } else {
-                    t.subjects.removeWhere((element) => element.processedName == widget.s.processedName);
+                    t.subjects.removeWhere((element) => element.processedName == widget.subject.processedName);
                   }
                 }
 
                 Manager.calculate();
-                widget.rebuild();
+                widget.onActionCompleted?.call();
               default:
                 break;
             }
@@ -336,28 +345,28 @@ class _SubjectTileState extends State<SubjectTile> {
 class ReorderableHandle extends StatelessWidget {
   const ReorderableHandle({
     super.key,
-    required this.widget,
+    required this.target,
   });
 
-  final SubjectTile widget;
+  final SubjectTile target;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.drag_handle),
       onPressed: () {
-        if (widget.index1 == 0 && !widget.s.isChild) return;
+        if (target.index1 == 0 && !target.subject.isChild) return;
         List<List<Subject>> lists = [Manager.termTemplate];
         for (final Term term in Manager.getCurrentYear().terms) {
           lists.add(term.subjects);
         }
 
-        bool isChild = widget.s.isChild;
+        bool isChild = target.subject.isChild;
 
         for (final List<Subject> list in lists) {
           if (!isChild) {
-            Subject parent = list[widget.index1 - 1];
-            Subject child = list.removeAt(widget.index1);
+            Subject parent = list[target.index1 - 1];
+            Subject child = list.removeAt(target.index1);
 
             parent.isGroup = true;
             child.isChild = true;
@@ -366,16 +375,16 @@ class ReorderableHandle extends StatelessWidget {
             parent.children.addAll([child, ...child.children]);
             child.children.clear();
           } else {
-            Subject parent = list[widget.index1];
-            Subject child = parent.children.removeAt(widget.index2);
-            list.insert(widget.index1 + 1, child..isChild = false);
+            Subject parent = list[target.index1];
+            Subject child = parent.children.removeAt(target.index2);
+            list.insert(target.index1 + 1, child..isChild = false);
             if (parent.children.isEmpty) parent.isGroup = false;
           }
         }
 
         Manager.calculate();
         serialize();
-        widget.rebuild();
+        target.onActionCompleted?.call();
       },
     );
   }
