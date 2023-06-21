@@ -100,8 +100,15 @@ class _SettingsPageState extends State<SettingsPage> {
                         icon: Icons.file_download_outlined,
                         title: translations.import_string,
                         subtitle: translations.import_details,
-                        onTap: () => importData(context).then((value) {
-                          if (value) Navigator.pop(context);
+                        onTap: () => importData().then((success) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(success ? translations.import_success : translations.import_error),
+                            ),
+                          );
+
+                          if (!success) return;
+                          Navigator.of(context).maybePop();
                         }),
                       ),
                     ],

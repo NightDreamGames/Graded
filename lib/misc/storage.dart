@@ -3,9 +3,6 @@ import "dart:convert";
 import "dart:io";
 import "dart:typed_data";
 
-// Flutter imports:
-import "package:flutter/material.dart";
-
 // Package imports:
 import "package:device_info_plus/device_info_plus.dart";
 import "package:flutter_file_dialog/flutter_file_dialog.dart";
@@ -15,7 +12,6 @@ import "package:intl/intl.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/year.dart";
-import "package:graded/localization/translations.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
@@ -110,7 +106,7 @@ Future<void> exportData() async {
   await FlutterFileDialog.saveFile(params: params);
 }
 
-Future<bool> importData(BuildContext context) async {
+Future<bool> importData() async {
   String backup = getExportData();
   bool error = false;
 
@@ -133,14 +129,6 @@ Future<bool> importData(BuildContext context) async {
 
   Manager.calculate();
   Manager.currentTerm = 0;
-
-  // ignore: use_build_context_synchronously
-  if (!context.mounted) return false;
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(error ? translations.import_error : translations.import_success),
-    ),
-  );
 
   return !error;
 }
