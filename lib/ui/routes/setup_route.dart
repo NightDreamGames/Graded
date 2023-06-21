@@ -168,7 +168,7 @@ class _SetupPageState extends State<SetupPage> {
                   else if (getPreference<String>("school_system") == "other")
                     SettingsGroup(
                       title: translations.other_school_system,
-                      children: getSettingsTiles(context, CreationType.add),
+                      children: getSettingsTiles(context, type: CreationType.add),
                     ),
                   SimpleSettingsTile(
                     title: translations.note,

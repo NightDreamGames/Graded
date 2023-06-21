@@ -92,3 +92,24 @@ ButtonStyle getIconButtonStyle(BuildContext context) {
     highlightColor: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.12),
   );
 }
+
+class PlatformWillPopScope extends StatelessWidget {
+  const PlatformWillPopScope({
+    super.key,
+    required this.onWillPop,
+    required this.child,
+  });
+
+  final Future<bool> Function()? onWillPop;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme.of(context).platform != TargetPlatform.iOS
+        ? WillPopScope(
+            onWillPop: onWillPop,
+            child: child,
+          )
+        : child;
+  }
+}

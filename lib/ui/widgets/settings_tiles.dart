@@ -11,13 +11,13 @@ import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 
-List<Widget> getSettingsTiles(BuildContext context, CreationType type) {
+List<Widget> getSettingsTiles(BuildContext context, {required CreationType type, Function()? onChanged}) {
   String subjectEditingPageTitle = type == CreationType.add ? translations.add_subjects : translations.edit_subjects;
 
   return [
     SimpleSettingsTile(
       icon: Icons.subject,
-      onTap: () => Navigator.pushNamed(context, "/subject_edit"),
+      onTap: () => Navigator.pushNamed(context, "/subject_edit").then((value) => onChanged?.call()),
       title: subjectEditingPageTitle,
       subtitle: translations.edit_subjects_summary,
     ),
@@ -25,7 +25,10 @@ List<Widget> getSettingsTiles(BuildContext context, CreationType type) {
       title: translations.school_term,
       icon: Icons.access_time_outlined,
       settingKey: "term",
-      onChange: (_) => Compatibility.termCount(),
+      onChange: (_) {
+        Compatibility.termCount();
+        onChanged?.call();
+      },
       values: <int, String>{
         3: translations.trimesters,
         2: translations.semesters,
@@ -44,6 +47,8 @@ List<Widget> getSettingsTiles(BuildContext context, CreationType type) {
 
         setPreference<double>("total_grades", parsed);
         Manager.calculate();
+
+        onChanged?.call();
       },
       numeric: true,
       additionalValidator: (newValue) {
@@ -60,7 +65,10 @@ List<Widget> getSettingsTiles(BuildContext context, CreationType type) {
       title: translations.rounding_mode,
       icon: Icons.arrow_upward,
       settingKey: "rounding_mode",
-      onChange: (_) => Manager.calculate(),
+      onChange: (_) {
+        Manager.calculate();
+        onChanged?.call();
+      },
       values: <String, String>{
         RoundingMode.up: translations.up,
         RoundingMode.down: translations.down,
@@ -73,7 +81,10 @@ List<Widget> getSettingsTiles(BuildContext context, CreationType type) {
       title: translations.round_to,
       icon: Icons.cut,
       settingKey: "round_to",
-      onChange: (_) => Manager.calculate(),
+      onChange: (_) {
+        Manager.calculate();
+        onChanged?.call();
+      },
       values: <int, String>{
         1: translations.to_integer,
         10: translations.to_10th,

@@ -91,7 +91,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
     });
 
     return Scaffold(
-      body: WillPopScope(
+      body: PlatformWillPopScope(
         onWillPop: () {
           if (widget.children.last is HomePage && tabController.length > 1 && tabController.index == tabController.length - 1) {
             int newIndex = tabController.previousIndex;
