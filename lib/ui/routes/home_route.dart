@@ -1,8 +1,8 @@
 // Flutter imports:
 import "package:flutter/material.dart";
-import "package:graded/calculations/manager.dart";
 
 // Project imports:
+import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/ui/widgets/list_widgets.dart";

@@ -1,11 +1,8 @@
-// Dart imports:
-import "dart:io" show Platform;
-
 // Flutter imports:
 import "package:flutter/material.dart";
-import "package:graded/calculations/manager.dart";
 
 // Project imports:
+import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
@@ -80,7 +77,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                       ? Row(
                           children: [
                             SizedBox(
-                              width: (Platform.isAndroid ? 100 : 110) * MediaQuery.textScaleFactorOf(context),
+                              width: (Theme.of(context).platform == TargetPlatform.android ? 100 : 110) * MediaQuery.textScaleFactorOf(context),
                               child: Text(
                                 "${translations.bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : "  "}",
                                 overflow: TextOverflow.visible,
