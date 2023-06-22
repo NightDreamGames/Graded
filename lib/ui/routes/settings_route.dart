@@ -33,6 +33,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void rebuildHomePage() {
+    Manager.getCurrentYear().yearOverview = Manager.createYearOverview(year: Manager.getCurrentYear());
     Navigator.replaceRouteBelow(context, anchorRoute: ModalRoute.of(context)!, newRoute: createRoute(const RouteSettings(name: "/")));
   }
 
