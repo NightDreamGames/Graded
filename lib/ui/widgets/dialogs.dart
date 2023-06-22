@@ -288,10 +288,11 @@ Future<void> showSubjectDialog(
           if (speakingWeight <= 0) speakingWeight = 1;
 
           if (action == CreationType.add) {
-            Manager.termTemplate.add(Subject(name, coefficient, speakingWeight));
+            List<List<Subject>> lists = [Manager.termTemplate];
+            lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
 
-            for (final Term t in Manager.getCurrentYear().terms) {
-              t.subjects.add(Subject(name, coefficient, speakingWeight));
+            for (final List<Subject> t in lists) {
+              t.add(Subject(name, coefficient, speakingWeight));
             }
           } else {
             Manager.sortAll(
