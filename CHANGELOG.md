@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.2] - 2023-05-14
 
-### Lists can now be sorted in ascending and descending order, and the app now has a monochrome icon!
+### Lists can now be sorted in ascending and descending order, and the app now has a monochrome icon
 
 - Added ascending and descending sorting
 - Added monochrome icon
@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.0] - 2023-03-29
 
-### You can now easily add speaking tests with their own weight! You can edit the speaking weight on the subject editing page.
+### You can now easily add speaking tests with their own weight! You can edit the speaking weight on the subject editing page
 
 - Added speaking tests
 - Added unit tests
@@ -45,12 +45,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.8] - 2023-03-15
 
-### This release includes some UI fixes and optimizations
+### Test release
 
-- Fix various issues whith displaying decimal numbers
-- Code cleanup
-- Implemented CI for automated publishing
-- Fixed some bugs
+- Test release for CI publishing
 
 ## [2.1.7] - 2023-03-14
 
@@ -63,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.5] - 2023-03-07
 
-### You can now take a look at the precise average from a subject or a term by tapping on it!
+### You can now take a look at the precise average from a subject or a term by tapping on it
 
 - Added the possibility to tap on a result to show the precise result
 - Fixed a few layout bugs
@@ -71,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.4] - 2023-02-21
 
-### You can now insert your exam grades in the new "exam" section, allowing them to be correctly calculated!
+### You can now insert your exam grades in the new "exam" section, allowing them to be correctly calculated
 
 - Added the possibility to insert exams in the luxembourgish system
 - Improved iOS behavior and layout
@@ -80,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.3] - 2023-02-15
 
-### You can now create and edit your own subject groups and create a custom sorting order for your subjects!
+### You can now create and edit your own subject groups and create a custom sorting order for your subjects
 
 - Added creation and editing of subject groups
 - Added custom subject sorting order
@@ -90,7 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.2] - 2023-01-31
 
-### Your data can now be imported and exported in a simple JSON format!
+### Your data can now be imported and exported in a simple JSON format
 
 - Added Import/Export
 - Improved landscape/tablet mode
@@ -98,7 +95,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.1.0] - 2023-01-28
 
-### Graded now supports the luxemburgish general system and subject groups!
+### Graded now supports the luxemburgish general system and subject groups
 
 - Integrated the luxemburgish general system. Just select your class in a few quick taps!
 - Added subject groups
@@ -109,7 +106,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.4] - 2022-12-19
 
-### Grade.ly is now Graded! Same app, new name!
+### Bugfixes
 
 - Renamed the app to Graded
 - Improved page title animations
@@ -119,7 +116,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.3] - 2022-12-13
 
-### Grade.ly is now Graded! Same app, new name :
+### Grade.ly is now Graded! Same app, new name
 
 - Renamed the app to Graded
 - Improved page title animations
@@ -129,7 +126,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.2] - 2022-12-01
 
-### Quality of life update with improved transitions, optimizations and bug fixes!
+### Quality of life update with improved transitions, optimizations and bug fixes
 
 - Improved page transitions
 - Added splash screen
@@ -140,18 +137,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.1] - 2022-11-15
 
-### The big rewrite of the app has finally dropped!
+### Bugfixes and improvements
 
-- Rewrite of the app with the Flutter framework to add multi-platform capabilities
-- Moved to Material You design
-- Changed setup screen and added possibility to change class after initial setup
-- Improved functions related to the year view
-- Optimisation
 - Bugfixes
 
 ## [2.0.0] - 2022-11-07
 
-### The big rewrite of the app has finally dropped!
+### The big rewrite of the app has finally dropped
 
 - Rewrite of the app with the Flutter framework to add multi-platform capabilities
 - Moved to Material You design
@@ -179,6 +171,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2022-01-31
 
-### Grade.ly is finally out! Take advantage of it to track all your grades before the end of the semester...
+### Grade.ly is finally out! Take advantage of it to track all your grades before the end of the semester
 
 - Initial release
