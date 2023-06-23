@@ -160,6 +160,7 @@ class _SetupPageState extends State<SetupPage> {
                             values: <int, String>{
                               3: translations.trimesters,
                               2: translations.semesters,
+                              1: translations.year,
                             },
                             selected: defaultValues["term"] as int,
                           ),
