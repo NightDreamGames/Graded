@@ -166,6 +166,13 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
           "${translations.trimester} 2",
           "${translations.trimester} 3",
         ];
+      case 4:
+        items = [
+          "${translations.quarter} 1",
+          "${translations.quarter} 2",
+          "${translations.quarter} 3",
+          "${translations.quarter} 4",
+        ];
     }
 
     if (getPreference<int>("validated_year") == 1) {

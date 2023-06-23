@@ -158,6 +158,7 @@ class _SetupPageState extends State<SetupPage> {
                             settingKey: "term",
                             onChange: (_) => Compatibility.termCount(),
                             values: <int, String>{
+                              4: translations.quarters,
                               3: translations.trimesters,
                               2: translations.semesters,
                               1: translations.year,

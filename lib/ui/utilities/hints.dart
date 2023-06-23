@@ -23,6 +23,8 @@ String getTitle({required int termIndex}) {
   if (termIndex == maxTerms) return translations.exams;
 
   switch (maxTerms) {
+    case 4:
+      return "${translations.quarter} ${termIndex + 1}";
     case 3:
       return "${translations.trimester} ${termIndex + 1}";
     case 2:

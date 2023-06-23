@@ -30,6 +30,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
         onChanged?.call();
       },
       values: <int, String>{
+        4: translations.quarters,
         3: translations.trimesters,
         2: translations.semesters,
         1: translations.year,
