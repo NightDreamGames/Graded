@@ -820,6 +820,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Quarter`
+  String get quarter {
+    return Intl.message(
+      'Quarter',
+      name: 'quarter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quarters`
+  String get quarters {
+    return Intl.message(
+      'Quarters',
+      name: 'quarters',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Rating system`
   String get rating_system {
     return Intl.message(

@@ -116,6 +116,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "other_school_system":
             MessageLookupByLibrary.simpleMessage("Anderes Schulsystem"),
         "previous": MessageLookupByLibrary.simpleMessage("Zurück"),
+        "quarter": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quarters": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewertungssystem"),
         "reset": MessageLookupByLibrary.simpleMessage("Noten zurücksetzen"),

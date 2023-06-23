@@ -111,7 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("Nom"),
         "next": MessageLookupByLibrary.simpleMessage("Suivant"),
         "no": MessageLookupByLibrary.simpleMessage("Non"),
-        "no_grades": MessageLookupByLibrary.simpleMessage("Pas de nottes"),
+        "no_grades": MessageLookupByLibrary.simpleMessage("Pas de notes"),
         "no_items": MessageLookupByLibrary.simpleMessage("Pas d\'éléments"),
         "no_subjects": MessageLookupByLibrary.simpleMessage("Pas de matières"),
         "not_set": MessageLookupByLibrary.simpleMessage("Non défini"),
@@ -123,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "other_school_system":
             MessageLookupByLibrary.simpleMessage("Autre système scolaire"),
         "previous": MessageLookupByLibrary.simpleMessage("Précédent"),
+        "quarter": MessageLookupByLibrary.simpleMessage("Quadrimestre"),
+        "quarters": MessageLookupByLibrary.simpleMessage("Quadrimestres"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Système de notation"),
         "reset":
