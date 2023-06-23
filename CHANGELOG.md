@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2023-06-23
+
+### Introducing a new UI for switching terms and several under the hood improvements
+
+- Added TabBar for switching terms
+- Refactored routing system
+- Optimized the app by reducing the amount of rebuilds
+- Fixed several translation errors and inconsistencies
+- Switch iOS rendering engine to Impeller
+- Fixed blurred monochrome icon on Android
+- Code cleanup
+- Fixed some additional bugs
+
 ## [2.2.2] - 2023-05-14
 
 ### Lists can now be sorted in ascending and descending order, and the app now has a monochrome icon
