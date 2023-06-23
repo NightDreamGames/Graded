@@ -124,6 +124,8 @@
     "open": "Open",
     "other_school_system": "Other school system",
     "previous": "Previous",
+    "quadrimester": "Quadrimester",
+    "quadrimesters": "Quadrimesters",
     "rating_system": "Rating system",
     "reset": "Reset Grades",
     "reset_summary": "Delete all saved grades and reset app",
