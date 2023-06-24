@@ -157,21 +157,21 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         ];
       case 2:
         items = [
-          "${translations.semester} 1",
-          "${translations.semester} 2",
+          "${translations.semesterOne} 1",
+          "${translations.semesterOne} 2",
         ];
       case 3:
         items = [
-          "${translations.trimester} 1",
-          "${translations.trimester} 2",
-          "${translations.trimester} 3",
+          "${translations.trimesterOne} 1",
+          "${translations.trimesterOne} 2",
+          "${translations.trimesterOne} 3",
         ];
       case 4:
         items = [
-          "${translations.quarter} 1",
-          "${translations.quarter} 2",
-          "${translations.quarter} 3",
-          "${translations.quarter} 4",
+          "${translations.quarterOne} 1",
+          "${translations.quarterOne} 2",
+          "${translations.quarterOne} 3",
+          "${translations.quarterOne} 4",
         ];
     }
 

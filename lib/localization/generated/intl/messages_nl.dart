@@ -23,13 +23,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Over"),
-        "about_text": MessageLookupByLibrary.simpleMessage(
+        "about_description": MessageLookupByLibrary.simpleMessage(
             "NightDream Games\nOntwikkelaar - Damien Pirotte\nVisuele identiteit - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Toevoegen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Groep toevoegen"),
-        "add_subject":
+        "add_subjectOne":
             MessageLookupByLibrary.simpleMessage("Onderwerp toevoegen"),
-        "add_subjects":
+        "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Onderwerpen toevoegen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Test toevoegen"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
@@ -40,29 +40,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuleren"),
         "change_class": MessageLookupByLibrary.simpleMessage("Wijzig klasse"),
-        "change_class_summary": MessageLookupByLibrary.simpleMessage(
+        "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tik hier om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen."),
-        "class_string": MessageLookupByLibrary.simpleMessage("Klasse"),
-        "classic": MessageLookupByLibrary.simpleMessage("Klassiek"),
-        "coefficient": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
-        "coefficients": MessageLookupByLibrary.simpleMessage("Coëfficiënten"),
+        "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
+        "coefficientOne": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
+        "coefficientOther":
+            MessageLookupByLibrary.simpleMessage("Coëfficiënten"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Binnekort"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bevestig"),
         "confirm_delete": MessageLookupByLibrary.simpleMessage(
             "Weet je zeker dat je al je opgeslagen cijfers wilt verwijderen?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
-        "default_string": MessageLookupByLibrary.simpleMessage("Standaard"),
+        "default_": MessageLookupByLibrary.simpleMessage("Standaard"),
         "delete": MessageLookupByLibrary.simpleMessage("Verwijder"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Bewerk"),
-        "edit_group": MessageLookupByLibrary.simpleMessage("Groep bewerken"),
-        "edit_subject":
-            MessageLookupByLibrary.simpleMessage("Wijzig onderwerp"),
-        "edit_subjects":
+        "edit_subjectOne":
+            MessageLookupByLibrary.simpleMessage("Onderwerp bewerken"),
+        "edit_subjectOther":
             MessageLookupByLibrary.simpleMessage("Onderwerpen bewerken"),
-        "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
+        "edit_subjects_description": MessageLookupByLibrary.simpleMessage(
             "Tik hier om uw onderwerpen te bewerken"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Test bewerken"),
         "email":
@@ -72,25 +71,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Voer een unieke naam in"),
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examens"),
-        "export_details": MessageLookupByLibrary.simpleMessage(
+        "export_": MessageLookupByLibrary.simpleMessage("Export"),
+        "export_description": MessageLookupByLibrary.simpleMessage(
             "De huidige configuratie en opgeslagen gegevens exporteren"),
-        "export_string": MessageLookupByLibrary.simpleMessage("Export"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
-        "general": MessageLookupByLibrary.simpleMessage("Generaal"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub repository"),
-        "github_summary": MessageLookupByLibrary.simpleMessage(
-            "https://github.com/NightDreamGames/Graded"),
-        "grade": MessageLookupByLibrary.simpleMessage("Cijfer"),
-        "grades": MessageLookupByLibrary.simpleMessage("Cijfers"),
+        "github_description": MessageLookupByLibrary.simpleMessage(
+            "Graded is volledig open-source.\nAls je een wijziging in gedachten hebt of een probleem wilt melden, ga dan naar de Graded GitHub repo."),
+        "gradeOne": MessageLookupByLibrary.simpleMessage("Cijfer"),
+        "gradeOther": MessageLookupByLibrary.simpleMessage("Cijfers"),
         "group": MessageLookupByLibrary.simpleMessage("Groep"),
         "half_down": MessageLookupByLibrary.simpleMessage("Half naar beneden"),
         "half_up": MessageLookupByLibrary.simpleMessage("Half omhoog"),
-        "import_details": MessageLookupByLibrary.simpleMessage(
+        "import_": MessageLookupByLibrary.simpleMessage("Import"),
+        "import_description": MessageLookupByLibrary.simpleMessage(
             "Een eerder geëxporteerd back-upbestand importeren"),
         "import_error": MessageLookupByLibrary.simpleMessage(
             "Er is een four opgetreden bij het importeren van uw back-up."),
-        "import_string": MessageLookupByLibrary.simpleMessage("Import"),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Back-up succesvol geïmporteerd."),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongeldig"),
@@ -99,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "licenses": MessageLookupByLibrary.simpleMessage("Licenties"),
         "lux_system":
             MessageLookupByLibrary.simpleMessage("Luxemburgs schoolsysteem"),
+        "lux_system_classic": MessageLookupByLibrary.simpleMessage("Klassiek"),
+        "lux_system_general": MessageLookupByLibrary.simpleMessage("Generaal"),
         "luxembourgish": MessageLookupByLibrary.simpleMessage("Lëtzebuergesch"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Meer opties"),
@@ -110,19 +110,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_subjects": MessageLookupByLibrary.simpleMessage("Geen onderwerpen"),
         "not_set": MessageLookupByLibrary.simpleMessage("Niet ingesteld"),
         "note": MessageLookupByLibrary.simpleMessage("Opmerking:"),
-        "note_text": MessageLookupByLibrary.simpleMessage(
+        "note_description": MessageLookupByLibrary.simpleMessage(
             "U kunt kater altijd uw onderwerpen en endere opties in de instellingen bewerken"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "other_school_system":
             MessageLookupByLibrary.simpleMessage("Andere schoolsystemen"),
         "previous": MessageLookupByLibrary.simpleMessage("Vorige"),
-        "quarter": MessageLookupByLibrary.simpleMessage("Kwartaal"),
-        "quarters": MessageLookupByLibrary.simpleMessage("Kwartaals"),
+        "quarterOne": MessageLookupByLibrary.simpleMessage("Kwartaal"),
+        "quarterOther": MessageLookupByLibrary.simpleMessage("Kwartaals"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Beoordelingssystem"),
         "reset": MessageLookupByLibrary.simpleMessage("Cijfers terugzetten"),
-        "reset_summary": MessageLookupByLibrary.simpleMessage(
+        "reset_description": MessageLookupByLibrary.simpleMessage(
             "Verwijder alle opgeslagen spellen reset app"),
         "result": MessageLookupByLibrary.simpleMessage("Resultaat"),
         "round_to": MessageLookupByLibrary.simpleMessage("Rond naar"),
@@ -180,8 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SO - Sociale wetenschappen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoolperiode kiezen"),
-        "semester": MessageLookupByLibrary.simpleMessage("Semester"),
-        "semesters": MessageLookupByLibrary.simpleMessage("Semesters"),
+        "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
+        "semesterOther": MessageLookupByLibrary.simpleMessage("Semesters"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback geven"),
         "settings": MessageLookupByLibrary.simpleMessage("Instellingen"),
         "setup": MessageLookupByLibrary.simpleMessage("Setup"),
@@ -209,8 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to_100th": MessageLookupByLibrary.simpleMessage("Naar 100e"),
         "to_10th": MessageLookupByLibrary.simpleMessage("Naar 10e"),
         "to_integer": MessageLookupByLibrary.simpleMessage("Naar integer"),
-        "trimester": MessageLookupByLibrary.simpleMessage("Trimester"),
-        "trimesters": MessageLookupByLibrary.simpleMessage("Trimesters"),
+        "trimesterOne": MessageLookupByLibrary.simpleMessage("Trimester"),
+        "trimesterOther": MessageLookupByLibrary.simpleMessage("Trimesters"),
         "up": MessageLookupByLibrary.simpleMessage("Omhoog"),
         "variant": MessageLookupByLibrary.simpleMessage("Variant"),
         "variant_classic_l": MessageLookupByLibrary.simpleMessage("L - Latijn"),

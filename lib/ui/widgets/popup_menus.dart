@@ -50,7 +50,7 @@ class SortAction extends StatelessWidget {
           getPopupMenuItem(SortMode.name, translations.name),
           getPopupMenuItem(SortMode.result, translations.result),
           if (sortType == SortType.subject) ...[
-            getPopupMenuItem(SortMode.coefficient, translations.coefficient),
+            getPopupMenuItem(SortMode.coefficient, translations.coefficientOne),
             getPopupMenuItem(SortMode.custom, translations.custom),
           ],
         ];

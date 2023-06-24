@@ -73,8 +73,8 @@ class _SetupPageState extends State<SetupPage> {
                   if (!widget.dismissible)
                     SimpleSettingsTile(
                       icon: Icons.file_download_outlined,
-                      title: translations.import_string,
-                      subtitle: translations.import_details,
+                      title: translations.import_,
+                      subtitle: translations.import_description,
                       onTap: () => importData().then((success) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -113,8 +113,8 @@ class _SetupPageState extends State<SetupPage> {
                             rebuild();
                           },
                           values: <String, String>{
-                            "classic": translations.classic,
-                            "general": translations.general,
+                            "classic": translations.lux_system_classic,
+                            "general": translations.lux_system_general,
                           },
                         ),
                         if (getPreference<String>("lux_system").isNotEmpty)
@@ -158,9 +158,9 @@ class _SetupPageState extends State<SetupPage> {
                             settingKey: "term",
                             onChange: (_) => Compatibility.termCount(),
                             values: <int, String>{
-                              4: translations.quarters,
-                              3: translations.trimesters,
-                              2: translations.semesters,
+                              4: translations.quarterOther,
+                              3: translations.trimesterOther,
+                              2: translations.semesterOther,
                               1: translations.year,
                             },
                             selected: defaultValues["term"] as int,
@@ -174,7 +174,7 @@ class _SetupPageState extends State<SetupPage> {
                     ),
                   SimpleSettingsTile(
                     title: translations.note,
-                    subtitle: translations.note_text,
+                    subtitle: translations.note_description,
                     icon: Icons.info_outline,
                     enabled: false,
                   ),

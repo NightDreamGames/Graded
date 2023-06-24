@@ -55,13 +55,13 @@ class _SettingsPageState extends State<SettingsPage> {
               child: SettingsContainer(
                 children: [
                   SettingsGroup(
-                    title: translations.general,
+                    title: translations.lux_system_general,
                     children: [
                       SimpleSettingsTile(
                         icon: Icons.class_,
                         onTap: () => Navigator.pushNamed(context, "/setup"),
                         title: translations.change_class,
-                        subtitle: translations.change_class_summary,
+                        subtitle: translations.change_class_description,
                       ),
                       ...getSettingsTiles(context, type: CreationType.edit, onChanged: rebuildHomePage),
                       SimpleSettingsTile(
@@ -89,18 +89,18 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
                   SettingsGroup(
-                    title: "${translations.import_string}/${translations.export_string}",
+                    title: "${translations.import_}/${translations.export_}",
                     children: [
                       SimpleSettingsTile(
                         icon: Icons.file_upload_outlined,
-                        title: translations.export_string,
-                        subtitle: translations.export_details,
+                        title: translations.export_,
+                        subtitle: translations.export_description,
                         onTap: () => exportData(),
                       ),
                       SimpleSettingsTile(
                         icon: Icons.file_download_outlined,
-                        title: translations.import_string,
-                        subtitle: translations.import_details,
+                        title: translations.import_,
+                        subtitle: translations.import_description,
                         onTap: () => importData().then((success) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -161,7 +161,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       SimpleSettingsTile(
                         icon: CustomIcons.graded,
                         title: translations.app_name,
-                        subtitle: translations.about_text,
+                        subtitle: translations.about_description,
                         onTap: () => launchURL(Link.website),
                       ),
                       FutureBuilder(
@@ -180,7 +180,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       SimpleSettingsTile(
                         icon: CustomIcons.github,
                         title: translations.github,
-                        subtitle: translations.github_summary,
+                        subtitle: translations.github_description,
                         onTap: () => launchURL(Link.github),
                       ),
                       SimpleSettingsTile(

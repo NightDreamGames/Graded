@@ -23,12 +23,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Informationen"),
-        "about_text": MessageLookupByLibrary.simpleMessage(
+        "about_description": MessageLookupByLibrary.simpleMessage(
             "NightDream Games\nEntwickler - Damien Pirotte\nVisuelle Identität - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Hinzufügen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Gruppe hinzufügen"),
-        "add_subject": MessageLookupByLibrary.simpleMessage("Fach hinzufügen"),
-        "add_subjects":
+        "add_subjectOne":
+            MessageLookupByLibrary.simpleMessage("Fach hinzufügen"),
+        "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Fächer hinzufügen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Prüfung hinzufügen"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
@@ -39,12 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
         "change_class": MessageLookupByLibrary.simpleMessage("Klasse ändern"),
-        "change_class_summary": MessageLookupByLibrary.simpleMessage(
+        "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tippen Sie hier um eine neue Klasse auszuwählen. Alle gespeicherten Noten werden dabei gelöscht."),
-        "class_string": MessageLookupByLibrary.simpleMessage("Klasse"),
-        "classic": MessageLookupByLibrary.simpleMessage("Klassik"),
-        "coefficient": MessageLookupByLibrary.simpleMessage("Koeffizient"),
-        "coefficients": MessageLookupByLibrary.simpleMessage("Koeffiziente"),
+        "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
+        "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
+        "coefficientOther":
+            MessageLookupByLibrary.simpleMessage("Koeffiziente"),
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Demnächst verfügbar"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bestätigung"),
@@ -52,16 +53,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sind Sie sicher, dass Sie alle Ihre gespeicherten Noten löschen wollen?"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personalisiert"),
-        "default_string": MessageLookupByLibrary.simpleMessage("Default"),
+        "default_": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
         "down": MessageLookupByLibrary.simpleMessage("Nach unten"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
-        "edit_group": MessageLookupByLibrary.simpleMessage("Gruppe bearbeiten"),
-        "edit_subject": MessageLookupByLibrary.simpleMessage("Fach bearbeiten"),
-        "edit_subjects":
+        "edit_subjectOne":
+            MessageLookupByLibrary.simpleMessage("Fach bearbeiten"),
+        "edit_subjectOther":
             MessageLookupByLibrary.simpleMessage("Fächer bearbeiten"),
-        "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
+        "edit_subjects_description": MessageLookupByLibrary.simpleMessage(
             "Tippen Sie hier um Ihre Fächer zu bearbeiten"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Prüfing bearbeiten"),
         "email":
@@ -71,25 +72,24 @@ class MessageLookup extends MessageLookupByLibrary {
             "Geben Sie einen eindeutigen Namen ein"),
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examen"),
-        "export_details": MessageLookupByLibrary.simpleMessage(
+        "export_": MessageLookupByLibrary.simpleMessage("Exportieren"),
+        "export_description": MessageLookupByLibrary.simpleMessage(
             "Exportieren der aktuellen Konfiguration und der gespeicherten Daten"),
-        "export_string": MessageLookupByLibrary.simpleMessage("Exportieren"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
-        "general": MessageLookupByLibrary.simpleMessage("General"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub Repository"),
-        "github_summary": MessageLookupByLibrary.simpleMessage(
-            "https://github.com/NightDreamGames/Graded"),
-        "grade": MessageLookupByLibrary.simpleMessage("Note"),
-        "grades": MessageLookupByLibrary.simpleMessage("Noten"),
+        "github_description": MessageLookupByLibrary.simpleMessage(
+            "Graded ist vollständig open-source.\nWenn Sie eine Änderung im Kopf haben oder ein Problem melden möchten, besuchen Sie das Graded GitHub Repo."),
+        "gradeOne": MessageLookupByLibrary.simpleMessage("Note"),
+        "gradeOther": MessageLookupByLibrary.simpleMessage("Noten"),
         "group": MessageLookupByLibrary.simpleMessage("Gruppe"),
         "half_down": MessageLookupByLibrary.simpleMessage("Halb nach unten"),
         "half_up": MessageLookupByLibrary.simpleMessage("Halb nach oben"),
-        "import_details": MessageLookupByLibrary.simpleMessage(
+        "import_": MessageLookupByLibrary.simpleMessage("Importieren"),
+        "import_description": MessageLookupByLibrary.simpleMessage(
             "Importieren einer zuvor exportierten Backup-Datei"),
         "import_error": MessageLookupByLibrary.simpleMessage(
             "Es ist ein Fehler beim Importieren Ihrer Backup aufgetreten."),
-        "import_string": MessageLookupByLibrary.simpleMessage("Importieren"),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup erfolgreich importiert."),
         "invalid": MessageLookupByLibrary.simpleMessage("Ungültig"),
@@ -98,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "licenses": MessageLookupByLibrary.simpleMessage("Lizenzen"),
         "lux_system":
             MessageLookupByLibrary.simpleMessage("Luxemburgisches Schulsystem"),
+        "lux_system_classic": MessageLookupByLibrary.simpleMessage("Klassik"),
+        "lux_system_general": MessageLookupByLibrary.simpleMessage("General"),
         "luxembourgish": MessageLookupByLibrary.simpleMessage("Lëtzebuergesch"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Mehr Optionen"),
@@ -109,19 +111,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_subjects": MessageLookupByLibrary.simpleMessage("Keine Fächer"),
         "not_set": MessageLookupByLibrary.simpleMessage("Nicht definiert"),
         "note": MessageLookupByLibrary.simpleMessage("Anmerkung:"),
-        "note_text": MessageLookupByLibrary.simpleMessage(
+        "note_description": MessageLookupByLibrary.simpleMessage(
             "Sie können Ihre Fächer und andere Optionen später immer noch in den Einstellungen bearbeiten"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open": MessageLookupByLibrary.simpleMessage("Öffnen"),
         "other_school_system":
             MessageLookupByLibrary.simpleMessage("Anderes Schulsystem"),
         "previous": MessageLookupByLibrary.simpleMessage("Zurück"),
-        "quarter": MessageLookupByLibrary.simpleMessage("Quadrimester"),
-        "quarters": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quarterOne": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewertungssystem"),
         "reset": MessageLookupByLibrary.simpleMessage("Noten zurücksetzen"),
-        "reset_summary": MessageLookupByLibrary.simpleMessage(
+        "reset_description": MessageLookupByLibrary.simpleMessage(
             "Alle gespeicherten Noten löschen und App zurücksetzen"),
         "result": MessageLookupByLibrary.simpleMessage("Resultat"),
         "round_to": MessageLookupByLibrary.simpleMessage("Runden bis"),
@@ -181,8 +183,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SO - Sozialwissenschaften"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schulperiode auswählen"),
-        "semester": MessageLookupByLibrary.simpleMessage("Semester"),
-        "semesters": MessageLookupByLibrary.simpleMessage("Semester"),
+        "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
+        "semesterOther": MessageLookupByLibrary.simpleMessage("Semester"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback geben"),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "setup": MessageLookupByLibrary.simpleMessage("Einrichtung"),
@@ -211,8 +213,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to_100th": MessageLookupByLibrary.simpleMessage("Zum 100-tel"),
         "to_10th": MessageLookupByLibrary.simpleMessage("Zum 10-tel"),
         "to_integer": MessageLookupByLibrary.simpleMessage("Zur Ganzzahl"),
-        "trimester": MessageLookupByLibrary.simpleMessage("Trimester"),
-        "trimesters": MessageLookupByLibrary.simpleMessage("Trimester"),
+        "trimesterOne": MessageLookupByLibrary.simpleMessage("Trimester"),
+        "trimesterOther": MessageLookupByLibrary.simpleMessage("Trimester"),
         "up": MessageLookupByLibrary.simpleMessage("Nach oben"),
         "variant": MessageLookupByLibrary.simpleMessage("Variante"),
         "variant_classic_l":

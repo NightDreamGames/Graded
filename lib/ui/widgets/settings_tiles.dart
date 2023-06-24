@@ -12,14 +12,14 @@ import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 List<Widget> getSettingsTiles(BuildContext context, {required CreationType type, Function()? onChanged}) {
-  String subjectEditingPageTitle = type == CreationType.add ? translations.add_subjects : translations.edit_subjects;
+  String subjectEditingPageTitle = type == CreationType.add ? translations.add_subjectOther : translations.edit_subjectOther;
 
   return [
     SimpleSettingsTile(
       icon: Icons.subject,
       onTap: () => Navigator.pushNamed(context, "/subject_edit").then((value) => onChanged?.call()),
       title: subjectEditingPageTitle,
-      subtitle: translations.edit_subjects_summary,
+      subtitle: translations.edit_subjects_description,
     ),
     RadioModalSettingsTile<int>(
       title: translations.school_term,
@@ -30,16 +30,16 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
         onChanged?.call();
       },
       values: <int, String>{
-        4: translations.quarters,
-        3: translations.trimesters,
-        2: translations.semesters,
+        4: translations.quarterOther,
+        3: translations.trimesterOther,
+        2: translations.semesterOther,
         1: translations.year,
       },
       selected: defaultValues["term"] as int,
     ),
     TextInputSettingsTile(
       title: translations.rating_system,
-      settingKey: "total_grades_text",
+      settingKey: "total_grades_description",
       initialValue: defaultValues["total_grades"].toString(),
       icon: Icons.vertical_align_top,
       onChange: (value) {

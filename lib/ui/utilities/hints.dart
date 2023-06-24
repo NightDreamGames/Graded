@@ -24,11 +24,11 @@ String getTitle({required int termIndex}) {
 
   switch (maxTerms) {
     case 4:
-      return "${translations.quarter} ${termIndex + 1}";
+      return "${translations.quarterOne} ${termIndex + 1}";
     case 3:
-      return "${translations.trimester} ${termIndex + 1}";
+      return "${translations.trimesterOne} ${termIndex + 1}";
     case 2:
-      return "${translations.semester} ${termIndex + 1}";
+      return "${translations.semesterOne} ${termIndex + 1}";
     case 1:
       return translations.year;
     default:

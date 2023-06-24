@@ -61,10 +61,10 @@ class TranslationsClass {
   }
 
   /// `NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus`
-  String get about_text {
+  String get about_description {
     return Intl.message(
       'NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus',
-      name: 'about_text',
+      name: 'about_description',
       desc: 'Do not translate names, keep formatting and line breaks',
       args: [],
     );
@@ -91,20 +91,20 @@ class TranslationsClass {
   }
 
   /// `Add subject`
-  String get add_subject {
+  String get add_subjectOne {
     return Intl.message(
       'Add subject',
-      name: 'add_subject',
+      name: 'add_subjectOne',
       desc: '',
       args: [],
     );
   }
 
   /// `Add subjects`
-  String get add_subjects {
+  String get add_subjectOther {
     return Intl.message(
       'Add subjects',
-      name: 'add_subjects',
+      name: 'add_subjectOther',
       desc: '',
       args: [],
     );
@@ -201,50 +201,40 @@ class TranslationsClass {
   }
 
   /// `Tap here to select a new class. This will delete all your saved grades.`
-  String get change_class_summary {
+  String get change_class_description {
     return Intl.message(
       'Tap here to select a new class. This will delete all your saved grades.',
-      name: 'change_class_summary',
+      name: 'change_class_description',
       desc: '',
       args: [],
     );
   }
 
   /// `Class`
-  String get class_string {
+  String get class_ {
     return Intl.message(
       'Class',
-      name: 'class_string',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Classic`
-  String get classic {
-    return Intl.message(
-      'Classic',
-      name: 'classic',
+      name: 'class_',
       desc: '',
       args: [],
     );
   }
 
   /// `Coefficient`
-  String get coefficient {
+  String get coefficientOne {
     return Intl.message(
       'Coefficient',
-      name: 'coefficient',
+      name: 'coefficientOne',
       desc: '',
       args: [],
     );
   }
 
   /// `Coefficients`
-  String get coefficients {
+  String get coefficientOther {
     return Intl.message(
       'Coefficients',
-      name: 'coefficients',
+      name: 'coefficientOther',
       desc: '',
       args: [],
     );
@@ -301,10 +291,10 @@ class TranslationsClass {
   }
 
   /// `Default`
-  String get default_string {
+  String get default_ {
     return Intl.message(
       'Default',
-      name: 'default_string',
+      name: 'default_',
       desc: '',
       args: [],
     );
@@ -350,41 +340,31 @@ class TranslationsClass {
     );
   }
 
-  /// `Edit group`
-  String get edit_group {
-    return Intl.message(
-      'Edit group',
-      name: 'edit_group',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Edit subject`
-  String get edit_subject {
+  String get edit_subjectOne {
     return Intl.message(
       'Edit subject',
-      name: 'edit_subject',
+      name: 'edit_subjectOne',
       desc: '',
       args: [],
     );
   }
 
   /// `Edit subjects`
-  String get edit_subjects {
+  String get edit_subjectOther {
     return Intl.message(
       'Edit subjects',
-      name: 'edit_subjects',
+      name: 'edit_subjectOther',
       desc: '',
       args: [],
     );
   }
 
   /// `Tap here to edit your subjects`
-  String get edit_subjects_summary {
+  String get edit_subjects_description {
     return Intl.message(
       'Tap here to edit your subjects',
-      name: 'edit_subjects_summary',
+      name: 'edit_subjects_description',
       desc: '',
       args: [],
     );
@@ -450,21 +430,21 @@ class TranslationsClass {
     );
   }
 
-  /// `Export the current configuration and saved data`
-  String get export_details {
+  /// `Export`
+  String get export_ {
     return Intl.message(
-      'Export the current configuration and saved data',
-      name: 'export_details',
+      'Export',
+      name: 'export_',
       desc: '',
       args: [],
     );
   }
 
-  /// `Export`
-  String get export_string {
+  /// `Export the current configuration and saved data`
+  String get export_description {
     return Intl.message(
-      'Export',
-      name: 'export_string',
+      'Export the current configuration and saved data',
+      name: 'export_description',
       desc: '',
       args: [],
     );
@@ -476,16 +456,6 @@ class TranslationsClass {
       'Français',
       name: 'french',
       desc: 'Do not translate',
-      args: [],
-    );
-  }
-
-  /// `General`
-  String get general {
-    return Intl.message(
-      'General',
-      name: 'general',
-      desc: '',
       args: [],
     );
   }
@@ -510,31 +480,31 @@ class TranslationsClass {
     );
   }
 
-  /// `https://github.com/NightDreamGames/Graded`
-  String get github_summary {
+  /// `Graded is entirely open-source.\nIf you've got any change in mind or want to report an issue, head over to the Graded GitHub repo.`
+  String get github_description {
     return Intl.message(
-      'https://github.com/NightDreamGames/Graded',
-      name: 'github_summary',
-      desc: 'Do not translate',
+      'Graded is entirely open-source.\nIf you\'ve got any change in mind or want to report an issue, head over to the Graded GitHub repo.',
+      name: 'github_description',
+      desc: '',
       args: [],
     );
   }
 
   /// `Grade`
-  String get grade {
+  String get gradeOne {
     return Intl.message(
       'Grade',
-      name: 'grade',
+      name: 'gradeOne',
       desc: '',
       args: [],
     );
   }
 
   /// `Grades`
-  String get grades {
+  String get gradeOther {
     return Intl.message(
       'Grades',
-      name: 'grades',
+      name: 'gradeOther',
       desc: '',
       args: [],
     );
@@ -570,11 +540,21 @@ class TranslationsClass {
     );
   }
 
+  /// `Import`
+  String get import_ {
+    return Intl.message(
+      'Import',
+      name: 'import_',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Import a previously exported backup file`
-  String get import_details {
+  String get import_description {
     return Intl.message(
       'Import a previously exported backup file',
-      name: 'import_details',
+      name: 'import_description',
       desc: '',
       args: [],
     );
@@ -585,16 +565,6 @@ class TranslationsClass {
     return Intl.message(
       'There was an error importing your backup.',
       name: 'import_error',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Import`
-  String get import_string {
-    return Intl.message(
-      'Import',
-      name: 'import_string',
       desc: '',
       args: [],
     );
@@ -655,6 +625,26 @@ class TranslationsClass {
     return Intl.message(
       'Luxembourgish school system',
       name: 'lux_system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Classic`
+  String get lux_system_classic {
+    return Intl.message(
+      'Classic',
+      name: 'lux_system_classic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `General`
+  String get lux_system_general {
+    return Intl.message(
+      'General',
+      name: 'lux_system_general',
       desc: '',
       args: [],
     );
@@ -771,10 +761,10 @@ class TranslationsClass {
   }
 
   /// `You can always edit your subjects and other options in the settings later`
-  String get note_text {
+  String get note_description {
     return Intl.message(
       'You can always edit your subjects and other options in the settings later',
-      name: 'note_text',
+      name: 'note_description',
       desc: '',
       args: [],
     );
@@ -821,20 +811,20 @@ class TranslationsClass {
   }
 
   /// `Quarter`
-  String get quarter {
+  String get quarterOne {
     return Intl.message(
       'Quarter',
-      name: 'quarter',
+      name: 'quarterOne',
       desc: '',
       args: [],
     );
   }
 
   /// `Quarters`
-  String get quarters {
+  String get quarterOther {
     return Intl.message(
       'Quarters',
-      name: 'quarters',
+      name: 'quarterOther',
       desc: '',
       args: [],
     );
@@ -861,10 +851,10 @@ class TranslationsClass {
   }
 
   /// `Delete all saved grades and reset app`
-  String get reset_summary {
+  String get reset_description {
     return Intl.message(
       'Delete all saved grades and reset app',
-      name: 'reset_summary',
+      name: 'reset_description',
       desc: '',
       args: [],
     );
@@ -1201,20 +1191,20 @@ class TranslationsClass {
   }
 
   /// `Semester`
-  String get semester {
+  String get semesterOne {
     return Intl.message(
       'Semester',
-      name: 'semester',
+      name: 'semesterOne',
       desc: '',
       args: [],
     );
   }
 
   /// `Semesters`
-  String get semesters {
+  String get semesterOther {
     return Intl.message(
       'Semesters',
-      name: 'semesters',
+      name: 'semesterOther',
       desc: '',
       args: [],
     );
@@ -1443,20 +1433,20 @@ class TranslationsClass {
   }
 
   /// `Trimester`
-  String get trimester {
+  String get trimesterOne {
     return Intl.message(
       'Trimester',
-      name: 'trimester',
+      name: 'trimesterOne',
       desc: '',
       args: [],
     );
   }
 
   /// `Trimesters`
-  String get trimesters {
+  String get trimesterOther {
     return Intl.message(
       'Trimesters',
-      name: 'trimesters',
+      name: 'trimesterOther',
       desc: '',
       args: [],
     );

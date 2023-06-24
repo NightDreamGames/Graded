@@ -188,7 +188,7 @@ Future<void> showTestDialog(
                     Flexible(
                       child: EasyFormField(
                         controller: gradeController,
-                        label: translations.grade,
+                        label: translations.gradeOne,
                         hint: "01",
                         textAlign: TextAlign.end,
                         autofocus: true,
@@ -277,7 +277,7 @@ Future<void> showSubjectDialog(
     builder: (context) {
       return EasyDialog(
         key: dialogKey,
-        title: action == CreationType.add ? translations.add_subject : translations.edit_subject,
+        title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
         icon: action == CreationType.add ? Icons.add : Icons.edit,
         onConfirm: () {
           String name = nameController.text.isEmpty ? getHint(translations.subject, Manager.termTemplate) : nameController.text;
@@ -365,7 +365,7 @@ Future<void> showSubjectDialog(
                 Flexible(
                   child: EasyFormField(
                     controller: coeffController,
-                    label: translations.coefficient,
+                    label: translations.coefficientOne,
                     hint: "1",
                     numeric: true,
                     textInputAction: TextInputAction.next,

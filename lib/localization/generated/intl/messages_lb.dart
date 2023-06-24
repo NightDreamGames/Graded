@@ -23,12 +23,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Informatiounen"),
-        "about_text": MessageLookupByLibrary.simpleMessage(
+        "about_description": MessageLookupByLibrary.simpleMessage(
             "NightDream Games\nEntwéckler - Damien Pirotte\nVisuell Identitéit - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Zoufügen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Grupp zoufügen"),
-        "add_subject": MessageLookupByLibrary.simpleMessage("Fach zoufügen"),
-        "add_subjects": MessageLookupByLibrary.simpleMessage("Fächer zoufügen"),
+        "add_subjectOne": MessageLookupByLibrary.simpleMessage("Fach zoufügen"),
+        "add_subjectOther":
+            MessageLookupByLibrary.simpleMessage("Fächer zoufügen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Prüfung zoufügen"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App-Versioun"),
@@ -38,12 +39,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Ofbriechen"),
         "change_class": MessageLookupByLibrary.simpleMessage("Klass änneren"),
-        "change_class_summary": MessageLookupByLibrary.simpleMessage(
+        "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Dréckt hei fir eng nei Klass auszewielen. All gespäichert Notten ginn dobäi geläscht."),
-        "class_string": MessageLookupByLibrary.simpleMessage("Klass"),
-        "classic": MessageLookupByLibrary.simpleMessage("Klassik"),
-        "coefficient": MessageLookupByLibrary.simpleMessage("Koeffizient"),
-        "coefficients": MessageLookupByLibrary.simpleMessage("Koeffizienten"),
+        "class_": MessageLookupByLibrary.simpleMessage("Klass"),
+        "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
+        "coefficientOther":
+            MessageLookupByLibrary.simpleMessage("Koeffizienten"),
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Deemnächst verfügbar"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bestätegung"),
@@ -51,18 +52,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sidd Dir sécher datt Dir all Är gespäichert Notten läschen wëllt?"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personaliséiert"),
-        "default_string": MessageLookupByLibrary.simpleMessage("Default"),
+        "default_": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Läschen"),
         "down": MessageLookupByLibrary.simpleMessage("No ënnen"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Beaarbechten"),
-        "edit_group":
-            MessageLookupByLibrary.simpleMessage("Grupp beaarbechten"),
-        "edit_subject":
+        "edit_subjectOne":
             MessageLookupByLibrary.simpleMessage("Fach beaarbechten"),
-        "edit_subjects":
+        "edit_subjectOther":
             MessageLookupByLibrary.simpleMessage("Fächer beaarbechten"),
-        "edit_subjects_summary": MessageLookupByLibrary.simpleMessage(
+        "edit_subjects_description": MessageLookupByLibrary.simpleMessage(
             "Dréckt hei fir är Fächer ze beaarbechten"),
         "edit_test":
             MessageLookupByLibrary.simpleMessage("Prüfung beaarbechten"),
@@ -73,25 +72,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gidd en eendeitegen Numm un"),
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examen"),
-        "export_details": MessageLookupByLibrary.simpleMessage(
+        "export_": MessageLookupByLibrary.simpleMessage("Exportéieren"),
+        "export_description": MessageLookupByLibrary.simpleMessage(
             "Exportéieren vun der aktueller Konfiguratioun an den gespäicherten Donnéeën"),
-        "export_string": MessageLookupByLibrary.simpleMessage("Exportéieren"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
-        "general": MessageLookupByLibrary.simpleMessage("General"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub Repository"),
-        "github_summary": MessageLookupByLibrary.simpleMessage(
-            "https://github.com/NightDreamGames/Graded"),
-        "grade": MessageLookupByLibrary.simpleMessage("Notte"),
-        "grades": MessageLookupByLibrary.simpleMessage("Notten"),
+        "github_description": MessageLookupByLibrary.simpleMessage(
+            "Graded ass vollstänneg open-source.\nWann dir eng Ännerung am Kapp hutt oder e Problem mellen wëllt, besicht den Graded GitHub Repository."),
+        "gradeOne": MessageLookupByLibrary.simpleMessage("Notte"),
+        "gradeOther": MessageLookupByLibrary.simpleMessage("Notten"),
         "group": MessageLookupByLibrary.simpleMessage("Grupp"),
         "half_down": MessageLookupByLibrary.simpleMessage("Hallef no ënnen"),
         "half_up": MessageLookupByLibrary.simpleMessage("Hallef no uewen"),
-        "import_details": MessageLookupByLibrary.simpleMessage(
+        "import_": MessageLookupByLibrary.simpleMessage("Importéieren"),
+        "import_description": MessageLookupByLibrary.simpleMessage(
             "Importéieren vun enger virdrun exportéierten Backup-Datei"),
         "import_error": MessageLookupByLibrary.simpleMessage(
             "Et ass e Feeler beim Importéieren vun ärem Backup opgetrueden."),
-        "import_string": MessageLookupByLibrary.simpleMessage("Importéieren"),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup erfollegräich importéiert."),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongëlteg"),
@@ -100,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "licenses": MessageLookupByLibrary.simpleMessage("Lizenzen"),
         "lux_system": MessageLookupByLibrary.simpleMessage(
             "Lëtzebuergeschen Schoulsystem"),
+        "lux_system_classic": MessageLookupByLibrary.simpleMessage("Klassik"),
+        "lux_system_general": MessageLookupByLibrary.simpleMessage("General"),
         "luxembourgish": MessageLookupByLibrary.simpleMessage("Lëtzebuergesch"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Méi Optiounen"),
@@ -111,19 +111,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_subjects": MessageLookupByLibrary.simpleMessage("Keng Fächer"),
         "not_set": MessageLookupByLibrary.simpleMessage("Net definéiert"),
         "note": MessageLookupByLibrary.simpleMessage("Umierkung:"),
-        "note_text": MessageLookupByLibrary.simpleMessage(
+        "note_description": MessageLookupByLibrary.simpleMessage(
             "Dir kënnt är Fächer an aner Optiounen spéider ëmmer nach an den Astellungen beaarbechten"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open": MessageLookupByLibrary.simpleMessage("Öffnen"),
         "other_school_system":
             MessageLookupByLibrary.simpleMessage("Aneren Schoulsystem"),
         "previous": MessageLookupByLibrary.simpleMessage("Zeréck"),
-        "quarter": MessageLookupByLibrary.simpleMessage("Quadrimester"),
-        "quarters": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quarterOne": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewäertungssystem"),
         "reset": MessageLookupByLibrary.simpleMessage("Notten zerécksetzen"),
-        "reset_summary": MessageLookupByLibrary.simpleMessage(
+        "reset_description": MessageLookupByLibrary.simpleMessage(
             "All gespäichert Notten läschen an d\'App zeréckzesetzen"),
         "result": MessageLookupByLibrary.simpleMessage("Resultat"),
         "round_to": MessageLookupByLibrary.simpleMessage("Ronnen bis"),
@@ -184,8 +184,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SO - Sozialwëssenschaften"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoulperiod auswielen"),
-        "semester": MessageLookupByLibrary.simpleMessage("Semester"),
-        "semesters": MessageLookupByLibrary.simpleMessage("Semester"),
+        "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
+        "semesterOther": MessageLookupByLibrary.simpleMessage("Semester"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback ginn"),
         "settings": MessageLookupByLibrary.simpleMessage("Astellungen"),
         "setup": MessageLookupByLibrary.simpleMessage("Ariichtung"),
@@ -214,8 +214,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to_100th": MessageLookupByLibrary.simpleMessage("Zum 100-tel"),
         "to_10th": MessageLookupByLibrary.simpleMessage("Zum 10-tel"),
         "to_integer": MessageLookupByLibrary.simpleMessage("Zur Ganzzuel"),
-        "trimester": MessageLookupByLibrary.simpleMessage("Trimester"),
-        "trimesters": MessageLookupByLibrary.simpleMessage("Trimester"),
+        "trimesterOne": MessageLookupByLibrary.simpleMessage("Trimester"),
+        "trimesterOther": MessageLookupByLibrary.simpleMessage("Trimester"),
         "up": MessageLookupByLibrary.simpleMessage("No uewen"),
         "variant": MessageLookupByLibrary.simpleMessage("Variante"),
         "variant_classic_l": MessageLookupByLibrary.simpleMessage("L - Latäin"),

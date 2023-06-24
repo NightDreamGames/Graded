@@ -50,7 +50,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text(translations.edit_subjects, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(translations.edit_subjectOther, style: const TextStyle(fontWeight: FontWeight.bold)),
         titleSpacing: 0,
         toolbarHeight: 64,
         actions: [
