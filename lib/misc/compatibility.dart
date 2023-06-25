@@ -5,7 +5,6 @@ import "dart:io";
 
 // Flutter imports:
 import "package:flutter/foundation.dart";
-import "package:graded/calculations/year.dart";
 
 // Package imports:
 import "package:path_provider/path_provider.dart";
@@ -14,6 +13,7 @@ import "package:xml/xml.dart";
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/term.dart";
+import "package:graded/calculations/year.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/setup_manager.dart";
