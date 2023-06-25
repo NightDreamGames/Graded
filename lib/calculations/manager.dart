@@ -158,12 +158,7 @@ class Manager {
   }
 
   static void sortAll({int? sortModeOverride, int? sortDirectionOverride}) {
-    for (final Term t in getCurrentYear().terms) {
-      for (final Subject s in t.subjects) {
-        s.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-      }
-      t.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-    }
+    getCurrentYear().sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
 
     for (final Subject element in termTemplate) {
       element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);

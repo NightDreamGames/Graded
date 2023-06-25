@@ -10,7 +10,8 @@ class Year extends CalculationObject {
   late Term yearOverview = Manager.createYearOverview(year: this);
 
   Year() {
-    Manager.calculate();
+    calculate();
+    sort();
   }
 
   void calculate() {
@@ -29,6 +30,12 @@ class Year extends CalculationObject {
 
     result = Calculator.calculate(terms);
     preciseResult = Calculator.calculate(terms, precise: true);
+  }
+
+  void sort({int? sortModeOverride, int? sortDirectionOverride}) {
+    for (final Term term in terms) {
+      term.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
+    }
   }
 
   Year.fromJson(Map<String, dynamic> json) {

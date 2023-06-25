@@ -59,6 +59,10 @@ class Term extends CalculationObject {
   }
 
   void sort({int? sortModeOverride, int? sortDirectionOverride}) {
+    for (final Subject subject in subjects) {
+      subject.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
+    }
+
     Calculator.sortObjects(
       subjects,
       sortType: SortType.subject,
