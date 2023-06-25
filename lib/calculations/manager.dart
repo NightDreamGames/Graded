@@ -12,7 +12,13 @@ import "package:graded/ui/utilities/hints.dart";
 class Manager {
   static List<Year> years = [];
   static List<Subject> termTemplate = [];
-  static int currentYear = 0;
+
+  static int _currentYear = 0;
+  static int get currentYear => _currentYear;
+  static set currentYear(int newValue) {
+    setPreference<int>("current_year", newValue);
+    _currentYear = newValue;
+  }
 
   static int _currentTerm = 0;
   static int get currentTerm => _currentTerm;

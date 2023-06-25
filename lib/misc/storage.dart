@@ -52,6 +52,7 @@ List<String> keys = [
   "data_version",
   "data",
   "default_data",
+  "current_year",
   "current_term",
   "sort_mode1",
   "sort_mode2",
