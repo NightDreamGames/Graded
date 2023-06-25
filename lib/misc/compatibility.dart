@@ -5,6 +5,7 @@ import "dart:io";
 
 // Flutter imports:
 import "package:flutter/foundation.dart";
+import "package:graded/calculations/year.dart";
 
 // Package imports:
 import "package:path_provider/path_provider.dart";
@@ -214,28 +215,30 @@ class Compatibility {
   }
 
   static void termCount() {
-    List<Term> terms = Manager.getCurrentYear().terms;
     int termCount = getPreference<int>("term");
     bool hasExam = getPreference<int>("validated_year") == 1;
-    bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
-
     Manager.currentTerm = 0;
 
-    while (terms.length > termCount + (hasExam ? 1 : 0)) {
-      int index = terms.length - 1 - (hasExam ? 1 : 0);
-      terms.removeAt(index);
-    }
+    for (final Year year in Manager.years) {
+      List<Term> terms = year.terms;
+      bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
 
-    while (terms.length < termCount + (examPresent ? 1 : 0)) {
-      int index = terms.length - (examPresent ? 1 : 0);
-      if (hasExam && !examPresent && terms.length > index) {
-        index++;
+      while (terms.length > termCount + (hasExam ? 1 : 0)) {
+        int index = terms.length - 1 - (hasExam ? 1 : 0);
+        terms.removeAt(index);
       }
-      terms.insert(index, Term());
-    }
 
-    if (hasExam && !examPresent && terms.length < termCount + 1) {
-      terms.add(Term(isExam: true));
+      while (terms.length < termCount + (examPresent ? 1 : 0)) {
+        int index = terms.length - (examPresent ? 1 : 0);
+        if (hasExam && !examPresent && terms.length > index) {
+          index++;
+        }
+        terms.insert(index, Term());
+      }
+
+      if (hasExam && !examPresent && terms.length < termCount + 1) {
+        terms.add(Term(isExam: true));
+      }
     }
 
     serialize();
