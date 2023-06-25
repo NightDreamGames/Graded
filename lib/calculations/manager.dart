@@ -31,9 +31,7 @@ class Manager {
   }
 
   static void calculate() {
-    for (final Year y in years) {
-      y.calculate();
-    }
+    getCurrentYear().calculate();
 
     sortAll();
   }
@@ -54,7 +52,6 @@ class Manager {
   }
 
   static void clearYears() {
-    //TODO Don't delete all years
     years.clear();
     years.add(Year());
     Compatibility.termCount();
@@ -66,11 +63,11 @@ class Manager {
   static Year getCurrentYear() {
     if (years.isEmpty) {
       deserialize();
-    }
 
-    if (years.isEmpty) {
-      years.add(Year());
-      Compatibility.termCount();
+      if (years.isEmpty) {
+        years.add(Year());
+        Compatibility.termCount();
+      }
     }
 
     return years[currentYear];
@@ -161,13 +158,11 @@ class Manager {
   }
 
   static void sortAll({int? sortModeOverride, int? sortDirectionOverride}) {
-    for (final Year y in years) {
-      for (final Term t in y.terms) {
-        for (final Subject s in t.subjects) {
-          s.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-        }
-        t.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
+    for (final Term t in getCurrentYear().terms) {
+      for (final Subject s in t.subjects) {
+        s.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
       }
+      t.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
     }
 
     for (final Subject element in termTemplate) {
