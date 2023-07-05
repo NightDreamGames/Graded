@@ -75,8 +75,12 @@ class Subject extends CalculationObject {
       sortType: SortType.subject,
       sortModeOverride: sortModeOverride,
       sortDirectionOverride: sortDirectionOverride,
-      comparisonData: Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children,
+      comparisonData: children.isNotEmpty ? Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children : null,
     );
+
+    for (final Subject element in children) {
+      element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
+    }
 
     Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
   }

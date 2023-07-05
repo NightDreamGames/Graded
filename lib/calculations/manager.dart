@@ -102,9 +102,8 @@ class Manager {
       sortModeOverride: SortMode.name,
       sortDirectionOverride: SortDirection.ascending,
     );
-    Calculator.sortObjects(
-      yearOverview.subjects,
-      sortType: SortType.subject,
+
+    yearOverview.sort(
       sortModeOverride: SortMode.name,
       sortDirectionOverride: SortDirection.ascending,
     );
@@ -154,7 +153,7 @@ class Manager {
 
     yearOverview.calculate();
     Manager.sortAll();
-    Calculator.sortObjects(yearOverview.subjects, sortType: SortType.subject);
+    yearOverview.sort();
 
     return yearOverview;
   }
@@ -169,6 +168,18 @@ class Manager {
     for (final Subject element in termTemplate) {
       element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
     }
+
+    sortTermTemplate(
+      sortModeOverride: sortModeOverride,
+      sortDirectionOverride: sortDirectionOverride,
+    );
+
+    if (sortModeOverride == null && sortDirectionOverride == null) {
+      serialize();
+    }
+  }
+
+  static void sortTermTemplate({int? sortModeOverride, int? sortDirectionOverride}) {
     Calculator.sortObjects(
       termTemplate,
       sortType: SortType.subject,
@@ -176,8 +187,8 @@ class Manager {
       sortDirectionOverride: sortDirectionOverride,
     );
 
-    if (sortModeOverride == null && sortDirectionOverride == null) {
-      serialize();
+    for (final Subject element in termTemplate) {
+      element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
     }
   }
 
