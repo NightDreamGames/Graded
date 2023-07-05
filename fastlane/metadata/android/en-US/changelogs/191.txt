@@ -1,0 +1,10 @@
+## [2.3.1] - 2023-07-05
+
+- Add quarters
+- Clean up translations
+- Edit descriptions in settings
+- Add more term options in during luxembourgish setup
+- Start implementing multiple years support
+- Fix subject group sorting
+- Code cleanup
+- Fixed some additional bugs
