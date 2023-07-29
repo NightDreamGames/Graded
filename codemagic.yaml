@@ -16,6 +16,7 @@ workflows:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
         APP_ID: 6444681284
       xcode: latest
+      java: 17
       cocoapods: default
     integrations:
       app_store_connect: NightDream Games
