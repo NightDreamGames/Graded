@@ -23,6 +23,7 @@
     "cancel": "Abbrechen",
     "change_class": "Klasse ändern",
     "change_class_description": "Tippen Sie hier um eine neue Klasse auszuwählen. Alle gespeicherten Noten werden dabei gelöscht.",
+    "chinese": "",
     "class_": "Klasse",
     "coefficientOne": "Koeffizient",
     "coefficientOther": "Koeffiziente",
@@ -44,6 +45,7 @@
     "edit_subjectOther": "Fächer bearbeiten",
     "edit_subjects_description": "Tippen Sie hier um Ihre Fächer zu bearbeiten",
     "edit_test": "Prüfing bearbeiten",
+    "edit_year": "Jahr bearbeiten",
     "email": "contact@nightdreamgames.com",
     "@email": {
         "description": "Do not translate",
@@ -64,6 +66,7 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "general": "Allgemein",
     "german": "Deutsch",
     "@german": {
         "description": "Do not translate",
@@ -89,6 +92,7 @@
     "import_error": "Es ist ein Fehler beim Importieren Ihrer Backup aufgetreten.",
     "import_success": "Backup erfolgreich importiert.",
     "invalid": "Ungültig",
+    "italian": "Italiano",
     "language": "Sprache",
     "language_code": "de",
     "@language_code": {
@@ -104,6 +108,8 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "manage_years": "Jahre verwalten",
+    "manage_years_description": "Hinzufügen, Bearbeiten und Löschen Ihrer gespeicherten Jahre",
     "maximum": "Maximum",
     "more_options": "Mehr Optionen",
     "name": "Name",
@@ -160,6 +166,7 @@
     "section_general_si": "SI - Ausbildung zur Krankenschwester",
     "section_general_sn": "SN - Naturwissenschaften",
     "section_general_so": "SO - Sozialwissenschaften",
+    "select": "Auswählen",
     "select_school_term": "Schulperiode auswählen",
     "semesterOne": "Semester",
     "semesterOther": "Semester",
