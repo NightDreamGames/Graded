@@ -23,6 +23,7 @@
     "cancel": "Cancel",
     "change_class": "Change class",
     "change_class_description": "Tap here to select a new class. This will delete all your saved grades.",
+    "chinese": "",
     "class_": "Class",
     "coefficientOne": "Coefficient",
     "coefficientOther": "Coefficients",
@@ -44,6 +45,7 @@
     "edit_subjectOther": "Edit subjects",
     "edit_subjects_description": "Tap here to edit your subjects",
     "edit_test": "Edit test",
+    "edit_year": "Edit year",
     "email": "contact@nightdreamgames.com",
     "@email": {
         "description": "Do not translate",
@@ -64,6 +66,7 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "general": "General",
     "german": "Deutsch",
     "@german": {
         "description": "Do not translate",
@@ -89,6 +92,7 @@
     "import_error": "There was an error importing your backup.",
     "import_success": "Backup imported successfully.",
     "invalid": "Invalid",
+    "italian": "Italiano",
     "language": "Language",
     "language_code": "en",
     "@language_code": {
@@ -104,6 +108,8 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "manage_years": "Manage years",
+    "manage_years_description": "Add, edit and delete your saved years",
     "maximum": "Maximum",
     "more_options": "More options",
     "name": "Name",
@@ -156,6 +162,7 @@
     "section_general_si": "SI - Nurse training",
     "section_general_sn": "SN - Natural sciences",
     "section_general_so": "SO - Social sciences",
+    "select": "Select",
     "select_school_term": "Select school term",
     "semesterOne": "Semester",
     "semesterOther": "Semesters",
