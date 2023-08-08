@@ -24,6 +24,7 @@
     "cancel": "Annuler",
     "change_class": "Changer la classe",
     "change_class_description": "Appuyez ici pour sélectionner une nouvelle classe. Cela supprimera toutes vos notes sauvegardées.",
+    "chinese": "",
     "class_": "Classe",
     "coefficientOne": "Coefficient",
     "coefficientMany": "Coefficients",
@@ -47,6 +48,7 @@
     "edit_subjectOther": "Modifier matières",
     "edit_subjects_description": "Appuyez ici pour modifier vos matières",
     "edit_test": "Modifier un devoir",
+    "edit_year": "Modifier une année",
     "email": "contact@nightdreamgames.com",
     "@email": {
         "description": "Do not translate",
@@ -67,6 +69,7 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "general": "Général",
     "german": "Deutsch",
     "@german": {
         "description": "Do not translate",
@@ -93,6 +96,7 @@
     "import_error": "Une erreur s'est produite lors de l'import de votre sauvegarde.",
     "import_success": "Sauvegarde importée avec succès.",
     "invalid": "Invalide",
+    "italian": "Italiano",
     "language": "Langue",
     "language_code": "fr",
     "@language_code": {
@@ -108,6 +112,8 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "manage_years": "Gérer les années",
+    "manage_years_description": "Ajoutez, modifiez et supprimez vos années sauvegardées",
     "maximum": "Maximum",
     "more_options": "Plus d'options",
     "name": "Nom",
@@ -161,6 +167,7 @@
     "section_general_si": "SI - Formation de l'infirmier",
     "section_general_sn": "SN - Sciences naturelles",
     "section_general_so": "SO - Sciences sociales",
+    "select": "Sélectionner",
     "select_school_term": "Sélectionner période scolaire",
     "semesterOne": "Semestre",
     "semesterMany": "Semestres",
