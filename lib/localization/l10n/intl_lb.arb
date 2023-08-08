@@ -23,6 +23,7 @@
     "cancel": "Ofbriechen",
     "change_class": "Klass änneren",
     "change_class_description": "Dréckt hei fir eng nei Klass auszewielen. All gespäichert Notten ginn dobäi geläscht.",
+    "chinese": "",
     "class_": "Klass",
     "coefficientOne": "Koeffizient",
     "coefficientOther": "Koeffizienten",
@@ -44,6 +45,7 @@
     "edit_subjectOther": "Fächer beaarbechten",
     "edit_subjects_description": "Dréckt hei fir är Fächer ze beaarbechten",
     "edit_test": "Prüfung beaarbechten",
+    "edit_year": "Joer beaarbechten",
     "email": "contact@nightdreamgames.com",
     "@email": {
         "description": "Do not translate",
@@ -64,6 +66,7 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "general": "Allgemeng",
     "german": "Deutsch",
     "@german": {
         "description": "Do not translate",
@@ -89,6 +92,7 @@
     "import_error": "Et ass e Feeler beim Importéieren vun ärem Backup opgetrueden.",
     "import_success": "Backup erfollegräich importéiert.",
     "invalid": "Ongëlteg",
+    "italian": "Italiano",
     "language": "Sprooch",
     "language_code": "lb",
     "@language_code": {
@@ -104,6 +108,8 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "manage_years": "Joer verwalten",
+    "manage_years_description": "Zoufügen, Beaarbechten an Läschen vun ären gespäicherten Joer",
     "maximum": "Maximum",
     "more_options": "Méi Optiounen",
     "name": "Numm",
@@ -156,6 +162,7 @@
     "section_general_si": "SI - Ausbildung zur Krankeschwëster",
     "section_general_sn": "SN - Naturwëssenschaften",
     "section_general_so": "SO - Sozialwëssenschaften",
+    "select": "Auswielen",
     "select_school_term": "Schoulperiod auswielen",
     "semesterOne": "Semester",
     "semesterOther": "Semester",
