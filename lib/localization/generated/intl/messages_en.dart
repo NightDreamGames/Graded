@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class": MessageLookupByLibrary.simpleMessage("Change class"),
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tap here to select a new class. This will delete all your saved grades."),
+        "chinese": MessageLookupByLibrary.simpleMessage(""),
         "class_": MessageLookupByLibrary.simpleMessage("Class"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
         "coefficientOther":
@@ -62,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_subjects_description": MessageLookupByLibrary.simpleMessage(
             "Tap here to edit your subjects"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Edit test"),
+        "edit_year": MessageLookupByLibrary.simpleMessage("Edit year"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
@@ -73,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "export_description": MessageLookupByLibrary.simpleMessage(
             "Export the current configuration and saved data"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
+        "general": MessageLookupByLibrary.simpleMessage("General"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub repository"),
         "github_description": MessageLookupByLibrary.simpleMessage(
@@ -90,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup imported successfully."),
         "invalid": MessageLookupByLibrary.simpleMessage("Invalid"),
+        "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "language_code": MessageLookupByLibrary.simpleMessage("en"),
         "licenses": MessageLookupByLibrary.simpleMessage("Licenses"),
@@ -98,6 +102,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lux_system_classic": MessageLookupByLibrary.simpleMessage("Classic"),
         "lux_system_general": MessageLookupByLibrary.simpleMessage("General"),
         "luxembourgish": MessageLookupByLibrary.simpleMessage("Lëtzebuergesch"),
+        "manage_years": MessageLookupByLibrary.simpleMessage("Manage years"),
+        "manage_years_description": MessageLookupByLibrary.simpleMessage(
+            "Add, edit and delete your saved years"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("More options"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -176,6 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SN - Natural sciences"),
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Social sciences"),
+        "select": MessageLookupByLibrary.simpleMessage("Select"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Select school term"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),

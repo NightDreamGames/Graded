@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class": MessageLookupByLibrary.simpleMessage("Klass änneren"),
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Dréckt hei fir eng nei Klass auszewielen. All gespäichert Notten ginn dobäi geläscht."),
+        "chinese": MessageLookupByLibrary.simpleMessage(""),
         "class_": MessageLookupByLibrary.simpleMessage("Klass"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
         "coefficientOther":
@@ -65,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Dréckt hei fir är Fächer ze beaarbechten"),
         "edit_test":
             MessageLookupByLibrary.simpleMessage("Prüfung beaarbechten"),
+        "edit_year": MessageLookupByLibrary.simpleMessage("Joer beaarbechten"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
@@ -76,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "export_description": MessageLookupByLibrary.simpleMessage(
             "Exportéieren vun der aktueller Konfiguratioun an den gespäicherten Donnéeën"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
+        "general": MessageLookupByLibrary.simpleMessage("Allgemeng"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub Repository"),
         "github_description": MessageLookupByLibrary.simpleMessage(
@@ -93,6 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup erfollegräich importéiert."),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongëlteg"),
+        "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Sprooch"),
         "language_code": MessageLookupByLibrary.simpleMessage("lb"),
         "licenses": MessageLookupByLibrary.simpleMessage("Lizenzen"),
@@ -101,6 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lux_system_classic": MessageLookupByLibrary.simpleMessage("Klassik"),
         "lux_system_general": MessageLookupByLibrary.simpleMessage("General"),
         "luxembourgish": MessageLookupByLibrary.simpleMessage("Lëtzebuergesch"),
+        "manage_years": MessageLookupByLibrary.simpleMessage("Joer verwalten"),
+        "manage_years_description": MessageLookupByLibrary.simpleMessage(
+            "Zoufügen, Beaarbechten an Läschen vun ären gespäicherten Joer"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Méi Optiounen"),
         "name": MessageLookupByLibrary.simpleMessage("Numm"),
@@ -182,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SN - Naturwëssenschaften"),
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sozialwëssenschaften"),
+        "select": MessageLookupByLibrary.simpleMessage("Auswielen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoulperiod auswielen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),

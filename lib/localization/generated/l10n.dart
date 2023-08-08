@@ -210,6 +210,16 @@ class TranslationsClass {
     );
   }
 
+  /// ``
+  String get chinese {
+    return Intl.message(
+      '',
+      name: 'chinese',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Class`
   String get class_ {
     return Intl.message(
@@ -380,6 +390,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Edit year`
+  String get edit_year {
+    return Intl.message(
+      'Edit year',
+      name: 'edit_year',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `contact@nightdreamgames.com`
   String get email {
     return Intl.message(
@@ -456,6 +476,16 @@ class TranslationsClass {
       'Français',
       name: 'french',
       desc: 'Do not translate',
+      args: [],
+    );
+  }
+
+  /// `General`
+  String get general {
+    return Intl.message(
+      'General',
+      name: 'general',
+      desc: '',
       args: [],
     );
   }
@@ -590,6 +620,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Italiano`
+  String get italian {
+    return Intl.message(
+      'Italiano',
+      name: 'italian',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Language`
   String get language {
     return Intl.message(
@@ -656,6 +696,26 @@ class TranslationsClass {
       'Lëtzebuergesch',
       name: 'luxembourgish',
       desc: 'Do not translate',
+      args: [],
+    );
+  }
+
+  /// `Manage years`
+  String get manage_years {
+    return Intl.message(
+      'Manage years',
+      name: 'manage_years',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add, edit and delete your saved years`
+  String get manage_years_description {
+    return Intl.message(
+      'Add, edit and delete your saved years',
+      name: 'manage_years_description',
+      desc: '',
       args: [],
     );
   }
@@ -1175,6 +1235,16 @@ class TranslationsClass {
     return Intl.message(
       'SO - Social sciences',
       name: 'section_general_so',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select`
+  String get select {
+    return Intl.message(
+      'Select',
+      name: 'select',
       desc: '',
       args: [],
     );

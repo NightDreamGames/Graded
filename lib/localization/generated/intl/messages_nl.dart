@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class": MessageLookupByLibrary.simpleMessage("Wijzig klasse"),
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tik hier om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen."),
+        "chinese": MessageLookupByLibrary.simpleMessage(""),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
         "coefficientOther":
@@ -64,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_subjects_description": MessageLookupByLibrary.simpleMessage(
             "Tik hier om uw onderwerpen te bewerken"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Test bewerken"),
+        "edit_year": MessageLookupByLibrary.simpleMessage("Jaar bewerken"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
@@ -75,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "export_description": MessageLookupByLibrary.simpleMessage(
             "De huidige configuratie en opgeslagen gegevens exporteren"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
+        "general": MessageLookupByLibrary.simpleMessage("Algemeen"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "github": MessageLookupByLibrary.simpleMessage("GitHub repository"),
         "github_description": MessageLookupByLibrary.simpleMessage(
@@ -92,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Back-up succesvol geïmporteerd."),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongeldig"),
+        "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Taal"),
         "language_code": MessageLookupByLibrary.simpleMessage("nl"),
         "licenses": MessageLookupByLibrary.simpleMessage("Licenties"),
@@ -100,6 +104,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "lux_system_classic": MessageLookupByLibrary.simpleMessage("Klassiek"),
         "lux_system_general": MessageLookupByLibrary.simpleMessage("Generaal"),
         "luxembourgish": MessageLookupByLibrary.simpleMessage("Lëtzebuergesch"),
+        "manage_years": MessageLookupByLibrary.simpleMessage("Jaren beheren"),
+        "manage_years_description": MessageLookupByLibrary.simpleMessage(
+            "Add, edit and delete your saved years"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Meer opties"),
         "name": MessageLookupByLibrary.simpleMessage("Naam"),
@@ -178,6 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("SN - Natuurwetenschappen"),
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sociale wetenschappen"),
+        "select": MessageLookupByLibrary.simpleMessage("Kiezen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoolperiode kiezen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
