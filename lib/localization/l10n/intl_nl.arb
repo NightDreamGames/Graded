@@ -23,6 +23,7 @@
     "cancel": "Annuleren",
     "change_class": "Wijzig klasse",
     "change_class_description": "Tik hier om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen.",
+    "chinese": "",
     "class_": "Klasse",
     "coefficientOne": "Coëfficiënt",
     "coefficientOther": "Coëfficiënten",
@@ -44,6 +45,7 @@
     "edit_subjectOther": "Onderwerpen bewerken",
     "edit_subjects_description": "Tik hier om uw onderwerpen te bewerken",
     "edit_test": "Test bewerken",
+    "edit_year": "Jaar bewerken",
     "email": "contact@nightdreamgames.com",
     "@email": {
         "description": "Do not translate",
@@ -64,6 +66,7 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "general": "Algemeen",
     "german": "Deutsch",
     "@german": {
         "description": "Do not translate",
@@ -89,6 +92,7 @@
     "import_error": "Er is een four opgetreden bij het importeren van uw back-up.",
     "import_success": "Back-up succesvol geïmporteerd.",
     "invalid": "Ongeldig",
+    "italian": "Italiano",
     "language": "Taal",
     "language_code": "nl",
     "@language_code": {
@@ -104,6 +108,8 @@
         "description": "Do not translate",
         "type": "text"
     },
+    "manage_years": "Jaren beheren",
+    "manage_years_description": "Add, edit and delete your saved years",
     "maximum": "Maximum",
     "more_options": "Meer opties",
     "name": "Naam",
@@ -156,6 +162,7 @@
     "section_general_si": "SI - Opleiding van verpleegkundigen",
     "section_general_sn": "SN - Natuurwetenschappen",
     "section_general_so": "SO - Sociale wetenschappen",
+    "select": "Kiezen",
     "select_school_term": "Schoolperiode kiezen",
     "semesterOne": "Semester",
     "semesterOther": "Semesters",
