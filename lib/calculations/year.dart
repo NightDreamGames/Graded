@@ -58,11 +58,11 @@ class Year extends CalculationObject {
     final termList = json["terms"] as List;
     List<Term> t = termList.map((termJson) => Term.fromJson(termJson as Map<String, dynamic>)).toList();
 
-    final termTemplateList = json["term_template"] as List<dynamic>;
+    final termTemplateList = (json["term_template"] ?? []) as List<dynamic>;
     termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)).toList();
 
     terms = t;
-    name = json["name"] as String;
+    name = (json["name"] as String?) ?? "";
   }
 
   Map<String, dynamic> toJson() => {
