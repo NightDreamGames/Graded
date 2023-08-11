@@ -61,7 +61,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
   }
 
   void refreshYearOverview() {
-    Manager.refreshYearOverview(yearOverview: Manager.getYearOverview(), year: Manager.getCurrentYear());
+    Manager.refreshYearOverview();
     rebuild();
   }
 

@@ -20,6 +20,7 @@ import "package:graded/localization/generated/l10n.dart";
 import "package:graded/localization/material_localization/lb_intl.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/default_values.dart";
+import "package:graded/misc/enums.dart";
 import "package:graded/misc/locale_provider.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/routes/home_route.dart";
@@ -28,6 +29,7 @@ import "package:graded/ui/routes/settings_route.dart";
 import "package:graded/ui/routes/setup_route.dart";
 import "package:graded/ui/routes/subject_edit_route.dart";
 import "package:graded/ui/routes/subject_route.dart";
+import "package:graded/ui/routes/year_route.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/app_theme.dart";
 
@@ -37,7 +39,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Settings.init();
-  await Manager.init();
 
   String initialRoute = "/";
 
@@ -97,6 +98,13 @@ class _AppContainerState extends State<AppContainer> {
             debugShowCheckedModeBanner: false,
             initialRoute: widget.initialRoute,
             onGenerateRoute: createRoute,
+            onGenerateInitialRoutes: (initialRoute) {
+              Manager.init();
+
+              return [
+                createRoute(RouteSettings(name: initialRoute)),
+              ];
+            },
           ),
         ),
       ),
@@ -119,7 +127,8 @@ Route<dynamic> createRoute(RouteSettings settings) {
     case "/settings":
       route = const SettingsPage();
     case "/subject_edit":
-      route = const SubjectEditRoute();
+      CreationType type = (settings.arguments as CreationType?) ?? CreationType.edit;
+      route = SubjectEditRoute(creationType: type);
     case "/subject":
       if (settings.arguments == null) {
         throw ArgumentError("No arguments passed to route");
@@ -130,7 +139,7 @@ Route<dynamic> createRoute(RouteSettings settings) {
       Subject subject = arguments[1]!;
 
       List<Widget> children = List.generate(tabAmount, (index) {
-        Term term = Manager.getTerm(index);
+        Term term = getTerm(index);
         Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
         Subject newSubject = newParent != null
             ? newParent.children.firstWhere((element) => element.name == subject.name)
@@ -144,11 +153,13 @@ Route<dynamic> createRoute(RouteSettings settings) {
         title: subject.name,
         children: children,
       );
+    case "/years":
+      route = const YearRoute();
     case "/":
     default:
       List<Widget> children = List.generate(
         tabAmount,
-        (index) => HomePage(key: GlobalKey(), term: Manager.getTerm(index)),
+        (index) => HomePage(key: GlobalKey(), term: getTerm(index)),
       );
 
       route = RouteWidget(

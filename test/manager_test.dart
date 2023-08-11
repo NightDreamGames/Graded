@@ -1,3 +1,6 @@
+// Flutter imports:
+import "package:flutter/material.dart";
+
 // Package imports:
 import "package:shared_preferences/shared_preferences.dart";
 import "package:test/test.dart";
@@ -6,6 +9,7 @@ import "package:test/test.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/test.dart";
+import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
@@ -14,10 +18,11 @@ import "package:graded/ui/settings/flutter_settings_screens.dart";
 void main() async {
   SharedPreferences.setMockInitialValues({});
   await Settings.init();
-  await Manager.init();
+  TranslationsClass.load(const Locale("en", ""));
+  Manager.init();
 
   test("Calculations", () async {
-    Manager.termTemplate.addAll({
+    getCurrentYear().termTemplate = [
       Subject("Test1", 3, defaultValues["speaking_weight"] as double),
       Subject("Test2", 3, defaultValues["speaking_weight"] as double),
       Subject("Test3", 3, defaultValues["speaking_weight"] as double),
@@ -39,9 +44,9 @@ void main() async {
           Subject("Child3", 1, defaultValues["speaking_weight"] as double)..isChild = true,
           Subject("Child4", 1, defaultValues["speaking_weight"] as double)..isChild = true,
         }),
-    });
+    ];
 
-    final list = Manager.getCurrentTerm().subjects = Manager.termTemplate;
+    final list = getCurrentTerm().subjects = getCurrentYear().termTemplate;
     list[0].tests.addAll({Test(58, 60), Test(43, 60)});
     list[1].tests.addAll({Test(54, 60), Test(51, 60)});
     list[2].tests.addAll({Test(54, 60), Test(44, 60)});
@@ -57,15 +62,15 @@ void main() async {
     list[10].children[1].tests.addAll({Test(52, 60), Test(53, 60)});
 
     Manager.calculate();
-    expect(Manager.getCurrentYear().result, equals(48));
+    expect(getCurrentYear().result, equals(48));
 
     setPreference("round_to", 10);
     Manager.calculate();
-    expect(Manager.getCurrentYear().result, equals(47.8));
+    expect(getCurrentYear().result, equals(47.8));
 
     setPreference("round_to", 100);
     setPreference("rounding_mode", RoundingMode.halfDown);
     Manager.calculate();
-    expect(Manager.getCurrentYear().result, equals(47.71));
+    expect(getCurrentYear().result, equals(47.71));
   });
 }

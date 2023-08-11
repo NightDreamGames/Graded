@@ -28,7 +28,6 @@ dependencies:
   showcaseview: ^2.0.0
   sliver_tools: ^0.2.0
   url_launcher: ^6.0.0
-  xml: ^6.1.0
 
 dev_dependencies:
   flutter_native_splash: ^2.2.0

@@ -46,7 +46,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
   }
 
   void refreshYearOverview() {
-    Manager.refreshYearOverview(yearOverview: Manager.getYearOverview(), year: Manager.getCurrentYear());
+    Manager.refreshYearOverview();
     rebuild();
   }
 
@@ -133,7 +133,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                         onTap: () async {
                           if (widget.term.isYearOverview) return;
 
-                          showMenuActions(context, listKey).then((result) {
+                          showMenuActions<MenuAction>(context, listKey, MenuAction.values, [translations.edit, translations.delete]).then((result) {
                             switch (result) {
                               case MenuAction.edit:
                                 showTestDialog(context, widget.subject, nameController, gradeController, maximumController, index: index)

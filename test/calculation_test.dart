@@ -1,3 +1,6 @@
+// Flutter imports:
+import "package:flutter/material.dart";
+
 // Package imports:
 import "package:shared_preferences/shared_preferences.dart";
 import "package:test/test.dart";
@@ -8,6 +11,7 @@ import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
+import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
@@ -15,7 +19,8 @@ import "package:graded/ui/settings/flutter_settings_screens.dart";
 void main() async {
   SharedPreferences.setMockInitialValues({});
   await Settings.init();
-  await Manager.init();
+  TranslationsClass.load(const Locale("en", ""));
+  Manager.init();
 
   test("Calculations", () async {
     List<CalculationObject> emptyList = [Test(null, 0), Test(null, 0), Test(null, 0)];

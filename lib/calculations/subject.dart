@@ -75,7 +75,8 @@ class Subject extends CalculationObject {
       sortType: SortType.subject,
       sortModeOverride: sortModeOverride,
       sortDirectionOverride: sortDirectionOverride,
-      comparisonData: children.isNotEmpty ? Manager.termTemplate.firstWhere((element) => element.processedName == processedName).children : null,
+      comparisonData:
+          children.isNotEmpty ? getCurrentYear().termTemplate.firstWhere((element) => element.processedName == processedName).children : null,
     );
 
     for (final Subject element in children) {

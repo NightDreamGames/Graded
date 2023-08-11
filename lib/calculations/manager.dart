@@ -1,9 +1,9 @@
 // Project imports:
-import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/calculations/year.dart";
+import "package:graded/localization/translations.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
@@ -11,7 +11,6 @@ import "package:graded/ui/utilities/hints.dart";
 
 class Manager {
   static List<Year> years = [];
-  static List<Subject> termTemplate = [];
 
   static int _currentYear = 0;
   static int get currentYear => _currentYear;
@@ -29,11 +28,13 @@ class Manager {
 
   static bool deserializationError = false;
 
-  static Future<void> init() async {
-    await Compatibility.upgradeDataVersion();
+  static void init() {
+    Compatibility.upgradeDataVersion();
+
+    currentYear = getPreference<int>("current_year");
     currentTerm = getPreference<int>("current_term");
 
-    Manager.calculate();
+    if (years.isNotEmpty) calculate();
   }
 
   static void calculate() {
@@ -59,45 +60,44 @@ class Manager {
 
   static void clearYears() {
     years.clear();
-    years.add(Year());
-    Compatibility.termCount();
-    Manager.currentTerm = 0;
+  }
 
+  static void addYear({List<Subject> termTemplate = const []}) {
+    Year year = Year(termTemplate);
+    year.name = getHint(translations.year, years);
+
+    years.add(year);
+    changeYear(years.length - 1);
+    Compatibility.termCount();
+  }
+
+  static void changeYear(int index) {
+    currentYear = index;
+    currentTerm = 0;
     calculate();
   }
 
-  static Year getCurrentYear() {
-    if (years.isEmpty) {
-      deserialize();
+  static void sortAll({int? sortModeOverride, int? sortDirectionOverride}) {
+    getCurrentYear().sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
 
-      if (years.isEmpty) {
-        years.add(Year());
-        Compatibility.termCount();
-      }
+    for (final Subject element in getCurrentYear().termTemplate) {
+      element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
     }
 
-    return years[currentYear];
+    getCurrentYear().sortTermTemplate(
+      sortModeOverride: sortModeOverride,
+      sortDirectionOverride: sortDirectionOverride,
+    );
+
+    if (sortModeOverride == null && sortDirectionOverride == null) {
+      serialize();
+    }
   }
 
-  static Term getTerm(int index) {
-    if (index == getCurrentYear().terms.length) return getYearOverview();
+  static Term refreshYearOverview({Term? yearOverview, Year? year}) {
+    yearOverview ??= getYearOverview();
+    year ??= getCurrentYear();
 
-    return getCurrentYear().terms[index];
-  }
-
-  static Term getYearOverview() {
-    return getCurrentYear().yearOverview;
-  }
-
-  static Term createYearOverview({required Year year}) {
-    Term yearOverview = Term(isYearOverview: true);
-
-    refreshYearOverview(yearOverview: yearOverview, year: year);
-
-    return yearOverview;
-  }
-
-  static Term refreshYearOverview({required Term yearOverview, required Year year}) {
     Manager.sortAll(
       sortModeOverride: SortMode.name,
       sortDirectionOverride: SortDirection.ascending,
@@ -158,42 +158,41 @@ class Manager {
     return yearOverview;
   }
 
-  static Term getCurrentTerm() {
-    return getTerm(currentTerm);
-  }
-
-  static void sortAll({int? sortModeOverride, int? sortDirectionOverride}) {
-    getCurrentYear().sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-
-    for (final Subject element in termTemplate) {
-      element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-    }
-
-    sortTermTemplate(
-      sortModeOverride: sortModeOverride,
-      sortDirectionOverride: sortDirectionOverride,
-    );
-
-    if (sortModeOverride == null && sortDirectionOverride == null) {
-      serialize();
-    }
-  }
-
-  static void sortTermTemplate({int? sortModeOverride, int? sortDirectionOverride}) {
-    Calculator.sortObjects(
-      termTemplate,
-      sortType: SortType.subject,
-      sortModeOverride: sortModeOverride,
-      sortDirectionOverride: sortDirectionOverride,
-    );
-
-    for (final Subject element in termTemplate) {
-      element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-    }
-  }
-
   Map<String, dynamic> toJson() => {
         "years": years,
-        "term_template": termTemplate,
       };
+}
+
+Year getCurrentYear() {
+  if (Manager.years.isEmpty) {
+    deserialize();
+
+    if (Manager.years.isEmpty) {
+      Manager.addYear();
+    }
+  }
+
+  return Manager.years[Manager.currentYear];
+}
+
+Term getTerm(int index) {
+  if (index == getCurrentYear().terms.length) return getYearOverview();
+
+  return getCurrentYear().terms[index];
+}
+
+Term getYearOverview() {
+  return getCurrentYear().yearOverview;
+}
+
+Term createYearOverview({required Year year}) {
+  Term yearOverview = Term(isYearOverview: true);
+
+  Manager.refreshYearOverview(yearOverview: yearOverview, year: year);
+
+  return yearOverview;
+}
+
+Term getCurrentTerm() {
+  return getTerm(Manager.currentTerm);
 }

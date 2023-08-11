@@ -33,7 +33,8 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void rebuildHomePage() {
-    Manager.getCurrentYear().yearOverview = Manager.createYearOverview(year: Manager.getCurrentYear());
+    getCurrentYear().yearOverview = createYearOverview(year: getCurrentYear());
+    if (ModalRoute.of(context) == null || !ModalRoute.of(context)!.isActive) return;
     Navigator.replaceRouteBelow(context, anchorRoute: ModalRoute.of(context)!, newRoute: createRoute(const RouteSettings(name: "/")));
   }
 
@@ -55,13 +56,13 @@ class _SettingsPageState extends State<SettingsPage> {
               child: SettingsContainer(
                 children: [
                   SettingsGroup(
-                    title: translations.lux_system_general,
+                    title: translations.general,
                     children: [
                       SimpleSettingsTile(
-                        icon: Icons.class_,
-                        onTap: () => Navigator.pushNamed(context, "/setup"),
-                        title: translations.change_class,
-                        subtitle: translations.change_class_description,
+                        icon: Icons.calendar_month_outlined,
+                        onTap: () => Navigator.pushNamed(context, "/years").then((value) => rebuildHomePage()),
+                        title: translations.manage_years,
+                        subtitle: translations.manage_years_description,
                       ),
                       ...getSettingsTiles(context, type: CreationType.edit, onChanged: rebuildHomePage),
                       SimpleSettingsTile(

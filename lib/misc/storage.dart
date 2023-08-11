@@ -10,7 +10,6 @@ import "package:intl/intl.dart";
 
 // Project imports:
 import "package:graded/calculations/manager.dart";
-import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
@@ -18,16 +17,12 @@ import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 void serialize() {
   setPreference<String?>("data", jsonEncode(Manager.years));
-  setPreference<String?>("default_data", jsonEncode(Manager.termTemplate));
 }
 
 void deserialize() {
   if (!existsPreference("data")) return;
 
   try {
-    final termTemplateList = jsonDecode(getPreference<String>("default_data")) as List<dynamic>;
-    Manager.termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)).toList();
-
     final data = jsonDecode(getPreference<String>("data")) as List<dynamic>;
     Manager.years = data.map((yearJson) => Year.fromJson(yearJson as Map<String, dynamic>)).toList();
   } catch (e) {
@@ -51,7 +46,6 @@ bool existsPreference(String key) {
 List<String> keys = [
   "data_version",
   "data",
-  "default_data",
   "current_year",
   "current_term",
   "sort_mode1",

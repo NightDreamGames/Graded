@@ -20,6 +20,7 @@ class SetupManager {
   static String classicPath = "assets/class_data/classique.json";
   static String generalPath = "assets/class_data/general.json";
   static List<String?> cache = [null, null];
+  static List<Subject> termTemplate = [];
 
   static Map<int, String> getYears() {
     return {
@@ -151,6 +152,7 @@ class SetupManager {
   }
 
   static Future<void> init() async {
+    termTemplate = [];
     cache[0] = await rootBundle.loadString(classicPath);
     cache[1] = await rootBundle.loadString(generalPath);
   }
@@ -165,17 +167,18 @@ class SetupManager {
     setPreference<String>("validated_school_system", getPreference<String>("school_system"));
 
     if (getPreference<String>("school_system") == "lux") {
-      await completeLuxSystem();
+      termTemplate = await completeLuxSystem();
     }
 
+    Manager.addYear(termTemplate: termTemplate);
+
     Compatibility.termCount();
-    Manager.clearYears();
     Manager.calculate();
 
     setPreference<bool>("is_first_run", false);
   }
 
-  static Future<void> completeLuxSystem() async {
+  static Future<List<Subject>> completeLuxSystem() {
     setPreference<String>("validated_lux_system", getPreference<String>("lux_system"));
     setPreference<int>("validated_year", getPreference<int>("year"));
 
@@ -199,11 +202,11 @@ class SetupManager {
     setPreference<String>("rounding_mode", RoundingMode.up);
     setPreference<int>("round_to", 1);
 
-    await fillSubjects();
+    return fillSubjects();
   }
 
-  static Future<void> fillSubjects() async {
-    Manager.termTemplate.clear();
+  static Future<List<Subject>> fillSubjects() async {
+    List<Subject> termTemplate = [];
     int year = getPreference<int>("year");
     String section = getPreference<String>("section");
     String variant = getPreference<String>("variant");
@@ -231,7 +234,7 @@ class SetupManager {
         defaultValues["speaking_weight"] as double,
         isGroup: subject["children"] != null,
       );
-      Manager.termTemplate.add(newSubject);
+      termTemplate.add(newSubject);
 
       if (subject["children"] == null) continue;
       for (final childSubject in (subject["children"] as List<dynamic>).cast<Map<String, dynamic>>()) {
@@ -245,5 +248,7 @@ class SetupManager {
         );
       }
     }
+
+    return termTemplate;
   }
 }

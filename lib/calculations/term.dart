@@ -25,9 +25,9 @@ class Term extends CalculationObject {
   void populateSubjects() {
     subjects.clear();
 
-    if (Manager.termTemplate.isEmpty) return;
+    if (getCurrentYear().termTemplate.isEmpty) return;
 
-    for (final Subject s in Manager.termTemplate) {
+    for (final Subject s in getCurrentYear().termTemplate) {
       if (!s.isGroup) {
         subjects.add(Subject(s.name, s.coefficient, s.speakingWeight));
       } else {

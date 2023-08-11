@@ -251,7 +251,7 @@ class SubjectTile extends StatefulWidget {
 
 class _SubjectTileState extends State<SubjectTile> {
   Future<void> showTutorial(BuildContext context) async {
-    if (widget.index1 != 2 || Manager.termTemplate.length < 3 || !getPreference<bool>("showcase_subject_edit", true)) return;
+    if (widget.index1 != 2 || getCurrentYear().termTemplate.length < 3 || !getPreference<bool>("showcase_subject_edit", true)) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 300), () {
@@ -280,7 +280,7 @@ class _SubjectTileState extends State<SubjectTile> {
         horizontalTitleGap: 8,
         leadingIcon: ReorderableDragStartListener(
           index: widget.reorderIndex,
-          child: (widget.index1 == 1 && Manager.termTemplate.length >= 3 && getPreference<bool>("showcase_subject_edit", true))
+          child: (widget.index1 == 1 && getCurrentYear().termTemplate.length >= 3 && getPreference<bool>("showcase_subject_edit", true))
               ? Showcase(
                   key: showCaseKey1,
                   description: translations.showcase_tap_subject,
@@ -295,7 +295,7 @@ class _SubjectTileState extends State<SubjectTile> {
               : ReorderableHandle(target: widget),
         ),
         onTap: () async {
-          showMenuActions(context, widget.listKey).then((result) {
+          showMenuActions<MenuAction>(context, widget.listKey, MenuAction.values, [translations.edit, translations.delete]).then((result) {
             switch (result) {
               case MenuAction.edit:
                 showSubjectDialog(
@@ -303,24 +303,25 @@ class _SubjectTileState extends State<SubjectTile> {
                   widget.nameController,
                   widget.coeffController,
                   widget.speakingController,
-                  index: widget.index1,
+                  index1: widget.index1,
                   index2: widget.subject.isChild ? widget.index2 : null,
+                  termTemplate: getCurrentYear().termTemplate,
                 ).then((_) => widget.onActionCompleted?.call());
               case MenuAction.delete:
-                final parent = Manager.termTemplate[widget.index1];
+                final parent = getCurrentYear().termTemplate[widget.index1];
                 Manager.sortAll(
                   sortModeOverride: SortMode.name,
                   sortDirectionOverride: SortDirection.ascending,
                 );
-                int newIndex = Manager.termTemplate.indexOf(parent);
+                int newIndex = getCurrentYear().termTemplate.indexOf(parent);
 
                 if (widget.subject.isChild) {
-                  Manager.termTemplate[newIndex].children.removeWhere((element) => element.processedName == widget.subject.processedName);
+                  getCurrentYear().termTemplate[newIndex].children.removeWhere((element) => element.processedName == widget.subject.processedName);
                 } else {
-                  Manager.termTemplate.removeWhere((element) => element.processedName == widget.subject.processedName);
+                  getCurrentYear().termTemplate.removeWhere((element) => element.processedName == widget.subject.processedName);
                 }
 
-                for (final Term t in Manager.getCurrentYear().terms) {
+                for (final Term t in getCurrentYear().terms) {
                   if (widget.subject.isChild) {
                     Subject parent = t.subjects[newIndex];
                     parent.children.removeWhere((element) => element.processedName == widget.subject.processedName);
@@ -356,8 +357,8 @@ class ReorderableHandle extends StatelessWidget {
       icon: const Icon(Icons.drag_handle),
       onPressed: () {
         if (target.index1 == 0 && !target.subject.isChild) return;
-        List<List<Subject>> lists = [Manager.termTemplate];
-        for (final Term term in Manager.getCurrentYear().terms) {
+        List<List<Subject>> lists = [getCurrentYear().termTemplate];
+        for (final Term term in getCurrentYear().terms) {
           lists.add(term.subjects);
         }
 

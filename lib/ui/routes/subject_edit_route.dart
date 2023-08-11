@@ -9,6 +9,7 @@ import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
+import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
@@ -19,7 +20,12 @@ final GlobalKey showCaseKey1 = GlobalKey();
 final GlobalKey showCaseKey2 = GlobalKey();
 
 class SubjectEditRoute extends StatefulWidget {
-  const SubjectEditRoute({super.key});
+  const SubjectEditRoute({
+    super.key,
+    this.creationType = CreationType.edit,
+  });
+
+  final CreationType creationType;
 
   @override
   State<SubjectEditRoute> createState() => _SubjectEditRouteState();
@@ -29,6 +35,14 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController coeffController = TextEditingController();
   final TextEditingController speakingController = TextEditingController();
+
+  late List<Subject> termTemplate = getCurrentYear().termTemplate;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.creationType == CreationType.add) termTemplate = SetupManager.termTemplate;
+  }
 
   @override
   void dispose() {
@@ -44,13 +58,16 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
   @override
   Widget build(BuildContext context) {
+    String title = widget.creationType == CreationType.edit ? translations.edit_subjectOther : translations.add_subjectOther;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showSubjectDialog(context, nameController, coeffController, speakingController).then((_) => rebuild()),
+        onPressed: () =>
+            showSubjectDialog(context, nameController, coeffController, speakingController, termTemplate: termTemplate).then((_) => rebuild()),
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text(translations.edit_subjectOther, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
         titleSpacing: 0,
         toolbarHeight: 64,
         actions: [
@@ -71,7 +88,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
             return SafeArea(
               top: false,
               bottom: false,
-              child: Manager.termTemplate.isNotEmpty
+              child: termTemplate.isNotEmpty
                   ? ReorderableListView(
                       padding: const EdgeInsets.only(bottom: 88),
                       primary: true,
@@ -111,8 +128,10 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       return;
     }
 
-    List<List<Subject>> lists = [Manager.termTemplate];
-    lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
+    List<List<Subject>> lists = [termTemplate];
+    if (widget.creationType == CreationType.edit) {
+      lists.addAll(getCurrentYear().terms.map((term) => term.subjects));
+    }
 
     for (final List<Subject> list in lists) {
       Subject item;
@@ -144,8 +163,8 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     List<Widget> result = [];
     int reorderIndex = 0;
 
-    for (int i = 0; i < Manager.termTemplate.length; i++) {
-      Subject element = Manager.termTemplate[i];
+    for (int i = 0; i < termTemplate.length; i++) {
+      Subject element = termTemplate[i];
       result.add(
         SubjectTile(
           key: ValueKey(element),
@@ -182,23 +201,23 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
     return result;
   }
-}
 
-List<int> getSubjectIndexes(int absoluteIndex, {int addedIndex = 0}) {
-  int subjectCount = 0;
-  int index1 = 0;
-  int index2 = -1;
+  List<int> getSubjectIndexes(int absoluteIndex, {int addedIndex = 0}) {
+    int subjectCount = 0;
+    int index1 = 0;
+    int index2 = -1;
 
-  for (int i = 0; i < Manager.termTemplate.length; i++) {
-    int childAmount = Manager.termTemplate[i].children.length;
-    if (subjectCount + childAmount + (childAmount > 0 ? addedIndex : 0) >= absoluteIndex) {
-      break;
+    for (int i = 0; i < termTemplate.length; i++) {
+      int childAmount = termTemplate[i].children.length;
+      if (subjectCount + childAmount + (childAmount > 0 ? addedIndex : 0) >= absoluteIndex) {
+        break;
+      }
+      subjectCount += childAmount;
+      index1 = i + 1;
+      subjectCount++;
     }
-    subjectCount += childAmount;
-    index1 = i + 1;
-    subjectCount++;
-  }
-  index2 = absoluteIndex - subjectCount - 1;
+    index2 = absoluteIndex - subjectCount - 1;
 
-  return [index1, index2];
+    return [index1, index2];
+  }
 }

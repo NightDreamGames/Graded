@@ -253,20 +253,22 @@ Future<void> showSubjectDialog(
   TextEditingController nameController,
   TextEditingController coeffController,
   TextEditingController speakingController, {
-  int? index,
+  int? index1,
   int? index2,
+  CreationType yearAction = CreationType.edit,
+  required List<Subject> termTemplate,
 }) async {
   coeffController.clear();
   nameController.clear();
   speakingController.clear();
 
-  CreationType action = index == null ? CreationType.add : CreationType.edit;
+  CreationType action = index1 == null ? CreationType.add : CreationType.edit;
 
   Subject subject = action == CreationType.add
       ? Subject("", 0, 0)
       : index2 == null
-          ? Manager.termTemplate[index!]
-          : Manager.termTemplate[index!].children[index2];
+          ? termTemplate[index1!]
+          : termTemplate[index1!].children[index2];
   coeffController.text = action == CreationType.edit ? Calculator.format(subject.coefficient, addZero: false, roundToOverride: 1) : "";
   nameController.text = action == CreationType.edit ? subject.name : "";
   speakingController.text = action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false) : "";
@@ -280,7 +282,7 @@ Future<void> showSubjectDialog(
         title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
         icon: action == CreationType.add ? Icons.add : Icons.edit,
         onConfirm: () {
-          String name = nameController.text.isEmpty ? getHint(translations.subject, Manager.termTemplate) : nameController.text;
+          String name = nameController.text.isEmpty ? getHint(translations.subject, termTemplate) : nameController.text;
           double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
           double speakingWeight = Calculator.tryParse(speakingController.text) ?? (defaultValues["speaking_weight"] as double) + 1;
@@ -288,8 +290,10 @@ Future<void> showSubjectDialog(
           if (speakingWeight <= 0) speakingWeight = 1;
 
           if (action == CreationType.add) {
-            List<List<Subject>> lists = [Manager.termTemplate];
-            lists.addAll(Manager.getCurrentYear().terms.map((term) => term.subjects));
+            List<List<Subject>> lists = [termTemplate];
+            if (yearAction == CreationType.edit) {
+              lists.addAll(getCurrentYear().terms.map((term) => term.subjects));
+            }
 
             for (final List<Subject> t in lists) {
               t.add(Subject(name, coefficient, speakingWeight));
@@ -304,18 +308,20 @@ Future<void> showSubjectDialog(
             subject.coefficient = coefficient;
             subject.speakingWeight = speakingWeight;
 
-            for (final Term t in Manager.getCurrentYear().terms) {
-              for (int i = 0; i < t.subjects.length; i++) {
-                Subject s = t.subjects[i];
-                Subject template = Manager.termTemplate[i];
+            if (yearAction == CreationType.edit) {
+              for (final Term t in getCurrentYear().terms) {
+                for (int i = 0; i < t.subjects.length; i++) {
+                  Subject s = t.subjects[i];
+                  Subject template = termTemplate[i];
 
-                s.name = template.name;
-                s.coefficient = template.coefficient;
-                s.speakingWeight = template.speakingWeight;
-                for (int j = 0; j < t.subjects[i].children.length; j++) {
-                  s.children[j].name = template.children[j].name;
-                  s.children[j].coefficient = template.children[j].coefficient;
-                  s.children[j].speakingWeight = template.children[j].speakingWeight;
+                  s.name = template.name;
+                  s.coefficient = template.coefficient;
+                  s.speakingWeight = template.speakingWeight;
+                  for (int j = 0; j < t.subjects[i].children.length; j++) {
+                    s.children[j].name = template.children[j].name;
+                    s.children[j].coefficient = template.children[j].coefficient;
+                    s.children[j].speakingWeight = template.children[j].speakingWeight;
+                  }
                 }
               }
             }
@@ -333,10 +339,10 @@ Future<void> showSubjectDialog(
                 controller: nameController,
                 autofocus: true,
                 label: translations.name,
-                hint: getHint(translations.subject, Manager.termTemplate),
+                hint: getHint(translations.subject, termTemplate),
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
-                  if (Manager.termTemplate.any((element) {
+                  if (termTemplate.any((element) {
                     if (action == CreationType.edit && element == subject) {
                       return false;
                     }

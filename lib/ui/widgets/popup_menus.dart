@@ -102,7 +102,7 @@ class SettingsAction extends StatelessWidget {
   }
 }
 
-Future<MenuAction?> showMenuActions(BuildContext context, GlobalKey listKey) async {
+Future<T?> showMenuActions<T>(BuildContext context, GlobalKey listKey, List<T> actionsEnum, List<String> translations) async {
   RenderBox? box = listKey.currentContext?.findRenderObject() as RenderBox?;
   if (box == null) return Future.value();
 
@@ -113,8 +113,7 @@ Future<MenuAction?> showMenuActions(BuildContext context, GlobalKey listKey) asy
     color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
     position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
     items: [
-      PopupMenuItem<MenuAction>(value: MenuAction.edit, child: Text(translations.edit)),
-      PopupMenuItem<MenuAction>(value: MenuAction.delete, child: Text(translations.delete)),
+      for (T action in actionsEnum) PopupMenuItem<T>(value: action, child: Text(translations[actionsEnum.indexOf(action)])),
     ],
   );
 }

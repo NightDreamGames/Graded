@@ -17,7 +17,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
   return [
     SimpleSettingsTile(
       icon: Icons.subject,
-      onTap: () => Navigator.pushNamed(context, "/subject_edit").then((value) => onChanged?.call()),
+      onTap: () => Navigator.pushNamed(context, "/subject_edit", arguments: type).then((value) => onChanged?.call()),
       title: subjectEditingPageTitle,
       subtitle: translations.edit_subjects_description,
     ),

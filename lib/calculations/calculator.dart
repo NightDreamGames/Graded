@@ -48,7 +48,7 @@ class Calculator {
       case SortMode.coefficient:
         insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.coefficient.compareTo(b.coefficient));
       case SortMode.custom:
-        final compare = comparisonData ?? Manager.termTemplate;
+        final compare = comparisonData ?? getCurrentYear().termTemplate;
         data.sort((a, b) {
           return compare.indexWhere((element) => a.processedName == element.processedName) -
               compare.indexWhere((element) => b.processedName == element.processedName);

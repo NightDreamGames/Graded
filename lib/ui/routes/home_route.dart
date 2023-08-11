@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void refreshYearOverview() {
-    Manager.refreshYearOverview(yearOverview: Manager.getYearOverview(), year: Manager.getCurrentYear());
+    Manager.refreshYearOverview();
     rebuild();
   }
 

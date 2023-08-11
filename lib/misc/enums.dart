@@ -25,4 +25,6 @@ abstract class RoundingMode {
 
 enum MenuAction { edit, delete }
 
+enum YearAction { select, edit, delete }
+
 enum CreationType { add, edit }
