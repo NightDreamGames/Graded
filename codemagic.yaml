@@ -1,9 +1,9 @@
 workflows:
-  base-workflow: &base
-    name: Base Workflow
+  internal-workflow: &base
+    name: Internal test workflow
     max_build_duration: 30
     instance_type: mac_mini_m1
-    environment: &base_environment
+    environment:
       android_signing:
         - Graded
       ios_signing:
@@ -20,7 +20,7 @@ workflows:
       cocoapods: default
     integrations:
       app_store_connect: NightDream Games
-    scripts: &base_scripts
+    scripts:
       - name: Bump Flutter submodule
         working_directory: .flutter/
         script: |
@@ -66,13 +66,21 @@ workflows:
         notify:
           success: false
           failure: true
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: "internal"
+        submit_as_draft: false
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: false
     cache:
       cache_paths:
         - $FLUTTER_ROOT/.pub-cache
         - $HOME/Library/Caches/CocoaPods
   release-workflow:
     <<: *base
-    name: Release Workflow
+    name: Release workflow
     scripts:
       - name: Bump Flutter submodule
         working_directory: .flutter/
@@ -178,16 +186,3 @@ workflows:
         submit_to_app_store: true
         cancel_previous_submissions: true
         release_type: AFTER_APPROVAL
-  internal-workflow:
-    <<: *base
-    name: Internal Workflow
-    publishing:
-      <<: *base_publishing
-      google_play:
-        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: "internal"
-        submit_as_draft: false
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: false
-        submit_to_app_store: false
