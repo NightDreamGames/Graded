@@ -69,6 +69,7 @@ class Manager {
     years.add(year);
     changeYear(years.length - 1);
     Compatibility.termCount();
+    year.sort();
   }
 
   static void changeYear(int index) {

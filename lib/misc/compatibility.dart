@@ -15,10 +15,10 @@ import "package:graded/misc/storage.dart";
 class Compatibility {
   static const dataVersion = 12;
 
-  static void upgradeDataVersion() {
+  static void upgradeDataVersion({bool imported = false}) {
     int currentDataVersion = getPreference<int>("data_version");
 
-    if (!getPreference<bool>("is_first_run")) {
+    if (!getPreference<bool>("is_first_run") || imported) {
       if (currentDataVersion < 2) {
         setPreference<String?>("data", getPreference<String>("data").replaceAll("period", "term").replaceAll("mark", "grade"));
         setPreference<String?>("default_data", getPreference<String>("default_data", "[]").replaceAll("period", "term").replaceAll("mark", "grade"));

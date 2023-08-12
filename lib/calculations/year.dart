@@ -12,9 +12,7 @@ class Year extends CalculationObject {
   List<Subject> termTemplate = [];
   late Term yearOverview = createYearOverview(year: this);
 
-  Year(this.termTemplate) {
-    sort();
-  }
+  Year(this.termTemplate);
 
   void calculate() {
     for (final Term t in terms) {

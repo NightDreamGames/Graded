@@ -120,7 +120,7 @@ Future<bool> importData() async {
     error = true;
     restoreData(backup);
   }
-  Compatibility.upgradeDataVersion();
+  Compatibility.upgradeDataVersion(imported: true);
 
   Manager.calculate();
   Manager.currentTerm = 0;
@@ -131,7 +131,7 @@ Future<bool> importData() async {
 void restoreData(String data) {
   final json = jsonDecode(data) as Map<String, dynamic>;
 
-  for (final String key in keys) {
+  for (final String key in json.keys) {
     setPreference(key, json[key]);
   }
 }
