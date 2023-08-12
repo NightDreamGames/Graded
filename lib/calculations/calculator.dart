@@ -29,7 +29,7 @@ class Calculator {
 
     switch (sortMode) {
       case SortMode.name:
-        insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.processedName.compareTo(b.processedName));
+        insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.asciiName.compareTo(b.asciiName));
       case SortMode.result:
         insertionSort(
           data,
@@ -50,8 +50,7 @@ class Calculator {
       case SortMode.custom:
         final compare = comparisonData ?? getCurrentYear().termTemplate;
         data.sort((a, b) {
-          return compare.indexWhere((element) => a.processedName == element.processedName) -
-              compare.indexWhere((element) => b.processedName == element.processedName);
+          return compare.indexWhere((element) => a.name == element.name) - compare.indexWhere((element) => b.name == element.name);
         });
     }
   }

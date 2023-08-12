@@ -10,10 +10,10 @@ abstract class CalculationObject {
   String get name => _name;
   set name(String value) {
     _name = value;
-    processedName = removeDiacritics(name.toLowerCase()).replaceAll("[^\\p{ASCII}]", "");
+    asciiName = removeDiacritics(value.toLowerCase()).replaceAll("[^\\p{ASCII}]", "");
   }
 
-  String processedName = "";
+  String asciiName = "";
   double coefficient = 1;
   double? result;
   double? preciseResult;

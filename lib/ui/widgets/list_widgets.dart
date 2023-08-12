@@ -316,18 +316,18 @@ class _SubjectTileState extends State<SubjectTile> {
                 int newIndex = getCurrentYear().termTemplate.indexOf(parent);
 
                 if (widget.subject.isChild) {
-                  getCurrentYear().termTemplate[newIndex].children.removeWhere((element) => element.processedName == widget.subject.processedName);
+                  getCurrentYear().termTemplate[newIndex].children.removeWhere((element) => element.name == widget.subject.name);
                 } else {
-                  getCurrentYear().termTemplate.removeWhere((element) => element.processedName == widget.subject.processedName);
+                  getCurrentYear().termTemplate.removeWhere((element) => element.name == widget.subject.name);
                 }
 
                 for (final Term t in getCurrentYear().terms) {
                   if (widget.subject.isChild) {
                     Subject parent = t.subjects[newIndex];
-                    parent.children.removeWhere((element) => element.processedName == widget.subject.processedName);
+                    parent.children.removeWhere((element) => element.name == widget.subject.name);
                     parent.isGroup = parent.children.isNotEmpty;
                   } else {
-                    t.subjects.removeWhere((element) => element.processedName == widget.subject.processedName);
+                    t.subjects.removeWhere((element) => element.name == widget.subject.name);
                   }
                 }
 
