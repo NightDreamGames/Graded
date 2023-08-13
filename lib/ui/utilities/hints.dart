@@ -5,7 +5,7 @@ import "package:graded/misc/storage.dart";
 
 String getHint(String prefix, List<CalculationObject> data) {
   String hint = "";
-  int i = data.length - 1;
+  int i = data.length;
 
   do {
     i++;
