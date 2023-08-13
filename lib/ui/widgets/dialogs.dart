@@ -52,36 +52,39 @@ class EasyDialog extends StatefulWidget {
 class EasyDialogState extends State<EasyDialog> {
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      actionsPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
-      contentPadding: EdgeInsets.only(left: 24, top: 16, right: 24, bottom: widget.bottomPadding),
-      semanticLabel: widget.title,
-      title: Text(widget.title),
-      scrollable: true,
-      icon: widget.icon != null ? Icon(widget.icon) : null,
-      elevation: 3,
-      actions: [
-        TextButton(
-          onPressed: () {
-            widget.onCancel?.call();
-            _disposeDialog(context);
-          },
-          child: Text(
-            translations.cancel,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: AlertDialog(
+        actionsPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
+        contentPadding: EdgeInsets.only(left: 24, top: 16, right: 24, bottom: widget.bottomPadding),
+        semanticLabel: widget.title,
+        title: Text(widget.title),
+        scrollable: true,
+        icon: widget.icon != null ? Icon(widget.icon) : null,
+        elevation: 3,
+        actions: [
+          TextButton(
+            onPressed: () {
+              widget.onCancel?.call();
+              _disposeDialog(context);
+            },
+            child: Text(
+              translations.cancel,
+            ),
           ),
+          TextButton(
+            onPressed: () async {
+              submit();
+            },
+            child: Text(
+              widget.action ?? translations.save,
+            ),
+          )
+        ],
+        content: Form(
+          key: formKey,
+          child: widget.child,
         ),
-        TextButton(
-          onPressed: () async {
-            submit();
-          },
-          child: Text(
-            widget.action ?? translations.save,
-          ),
-        )
-      ],
-      content: Form(
-        key: formKey,
-        child: widget.child,
       ),
     );
   }
