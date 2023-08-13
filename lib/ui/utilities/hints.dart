@@ -9,7 +9,7 @@ String getHint(String prefix, List<CalculationObject> data) {
 
   do {
     i++;
-    hint = "$prefix ${data.length + i}";
+    hint = "$prefix $i";
   } while (data.any((element) => element.name == hint));
 
   return hint;
