@@ -88,6 +88,7 @@ class SimpleSettingsTile extends StatelessWidget {
 
   Widget getIcon(BuildContext context) {
     return IconButton(
+      tooltip: translations.next,
       icon: const Icon(Icons.navigate_next),
       onPressed: enabled ? () => _handleTap(context) : null,
     );

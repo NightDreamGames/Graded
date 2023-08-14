@@ -55,6 +55,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
     return Scaffold(
       floatingActionButton: !widget.term.isYearOverview
           ? FloatingActionButton(
+              tooltip: translations.add_test,
               onPressed: () =>
                   showTestDialog(context, widget.subject, nameController, gradeController, maximumController).then((_) => refreshYearOverview()),
               child: const Icon(Icons.add),
@@ -90,6 +91,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                             ),
                             const Padding(padding: EdgeInsets.only(left: 8)),
                             IconButton(
+                              tooltip: translations.decrease,
                               icon: const Icon(Icons.remove, size: 20),
                               onPressed: () {
                                 widget.subject.changeBonus(-1);
@@ -98,6 +100,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                               style: getIconButtonStyle(context),
                             ),
                             IconButton(
+                              tooltip: translations.increase,
                               icon: const Icon(Icons.add, size: 20),
                               onPressed: () {
                                 widget.subject.changeBonus(1);

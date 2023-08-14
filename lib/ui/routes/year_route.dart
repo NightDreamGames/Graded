@@ -36,6 +36,7 @@ class _YearRouteState extends State<YearRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        tooltip: translations.add_year,
         onPressed: () => Navigator.pushNamed(context, "/setup"),
         child: const Icon(Icons.add),
       ),

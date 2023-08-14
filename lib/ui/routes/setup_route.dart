@@ -44,6 +44,7 @@ class _SetupPageState extends State<SetupPage> {
         if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
             getPreference<String>("school_system") == "other") {
           return FloatingActionButton(
+            tooltip: translations.done,
             onPressed: () async {
               await SetupManager.completeSetup();
 

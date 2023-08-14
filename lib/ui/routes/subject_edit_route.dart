@@ -62,6 +62,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        tooltip: translations.add_subjectOne,
         onPressed: () =>
             showSubjectDialog(context, nameController, coeffController, speakingController, termTemplate: termTemplate).then((_) => rebuild()),
         child: const Icon(Icons.add),

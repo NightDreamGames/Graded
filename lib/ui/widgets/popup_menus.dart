@@ -99,6 +99,7 @@ class SettingsAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: translations.settings,
       onPressed: () => Navigator.pushNamed(context, "/settings").then((_) => onReturn?.call()),
       icon: const Icon(
         Icons.settings,
