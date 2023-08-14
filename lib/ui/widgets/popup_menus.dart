@@ -55,7 +55,6 @@ class SortAction extends StatelessWidget {
             getPopupMenuItem(SortMode.custom, translations.custom),
           ],
           if (sortType == SortType.test) ...[
-            //TODO Translate
             getPopupMenuItem(SortMode.timestamp, translations.date),
           ],
         ];

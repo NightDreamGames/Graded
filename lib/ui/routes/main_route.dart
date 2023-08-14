@@ -128,7 +128,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
                     ),
                     if (widget.children.length > 1)
                       TabBar(
-                        //TODO Scrollable only when needed
+                        //TODO Set TabBar as unscrollable when not full width
                         isScrollable: true,
                         controller: tabController,
                         tabs: getTabs(),
