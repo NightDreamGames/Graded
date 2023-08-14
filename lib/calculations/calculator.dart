@@ -29,7 +29,16 @@ class Calculator {
 
     switch (sortMode) {
       case SortMode.name:
-        insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.asciiName.compareTo(b.asciiName));
+        insertionSort(
+          data,
+          compare: (CalculationObject a, CalculationObject b) {
+            int result = a.asciiName.compareTo(b.asciiName);
+            if (result == 0) {
+              result = a.name.compareTo(b.name);
+            }
+            return sortDirection * result;
+          },
+        );
       case SortMode.result:
         insertionSort(
           data,
