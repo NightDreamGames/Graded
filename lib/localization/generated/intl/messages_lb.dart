@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Fächer zoufügen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Prüfung zoufügen"),
+        "add_year": MessageLookupByLibrary.simpleMessage("Joer zoufügen"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App-Versioun"),
         "appearance": MessageLookupByLibrary.simpleMessage("Ausgesinn"),
@@ -41,7 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class": MessageLookupByLibrary.simpleMessage("Klass änneren"),
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Dréckt hei fir eng nei Klass auszewielen. All gespäichert Notten ginn dobäi geläscht."),
-        "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "choose_date": MessageLookupByLibrary.simpleMessage("Datum auswielen"),
         "class_": MessageLookupByLibrary.simpleMessage("Klass"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
@@ -55,8 +56,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personaliséiert"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
+        "decrease": MessageLookupByLibrary.simpleMessage("Verréngeren"),
         "default_": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Läschen"),
+        "done": MessageLookupByLibrary.simpleMessage("Fäerdeg"),
         "down": MessageLookupByLibrary.simpleMessage("No ënnen"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Beaarbechten"),
@@ -97,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Et ass e Feeler beim Importéieren vun ärem Backup opgetrueden."),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup erfollegräich importéiert."),
+        "increase": MessageLookupByLibrary.simpleMessage("Erhéijen"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongëlteg"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Sprooch"),
@@ -131,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewäertungssystem"),
+        "reorder": MessageLookupByLibrary.simpleMessage("Ëmuerdnen"),
         "reset": MessageLookupByLibrary.simpleMessage("Notten zerécksetzen"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
             "All gespäichert Notten läschen an d\'App zeréckzesetzen"),

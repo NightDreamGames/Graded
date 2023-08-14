@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Fächer hinzufügen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Prüfung hinzufügen"),
+        "add_year": MessageLookupByLibrary.simpleMessage("Jahr hinzufügen"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App-Version"),
         "appearance": MessageLookupByLibrary.simpleMessage("Aussehen"),
@@ -42,7 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class": MessageLookupByLibrary.simpleMessage("Klasse ändern"),
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tippen Sie hier um eine neue Klasse auszuwählen. Alle gespeicherten Noten werden dabei gelöscht."),
-        "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "choose_date": MessageLookupByLibrary.simpleMessage("Datum auswählen"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
@@ -56,8 +57,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personalisiert"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
+        "decrease": MessageLookupByLibrary.simpleMessage("Verringern"),
         "default_": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
+        "done": MessageLookupByLibrary.simpleMessage("Fertig"),
         "down": MessageLookupByLibrary.simpleMessage("Nach unten"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
@@ -97,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Es ist ein Fehler beim Importieren Ihrer Backup aufgetreten."),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup erfolgreich importiert."),
+        "increase": MessageLookupByLibrary.simpleMessage("Erhöhen"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ungültig"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Sprache"),
@@ -131,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewertungssystem"),
+        "reorder": MessageLookupByLibrary.simpleMessage("Umordnen"),
         "reset": MessageLookupByLibrary.simpleMessage("Noten zurücksetzen"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
             "Alle gespeicherten Noten löschen und App zurücksetzen"),

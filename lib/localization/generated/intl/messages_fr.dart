@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Ajouter des matières"),
         "add_test": MessageLookupByLibrary.simpleMessage("Ajouter un devoir"),
+        "add_year": MessageLookupByLibrary.simpleMessage("Ajouter une année"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version":
             MessageLookupByLibrary.simpleMessage("Version de l\'application"),
@@ -44,7 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Changer la classe"),
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Appuyez ici pour sélectionner une nouvelle classe. Cela supprimera toutes vos notes sauvegardées."),
-        "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "choose_date": MessageLookupByLibrary.simpleMessage("Choisir date"),
         "class_": MessageLookupByLibrary.simpleMessage("Classe"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
@@ -58,8 +59,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact": MessageLookupByLibrary.simpleMessage("Contact"),
         "custom": MessageLookupByLibrary.simpleMessage("Personnalisé"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "decrease": MessageLookupByLibrary.simpleMessage("Réduire"),
         "default_": MessageLookupByLibrary.simpleMessage("Par défaut"),
         "delete": MessageLookupByLibrary.simpleMessage("Supprimer"),
+        "done": MessageLookupByLibrary.simpleMessage("Terminé"),
         "down": MessageLookupByLibrary.simpleMessage("Vers le bas"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Modifier"),
@@ -101,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Une erreur s\'est produite lors de l\'import de votre sauvegarde."),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Sauvegarde importée avec succès."),
+        "increase": MessageLookupByLibrary.simpleMessage("Augmenter"),
         "invalid": MessageLookupByLibrary.simpleMessage("Invalide"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Langue"),
@@ -136,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimestres"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Système de notation"),
+        "reorder": MessageLookupByLibrary.simpleMessage("Réordonner"),
         "reset":
             MessageLookupByLibrary.simpleMessage("Réinitialiser les notes"),
         "reset_description": MessageLookupByLibrary.simpleMessage(

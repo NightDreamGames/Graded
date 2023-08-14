@@ -31,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Add subjects"),
         "add_test": MessageLookupByLibrary.simpleMessage("Add test"),
+        "add_year": MessageLookupByLibrary.simpleMessage("Add year"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App version"),
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
@@ -41,7 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class": MessageLookupByLibrary.simpleMessage("Change class"),
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tap here to select a new class. This will delete all your saved grades."),
-        "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "choose_date": MessageLookupByLibrary.simpleMessage("Choose date"),
         "class_": MessageLookupByLibrary.simpleMessage("Class"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
@@ -54,8 +55,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact": MessageLookupByLibrary.simpleMessage("Contact us"),
         "custom": MessageLookupByLibrary.simpleMessage("Custom"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "decrease": MessageLookupByLibrary.simpleMessage("Decrease"),
         "default_": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "done": MessageLookupByLibrary.simpleMessage("Done"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -94,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "There was an error importing your backup."),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup imported successfully."),
+        "increase": MessageLookupByLibrary.simpleMessage("Increase"),
         "invalid": MessageLookupByLibrary.simpleMessage("Invalid"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
@@ -127,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOne": MessageLookupByLibrary.simpleMessage("Quarter"),
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quarters"),
         "rating_system": MessageLookupByLibrary.simpleMessage("Rating system"),
+        "reorder": MessageLookupByLibrary.simpleMessage("Reorder"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset Grades"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
             "Delete all saved grades and reset app"),

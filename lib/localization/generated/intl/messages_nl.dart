@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Onderwerpen toevoegen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Test toevoegen"),
+        "add_year": MessageLookupByLibrary.simpleMessage("Jaar toevoegen"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App versie"),
         "appearance": MessageLookupByLibrary.simpleMessage("Verschijning"),
@@ -42,7 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class": MessageLookupByLibrary.simpleMessage("Wijzig klasse"),
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tik hier om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen."),
-        "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "choose_date": MessageLookupByLibrary.simpleMessage("Choose date"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
@@ -55,8 +56,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "decrease": MessageLookupByLibrary.simpleMessage("Decrease"),
         "default_": MessageLookupByLibrary.simpleMessage("Standaard"),
         "delete": MessageLookupByLibrary.simpleMessage("Verwijder"),
+        "done": MessageLookupByLibrary.simpleMessage("Done"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Bewerk"),
@@ -96,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Er is een four opgetreden bij het importeren van uw back-up."),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Back-up succesvol geïmporteerd."),
+        "increase": MessageLookupByLibrary.simpleMessage("Increase"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongeldig"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Taal"),
@@ -130,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Kwartaals"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Beoordelingssystem"),
+        "reorder": MessageLookupByLibrary.simpleMessage("Reorder"),
         "reset": MessageLookupByLibrary.simpleMessage("Cijfers terugzetten"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
             "Verwijder alle opgeslagen spellen reset app"),

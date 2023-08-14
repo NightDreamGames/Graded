@@ -120,6 +120,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Add year`
+  String get add_year {
+    return Intl.message(
+      'Add year',
+      name: 'add_year',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Graded`
   String get app_name {
     return Intl.message(
@@ -210,10 +220,10 @@ class TranslationsClass {
     );
   }
 
-  /// ``
+  /// `中文`
   String get chinese {
     return Intl.message(
-      '',
+      '中文',
       name: 'chinese',
       desc: '',
       args: [],
@@ -320,6 +330,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Decrease`
+  String get decrease {
+    return Intl.message(
+      'Decrease',
+      name: 'decrease',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Default`
   String get default_ {
     return Intl.message(
@@ -335,6 +355,16 @@ class TranslationsClass {
     return Intl.message(
       'Delete',
       name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get done {
+    return Intl.message(
+      'Done',
+      name: 'done',
       desc: '',
       args: [],
     );
@@ -630,6 +660,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Increase`
+  String get increase {
+    return Intl.message(
+      'Increase',
+      name: 'increase',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Invalid`
   String get invalid {
     return Intl.message(
@@ -915,6 +955,16 @@ class TranslationsClass {
     return Intl.message(
       'Rating system',
       name: 'rating_system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reorder`
+  String get reorder {
+    return Intl.message(
+      'Reorder',
+      name: 'reorder',
       desc: '',
       args: [],
     );
