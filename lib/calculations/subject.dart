@@ -51,7 +51,7 @@ class Subject extends CalculationObject {
     }
   }
 
-  void editTest(int position, double numerator, double denominator, String name, {bool isSpeaking = false}) {
+  void editTest(int position, double numerator, double denominator, String name, {bool isSpeaking = false, int? timestamp}) {
     Test t = tests[position];
 
     t.numerator = numerator;
@@ -59,6 +59,7 @@ class Subject extends CalculationObject {
     t.name = name;
     t.isSpeaking = isSpeaking;
     t.result = Calculator.calculate([t]);
+    t.timestamp = timestamp ?? t.timestamp;
     Manager.calculate();
   }
 

@@ -152,6 +152,8 @@ Future<void> showTestDialog(
 
       return StatefulBuilder(
         builder: (context, setState) {
+          int? timestamp = index != null ? subject.tests[index].timestamp : null;
+
           return EasyDialog(
             key: dialogKey,
             title: action == CreationType.add ? translations.add_test : translations.edit_test,
@@ -163,9 +165,9 @@ Future<void> showTestDialog(
               double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
               if (action == CreationType.add) {
-                subject.addTest(Test(numerator, denominator, name: name, isSpeaking: isSpeaking));
+                subject.addTest(Test(numerator, denominator, name: name, isSpeaking: isSpeaking, timestamp: timestamp));
               } else {
-                subject.editTest(index!, numerator, denominator, name, isSpeaking: isSpeaking);
+                subject.editTest(index!, numerator, denominator, name, isSpeaking: isSpeaking, timestamp: timestamp);
               }
 
               return true;
@@ -229,17 +231,44 @@ Future<void> showTestDialog(
                 const Padding(
                   padding: EdgeInsets.all(4.0),
                 ),
-                Flexible(
-                  child: CheckboxListTile(
-                    value: isSpeaking,
-                    onChanged: (value) {
-                      isSpeaking = value ?? false;
-                      setState(() {});
-                    },
-                    title: Text(
-                      translations.speaking,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                    ),
+                IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: CheckboxListTile(
+                          value: isSpeaking,
+                          onChanged: (value) {
+                            isSpeaking = value ?? false;
+                            setState(() {});
+                          },
+                          title: Text(
+                            translations.speaking,
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4),
+                        child: VerticalDivider(
+                          indent: 10,
+                          endIndent: 10,
+                          color: Theme.of(context).dividerColor,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.calendar_month),
+                        tooltip: translations.choose_date,
+                        onPressed: () {
+                          DateTime now = DateTime.now();
+                          showDatePicker(
+                            context: context,
+                            initialDate: timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp!) : DateTime(now.year, now.month, now.day),
+                            firstDate: DateTime(1970),
+                            lastDate: DateTime(2100),
+                          ).then((value) => timestamp = value?.millisecondsSinceEpoch ?? DateTime(2021, 9, 15).millisecondsSinceEpoch);
+                        },
+                      )
+                    ],
                   ),
                 )
               ],

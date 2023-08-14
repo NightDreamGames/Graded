@@ -61,6 +61,19 @@ class Calculator {
         data.sort((a, b) {
           return compare.indexWhere((element) => a.name == element.name) - compare.indexWhere((element) => b.name == element.name);
         });
+      case SortMode.timestamp:
+        if (data.first is! Test) throw UnimplementedError("Timestamp sorting is only implemented for tests");
+
+        insertionSort(
+          data,
+          compare: (CalculationObject a, CalculationObject b) {
+            int result = (a as Test).timestamp.compareTo((b as Test).timestamp);
+            if (result == 0) {
+              result = a.asciiName.compareTo(b.asciiName);
+            }
+            return result * sortDirection;
+          },
+        );
     }
   }
 

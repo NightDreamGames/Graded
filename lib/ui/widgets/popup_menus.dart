@@ -30,6 +30,7 @@ class SortAction extends StatelessWidget {
 
           switch (value) {
             case SortMode.name:
+            case SortMode.timestamp:
               sortDirection = SortDirection.ascending;
             case SortMode.result:
             case SortMode.coefficient:
@@ -52,6 +53,10 @@ class SortAction extends StatelessWidget {
           if (sortType == SortType.subject) ...[
             getPopupMenuItem(SortMode.coefficient, translations.coefficientOne),
             getPopupMenuItem(SortMode.custom, translations.custom),
+          ],
+          if (sortType == SortType.test) ...[
+            //TODO Translate
+            getPopupMenuItem(SortMode.timestamp, translations.date),
           ],
         ];
       },
