@@ -220,6 +220,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Choose date`
+  String get choose_date {
+    return Intl.message(
+      'Choose date',
+      name: 'choose_date',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Class`
   String get class_ {
     return Intl.message(
@@ -295,6 +305,16 @@ class TranslationsClass {
     return Intl.message(
       'Custom',
       name: 'custom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
       desc: '',
       args: [],
     );

@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tap here to select a new class. This will delete all your saved grades."),
         "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "choose_date": MessageLookupByLibrary.simpleMessage("Choose date"),
         "class_": MessageLookupByLibrary.simpleMessage("Class"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
         "coefficientOther":
@@ -52,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to delete all your saved grades?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contact us"),
         "custom": MessageLookupByLibrary.simpleMessage("Custom"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "default_": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),

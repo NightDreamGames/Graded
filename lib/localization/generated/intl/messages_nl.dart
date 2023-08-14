@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tik hier om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen."),
         "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "choose_date": MessageLookupByLibrary.simpleMessage("Choose date"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
         "coefficientOther":
@@ -53,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Weet je zeker dat je al je opgeslagen cijfers wilt verwijderen?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "default_": MessageLookupByLibrary.simpleMessage("Standaard"),
         "delete": MessageLookupByLibrary.simpleMessage("Verwijder"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),

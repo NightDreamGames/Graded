@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Dréckt hei fir eng nei Klass auszewielen. All gespäichert Notten ginn dobäi geläscht."),
         "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "choose_date": MessageLookupByLibrary.simpleMessage("Datum auswielen"),
         "class_": MessageLookupByLibrary.simpleMessage("Klass"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
         "coefficientOther":
@@ -53,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sidd Dir sécher datt Dir all Är gespäichert Notten läschen wëllt?"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personaliséiert"),
+        "date": MessageLookupByLibrary.simpleMessage("Datum"),
         "default_": MessageLookupByLibrary.simpleMessage("Default"),
         "delete": MessageLookupByLibrary.simpleMessage("Läschen"),
         "down": MessageLookupByLibrary.simpleMessage("No ënnen"),

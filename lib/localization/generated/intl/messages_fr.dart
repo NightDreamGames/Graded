@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Appuyez ici pour sélectionner une nouvelle classe. Cela supprimera toutes vos notes sauvegardées."),
         "chinese": MessageLookupByLibrary.simpleMessage(""),
+        "choose_date": MessageLookupByLibrary.simpleMessage("Choisir date"),
         "class_": MessageLookupByLibrary.simpleMessage("Classe"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
         "coefficientOther":
@@ -56,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Êtes-vous sûr de vouloir supprimer toutes vos notes enregistrées ?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contact"),
         "custom": MessageLookupByLibrary.simpleMessage("Personnalisé"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "default_": MessageLookupByLibrary.simpleMessage("Par défaut"),
         "delete": MessageLookupByLibrary.simpleMessage("Supprimer"),
         "down": MessageLookupByLibrary.simpleMessage("Vers le bas"),
