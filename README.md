@@ -22,10 +22,7 @@
 
 ### Track and manage your school grades with ease
 
-<img src="https://github.com/NightDreamGames/Graded/assets/49079695/838a9426-efe2-44cd-b806-c81aee4f25d8" title="Screenshot_1" height="350">
-<img src="https://github.com/NightDreamGames/Graded/assets/49079695/cc092a7e-e4a3-494f-9d06-b63a1ac6be8d" title="Screenshot_2" height="350">
-<img src="https://github.com/NightDreamGames/Graded/assets/49079695/fc5e1181-87b0-4c76-af8f-d9863260450e" title="Screenshot_3" height="350">
-<img src="https://github.com/NightDreamGames/Graded/assets/49079695/8b9d88b8-02b6-4289-be4a-fe704419bbe1" title="Screenshot_4" height="350">
+<img src="https://github.com/NightDreamGames/Graded/assets/49079695/77455727-cdba-44e6-b6b2-5603d2c1b21f" title="Screenshot_1" width="90%">
 
 # ⬇️ Download
 
