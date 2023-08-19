@@ -229,6 +229,24 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
   String get collapsedIconTapHint => 'Maximéieren';
 
   @override
+  String get expansionTileExpandedHint => 'duebel tippen fir ze miniméieren';
+
+  @override
+  String get expansionTileCollapsedHint => 'duebel tippen fir ze erweideren';
+
+  @override
+  String get expansionTileExpandedTapHint => 'Miniméieren';
+
+  @override
+  String get expansionTileCollapsedTapHint => 'Erweideren fir méi Detailer';
+
+  @override
+  String get expandedHint => 'Miniméiert';
+
+  @override
+  String get collapsedHint => 'Erweidert';
+
+  @override
   String get continueButtonLabel => 'WEIDER';
 
   @override
@@ -239,6 +257,9 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
 
   @override
   String get cutButtonLabel => 'Ausschneiden';
+
+  @override
+  String get scanTextButtonLabel => 'Text scannen';
 
   @override
   String get dateHelpText => 'tt.mm.jjjj';
