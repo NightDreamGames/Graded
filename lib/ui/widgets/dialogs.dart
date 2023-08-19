@@ -79,7 +79,7 @@ class EasyDialogState extends State<EasyDialog> {
             child: Text(
               widget.action ?? translations.save,
             ),
-          )
+          ),
         ],
         content: Form(
           key: formKey,
@@ -267,10 +267,10 @@ Future<void> showTestDialog(
                             lastDate: DateTime(2100),
                           ).then((value) => timestamp = value?.millisecondsSinceEpoch ?? DateTime(2021, 9, 15).millisecondsSinceEpoch);
                         },
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           );

@@ -404,7 +404,7 @@ class SettingsGroup extends StatelessWidget {
       children: <Widget>[
         Column(
           children: elements,
-        )
+        ),
       ],
     );
   }
@@ -1052,7 +1052,7 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
                 subtitleTextStyle: widget.subtitleTextStyle,
               ),
             ),
-            _buildRadioTiles(context, value, onChanged)
+            _buildRadioTiles(context, value, onChanged),
           ],
         );
       },
@@ -1214,7 +1214,7 @@ class _DropDownSettingsTileState<T> extends State<DropDownSettingsTile<T>> {
                   return Text(widget.values[value]!);
                 },
               ),
-            )
+            ),
           ],
         );
       },
