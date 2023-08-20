@@ -17,8 +17,8 @@ import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 
 class SetupManager {
-  static String classicPath = "assets/class_data/classique.json";
-  static String generalPath = "assets/class_data/general.json";
+  static String classicPath = "assets/class_data/lux/classique.json";
+  static String generalPath = "assets/class_data/lux/general.json";
   static List<String?> cache = [null, null];
   static List<Subject> termTemplate = [];
 
