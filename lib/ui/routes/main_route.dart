@@ -153,7 +153,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
     switch (getPreference<int>("term")) {
       case 1:
         items = [
-          translations.year,
+          translations.yearOne,
         ];
       case 2:
         items = [

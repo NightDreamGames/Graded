@@ -43,7 +43,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tap here to select a new class. This will delete all your saved grades."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
-        "choose_date": MessageLookupByLibrary.simpleMessage("Choose date"),
         "class_": MessageLookupByLibrary.simpleMessage("Class"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
         "coefficientOther":
@@ -131,7 +130,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOne": MessageLookupByLibrary.simpleMessage("Quarter"),
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quarters"),
         "rating_system": MessageLookupByLibrary.simpleMessage("Rating system"),
-        "reorder": MessageLookupByLibrary.simpleMessage("Reorder"),
         "reset": MessageLookupByLibrary.simpleMessage("Reset Grades"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
             "Delete all saved grades and reset app"),
@@ -140,7 +138,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "rounding_mode": MessageLookupByLibrary.simpleMessage("Rounding mode"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "school_system": MessageLookupByLibrary.simpleMessage("School system"),
-        "school_term": MessageLookupByLibrary.simpleMessage("School term"),
+        "school_termOne": MessageLookupByLibrary.simpleMessage("School term"),
+        "school_termOther":
+            MessageLookupByLibrary.simpleMessage("School terms"),
         "section": MessageLookupByLibrary.simpleMessage("Section"),
         "section_classic_a":
             MessageLookupByLibrary.simpleMessage("A - Languages"),
@@ -191,17 +191,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Social sciences"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
+        "select_date": MessageLookupByLibrary.simpleMessage("Select date"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Select school term"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semesters"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Give feedback"),
+        "set_sub_subject":
+            MessageLookupByLibrary.simpleMessage("Set as sub-subject"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "setup": MessageLookupByLibrary.simpleMessage("Setup"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Drag to change subject order"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Tap here to make the subject above a subject group"),
+            "Tap here to make this subject a sub-subject and the subject above a subject group"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sort by"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Speaking"),
@@ -209,12 +212,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Speaking weight"),
         "storage_error": MessageLookupByLibrary.simpleMessage(
             "There was an error loading your saved data, so it has been deleted."),
-        "subject": MessageLookupByLibrary.simpleMessage("Subject"),
-        "subjects": MessageLookupByLibrary.simpleMessage("Subjects"),
+        "subjectOne": MessageLookupByLibrary.simpleMessage("Subject"),
+        "subjectOther": MessageLookupByLibrary.simpleMessage("Subjects"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("System language"),
-        "test": MessageLookupByLibrary.simpleMessage("Test"),
+        "testOne": MessageLookupByLibrary.simpleMessage("Test"),
+        "testOther": MessageLookupByLibrary.simpleMessage("Tests"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Light"),
@@ -248,7 +252,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("P - Preparation route"),
         "variant_general_pf":
             MessageLookupByLibrary.simpleMessage("PF - French preparation way"),
-        "year": MessageLookupByLibrary.simpleMessage("Year"),
+        "yearOne": MessageLookupByLibrary.simpleMessage("Year"),
+        "yearOther": MessageLookupByLibrary.simpleMessage("Years"),
         "year_overview": MessageLookupByLibrary.simpleMessage("Year overview"),
         "yearly_average":
             MessageLookupByLibrary.simpleMessage("Yearly average"),

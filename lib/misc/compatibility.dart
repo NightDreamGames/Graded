@@ -132,7 +132,7 @@ class Compatibility {
         setPreference("default_data", null);
 
         //Add year name
-        getCurrentYear().name = "${translations.year} 1";
+        getCurrentYear().name = "${translations.yearOne} 1";
       }
     }
 

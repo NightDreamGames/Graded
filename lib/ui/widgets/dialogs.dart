@@ -160,7 +160,7 @@ Future<void> showTestDialog(
             icon: action == CreationType.add ? Icons.add : Icons.edit,
             bottomPadding: 0,
             onConfirm: () {
-              String name = nameController.text.isEmpty ? getHint(translations.test, subject.tests) : nameController.text;
+              String name = nameController.text.isEmpty ? getHint(translations.testOne, subject.tests) : nameController.text;
               double numerator = Calculator.tryParse(gradeController.text) ?? 1;
               double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
@@ -179,7 +179,7 @@ Future<void> showTestDialog(
                   child: EasyFormField(
                     controller: nameController,
                     label: translations.name,
-                    hint: getHint(translations.test, subject.tests),
+                    hint: getHint(translations.testOne, subject.tests),
                     textInputAction: TextInputAction.next,
                   ),
                 ),
@@ -257,7 +257,7 @@ Future<void> showTestDialog(
                       ),
                       IconButton(
                         icon: const Icon(Icons.calendar_month),
-                        tooltip: translations.choose_date,
+                        tooltip: translations.select_date,
                         onPressed: () {
                           DateTime now = DateTime.now();
                           showDatePicker(
@@ -314,7 +314,7 @@ Future<void> showSubjectDialog(
         title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
         icon: action == CreationType.add ? Icons.add : Icons.edit,
         onConfirm: () {
-          String name = nameController.text.isEmpty ? getHint(translations.subject, termTemplate) : nameController.text;
+          String name = nameController.text.isEmpty ? getHint(translations.subjectOne, termTemplate) : nameController.text;
           double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
           double speakingWeight = Calculator.tryParse(speakingController.text) ?? (defaultValues["speaking_weight"] as double) + 1;
@@ -371,7 +371,7 @@ Future<void> showSubjectDialog(
                 controller: nameController,
                 autofocus: true,
                 label: translations.name,
-                hint: getHint(translations.subject, termTemplate),
+                hint: getHint(translations.subjectOne, termTemplate),
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
                   if (termTemplate.any((element) {

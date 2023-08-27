@@ -46,7 +46,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Appuyez ici pour sélectionner une nouvelle classe. Cela supprimera toutes vos notes sauvegardées."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
-        "choose_date": MessageLookupByLibrary.simpleMessage("Choisir date"),
         "class_": MessageLookupByLibrary.simpleMessage("Classe"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
         "coefficientOther":
@@ -69,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit_subjectOne":
             MessageLookupByLibrary.simpleMessage("Modifier une matière"),
         "edit_subjectOther":
-            MessageLookupByLibrary.simpleMessage("Modifier matières"),
+            MessageLookupByLibrary.simpleMessage("Modifier les matières"),
         "edit_subjects_description": MessageLookupByLibrary.simpleMessage(
             "Appuyez ici pour modifier vos matières"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Modifier un devoir"),
@@ -140,7 +139,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimestres"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Système de notation"),
-        "reorder": MessageLookupByLibrary.simpleMessage("Réordonner"),
         "reset":
             MessageLookupByLibrary.simpleMessage("Réinitialiser les notes"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
@@ -152,7 +150,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "save": MessageLookupByLibrary.simpleMessage("Sauvegarder"),
         "school_system":
             MessageLookupByLibrary.simpleMessage("Système scolaire"),
-        "school_term": MessageLookupByLibrary.simpleMessage("Période scolaire"),
+        "school_termOne":
+            MessageLookupByLibrary.simpleMessage("Période scolaire"),
+        "school_termOther":
+            MessageLookupByLibrary.simpleMessage("Périodes scolaires"),
         "section": MessageLookupByLibrary.simpleMessage("Section"),
         "section_classic_a":
             MessageLookupByLibrary.simpleMessage("A - Langues"),
@@ -205,18 +206,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sciences sociales"),
         "select": MessageLookupByLibrary.simpleMessage("Sélectionner"),
+        "select_date":
+            MessageLookupByLibrary.simpleMessage("Sélectionner date"),
         "select_school_term": MessageLookupByLibrary.simpleMessage(
             "Sélectionner période scolaire"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semestre"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semestres"),
         "send_feedback":
             MessageLookupByLibrary.simpleMessage("Donnez votre avis"),
+        "set_sub_subject":
+            MessageLookupByLibrary.simpleMessage("Définir comme sous-matière"),
         "settings": MessageLookupByLibrary.simpleMessage("Options"),
         "setup": MessageLookupByLibrary.simpleMessage("Configuration"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Glissez pour changer l\'ordre des matières"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Appuyez ici pour faire du sujet au-dessus un groupe de matières"),
+            "Appuyez ici pour faire de cette matière une sous-matière et de la matière au-dessus un groupe de matières"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Trier par"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
@@ -224,12 +229,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Coefficient d\'oral"),
         "storage_error": MessageLookupByLibrary.simpleMessage(
             "Une erreur s\'est produite lors du chargement de vos données sauvegardées, elles ont donc été supprimées."),
-        "subject": MessageLookupByLibrary.simpleMessage("Matière"),
-        "subjects": MessageLookupByLibrary.simpleMessage("Matières"),
+        "subjectOne": MessageLookupByLibrary.simpleMessage("Matière"),
+        "subjectOther": MessageLookupByLibrary.simpleMessage("Matières"),
         "system": MessageLookupByLibrary.simpleMessage("Système"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("Langue du système"),
-        "test": MessageLookupByLibrary.simpleMessage("Devoir"),
+        "testOne": MessageLookupByLibrary.simpleMessage("Devoir"),
+        "testOther": MessageLookupByLibrary.simpleMessage("Devoirs"),
         "theme": MessageLookupByLibrary.simpleMessage("Thème"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Sombre"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Clair"),
@@ -263,7 +269,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("P - Voie de préparation"),
         "variant_general_pf": MessageLookupByLibrary.simpleMessage(
             "PF - Voie de préparation française"),
-        "year": MessageLookupByLibrary.simpleMessage("Année"),
+        "yearOne": MessageLookupByLibrary.simpleMessage("Année"),
+        "yearOther": MessageLookupByLibrary.simpleMessage("Années"),
         "year_overview":
             MessageLookupByLibrary.simpleMessage("Aperçu de l\'année"),
         "yearly_average":

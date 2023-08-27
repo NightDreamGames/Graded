@@ -120,7 +120,7 @@ class _SetupPageState extends State<SetupPage> {
                         ),
                         if (getPreference<String>("lux_system").isNotEmpty)
                           RadioModalSettingsTile<int>(
-                            title: translations.year,
+                            title: translations.yearOne,
                             icon: Icons.timelapse,
                             settingKey: "year",
                             onChange: (_) {
@@ -154,7 +154,7 @@ class _SetupPageState extends State<SetupPage> {
                           ),
                         if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1)
                           RadioModalSettingsTile<int>(
-                            title: translations.school_term,
+                            title: translations.school_termOne,
                             icon: Icons.access_time_outlined,
                             settingKey: "term",
                             onChange: (_) => Compatibility.termCount(),
@@ -162,7 +162,7 @@ class _SetupPageState extends State<SetupPage> {
                               4: translations.quarterOther,
                               3: translations.trimesterOther,
                               2: translations.semesterOther,
-                              1: translations.year,
+                              1: translations.yearOne,
                             },
                             selected: defaultValues["term"] as int,
                           ),

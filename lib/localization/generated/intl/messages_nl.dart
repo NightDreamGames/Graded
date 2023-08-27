@@ -27,10 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "NightDream Games\nOntwikkelaar - Damien Pirotte\nVisuele identiteit - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Toevoegen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Groep toevoegen"),
-        "add_subjectOne":
-            MessageLookupByLibrary.simpleMessage("Onderwerp toevoegen"),
+        "add_subjectOne": MessageLookupByLibrary.simpleMessage("Vak toevoegen"),
         "add_subjectOther":
-            MessageLookupByLibrary.simpleMessage("Onderwerpen toevoegen"),
+            MessageLookupByLibrary.simpleMessage("Vakken toevoegen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Test toevoegen"),
         "add_year": MessageLookupByLibrary.simpleMessage("Jaar toevoegen"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
@@ -44,7 +43,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Tik hier om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
-        "choose_date": MessageLookupByLibrary.simpleMessage("Choose date"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
         "coefficientOther":
@@ -55,20 +53,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Weet je zeker dat je al je opgeslagen cijfers wilt verwijderen?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
-        "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "date": MessageLookupByLibrary.simpleMessage("Datum"),
         "decrease": MessageLookupByLibrary.simpleMessage("Decrease"),
         "default_": MessageLookupByLibrary.simpleMessage("Standaard"),
         "delete": MessageLookupByLibrary.simpleMessage("Verwijder"),
-        "done": MessageLookupByLibrary.simpleMessage("Done"),
+        "done": MessageLookupByLibrary.simpleMessage("Gereed"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
         "edit": MessageLookupByLibrary.simpleMessage("Bewerk"),
-        "edit_subjectOne":
-            MessageLookupByLibrary.simpleMessage("Onderwerp bewerken"),
+        "edit_subjectOne": MessageLookupByLibrary.simpleMessage("Vak bewerken"),
         "edit_subjectOther":
-            MessageLookupByLibrary.simpleMessage("Onderwerpen bewerken"),
+            MessageLookupByLibrary.simpleMessage("Vakken bewerken"),
         "edit_subjects_description": MessageLookupByLibrary.simpleMessage(
-            "Tik hier om uw onderwerpen te bewerken"),
+            "Tik hier om uw vakken te bewerken"),
         "edit_test": MessageLookupByLibrary.simpleMessage("Test bewerken"),
         "edit_year": MessageLookupByLibrary.simpleMessage("Jaar bewerken"),
         "email":
@@ -120,11 +117,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("Nee"),
         "no_grades": MessageLookupByLibrary.simpleMessage("Geen cijfers"),
         "no_items": MessageLookupByLibrary.simpleMessage("Geen items"),
-        "no_subjects": MessageLookupByLibrary.simpleMessage("Geen onderwerpen"),
+        "no_subjects": MessageLookupByLibrary.simpleMessage("Geen vakken"),
         "not_set": MessageLookupByLibrary.simpleMessage("Niet ingesteld"),
         "note": MessageLookupByLibrary.simpleMessage("Opmerking:"),
         "note_description": MessageLookupByLibrary.simpleMessage(
-            "U kunt kater altijd uw onderwerpen en endere opties in de instellingen bewerken"),
+            "U kunt kater altijd uw vakken en endere opties in de instellingen bewerken"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "other_school_system":
@@ -134,7 +131,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Kwartaals"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Beoordelingssystem"),
-        "reorder": MessageLookupByLibrary.simpleMessage("Reorder"),
         "reset": MessageLookupByLibrary.simpleMessage("Cijfers terugzetten"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
             "Verwijder alle opgeslagen spellen reset app"),
@@ -143,7 +139,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "rounding_mode": MessageLookupByLibrary.simpleMessage("Ronde modus"),
         "save": MessageLookupByLibrary.simpleMessage("Opslaan"),
         "school_system": MessageLookupByLibrary.simpleMessage("Schoolsysteem"),
-        "school_term": MessageLookupByLibrary.simpleMessage("Schoolperiode"),
+        "school_termOne": MessageLookupByLibrary.simpleMessage("Schoolperiode"),
+        "school_termOther":
+            MessageLookupByLibrary.simpleMessage("Schoolperioden"),
         "section": MessageLookupByLibrary.simpleMessage("Sectie"),
         "section_classic_a": MessageLookupByLibrary.simpleMessage("A - Talen"),
         "section_classic_b":
@@ -193,17 +191,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sociale wetenschappen"),
         "select": MessageLookupByLibrary.simpleMessage("Kiezen"),
+        "select_date": MessageLookupByLibrary.simpleMessage("Datum kiezen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoolperiode kiezen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semesters"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback geven"),
+        "set_sub_subject":
+            MessageLookupByLibrary.simpleMessage("Set as sub-subject"),
         "settings": MessageLookupByLibrary.simpleMessage("Instellingen"),
         "setup": MessageLookupByLibrary.simpleMessage("Setup"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
-            "Slepen om de volgorde van de onderwerpen te wijzigen"),
+            "Slepen om de volgorde van de vakken te wijzigen"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Tik hier om van het onderwerp boven een onderwerpgroep te maken"),
+            "Tik hier om van dit vak een subvak te maken en van het vak boven een vakgroep"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sorteren op"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Spreken"),
@@ -211,11 +212,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Spreekgewicht"),
         "storage_error": MessageLookupByLibrary.simpleMessage(
             "Er is een fout opgetreden bij het laden van uw opgeslagen gegevens, dus deze zijn verwijdered."),
-        "subject": MessageLookupByLibrary.simpleMessage("Onderwerp"),
-        "subjects": MessageLookupByLibrary.simpleMessage("Onderwerpen"),
+        "subjectOne": MessageLookupByLibrary.simpleMessage("Vak"),
+        "subjectOther": MessageLookupByLibrary.simpleMessage("Vakken"),
         "system": MessageLookupByLibrary.simpleMessage("Systeem"),
         "system_language": MessageLookupByLibrary.simpleMessage("Systeemtaal"),
-        "test": MessageLookupByLibrary.simpleMessage("Test"),
+        "testOne": MessageLookupByLibrary.simpleMessage("Test"),
+        "testOther": MessageLookupByLibrary.simpleMessage(""),
         "theme": MessageLookupByLibrary.simpleMessage("Thema"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Donkere"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Licht"),
@@ -249,7 +251,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("P - Bereidingsroute"),
         "variant_general_pf":
             MessageLookupByLibrary.simpleMessage("PF - Franse bereidingswijze"),
-        "year": MessageLookupByLibrary.simpleMessage("Jaar"),
+        "yearOne": MessageLookupByLibrary.simpleMessage("Jaar"),
+        "yearOther": MessageLookupByLibrary.simpleMessage("Jaren"),
         "year_overview": MessageLookupByLibrary.simpleMessage("Jaaroverzicht"),
         "yearly_average":
             MessageLookupByLibrary.simpleMessage("Jaargemiddelde"),

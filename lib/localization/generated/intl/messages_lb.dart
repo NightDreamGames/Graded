@@ -43,7 +43,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_class_description": MessageLookupByLibrary.simpleMessage(
             "Dréckt hei fir eng nei Klass auszewielen. All gespäichert Notten ginn dobäi geläscht."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
-        "choose_date": MessageLookupByLibrary.simpleMessage("Datum auswielen"),
         "class_": MessageLookupByLibrary.simpleMessage("Klass"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
         "coefficientOther":
@@ -135,7 +134,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewäertungssystem"),
-        "reorder": MessageLookupByLibrary.simpleMessage("Ëmuerdnen"),
         "reset": MessageLookupByLibrary.simpleMessage("Notten zerécksetzen"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
             "All gespäichert Notten läschen an d\'App zeréckzesetzen"),
@@ -145,7 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ofronnungsmodus"),
         "save": MessageLookupByLibrary.simpleMessage("Späicheren"),
         "school_system": MessageLookupByLibrary.simpleMessage("Schoulsystem"),
-        "school_term": MessageLookupByLibrary.simpleMessage("Schoulperiod"),
+        "school_termOne": MessageLookupByLibrary.simpleMessage("Schoulperiod"),
+        "school_termOther":
+            MessageLookupByLibrary.simpleMessage("Schoulperioden"),
         "section": MessageLookupByLibrary.simpleMessage("Sektioun"),
         "section_classic_a":
             MessageLookupByLibrary.simpleMessage("A - Sproochen"),
@@ -197,17 +197,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sozialwëssenschaften"),
         "select": MessageLookupByLibrary.simpleMessage("Auswielen"),
+        "select_date": MessageLookupByLibrary.simpleMessage("Datum auswielen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoulperiod auswielen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semester"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback ginn"),
+        "set_sub_subject":
+            MessageLookupByLibrary.simpleMessage("Als Ënnerfach setzen"),
         "settings": MessageLookupByLibrary.simpleMessage("Astellungen"),
         "setup": MessageLookupByLibrary.simpleMessage("Ariichtung"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Zéi fir d\'Reiefolleg vun de Fächer ze änneren"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Dréckt hei fir aus dem Fach driwwer eng Fachgrupp ze maachen"),
+            "Dréckt hei fir aus dësem Fach en Ënnerfach, an aus dem Fach driwwer eng Fachgrupp ze maachen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortéieren"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
@@ -215,12 +218,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Oral Koeffizient"),
         "storage_error": MessageLookupByLibrary.simpleMessage(
             "Et ass e Feeler beim Lueden vun ären gespäicherten Donnéeën opgetrueden, dofir goufen se geläscht."),
-        "subject": MessageLookupByLibrary.simpleMessage("Fach"),
-        "subjects": MessageLookupByLibrary.simpleMessage("Fächer"),
+        "subjectOne": MessageLookupByLibrary.simpleMessage("Fach"),
+        "subjectOther": MessageLookupByLibrary.simpleMessage("Fächer"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "system_language":
             MessageLookupByLibrary.simpleMessage("Systemsprooch"),
-        "test": MessageLookupByLibrary.simpleMessage("Prüfung"),
+        "testOne": MessageLookupByLibrary.simpleMessage("Prüfung"),
+        "testOther": MessageLookupByLibrary.simpleMessage("Prüfungen"),
         "theme": MessageLookupByLibrary.simpleMessage("Design"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Donkel"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Hell"),
@@ -254,7 +258,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("P - Virbereedungswee"),
         "variant_general_pf": MessageLookupByLibrary.simpleMessage(
             "PF - Franséischen Virbereedungswee"),
-        "year": MessageLookupByLibrary.simpleMessage("Joer"),
+        "yearOne": MessageLookupByLibrary.simpleMessage("Joer"),
+        "yearOther": MessageLookupByLibrary.simpleMessage("Joren"),
         "year_overview":
             MessageLookupByLibrary.simpleMessage("Joresiwwersiicht"),
         "yearly_average": MessageLookupByLibrary.simpleMessage("Joresmoyenne"),

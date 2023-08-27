@@ -30,7 +30,7 @@ String getTitle({required int termIndex}) {
     case 2:
       return "${translations.semesterOne} ${termIndex + 1}";
     case 1:
-      return translations.year;
+      return translations.yearOne;
     default:
       return translations.app_name;
   }

@@ -164,7 +164,7 @@ Route<dynamic> createRoute(RouteSettings settings) {
 
       route = RouteWidget(
         routeType: RouteType.home,
-        title: translations.subjects,
+        title: translations.subjectOther,
         children: children,
       );
       break;

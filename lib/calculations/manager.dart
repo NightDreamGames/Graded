@@ -65,7 +65,7 @@ class Manager {
   static void addYear({List<Subject> termTemplate = const []}) {
     Year year = Year(termTemplate);
     years.add(year);
-    year.name = getHint(translations.year, years);
+    year.name = getHint(translations.yearOne, years);
     changeYear(years.length - 1);
     Compatibility.termCount();
     year.sort();

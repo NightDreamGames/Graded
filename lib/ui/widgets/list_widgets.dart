@@ -354,7 +354,7 @@ class ReorderableHandle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      tooltip: translations.reorder,
+      tooltip: translations.set_sub_subject,
       icon: const Icon(Icons.drag_handle),
       onPressed: () {
         if (target.index1 == 0 && !target.subject.isChild) return;

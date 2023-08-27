@@ -230,16 +230,6 @@ class TranslationsClass {
     );
   }
 
-  /// `Choose date`
-  String get choose_date {
-    return Intl.message(
-      'Choose date',
-      name: 'choose_date',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Class`
   String get class_ {
     return Intl.message(
@@ -960,16 +950,6 @@ class TranslationsClass {
     );
   }
 
-  /// `Reorder`
-  String get reorder {
-    return Intl.message(
-      'Reorder',
-      name: 'reorder',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Reset Grades`
   String get reset {
     return Intl.message(
@@ -1041,10 +1021,20 @@ class TranslationsClass {
   }
 
   /// `School term`
-  String get school_term {
+  String get school_termOne {
     return Intl.message(
       'School term',
-      name: 'school_term',
+      name: 'school_termOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `School terms`
+  String get school_termOther {
+    return Intl.message(
+      'School terms',
+      name: 'school_termOther',
       desc: '',
       args: [],
     );
@@ -1320,6 +1310,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Select date`
+  String get select_date {
+    return Intl.message(
+      'Select date',
+      name: 'select_date',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Select school term`
   String get select_school_term {
     return Intl.message(
@@ -1360,6 +1360,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Set as sub-subject`
+  String get set_sub_subject {
+    return Intl.message(
+      'Set as sub-subject',
+      name: 'set_sub_subject',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Settings`
   String get settings {
     return Intl.message(
@@ -1390,10 +1400,10 @@ class TranslationsClass {
     );
   }
 
-  /// `Tap here to make the subject above a subject group`
+  /// `Tap here to make this subject a sub-subject and the subject above a subject group`
   String get showcase_tap_subject {
     return Intl.message(
-      'Tap here to make the subject above a subject group',
+      'Tap here to make this subject a sub-subject and the subject above a subject group',
       name: 'showcase_tap_subject',
       desc: '',
       args: [],
@@ -1453,20 +1463,20 @@ class TranslationsClass {
   }
 
   /// `Subject`
-  String get subject {
+  String get subjectOne {
     return Intl.message(
       'Subject',
-      name: 'subject',
+      name: 'subjectOne',
       desc: '',
       args: [],
     );
   }
 
   /// `Subjects`
-  String get subjects {
+  String get subjectOther {
     return Intl.message(
       'Subjects',
-      name: 'subjects',
+      name: 'subjectOther',
       desc: '',
       args: [],
     );
@@ -1493,10 +1503,20 @@ class TranslationsClass {
   }
 
   /// `Test`
-  String get test {
+  String get testOne {
     return Intl.message(
       'Test',
-      name: 'test',
+      name: 'testOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tests`
+  String get testOther {
+    return Intl.message(
+      'Tests',
+      name: 'testOther',
       desc: '',
       args: [],
     );
@@ -1723,10 +1743,20 @@ class TranslationsClass {
   }
 
   /// `Year`
-  String get year {
+  String get yearOne {
     return Intl.message(
       'Year',
-      name: 'year',
+      name: 'yearOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Years`
+  String get yearOther {
+    return Intl.message(
+      'Years',
+      name: 'yearOther',
       desc: '',
       args: [],
     );
