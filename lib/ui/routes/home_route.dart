@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
     rebuild();
   }
 
-  //TODO Fix SliverFillRemaining filling too much of the screen
   @override
   Widget build(BuildContext context) {
     return SafeArea(
