@@ -1,0 +1,38 @@
+{
+	"[json]": {
+		"editor.formatOnSave": false
+	},
+	"[jsonc]": {
+		"editor.formatOnSave": false
+	},
+	"files.exclude": {
+		"**/.flutter": true,
+		"**/.jarCache": true,
+		"**/.idea": true,
+		"**/.dart_tool": true,
+		"**/.fvm": true
+	},
+	"workbench.localHistory.exclude": {
+		"**/.flutter": true
+	},
+	"files.watcherExclude": {
+		"**/.flutter": true
+	},
+	"search.exclude": {
+		"**/.flutter": true
+	},
+	"duplicated-code.exclude": [
+		"**/android",
+		"**/.dart_tool",
+		"**/.flutter",
+		"**/node_modules/**",
+		"**/coverage/**",
+		"**/dist/**",
+		"**/build/**"
+	],
+	"explorer.autoRevealExclude": {
+		"**/.flutter": true
+	},
+	"dart.analysisExcludedFolders": ["**/.flutter"],
+	"dart.doNotFormat": ["**/.flutter"]
+}
