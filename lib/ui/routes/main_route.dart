@@ -36,6 +36,9 @@ class RouteWidget extends StatefulWidget {
 
 class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin {
   late TabController tabController;
+  GlobalKey tabBarKey = GlobalKey();
+  bool tabBarIsScrollable = true;
+  bool tabBarSizeChecked = false;
 
   @override
   void initState() {
@@ -48,6 +51,30 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         if (widget.routeType != RouteType.home) return;
         Manager.currentTerm = tabController.index;
       });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (Manager.deserializationError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(translations.storage_error),
+          ),
+        );
+
+        Manager.deserializationError = false;
+      }
+
+      try {
+        if (tabBarSizeChecked || tabBarKey.currentContext?.size == null) return;
+      } catch (e) {
+        return;
+      }
+
+      if (tabBarKey.currentContext!.size!.width < MediaQuery.sizeOf(context).width) {
+        tabBarIsScrollable = false;
+        rebuild();
+      }
+      tabBarSizeChecked = true;
+    });
   }
 
   @override
@@ -78,18 +105,6 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (Manager.deserializationError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(translations.storage_error),
-          ),
-        );
-
-        Manager.deserializationError = false;
-      }
-    });
-
     return Scaffold(
       body: PlatformWillPopScope(
         onWillPop: () {
@@ -127,11 +142,17 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
                       forceElevated: innerBoxIsScrolled,
                     ),
                     if (widget.children.length > 1)
-                      TabBar(
-                        //TODO Set TabBar as unscrollable when not full width
-                        isScrollable: true,
-                        controller: tabController,
-                        tabs: getTabs(),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: TabBar(
+                              key: tabBarKey,
+                              isScrollable: tabBarIsScrollable,
+                              controller: tabController,
+                              tabs: getTabs(),
+                            ),
+                          ),
+                        ],
                       ),
                   ],
                 ),
