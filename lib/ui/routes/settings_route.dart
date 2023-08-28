@@ -111,7 +111,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
                           if (!success) return;
                           rebuildHomePage();
-                          Navigator.of(context).pop();
+                          Navigator.pop(context);
                         }),
                       ),
                     ],
