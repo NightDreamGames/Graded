@@ -19,8 +19,8 @@ class Year extends CalculationObject {
       t.calculate();
     }
 
-    double examCoefficient = defaultValues["exam_coefficient"] as double;
-    int notEmptyTerms = terms.where((element) => element.result != null && !element.isExam).length;
+    final double examCoefficient = defaultValues["exam_coefficient"] as double;
+    final int notEmptyTerms = terms.where((element) => element.result != null && !element.isExam).length;
 
     for (final Term t in terms) {
       if (t.isExam) {
@@ -54,7 +54,7 @@ class Year extends CalculationObject {
 
   Year.fromJson(Map<String, dynamic> json) {
     final termList = json["terms"] as List;
-    List<Term> t = termList.map((termJson) => Term.fromJson(termJson as Map<String, dynamic>)).toList();
+    final List<Term> t = termList.map((termJson) => Term.fromJson(termJson as Map<String, dynamic>)).toList();
 
     final termTemplateList = (json["term_template"] ?? []) as List<dynamic>;
     termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)).toList();

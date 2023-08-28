@@ -68,8 +68,8 @@ class _AppContainerState extends State<AppContainer> {
   Widget build(BuildContext context) {
     setOptimalDisplayMode();
 
-    ThemeMode brightness = ThemeMode.values.byName(getPreference<String>("theme"));
-    String localeName = getPreference<String>("language");
+    final ThemeMode brightness = ThemeMode.values.byName(getPreference<String>("theme"));
+    final String localeName = getPreference<String>("language");
 
     return ChangeNotifierProvider(
       create: (context) => LocaleProvider(locale: localeName != defaultValues["language"] ? Locale(localeName) : null),
@@ -127,21 +127,21 @@ Route<dynamic> createRoute(RouteSettings settings) {
     case "/settings":
       route = const SettingsPage();
     case "/subject_edit":
-      CreationType type = (settings.arguments as CreationType?) ?? CreationType.edit;
+      final CreationType type = (settings.arguments as CreationType?) ?? CreationType.edit;
       route = SubjectEditRoute(creationType: type);
     case "/subject":
       if (settings.arguments == null) {
         throw ArgumentError("No arguments passed to route");
       }
 
-      List<Subject?> arguments = settings.arguments! as List<Subject?>;
-      Subject? parent = arguments[0];
-      Subject subject = arguments[1]!;
+      final List<Subject?> arguments = settings.arguments! as List<Subject?>;
+      final Subject? parent = arguments[0];
+      final Subject subject = arguments[1]!;
 
-      List<Widget> children = List.generate(tabAmount, (index) {
-        Term term = getTerm(index);
-        Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
-        Subject newSubject = newParent != null
+      final List<Widget> children = List.generate(tabAmount, (index) {
+        final Term term = getTerm(index);
+        final Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
+        final Subject newSubject = newParent != null
             ? newParent.children.firstWhere((element) => element.name == subject.name)
             : term.subjects.firstWhere((element) => element.name == subject.name);
 
@@ -157,7 +157,7 @@ Route<dynamic> createRoute(RouteSettings settings) {
       route = const YearRoute();
     case "/":
     default:
-      List<Widget> children = List.generate(
+      final List<Widget> children = List.generate(
         tabAmount,
         (index) => HomePage(key: GlobalKey(), term: getTerm(index)),
       );
@@ -191,8 +191,8 @@ Route<dynamic> createRoute(RouteSettings settings) {
 }
 
 Future<void> setOptimalDisplayMode() async {
-  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
   if (!Platform.isAndroid || androidInfo.version.sdkInt < 23) return;
 

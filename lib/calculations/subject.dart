@@ -52,7 +52,7 @@ class Subject extends CalculationObject {
   }
 
   void editTest(int position, double numerator, double denominator, String name, {bool isSpeaking = false, int? timestamp}) {
-    Test t = tests[position];
+    final Test t = tests[position];
 
     t.numerator = numerator;
     t.denominator = denominator;

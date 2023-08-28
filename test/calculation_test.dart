@@ -23,10 +23,10 @@ void main() async {
   Manager.init();
 
   test("Calculations", () async {
-    List<CalculationObject> emptyList = [Test(null, 0), Test(null, 0), Test(null, 0)];
-    List<CalculationObject> oneItemList = [Test(80, 100)];
-    List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(68.7, 70), Test(50, 55)];
-    List<CalculationObject> speakingList = [Test(0, 60, isSpeaking: true), Test(60, 60)];
+    final List<CalculationObject> emptyList = [Test(null, 0), Test(null, 0), Test(null, 0)];
+    final List<CalculationObject> oneItemList = [Test(80, 100)];
+    final List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(68.7, 70), Test(50, 55)];
+    final List<CalculationObject> speakingList = [Test(0, 60, isSpeaking: true), Test(60, 60)];
 
     expect(Calculator.calculate([]), equals(null));
     expect(Calculator.calculate(emptyList), equals(null));
@@ -132,7 +132,7 @@ void main() async {
       Term(name: "Delta"),
     ];
 
-    List<CalculationObject> comparisonData = [
+    final List<CalculationObject> comparisonData = [
       Term(name: "Alpha"),
       Term(name: "Beta"),
       Term(name: "Gamma"),

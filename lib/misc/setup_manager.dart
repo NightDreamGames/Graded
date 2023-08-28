@@ -39,9 +39,9 @@ class SetupManager {
   }
 
   static Map<String, String> getSections([String? luxSystemOverride, int? yearOverride]) {
-    Map<String, String> result = <String, String>{};
-    String luxSystem = luxSystemOverride ?? getPreference<String>("lux_system");
-    int year = yearOverride ?? getPreference<int>("year");
+    final Map<String, String> result = <String, String>{};
+    final String luxSystem = luxSystemOverride ?? getPreference<String>("lux_system");
+    final int year = yearOverride ?? getPreference<int>("year");
 
     if (year == -1 || luxSystem.isEmpty) return result;
 
@@ -95,11 +95,11 @@ class SetupManager {
   }
 
   static Map<String, String> getVariants([String? luxSystemOverride, int? yearOverride, String? sectionOverride]) {
-    String luxSystem = luxSystemOverride ?? getPreference<String>("lux_system");
-    int year = yearOverride ?? getPreference<int>("year");
-    String section = sectionOverride ?? getPreference<String>("section");
+    final String luxSystem = luxSystemOverride ?? getPreference<String>("lux_system");
+    final int year = yearOverride ?? getPreference<int>("year");
+    final String section = sectionOverride ?? getPreference<String>("section");
 
-    Map<String, String> result = <String, String>{};
+    final Map<String, String> result = <String, String>{};
 
     if (year == -1 || luxSystem.isEmpty) return result;
 
@@ -158,7 +158,7 @@ class SetupManager {
   }
 
   static Future<void> completeSetup() async {
-    List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
+    final List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
 
     for (final String key in keys) {
       setPreference(key, defaultValues[key]);
@@ -206,18 +206,18 @@ class SetupManager {
   }
 
   static Future<List<Subject>> fillSubjects() async {
-    List<Subject> termTemplate = [];
-    int year = getPreference<int>("year");
-    String section = getPreference<String>("section");
-    String variant = getPreference<String>("variant");
+    final List<Subject> termTemplate = [];
+    final int year = getPreference<int>("year");
+    final String section = getPreference<String>("section");
+    final String variant = getPreference<String>("variant");
 
-    bool classic = getPreference<String>("lux_system") == "classic";
+    final bool classic = getPreference<String>("lux_system") == "classic";
     String letter = classic ? "C" : "G";
     if (variant == "P" || variant == "PF" || variant == "AD" || variant == "ADF") letter = "";
 
-    String className = year.toString() + letter + (classic ? variant : "") + section + (classic ? "" : variant);
+    final String className = year.toString() + letter + (classic ? variant : "") + section + (classic ? "" : variant);
 
-    String data = cache[classic ? 0 : 1] ?? (cache[classic ? 0 : 1] = await rootBundle.loadString(classic ? classicPath : generalPath));
+    final String data = cache[classic ? 0 : 1] ?? (cache[classic ? 0 : 1] = await rootBundle.loadString(classic ? classicPath : generalPath));
     final json = jsonDecode(data) as List;
 
     final Map<String, dynamic> classObject = json[binarySearch(
@@ -228,7 +228,7 @@ class SetupManager {
     )] as Map<String, dynamic>;
 
     for (final subject in (classObject["subjects"] as List<dynamic>).cast<Map<String, dynamic>>()) {
-      Subject newSubject = Subject(
+      final Subject newSubject = Subject(
         subject["name"] as String,
         (subject["coefficient"] as int?)?.toDouble() ?? 0,
         defaultValues["speaking_weight"] as double,

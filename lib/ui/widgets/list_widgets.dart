@@ -264,7 +264,7 @@ class _SubjectTileState extends State<SubjectTile> {
 
   @override
   Widget build(BuildContext context) {
-    String coefficientString = Calculator.format(widget.subject.coefficient, addZero: false, roundToOverride: 1);
+    final String coefficientString = Calculator.format(widget.subject.coefficient, addZero: false, roundToOverride: 1);
 
     showTutorial(context);
 
@@ -313,7 +313,7 @@ class _SubjectTileState extends State<SubjectTile> {
                   sortModeOverride: SortMode.name,
                   sortDirectionOverride: SortDirection.ascending,
                 );
-                int newIndex = getCurrentYear().termTemplate.indexOf(parent);
+                final int newIndex = getCurrentYear().termTemplate.indexOf(parent);
 
                 if (widget.subject.isChild) {
                   getCurrentYear().termTemplate[newIndex].children.removeWhere((element) => element.name == widget.subject.name);
@@ -323,7 +323,7 @@ class _SubjectTileState extends State<SubjectTile> {
 
                 for (final Term t in getCurrentYear().terms) {
                   if (widget.subject.isChild) {
-                    Subject parent = t.subjects[newIndex];
+                    final Subject parent = t.subjects[newIndex];
                     parent.children.removeWhere((element) => element.name == widget.subject.name);
                     parent.isGroup = parent.children.isNotEmpty;
                   } else {
@@ -358,17 +358,17 @@ class ReorderableHandle extends StatelessWidget {
       icon: const Icon(Icons.drag_handle),
       onPressed: () {
         if (target.index1 == 0 && !target.subject.isChild) return;
-        List<List<Subject>> lists = [getCurrentYear().termTemplate];
+        final List<List<Subject>> lists = [getCurrentYear().termTemplate];
         for (final Term term in getCurrentYear().terms) {
           lists.add(term.subjects);
         }
 
-        bool isChild = target.subject.isChild;
+        final bool isChild = target.subject.isChild;
 
         for (final List<Subject> list in lists) {
           if (!isChild) {
-            Subject parent = list[target.index1 - 1];
-            Subject child = list.removeAt(target.index1);
+            final Subject parent = list[target.index1 - 1];
+            final Subject child = list.removeAt(target.index1);
 
             parent.isGroup = true;
             child.isChild = true;
@@ -377,8 +377,8 @@ class ReorderableHandle extends StatelessWidget {
             parent.children.addAll([child, ...child.children]);
             child.children.clear();
           } else {
-            Subject parent = list[target.index1];
-            Subject child = parent.children.removeAt(target.index2);
+            final Subject parent = list[target.index1];
+            final Subject child = parent.children.removeAt(target.index2);
             list.insert(target.index1 + 1, child..isChild = false);
             if (parent.children.isEmpty) parent.isGroup = false;
           }

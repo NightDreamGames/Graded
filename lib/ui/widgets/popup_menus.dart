@@ -63,7 +63,7 @@ class SortAction extends StatelessWidget {
   }
 
   PopupMenuItem<int> getPopupMenuItem(int value, String title) {
-    int sortDirection = getPreference<int>("sort_direction$sortType");
+    final int sortDirection = getPreference<int>("sort_direction$sortType");
     IconData icon = Icons.check;
     switch (sortDirection) {
       case SortDirection.ascending:
@@ -108,10 +108,10 @@ class SettingsAction extends StatelessWidget {
 }
 
 Future<T?> showMenuActions<T>(BuildContext context, GlobalKey listKey, List<T> actionsEnum, List<String> translations) async {
-  RenderBox? box = listKey.currentContext?.findRenderObject() as RenderBox?;
+  final RenderBox? box = listKey.currentContext?.findRenderObject() as RenderBox?;
   if (box == null) return Future.value();
 
-  Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
+  final Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
 
   return showMenu(
     context: context,

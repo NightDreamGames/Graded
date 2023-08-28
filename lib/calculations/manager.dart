@@ -63,7 +63,7 @@ class Manager {
   }
 
   static void addYear({List<Subject> termTemplate = const []}) {
-    Year year = Year(termTemplate);
+    final Year year = Year(termTemplate);
     years.add(year);
     year.name = getHint(translations.yearOne, years);
     changeYear(years.length - 1);
@@ -116,13 +116,13 @@ class Manager {
     }
 
     for (int i = 0; i < year.terms.length; i++) {
-      Term t = year.terms[i];
+      final Term t = year.terms[i];
       for (int j = 0; j < t.subjects.length; j++) {
-        Subject s = yearOverview.subjects[j];
+        final Subject s = yearOverview.subjects[j];
 
         if (s.isGroup) {
           for (int k = 0; k < s.children.length; k++) {
-            double? subjectResult = t.subjects[j].children[k].result;
+            final double? subjectResult = t.subjects[j].children[k].result;
             s.children[k].addTest(
               Test(
                 subjectResult ?? 0,
@@ -135,7 +135,7 @@ class Manager {
             );
           }
         } else {
-          double? subjectResult = t.subjects[j].result;
+          final double? subjectResult = t.subjects[j].result;
 
           s.addTest(
             Test(
@@ -186,7 +186,7 @@ Term getYearOverview() {
 }
 
 Term createYearOverview({required Year year}) {
-  Term yearOverview = Term(isYearOverview: true);
+  final Term yearOverview = Term(isYearOverview: true);
 
   Manager.refreshYearOverview(yearOverview: yearOverview, year: year);
 

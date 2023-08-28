@@ -18,8 +18,8 @@ class AppBarTitle extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         final bool collapsed = constraints.biggest.height == 64;
 
-        double paddingLeft = collapsed && Navigator.canPop(context) ? 40 : 8;
-        double paddingRight = collapsed ? 0 : 8;
+        final double paddingLeft = collapsed && Navigator.canPop(context) ? 40 : 8;
+        final double paddingRight = collapsed ? 0 : 8;
 
         return SafeArea(
           top: false,

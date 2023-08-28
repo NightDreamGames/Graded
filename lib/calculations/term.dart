@@ -31,7 +31,7 @@ class Term extends CalculationObject {
       if (!s.isGroup) {
         subjects.add(Subject(s.name, s.coefficient, s.speakingWeight));
       } else {
-        Subject group = Subject(s.name, s.coefficient, s.speakingWeight, isGroup: true);
+        final Subject group = Subject(s.name, s.coefficient, s.speakingWeight, isGroup: true);
         subjects.add(group);
         for (final Subject child in s.children) {
           group.children.add(Subject(child.name, child.coefficient, child.speakingWeight));
@@ -45,7 +45,7 @@ class Term extends CalculationObject {
       s.calculate();
     }
 
-    List<Subject> toBeCalculated = [...subjects];
+    final List<Subject> toBeCalculated = [...subjects];
     for (int i = 0; i < toBeCalculated.length; i++) {
       if (toBeCalculated[i].coefficient == 0) {
         toBeCalculated.addAll(toBeCalculated[i].children);
@@ -81,7 +81,7 @@ class Term extends CalculationObject {
     if (json["subjects"] == null) return;
 
     final subjectList = json["subjects"] as List;
-    List<Subject> s = subjectList.map((subjectJson) {
+    final List<Subject> s = subjectList.map((subjectJson) {
       return Subject.fromJson(subjectJson as Map<String, dynamic>);
     }).toList();
 

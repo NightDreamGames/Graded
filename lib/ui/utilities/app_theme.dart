@@ -12,9 +12,9 @@ class AppTheme {
     lightColorScheme = light;
     darkColorScheme = dark;
 
-    ColorScheme scheme = brightness == Brightness.light ? lightTheme() : darkTheme();
+    final ColorScheme scheme = brightness == Brightness.light ? lightTheme() : darkTheme();
 
-    ThemeData theme = ThemeData.from(
+    final ThemeData theme = ThemeData.from(
       colorScheme: scheme,
       useMaterial3: true,
     );
@@ -54,7 +54,7 @@ class AppTheme {
   }
 
   static ColorScheme lightTheme() {
-    ColorScheme scheme = lightColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3));
+    final ColorScheme scheme = lightColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3));
     //scheme = ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.light);
     //scheme = const ColorScheme.light();
 
@@ -62,7 +62,7 @@ class AppTheme {
   }
 
   static ColorScheme darkTheme() {
-    ColorScheme scheme = darkColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.dark);
+    final ColorScheme scheme = darkColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.dark);
     //scheme = ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.dark);
     //scheme = const ColorScheme.dark();
 

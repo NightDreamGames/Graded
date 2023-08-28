@@ -21,7 +21,7 @@ class Calculator {
   }) {
     if (data.length < 2) return;
 
-    int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
+    final int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
     int sortMode = getPreference<int>("sort_mode$sortType");
     if (sortModeOverride != null && sortMode != SortMode.custom) {
       sortMode = sortModeOverride;
@@ -78,11 +78,11 @@ class Calculator {
   }
 
   static double? calculate(Iterable<CalculationObject> data, {int bonus = 0, bool precise = false, double speakingWeight = 1}) {
-    bool isNullFilled = data.every((element) => element.numerator == null || element.denominator == 0);
+    final bool isNullFilled = data.every((element) => element.numerator == null || element.denominator == 0);
 
     if (data.isEmpty || isNullFilled) return null;
 
-    double totalGrades = getPreference<double>("total_grades");
+    final double totalGrades = getPreference<double>("total_grades");
 
     double totalNumerator = 0;
     double totalDenominator = 0;
@@ -104,16 +104,16 @@ class Calculator {
     if (result.isNaN) result = resultSpeaking;
     if (resultSpeaking.isNaN) resultSpeaking = result;
 
-    double totalResult = (result * speakingWeight + resultSpeaking) / (speakingWeight + 1) + bonus;
+    final double totalResult = (result * speakingWeight + resultSpeaking) / (speakingWeight + 1) + bonus;
 
     return round(totalResult, roundToOverride: precise ? 100 : null);
   }
 
   static double round(double n, {String? roundingModeOverride, int? roundToOverride}) {
-    String roundingMode = roundingModeOverride ?? getPreference<String>("rounding_mode");
-    int roundTo = roundToOverride ?? getPreference<int>("round_to");
+    final String roundingMode = roundingModeOverride ?? getPreference<String>("rounding_mode");
+    final int roundTo = roundToOverride ?? getPreference<int>("round_to");
 
-    double round = n * roundTo;
+    final double round = n * roundTo;
 
     switch (roundingMode) {
       case RoundingMode.up:
@@ -121,13 +121,13 @@ class Calculator {
       case RoundingMode.down:
         return round.floorToDouble() / roundTo;
       case RoundingMode.halfUp:
-        double base = round.floorToDouble();
-        double decimals = n - base;
+        final double base = round.floorToDouble();
+        final double decimals = n - base;
 
         return (decimals < 0.5 ? base : base + 1) / roundTo;
       case RoundingMode.halfDown:
-        double base = round.floorToDouble();
-        double decimals = n - base;
+        final double base = round.floorToDouble();
+        final double decimals = n - base;
 
         return (decimals <= 0.5 ? base : base + 1) / roundTo;
       default:
@@ -143,7 +143,7 @@ class Calculator {
   static String format(double? n, {bool addZero = true, int? roundToOverride}) {
     if (n == null || n.isNaN) return "-";
 
-    int roundTo = roundToOverride ?? getPreference<int>("round_to");
+    final int roundTo = roundToOverride ?? getPreference<int>("round_to");
     String result;
 
     int nbDecimals = log(roundTo) ~/ log(10);

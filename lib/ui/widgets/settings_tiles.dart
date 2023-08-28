@@ -12,7 +12,7 @@ import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 List<Widget> getSettingsTiles(BuildContext context, {required CreationType type, Function()? onChanged}) {
-  String subjectEditingPageTitle = type == CreationType.add ? translations.add_subjectOther : translations.edit_subjectOther;
+  final String subjectEditingPageTitle = type == CreationType.add ? translations.add_subjectOther : translations.edit_subjectOther;
 
   return [
     SimpleSettingsTile(
@@ -43,7 +43,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
       initialValue: defaultValues["total_grades"].toString(),
       icon: Icons.vertical_align_top,
       onChange: (value) {
-        double? parsed = Calculator.tryParse(value);
+        final double? parsed = Calculator.tryParse(value);
         if (parsed == null) return;
 
         setPreference<double>("total_grades", parsed);
@@ -53,7 +53,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
       },
       numeric: true,
       additionalValidator: (newValue) {
-        double? number = Calculator.tryParse(newValue);
+        final double? number = Calculator.tryParse(newValue);
 
         if (number == null || number <= 0) {
           return translations.invalid;

@@ -57,8 +57,8 @@ class _YearRouteState extends State<YearRoute> {
                 primary: true,
                 itemCount: Manager.years.length,
                 itemBuilder: (context, index) {
-                  Year year = Manager.years[index];
-                  GlobalKey key = GlobalKey();
+                  final Year year = Manager.years[index];
+                  final GlobalKey key = GlobalKey();
                   return Column(
                     children: [
                       ListTile(

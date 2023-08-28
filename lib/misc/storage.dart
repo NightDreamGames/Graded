@@ -69,28 +69,28 @@ String getExportData() {
     jsonObject.putIfAbsent(s, () => getPreference(s));
   }
 
-  String json = jsonEncode(jsonObject);
+  final String json = jsonEncode(jsonObject);
 
   return json;
 }
 
 Future<void> exportData() async {
-  DateTime now = DateTime.now();
+  final DateTime now = DateTime.now();
   final DateFormat formatter = DateFormat("yyyy-MM-dd");
   final String formatted = formatter.format(now);
 
   String extension = ".json";
 
   if (Platform.isAndroid) {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
     if (androidInfo.version.sdkInt >= 29) {
       extension = "";
     }
   }
 
-  String fileName = "graded-export-$formatted$extension";
+  final String fileName = "graded-export-$formatted$extension";
 
   final params = SaveFileDialogParams(
     fileName: fileName,
@@ -102,7 +102,7 @@ Future<void> exportData() async {
 }
 
 Future<bool> importData() async {
-  String backup = getExportData();
+  final String backup = getExportData();
   bool error = false;
 
   try {
@@ -112,8 +112,8 @@ Future<bool> importData() async {
     );
     final filePath = await FlutterFileDialog.pickFile(params: params);
 
-    File file = File(filePath!);
-    String data = String.fromCharCodes(file.readAsBytesSync());
+    final File file = File(filePath!);
+    final String data = String.fromCharCodes(file.readAsBytesSync());
 
     restoreData(data);
   } catch (e) {

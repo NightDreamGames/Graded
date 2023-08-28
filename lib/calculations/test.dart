@@ -16,7 +16,7 @@ class Test extends CalculationObject {
     result = isEmpty ? null : Calculator.calculate([this]);
     if (result == null) numerator = null;
 
-    DateTime now = DateTime.now();
+    final DateTime now = DateTime.now();
     this.timestamp = timestamp ?? DateTime(now.year, now.month, now.day).millisecondsSinceEpoch;
   }
 

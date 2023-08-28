@@ -16,7 +16,7 @@ String getHint(String prefix, List<CalculationObject> data) {
 }
 
 String getTitle({required int termIndex}) {
-  int maxTerms = getPreference<int>("term");
+  final int maxTerms = getPreference<int>("term");
 
   if (termIndex == -1) return translations.year_overview;
 

@@ -128,7 +128,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                   delegate: SliverChildBuilderDelegate(
                     childCount: widget.subject.tests.length,
                     (context, index) {
-                      GlobalKey listKey = GlobalKey();
+                      final GlobalKey listKey = GlobalKey();
                       return TextRow(
                         listKey: listKey,
                         leading: widget.subject.tests[index].name,

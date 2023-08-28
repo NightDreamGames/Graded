@@ -58,7 +58,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
   @override
   Widget build(BuildContext context) {
-    String title = widget.creationType == CreationType.edit ? translations.edit_subjectOther : translations.add_subjectOther;
+    final String title = widget.creationType == CreationType.edit ? translations.edit_subjectOther : translations.add_subjectOther;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -115,8 +115,8 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
 
     final oldIndexes = getSubjectIndexes(oldIndex);
     final newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
-    int oldIndex1 = oldIndexes[0];
-    int oldIndex2 = oldIndexes[1];
+    final int oldIndex1 = oldIndexes[0];
+    final int oldIndex2 = oldIndexes[1];
     int newIndex1 = newIndexes[0];
     int newIndex2 = newIndexes[1];
 
@@ -129,7 +129,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       return;
     }
 
-    List<List<Subject>> lists = [termTemplate];
+    final List<List<Subject>> lists = [termTemplate];
     if (widget.creationType == CreationType.edit) {
       lists.addAll(getCurrentYear().terms.map((term) => term.subjects));
     }
@@ -161,11 +161,11 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
   }
 
   List<Widget> buildTiles() {
-    List<Widget> result = [];
+    final List<Widget> result = [];
     int reorderIndex = 0;
 
     for (int i = 0; i < termTemplate.length; i++) {
-      Subject element = termTemplate[i];
+      final Subject element = termTemplate[i];
       result.add(
         SubjectTile(
           key: ValueKey(element),
@@ -181,7 +181,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       );
       reorderIndex++;
       for (int j = 0; j < element.children.length; j++) {
-        Subject child = element.children[j];
+        final Subject child = element.children[j];
         result.add(
           SubjectTile(
             key: ValueKey(child),
@@ -209,7 +209,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     int index2 = -1;
 
     for (int i = 0; i < termTemplate.length; i++) {
-      int childAmount = termTemplate[i].children.length;
+      final int childAmount = termTemplate[i].children.length;
       if (subjectCount + childAmount + (childAmount > 0 ? addedIndex : 0) >= absoluteIndex) {
         break;
       }

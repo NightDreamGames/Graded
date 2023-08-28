@@ -137,7 +137,7 @@ Future<void> showTestDialog(
   maximumController.clear();
   nameController.clear();
 
-  CreationType action = index == null ? CreationType.add : CreationType.edit;
+  final CreationType action = index == null ? CreationType.add : CreationType.edit;
 
   gradeController.text = action == CreationType.edit ? Calculator.format(subject.tests[index!].numerator, addZero: false) : "";
   maximumController.text =
@@ -160,9 +160,9 @@ Future<void> showTestDialog(
             icon: action == CreationType.add ? Icons.add : Icons.edit,
             bottomPadding: 0,
             onConfirm: () {
-              String name = nameController.text.isEmpty ? getHint(translations.testOne, subject.tests) : nameController.text;
-              double numerator = Calculator.tryParse(gradeController.text) ?? 1;
-              double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
+              final String name = nameController.text.isEmpty ? getHint(translations.testOne, subject.tests) : nameController.text;
+              final double numerator = Calculator.tryParse(gradeController.text) ?? 1;
+              final double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
 
               if (action == CreationType.add) {
                 subject.addTest(Test(numerator, denominator, name: name, isSpeaking: isSpeaking, timestamp: timestamp));
@@ -216,7 +216,7 @@ Future<void> showTestDialog(
                           dialogKey.currentState?.submit();
                         },
                         additionalValidator: (newValue) {
-                          double? number = Calculator.tryParse(newValue);
+                          final double? number = Calculator.tryParse(newValue);
 
                           if (number != null && number <= 0) {
                             return translations.invalid;
@@ -259,7 +259,7 @@ Future<void> showTestDialog(
                         icon: const Icon(Icons.calendar_month),
                         tooltip: translations.select_date,
                         onPressed: () {
-                          DateTime now = DateTime.now();
+                          final DateTime now = DateTime.now();
                           showDatePicker(
                             context: context,
                             initialDate: timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp!) : DateTime(now.year, now.month, now.day),
@@ -294,9 +294,9 @@ Future<void> showSubjectDialog(
   nameController.clear();
   speakingController.clear();
 
-  CreationType action = index1 == null ? CreationType.add : CreationType.edit;
+  final CreationType action = index1 == null ? CreationType.add : CreationType.edit;
 
-  Subject subject = action == CreationType.add
+  final Subject subject = action == CreationType.add
       ? Subject("", 0, 0)
       : index2 == null
           ? termTemplate[index1!]
@@ -314,15 +314,15 @@ Future<void> showSubjectDialog(
         title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
         icon: action == CreationType.add ? Icons.add : Icons.edit,
         onConfirm: () {
-          String name = nameController.text.isEmpty ? getHint(translations.subjectOne, termTemplate) : nameController.text;
-          double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
+          final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, termTemplate) : nameController.text;
+          final double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
           double speakingWeight = Calculator.tryParse(speakingController.text) ?? (defaultValues["speaking_weight"] as double) + 1;
           speakingWeight--;
           if (speakingWeight <= 0) speakingWeight = 1;
 
           if (action == CreationType.add) {
-            List<List<Subject>> lists = [termTemplate];
+            final List<List<Subject>> lists = [termTemplate];
             if (yearAction == CreationType.edit) {
               lists.addAll(getCurrentYear().terms.map((term) => term.subjects));
             }
@@ -343,8 +343,8 @@ Future<void> showSubjectDialog(
             if (yearAction == CreationType.edit) {
               for (final Term t in getCurrentYear().terms) {
                 for (int i = 0; i < t.subjects.length; i++) {
-                  Subject s = t.subjects[i];
-                  Subject template = termTemplate[i];
+                  final Subject s = t.subjects[i];
+                  final Subject template = termTemplate[i];
 
                   s.name = template.name;
                   s.coefficient = template.coefficient;
@@ -408,7 +408,7 @@ Future<void> showSubjectDialog(
                     numeric: true,
                     textInputAction: TextInputAction.next,
                     additionalValidator: (newValue) {
-                      double? number = Calculator.tryParse(newValue);
+                      final double? number = Calculator.tryParse(newValue);
 
                       if (number != null && number < 0) {
                         return translations.invalid;
@@ -445,7 +445,7 @@ Future<void> showSubjectDialog(
                       dialogKey.currentState?.submit();
                     },
                     additionalValidator: (newValue) {
-                      double? number = Calculator.tryParse(newValue);
+                      final double? number = Calculator.tryParse(newValue);
 
                       if (number != null && number < 1) {
                         return translations.invalid;

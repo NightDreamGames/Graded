@@ -16,7 +16,7 @@ class Compatibility {
   static const dataVersion = 12;
 
   static void upgradeDataVersion({bool imported = false}) {
-    int currentDataVersion = getPreference<int>("data_version");
+    final int currentDataVersion = getPreference<int>("data_version");
 
     if (!getPreference<bool>("is_first_run") || imported) {
       if (currentDataVersion < 2) {
@@ -33,7 +33,7 @@ class Compatibility {
       }
 
       if (currentDataVersion < 6) {
-        String variant = getPreference<String>("variant");
+        final String variant = getPreference<String>("variant");
         String newVariant = "";
         if (variant == "latin") {
           newVariant = "L";
@@ -42,7 +42,7 @@ class Compatibility {
         }
         setPreference<String>("variant", newVariant);
 
-        String year = getPreference<String>("year", "");
+        final String year = getPreference<String>("year", "");
         setPreference<int>("year", year.isNotEmpty ? int.parse(year.substring(0, 1)) : -1);
 
         setPreference<String>("validated_school_system", getPreference<String>("school_system"));
@@ -78,7 +78,7 @@ class Compatibility {
             setPreference<String>("validated_variant", defaultValues["validated_variant"] as String);
           }
         } else {
-          List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
+          final List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
 
           for (final String key in keys) {
             setPreference(key, defaultValues[key]);
@@ -89,7 +89,7 @@ class Compatibility {
       if (currentDataVersion < 9) {
         //Sort direction
         for (var sortType = 1; sortType <= 2; sortType++) {
-          int sortMode = getPreference<int>("sort_mode$sortType");
+          final int sortMode = getPreference<int>("sort_mode$sortType");
           int sortDirection = SortDirection.notApplicable;
 
           switch (sortMode) {
@@ -108,7 +108,7 @@ class Compatibility {
       if (currentDataVersion < 10) {
         //Fix exam coefficient
         if (getPreference<String>("validated_school_system") == "lux" && getPreference<int>("validated_year") == 1) {
-          Iterable<Term> examTerms = getCurrentYear().terms.where((element) => element.coefficient == 2);
+          final Iterable<Term> examTerms = getCurrentYear().terms.where((element) => element.coefficient == 2);
 
           for (final examTerm in examTerms) {
             examTerm.isExam = true;
@@ -118,7 +118,7 @@ class Compatibility {
 
       if (currentDataVersion < 11) {
         //Change currentTerm behavior
-        int currentTerm = getPreference<int>("current_term");
+        final int currentTerm = getPreference<int>("current_term");
         if (currentTerm == -1) {
           setPreference("current_term", 0);
         }
@@ -140,16 +140,16 @@ class Compatibility {
   }
 
   static void termCount() {
-    int termCount = getPreference<int>("term");
-    bool hasExam = getPreference<int>("validated_year") == 1;
+    final int termCount = getPreference<int>("term");
+    final bool hasExam = getPreference<int>("validated_year") == 1;
     Manager.currentTerm = 0;
 
     for (final Year year in Manager.years) {
-      List<Term> terms = year.terms;
-      bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
+      final List<Term> terms = year.terms;
+      final bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
 
       while (terms.length > termCount + (hasExam ? 1 : 0)) {
-        int index = terms.length - 1 - (hasExam ? 1 : 0);
+        final int index = terms.length - 1 - (hasExam ? 1 : 0);
         terms.removeAt(index);
       }
 

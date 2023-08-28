@@ -545,7 +545,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
   Widget _buildTextField(BuildContext context, String value, OnChanged<String> onChanged) {
     _controller.text = value;
-    FocusNode focusNode = FocusNode();
+    final FocusNode focusNode = FocusNode();
 
     return Form(
       key: _formKey,
@@ -585,7 +585,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
   void _onSave(String? newValue, OnChanged<String> onChanged) {
     if (newValue == null) return;
-    String value = Calculator.format(Calculator.tryParse(newValue), addZero: false, roundToOverride: 1);
+    final String value = Calculator.format(Calculator.tryParse(newValue), addZero: false, roundToOverride: 1);
     _controller.text = newValue;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onChanged(value);
@@ -701,7 +701,7 @@ class SwitchSettingsTile extends StatelessWidget {
       cacheKey: settingKey,
       defaultValue: defaultValue,
       builder: (BuildContext context, bool value, OnChanged<bool> onChanged) {
-        Widget mainWidget = _SettingsTile(
+        final Widget mainWidget = _SettingsTile(
           leading: leading,
           title: title,
           subtitle: getSubtitle(enabled: value),

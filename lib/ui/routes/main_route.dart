@@ -201,7 +201,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
     }
     items.add(translations.year_overview);
 
-    List<Tab> entries = List.generate(items.length, (index) => Tab(text: items[index]));
+    final List<Tab> entries = List.generate(items.length, (index) => Tab(text: items[index]));
 
     return entries;
   }
