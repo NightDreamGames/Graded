@@ -44,7 +44,7 @@ flutter:
       fonts:
         - asset: assets/fonts/CustomIcons.ttf
   assets:
-    - assets/class_data/
+    - assets/class_data/lux/
     - assets/illustrations/
 
 flutter_intl:
