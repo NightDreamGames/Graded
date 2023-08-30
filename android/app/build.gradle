@@ -32,7 +32,6 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-	compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -51,7 +50,8 @@ android {
     defaultConfig {
         applicationId "com.NightDreamGames.Grade.ly"
         minSdkVersion 21
-        targetSdkVersion 33
+        compileSdk 34
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         vectorDrawables.generatedDensities = []
