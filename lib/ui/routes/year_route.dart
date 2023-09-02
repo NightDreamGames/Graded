@@ -2,6 +2,7 @@
 import "package:flutter/material.dart";
 
 // Project imports:
+import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
@@ -64,7 +65,25 @@ class _YearRouteState extends State<YearRoute> {
                       ListTile(
                         key: key,
                         title: Text(year.name),
-                        trailing: Manager.currentYear == index ? const Icon(Icons.check) : null,
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            if (Manager.currentYear == index) const Icon(Icons.check),
+                            SizedBox(
+                              width: 40 * MediaQuery.textScaleFactorOf(context),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  Calculator.format(year.result),
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         onTap: () {
                           showMenuActions<YearAction>(
                             context,
