@@ -78,6 +78,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                       ? Row(
                           children: [
                             SizedBox(
+                              //TODO check if still necessary
                               width: (Theme.of(context).platform == TargetPlatform.android ? 100 : 110) * MediaQuery.textScaleFactorOf(context),
                               child: Text(
                                 "${translations.bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : "  "}",

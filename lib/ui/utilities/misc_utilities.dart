@@ -1,6 +1,9 @@
 // Dart imports:
 import "dart:io" show Platform;
 
+// Flutter imports:
+import "package:flutter/foundation.dart";
+
 // Package imports:
 import "package:url_launcher/url_launcher.dart";
 
@@ -30,9 +33,9 @@ Future<void> launchURL(Link type) async {
     case Link.website:
       link = websiteLaunchUri;
     case Link.store:
-      if (Platform.isAndroid) {
+      if (isAndroid) {
         link = playStoreLaunchUri;
-      } else if (Platform.isIOS) {
+      } else if (isiOS) {
         link = appStoreLaunchUri;
       } else {
         link = websiteLaunchUri;
@@ -50,3 +53,7 @@ Future<void> launchURL(Link type) async {
     throw "Error while opening link: $link";
   }
 }
+
+bool isAndroid = !kIsWeb && Platform.isAndroid;
+bool isiOS = !kIsWeb && Platform.isIOS;
+bool isWeb = kIsWeb;

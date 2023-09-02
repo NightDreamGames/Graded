@@ -1,6 +1,3 @@
-// Dart imports:
-import "dart:io" show Platform;
-
 // Flutter imports:
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
@@ -32,6 +29,7 @@ import "package:graded/ui/routes/subject_route.dart";
 import "package:graded/ui/routes/year_route.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/app_theme.dart";
+import "package:graded/ui/utilities/misc_utilities.dart";
 
 final GlobalKey appContainerKey = GlobalKey();
 
@@ -191,10 +189,12 @@ Route<dynamic> createRoute(RouteSettings settings) {
 }
 
 Future<void> setOptimalDisplayMode() async {
+  if (!isAndroid) return;
+
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-  if (!Platform.isAndroid || androidInfo.version.sdkInt < 23) return;
+  if (androidInfo.version.sdkInt < 23) return;
 
   await FlutterDisplayMode.setHighRefreshRate();
 }
