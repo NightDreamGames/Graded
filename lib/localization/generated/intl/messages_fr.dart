@@ -41,10 +41,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "basic": MessageLookupByLibrary.simpleMessage("Basique"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
-        "change_class":
-            MessageLookupByLibrary.simpleMessage("Changer la classe"),
-        "change_class_description": MessageLookupByLibrary.simpleMessage(
-            "Appuyez ici pour sélectionner une nouvelle classe. Cela supprimera toutes vos notes sauvegardées."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Classe"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
@@ -220,6 +216,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setup": MessageLookupByLibrary.simpleMessage("Configuration"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Glissez pour changer l\'ordre des matières"),
+        "showcase_precise_average": MessageLookupByLibrary.simpleMessage(
+            "Appuyez ici pour afficher la moyenne précise"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
             "Appuyez ici pour faire de cette matière une sous-matière et de la matière au-dessus un groupe de matières"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Trier par"),
