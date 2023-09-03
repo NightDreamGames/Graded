@@ -103,7 +103,7 @@ class Manager {
     yearOverview ??= getYearOverview();
     year ??= getCurrentYear();
 
-    Manager.sortAll(
+    sortAll(
       sortModeOverride: SortMode.name,
       sortDirectionOverride: SortDirection.ascending,
     );
@@ -157,7 +157,7 @@ class Manager {
     }
 
     yearOverview.calculate();
-    Manager.sortAll();
+    sortAll();
     yearOverview.sort();
 
     return yearOverview;
