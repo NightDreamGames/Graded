@@ -25,11 +25,6 @@ final Map<String, dynamic> defaultValues = {
   "year": -1,
   "section": "",
   "variant": "",
-  "validated_school_system": "",
-  "validated_lux_system": "",
-  "validated_year": -1,
-  "validated_section": "",
-  "validated_variant": "",
   //App settings
   "theme": "system",
   "brightness": "dark",

@@ -5,7 +5,6 @@ import "package:flutter/material.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/localization/translations.dart";
-import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
@@ -26,7 +25,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
       icon: Icons.access_time_outlined,
       settingKey: "term",
       onChange: (_) {
-        Compatibility.termCount();
+        getCurrentYear().ensureTermCount();
         onChanged?.call();
       },
       values: <int, String>{

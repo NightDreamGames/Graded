@@ -5,7 +5,6 @@ import "package:flutter/material.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/default_values.dart";
@@ -287,8 +286,6 @@ Future<void> showSubjectDialog(
   TextEditingController speakingController, {
   int? index1,
   int? index2,
-  CreationType yearAction = CreationType.edit,
-  required List<Subject> termTemplate,
 }) async {
   coeffController.clear();
   nameController.clear();
@@ -299,13 +296,14 @@ Future<void> showSubjectDialog(
   final Subject subject = action == CreationType.add
       ? Subject("", 0, 0)
       : index2 == null
-          ? termTemplate[index1!]
-          : termTemplate[index1!].children[index2];
+          ? getCurrentYear().termTemplate[index1!]
+          : getCurrentYear().termTemplate[index1!].children[index2];
   coeffController.text = action == CreationType.edit ? Calculator.format(subject.coefficient, addZero: false, roundToOverride: 1) : "";
   nameController.text = action == CreationType.edit ? subject.name : "";
   speakingController.text = action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false) : "";
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
+
   return showDialog(
     context: context,
     builder: (context) {
@@ -314,7 +312,7 @@ Future<void> showSubjectDialog(
         title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
         icon: action == CreationType.add ? Icons.add : Icons.edit,
         onConfirm: () {
-          final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, termTemplate) : nameController.text;
+          final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, getCurrentYear().termTemplate) : nameController.text;
           final double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
 
           double speakingWeight = Calculator.tryParse(speakingController.text) ?? (defaultValues["speaking_weight"] as double) + 1;
@@ -322,41 +320,9 @@ Future<void> showSubjectDialog(
           if (speakingWeight <= 0) speakingWeight = 1;
 
           if (action == CreationType.add) {
-            final List<List<Subject>> lists = [termTemplate];
-            if (yearAction == CreationType.edit) {
-              lists.addAll(getCurrentYear().terms.map((term) => term.subjects));
-            }
-
-            for (final List<Subject> t in lists) {
-              t.add(Subject(name, coefficient, speakingWeight));
-            }
+            getCurrentYear().addSubject(Subject(name, coefficient, speakingWeight));
           } else {
-            Manager.sortAll(
-              sortModeOverride: SortMode.name,
-              sortDirectionOverride: SortDirection.ascending,
-            );
-
-            subject.name = name;
-            subject.coefficient = coefficient;
-            subject.speakingWeight = speakingWeight;
-
-            if (yearAction == CreationType.edit) {
-              for (final Term t in getCurrentYear().terms) {
-                for (int i = 0; i < t.subjects.length; i++) {
-                  final Subject s = t.subjects[i];
-                  final Subject template = termTemplate[i];
-
-                  s.name = template.name;
-                  s.coefficient = template.coefficient;
-                  s.speakingWeight = template.speakingWeight;
-                  for (int j = 0; j < t.subjects[i].children.length; j++) {
-                    s.children[j].name = template.children[j].name;
-                    s.children[j].coefficient = template.children[j].coefficient;
-                    s.children[j].speakingWeight = template.children[j].speakingWeight;
-                  }
-                }
-              }
-            }
+            getCurrentYear().editSubject(subject, name, coefficient, speakingWeight);
           }
 
           Manager.calculate();
@@ -371,10 +337,10 @@ Future<void> showSubjectDialog(
                 controller: nameController,
                 autofocus: true,
                 label: translations.name,
-                hint: getHint(translations.subjectOne, termTemplate),
+                hint: getHint(translations.subjectOne, getCurrentYear().termTemplate),
                 textInputAction: TextInputAction.next,
                 additionalValidator: (newValue) {
-                  if (termTemplate.any((element) {
+                  if (getCurrentYear().termTemplate.any((element) {
                     if (action == CreationType.edit && element == subject) {
                       return false;
                     }

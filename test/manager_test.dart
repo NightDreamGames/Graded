@@ -9,6 +9,7 @@ import "package:test/test.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/test.dart";
+import "package:graded/calculations/year.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
@@ -20,6 +21,7 @@ void main() async {
   await Settings.init();
   TranslationsClass.load(const Locale("en", ""));
   Manager.init();
+  Manager.addYear(year: Year());
 
   test("Calculations", () async {
     getCurrentYear().termTemplate = [

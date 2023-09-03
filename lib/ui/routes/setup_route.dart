@@ -2,9 +2,9 @@
 import "package:flutter/material.dart";
 
 // Project imports:
+import "package:graded/calculations/manager.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/main.dart";
-import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/setup_manager.dart";
@@ -33,158 +33,171 @@ class _SetupPageState extends State<SetupPage> {
     SetupManager.init();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    SetupManager.dispose();
+  }
+
   void replaceRoute(BuildContext context) {
     Navigator.pushAndRemoveUntil(context, createRoute(const RouteSettings(name: "/")), (_) => false);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: () {
-        if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
-            getPreference<String>("school_system") == "other") {
-          return FloatingActionButton(
-            tooltip: translations.done,
-            onPressed: () async {
-              await SetupManager.completeSetup();
+    return WillPopScope(
+      onWillPop: () async {
+        SetupManager.dispose();
+        return true;
+      },
+      child: Scaffold(
+        floatingActionButton: () {
+          if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
+              getPreference<String>("school_system") == "other") {
+            return FloatingActionButton(
+              tooltip: translations.done,
+              onPressed: () async {
+                await SetupManager.completeSetup();
+                SetupManager.dispose();
 
-              // ignore: use_build_context_synchronously
-              if (!context.mounted) return;
-              replaceRoute(context);
-            },
-            child: const Icon(Icons.navigate_next),
-          );
-        }
-      }(),
-      body: CustomScrollView(
-        primary: true,
-        slivers: [
-          SliverAppBar.large(
-            title: AppBarTitle(
-              title: translations.setup,
+                // ignore: use_build_context_synchronously
+                if (!context.mounted) return;
+                replaceRoute(context);
+              },
+              child: const Icon(Icons.navigate_next),
+            );
+          }
+        }(),
+        body: CustomScrollView(
+          primary: true,
+          slivers: [
+            SliverAppBar.large(
+              title: AppBarTitle(
+                title: translations.setup,
+              ),
+              automaticallyImplyLeading: widget.dismissible,
             ),
-            automaticallyImplyLeading: widget.dismissible,
-          ),
-          SliverSafeArea(
-            top: false,
-            bottom: false,
-            sliver: SliverToBoxAdapter(
-              child: SettingsContainer(
-                children: [
-                  if (!widget.dismissible)
-                    SimpleSettingsTile(
-                      icon: Icons.file_download_outlined,
-                      title: translations.import_,
-                      subtitle: translations.import_description,
-                      onTap: () => importData().then((success) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(success ? translations.import_success : translations.import_error),
-                          ),
-                        );
+            SliverSafeArea(
+              top: false,
+              bottom: false,
+              sliver: SliverToBoxAdapter(
+                child: SettingsContainer(
+                  children: [
+                    if (!widget.dismissible)
+                      SimpleSettingsTile(
+                        icon: Icons.file_download_outlined,
+                        title: translations.import_,
+                        subtitle: translations.import_description,
+                        onTap: () => importData().then((success) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(success ? translations.import_success : translations.import_error),
+                            ),
+                          );
 
-                        if (!success) return;
+                          if (!success) return;
 
-                        setPreference<bool>("is_first_run", false);
-                        replaceRoute(context);
-                      }),
+                          setPreference<bool>("is_first_run", false);
+                          replaceRoute(context);
+                        }),
+                      ),
+                    RadioModalSettingsTile<String>(
+                      title: translations.school_system,
+                      icon: Icons.school,
+                      settingKey: "school_system",
+                      onChange: (_) => rebuild(),
+                      values: <String, String>{
+                        "lux": translations.lux_system,
+                        "other": translations.other_school_system,
+                      },
                     ),
-                  RadioModalSettingsTile<String>(
-                    title: translations.school_system,
-                    icon: Icons.school,
-                    settingKey: "school_system",
-                    onChange: (_) => rebuild(),
-                    values: <String, String>{
-                      "lux": translations.lux_system,
-                      "other": translations.other_school_system,
-                    },
-                  ),
-                  if (getPreference<String>("school_system") == "lux")
-                    SettingsGroup(
-                      title: translations.lux_system,
-                      children: [
-                        RadioModalSettingsTile<String>(
-                          title: translations.system,
-                          icon: Icons.build,
-                          settingKey: "lux_system",
-                          onChange: (_) {
-                            setPreference<int>("year", defaultValues["year"] as int);
-                            setPreference<String>("section", defaultValues["section"] as String);
-                            setPreference<String>("variant", defaultValues["variant"] as String);
-                            rebuild();
-                          },
-                          values: <String, String>{
-                            "classic": translations.lux_system_classic,
-                            "general": translations.lux_system_general,
-                          },
-                        ),
-                        if (getPreference<String>("lux_system").isNotEmpty)
-                          RadioModalSettingsTile<int>(
-                            title: translations.yearOne,
-                            icon: Icons.timelapse,
-                            settingKey: "year",
+                    if (getPreference<String>("school_system") == "lux")
+                      SettingsGroup(
+                        title: translations.lux_system,
+                        children: [
+                          RadioModalSettingsTile<String>(
+                            title: translations.system,
+                            icon: Icons.build,
+                            settingKey: "lux_system",
                             onChange: (_) {
-                              if (SetupManager.hasSections()) {
-                                setPreference<String>("section", defaultValues["section"] as String);
-                              }
-                              if (SetupManager.getVariants()[getPreference<String>("variant")] == null) {
-                                setPreference<String>("variant", defaultValues["variant"] as String);
-                              }
+                              setPreference<int>("year", defaultValues["year"] as int);
+                              setPreference<String>("section", defaultValues["section"] as String);
+                              setPreference<String>("variant", defaultValues["variant"] as String);
                               rebuild();
                             },
-                            values: SetupManager.getYears(),
-                            selected: -1,
-                          ),
-                        if (SetupManager.hasSections())
-                          RadioModalSettingsTile<String>(
-                            title: translations.section,
-                            icon: Icons.fork_right,
-                            settingKey: "section",
-                            onChange: (_) => rebuild(),
-                            values: SetupManager.getSections(),
-                          ),
-                        if (SetupManager.hasVariants())
-                          RadioModalSettingsTile<String>(
-                            title: translations.variant,
-                            icon: Icons.edit,
-                            settingKey: "variant",
-                            selected: defaultValues["variant"] as String,
-                            onChange: (_) => rebuild(),
-                            values: SetupManager.getVariants(),
-                          ),
-                        if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1)
-                          RadioModalSettingsTile<int>(
-                            title: translations.school_termOne,
-                            icon: Icons.access_time_outlined,
-                            settingKey: "term",
-                            onChange: (_) => Compatibility.termCount(),
-                            values: <int, String>{
-                              4: translations.quarterOther,
-                              3: translations.trimesterOther,
-                              2: translations.semesterOther,
-                              1: translations.yearOne,
+                            values: <String, String>{
+                              "classic": translations.lux_system_classic,
+                              "general": translations.lux_system_general,
                             },
-                            selected: defaultValues["term"] as int,
                           ),
-                      ],
-                    )
-                  else if (getPreference<String>("school_system") == "other")
-                    SettingsGroup(
-                      title: translations.other_school_system,
-                      children: getSettingsTiles(context, type: CreationType.add),
+                          if (getPreference<String>("lux_system").isNotEmpty)
+                            RadioModalSettingsTile<int>(
+                              title: translations.yearOne,
+                              icon: Icons.timelapse,
+                              settingKey: "year",
+                              onChange: (_) {
+                                if (SetupManager.hasSections()) {
+                                  setPreference<String>("section", defaultValues["section"] as String);
+                                }
+                                if (SetupManager.getVariants()[getPreference<String>("variant")] == null) {
+                                  setPreference<String>("variant", defaultValues["variant"] as String);
+                                }
+                                rebuild();
+                              },
+                              values: SetupManager.getYears(),
+                              selected: -1,
+                            ),
+                          if (SetupManager.hasSections())
+                            RadioModalSettingsTile<String>(
+                              title: translations.section,
+                              icon: Icons.fork_right,
+                              settingKey: "section",
+                              onChange: (_) => rebuild(),
+                              values: SetupManager.getSections(),
+                            ),
+                          if (SetupManager.hasVariants())
+                            RadioModalSettingsTile<String>(
+                              title: translations.variant,
+                              icon: Icons.edit,
+                              settingKey: "variant",
+                              selected: defaultValues["variant"] as String,
+                              onChange: (_) => rebuild(),
+                              values: SetupManager.getVariants(),
+                            ),
+                          if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1)
+                            RadioModalSettingsTile<int>(
+                              title: translations.school_termOne,
+                              icon: Icons.access_time_outlined,
+                              settingKey: "term",
+                              onChange: (_) => getCurrentYear().ensureTermCount(),
+                              values: <int, String>{
+                                4: translations.quarterOther,
+                                3: translations.trimesterOther,
+                                2: translations.semesterOther,
+                                1: translations.yearOne,
+                              },
+                              selected: defaultValues["term"] as int,
+                            ),
+                        ],
+                      )
+                    else if (getPreference<String>("school_system") == "other")
+                      SettingsGroup(
+                        title: translations.other_school_system,
+                        children: getSettingsTiles(context, type: CreationType.add),
+                      ),
+                    SimpleSettingsTile(
+                      title: translations.note,
+                      subtitle: translations.note_description,
+                      icon: Icons.info_outline,
+                      enabled: false,
                     ),
-                  SimpleSettingsTile(
-                    title: translations.note,
-                    subtitle: translations.note_description,
-                    icon: Icons.info_outline,
-                    enabled: false,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          const SliverPadding(padding: EdgeInsets.only(bottom: 88)),
-        ],
+            const SliverPadding(padding: EdgeInsets.only(bottom: 88)),
+          ],
+        ),
       ),
     );
   }

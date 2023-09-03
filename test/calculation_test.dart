@@ -11,6 +11,7 @@ import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
+import "package:graded/calculations/year.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
@@ -21,6 +22,7 @@ void main() async {
   await Settings.init();
   TranslationsClass.load(const Locale("en", ""));
   Manager.init();
+  Manager.addYear(year: Year());
 
   test("Calculations", () async {
     final List<CalculationObject> emptyList = [Test(null, 0), Test(null, 0), Test(null, 0)];

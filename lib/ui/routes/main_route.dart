@@ -196,7 +196,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         ];
     }
 
-    if (getPreference<int>("validated_year") == 1) {
+    if (getCurrentYear().validatedYear == 1) {
       items.add(translations.exams);
     }
     items.add(translations.year_overview);

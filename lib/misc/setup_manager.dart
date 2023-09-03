@@ -10,8 +10,8 @@ import "package:collection/collection.dart";
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
-import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
@@ -20,7 +20,8 @@ class SetupManager {
   static String classicPath = "assets/class_data/lux/classique.json";
   static String generalPath = "assets/class_data/lux/general.json";
   static List<String?> cache = [null, null];
-  static List<Subject> termTemplate = [];
+  static bool inSetup = false;
+  static Year year = Year();
 
   static Map<int, String> getYears() {
     return {
@@ -152,44 +153,45 @@ class SetupManager {
   }
 
   static Future<void> init() async {
-    termTemplate = [];
-    cache[0] = await rootBundle.loadString(classicPath);
-    cache[1] = await rootBundle.loadString(generalPath);
+    inSetup = true;
+    year = Year();
+
+    cache = [await rootBundle.loadString(classicPath), await rootBundle.loadString(generalPath)];
+  }
+
+  static void dispose() {
+    inSetup = false;
+    cache.clear();
   }
 
   static Future<void> completeSetup() async {
-    final List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
-
-    for (final String key in keys) {
-      setPreference(key, defaultValues[key]);
-    }
-
-    setPreference<String>("validated_school_system", getPreference<String>("school_system"));
+    year.validatedSchoolSystem = getPreference<String>("school_system");
 
     if (getPreference<String>("school_system") == "lux") {
-      termTemplate = await completeLuxSystem();
+      await completeLuxSystem();
     }
 
-    Manager.addYear(termTemplate: termTemplate);
+    Manager.addYear(year: year);
 
-    Compatibility.termCount();
+    inSetup = false;
+    year.ensureTermCount();
     Manager.calculate();
 
     setPreference<bool>("is_first_run", false);
   }
 
-  static Future<List<Subject>> completeLuxSystem() {
-    setPreference<String>("validated_lux_system", getPreference<String>("lux_system"));
-    setPreference<int>("validated_year", getPreference<int>("year"));
+  static Future<void> completeLuxSystem() async {
+    year.validatedLuxSystem = getPreference<String>("lux_system");
+    year.validatedYear = getPreference<int>("year");
 
     if (hasSections()) {
-      setPreference<String>("validated_section", getPreference<String>("section"));
+      year.validatedSection = getPreference<String>("section");
     } else {
       setPreference<String>("section", defaultValues["section"] as String);
     }
 
     if (hasVariants() && getVariants()[getPreference<String>("variant")] != null) {
-      setPreference<String>("validated_variant", getPreference<String>("variant"));
+      year.validatedVariant = getPreference<String>("variant");
     } else {
       setPreference<String>("variant", defaultValues["variant"] as String);
     }
@@ -202,7 +204,11 @@ class SetupManager {
     setPreference<String>("rounding_mode", RoundingMode.up);
     setPreference<int>("round_to", 1);
 
-    return fillSubjects();
+    final List<Subject> termTemplate = await fillSubjects();
+
+    for (final Subject subject in termTemplate) {
+      year.addSubject(subject);
+    }
   }
 
   static Future<List<Subject>> fillSubjects() async {

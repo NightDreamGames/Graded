@@ -1,11 +1,16 @@
+// Flutter imports:
+import "package:flutter/material.dart";
+
 // Project imports:
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
+import "package:graded/main.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/enums.dart";
+import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/utilities/hints.dart";
 
@@ -62,18 +67,18 @@ class Manager {
     years.clear();
   }
 
-  static void addYear({List<Subject> termTemplate = const []}) {
-    final Year year = Year(termTemplate);
-    years.add(year);
+  static void addYear({required Year year}) {
     year.name = getHint(translations.yearOne, years);
+    years.add(year);
     changeYear(years.length - 1);
-    Compatibility.termCount();
+    year.ensureTermCount();
     year.sort();
   }
 
   static void changeYear(int index) {
     currentYear = index;
     currentTerm = 0;
+    getCurrentYear().ensureTermCount();
     calculate();
   }
 
@@ -164,11 +169,13 @@ class Manager {
 }
 
 Year getCurrentYear() {
+  if (SetupManager.inSetup) return SetupManager.year;
+
   if (Manager.years.isEmpty) {
     deserialize();
 
     if (Manager.years.isEmpty) {
-      Manager.addYear();
+      Navigator.of(navigatorKey.currentContext!).pushNamedAndRemoveUntil("/setup", (_) => false);
     }
   }
 

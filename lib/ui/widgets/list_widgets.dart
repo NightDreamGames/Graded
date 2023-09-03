@@ -305,7 +305,6 @@ class _SubjectTileState extends State<SubjectTile> {
                   widget.speakingController,
                   index1: widget.index1,
                   index2: widget.subject.isChild ? widget.index2 : null,
-                  termTemplate: getCurrentYear().termTemplate,
                 ).then((_) => widget.onActionCompleted?.call());
               case MenuAction.delete:
                 final parent = getCurrentYear().termTemplate[widget.index1];

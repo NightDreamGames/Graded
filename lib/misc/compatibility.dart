@@ -5,7 +5,6 @@ import "dart:convert";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
-import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
@@ -13,7 +12,7 @@ import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 
 class Compatibility {
-  static const dataVersion = 12;
+  static const dataVersion = 13;
 
   static void upgradeDataVersion({bool imported = false}) {
     final int currentDataVersion = getPreference<int>("data_version");
@@ -27,7 +26,7 @@ class Compatibility {
       deserialize();
 
       if (currentDataVersion < 5) {
-        termCount();
+        Manager.years[0].ensureTermCount();
 
         setPreference<String>("language", defaultValues["language"] as String);
       }
@@ -53,7 +52,7 @@ class Compatibility {
       }
 
       if (currentDataVersion < 7) {
-        termCount();
+        Manager.years[0].ensureTermCount();
       }
 
       if (currentDataVersion < 8) {
@@ -134,38 +133,39 @@ class Compatibility {
         //Add year name
         getCurrentYear().name = "${translations.yearOne} 1";
       }
+
+      if (currentDataVersion < 13) {
+        //Move validated data into year
+        getCurrentYear().validatedSchoolSystem = getPreference<String?>("validated_school_system");
+        getCurrentYear().validatedLuxSystem = getPreference<String?>("validated_lux_system");
+        getCurrentYear().validatedYear = getPreference<int?>("validated_year");
+        getCurrentYear().validatedSection = getPreference<String?>("validated_section");
+        getCurrentYear().validatedVariant = getPreference<String?>("validated_variant");
+
+        if (getCurrentYear().validatedSchoolSystem == "") {
+          getCurrentYear().validatedSchoolSystem = null;
+        }
+        if (getCurrentYear().validatedLuxSystem == "") {
+          getCurrentYear().validatedLuxSystem = null;
+        }
+        if (getCurrentYear().validatedYear == -1) {
+          getCurrentYear().validatedYear = null;
+        }
+        if (getCurrentYear().validatedSection == "") {
+          getCurrentYear().validatedSection = null;
+        }
+        if (getCurrentYear().validatedVariant == "") {
+          getCurrentYear().validatedVariant = null;
+        }
+
+        setPreference("validated_school_system", null);
+        setPreference("validated_lux_system", null);
+        setPreference("validated_year", null);
+        setPreference("validated_section", null);
+        setPreference("validated_variant", null);
+      }
     }
 
     setPreference<int>("data_version", dataVersion);
-  }
-
-  static void termCount() {
-    final int termCount = getPreference<int>("term");
-    final bool hasExam = getPreference<int>("validated_year") == 1;
-    Manager.currentTerm = 0;
-
-    for (final Year year in Manager.years) {
-      final List<Term> terms = year.terms;
-      final bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
-
-      while (terms.length > termCount + (hasExam ? 1 : 0)) {
-        final int index = terms.length - 1 - (hasExam ? 1 : 0);
-        terms.removeAt(index);
-      }
-
-      while (terms.length < termCount + (examPresent ? 1 : 0)) {
-        int index = terms.length - (examPresent ? 1 : 0);
-        if (hasExam && !examPresent && terms.length > index) {
-          index++;
-        }
-        terms.insert(index, Term());
-      }
-
-      if (hasExam && !examPresent && terms.length < termCount + 1) {
-        terms.add(Term(isExam: true));
-      }
-    }
-
-    serialize();
   }
 }

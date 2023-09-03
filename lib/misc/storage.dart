@@ -57,11 +57,6 @@ List<String> keys = [
   "total_grades",
   "rounding_mode",
   "round_to",
-  "validated_school_system",
-  "validated_lux_system",
-  "validated_year",
-  "validated_section",
-  "validated_variant",
 ];
 
 String getExportData() {

@@ -32,6 +32,7 @@ import "package:graded/ui/utilities/app_theme.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 
 final GlobalKey appContainerKey = GlobalKey();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,6 +75,7 @@ class _AppContainerState extends State<AppContainer> {
       child: Consumer<LocaleProvider>(
         builder: (context, provider, _) => DynamicColorBuilder(
           builder: (ColorScheme? light, ColorScheme? dark) => MaterialApp(
+            navigatorKey: navigatorKey,
             theme: AppTheme.getTheme(Brightness.light, light, dark),
             darkTheme: AppTheme.getTheme(Brightness.dark, light, dark),
             themeMode: brightness,
@@ -113,10 +115,6 @@ class _AppContainerState extends State<AppContainer> {
 Route<dynamic> createRoute(RouteSettings settings) {
   Widget route;
 
-  int tabAmount = getPreference<int>("term");
-  if (getPreference<int>("validated_year") == 1) tabAmount++;
-  if (tabAmount > 1) tabAmount++;
-
   switch (settings.name) {
     case "setup_first":
       route = const SetupPage(dismissible: false);
@@ -135,6 +133,10 @@ Route<dynamic> createRoute(RouteSettings settings) {
       final List<Subject?> arguments = settings.arguments! as List<Subject?>;
       final Subject? parent = arguments[0];
       final Subject subject = arguments[1]!;
+
+      int tabAmount = getPreference<int>("term");
+      if (getCurrentYear().validatedYear == 1) tabAmount++;
+      if (tabAmount > 1) tabAmount++;
 
       final List<Widget> children = List.generate(tabAmount, (index) {
         final Term term = getTerm(index);
@@ -155,6 +157,10 @@ Route<dynamic> createRoute(RouteSettings settings) {
       route = const YearRoute();
     case "/":
     default:
+      int tabAmount = getPreference<int>("term");
+      if (getCurrentYear().validatedYear == 1) tabAmount++;
+      if (tabAmount > 1) tabAmount++;
+
       final List<Widget> children = List.generate(
         tabAmount,
         (index) => HomePage(key: GlobalKey(), term: getTerm(index)),

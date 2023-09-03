@@ -9,7 +9,6 @@ import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
-import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
@@ -36,14 +35,6 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
   final TextEditingController coeffController = TextEditingController();
   final TextEditingController speakingController = TextEditingController();
 
-  late List<Subject> termTemplate = getCurrentYear().termTemplate;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.creationType == CreationType.add) termTemplate = SetupManager.termTemplate;
-  }
-
   @override
   void dispose() {
     nameController.dispose();
@@ -63,8 +54,12 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: translations.add_subjectOne,
-        onPressed: () =>
-            showSubjectDialog(context, nameController, coeffController, speakingController, termTemplate: termTemplate).then((_) => rebuild()),
+        onPressed: () => showSubjectDialog(
+          context,
+          nameController,
+          coeffController,
+          speakingController,
+        ).then((_) => rebuild()),
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -89,12 +84,15 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
             return SafeArea(
               top: false,
               bottom: false,
-              child: termTemplate.isNotEmpty
+              child: getCurrentYear().termTemplate.isNotEmpty
                   ? ReorderableListView(
                       padding: const EdgeInsets.only(bottom: 88),
                       primary: true,
                       buildDefaultDragHandles: false,
-                      onReorder: onReorderListView,
+                      onReorder: (int oldIndex, int newIndex) {
+                        getCurrentYear().reorderSubjects(oldIndex, newIndex);
+                        rebuild();
+                      },
                       children: buildTiles(),
                     )
                   : EmptyWidget(message: translations.no_subjects),
@@ -105,67 +103,12 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     );
   }
 
-  void onReorderListView(int oldIndex, int newIndex) {
-    if (oldIndex == newIndex - 1) return;
-
-    setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
-    setPreference<int>("sort_direction${SortType.subject}", SortDirection.notApplicable);
-
-    Manager.sortAll();
-
-    final oldIndexes = getSubjectIndexes(oldIndex);
-    final newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
-    final int oldIndex1 = oldIndexes[0];
-    final int oldIndex2 = oldIndexes[1];
-    int newIndex1 = newIndexes[0];
-    int newIndex2 = newIndexes[1];
-
-    if (oldIndex1 == newIndex1 && oldIndex2 < newIndex2) {
-      newIndex2--;
-    }
-    if (oldIndex1 < newIndex1 && oldIndex2 == -1) {
-      newIndex1--;
-    } else if (newIndex1 == oldIndex1 && oldIndex2 == -1 && newIndex2 != -1) {
-      return;
-    }
-
-    final List<List<Subject>> lists = [termTemplate];
-    if (widget.creationType == CreationType.edit) {
-      lists.addAll(getCurrentYear().terms.map((term) => term.subjects));
-    }
-
-    for (final List<Subject> list in lists) {
-      Subject item;
-      if (oldIndex2 == -1) {
-        item = list.removeAt(oldIndex1);
-      } else {
-        item = list[oldIndex1].children.removeAt(oldIndex2);
-        if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
-      }
-
-      item.isChild = newIndex2 != -1;
-
-      if (newIndex2 == -1) {
-        list.insert(newIndex1, item);
-      } else {
-        list[newIndex1].children.insertAll(newIndex2, [item, ...item.children]);
-        item.children.clear();
-        item.isGroup = false;
-        list[newIndex1].isGroup = true;
-      }
-    }
-
-    serialize();
-    Manager.calculate();
-    rebuild();
-  }
-
   List<Widget> buildTiles() {
     final List<Widget> result = [];
     int reorderIndex = 0;
 
-    for (int i = 0; i < termTemplate.length; i++) {
-      final Subject element = termTemplate[i];
+    for (int i = 0; i < getCurrentYear().termTemplate.length; i++) {
+      final Subject element = getCurrentYear().termTemplate[i];
       result.add(
         SubjectTile(
           key: ValueKey(element),
@@ -201,24 +144,5 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     }
 
     return result;
-  }
-
-  List<int> getSubjectIndexes(int absoluteIndex, {int addedIndex = 0}) {
-    int subjectCount = 0;
-    int index1 = 0;
-    int index2 = -1;
-
-    for (int i = 0; i < termTemplate.length; i++) {
-      final int childAmount = termTemplate[i].children.length;
-      if (subjectCount + childAmount + (childAmount > 0 ? addedIndex : 0) >= absoluteIndex) {
-        break;
-      }
-      subjectCount += childAmount;
-      index1 = i + 1;
-      subjectCount++;
-    }
-    index2 = absoluteIndex - subjectCount - 1;
-
-    return [index1, index2];
   }
 }
