@@ -39,9 +39,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "change_class": MessageLookupByLibrary.simpleMessage("Change class"),
-        "change_class_description": MessageLookupByLibrary.simpleMessage(
-            "Tap here to select a new class. This will delete all your saved grades."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Class"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
@@ -203,6 +200,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setup": MessageLookupByLibrary.simpleMessage("Setup"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Drag to change subject order"),
+        "showcase_precise_average": MessageLookupByLibrary.simpleMessage(
+            "Tap here to show the precise average"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
             "Tap here to make this subject a sub-subject and the subject above a subject group"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sort by"),

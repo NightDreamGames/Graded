@@ -67,6 +67,10 @@ icons_launcher:
     ios:
       enable: true
       image_path: "assets/icons/icon.png"
+    web:
+      enable: true
+      image_path: "assets/icons/icon-roundrect.png"
+      favicon_path: "assets/icons/icon-roundrect.png"
 
 flutter_native_splash:
   color: "#FDFCFF"
@@ -79,7 +83,7 @@ flutter_native_splash:
     icon_background_color: "#62A9E1"
   android: true
   ios: true
-  web: false
+  web: true
 
 import_sorter:
   ignored_files:

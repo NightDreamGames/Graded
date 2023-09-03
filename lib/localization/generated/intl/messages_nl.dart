@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_subjectOne": MessageLookupByLibrary.simpleMessage("Vak toevoegen"),
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Vakken toevoegen"),
-        "add_test": MessageLookupByLibrary.simpleMessage("Test toevoegen"),
+        "add_test": MessageLookupByLibrary.simpleMessage("Toets toevoegen"),
         "add_year": MessageLookupByLibrary.simpleMessage("Jaar toevoegen"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App versie"),
@@ -39,9 +39,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "basic": MessageLookupByLibrary.simpleMessage("Basis"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuleren"),
-        "change_class": MessageLookupByLibrary.simpleMessage("Wijzig klasse"),
-        "change_class_description": MessageLookupByLibrary.simpleMessage(
-            "Tik hier om je huidige klas te veranderen. Dit zal al je opgeslagen cijfers verwijderen."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
@@ -54,7 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
-        "decrease": MessageLookupByLibrary.simpleMessage("Decrease"),
+        "decrease": MessageLookupByLibrary.simpleMessage("Verminderen"),
         "default_": MessageLookupByLibrary.simpleMessage("Standaard"),
         "delete": MessageLookupByLibrary.simpleMessage("Verwijder"),
         "done": MessageLookupByLibrary.simpleMessage("Gereed"),
@@ -66,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vakken bewerken"),
         "edit_subjects_description": MessageLookupByLibrary.simpleMessage(
             "Tik hier om uw vakken te bewerken"),
-        "edit_test": MessageLookupByLibrary.simpleMessage("Test bewerken"),
+        "edit_test": MessageLookupByLibrary.simpleMessage("Toets bewerken"),
         "edit_year": MessageLookupByLibrary.simpleMessage("Jaar bewerken"),
         "email":
             MessageLookupByLibrary.simpleMessage("contact@nightdreamgames.com"),
@@ -96,7 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Er is een four opgetreden bij het importeren van uw back-up."),
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Back-up succesvol geïmporteerd."),
-        "increase": MessageLookupByLibrary.simpleMessage("Increase"),
+        "increase": MessageLookupByLibrary.simpleMessage("Verhogen"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongeldig"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Taal"),
@@ -109,7 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "luxembourgish": MessageLookupByLibrary.simpleMessage("Lëtzebuergesch"),
         "manage_years": MessageLookupByLibrary.simpleMessage("Jaren beheren"),
         "manage_years_description": MessageLookupByLibrary.simpleMessage(
-            "Add, edit and delete your saved years"),
+            "Toevoegen, bewerk en verwijder je opgeslagen jaren"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Meer opties"),
         "name": MessageLookupByLibrary.simpleMessage("Naam"),
@@ -121,7 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "not_set": MessageLookupByLibrary.simpleMessage("Niet ingesteld"),
         "note": MessageLookupByLibrary.simpleMessage("Opmerking:"),
         "note_description": MessageLookupByLibrary.simpleMessage(
-            "U kunt kater altijd uw vakken en endere opties in de instellingen bewerken"),
+            "U kunt altijd later uw vakken en endere opties in de instellingen bewerken"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "other_school_system":
@@ -133,7 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Beoordelingssystem"),
         "reset": MessageLookupByLibrary.simpleMessage("Cijfers terugzetten"),
         "reset_description": MessageLookupByLibrary.simpleMessage(
-            "Verwijder alle opgeslagen spellen reset app"),
+            "Verwijder alle opgeslagen cijfers en reset je app"),
         "result": MessageLookupByLibrary.simpleMessage("Resultaat"),
         "round_to": MessageLookupByLibrary.simpleMessage("Rond naar"),
         "rounding_mode": MessageLookupByLibrary.simpleMessage("Ronde modus"),
@@ -198,13 +195,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semesters"),
         "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback geven"),
         "set_sub_subject":
-            MessageLookupByLibrary.simpleMessage("Set as sub-subject"),
+            MessageLookupByLibrary.simpleMessage("Als sub-vak instellen"),
         "settings": MessageLookupByLibrary.simpleMessage("Instellingen"),
         "setup": MessageLookupByLibrary.simpleMessage("Setup"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Slepen om de volgorde van de vakken te wijzigen"),
+        "showcase_precise_average": MessageLookupByLibrary.simpleMessage(
+            "Tik hier om je exacte gemiddelde te geven"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
-            "Tik hier om van dit vak een subvak te maken en van het vak boven een vakgroep"),
+            "Tik hier voor dit vak een subvak te maken en van het vak boven een vakgroep te maken"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sorteren op"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Spreken"),
@@ -216,8 +215,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "subjectOther": MessageLookupByLibrary.simpleMessage("Vakken"),
         "system": MessageLookupByLibrary.simpleMessage("Systeem"),
         "system_language": MessageLookupByLibrary.simpleMessage("Systeemtaal"),
-        "testOne": MessageLookupByLibrary.simpleMessage("Test"),
-        "testOther": MessageLookupByLibrary.simpleMessage(""),
+        "testOne": MessageLookupByLibrary.simpleMessage("Toets"),
+        "testOther": MessageLookupByLibrary.simpleMessage("Toetsen"),
         "theme": MessageLookupByLibrary.simpleMessage("Thema"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Donkere"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Licht"),

@@ -40,9 +40,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
-        "change_class": MessageLookupByLibrary.simpleMessage("Klasse ändern"),
-        "change_class_description": MessageLookupByLibrary.simpleMessage(
-            "Tippen Sie hier um eine neue Klasse auszuwählen. Alle gespeicherten Noten werden dabei gelöscht."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
@@ -208,6 +205,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setup": MessageLookupByLibrary.simpleMessage("Einrichtung"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Ziehe, um die Reihenfolge der Fächer zu ändern"),
+        "showcase_precise_average": MessageLookupByLibrary.simpleMessage(
+            "Tippen Sie hier, um den genauen Durchschnitt anzuzeigen"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
             "Tippen Sie hier, um aus diesem Fach ein Unterfach, und aus dem Fach drüber eine Fachgruppe zu machen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortieren"),

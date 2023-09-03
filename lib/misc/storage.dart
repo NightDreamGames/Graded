@@ -14,6 +14,7 @@ import "package:graded/calculations/year.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/misc_utilities.dart";
 
 void serialize() {
   setPreference<String?>("data", jsonEncode(Manager.years));
@@ -75,6 +76,8 @@ String getExportData() {
 }
 
 Future<void> exportData() async {
+  if (isWeb) throw UnimplementedError("Exporting data is not supported on the web");
+
   final DateTime now = DateTime.now();
   final DateFormat formatter = DateFormat("yyyy-MM-dd");
   final String formatted = formatter.format(now);
@@ -102,6 +105,8 @@ Future<void> exportData() async {
 }
 
 Future<bool> importData() async {
+  if (isWeb) throw UnimplementedError("Importing data is not supported on the web");
+
   final String backup = getExportData();
   bool error = false;
 

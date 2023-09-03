@@ -200,26 +200,6 @@ class TranslationsClass {
     );
   }
 
-  /// `Change class`
-  String get change_class {
-    return Intl.message(
-      'Change class',
-      name: 'change_class',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Tap here to select a new class. This will delete all your saved grades.`
-  String get change_class_description {
-    return Intl.message(
-      'Tap here to select a new class. This will delete all your saved grades.',
-      name: 'change_class_description',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `中文`
   String get chinese {
     return Intl.message(
@@ -1395,6 +1375,16 @@ class TranslationsClass {
     return Intl.message(
       'Drag to change subject order',
       name: 'showcase_drag_subject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap here to show the precise average`
+  String get showcase_precise_average {
+    return Intl.message(
+      'Tap here to show the precise average',
+      name: 'showcase_precise_average',
       desc: '',
       args: [],
     );

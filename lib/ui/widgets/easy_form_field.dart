@@ -1,12 +1,10 @@
-// Dart imports:
-import "dart:io" show Platform;
-
 // Flutter imports:
 import "package:flutter/material.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
 import "package:graded/localization/translations.dart";
+import "package:graded/ui/utilities/misc_utilities.dart";
 
 class EasyFormField extends StatelessWidget {
   const EasyFormField({
@@ -45,7 +43,7 @@ class EasyFormField extends StatelessWidget {
       textInputAction: textInputAction,
       autofocus: autofocus,
       autovalidateMode: numeric || additionalValidator != null ? AutovalidateMode.onUserInteraction : null,
-      keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: !Platform.isIOS && signed) : TextInputType.text,
+      keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: !isiOS && signed) : TextInputType.text,
       textAlign: textAlign,
       textCapitalization: TextCapitalization.sentences,
       validator: (String? input) {

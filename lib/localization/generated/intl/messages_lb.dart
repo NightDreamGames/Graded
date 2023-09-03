@@ -39,9 +39,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
         "cancel": MessageLookupByLibrary.simpleMessage("Ofbriechen"),
-        "change_class": MessageLookupByLibrary.simpleMessage("Klass änneren"),
-        "change_class_description": MessageLookupByLibrary.simpleMessage(
-            "Dréckt hei fir eng nei Klass auszewielen. All gespäichert Notten ginn dobäi geläscht."),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Klass"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
@@ -209,6 +206,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "setup": MessageLookupByLibrary.simpleMessage("Ariichtung"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Zéi fir d\'Reiefolleg vun de Fächer ze änneren"),
+        "showcase_precise_average": MessageLookupByLibrary.simpleMessage(
+            "Dréckt hei fir di genau Moyenne unzeweisen"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
             "Dréckt hei fir aus dësem Fach en Ënnerfach, an aus dem Fach driwwer eng Fachgrupp ze maachen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortéieren"),

@@ -4,6 +4,9 @@ import "package:flutter/material.dart";
 // Package imports:
 import "package:flutter_svg/svg.dart";
 
+// Project imports:
+import "package:graded/ui/utilities/misc_utilities.dart";
+
 class AppBarTitle extends StatelessWidget {
   const AppBarTitle({
     super.key,
@@ -105,7 +108,7 @@ class PlatformWillPopScope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme.of(context).platform != TargetPlatform.iOS
+    return !isiOS
         ? WillPopScope(
             onWillPop: onWillPop,
             child: child,
