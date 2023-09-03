@@ -48,7 +48,7 @@ class Manager {
     sortAll();
   }
 
-  static void clearSubjects() {
+  static void clearTests() {
     getCurrentYear().terms.forEach((term) {
       for (final subject in term.subjects) {
         subject.bonus = 0;

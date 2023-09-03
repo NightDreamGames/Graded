@@ -47,8 +47,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Deemnächst verfügbar"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bestätegung"),
-        "confirm_delete": MessageLookupByLibrary.simpleMessage(
-            "Sidd Dir sécher datt Dir all Är gespäichert Notten läschen wëllt?"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personaliséiert"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
@@ -131,9 +129,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewäertungssystem"),
-        "reset": MessageLookupByLibrary.simpleMessage("Notten zerécksetzen"),
-        "reset_description": MessageLookupByLibrary.simpleMessage(
-            "All gespäichert Notten läschen an d\'App zeréckzesetzen"),
+        "reset": MessageLookupByLibrary.simpleMessage(
+            "Notten vun dësem Joer zerécksetzen"),
+        "reset_confirm": MessageLookupByLibrary.simpleMessage(
+            "Sidd Dir sécher datt Dir all gespäichert Notten aus dësem Joer läschen wëllt?"),
         "result": MessageLookupByLibrary.simpleMessage("Resultat"),
         "round_to": MessageLookupByLibrary.simpleMessage("Ronnen bis"),
         "rounding_mode":

@@ -46,8 +46,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Coëfficiënten"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Binnekort"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bevestig"),
-        "confirm_delete": MessageLookupByLibrary.simpleMessage(
-            "Weet je zeker dat je al je opgeslagen cijfers wilt verwijderen?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
@@ -128,9 +126,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Kwartaals"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Beoordelingssystem"),
-        "reset": MessageLookupByLibrary.simpleMessage("Cijfers terugzetten"),
-        "reset_description": MessageLookupByLibrary.simpleMessage(
-            "Verwijder alle opgeslagen cijfers en reset je app"),
+        "reset": MessageLookupByLibrary.simpleMessage(
+            "Cijfers van dit jaar terugzetten"),
+        "reset_confirm": MessageLookupByLibrary.simpleMessage(
+            "Weet je zeker dat je alle opgeslagen cijfers van dit jaar wilt verwijderen?"),
         "result": MessageLookupByLibrary.simpleMessage("Resultaat"),
         "round_to": MessageLookupByLibrary.simpleMessage("Rond naar"),
         "rounding_mode": MessageLookupByLibrary.simpleMessage("Ronde modus"),

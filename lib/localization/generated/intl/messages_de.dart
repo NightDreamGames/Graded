@@ -48,8 +48,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Demnächst verfügbar"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bestätigung"),
-        "confirm_delete": MessageLookupByLibrary.simpleMessage(
-            "Sind Sie sicher, dass Sie alle Ihre gespeicherten Noten löschen wollen?"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personalisiert"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
@@ -131,9 +129,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewertungssystem"),
-        "reset": MessageLookupByLibrary.simpleMessage("Noten zurücksetzen"),
-        "reset_description": MessageLookupByLibrary.simpleMessage(
-            "Alle gespeicherten Noten löschen und App zurücksetzen"),
+        "reset": MessageLookupByLibrary.simpleMessage(
+            "Noten von diesem Jahr zurücksetzen"),
+        "reset_confirm": MessageLookupByLibrary.simpleMessage(
+            "Sind Sie sicher, dass Sie alle gespeicherten Noten aus diesem Jahr löschen wollen?"),
         "result": MessageLookupByLibrary.simpleMessage("Resultat"),
         "round_to": MessageLookupByLibrary.simpleMessage("Runden bis"),
         "rounding_mode":

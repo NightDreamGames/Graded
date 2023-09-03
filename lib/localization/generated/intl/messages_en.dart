@@ -46,8 +46,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Coefficients"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Coming soon"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
-        "confirm_delete": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to delete all your saved grades?"),
         "contact": MessageLookupByLibrary.simpleMessage("Contact us"),
         "custom": MessageLookupByLibrary.simpleMessage("Custom"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -127,9 +125,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "quarterOne": MessageLookupByLibrary.simpleMessage("Quarter"),
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quarters"),
         "rating_system": MessageLookupByLibrary.simpleMessage("Rating system"),
-        "reset": MessageLookupByLibrary.simpleMessage("Reset Grades"),
-        "reset_description": MessageLookupByLibrary.simpleMessage(
-            "Delete all saved grades and reset app"),
+        "reset":
+            MessageLookupByLibrary.simpleMessage("Reset this year\'s grades"),
+        "reset_confirm": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete all the saved grades from this year?"),
         "result": MessageLookupByLibrary.simpleMessage("Result"),
         "round_to": MessageLookupByLibrary.simpleMessage("Round to"),
         "rounding_mode": MessageLookupByLibrary.simpleMessage("Rounding mode"),

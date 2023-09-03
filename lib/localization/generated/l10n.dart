@@ -260,16 +260,6 @@ class TranslationsClass {
     );
   }
 
-  /// `Are you sure you want to delete all your saved grades?`
-  String get confirm_delete {
-    return Intl.message(
-      'Are you sure you want to delete all your saved grades?',
-      name: 'confirm_delete',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Contact us`
   String get contact {
     return Intl.message(
@@ -930,21 +920,21 @@ class TranslationsClass {
     );
   }
 
-  /// `Reset Grades`
+  /// `Reset this year's grades`
   String get reset {
     return Intl.message(
-      'Reset Grades',
+      'Reset this year\'s grades',
       name: 'reset',
       desc: '',
       args: [],
     );
   }
 
-  /// `Delete all saved grades and reset app`
-  String get reset_description {
+  /// `Are you sure you want to delete all the saved grades from this year?`
+  String get reset_confirm {
     return Intl.message(
-      'Delete all saved grades and reset app',
-      name: 'reset_description',
+      'Are you sure you want to delete all the saved grades from this year?',
+      name: 'reset_confirm',
       desc: '',
       args: [],
     );

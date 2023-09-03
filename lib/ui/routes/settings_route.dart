@@ -67,6 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ...getSettingsTiles(context, type: CreationType.edit, onChanged: rebuildHomePage),
                       SimpleSettingsTile(
                         icon: Icons.clear_all,
+                        title: translations.reset,
                         onTap: () {
                           showDialog(
                             context: context,
@@ -76,16 +77,15 @@ class _SettingsPageState extends State<SettingsPage> {
                                 icon: Icons.clear_all,
                                 action: translations.confirm,
                                 onConfirm: () {
-                                  Manager.clearSubjects();
+                                  Manager.clearTests();
                                   Navigator.pop(context);
                                   return true;
                                 },
-                                child: Text(translations.confirm_delete),
+                                child: Text(translations.reset_confirm),
                               );
                             },
                           );
                         },
-                        title: translations.reset,
                       ),
                     ],
                   ),
