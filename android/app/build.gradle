@@ -94,7 +94,7 @@ android {
             useLegacyPackaging = true
         }
     }
-    namespace 'com.NightDreamGames.Grade.ly'
+    namespace 'com.nightdreamgames.grade.ly'
 }
 
 flutter {
