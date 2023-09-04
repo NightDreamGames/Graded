@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
+import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 
@@ -75,6 +76,15 @@ class _HomePageState extends State<HomePage> {
                             Navigator.pushNamed(context, "/subject", arguments: [null, widget.term.subjects[index]])
                                 .then((_) => refreshYearOverview());
                           },
+                          onLongPress: () {
+                            showTestDialog(
+                              context,
+                              widget.term.subjects[index],
+                              TextEditingController(),
+                              TextEditingController(),
+                              TextEditingController(),
+                            ).then((_) => refreshYearOverview());
+                          },
                         );
                       } else {
                         return GroupRow(
@@ -92,6 +102,15 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     "/subject",
                                     arguments: [widget.term.subjects[index], widget.term.subjects[index].children[i]],
+                                  ).then((_) => refreshYearOverview());
+                                },
+                                onLongPress: () {
+                                  showTestDialog(
+                                    context,
+                                    widget.term.subjects[index].children[i],
+                                    TextEditingController(),
+                                    TextEditingController(),
+                                    TextEditingController(),
                                   ).then((_) => refreshYearOverview());
                                 },
                                 isChild: true,
