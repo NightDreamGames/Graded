@@ -26,8 +26,10 @@ class TextRow extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
     this.listKey,
     this.onTap,
+    this.onLongPress,
     this.isChild = false,
     this.horizontalTitleGap = 16,
+    this.enableEqualLongPress = false,
   });
 
   final String leading;
@@ -37,8 +39,10 @@ class TextRow extends StatelessWidget {
   final EdgeInsets padding;
   final Key? listKey;
   final Function()? onTap;
+  final Function()? onLongPress;
   final bool isChild;
   final double horizontalTitleGap;
+  final bool enableEqualLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +57,7 @@ class TextRow extends StatelessWidget {
           horizontalTitleGap: horizontalTitleGap,
           key: listKey,
           onTap: onTap,
+          onLongPress: enableEqualLongPress ? onTap : onLongPress,
           contentPadding: padding,
           leading: leadingIcon,
           title: Text(
@@ -278,6 +283,7 @@ class _SubjectTileState extends State<SubjectTile> {
         trailing: coefficientString == "0" && widget.subject.isGroup ? "" : coefficientString,
         padding: const EdgeInsets.only(left: 4, right: 24),
         horizontalTitleGap: 8,
+        enableEqualLongPress: true,
         leadingIcon: ReorderableDragStartListener(
           index: widget.reorderIndex,
           child: (widget.index1 == 1 && getCurrentYear().termTemplate.length >= 3 && getPreference<bool>("showcase_subject_edit", true))

@@ -84,47 +84,11 @@ class _YearRouteState extends State<YearRoute> {
                             ),
                           ],
                         ),
+                        onLongPress: () {
+                          showPopupActions(context, key, index, year);
+                        },
                         onTap: () {
-                          showMenuActions<YearAction>(
-                            context,
-                            key,
-                            YearAction.values,
-                            [translations.select, translations.edit, translations.delete],
-                          ).then((result) {
-                            switch (result) {
-                              case YearAction.select:
-                                Manager.changeYear(index);
-                                Navigator.pushAndRemoveUntil(context, createRoute(const RouteSettings(name: "/")), (_) => false);
-                              case YearAction.edit:
-                                nameController.text = year.name;
-
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => EasyDialog(
-                                    title: translations.edit_year,
-                                    icon: Icons.edit,
-                                    child: EasyFormField(
-                                      controller: nameController,
-                                      label: translations.name,
-                                      autofocus: true,
-                                    ),
-                                  ),
-                                ).then((value) {
-                                  year.name = nameController.value.text;
-                                });
-                              case YearAction.delete:
-                                Manager.years.removeAt(index);
-
-                                if (Manager.years.isEmpty) {
-                                  Navigator.of(context).pushNamedAndRemoveUntil("/setup", (_) => false);
-                                } else if (index == Manager.currentYear || Manager.currentYear == Manager.years.length) {
-                                  Manager.changeYear(Manager.years.length - 1);
-                                }
-                              default:
-                                break;
-                            }
-                            rebuild();
-                          });
+                          showPopupActions(context, key, index, year);
                         },
                       ),
                       const Padding(
@@ -138,5 +102,48 @@ class _YearRouteState extends State<YearRoute> {
             : EmptyWidget(message: translations.no_items),
       ),
     );
+  }
+
+  void showPopupActions(BuildContext context, GlobalKey key, int index, Year year) {
+    showMenuActions<YearAction>(
+      context,
+      key,
+      YearAction.values,
+      [translations.select, translations.edit, translations.delete],
+    ).then((result) {
+      switch (result) {
+        case YearAction.select:
+          Manager.changeYear(index);
+          Navigator.pushAndRemoveUntil(context, createRoute(const RouteSettings(name: "/")), (_) => false);
+        case YearAction.edit:
+          nameController.text = year.name;
+
+          showDialog(
+            context: context,
+            builder: (context) => EasyDialog(
+              title: translations.edit_year,
+              icon: Icons.edit,
+              child: EasyFormField(
+                controller: nameController,
+                label: translations.name,
+                autofocus: true,
+              ),
+            ),
+          ).then((value) {
+            year.name = nameController.value.text;
+          });
+        case YearAction.delete:
+          Manager.years.removeAt(index);
+
+          if (Manager.years.isEmpty) {
+            Navigator.of(context).pushNamedAndRemoveUntil("/setup", (_) => false);
+          } else if (index == Manager.currentYear || Manager.currentYear == Manager.years.length) {
+            Manager.changeYear(Manager.years.length - 1);
+          }
+        default:
+          break;
+      }
+      rebuild();
+    });
   }
 }

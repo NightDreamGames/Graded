@@ -133,6 +133,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                         listKey: listKey,
                         leading: widget.subject.tests[index].name,
                         trailing: widget.subject.tests[index].toString(),
+                        enableEqualLongPress: true,
                         onTap: () async {
                           if (widget.term.isYearOverview) return;
 
