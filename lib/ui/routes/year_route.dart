@@ -69,17 +69,15 @@ class _YearRouteState extends State<YearRoute> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            if (Manager.currentYear == index) const Icon(Icons.check),
-                            SizedBox(
-                              width: 40 * MediaQuery.textScaleFactorOf(context),
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  Calculator.format(year.result),
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                ),
+                            if (Manager.currentYear == index)
+                              const Padding(
+                                padding: EdgeInsets.only(right: 32),
+                                child: Icon(Icons.check),
+                              ),
+                            Text(
+                              Calculator.format(year.result),
+                              style: const TextStyle(
+                                fontSize: 20,
                               ),
                             ),
                           ],
