@@ -8,7 +8,6 @@ import "package:sliver_tools/sliver_tools.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
-import "package:graded/misc/storage.dart";
 import "package:graded/ui/routes/home_route.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/popup_menus.dart";
@@ -171,7 +170,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
   List<Widget> getTabs() {
     List<String> items = [];
 
-    switch (getPreference<int>("term")) {
+    switch (getCurrentYear().termCount) {
       case 1:
         items = [
           translations.yearOne,

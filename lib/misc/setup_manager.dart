@@ -197,12 +197,12 @@ class SetupManager {
     }
 
     if (getPreference<int>("year") == 1) {
-      setPreference<int>("term", 2);
+      year.termCount = 2;
     }
 
-    setPreference<double>("total_grades", 60);
-    setPreference<String>("rounding_mode", RoundingMode.up);
-    setPreference<int>("round_to", 1);
+    year.maxGrade = 60;
+    year.roundingMode = RoundingMode.up;
+    year.roundTo = 1;
 
     final List<Subject> termTemplate = await fillSubjects();
 

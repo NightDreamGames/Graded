@@ -12,12 +12,19 @@ class Year extends CalculationObject {
   List<Term> terms = [];
   List<Subject> termTemplate = [];
   late Term yearOverview = createYearOverview(year: this);
+  @override
+  double get denominator => maxGrade;
 
   String? validatedSchoolSystem;
   String? validatedLuxSystem;
   int? validatedYear;
   String? validatedSection;
   String? validatedVariant;
+
+  int termCount = defaultValues["term_count"] as int;
+  double maxGrade = defaultValues["max_grade"] as double;
+  String roundingMode = defaultValues["rounding_mode"] as String;
+  int roundTo = defaultValues["round_to"] as int;
 
   Year({
     List<Subject>? termTemplate,
@@ -155,11 +162,11 @@ class Year extends CalculationObject {
     int index2 = -1;
 
     for (int i = 0; i < termTemplate.length; i++) {
-      final int childAmount = termTemplate[i].children.length;
-      if (subjectCount + childAmount + (childAmount > 0 ? addedIndex : 0) >= absoluteIndex) {
+      final int childCount = termTemplate[i].children.length;
+      if (subjectCount + childCount + (childCount > 0 ? addedIndex : 0) >= absoluteIndex) {
         break;
       }
-      subjectCount += childAmount;
+      subjectCount += childCount;
       index1 = i + 1;
       subjectCount++;
     }
@@ -169,7 +176,6 @@ class Year extends CalculationObject {
   }
 
   void ensureTermCount() {
-    final int termCount = getPreference<int>("term");
     Manager.currentTerm = 0;
 
     final bool hasExam = validatedYear == 1;
@@ -205,11 +211,17 @@ class Year extends CalculationObject {
 
     terms = t;
     name = (json["name"] as String?) ?? "";
+
     validatedSchoolSystem = json["validated_school_system"] as String?;
     validatedLuxSystem = json["validated_lux_system"] as String?;
     validatedYear = json["validated_year"] as int?;
     validatedSection = json["validated_section"] as String?;
     validatedVariant = json["validated_variant"] as String?;
+
+    termCount = json["term_count"] as int? ?? defaultValues["term_count"] as int;
+    maxGrade = json["max_grade"] as double? ?? defaultValues["max_grade"] as double;
+    roundingMode = json["rounding_mode"] as String? ?? defaultValues["rounding_mode"] as String;
+    roundTo = json["round_to"] as int? ?? defaultValues["round_to"] as int;
   }
 
   Map<String, dynamic> toJson() => {
@@ -221,5 +233,9 @@ class Year extends CalculationObject {
         "validated_year": validatedYear,
         "validated_section": validatedSection,
         "validated_variant": validatedVariant,
+        "term_count": termCount,
+        "max_grade": maxGrade,
+        "rounding_mode": roundingMode,
+        "round_to": roundTo,
       };
 }

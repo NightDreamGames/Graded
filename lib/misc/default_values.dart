@@ -12,8 +12,8 @@ final Map<String, dynamic> defaultValues = {
   "sort_direction2": SortDirection.ascending,
   "data_version": -1,
   //Calculation settings
-  "term": 3,
-  "total_grades": 60.0,
+  "term_count": 3,
+  "max_grade": 60.0,
   "rounding_mode": RoundingMode.up,
   "round_to": 1,
   "speaking_weight": 3.0,

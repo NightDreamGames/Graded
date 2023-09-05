@@ -13,7 +13,6 @@ import "package:graded/calculations/year.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
-import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 void main() async {
@@ -66,12 +65,12 @@ void main() async {
     Manager.calculate();
     expect(getCurrentYear().result, equals(48));
 
-    setPreference("round_to", 10);
+    getCurrentYear().roundTo = 10;
     Manager.calculate();
     expect(getCurrentYear().result, equals(47.8));
 
-    setPreference("round_to", 100);
-    setPreference("rounding_mode", RoundingMode.halfDown);
+    getCurrentYear().roundTo = 100;
+    getCurrentYear().roundingMode = RoundingMode.halfDown;
     Manager.calculate();
     expect(getCurrentYear().result, equals(47.71));
   });

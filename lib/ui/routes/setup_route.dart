@@ -85,9 +85,9 @@ class _SetupPageState extends State<SetupPage> {
                   children: [
                     if (!widget.dismissible)
                       SimpleSettingsTile(
-                        icon: Icons.file_download_outlined,
                         title: translations.import_,
                         subtitle: translations.import_description,
+                        icon: Icons.file_download_outlined,
                         onTap: () => importData().then((success) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -105,11 +105,11 @@ class _SetupPageState extends State<SetupPage> {
                       title: translations.school_system,
                       icon: Icons.school,
                       settingKey: "school_system",
-                      onChange: (_) => rebuild(),
                       values: <String, String>{
                         "lux": translations.lux_system,
                         "other": translations.other_school_system,
                       },
+                      onChange: (_) => rebuild(),
                     ),
                     if (getPreference<String>("school_system") == "lux")
                       SettingsGroup(
@@ -119,15 +119,15 @@ class _SetupPageState extends State<SetupPage> {
                             title: translations.system,
                             icon: Icons.build,
                             settingKey: "lux_system",
+                            values: <String, String>{
+                              "classic": translations.lux_system_classic,
+                              "general": translations.lux_system_general,
+                            },
                             onChange: (_) {
                               setPreference<int>("year", defaultValues["year"] as int);
                               setPreference<String>("section", defaultValues["section"] as String);
                               setPreference<String>("variant", defaultValues["variant"] as String);
                               rebuild();
-                            },
-                            values: <String, String>{
-                              "classic": translations.lux_system_classic,
-                              "general": translations.lux_system_general,
                             },
                           ),
                           if (getPreference<String>("lux_system").isNotEmpty)
@@ -135,6 +135,8 @@ class _SetupPageState extends State<SetupPage> {
                               title: translations.yearOne,
                               icon: Icons.timelapse,
                               settingKey: "year",
+                              selected: -1,
+                              values: SetupManager.getYears(),
                               onChange: (_) {
                                 if (SetupManager.hasSections()) {
                                   setPreference<String>("section", defaultValues["section"] as String);
@@ -144,16 +146,14 @@ class _SetupPageState extends State<SetupPage> {
                                 }
                                 rebuild();
                               },
-                              values: SetupManager.getYears(),
-                              selected: -1,
                             ),
                           if (SetupManager.hasSections())
                             RadioModalSettingsTile<String>(
                               title: translations.section,
                               icon: Icons.fork_right,
                               settingKey: "section",
-                              onChange: (_) => rebuild(),
                               values: SetupManager.getSections(),
+                              onChange: (_) => rebuild(),
                             ),
                           if (SetupManager.hasVariants())
                             RadioModalSettingsTile<String>(
@@ -161,22 +161,22 @@ class _SetupPageState extends State<SetupPage> {
                               icon: Icons.edit,
                               settingKey: "variant",
                               selected: defaultValues["variant"] as String,
-                              onChange: (_) => rebuild(),
                               values: SetupManager.getVariants(),
+                              onChange: (_) => rebuild(),
                             ),
                           if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1)
                             RadioModalSettingsTile<int>(
                               title: translations.school_termOne,
                               icon: Icons.access_time_outlined,
-                              settingKey: "term",
-                              onChange: (_) => getCurrentYear().ensureTermCount(),
+                              settingKey: "term_count",
+                              selected: defaultValues["term_count"] as int,
                               values: <int, String>{
                                 4: translations.quarterOther,
                                 3: translations.trimesterOther,
                                 2: translations.semesterOther,
                                 1: translations.yearOne,
                               },
-                              selected: defaultValues["term"] as int,
+                              onChange: (_) => getCurrentYear().ensureTermCount(),
                             ),
                         ],
                       )

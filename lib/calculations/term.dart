@@ -9,6 +9,8 @@ class Term extends CalculationObject {
   List<Subject> subjects = [];
   bool isExam = false;
   bool isYearOverview = false;
+  @override
+  double get denominator => getCurrentYear().maxGrade;
 
   Term({
     double coefficient = 1,

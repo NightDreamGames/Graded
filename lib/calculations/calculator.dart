@@ -82,7 +82,7 @@ class Calculator {
 
     if (data.isEmpty || isNullFilled) return null;
 
-    final double totalGrades = getPreference<double>("total_grades");
+    final double maxGrade = getCurrentYear().maxGrade;
 
     double totalNumerator = 0;
     double totalDenominator = 0;
@@ -99,8 +99,8 @@ class Calculator {
       }
     }
 
-    double result = totalNumerator * (totalGrades / totalDenominator);
-    double resultSpeaking = totalNumeratorSpeaking * (totalGrades / totalDenominatorSpeaking);
+    double result = totalNumerator * (maxGrade / totalDenominator);
+    double resultSpeaking = totalNumeratorSpeaking * (maxGrade / totalDenominatorSpeaking);
     if (result.isNaN) result = resultSpeaking;
     if (resultSpeaking.isNaN) resultSpeaking = result;
 
@@ -110,8 +110,8 @@ class Calculator {
   }
 
   static double round(double n, {String? roundingModeOverride, int? roundToOverride}) {
-    final String roundingMode = roundingModeOverride ?? getPreference<String>("rounding_mode");
-    final int roundTo = roundToOverride ?? getPreference<int>("round_to");
+    final String roundingMode = roundingModeOverride ?? getCurrentYear().roundingMode;
+    final int roundTo = roundToOverride ?? getCurrentYear().roundTo;
 
     final double round = n * roundTo;
 
@@ -143,7 +143,7 @@ class Calculator {
   static String format(double? n, {bool addZero = true, int? roundToOverride}) {
     if (n == null || n.isNaN) return "-";
 
-    final int roundTo = roundToOverride ?? getPreference<int>("round_to");
+    final int roundTo = roundToOverride ?? getCurrentYear().roundTo;
     String result;
 
     int nbDecimals = log(roundTo) ~/ log(10);

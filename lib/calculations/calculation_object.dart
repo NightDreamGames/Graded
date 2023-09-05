@@ -3,7 +3,7 @@ import "package:diacritic/diacritic.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
-import "package:graded/misc/storage.dart";
+import "package:graded/misc/default_values.dart";
 
 abstract class CalculationObject {
   String _name = "";
@@ -18,7 +18,7 @@ abstract class CalculationObject {
   double? result;
   double? preciseResult;
   double? get numerator => result != null ? result! : null;
-  double get denominator => getPreference<double>("total_grades");
+  double get denominator => defaultValues["max_grade"] as double;
 
   String getResult({bool precise = false}) {
     if (result == null) return "-";

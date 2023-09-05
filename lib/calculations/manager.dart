@@ -131,7 +131,7 @@ class Manager {
             s.children[k].addTest(
               Test(
                 subjectResult ?? 0,
-                getPreference<double>("total_grades"),
+                year.maxGrade,
                 name: getTitle(termIndex: i),
                 coefficient: t.coefficient,
                 isEmpty: subjectResult == null,
@@ -145,7 +145,7 @@ class Manager {
           s.addTest(
             Test(
               subjectResult ?? 0,
-              getPreference<double>("total_grades"),
+              year.maxGrade,
               name: getTitle(termIndex: i),
               coefficient: t.coefficient,
               isEmpty: subjectResult == null,

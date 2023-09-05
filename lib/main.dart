@@ -134,11 +134,11 @@ Route<dynamic> createRoute(RouteSettings settings) {
       final Subject? parent = arguments[0];
       final Subject subject = arguments[1]!;
 
-      int tabAmount = getPreference<int>("term");
-      if (getCurrentYear().validatedYear == 1) tabAmount++;
-      if (tabAmount > 1) tabAmount++;
+      int tabCount = getCurrentYear().termCount;
+      if (getCurrentYear().validatedYear == 1) tabCount++;
+      if (tabCount > 1) tabCount++;
 
-      final List<Widget> children = List.generate(tabAmount, (index) {
+      final List<Widget> children = List.generate(tabCount, (index) {
         final Term term = getTerm(index);
         final Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
         final Subject newSubject = newParent != null
@@ -157,12 +157,12 @@ Route<dynamic> createRoute(RouteSettings settings) {
       route = const YearRoute();
     case "/":
     default:
-      int tabAmount = getPreference<int>("term");
-      if (getCurrentYear().validatedYear == 1) tabAmount++;
-      if (tabAmount > 1) tabAmount++;
+      int tabCount = getCurrentYear().termCount;
+      if (getCurrentYear().validatedYear == 1) tabCount++;
+      if (tabCount > 1) tabCount++;
 
       final List<Widget> children = List.generate(
-        tabAmount,
+        tabCount,
         (index) => HomePage(key: GlobalKey(), term: getTerm(index)),
       );
 

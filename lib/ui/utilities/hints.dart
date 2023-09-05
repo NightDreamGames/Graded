@@ -1,7 +1,7 @@
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
+import "package:graded/calculations/manager.dart";
 import "package:graded/localization/translations.dart";
-import "package:graded/misc/storage.dart";
 
 String getHint(String prefix, List<CalculationObject> data) {
   String hint = "";
@@ -16,13 +16,13 @@ String getHint(String prefix, List<CalculationObject> data) {
 }
 
 String getTitle({required int termIndex}) {
-  final int maxTerms = getPreference<int>("term");
+  final int termCount = getCurrentYear().termCount;
 
   if (termIndex == -1) return translations.year_overview;
 
-  if (termIndex == maxTerms) return translations.exams;
+  if (termIndex == termCount) return translations.exams;
 
-  switch (maxTerms) {
+  switch (termCount) {
     case 4:
       return "${translations.quarterOne} ${termIndex + 1}";
     case 3:

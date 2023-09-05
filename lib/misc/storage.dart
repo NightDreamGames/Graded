@@ -53,10 +53,6 @@ List<String> keys = [
   "sort_mode2",
   "sort_direction1",
   "sort_direction2",
-  "term",
-  "total_grades",
-  "rounding_mode",
-  "round_to",
 ];
 
 String getExportData() {

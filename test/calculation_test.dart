@@ -14,7 +14,6 @@ import "package:graded/calculations/test.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/enums.dart";
-import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 
 void main() async {
@@ -38,7 +37,7 @@ void main() async {
     expect(Calculator.calculate(multipleItemsList, bonus: 3, precise: true), equals(59.99));
 
     expect(Calculator.calculate(oneItemList), equals(48.0));
-    setPreference("total_grades", 100.0);
+    getCurrentYear().maxGrade = 100;
     expect(Calculator.calculate(oneItemList), equals(80));
   });
 

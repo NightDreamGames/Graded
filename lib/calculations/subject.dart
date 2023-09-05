@@ -9,6 +9,8 @@ import "package:graded/misc/enums.dart";
 class Subject extends CalculationObject {
   List<Subject> children = [];
   List<Test> tests = [];
+  @override
+  double get denominator => getCurrentYear().maxGrade;
 
   int bonus = 0;
   bool isGroup = false;

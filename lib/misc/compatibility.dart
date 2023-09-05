@@ -164,6 +164,22 @@ class Compatibility {
         setPreference("validated_section", null);
         setPreference("validated_variant", null);
       }
+
+      if (dataVersion < 14) {
+        //Rename settings
+        setPreference<int>("term_count", getPreference("term", 3));
+        setPreference<double>("max_grade", getPreference("total_grades", 60.0));
+
+        setPreference("term", null);
+        setPreference("total_grades", null);
+        setPreference("total_grades_description", null);
+
+        //Move settings into year
+        getCurrentYear().termCount = getPreference<int>("term_count", 3);
+        getCurrentYear().maxGrade = getPreference<double>("max_grade", 60);
+        getCurrentYear().roundingMode = getPreference<String>("rounding_mode", RoundingMode.up);
+        getCurrentYear().roundTo = getPreference<int>("round_to", 1);
+      }
     }
 
     setPreference<int>("data_version", dataVersion);

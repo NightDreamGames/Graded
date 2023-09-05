@@ -9,7 +9,6 @@ import "package:graded/calculations/test.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
-import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/hints.dart";
 import "package:graded/ui/widgets/easy_form_field.dart";
@@ -161,7 +160,7 @@ Future<void> showTestDialog(
             onConfirm: () {
               final String name = nameController.text.isEmpty ? getHint(translations.testOne, subject.tests) : nameController.text;
               final double numerator = Calculator.tryParse(gradeController.text) ?? 1;
-              final double denominator = Calculator.tryParse(maximumController.text) ?? getPreference<double>("total_grades");
+              final double denominator = Calculator.tryParse(maximumController.text) ?? getCurrentYear().maxGrade;
 
               if (action == CreationType.add) {
                 subject.addTest(Test(numerator, denominator, name: name, isSpeaking: isSpeaking, timestamp: timestamp));
@@ -208,7 +207,7 @@ Future<void> showTestDialog(
                       child: EasyFormField(
                         controller: maximumController,
                         label: translations.maximum,
-                        hint: Calculator.format(getPreference<double>("total_grades"), roundToOverride: 1),
+                        hint: Calculator.format(getCurrentYear().maxGrade, roundToOverride: 1),
                         numeric: true,
                         signed: false,
                         onSubmitted: () {
