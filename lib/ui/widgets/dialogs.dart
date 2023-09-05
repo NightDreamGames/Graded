@@ -299,7 +299,7 @@ Future<void> showSubjectDialog(
           : getCurrentYear().termTemplate[index1!].children[index2];
   coeffController.text = action == CreationType.edit ? Calculator.format(subject.coefficient, addZero: false, roundToOverride: 1) : "";
   nameController.text = action == CreationType.edit ? subject.name : "";
-  speakingController.text = action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false) : "";
+  speakingController.text = action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false, roundToOverride: 1) : "";
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
 
@@ -404,7 +404,7 @@ Future<void> showSubjectDialog(
                   child: EasyFormField(
                     controller: speakingController,
                     label: translations.speaking_weight,
-                    hint: Calculator.format((defaultValues["speaking_weight"] as double) + 1, addZero: false),
+                    hint: Calculator.format((defaultValues["speaking_weight"] as double) + 1, addZero: false, roundToOverride: 1),
                     numeric: true,
                     onSubmitted: () {
                       dialogKey.currentState?.submit();
