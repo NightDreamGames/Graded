@@ -83,6 +83,8 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
   }
 
   void rebuild() {
+    tabBarIsScrollable = true;
+    tabBarSizeChecked = false;
     setState(() {});
   }
 
