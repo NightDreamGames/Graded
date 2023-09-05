@@ -22,6 +22,6 @@ abstract class CalculationObject {
 
   String getResult({bool precise = false}) {
     if (result == null) return "-";
-    return Calculator.format(precise ? preciseResult : result, roundToOverride: precise ? 100 : null);
+    return Calculator.format(precise ? preciseResult : result, roundToOverride: precise ? defaultValues["precise_round_to"] as int : null);
   }
 }
