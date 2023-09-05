@@ -132,7 +132,7 @@ class Manager {
               Test(
                 subjectResult ?? 0,
                 year.maxGrade,
-                name: getTitle(termIndex: i),
+                name: getTermName(termIndex: i),
                 coefficient: t.coefficient,
                 isEmpty: subjectResult == null,
               ),
@@ -146,7 +146,7 @@ class Manager {
             Test(
               subjectResult ?? 0,
               year.maxGrade,
-              name: getTitle(termIndex: i),
+              name: getTermName(termIndex: i),
               coefficient: t.coefficient,
               isEmpty: subjectResult == null,
             ),

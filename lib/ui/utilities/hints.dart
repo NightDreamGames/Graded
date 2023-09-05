@@ -15,7 +15,7 @@ String getHint(String prefix, List<CalculationObject> data) {
   return hint;
 }
 
-String getTitle({required int termIndex}) {
+String getTermName({required int termIndex}) {
   final int termCount = getCurrentYear().termCount;
 
   if (termIndex == -1) return translations.year_overview;
@@ -32,6 +32,6 @@ String getTitle({required int termIndex}) {
     case 1:
       return translations.yearOne;
     default:
-      return translations.app_name;
+      return "${translations.school_termOne} ${termIndex + 1}";
   }
 }
