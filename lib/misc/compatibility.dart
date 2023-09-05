@@ -138,7 +138,7 @@ class Compatibility {
         //Move validated data into year
         getCurrentYear().validatedSchoolSystem = getPreference<String?>("validated_school_system");
         getCurrentYear().validatedLuxSystem = getPreference<String?>("validated_lux_system");
-        getCurrentYear().validatedYear = getPreference<int?>("validated_year");
+        getCurrentYear().validatedYear = (getPreference<int>("validated_year", -1) != -1) ? getPreference<int>("validated_year", -1) : null;
         getCurrentYear().validatedSection = getPreference<String?>("validated_section");
         getCurrentYear().validatedVariant = getPreference<String?>("validated_variant");
 

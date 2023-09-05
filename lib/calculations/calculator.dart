@@ -82,7 +82,7 @@ class Calculator {
 
     if (data.isEmpty || isNullFilled) return null;
 
-    final double maxGrade = getCurrentYear().maxGrade;
+    final double maxGrade = Manager.years.isNotEmpty ? getCurrentYear().maxGrade : getPreference("max_grade");
 
     double totalNumerator = 0;
     double totalDenominator = 0;
@@ -110,8 +110,8 @@ class Calculator {
   }
 
   static double round(double n, {String? roundingModeOverride, int? roundToOverride}) {
-    final String roundingMode = roundingModeOverride ?? getCurrentYear().roundingMode;
-    final int roundTo = roundToOverride ?? getCurrentYear().roundTo;
+    final String roundingMode = roundingModeOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundingMode : getPreference("rounding_mode"));
+    final int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference("round_to"));
 
     final double round = n * roundTo;
 
@@ -143,7 +143,7 @@ class Calculator {
   static String format(double? n, {bool addZero = true, int? roundToOverride}) {
     if (n == null || n.isNaN) return "-";
 
-    final int roundTo = roundToOverride ?? getCurrentYear().roundTo;
+    final int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference("round_to"));
     String result;
 
     int nbDecimals = log(roundTo) ~/ log(10);
