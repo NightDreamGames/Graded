@@ -64,7 +64,11 @@ class _YearRouteState extends State<YearRoute> {
                     children: [
                       ListTile(
                         key: key,
-                        title: Text(year.name),
+                        title: Text(
+                          year.name,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
+                        ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -76,6 +80,8 @@ class _YearRouteState extends State<YearRoute> {
                               ),
                             Text(
                               Calculator.format(year.result),
+                              overflow: TextOverflow.visible,
+                              softWrap: false,
                               style: const TextStyle(
                                 fontSize: 20,
                               ),

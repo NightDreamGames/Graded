@@ -207,6 +207,8 @@ class _ResultRowState extends State<ResultRow> {
                     widget.leading,
                     Text(
                       showPreciseResult ? widget.preciseResult : widget.result,
+                      overflow: TextOverflow.visible,
+                      softWrap: false,
                       style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
                     ),
                   ],
