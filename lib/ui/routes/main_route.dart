@@ -62,17 +62,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         Manager.deserializationError = false;
       }
 
-      try {
-        if (tabBarSizeChecked || tabBarKey.currentContext?.size == null) return;
-      } catch (e) {
-        return;
-      }
-
-      if (tabBarKey.currentContext!.size!.width < MediaQuery.sizeOf(context).width) {
-        tabBarIsScrollable = false;
-        rebuild();
-      }
-      tabBarSizeChecked = true;
+      checkTabBarSize();
     });
   }
 
@@ -83,8 +73,14 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
   }
 
   void rebuild() {
-    tabBarIsScrollable = true;
-    tabBarSizeChecked = false;
+    //Add back when tab rebuilding is fixed
+    /*tabBarIsScrollable = true;
+    tabBarSizeChecked = false;*/
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkTabBarSize();
+    });
+
     setState(() {});
   }
 
@@ -102,6 +98,21 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
       (child.key as GlobalKey?)?.currentState?.setState(() {});
     }
     rebuild();
+  }
+
+  void checkTabBarSize() {
+    try {
+      if (tabBarSizeChecked || tabBarKey.currentContext?.size == null) return;
+    } catch (e) {
+      return;
+    }
+
+    if (tabBarKey.currentContext!.size!.width < MediaQuery.sizeOf(context).width) {
+      tabBarIsScrollable = false;
+      rebuild();
+    }
+    tabBarSizeChecked = true;
+    return;
   }
 
   @override
