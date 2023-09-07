@@ -32,10 +32,9 @@ class _SettingsPageState extends State<SettingsPage> {
     setState(() {});
   }
 
-  void rebuildHomePage() {
+  void refreshHomePage() {
     getCurrentYear().yearOverview = createYearOverview(year: getCurrentYear());
-    if (ModalRoute.of(context) == null || !ModalRoute.of(context)!.isActive) return;
-    Navigator.replaceRouteBelow(context, anchorRoute: ModalRoute.of(context)!, newRoute: createRoute(const RouteSettings(name: "/")));
+    mainRouteKey.currentState?.rebuild();
   }
 
   @override
@@ -60,11 +59,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     children: [
                       SimpleSettingsTile(
                         icon: Icons.calendar_month_outlined,
-                        onTap: () => Navigator.pushNamed(context, "/years").then((value) => rebuildHomePage()),
+                        onTap: () => Navigator.pushNamed(context, "/years").then((value) => refreshHomePage()),
                         title: translations.manage_years,
                         subtitle: translations.manage_years_description,
                       ),
-                      ...getSettingsTiles(context, type: CreationType.edit, onChanged: rebuildHomePage),
+                      ...getSettingsTiles(context, type: CreationType.edit, onChanged: refreshHomePage),
                       SimpleSettingsTile(
                         icon: Icons.clear_all,
                         title: translations.reset,
@@ -110,7 +109,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           );
 
                           if (!success) return;
-                          rebuildHomePage();
+                          refreshHomePage();
                           Navigator.pop(context);
                         }),
                       ),

@@ -6,9 +6,12 @@ import "package:sliver_tools/sliver_tools.dart";
 
 // Project imports:
 import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/routes/home_route.dart";
+import "package:graded/ui/routes/subject_route.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/popup_menus.dart";
 
@@ -21,13 +24,13 @@ class RouteWidget extends StatefulWidget {
   const RouteWidget({
     super.key,
     required this.title,
-    required this.children,
     required this.routeType,
+    this.arguments,
   });
 
   final String title;
-  final List<Widget> children;
   final RouteType routeType;
+  final Object? arguments;
 
   @override
   State<RouteWidget> createState() => RouteWidgetState();
@@ -38,18 +41,35 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
   GlobalKey tabBarKey = GlobalKey();
   bool tabBarIsScrollable = true;
   bool tabBarSizeChecked = false;
+  List<Widget> children = [];
 
   @override
   void initState() {
     super.initState();
+    children = getChildren();
+    rebuild();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    tabController.dispose();
+  }
+
+  void rebuild() {
+    children = getChildren();
+
     tabController = TabController(
-      length: widget.children.length,
+      length: children.length,
       initialIndex: Manager.currentTerm,
       vsync: this,
     )..addListener(() {
         if (widget.routeType != RouteType.home) return;
         Manager.currentTerm = tabController.index;
       });
+
+    tabBarIsScrollable = true;
+    tabBarSizeChecked = false;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Manager.deserializationError) {
@@ -62,22 +82,6 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         Manager.deserializationError = false;
       }
 
-      checkTabBarSize();
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    tabController.dispose();
-  }
-
-  void rebuild() {
-    //Add back when tab rebuilding is fixed
-    /*tabBarIsScrollable = true;
-    tabBarSizeChecked = false;*/
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
       checkTabBarSize();
     });
 
@@ -94,7 +98,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
     refreshYearOverview();
 
-    for (final child in widget.children) {
+    for (final child in children) {
       (child.key as GlobalKey?)?.currentState?.setState(() {});
     }
     rebuild();
@@ -109,7 +113,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
     if (tabBarKey.currentContext!.size!.width < MediaQuery.sizeOf(context).width) {
       tabBarIsScrollable = false;
-      rebuild();
+      setState(() {});
     }
     tabBarSizeChecked = true;
     return;
@@ -120,7 +124,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
     return Scaffold(
       body: PlatformWillPopScope(
         onWillPop: () {
-          if (widget.children.last is HomePage && tabController.length > 1 && tabController.index == tabController.length - 1) {
+          if (children.last is HomePage && tabController.length > 1 && tabController.index == tabController.length - 1) {
             int newIndex = tabController.previousIndex;
             if (newIndex == tabController.index) {
               newIndex = 0;
@@ -153,7 +157,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
                       ],
                       forceElevated: innerBoxIsScrolled,
                     ),
-                    if (widget.children.length > 1)
+                    if (children.length > 1)
                       Row(
                         children: [
                           Flexible(
@@ -173,7 +177,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
           },
           body: TabBarView(
             controller: tabController,
-            children: widget.children,
+            children: children,
           ),
         ),
       ),
@@ -216,5 +220,44 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
     final List<Tab> entries = List.generate(items.length, (index) => Tab(text: items[index]));
 
     return entries;
+  }
+
+  List<Widget> getChildren() {
+    int tabCount = getCurrentYear().termCount;
+    if (getCurrentYear().validatedYear == 1) tabCount++;
+    if (tabCount > 1) tabCount++;
+
+    List<Widget> children = [];
+
+    if (widget.routeType == RouteType.home) {
+      children = List.generate(
+        tabCount,
+        (index) => HomePage(term: getTerm(index)),
+      );
+    } else {
+      if (widget.arguments == null) {
+        throw ArgumentError("No arguments passed to route");
+      }
+
+      final List<Subject?> arguments = widget.arguments! as List<Subject?>;
+      final Subject? parent = arguments[0];
+      final Subject subject = arguments[1]!;
+
+      int tabCount = getCurrentYear().termCount;
+      if (getCurrentYear().validatedYear == 1) tabCount++;
+      if (tabCount > 1) tabCount++;
+
+      children = List.generate(tabCount, (index) {
+        final Term term = getTerm(index);
+        final Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
+        final Subject newSubject = newParent != null
+            ? newParent.children.firstWhere((element) => element.name == subject.name)
+            : term.subjects.firstWhere((element) => element.name == subject.name);
+
+        return SubjectRoute(term: term, parent: newParent, subject: newSubject);
+      });
+    }
+
+    return children;
   }
 }

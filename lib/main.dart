@@ -12,7 +12,6 @@ import "package:provider/provider.dart";
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/localization/material_localization/lb_intl.dart";
 import "package:graded/localization/translations.dart";
@@ -20,12 +19,10 @@ import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/locale_provider.dart";
 import "package:graded/misc/storage.dart";
-import "package:graded/ui/routes/home_route.dart";
 import "package:graded/ui/routes/main_route.dart";
 import "package:graded/ui/routes/settings_route.dart";
 import "package:graded/ui/routes/setup_route.dart";
 import "package:graded/ui/routes/subject_edit_route.dart";
-import "package:graded/ui/routes/subject_route.dart";
 import "package:graded/ui/routes/year_route.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/app_theme.dart";
@@ -33,6 +30,7 @@ import "package:graded/ui/utilities/misc_utilities.dart";
 
 final GlobalKey appContainerKey = GlobalKey();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+GlobalKey<RouteWidgetState> mainRouteKey = GlobalKey();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -131,45 +129,22 @@ Route<dynamic> createRoute(RouteSettings settings) {
       }
 
       final List<Subject?> arguments = settings.arguments! as List<Subject?>;
-      final Subject? parent = arguments[0];
       final Subject subject = arguments[1]!;
-
-      int tabCount = getCurrentYear().termCount;
-      if (getCurrentYear().validatedYear == 1) tabCount++;
-      if (tabCount > 1) tabCount++;
-
-      final List<Widget> children = List.generate(tabCount, (index) {
-        final Term term = getTerm(index);
-        final Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
-        final Subject newSubject = newParent != null
-            ? newParent.children.firstWhere((element) => element.name == subject.name)
-            : term.subjects.firstWhere((element) => element.name == subject.name);
-
-        return SubjectRoute(key: GlobalKey(), term: term, parent: newParent, subject: newSubject);
-      });
 
       route = RouteWidget(
         routeType: RouteType.subject,
         title: subject.name,
-        children: children,
+        arguments: arguments,
       );
     case "/years":
       route = const YearRoute();
     case "/":
     default:
-      int tabCount = getCurrentYear().termCount;
-      if (getCurrentYear().validatedYear == 1) tabCount++;
-      if (tabCount > 1) tabCount++;
-
-      final List<Widget> children = List.generate(
-        tabCount,
-        (index) => HomePage(key: GlobalKey(), term: getTerm(index)),
-      );
-
+      mainRouteKey = GlobalKey();
       route = RouteWidget(
+        key: mainRouteKey,
         routeType: RouteType.home,
         title: translations.subjectOther,
-        children: children,
       );
       break;
   }
