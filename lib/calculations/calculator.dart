@@ -8,6 +8,7 @@ import "package:collection/collection.dart";
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/test.dart";
+import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 
@@ -106,10 +107,10 @@ class Calculator {
 
     final double totalResult = (result * speakingWeight + resultSpeaking) / (speakingWeight + 1) + bonus;
 
-    return round(totalResult, roundToOverride: precise ? 100 : null);
+    return round(totalResult, roundToMultiplier: precise ? defaultValues["precise_round_to_multiplier"] as int : 1);
   }
 
-  static double round(double n, {String? roundingModeOverride, int? roundToOverride}) {
+  static double round(double n, {String? roundingModeOverride, int? roundToOverride, int roundToMultiplier = 1}) {
     final String roundingMode = roundingModeOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundingMode : getPreference("rounding_mode"));
     final int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference("round_to"));
 
@@ -140,10 +141,10 @@ class Calculator {
     return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
   }
 
-  static String format(double? n, {bool addZero = true, int? roundToOverride}) {
+  static String format(double? n, {bool addZero = true, int? roundToOverride, int roundToMultiplier = 1}) {
     if (n == null || n.isNaN) return "-";
 
-    final int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference("round_to"));
+    final int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("round_to")) * roundToMultiplier;
     String result;
 
     int nbDecimals = log(roundTo) ~/ log(10);
