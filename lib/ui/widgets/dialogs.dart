@@ -210,9 +210,7 @@ Future<void> showTestDialog(
                         hint: Calculator.format(getCurrentYear().maxGrade, roundToOverride: 1),
                         numeric: true,
                         signed: false,
-                        onSubmitted: () {
-                          dialogKey.currentState?.submit();
-                        },
+                        onSubmitted: () => dialogKey.currentState?.submit(),
                         additionalValidator: (newValue) {
                           final double? number = Calculator.tryParse(newValue);
 
@@ -406,9 +404,7 @@ Future<void> showSubjectDialog(
                     label: translations.speaking_weight,
                     hint: Calculator.format((defaultValues["speaking_weight"] as double) + 1, addZero: false, roundToOverride: 1),
                     numeric: true,
-                    onSubmitted: () {
-                      dialogKey.currentState?.submit();
-                    },
+                    onSubmitted: () => dialogKey.currentState?.submit(),
                     additionalValidator: (newValue) {
                       final double? number = Calculator.tryParse(newValue);
 

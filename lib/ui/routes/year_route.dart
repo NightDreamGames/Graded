@@ -124,17 +124,24 @@ class _YearRouteState extends State<YearRoute> {
 
           showDialog(
             context: context,
-            builder: (context) => EasyDialog(
-              title: translations.edit_year,
-              icon: Icons.edit,
-              child: EasyFormField(
-                controller: nameController,
-                label: translations.name,
-                autofocus: true,
-              ),
-            ),
+            builder: (context) {
+              final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
+
+              return EasyDialog(
+                key: dialogKey,
+                title: translations.edit_year,
+                icon: Icons.edit,
+                child: EasyFormField(
+                  controller: nameController,
+                  label: translations.name,
+                  autofocus: true,
+                  onSubmitted: () => dialogKey.currentState?.submit(),
+                ),
+              );
+            },
           ).then((value) {
             year.name = nameController.value.text;
+            rebuild();
           });
         case YearAction.delete:
           Manager.years.removeAt(index);
