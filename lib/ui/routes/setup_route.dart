@@ -2,7 +2,6 @@
 import "package:flutter/material.dart";
 
 // Project imports:
-import "package:graded/calculations/manager.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/main.dart";
 import "package:graded/misc/default_values.dart";
@@ -164,20 +163,7 @@ class _SetupPageState extends State<SetupPage> {
                               values: SetupManager.getVariants(),
                               onChange: (_) => rebuild(),
                             ),
-                          if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1)
-                            RadioModalSettingsTile<int>(
-                              title: translations.school_termOne,
-                              icon: Icons.access_time_outlined,
-                              settingKey: "term_count",
-                              selected: defaultValues["term_count"] as int,
-                              values: <int, String>{
-                                4: translations.quarterOther,
-                                3: translations.trimesterOther,
-                                2: translations.semesterOther,
-                                1: translations.yearOne,
-                              },
-                              onChange: (_) => getCurrentYear().ensureTermCount(),
-                            ),
+                          if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1) const TermCountSettingsTile(),
                         ],
                       )
                     else if (getPreference<String>("school_system") == "other")

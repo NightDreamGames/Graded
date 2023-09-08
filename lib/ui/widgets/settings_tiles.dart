@@ -26,22 +26,8 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
       icon: Icons.subject,
       onTap: () => Navigator.pushNamed(context, "/subject_edit", arguments: type).then((value) => onChanged?.call()),
     ),
-    RadioModalSettingsTile<int>(
-      title: translations.school_termOne,
-      icon: Icons.access_time_outlined,
-      settingKey: "term_count",
-      selected: defaultValues["term_count"] as int,
-      values: <int, String>{
-        4: translations.quarterOther,
-        3: translations.trimesterOther,
-        2: translations.semesterOther,
-        1: translations.yearOne,
-      },
-      onChange: (value) {
-        getCurrentYear().termCount = value;
-        getCurrentYear().ensureTermCount();
-        onChanged?.call();
-      },
+    TermCountSettingsTile(
+      onChanged: onChanged,
     ),
     TextInputSettingsTile(
       title: translations.rating_system,
@@ -104,4 +90,33 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
       },
     ),
   ];
+}
+
+class TermCountSettingsTile extends StatelessWidget {
+  const TermCountSettingsTile({
+    super.key,
+    this.onChanged,
+  });
+  final Function()? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return RadioModalSettingsTile<int>(
+      title: translations.school_termOne,
+      icon: Icons.access_time_outlined,
+      settingKey: "term_count",
+      selected: defaultValues["term_count"] as int,
+      values: <int, String>{
+        4: translations.quarterOther,
+        3: translations.trimesterOther,
+        2: translations.semesterOther,
+        1: translations.yearOne,
+      },
+      onChange: (value) {
+        getCurrentYear().termCount = value;
+        getCurrentYear().ensureTermCount();
+        onChanged?.call();
+      },
+    );
+  }
 }
