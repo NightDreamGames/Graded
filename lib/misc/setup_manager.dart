@@ -175,7 +175,6 @@ class SetupManager {
 
     inSetup = false;
     year.ensureTermCount();
-    Manager.calculate();
 
     setPreference<bool>("is_first_run", false);
   }

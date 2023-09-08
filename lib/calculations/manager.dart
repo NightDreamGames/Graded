@@ -71,14 +71,12 @@ class Manager {
     year.name = getHint(translations.yearOne, years);
     years.add(year);
     changeYear(years.length - 1);
-    year.ensureTermCount();
     year.sort();
   }
 
   static void changeYear(int index) {
     currentYear = index;
     currentTerm = 0;
-    getCurrentYear().ensureTermCount();
     calculate();
   }
 

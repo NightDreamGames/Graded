@@ -199,6 +199,7 @@ class Year extends CalculationObject {
       terms.add(Term(isExam: true));
     }
 
+    Manager.calculate();
     serialize();
   }
 
