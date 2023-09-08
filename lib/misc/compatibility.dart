@@ -12,7 +12,7 @@ import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 
 class Compatibility {
-  static const dataVersion = 13;
+  static const dataVersion = 14;
 
   static void upgradeDataVersion({bool imported = false}) {
     final int currentDataVersion = getPreference<int>("data_version");
