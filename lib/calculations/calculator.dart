@@ -145,10 +145,12 @@ class Calculator {
   static String format(double? n, {bool addZero = true, int? roundToOverride, int roundToMultiplier = 1}) {
     if (n == null || n.isNaN) return "-";
 
-    final int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("round_to")) * roundToMultiplier;
+    int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("round_to"));
+    roundTo *= roundToMultiplier;
+
     String result;
 
-    int nbDecimals = log(roundTo) ~/ log(10);
+    int nbDecimals = (log(roundTo) / log(10)).round();
     if (n % 1 != 0) {
       nbDecimals = max(n.toString().split(".")[1].length, nbDecimals);
     }
