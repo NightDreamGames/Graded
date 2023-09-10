@@ -112,7 +112,8 @@ class Calculator {
 
   static double round(double n, {String? roundingModeOverride, int? roundToOverride, int roundToMultiplier = 1}) {
     final String roundingMode = roundingModeOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundingMode : getPreference("rounding_mode"));
-    final int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference("round_to"));
+    int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("round_to"));
+    roundTo *= roundToMultiplier;
 
     final double round = n * roundTo;
 
