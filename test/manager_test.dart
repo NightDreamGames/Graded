@@ -21,6 +21,7 @@ void main() async {
   TranslationsClass.load(const Locale("en", ""));
   Manager.init();
   Manager.addYear(year: Year());
+  getCurrentYear().ensureTermCount();
 
   test("Calculations", () async {
     getCurrentYear().termTemplate = [
