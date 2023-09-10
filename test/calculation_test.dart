@@ -26,7 +26,7 @@ void main() async {
   test("Calculations", () async {
     final List<CalculationObject> emptyList = [Test(null, 0), Test(null, 0), Test(null, 0)];
     final List<CalculationObject> oneItemList = [Test(80, 100)];
-    final List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(68.7, 70), Test(50, 55)];
+    final List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(65.9, 70), Test(50, 55)];
     final List<CalculationObject> speakingList = [Test(0, 60, isSpeaking: true), Test(60, 60)];
 
     expect(Calculator.calculate([]), equals(null));
@@ -34,7 +34,7 @@ void main() async {
     expect(Calculator.calculate(speakingList, speakingWeight: 3), equals(45));
     expect(Calculator.calculate(multipleItemsList), equals(57.0));
     expect(Calculator.calculate(multipleItemsList, bonus: -3), equals(54.0));
-    expect(Calculator.calculate(multipleItemsList, bonus: 3, precise: true), equals(59.99));
+    expect(Calculator.calculate(multipleItemsList, bonus: 3, precise: true), equals(59.1));
 
     expect(Calculator.calculate(oneItemList), equals(48.0));
     getCurrentYear().maxGrade = 100;
@@ -52,6 +52,7 @@ void main() async {
     expect(Calculator.format(47.5, roundToOverride: 100), equals("47.50"));
     expect(Calculator.format(1, addZero: false), equals("1"));
     expect(Calculator.format(1), equals("01"));
+    expect(Calculator.format(47.5, roundToOverride: 10, roundToMultiplier: 10), equals("47.50"));
   });
 
   test("Number rounding", () {
