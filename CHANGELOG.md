@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2023-09-10
+
+### This feature update includes support for multiple years as well as many other improvements
+
+- Add support for saving and managing multiple years
+- Add long press on subject to quick-create a test
+- Add dates to tests and date sorting
+- TabBar UI improvements
+- Improve tooltips and accessibility
+- Change behavior of precise average
+- Add natural sorting to alphabetical sort
+- Target Android 14
+- Removed support for legacy 1.X.X versions
+- Fixed many bugs
+
 ## [2.3.1] - 2023-07-05
 
 - Add quarters
