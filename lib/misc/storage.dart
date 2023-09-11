@@ -111,7 +111,12 @@ Future<bool> importData() async {
     final filePath = await FlutterFileDialog.pickFile(params: params);
 
     final File file = File(filePath!);
-    final String data = (await utf8.decodeStream(file.openRead())).replaceAll("\n", "");
+    String data;
+    try {
+      data = await utf8.decodeStream(file.openRead());
+    } catch (e) {
+      data = String.fromCharCodes(file.readAsBytesSync());
+    }
 
     restoreData(data);
     SetupManager.inSetup = false;
