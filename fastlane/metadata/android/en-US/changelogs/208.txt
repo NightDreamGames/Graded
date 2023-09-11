@@ -1,0 +1,14 @@
+## [2.4.0] - 2023-09-11
+
+### This feature update includes support for multiple years as well as many other improvements
+
+- Add support for saving and managing multiple years
+- Add long press on subject to quick-create a test
+- Add dates to tests and date sorting
+- TabBar UI improvements
+- Improve tooltips and accessibility
+- Change behavior of precise average
+- Add natural sorting to alphabetical sort
+- Target Android 14
+- Removed support for legacy 1.X.X versions
+- Fixed many bugs
