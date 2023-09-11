@@ -165,7 +165,7 @@ class Compatibility {
         setPreference("validated_variant", null);
       }
 
-      if (dataVersion < 14) {
+      if (currentDataVersion < 14) {
         //Rename settings
         setPreference<int>("term_count", getPreference("term", 3));
         setPreference<double>("max_grade", getPreference("total_grades", 60.0));
