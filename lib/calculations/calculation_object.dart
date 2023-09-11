@@ -10,7 +10,7 @@ abstract class CalculationObject {
   String get name => _name;
   set name(String value) {
     _name = value;
-    asciiName = removeDiacritics(value.toLowerCase()).replaceAll("[^\\p{ASCII}]", "");
+    asciiName = removeDiacritics(value.toLowerCase().trim()).replaceAll("[^\\p{ASCII}]", "").replaceAll(RegExp("\\s+"), " ");
   }
 
   String asciiName = "";
