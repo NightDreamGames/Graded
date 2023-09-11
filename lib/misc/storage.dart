@@ -13,6 +13,7 @@ import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
+import "package:graded/misc/setup_manager.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 
@@ -100,6 +101,7 @@ Future<bool> importData() async {
 
   final String backup = getExportData();
   bool error = false;
+  final bool inSetup = SetupManager.inSetup;
 
   try {
     const params = OpenFileDialogParams(
@@ -112,14 +114,21 @@ Future<bool> importData() async {
     final String data = String.fromCharCodes(file.readAsBytesSync());
 
     restoreData(data);
+    SetupManager.inSetup = false;
+
+    Compatibility.upgradeDataVersion(imported: true);
+
+    Manager.calculate();
+    Manager.currentTerm = 0;
   } catch (e) {
     error = true;
     restoreData(backup);
-  }
-  Compatibility.upgradeDataVersion(imported: true);
 
+    SetupManager.inSetup = inSetup;
+  }
+
+  Compatibility.upgradeDataVersion(imported: true);
   Manager.calculate();
-  Manager.currentTerm = 0;
 
   return !error;
 }
