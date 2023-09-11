@@ -89,7 +89,7 @@ Future<void> exportData() async {
 
   final params = SaveFileDialogParams(
     fileName: fileName,
-    data: Uint8List.fromList(getExportData().codeUnits),
+    data: Uint8List.fromList(utf8.encode(getExportData())),
     mimeTypesFilter: ["application/json"],
   );
 
@@ -111,7 +111,7 @@ Future<bool> importData() async {
     final filePath = await FlutterFileDialog.pickFile(params: params);
 
     final File file = File(filePath!);
-    final String data = String.fromCharCodes(file.readAsBytesSync());
+    final String data = (await utf8.decodeStream(file.openRead())).replaceAll("\n", "");
 
     restoreData(data);
     SetupManager.inSetup = false;
