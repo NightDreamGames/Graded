@@ -24,6 +24,14 @@ class _YearRouteState extends State<YearRoute> {
   final TextEditingController nameController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    for (final Year year in Manager.years) {
+      year.calculate();
+    }
+  }
+
+  @override
   void dispose() {
     nameController.dispose();
     super.dispose();
