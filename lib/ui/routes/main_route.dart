@@ -155,7 +155,6 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
                             onReturn: rebuildChildren,
                           ),
                       ],
-                      forceElevated: innerBoxIsScrolled,
                     ),
                     if (children.length > 1)
                       Row(
