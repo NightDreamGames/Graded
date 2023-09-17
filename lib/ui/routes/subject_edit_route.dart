@@ -63,7 +63,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(title),
         titleSpacing: 0,
         toolbarHeight: 64,
         actions: [

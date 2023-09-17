@@ -20,9 +20,19 @@ class AppTheme {
     );
 
     return theme.copyWith(
-      textTheme: theme.textTheme.apply(
-        fontFamily: "RobotoMono",
-      ),
+      textTheme: theme.textTheme
+          .apply(
+            fontFamily: "RobotoMono",
+          )
+          .copyWith(
+            titleLarge: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+            headlineMedium: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 42,
+            ),
+          ),
       primaryTextTheme: theme.textTheme.apply(
         fontFamily: "RobotoMono",
       ),

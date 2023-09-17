@@ -17,32 +17,15 @@ class AppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final bool collapsed = constraints.biggest.height == 64;
-
-        final double paddingLeft = collapsed && Navigator.canPop(context) ? 40 : 8;
-        final double paddingRight = collapsed ? 0 : 8;
-
-        return SafeArea(
-          top: false,
-          bottom: false,
-          child: Padding(
-            padding: EdgeInsets.only(left: paddingLeft, right: paddingRight),
-            child: MediaQuery(
-              data: collapsed ? MediaQuery.of(context) : MediaQuery.of(context).copyWith(textScaleFactor: 1),
-              child: Text(
-                title,
-                softWrap: false,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.fade,
-                style: collapsed ? const TextStyle(fontWeight: FontWeight.bold) : const TextStyle(fontWeight: FontWeight.bold, fontSize: 42),
-              ),
-            ),
-          ),
-        );
-      },
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: Text(
+        title,
+        softWrap: false,
+        maxLines: 1,
+        overflow: TextOverflow.fade,
+      ),
     );
   }
 }

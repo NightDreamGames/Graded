@@ -50,10 +50,7 @@ class _YearRouteState extends State<YearRoute> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text(
-          translations.manage_years,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: Text(translations.manage_years),
         titleSpacing: 0,
         toolbarHeight: 64,
       ),
