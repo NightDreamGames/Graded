@@ -25,7 +25,7 @@ class AppTheme {
             fontFamily: "RobotoMono",
           )
           .copyWith(
-            titleLarge: theme.textTheme.headlineMedium?.copyWith(
+            titleLarge: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
             headlineMedium: theme.textTheme.headlineMedium?.copyWith(
