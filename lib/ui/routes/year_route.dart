@@ -149,7 +149,7 @@ class _YearRouteState extends State<YearRoute> {
           Manager.years.removeAt(index);
 
           if (Manager.years.isEmpty) {
-            Navigator.of(context).pushNamedAndRemoveUntil("/setup", (_) => false);
+            Navigator.pushNamedAndRemoveUntil(context, "/setup", (_) => false);
           } else if (index == Manager.currentYear || Manager.currentYear == Manager.years.length) {
             Manager.changeYear(Manager.years.length - 1);
           }
