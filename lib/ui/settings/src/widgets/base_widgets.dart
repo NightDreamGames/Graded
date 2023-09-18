@@ -152,10 +152,10 @@ class _SettingsTile extends StatefulWidget {
   });
 
   @override
-  State<_SettingsTile> createState() => __SettingsTileState();
+  State<_SettingsTile> createState() => _SettingsTileState();
 }
 
-class __SettingsTileState extends State<_SettingsTile> {
+class _SettingsTileState extends State<_SettingsTile> {
   @override
   void initState() {
     super.initState();
@@ -228,10 +228,10 @@ class _SimpleHeaderTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<_SimpleHeaderTile> createState() => __SimpleHeaderTileState();
+  State<_SimpleHeaderTile> createState() => _SimpleHeaderTileState();
 }
 
-class __SimpleHeaderTileState extends State<_SimpleHeaderTile> {
+class _SimpleHeaderTileState extends State<_SimpleHeaderTile> {
   @override
   Widget build(BuildContext context) {
     return AbsorbPointer(
@@ -414,10 +414,10 @@ class _ModalSettingsTile<T> extends StatefulWidget {
   void submit() {}
 
   @override
-  State<_ModalSettingsTile> createState() => __ModalSettingsTileState();
+  State<_ModalSettingsTile> createState() => _ModalSettingsTileState();
 }
 
-class __ModalSettingsTileState extends State<_ModalSettingsTile> {
+class _ModalSettingsTileState extends State<_ModalSettingsTile> {
   @override
   void initState() {
     super.initState();
