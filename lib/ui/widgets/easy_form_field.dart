@@ -54,7 +54,7 @@ class EasyFormField extends StatelessWidget {
         }
         return additionalValidator?.call(input!);
       },
-      decoration: inputDecoration(context, labelText: label, hintText: hint),
+      decoration: inputDecoration(labelText: label, hintText: hint),
       onSaved: onSaved,
       onEditingComplete: onSubmitted,
       focusNode: focusNode,
@@ -62,26 +62,9 @@ class EasyFormField extends StatelessWidget {
   }
 }
 
-InputDecoration inputDecoration(BuildContext context, {String? hintText, String? labelText}) {
+InputDecoration inputDecoration({String? hintText, String? labelText}) {
   return InputDecoration(
     hintText: hintText,
     labelText: labelText,
-    floatingLabelBehavior: FloatingLabelBehavior.always,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-      borderRadius: BorderRadius.circular(16.0),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.primary),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Theme.of(context).colorScheme.error),
-      borderRadius: BorderRadius.circular(16.0),
-    ),
-    focusedErrorBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-      borderRadius: BorderRadius.circular(8.0),
-    ),
   );
 }

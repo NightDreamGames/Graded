@@ -152,11 +152,13 @@ Route<dynamic> createRoute(RouteSettings settings) {
   return MaterialPageRoute(
     builder: (context) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
+        final ThemeData theme = Theme.of(context);
+
         SystemChrome.setSystemUIOverlayStyle(
           SystemUiOverlayStyle(
-            systemNavigationBarColor: Theme.of(context).colorScheme.surface,
-            systemNavigationBarIconBrightness: Theme.of(context).brightness == Brightness.light ? Brightness.dark : Brightness.light,
-            systemNavigationBarDividerColor: Theme.of(context).colorScheme.surface,
+            systemNavigationBarColor: theme.colorScheme.surface,
+            systemNavigationBarIconBrightness: theme.brightness == Brightness.light ? Brightness.dark : Brightness.light,
+            systemNavigationBarDividerColor: theme.colorScheme.surface,
           ),
         );
       });

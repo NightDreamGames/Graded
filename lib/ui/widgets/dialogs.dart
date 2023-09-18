@@ -243,12 +243,11 @@ Future<void> showTestDialog(
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 4),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 4),
                         child: VerticalDivider(
                           indent: 10,
                           endIndent: 10,
-                          color: Theme.of(context).dividerColor,
                         ),
                       ),
                       IconButton(

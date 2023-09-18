@@ -432,7 +432,6 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
           ListTile(
             leading: Icon(
               widget.icon,
-              color: Theme.of(context).colorScheme.secondary,
             ),
             title: Text(widget.title, style: widget.titleTextStyle ?? headerTextStyle(context)),
             subtitle: Text(
@@ -470,10 +469,7 @@ class __ModalSettingsTileState extends State<_ModalSettingsTile> {
 class _SettingsTileDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      child: Divider(),
-    );
+    return const Divider();
   }
 }
 

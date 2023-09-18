@@ -48,11 +48,7 @@ class TextRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (isChild)
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(),
-          ),
+        if (isChild) const Divider(),
         ListTile(
           horizontalTitleGap: horizontalTitleGap,
           key: listKey,
@@ -85,11 +81,7 @@ class TextRow extends StatelessWidget {
             ],
           ),
         ),
-        if (!isChild)
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(),
-          ),
+        if (!isChild) const Divider(),
       ],
     );
   }
@@ -118,51 +110,44 @@ class _GroupRowState extends State<GroupRow> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            title: Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Text(
-                widget.leading,
-                overflow: TextOverflow.fade,
-                softWrap: false,
-              ),
+        ExpansionTile(
+          title: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Text(
+              widget.leading,
+              overflow: TextOverflow.fade,
+              softWrap: false,
             ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  widget.trailing,
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.only(right: 24)),
-                AnimatedRotation(
-                  turns: _isExpanded ? .5 : 0,
-                  duration: const Duration(milliseconds: 200),
-                  child: Icon(
-                    Icons.expand_more,
-                    size: 24.0,
-                    color: _isExpanded ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
-                  ),
-                ),
-              ],
-            ),
-            onExpansionChanged: (value) {
-              setState(() {
-                _isExpanded = value;
-              });
-            },
-            childrenPadding: const EdgeInsets.only(left: 16),
-            children: widget.children,
           ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                widget.trailing,
+                style: const TextStyle(
+                  fontSize: 20.0,
+                ),
+              ),
+              const Padding(padding: EdgeInsets.only(right: 24)),
+              AnimatedRotation(
+                turns: _isExpanded ? .5 : 0,
+                duration: const Duration(milliseconds: 200),
+                child: const Icon(
+                  Icons.expand_more,
+                  size: 24.0,
+                ),
+              ),
+            ],
+          ),
+          onExpansionChanged: (value) {
+            setState(() {
+              _isExpanded = value;
+            });
+          },
+          childrenPadding: const EdgeInsets.only(left: 16),
+          children: widget.children,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Divider(),
-        ),
+        const Divider(),
       ],
     );
   }
@@ -216,11 +201,8 @@ class _ResultRowState extends State<ResultRow> {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(
-              thickness: 3,
-            ),
+          const Divider(
+            thickness: 3,
           ),
         ],
       ),

@@ -12,10 +12,10 @@ class AppTheme {
     lightColorScheme = light;
     darkColorScheme = dark;
 
-    final ColorScheme scheme = brightness == Brightness.light ? lightTheme() : darkTheme();
+    final ColorScheme colorScheme = brightness == Brightness.light ? lightTheme() : darkTheme();
 
     final ThemeData theme = ThemeData.from(
-      colorScheme: scheme,
+      colorScheme: colorScheme,
       useMaterial3: true,
     );
 
@@ -41,11 +41,20 @@ class AppTheme {
           fontWeight: FontWeight.w500,
           fontSize: 18,
         ),
+        iconColor: colorScheme.secondary,
+      ),
+      expansionTileTheme: theme.expansionTileTheme.copyWith(
+        shape: const Border(),
+        collapsedShape: const Border(),
+        iconColor: colorScheme.primary,
+        collapsedIconColor: colorScheme.onSurface.withOpacity(0.5),
       ),
       dividerTheme: theme.dividerTheme.copyWith(
         thickness: 0.5,
         space: 1,
-        color: theme.colorScheme.surfaceVariant,
+        indent: 16,
+        endIndent: 16,
+        color: colorScheme.surfaceVariant,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
@@ -57,7 +66,26 @@ class AppTheme {
         centerTitle: false,
       ),
       iconTheme: theme.iconTheme.copyWith(
-        color: theme.colorScheme.secondary,
+        color: colorScheme.secondary,
+      ),
+      inputDecorationTheme: theme.inputDecorationTheme.copyWith(
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.primary),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 2, color: colorScheme.primary),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.error),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(width: 2, color: colorScheme.error),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
       ),
       //platform: TargetPlatform.iOS,
     );

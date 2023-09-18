@@ -97,7 +97,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                                 widget.subject.changeBonus(-1);
                                 refreshYearOverview();
                               },
-                              style: getIconButtonStyle(context),
+                              style: getTonalIconButtonStyle(context),
                             ),
                             IconButton(
                               tooltip: translations.increase,
@@ -106,7 +106,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                                 widget.subject.changeBonus(1);
                                 refreshYearOverview();
                               },
-                              style: getIconButtonStyle(context),
+                              style: getTonalIconButtonStyle(context),
                             ),
                           ],
                         )

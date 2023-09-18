@@ -68,14 +68,17 @@ class EmptyWidget extends StatelessWidget {
   }
 }
 
-ButtonStyle getIconButtonStyle(BuildContext context) {
+ButtonStyle getTonalIconButtonStyle(BuildContext context) {
+  final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
   return IconButton.styleFrom(
-    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-    disabledBackgroundColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-    hoverColor: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.08),
-    focusColor: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.12),
-    highlightColor: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.12),
+    foregroundColor: colorScheme.onSecondaryContainer,
+    backgroundColor: colorScheme.secondaryContainer,
+    disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38),
+    disabledBackgroundColor: colorScheme.onSurface.withOpacity(0.12),
+    hoverColor: colorScheme.onSecondaryContainer.withOpacity(0.08),
+    focusColor: colorScheme.onSecondaryContainer.withOpacity(0.12),
+    highlightColor: colorScheme.onSecondaryContainer.withOpacity(0.12),
   );
 }
 

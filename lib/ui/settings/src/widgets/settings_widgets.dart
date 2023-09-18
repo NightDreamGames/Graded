@@ -75,7 +75,7 @@ class SimpleSettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _SettingsTile(
-      leading: Icon(icon, color: Theme.of(context).colorScheme.secondary),
+      leading: Icon(icon),
       title: title,
       subtitle: subtitle,
       titleTextStyle: titleTextStyle,
@@ -410,8 +410,7 @@ class SettingsGroup extends StatelessWidget {
   }
 
   TextStyle groupStyle(BuildContext context) {
-    return TextStyle(
-      color: Theme.of(context).colorScheme.onSurface,
+    return const TextStyle(
       fontSize: 12.0,
       fontWeight: FontWeight.bold,
     );
@@ -1063,13 +1062,15 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
 
   Widget _buildRadioTiles(BuildContext context, T groupValue, OnChanged<T> onChanged) {
     final radioList = widget.values.entries.map<Widget>((MapEntry<T, String> entry) {
+      final ThemeData theme = Theme.of(context);
+
       return Material(
-        color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 3),
+        color: ElevationOverlay.applySurfaceTint(theme.colorScheme.surface, theme.colorScheme.surfaceTint, 3),
         child: _SettingsTile(
           title: entry.value,
           titleTextStyle: radioTextStyle(context),
           onTap: () => _onRadioChange(entry.key, onChanged),
-          color: Theme.of(context).dialogBackgroundColor,
+          color: theme.dialogBackgroundColor,
           enabled: widget.enabled,
           padding: EdgeInsets.zero,
           dense: true,

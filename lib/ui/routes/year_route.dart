@@ -100,10 +100,7 @@ class _YearRouteState extends State<YearRoute> {
                           showPopupActions(context, key, index, year);
                         },
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(),
-                      ),
+                      const Divider(),
                     ],
                   );
                 },
