@@ -117,25 +117,30 @@ workflows:
           changelog_file="CHANGELOG.md"
           files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
 
-          changelog=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d')
+          echo {CHANGELOG=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d')} >> $CM_ENV
+          stripped_changelog=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//')
 
-          if [[ -z "$changelog" ]]; then
+          echo -e "$stripped_changelog"
+
+          echo "$CHANGELOG" > "fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt"
+
+          if [[ -z "$stripped_changelog" ]]; then
             echo "Changelog not found for version $BUILD_NAME."
             exit 1
           fi
 
-          if [ ${#changelog} -gt 500 ]; then
+          if [ ${#stripped_changelog} -gt 500 ]; then
             echo "Changelog length 500 characters."
             exit 1
           fi
 
           for file in ${files[@]}; do
-            { echo "$changelog"; } >${file}
-            cat $file
-            echo; echo
+            echo "$stripped_changelog" > ${file}
           done
 
-          cp release_notes_en-GB.txt fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt
+          echo "$CHANGELOG"
+          echo
+          echo "$stripped_changelog"
       - name: Commit versioning changes
         script: |
           gh auth setup-git
@@ -177,7 +182,7 @@ workflows:
 
           gh release create "${BUILD_NAME}" \
             --title "${BUILD_NAME}" \
-            --notes-file release_notes_en-GB.txt \
+            --notes "${CHANGELOG}" \
             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
             build/ios/ipa/graded-${BUILD_NAME}.ipa
     publishing:
