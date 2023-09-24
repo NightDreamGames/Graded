@@ -122,11 +122,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              if (widget.term.subjects.isEmpty)
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: EmptyWidget(message: translations.no_subjects),
-                ),
+              if (widget.term.subjects.isEmpty) SliverEmptyWidget(message: translations.no_subjects),
               const SliverPadding(padding: EdgeInsets.only(bottom: 16)),
             ],
           );
