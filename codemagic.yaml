@@ -117,7 +117,8 @@ workflows:
           changelog_file="CHANGELOG.md"
           files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
 
-          echo "CHANGELOG=$(sed -n '/\[$BUILD_NAME\]/,/\[.*\] -/p' $changelog_file | sed '$d' | sed '$d')" >> $CM_ENV
+          CHANGELOG=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d')
+          echo "CHANGELOG=$CHANGELOG" >> $CM_ENV
           stripped_changelog=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//')
 
           echo -e "$CHANGELOG"
