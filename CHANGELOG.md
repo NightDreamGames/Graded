@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.1] - 2023-09-24
+
+### Mostly bug fixes related to UI and theming
+
+- Upgrade to Flutter 3.13
+- Multiple theme fixes and optimisations
+- Calculate all years before showing average
+- Fix TabBar scrolling and updating
+- Fix empty list widget
+- CI changelog improvements
+- Update store descriptions
+- Fixed other bugs
+
 ## [2.4.0] - 2023-09-11
 
 ### This feature update includes support for multiple years as well as many other improvements
