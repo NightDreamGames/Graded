@@ -1,3 +1,6 @@
+// Dart imports:
+import "dart:async";
+
 // Flutter imports:
 import "package:flutter/material.dart";
 
@@ -39,8 +42,7 @@ class RouteWidget extends StatefulWidget {
 class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin {
   late TabController tabController;
   GlobalKey tabBarKey = GlobalKey();
-  bool tabBarIsScrollable = true;
-  bool tabBarSizeChecked = false;
+  Completer<bool> tabBarIsScrollable = Completer();
   List<Widget> children = [];
 
   @override
@@ -68,9 +70,6 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         Manager.currentTerm = tabController.index;
       });
 
-    tabBarIsScrollable = true;
-    tabBarSizeChecked = false;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Manager.deserializationError) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -81,8 +80,6 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
         Manager.deserializationError = false;
       }
-
-      checkTabBarSize();
     });
 
     setState(() {});
@@ -106,21 +103,23 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
   void checkTabBarSize() {
     try {
-      if (tabBarSizeChecked || tabBarKey.currentContext?.size == null) return;
+      if (tabBarKey.currentContext?.size == null) return;
     } catch (e) {
       return;
     }
 
-    if (tabBarKey.currentContext!.size!.width < MediaQuery.sizeOf(context).width) {
-      tabBarIsScrollable = false;
-      setState(() {});
-    }
-    tabBarSizeChecked = true;
-    return;
+    final bool newValue = tabBarKey.currentContext!.size!.width > MediaQuery.sizeOf(context).width;
+    tabBarIsScrollable.complete(newValue);
   }
 
   @override
   Widget build(BuildContext context) {
+    tabBarIsScrollable = Completer();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkTabBarSize();
+    });
+
     return Scaffold(
       body: PlatformWillPopScope(
         onWillPop: () {
@@ -157,15 +156,27 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
                       ],
                     ),
                     if (children.length > 1)
-                      Row(
+                      Column(
                         children: [
-                          Flexible(
-                            child: TabBar(
-                              key: tabBarKey,
-                              isScrollable: tabBarIsScrollable,
-                              controller: tabController,
-                              tabs: getTabs(),
+                          Offstage(
+                            child: UnconstrainedBox(
+                              child: TabBar(
+                                key: tabBarKey,
+                                isScrollable: true,
+                                controller: tabController,
+                                tabs: getTabs(),
+                              ),
                             ),
+                          ),
+                          FutureBuilder(
+                            future: tabBarIsScrollable.future,
+                            builder: (context, snapshot) {
+                              return TabBar(
+                                isScrollable: snapshot.data ?? true,
+                                controller: tabController,
+                                tabs: getTabs(),
+                              );
+                            },
                           ),
                         ],
                       ),
