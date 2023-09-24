@@ -1,1 +1,27 @@
-<p><i>Graded</i> vereinfacht die Notenverfolgung für Schüler, indem es eine anpassbare und benutzerfreundliche Oberfläche bietet, die sich an jedes Notensystem anpasst.</p><p>Behalten Sie den Überblick über Ihre akademischen Fortschritte und sparen Sie Zeit und Stress, indem Sie Ihre Schulnoten ganz einfach mit Graded verwalten - die unverzichtbare App für jeden Schüler. Mit Graded können Sie Ihre Noten und Durchschnitte in allen Fächern und Semestern ganz einfach verfolgen, unabhängig davon, welches Benotungssystem Ihre Schule verwendet.</p><p>Nutzen Sie das robuste Berechnungssystem und die vielen Einstellungen, um sich an das Benotungssystem Ihrer Schule anzupassen. Richten Sie die App ganz einfach ein, indem Sie Ihre Klasse auswählen, wenn Sie an einer luxemburgischen Schule sind, oder fügen Sie in den Einstellungen schnell Ihre eigenen Fächer mit Koeffizienten hinzu. Sie können auch jede Periode unabhängig verwalten und gleichzeitig die Jahresübersicht im Auge behalten.</p><p><b>FEATURES:</b></p><ul> <li>Integration des luxemburgischen Schulsystems - Richten Sie die App ganz einfach ein, indem Sie Ihre Klasse auswählen, wenn Sie an einer luxemburgischen Schule sind, und vermeiden Sie es, Ihre Fächer von Hand einzustellen. Alle Klassen sind mit dem Schuljahr 2022-2023 auf dem neuesten Stand.</li> <li>Einfache Einrichtung der Fächer - Sie können Ihre Fächer ganz einfach erstellen und anpassen, inklusive Koeffizienten und Fächergruppen.</li> <li>Noten- und Durchschnittsberechnung - Durchschnitte werden automatisch für jedes Semester und jedes Fach berechnet.</li> <li>Support für mehrere Perioden - Mit Graded können Sie zwischen Perioden wechseln und Ihre Noten für jede Periode unabhängig voneinander verfolgen. Sie haben völlige Flexibilität und Graded verwaltet alles!</li> <li>Anpassbares Benotungssystem - Egal, ob Ihre Schule ein anderes Benotungssystem verwendet oder ob Sie es an Ihre Bedürfnisse anpassen möchten, Graded macht es Ihnen leicht, sich an Ihre spezifischen Bedürfnisse anzupassen. </li> <li>Einfache Noteneingabe - Geben Sie Ihre Noten schnell ein, ohne sich mit unnötigen Details zu befassen, indem Sie die vorgegebenen Werte beibehalten.</li> <li>Übersichtliche Benutzeroberfläche - Genießen Sie die übersichtliche und leicht zu bedienende Benutzeroberfläche, die im hellen und dunklen Modus sowie in Deutsch, Englisch und Französisch verfügbar ist.</li> <li>Datenbackup - Sie können Ihre Noten exportieren, wann immer Sie wollen, und sie werden auch automatisch in Ihrem Google-Konto gesichert, sodass Sie sie auf Ihrem neuen Gerät problemlos wiederherstellen können.</li> </ul> <p><b>WARUM GRADED?</b></p><p>Graded ist eine kostenlose, Open Source App, die Ihre Privatsphäre respektiert und keine Daten sammelt. Sie wird regelmäßig mit neuen Funktionen, Optimierungen und Fehlerbehebungen aktualisiert. Mit seiner benutzerfreundlichen Oberfläche und den anpassbaren Funktionen macht Graded es Ihnen leicht, organisiert zu bleiben und sich auf das zu konzentrieren, was am wichtigsten ist - Ihren akademischen Fortschritt.</p><p>Testen Sie Graded noch heute und entdecken Sie das ultimative Tool zur Notenverfolgung und -verwaltung für Schüler. Und wenn Sie Vorschläge oder Feedback haben, haben wir immer ein offenes Ohr - schreiben Sie uns eine E-Mail an support@nightdreamgames.com oder hinterlassen Sie eine Bewertung.</p><p>Zögern Sie nicht, unsere anderen Kreationen auf unserer Website zu entdecken: <a href="https://nightdreamgames.com">https://nightdreamgames.com</a> oder auf unsere app store Entwicklerseiten.</p><p>Bleiben Sie auf dem Laufenden über unsere kommenden Funktionen und Verbesserungen auf <a href="https://trello.com/b/kfWs3e3h">https://trello.com/b/kfWs3e3h</a></p><p>Erfahren Sie mehr darüber, wie wir Ihre Privatsphäre respektieren auf <a href="https://nightdreamgames.com/privacy">https://nightdreamgames.com/privacy</a></p>
+Vereinfache das Management deiner schulischen Noten mit Graded. Unsere App optimiert den Prozess für jeden und passt sich jedem Notensystem an, das du verwenden könntest. 
+Sag Stress und verschwendeter Zeit Lebewohl, Graded ist ab jetzt dein unverzichtbarer Schülerbegleiter!
+
+Hauptmerkmale:  
+- Integration mit dem luxemburgischen Schulsystem für eine einfache Einrichtung
+- Mühelose Anpassung von Fächern, einschließlich Koeffizienten und Gruppen
+- Automatische Verfolgung von Noten und Durchschnitten für jedes Fach
+- Verwaltung mehrerer Jahre und Schulperioden
+- Anpassbares Notensystem zur Kompatibilität mit deiner Schule oder deinen persönlichen Vorlieben
+- Schnelle und problemlose Eingabe von Noten
+- Saubere Benutzeroberfläche in hellem und dunklem Modus und in verschiedenen Sprachen
+- Datenexport- und Importoptionen
+
+Warum Graded wählen?  
+- Kostenlos, Open Source und datenschutzfreundlich
+- Regelmäßige Updates mit neuen Funktionen und Optimierungen
+- Benutzerfreundlich, anpassbar und hilft dir, dich auf deinem kommendem Fortschritt zu konzentrieren
+
+Probier Graded noch heute aus und übernimm die Kontrolle über deinen schulischen Fortschritt wieder. Wir freuen uns über deine Vorschläge und dein Feedback unter support@nightdreamgames.com oder in einem Kommentar.
+
+Entdecke das Open-Source-Projekt auf unserem GitHub-Repository: <a href="https://github.com/NightDreamGames/Graded">https://github.com/NightDreamGames/Graded</a>
+
+Erfahre mehr über unsere Kreationen auf unserer Website: <a href="https://nightdreamgames.com">https://nightdreamgames.com</a>
+
+Bleibe über kommende Funktionen und Verbesserungen informiert: <a href="https://trello.com/b/kfWs3e3h">https://trello.com/b/kfWs3e3h</a>
+
+Erfahre mehr über unseren Datenschutzengagement: <a href="https://nightdreamgames.com/privacy">https://nightdreamgames.com/privacy</a>
