@@ -1,0 +1,12 @@
+## [2.4.1] - 2023-09-24
+
+### Mostly bug fixes related to UI and theming
+
+- Upgrade to Flutter 3.13
+- Multiple theme fixes and optimisations
+- Calculate all years before showing average
+- Fix TabBar scrolling and updating
+- Fix empty list widget
+- CI changelog improvements
+- Update store descriptions
+- Fixed other bugs
