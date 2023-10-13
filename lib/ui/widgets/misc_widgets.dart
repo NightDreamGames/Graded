@@ -17,15 +17,11 @@ class AppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      bottom: false,
-      child: Text(
-        title,
-        softWrap: false,
-        maxLines: 1,
-        overflow: TextOverflow.fade,
-      ),
+    return Text(
+      title,
+      softWrap: false,
+      maxLines: 1,
+      overflow: TextOverflow.fade,
     );
   }
 }

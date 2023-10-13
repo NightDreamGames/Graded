@@ -9,6 +9,7 @@ import "package:graded/misc/enums.dart";
 import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/widgets/better_sliver_app_bar.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/settings_tiles.dart";
 
@@ -70,7 +71,7 @@ class _SetupPageState extends State<SetupPage> {
         body: CustomScrollView(
           primary: true,
           slivers: [
-            SliverAppBar.large(
+            BetterSliverAppBar.large(
               title: AppBarTitle(
                 title: translations.setup,
               ),
