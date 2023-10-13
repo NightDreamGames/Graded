@@ -62,7 +62,6 @@ icons_launcher:
       image_path: "assets/icons/icon-roundrect.png"
       adaptive_foreground_image: "assets/icons/icon-adaptive-foreground.png"
       adaptive_background_color: "#62A9E1"
-      adaptive_round_image: "assets/icons/icon-round.png"
       adaptive_monochrome_image: "assets/icons/icon-adaptive-monochrome.png"
     ios:
       enable: true
