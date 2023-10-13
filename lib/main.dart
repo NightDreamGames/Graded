@@ -164,7 +164,7 @@ Route<dynamic> createRoute(RouteSettings settings) {
       });
 
       return Material(
-        child: SafeArea(top: false, left: false, right: false, child: route),
+        child: route,
       );
     },
     settings: settings,
