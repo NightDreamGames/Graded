@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.2] - 2023-10-14
+
+### Logo change and bug fixes
+
+- Update icons and splash screen
+- Update monochrome icon
+- Fix round adaptive icon
+- Fix AppBar title padding
+- Fix AppBar landscape layout
+- Fixed other bugs
+
 ## [2.4.1] - 2023-09-24
 
 ### Mostly bug fixes related to UI and theming
