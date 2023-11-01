@@ -32,6 +32,17 @@ class _SubjectRouteState extends State<SubjectRoute> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController gradeController = TextEditingController();
   final TextEditingController maximumController = TextEditingController();
+  double fabRotation = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      setState(() {
+        fabRotation += 0.5;
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -56,9 +67,18 @@ class _SubjectRouteState extends State<SubjectRoute> {
       floatingActionButton: !widget.term.isYearOverview
           ? FloatingActionButton(
               tooltip: translations.add_test,
-              onPressed: () =>
-                  showTestDialog(context, widget.subject, nameController, gradeController, maximumController).then((_) => refreshYearOverview()),
-              child: const Icon(Icons.add),
+              onPressed: () {
+                setState(() {
+                  fabRotation += 0.5;
+                });
+                showTestDialog(context, widget.subject, nameController, gradeController, maximumController).then((_) => refreshYearOverview());
+              },
+              child: AnimatedRotation(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOutCubic,
+                turns: fabRotation,
+                child: const Icon(Icons.add),
+              ),
             )
           : null,
       body: Builder(

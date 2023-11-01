@@ -34,6 +34,17 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController coeffController = TextEditingController();
   final TextEditingController speakingController = TextEditingController();
+  double fabRotation = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      setState(() {
+        fabRotation += 0.5;
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -54,13 +65,23 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: translations.add_subjectOne,
-        onPressed: () => showSubjectDialog(
-          context,
-          nameController,
-          coeffController,
-          speakingController,
-        ).then((_) => rebuild()),
-        child: const Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            fabRotation += 0.5;
+          });
+          showSubjectDialog(
+            context,
+            nameController,
+            coeffController,
+            speakingController,
+          ).then((_) => rebuild());
+        },
+        child: AnimatedRotation(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOutCubic,
+          turns: fabRotation,
+          child: const Icon(Icons.add),
+        ),
       ),
       appBar: AppBar(
         title: Text(title),

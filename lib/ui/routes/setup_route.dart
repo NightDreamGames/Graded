@@ -23,6 +23,24 @@ class SetupPage extends StatefulWidget {
 }
 
 class _SetupPageState extends State<SetupPage> {
+  bool startedAnimation = false;
+  double fabScale = 1.0;
+  double fabPosition = 0.0;
+
+  void _animateIcon() {
+    setState(() {
+      fabScale = 0.8;
+      fabPosition = 10.0;
+    });
+
+    Future.delayed(const Duration(milliseconds: 250), () {
+      setState(() {
+        fabScale = 1.0;
+        fabPosition = 0.0;
+      });
+    });
+  }
+
   void rebuild() {
     setState(() {});
   }
@@ -54,6 +72,12 @@ class _SetupPageState extends State<SetupPage> {
         floatingActionButton: () {
           if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
               getPreference<String>("school_system") == "other") {
+            Future.delayed(const Duration(milliseconds: 500)).then((_) {
+              if (startedAnimation) return;
+              startedAnimation = true;
+              _animateIcon();
+            });
+
             return FloatingActionButton(
               tooltip: translations.done,
               onPressed: () async {
@@ -63,8 +87,17 @@ class _SetupPageState extends State<SetupPage> {
                 if (!context.mounted) return;
                 replaceRoute(context);
               },
-              child: const Icon(Icons.navigate_next),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.elasticOut,
+                transform: Matrix4.identity()
+                  ..scale(fabScale, 1.0)
+                  ..translate(fabPosition),
+                child: const Icon(Icons.navigate_next),
+              ),
             );
+          } else {
+            startedAnimation = false;
           }
         }(),
         body: CustomScrollView(

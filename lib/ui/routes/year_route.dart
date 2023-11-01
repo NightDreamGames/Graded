@@ -22,6 +22,7 @@ class YearRoute extends StatefulWidget {
 
 class _YearRouteState extends State<YearRoute> {
   final TextEditingController nameController = TextEditingController();
+  double fabRotation = 0.0;
 
   @override
   void initState() {
@@ -29,6 +30,11 @@ class _YearRouteState extends State<YearRoute> {
     for (final Year year in Manager.years) {
       year.calculate();
     }
+    Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      setState(() {
+        fabRotation += 0.5;
+      });
+    });
   }
 
   @override
@@ -46,8 +52,18 @@ class _YearRouteState extends State<YearRoute> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: translations.add_year,
-        onPressed: () => Navigator.pushNamed(context, "/setup"),
-        child: const Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            fabRotation += 0.5;
+          });
+          Navigator.pushNamed(context, "/setup");
+        },
+        child: AnimatedRotation(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOutCubic,
+          turns: fabRotation,
+          child: const Icon(Icons.add),
+        ),
       ),
       appBar: AppBar(
         title: Text(translations.manage_years),
