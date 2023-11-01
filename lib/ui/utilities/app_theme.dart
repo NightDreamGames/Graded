@@ -59,7 +59,11 @@ class AppTheme {
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: SharedAxisTransitionBuilder(),
+          TargetPlatform.windows: SharedAxisTransitionBuilder(),
+          TargetPlatform.linux: SharedAxisTransitionBuilder(),
+          TargetPlatform.fuchsia: SharedAxisTransitionBuilder(),
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
         },
       ),
       appBarTheme: theme.appBarTheme.copyWith(
