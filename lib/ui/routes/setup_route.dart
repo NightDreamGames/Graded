@@ -60,7 +60,6 @@ class _SetupPageState extends State<SetupPage> {
                 await SetupManager.completeSetup();
                 SetupManager.dispose();
 
-                // ignore: use_build_context_synchronously
                 if (!context.mounted) return;
                 replaceRoute(context);
               },

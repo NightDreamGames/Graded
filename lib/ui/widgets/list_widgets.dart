@@ -19,10 +19,10 @@ import "package:graded/ui/widgets/popup_menus.dart";
 class TextRow extends StatelessWidget {
   const TextRow({
     super.key,
-    required this.leading,
-    required this.trailing,
-    this.leadingIcon,
-    this.trailingIcon,
+    required this.leadingText,
+    required this.trailingText,
+    this.leading,
+    this.trailing,
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
     this.listKey,
     this.onTap,
@@ -32,10 +32,10 @@ class TextRow extends StatelessWidget {
     this.enableEqualLongPress = false,
   });
 
-  final String leading;
-  final String trailing;
-  final Widget? leadingIcon;
-  final IconData? trailingIcon;
+  final String leadingText;
+  final String trailingText;
+  final Widget? leading;
+  final Widget? trailing;
   final EdgeInsets padding;
   final Key? listKey;
   final Function()? onTap;
@@ -55,9 +55,9 @@ class TextRow extends StatelessWidget {
           onTap: onTap,
           onLongPress: enableEqualLongPress ? onTap : onLongPress,
           contentPadding: padding,
-          leading: leadingIcon,
+          leading: leading,
           title: Text(
-            leading,
+            leadingText,
             overflow: TextOverflow.fade,
             softWrap: false,
           ),
@@ -65,17 +65,21 @@ class TextRow extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                trailing,
+                trailingText,
                 style: const TextStyle(
                   fontSize: 20.0,
                 ),
               ),
-              if (trailingIcon != null) ...[
+              if (trailing != null) ...[
                 const Padding(padding: EdgeInsets.only(right: 24)),
-                Icon(
-                  trailingIcon,
-                  size: 24.0,
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    iconTheme: Theme.of(context).iconTheme.copyWith(
+                          size: 24.0,
+                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                        ),
+                  ),
+                  child: trailing!,
                 ),
               ],
             ],
@@ -91,12 +95,12 @@ class GroupRow extends StatefulWidget {
   const GroupRow({
     super.key,
     required this.children,
-    required this.leading,
-    required this.trailing,
+    required this.leadingText,
+    required this.trailingText,
   });
 
-  final String leading;
-  final String trailing;
+  final String leadingText;
+  final String trailingText;
   final List<Widget> children;
 
   @override
@@ -114,7 +118,7 @@ class _GroupRowState extends State<GroupRow> {
           title: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Text(
-              widget.leading,
+              widget.leadingText,
               overflow: TextOverflow.fade,
               softWrap: false,
             ),
@@ -123,7 +127,7 @@ class _GroupRowState extends State<GroupRow> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                widget.trailing,
+                widget.trailingText,
                 style: const TextStyle(
                   fontSize: 20.0,
                 ),
@@ -158,12 +162,12 @@ class ResultRow extends StatefulWidget {
     super.key,
     required this.result,
     required this.preciseResult,
-    required this.leading,
+    this.leading,
   });
 
   final String result;
   final String preciseResult;
-  final Widget leading;
+  final Widget? leading;
 
   @override
   State<ResultRow> createState() => _ResultRowState();
@@ -189,7 +193,7 @@ class _ResultRowState extends State<ResultRow> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    widget.leading,
+                    if (widget.leading != null) widget.leading!,
                     Text(
                       showPreciseResult ? widget.preciseResult : widget.result,
                       overflow: TextOverflow.visible,
@@ -263,12 +267,12 @@ class _SubjectTileState extends State<SubjectTile> {
       padding: widget.subject.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
       child: TextRow(
         listKey: widget.listKey,
-        leading: widget.subject.name,
-        trailing: coefficientString == "0" && widget.subject.isGroup ? "" : coefficientString,
+        leadingText: widget.subject.name,
+        trailingText: coefficientString == "0" && widget.subject.isGroup ? "" : coefficientString,
         padding: const EdgeInsets.only(left: 4, right: 24),
         horizontalTitleGap: 8,
         enableEqualLongPress: true,
-        leadingIcon: ReorderableDragStartListener(
+        leading: ReorderableDragStartListener(
           index: widget.reorderIndex,
           child: (widget.index1 == 1 && getCurrentYear().termTemplate.length >= 3 && getPreference<bool>("showcase_subject_edit", true))
               ? Showcase(

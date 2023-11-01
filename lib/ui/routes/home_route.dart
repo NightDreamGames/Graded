@@ -69,9 +69,9 @@ class _HomePageState extends State<HomePage> {
                     (context, index) {
                       if (!widget.term.subjects[index].isGroup) {
                         return TextRow(
-                          leading: widget.term.subjects[index].name,
-                          trailing: widget.term.subjects[index].getResult(),
-                          trailingIcon: Icons.navigate_next,
+                          leadingText: widget.term.subjects[index].name,
+                          trailingText: widget.term.subjects[index].getResult(),
+                          trailing: const Icon(Icons.navigate_next),
                           onTap: () {
                             Navigator.pushNamed(context, "/subject", arguments: [null, widget.term.subjects[index]])
                                 .then((_) => refreshYearOverview());
@@ -88,14 +88,14 @@ class _HomePageState extends State<HomePage> {
                         );
                       } else {
                         return GroupRow(
-                          leading: widget.term.subjects[index].name,
-                          trailing: widget.term.subjects[index].getResult(),
+                          leadingText: widget.term.subjects[index].name,
+                          trailingText: widget.term.subjects[index].getResult(),
                           children: [
                             for (int i = 0; i < widget.term.subjects[index].children.length; i++)
                               TextRow(
-                                leading: widget.term.subjects[index].children[i].name,
-                                trailing: widget.term.subjects[index].children[i].getResult(),
-                                trailingIcon: Icons.navigate_next,
+                                leadingText: widget.term.subjects[index].children[i].name,
+                                trailingText: widget.term.subjects[index].children[i].getResult(),
+                                trailing: const Icon(Icons.navigate_next),
                                 padding: const EdgeInsets.only(left: 32, right: 24),
                                 onTap: () {
                                   Navigator.pushNamed(

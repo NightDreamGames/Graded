@@ -131,8 +131,8 @@ class _SubjectRouteState extends State<SubjectRoute> {
                       final GlobalKey listKey = GlobalKey();
                       return TextRow(
                         listKey: listKey,
-                        leading: widget.subject.tests[index].name,
-                        trailing: widget.subject.tests[index].toString(),
+                        leadingText: widget.subject.tests[index].name,
+                        trailingText: widget.subject.tests[index].toString(),
                         enableEqualLongPress: true,
                         onTap: () async {
                           if (widget.term.isYearOverview) return;
