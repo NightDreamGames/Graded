@@ -247,7 +247,7 @@ class _SubjectTileState extends State<SubjectTile> {
     if (widget.index1 != 2 || getCurrentYear().termTemplate.length < 3 || !getPreference<bool>("showcase_subject_edit", true)) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 300), () {
+      await Future.delayed(const Duration(milliseconds: 500), () {
         if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
 
         ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);

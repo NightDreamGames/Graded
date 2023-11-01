@@ -30,7 +30,7 @@ class _SetupPageState extends State<SetupPage> {
   void _animateIcon() {
     setState(() {
       fabScale = 0.8;
-      fabPosition = 10.0;
+      fabPosition = 8.0;
     });
 
     Future.delayed(const Duration(milliseconds: 250), () {
