@@ -88,7 +88,7 @@ class _SetupPageState extends State<SetupPage> {
                 replaceRoute(context);
               },
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 800),
                 curve: Curves.elasticOut,
                 transform: Matrix4.identity()
                   ..scale(fabScale, 1.0)
