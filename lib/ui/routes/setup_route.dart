@@ -116,32 +116,42 @@ class _SetupPageState extends State<SetupPage> {
                 child: SettingsContainer(
                   children: [
                     if (!widget.dismissible)
-                      SimpleSettingsTile(
-                        title: translations.import_,
-                        subtitle: translations.import_description,
-                        icon: Icons.file_download_outlined,
-                        onTap: () => importData().then((success) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(success ? translations.import_success : translations.import_error),
-                            ),
-                          );
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4),
+                        child: Card(
+                          child: SimpleSettingsTile(
+                            title: translations.import_,
+                            subtitle: translations.import_description,
+                            icon: Icons.file_download_outlined,
+                            onTap: () => importData().then((success) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(success ? translations.import_success : translations.import_error),
+                                ),
+                              );
 
-                          if (!success) return;
+                              if (!success) return;
 
-                          setPreference<bool>("is_first_run", false);
-                          replaceRoute(context);
-                        }),
+                              setPreference<bool>("is_first_run", false);
+                              replaceRoute(context);
+                            }),
+                          ),
+                        ),
                       ),
-                    RadioModalSettingsTile<String>(
-                      title: translations.school_system,
-                      icon: Icons.school,
-                      settingKey: "school_system",
-                      values: <String, String>{
-                        "lux": translations.lux_system,
-                        "other": translations.other_school_system,
-                      },
-                      onChange: (_) => rebuild(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Card(
+                        child: RadioModalSettingsTile<String>(
+                          title: translations.school_system,
+                          icon: Icons.school,
+                          settingKey: "school_system",
+                          values: <String, String>{
+                            "lux": translations.lux_system,
+                            "other": translations.other_school_system,
+                          },
+                          onChange: (_) => rebuild(),
+                        ),
+                      ),
                     ),
                     if (getPreference<String>("school_system") == "lux")
                       SettingsGroup(

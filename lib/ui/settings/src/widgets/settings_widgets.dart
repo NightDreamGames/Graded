@@ -379,12 +379,12 @@ class SettingsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     final elements = <Widget>[
       Padding(
-        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 22.0),
+        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 22.0, bottom: 4),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
             title.toUpperCase(),
-            style: groupStyle(context),
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -400,19 +400,17 @@ class SettingsGroup extends StatelessWidget {
       ]);
     }
     elements.addAll(children);
-    return Wrap(
-      children: <Widget>[
-        Column(
-          children: elements,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Card(
+        child: Wrap(
+          children: <Widget>[
+            Column(
+              children: elements,
+            ),
+          ],
         ),
-      ],
-    );
-  }
-
-  TextStyle groupStyle(BuildContext context) {
-    return const TextStyle(
-      fontSize: 12.0,
-      fontWeight: FontWeight.bold,
+      ),
     );
   }
 }

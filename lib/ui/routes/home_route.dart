@@ -91,29 +91,36 @@ class _HomePageState extends State<HomePage> {
                           leadingText: widget.term.subjects[index].name,
                           trailingText: widget.term.subjects[index].getResult(),
                           children: [
+                            const Divider(),
                             for (int i = 0; i < widget.term.subjects[index].children.length; i++)
-                              TextRow(
-                                leadingText: widget.term.subjects[index].children[i].name,
-                                trailingText: widget.term.subjects[index].children[i].getResult(),
-                                trailing: const Icon(Icons.navigate_next),
-                                padding: const EdgeInsets.only(left: 32, right: 24),
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    "/subject",
-                                    arguments: [widget.term.subjects[index], widget.term.subjects[index].children[i]],
-                                  ).then((_) => refreshYearOverview());
-                                },
-                                onLongPress: () {
-                                  showTestDialog(
-                                    context,
-                                    widget.term.subjects[index].children[i],
-                                    TextEditingController(),
-                                    TextEditingController(),
-                                    TextEditingController(),
-                                  ).then((_) => refreshYearOverview());
-                                },
-                                isChild: true,
+                              Column(
+                                children: [
+                                  TextRow(
+                                    leadingText: widget.term.subjects[index].children[i].name,
+                                    trailingText: widget.term.subjects[index].children[i].getResult(),
+                                    trailing: const Icon(Icons.navigate_next),
+                                    padding: const EdgeInsets.only(left: 36, right: 24),
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        "/subject",
+                                        arguments: [widget.term.subjects[index], widget.term.subjects[index].children[i]],
+                                      ).then((_) => refreshYearOverview());
+                                    },
+                                    onLongPress: () {
+                                      showTestDialog(
+                                        context,
+                                        widget.term.subjects[index].children[i],
+                                        TextEditingController(),
+                                        TextEditingController(),
+                                        TextEditingController(),
+                                      ).then((_) => refreshYearOverview());
+                                    },
+                                    isChild: true,
+                                  ),
+                                  if (i != widget.term.subjects[index].children.length - 1)
+                                    Divider(indent: Theme.of(context).dividerTheme.indent! + 16),
+                                ],
                               ),
                           ],
                         );

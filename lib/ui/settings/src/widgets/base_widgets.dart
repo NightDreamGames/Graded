@@ -194,7 +194,6 @@ class _SettingsTileState extends State<_SettingsTile> {
           visible: widget.showChildBelow,
           child: widget.child,
         ),
-        _SettingsTileDivider(),
       ],
     );
   }
@@ -425,26 +424,23 @@ class _ModalSettingsTileState extends State<_ModalSettingsTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          ListTile(
-            leading: Icon(
-              widget.icon,
-            ),
-            title: Text(widget.title, style: widget.titleTextStyle ?? headerTextStyle(context)),
-            subtitle: Text(
-              widget.subtitle!,
-              style: widget.subtitleTextStyle ?? subtitleTextStyle(context),
-            ),
-            enabled: widget.enabled,
-            onTap: () => _showWidget(context, widget.child),
-            //dense: true,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        ListTile(
+          leading: Icon(
+            widget.icon,
           ),
-          _SettingsTileDivider(),
-        ],
-      ),
+          title: Text(widget.title, style: widget.titleTextStyle ?? headerTextStyle(context)),
+          subtitle: Text(
+            widget.subtitle!,
+            style: widget.subtitleTextStyle ?? subtitleTextStyle(context),
+          ),
+          enabled: widget.enabled,
+          onTap: () => _showWidget(context, widget.child),
+          //dense: true,
+        ),
+      ],
     );
   }
 

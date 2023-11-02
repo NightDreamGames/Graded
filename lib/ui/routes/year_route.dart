@@ -83,40 +83,41 @@ class _YearRouteState extends State<YearRoute> {
                   final GlobalKey key = GlobalKey();
                   return Column(
                     children: [
-                      ListTile(
-                        key: key,
-                        title: Text(
-                          year.name,
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            if (Manager.currentYear == index)
-                              const Padding(
-                                padding: EdgeInsets.only(right: 32),
-                                child: Icon(Icons.check),
+                      Card(
+                        child: ListTile(
+                          key: key,
+                          title: Text(
+                            year.name,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (Manager.currentYear == index)
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 32),
+                                  child: Icon(Icons.check),
+                                ),
+                              Text(
+                                Calculator.format(year.result),
+                                overflow: TextOverflow.visible,
+                                softWrap: false,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
                               ),
-                            Text(
-                              Calculator.format(year.result),
-                              overflow: TextOverflow.visible,
-                              softWrap: false,
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
+                          onLongPress: () {
+                            showPopupActions(context, key, index, year);
+                          },
+                          onTap: () {
+                            showPopupActions(context, key, index, year);
+                          },
                         ),
-                        onLongPress: () {
-                          showPopupActions(context, key, index, year);
-                        },
-                        onTap: () {
-                          showPopupActions(context, key, index, year);
-                        },
                       ),
-                      const Divider(),
                     ],
                   );
                 },

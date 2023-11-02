@@ -46,48 +46,52 @@ class TextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (isChild) const Divider(),
-        ListTile(
-          horizontalTitleGap: horizontalTitleGap,
-          key: listKey,
-          onTap: onTap,
-          onLongPress: enableEqualLongPress ? onTap : onLongPress,
-          contentPadding: padding,
-          leading: leading,
-          title: Text(
-            leadingText,
-            overflow: TextOverflow.fade,
-            softWrap: false,
+    final Widget listTile = ListTile(
+      horizontalTitleGap: horizontalTitleGap,
+      key: listKey,
+      onTap: onTap,
+      onLongPress: enableEqualLongPress ? onTap : onLongPress,
+      contentPadding: padding,
+      leading: leading,
+      title: Text(
+        leadingText,
+        overflow: TextOverflow.fade,
+        softWrap: false,
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            trailingText,
+            style: const TextStyle(
+              fontSize: 20.0,
+            ),
           ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                trailingText,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                ),
+          if (trailing != null) ...[
+            const Padding(padding: EdgeInsets.only(right: 24)),
+            Theme(
+              data: Theme.of(context).copyWith(
+                iconTheme: Theme.of(context).iconTheme.copyWith(
+                      size: 24.0,
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                    ),
               ),
-              if (trailing != null) ...[
-                const Padding(padding: EdgeInsets.only(right: 24)),
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    iconTheme: Theme.of(context).iconTheme.copyWith(
-                          size: 24.0,
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
-                        ),
-                  ),
-                  child: trailing!,
-                ),
-              ],
-            ],
-          ),
-        ),
-        if (!isChild) const Divider(),
-      ],
+              child: trailing!,
+            ),
+          ],
+        ],
+      ),
     );
+
+    return !isChild
+        ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Card(
+              color: isChild ? Theme.of(context).colorScheme.surface : null,
+              child: listTile,
+            ),
+          )
+        : listTile;
   }
 }
 
@@ -112,9 +116,10 @@ class _GroupRowState extends State<GroupRow> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ExpansionTile(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Card(
+        child: ExpansionTile(
           title: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Text(
@@ -148,11 +153,9 @@ class _GroupRowState extends State<GroupRow> {
               _isExpanded = value;
             });
           },
-          childrenPadding: const EdgeInsets.only(left: 16),
           children: widget.children,
         ),
-        const Divider(),
-      ],
+      ),
     );
   }
 }
@@ -179,36 +182,39 @@ class _ResultRowState extends State<ResultRow> {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => setState(() {
-              showPreciseResult = !showPreciseResult;
-            }),
-            behavior: HitTestBehavior.translucent,
-            child: SizedBox(
-              height: 54,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (widget.leading != null) widget.leading!,
-                    Text(
-                      showPreciseResult ? widget.preciseResult : widget.result,
-                      overflow: TextOverflow.visible,
-                      softWrap: false,
-                      style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 6),
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () => setState(() {
+                showPreciseResult = !showPreciseResult;
+              }),
+              behavior: HitTestBehavior.translucent,
+              child: SizedBox(
+                height: 54,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (widget.leading != null) widget.leading!,
+                      Text(
+                        showPreciseResult ? widget.preciseResult : widget.result,
+                        overflow: TextOverflow.visible,
+                        softWrap: false,
+                        style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          const Divider(
-            thickness: 3,
-          ),
-        ],
+            const Divider(
+              thickness: 2,
+            ),
+          ],
+        ),
       ),
     );
   }

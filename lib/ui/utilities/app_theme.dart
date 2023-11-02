@@ -49,6 +49,9 @@ class AppTheme {
         iconColor: colorScheme.primary,
         collapsedIconColor: colorScheme.onSurface.withOpacity(0.5),
       ),
+      cardTheme: theme.cardTheme.copyWith(
+        clipBehavior: Clip.antiAlias,
+      ),
       dividerTheme: theme.dividerTheme.copyWith(
         thickness: 0.5,
         space: 1,
