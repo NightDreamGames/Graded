@@ -1071,7 +1071,6 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
           color: theme.dialogBackgroundColor,
           enabled: widget.enabled,
           padding: EdgeInsets.zero,
-          dense: true,
           child: _SettingsRadio<T>(
             value: entry.key,
             onChanged: (newValue) => _onRadioChange(newValue, onChanged),

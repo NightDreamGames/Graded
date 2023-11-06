@@ -1,4 +1,6 @@
 // @dart = 2.12
+// ignore_for_file: unused_element
+
 part of "settings_widgets.dart";
 
 /// [SettingsScreen] is a simple Screen widget that may contain Tiles or other
@@ -144,7 +146,6 @@ class _SettingsTile extends StatefulWidget {
     this.subtitleTextStyle,
     this.onTap,
     this.enabled = true,
-    // ignore: unused_element
     this.showChildBelow = false,
     this.leading,
     this.padding,
@@ -168,7 +169,6 @@ class _SettingsTileState extends State<_SettingsTile> {
       children: <Widget>[
         ListTile(
           contentPadding: widget.padding,
-          //tileColor: widget.color,
           leading: widget.leading,
           title: Text(
             widget.title,
@@ -438,7 +438,6 @@ class _ModalSettingsTileState extends State<_ModalSettingsTile> {
           ),
           enabled: widget.enabled,
           onTap: () => _showWidget(context, widget.child),
-          //dense: true,
         ),
       ],
     );
