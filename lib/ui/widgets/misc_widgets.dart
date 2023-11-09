@@ -158,7 +158,7 @@ class SpinningIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedRotation(
       duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOutCubic,
+      curve: standardEasing,
       turns: rotation,
       child: Icon(icon),
     );

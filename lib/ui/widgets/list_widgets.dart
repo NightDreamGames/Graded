@@ -263,7 +263,7 @@ class _SubjectTileState extends State<SubjectTile> {
 
     return AnimatedPadding(
       duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
+      curve: standardEasing,
       padding: widget.subject.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
       child: TextRow(
         listKey: widget.listKey,
@@ -278,11 +278,11 @@ class _SubjectTileState extends State<SubjectTile> {
               ? Showcase(
                   key: showCaseKey1,
                   description: translations.showcase_tap_subject,
-                  scaleAnimationCurve: Curves.easeInOut,
+                  scaleAnimationCurve: standardEasing,
                   child: Showcase(
                     key: showCaseKey2,
                     description: translations.showcase_drag_subject,
-                    scaleAnimationCurve: Curves.easeInOut,
+                    scaleAnimationCurve: standardEasing,
                     child: IgnorePointer(child: ReorderableHandle(target: widget)),
                   ),
                 )
