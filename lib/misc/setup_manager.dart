@@ -186,13 +186,13 @@ class SetupManager {
     if (hasSections()) {
       year.validatedSection = getPreference<String>("section");
     } else {
-      setPreference<String>("section", defaultValues["section"] as String);
+      setPreference<String>("section", DefaultValues.section);
     }
 
     if (hasVariants() && getVariants()[getPreference<String>("variant")] != null) {
       year.validatedVariant = getPreference<String>("variant");
     } else {
-      setPreference<String>("variant", defaultValues["variant"] as String);
+      setPreference<String>("variant", DefaultValues.variant);
     }
 
     if (getPreference<int>("year") == 1) {
@@ -236,7 +236,7 @@ class SetupManager {
       final Subject newSubject = Subject(
         subject["name"] as String,
         (subject["coefficient"] as int?)?.toDouble() ?? 0,
-        defaultValues["speaking_weight"] as double,
+        DefaultValues.speakingWeight,
         isGroup: subject["children"] != null,
       );
       termTemplate.add(newSubject);
@@ -247,7 +247,7 @@ class SetupManager {
           Subject(
             childSubject["name"] as String,
             (childSubject["coefficient"] as int?)?.toDouble() ?? 0,
-            defaultValues["speaking_weight"] as double,
+            DefaultValues.speakingWeight,
             isChild: true,
           ),
         );

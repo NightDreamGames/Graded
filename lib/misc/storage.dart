@@ -11,6 +11,7 @@ import "package:intl/intl.dart";
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/year.dart";
+import "package:graded/main.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/setup_manager.dart";
@@ -77,8 +78,7 @@ Future<void> exportData() async {
   String extension = ".json";
 
   if (Platform.isAndroid) {
-    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    final AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
 
     if (androidInfo.version.sdkInt >= 29) {
       extension = "";

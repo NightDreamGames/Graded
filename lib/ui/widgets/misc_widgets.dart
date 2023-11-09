@@ -143,3 +143,24 @@ class PlatformWillPopScope extends StatelessWidget {
         : child;
   }
 }
+
+class SpinningIcon extends StatelessWidget {
+  const SpinningIcon({
+    required this.rotation,
+    required this.icon,
+    super.key,
+  });
+
+  final double rotation;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedRotation(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOutCubic,
+      turns: rotation,
+      child: Icon(icon),
+    );
+  }
+}

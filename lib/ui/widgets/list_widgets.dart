@@ -229,9 +229,6 @@ class SubjectTile extends StatefulWidget {
     this.index2 = 0,
     required this.reorderIndex,
     this.onActionCompleted,
-    required this.nameController,
-    required this.coeffController,
-    required this.speakingController,
   });
 
   final Subject subject;
@@ -240,9 +237,6 @@ class SubjectTile extends StatefulWidget {
   final int index2;
   final int reorderIndex;
   final Function()? onActionCompleted;
-  final TextEditingController nameController;
-  final TextEditingController coeffController;
-  final TextEditingController speakingController;
 
   @override
   State<SubjectTile> createState() => _SubjectTileState();
@@ -263,7 +257,7 @@ class _SubjectTileState extends State<SubjectTile> {
 
   @override
   Widget build(BuildContext context) {
-    final String coefficientString = Calculator.format(widget.subject.coefficient, addZero: false, roundToOverride: 1);
+    final String weightString = Calculator.format(widget.subject.weight, addZero: false, roundToOverride: 1);
 
     showTutorial(context);
 
@@ -274,7 +268,7 @@ class _SubjectTileState extends State<SubjectTile> {
       child: TextRow(
         listKey: widget.listKey,
         leadingText: widget.subject.name,
-        trailingText: coefficientString == "0" && widget.subject.isGroup ? "" : coefficientString,
+        trailingText: weightString == "0" && widget.subject.isGroup ? "" : weightString,
         padding: const EdgeInsets.only(left: 4, right: 24),
         horizontalTitleGap: 8,
         enableEqualLongPress: true,
@@ -300,9 +294,6 @@ class _SubjectTileState extends State<SubjectTile> {
               case MenuAction.edit:
                 showSubjectDialog(
                   context,
-                  widget.nameController,
-                  widget.coeffController,
-                  widget.speakingController,
                   index1: widget.index1,
                   index2: widget.subject.isChild ? widget.index2 : null,
                 ).then((_) => widget.onActionCompleted?.call());

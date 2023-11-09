@@ -9,6 +9,7 @@ import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/misc_utilities.dart";
 
 List<Widget> getSettingsTiles(BuildContext context, {required CreationType type, Function()? onChanged}) {
   final String subjectEditingPageTitle = type == CreationType.add ? translations.add_subjectOther : translations.edit_subjectOther;
@@ -33,7 +34,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
       title: translations.rating_system,
       icon: Icons.vertical_align_top,
       settingKey: "max_grade_string",
-      initialValue: defaultValues["max_grade"].toString(),
+      initialValue: DefaultValues.maxGrade.toString(),
       numeric: true,
       onChange: (value) {
         final double? parsed = Calculator.tryParse(value);
@@ -46,12 +47,12 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
 
         onChanged?.call();
       },
-      additionalValidator: (newValue) {
-        final double? number = Calculator.tryParse(newValue);
+      additionalValidator: (value) {
+        final positiveCheck = thresholdValidator(value, inclusive: false);
+        final nullCheck = nullValidator(value);
 
-        if (number == null || number <= 0) {
-          return translations.invalid;
-        }
+        if (positiveCheck != null) return positiveCheck;
+        if (nullCheck != null) return nullCheck;
 
         return null;
       },
@@ -60,7 +61,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
       title: translations.rounding_mode,
       icon: Icons.arrow_upward,
       settingKey: "rounding_mode",
-      selected: defaultValues["rounding_mode"] as String,
+      selected: DefaultValues.roundingMode,
       values: <String, String>{
         RoundingMode.up: translations.up,
         RoundingMode.down: translations.down,
@@ -77,7 +78,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
       title: translations.round_to,
       icon: Icons.cut,
       settingKey: "round_to",
-      selected: defaultValues["round_to"] as int,
+      selected: DefaultValues.roundTo,
       values: <int, String>{
         1: translations.to_integer,
         10: translations.to_10th,
@@ -105,7 +106,7 @@ class TermCountSettingsTile extends StatelessWidget {
       title: translations.school_termOne,
       icon: Icons.access_time_outlined,
       settingKey: "term_count",
-      selected: defaultValues["term_count"] as int,
+      selected: DefaultValues.termCount,
       values: <int, String>{
         4: translations.quarterOther,
         3: translations.trimesterOther,
@@ -117,6 +118,34 @@ class TermCountSettingsTile extends StatelessWidget {
         getCurrentYear().ensureTermCount();
         onChanged?.call();
       },
+    );
+  }
+}
+
+class ImportSettingsTile extends StatelessWidget {
+  const ImportSettingsTile({
+    super.key,
+    this.onChanged,
+  });
+  final Function()? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleSettingsTile(
+      icon: Icons.file_download_outlined,
+      title: translations.import_,
+      subtitle: translations.import_description,
+      onTap: () => importData().then((success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(success ? translations.import_success : translations.import_error),
+          ),
+        );
+
+        if (!success) return;
+
+        onChanged?.call();
+      }),
     );
   }
 }

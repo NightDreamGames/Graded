@@ -29,9 +29,6 @@ class SubjectRoute extends StatefulWidget {
 }
 
 class _SubjectRouteState extends State<SubjectRoute> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController gradeController = TextEditingController();
-  final TextEditingController maximumController = TextEditingController();
   double fabRotation = 0.0;
 
   @override
@@ -42,14 +39,6 @@ class _SubjectRouteState extends State<SubjectRoute> {
         fabRotation += 0.5;
       });
     });
-  }
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    gradeController.dispose();
-    maximumController.dispose();
-    super.dispose();
   }
 
   void rebuild() {
@@ -71,7 +60,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                 setState(() {
                   fabRotation += 0.5;
                 });
-                showTestDialog(context, widget.subject, nameController, gradeController, maximumController).then((_) => refreshYearOverview());
+                showTestDialog(context, widget.subject).then((_) => refreshYearOverview());
               },
               child: AnimatedRotation(
                 duration: const Duration(milliseconds: 500),
@@ -160,8 +149,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                           showMenuActions<MenuAction>(context, listKey, MenuAction.values, [translations.edit, translations.delete]).then((result) {
                             switch (result) {
                               case MenuAction.edit:
-                                showTestDialog(context, widget.subject, nameController, gradeController, maximumController, index: index)
-                                    .then((_) => refreshYearOverview());
+                                showTestDialog(context, widget.subject, index: index).then((_) => refreshYearOverview());
                               case MenuAction.delete:
                                 widget.subject.removeTest(index);
                                 refreshYearOverview();

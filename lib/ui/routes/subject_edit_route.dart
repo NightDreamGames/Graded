@@ -31,9 +31,6 @@ class SubjectEditRoute extends StatefulWidget {
 }
 
 class _SubjectEditRouteState extends State<SubjectEditRoute> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController coeffController = TextEditingController();
-  final TextEditingController speakingController = TextEditingController();
   double fabRotation = 0.0;
 
   @override
@@ -44,14 +41,6 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         fabRotation += 0.5;
       });
     });
-  }
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    coeffController.dispose();
-    speakingController.dispose();
-    super.dispose();
   }
 
   void rebuild() {
@@ -69,18 +58,11 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           setState(() {
             fabRotation += 0.5;
           });
-          showSubjectDialog(
-            context,
-            nameController,
-            coeffController,
-            speakingController,
-          ).then((_) => rebuild());
+          showSubjectDialog(context).then((_) => rebuild());
         },
-        child: AnimatedRotation(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOutCubic,
-          turns: fabRotation,
-          child: const Icon(Icons.add),
+        child: SpinningIcon(
+          icon: Icons.add,
+          rotation: fabRotation,
         ),
       ),
       appBar: AppBar(
@@ -138,9 +120,6 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           index1: i,
           reorderIndex: reorderIndex,
           onActionCompleted: rebuild,
-          nameController: nameController,
-          coeffController: coeffController,
-          speakingController: speakingController,
         ),
       );
       reorderIndex++;
@@ -155,9 +134,6 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
             index2: j,
             reorderIndex: reorderIndex,
             onActionCompleted: rebuild,
-            nameController: nameController,
-            coeffController: coeffController,
-            speakingController: speakingController,
           ),
         );
         reorderIndex++;

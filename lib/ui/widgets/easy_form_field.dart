@@ -9,7 +9,7 @@ import "package:graded/ui/utilities/misc_utilities.dart";
 class EasyFormField extends StatelessWidget {
   const EasyFormField({
     super.key,
-    required this.controller,
+    this.controller,
     this.label,
     this.hint,
     this.numeric = false,
@@ -23,7 +23,7 @@ class EasyFormField extends StatelessWidget {
     this.focusNode,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? label;
   final String? hint;
   final bool autofocus;
@@ -38,26 +38,28 @@ class EasyFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      textInputAction: textInputAction,
-      autofocus: autofocus,
-      autovalidateMode: numeric || additionalValidator != null ? AutovalidateMode.onUserInteraction : null,
-      keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: !isiOS && signed) : TextInputType.text,
-      textAlign: textAlign,
-      textCapitalization: TextCapitalization.sentences,
-      validator: (String? input) {
-        if (input != null && input.isNotEmpty) {
-          if (numeric && Calculator.tryParse(input) == null) {
-            return translations.invalid;
+    return Flexible(
+      child: TextFormField(
+        controller: controller,
+        textInputAction: textInputAction,
+        autofocus: autofocus,
+        autovalidateMode: numeric || additionalValidator != null ? AutovalidateMode.onUserInteraction : null,
+        keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: !isiOS && signed) : TextInputType.text,
+        textAlign: textAlign,
+        textCapitalization: TextCapitalization.sentences,
+        validator: (String? input) {
+          if (input != null && input.isNotEmpty) {
+            if (numeric && Calculator.tryParse(input) == null) {
+              return translations.invalid;
+            }
           }
-        }
-        return additionalValidator?.call(input!);
-      },
-      decoration: inputDecoration(labelText: label, hintText: hint),
-      onSaved: onSaved,
-      onEditingComplete: onSubmitted,
-      focusNode: focusNode,
+          return additionalValidator?.call(input!);
+        },
+        decoration: inputDecoration(labelText: label, hintText: hint),
+        onSaved: onSaved,
+        onEditingComplete: onSubmitted,
+        focusNode: focusNode,
+      ),
     );
   }
 }

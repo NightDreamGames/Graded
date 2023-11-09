@@ -507,13 +507,7 @@ class TextInputSettingsTile extends StatefulWidget {
 class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<EasyDialogState> _dialogKey = GlobalKey<EasyDialogState>();
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
+  final _controller = TextEditingController();
 
   @override
   void dispose() {
@@ -566,7 +560,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
   }
 
   bool _submitText(String newValue) {
-    var isValid = true;
+    bool isValid = true;
     final state = _formKey.currentState;
     if (state != null) {
       isValid = state.validate();
@@ -898,7 +892,7 @@ class CheckboxSettingsTile extends StatelessWidget {
       return subtitle;
     }
 
-    var label = "";
+    String label = "";
     if (enabled && enabledLabel.isNotEmpty) {
       label = enabledLabel;
     }

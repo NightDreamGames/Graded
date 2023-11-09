@@ -15,19 +15,17 @@ class Subject extends CalculationObject {
   int bonus = 0;
   bool isGroup = false;
   bool isChild = false;
-  double speakingWeight = defaultValues["speaking_weight"] as double;
+  double speakingWeight = DefaultValues.speakingWeight;
 
-  Subject(String name, double coefficient, this.speakingWeight, {this.isGroup = false, this.isChild = false}) {
+  Subject(String name, double weight, this.speakingWeight, {this.isGroup = false, this.isChild = false}) {
     super.name = name;
-    super.coefficient = coefficient;
+    super.weight = weight;
   }
 
   void calculate() {
     if (isGroup) {
-      if (isGroup) {
-        for (final Subject element in children) {
-          element.calculate();
-        }
+      for (final Subject element in children) {
+        element.calculate();
       }
 
       result = Calculator.calculate(children);
@@ -53,12 +51,13 @@ class Subject extends CalculationObject {
     }
   }
 
-  void editTest(int position, double numerator, double denominator, String name, {bool isSpeaking = false, int? timestamp}) {
+  void editTest(int position, double numerator, double denominator, String name, double weight, {bool isSpeaking = false, int? timestamp}) {
     final Test t = tests[position];
 
     t.numerator = numerator;
     t.denominator = denominator;
     t.name = name;
+    t.weight = weight;
     t.isSpeaking = isSpeaking;
     t.result = Calculator.calculate([t]);
     t.timestamp = timestamp ?? t.timestamp;
@@ -100,16 +99,16 @@ class Subject extends CalculationObject {
 
     isGroup = json["type"] != null && json["type"] as bool;
     name = json["name"] as String;
-    coefficient = json["coefficient"] as double;
+    weight = json["coefficient"] as double;
     bonus = json["bonus"] as int;
-    speakingWeight = json["speakingWeight"] as double? ?? defaultValues["speaking_weight"] as double;
+    speakingWeight = json["speakingWeight"] as double? ?? DefaultValues.speakingWeight;
   }
 
   Map<String, dynamic> toJson() => {
         "tests": tests,
         "children": children,
         "name": name,
-        "coefficient": coefficient,
+        "coefficient": weight,
         "bonus": bonus,
         "type": isGroup,
         "speakingWeight": speakingWeight,

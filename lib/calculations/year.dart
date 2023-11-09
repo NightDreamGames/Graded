@@ -21,10 +21,10 @@ class Year extends CalculationObject {
   String? validatedSection;
   String? validatedVariant;
 
-  int termCount = defaultValues["term_count"] as int;
-  double maxGrade = defaultValues["max_grade"] as double;
-  String roundingMode = defaultValues["rounding_mode"] as String;
-  int roundTo = defaultValues["round_to"] as int;
+  int termCount = DefaultValues.termCount;
+  double maxGrade = DefaultValues.maxGrade;
+  String roundingMode = DefaultValues.roundingMode;
+  int roundTo = DefaultValues.roundTo;
 
   Year({
     List<Subject>? termTemplate,
@@ -35,12 +35,12 @@ class Year extends CalculationObject {
       t.calculate();
     }
 
-    final double examCoefficient = defaultValues["exam_coefficient"] as double;
-    final int notEmptyTerms = terms.where((element) => element.result != null && !element.isExam).length;
+    const double examWeight = DefaultValues.examWeight;
+    final int nonEmptyTerms = terms.where((element) => element.result != null && !element.isExam).length;
 
     for (final Term t in terms) {
       if (t.isExam) {
-        t.coefficient = examCoefficient * notEmptyTerms;
+        t.weight = examWeight * nonEmptyTerms;
       }
     }
 
@@ -77,14 +77,14 @@ class Year extends CalculationObject {
     }
   }
 
-  void editSubject(Subject subject, String name, double coefficient, double speakingWeight) {
+  void editSubject(Subject subject, String name, double weight, double speakingWeight) {
     sort(
       sortModeOverride: SortMode.name,
       sortDirectionOverride: SortDirection.ascending,
     );
 
     subject.name = name;
-    subject.coefficient = coefficient;
+    subject.weight = weight;
     subject.speakingWeight = speakingWeight;
 
     for (final Term t in terms) {
@@ -93,11 +93,11 @@ class Year extends CalculationObject {
         final Subject template = termTemplate[i];
 
         s.name = template.name;
-        s.coefficient = template.coefficient;
+        s.weight = template.weight;
         s.speakingWeight = template.speakingWeight;
         for (int j = 0; j < t.subjects[i].children.length; j++) {
           s.children[j].name = template.children[j].name;
-          s.children[j].coefficient = template.children[j].coefficient;
+          s.children[j].weight = template.children[j].weight;
           s.children[j].speakingWeight = template.children[j].speakingWeight;
         }
       }
@@ -180,7 +180,7 @@ class Year extends CalculationObject {
 
     final bool hasExam = validatedYear == 1;
 
-    final bool examPresent = terms.isNotEmpty && terms.last.coefficient == 2;
+    final bool examPresent = terms.isNotEmpty && terms.last.weight == 2;
 
     while (terms.length > termCount + (hasExam ? 1 : 0)) {
       final int index = terms.length - 1 - (hasExam ? 1 : 0);
@@ -219,10 +219,10 @@ class Year extends CalculationObject {
     validatedSection = json["validated_section"] as String?;
     validatedVariant = json["validated_variant"] as String?;
 
-    termCount = json["term_count"] as int? ?? defaultValues["term_count"] as int;
-    maxGrade = json["max_grade"] as double? ?? defaultValues["max_grade"] as double;
-    roundingMode = json["rounding_mode"] as String? ?? defaultValues["rounding_mode"] as String;
-    roundTo = json["round_to"] as int? ?? defaultValues["round_to"] as int;
+    termCount = json["term_count"] as int? ?? DefaultValues.termCount;
+    maxGrade = json["max_grade"] as double? ?? DefaultValues.maxGrade;
+    roundingMode = json["rounding_mode"] as String? ?? DefaultValues.roundingMode;
+    roundTo = json["round_to"] as int? ?? DefaultValues.roundTo;
   }
 
   Map<String, dynamic> toJson() => {

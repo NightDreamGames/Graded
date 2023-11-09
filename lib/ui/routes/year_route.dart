@@ -21,7 +21,7 @@ class YearRoute extends StatefulWidget {
 }
 
 class _YearRouteState extends State<YearRoute> {
-  final TextEditingController nameController = TextEditingController();
+  final nameController = TextEditingController();
   double fabRotation = 0.0;
 
   @override
@@ -58,11 +58,9 @@ class _YearRouteState extends State<YearRoute> {
           });
           Navigator.pushNamed(context, "/setup");
         },
-        child: AnimatedRotation(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOutCubic,
-          turns: fabRotation,
-          child: const Icon(Icons.add),
+        child: SpinningIcon(
+          icon: Icons.add,
+          rotation: fabRotation,
         ),
       ),
       appBar: AppBar(

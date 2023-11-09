@@ -113,10 +113,10 @@ void main() async {
 
     // Test sorting by coefficient in descending order
     data = [
-      Term(name: "Alpha", coefficient: 0.5),
-      Term(name: "Beta", coefficient: 0.3),
-      Term(name: "Delta", coefficient: 0.8),
-      Term(name: "Gamma", coefficient: 0.1),
+      Term(name: "Alpha", weight: 0.5),
+      Term(name: "Beta", weight: 0.3),
+      Term(name: "Delta", weight: 0.8),
+      Term(name: "Gamma", weight: 0.1),
     ];
 
     Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.coefficient, sortDirectionOverride: SortDirection.descending);

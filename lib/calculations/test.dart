@@ -1,6 +1,7 @@
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
+import "package:graded/misc/default_values.dart";
 
 class Test extends CalculationObject {
   @override
@@ -10,9 +11,17 @@ class Test extends CalculationObject {
   bool isSpeaking = false;
   int timestamp = 0;
 
-  Test(this.numerator, this.denominator, {String name = "", double coefficient = 1, bool isEmpty = false, this.isSpeaking = false, int? timestamp}) {
+  Test(
+    this.numerator,
+    this.denominator, {
+    String name = "",
+    double weight = DefaultValues.weight,
+    bool isEmpty = false,
+    this.isSpeaking = false,
+    int? timestamp,
+  }) {
     super.name = name;
-    super.coefficient = coefficient;
+    super.weight = weight;
     result = isEmpty ? null : Calculator.calculate([this]);
     if (result == null) numerator = null;
 
@@ -36,7 +45,7 @@ class Test extends CalculationObject {
     numerator = json["grade1"] as double?;
     denominator = json["grade2"] as double;
     name = json["name"] as String;
-    coefficient = json["coefficient"] as double? ?? 1;
+    weight = json["coefficient"] as double? ?? 1;
     isSpeaking = json["isSpeaking"] as bool? ?? false;
     result = Calculator.calculate([this]);
     if (result == null) numerator = null;
@@ -47,7 +56,7 @@ class Test extends CalculationObject {
         "grade1": numerator,
         "grade2": denominator,
         "name": name,
-        "coefficient": coefficient,
+        "coefficient": weight,
         "isSpeaking": isSpeaking,
         "timestamp": timestamp,
       };

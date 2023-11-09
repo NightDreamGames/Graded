@@ -13,12 +13,12 @@ class Term extends CalculationObject {
   double get denominator => getCurrentYear().maxGrade;
 
   Term({
-    double coefficient = 1,
+    double weight = 1,
     String name = "",
     this.isExam = false,
     this.isYearOverview = false,
   }) {
-    super.coefficient = coefficient;
+    super.weight = weight;
     super.name = name;
 
     populateSubjects();
@@ -31,12 +31,12 @@ class Term extends CalculationObject {
 
     for (final Subject s in getCurrentYear().termTemplate) {
       if (!s.isGroup) {
-        subjects.add(Subject(s.name, s.coefficient, s.speakingWeight));
+        subjects.add(Subject(s.name, s.weight, s.speakingWeight));
       } else {
-        final Subject group = Subject(s.name, s.coefficient, s.speakingWeight, isGroup: true);
+        final Subject group = Subject(s.name, s.weight, s.speakingWeight, isGroup: true);
         subjects.add(group);
         for (final Subject child in s.children) {
-          group.children.add(Subject(child.name, child.coefficient, child.speakingWeight));
+          group.children.add(Subject(child.name, child.weight, child.speakingWeight));
         }
       }
     }
@@ -49,7 +49,7 @@ class Term extends CalculationObject {
 
     final List<Subject> toBeCalculated = [...subjects];
     for (int i = 0; i < toBeCalculated.length; i++) {
-      if (toBeCalculated[i].coefficient == 0) {
+      if (toBeCalculated[i].weight == 0) {
         toBeCalculated.addAll(toBeCalculated[i].children);
         toBeCalculated.removeAt(i);
         i--;
@@ -88,13 +88,13 @@ class Term extends CalculationObject {
     }).toList();
 
     subjects = s;
-    coefficient = json["coefficient"] as double? ?? 1;
+    weight = json["coefficient"] as double? ?? 1;
     isExam = json["isExam"] as bool? ?? false;
   }
 
   Map<String, dynamic> toJson() => {
         "subjects": subjects,
-        "coefficient": coefficient,
+        "coefficient": weight,
         "isExam": isExam,
       };
 }

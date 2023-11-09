@@ -7,6 +7,10 @@ import "package:flutter/foundation.dart";
 // Package imports:
 import "package:url_launcher/url_launcher.dart";
 
+// Project imports:
+import "package:graded/calculations/calculator.dart";
+import "package:graded/localization/translations.dart";
+
 enum Link { website, store, github, email }
 
 String? encodeQueryParameters(Map<String, String> params) {
@@ -57,3 +61,23 @@ Future<void> launchURL(Link type) async {
 bool isAndroid = !kIsWeb && Platform.isAndroid;
 bool isiOS = !kIsWeb && Platform.isIOS;
 bool isWeb = kIsWeb;
+
+String? thresholdValidator(String? value, {int threshold = 0, bool inclusive = true}) {
+  final double? number = Calculator.tryParse(value);
+
+  if (number != null && ((inclusive && number < threshold) || (!inclusive && number <= threshold))) {
+    return translations.invalid;
+  }
+
+  return null;
+}
+
+String? nullValidator(String? value) {
+  final double? number = Calculator.tryParse(value);
+
+  if (number == null) {
+    return translations.invalid;
+  }
+
+  return null;
+}

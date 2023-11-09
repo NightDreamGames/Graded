@@ -32,7 +32,7 @@ class Calculator {
       case SortMode.name:
         insertionSort(
           data,
-          compare: (CalculationObject a, CalculationObject b) {
+          compare: (a, b) {
             int result = compareNatural(a.asciiName, b.asciiName);
             if (result == 0) {
               result = compareNatural(a.name, b.name);
@@ -43,7 +43,7 @@ class Calculator {
       case SortMode.result:
         insertionSort(
           data,
-          compare: (CalculationObject a, CalculationObject b) {
+          compare: (a, b) {
             if (a.result == null && b.result == null) {
               return 0;
             } else if (b.result == null) {
@@ -56,7 +56,7 @@ class Calculator {
           },
         );
       case SortMode.coefficient:
-        insertionSort(data, compare: (CalculationObject a, CalculationObject b) => sortDirection * a.coefficient.compareTo(b.coefficient));
+        insertionSort(data, compare: (a, b) => sortDirection * a.weight.compareTo(b.weight));
       case SortMode.custom:
         final compare = comparisonData ?? getCurrentYear().termTemplate;
         data.sort((a, b) {
@@ -67,7 +67,7 @@ class Calculator {
 
         insertionSort(
           data,
-          compare: (CalculationObject a, CalculationObject b) {
+          compare: (a, b) {
             int result = (a as Test).timestamp.compareTo((b as Test).timestamp);
             if (result == 0) {
               result = a.asciiName.compareTo(b.asciiName);
@@ -92,11 +92,11 @@ class Calculator {
 
     for (final CalculationObject c in data.where((element) => element.numerator != null && element.denominator != 0)) {
       if (c is Test && c.isSpeaking) {
-        totalNumeratorSpeaking += c.numerator! * c.coefficient;
-        totalDenominatorSpeaking += c.denominator * c.coefficient;
+        totalNumeratorSpeaking += c.numerator! * c.weight;
+        totalDenominatorSpeaking += c.denominator * c.weight;
       } else {
-        totalNumerator += c.numerator! * c.coefficient;
-        totalDenominator += c.denominator * c.coefficient;
+        totalNumerator += c.numerator! * c.weight;
+        totalDenominator += c.denominator * c.weight;
       }
     }
 
@@ -107,7 +107,7 @@ class Calculator {
 
     final double totalResult = (result * speakingWeight + resultSpeaking) / (speakingWeight + 1) + bonus;
 
-    return round(totalResult, roundToMultiplier: precise ? defaultValues["precise_round_to_multiplier"] as int : 1);
+    return round(totalResult, roundToMultiplier: precise ? DefaultValues.preciseRoundToMultiplier : 1);
   }
 
   static double round(double n, {String? roundingModeOverride, int? roundToOverride, int roundToMultiplier = 1}) {

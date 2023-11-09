@@ -28,7 +28,7 @@ class Compatibility {
       if (currentDataVersion < 5) {
         Manager.years[0].ensureTermCount();
 
-        setPreference<String>("language", defaultValues["language"] as String);
+        setPreference<String>("language", DefaultValues.language);
       }
 
       if (currentDataVersion < 6) {
@@ -59,10 +59,10 @@ class Compatibility {
         if (getPreference<String>("validated_school_system") == "lux") {
           try {
             if (!SetupManager.hasSections(getPreference<String>("validated_lux_system"), getPreference<int>("validated_year"))) {
-              setPreference<String>("validated_section", defaultValues["validated_section"] as String);
+              setPreference<String>("validated_section", "");
             }
           } catch (e) {
-            setPreference<String>("validated_section", defaultValues["validated_section"] as String);
+            setPreference<String>("validated_section", "");
           }
           try {
             if (!SetupManager.hasVariants(
@@ -71,10 +71,10 @@ class Compatibility {
                   getPreference<String>("validated_section"),
                 ) ||
                 SetupManager.getVariants()[getPreference<String>("validated_variant")] == null) {
-              setPreference<String>("validated_variant", defaultValues["validated_variant"] as String);
+              setPreference<String>("validated_variant", "");
             }
           } catch (e) {
-            setPreference<String>("validated_variant", defaultValues["validated_variant"] as String);
+            setPreference<String>("validated_variant", "");
           }
         } else {
           final List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
@@ -87,7 +87,7 @@ class Compatibility {
 
       if (currentDataVersion < 9) {
         //Sort direction
-        for (var sortType = 1; sortType <= 2; sortType++) {
+        for (int sortType = 1; sortType <= 2; sortType++) {
           final int sortMode = getPreference<int>("sort_mode$sortType");
           int sortDirection = SortDirection.notApplicable;
 
@@ -107,7 +107,7 @@ class Compatibility {
       if (currentDataVersion < 10) {
         //Fix exam coefficient
         if (getPreference<String>("validated_school_system") == "lux" && getPreference<int>("validated_year") == 1) {
-          final Iterable<Term> examTerms = getCurrentYear().terms.where((element) => element.coefficient == 2);
+          final Iterable<Term> examTerms = getCurrentYear().terms.where((element) => element.weight == 2);
 
           for (final examTerm in examTerms) {
             examTerm.isExam = true;

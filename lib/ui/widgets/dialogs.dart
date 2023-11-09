@@ -11,6 +11,7 @@ import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/hints.dart";
+import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/easy_form_field.dart";
 
 class EasyDialog extends StatefulWidget {
@@ -123,303 +124,337 @@ class EasyDialogState extends State<EasyDialog> {
   }
 }
 
-Future<void> showTestDialog(
-  BuildContext context,
-  Subject subject,
-  TextEditingController nameController,
-  TextEditingController gradeController,
-  TextEditingController maximumController, {
-  int? index,
-}) async {
-  gradeController.clear();
-  maximumController.clear();
-  nameController.clear();
-
-  final CreationType action = index == null ? CreationType.add : CreationType.edit;
-
-  gradeController.text = action == CreationType.edit ? Calculator.format(subject.tests[index!].numerator, addZero: false) : "";
-  maximumController.text =
-      action == CreationType.edit ? Calculator.format(subject.tests[index!].denominator, addZero: false, roundToOverride: 1) : "";
-  nameController.text = action == CreationType.edit ? subject.tests[index!].name : "";
-  bool isSpeaking = action == CreationType.edit && subject.tests[index!].isSpeaking;
-
+Future<void> showTestDialog(BuildContext context, Subject subject, {int? index}) {
   return showDialog(
     context: context,
     builder: (context) {
-      final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
-
-      return StatefulBuilder(
-        builder: (context, setState) {
-          int? timestamp = index != null ? subject.tests[index].timestamp : null;
-
-          return EasyDialog(
-            key: dialogKey,
-            title: action == CreationType.add ? translations.add_test : translations.edit_test,
-            icon: action == CreationType.add ? Icons.add : Icons.edit,
-            bottomPadding: 0,
-            onConfirm: () {
-              final String name = nameController.text.isEmpty ? getHint(translations.testOne, subject.tests) : nameController.text;
-              final double numerator = Calculator.tryParse(gradeController.text) ?? 1;
-              final double denominator = Calculator.tryParse(maximumController.text) ?? getCurrentYear().maxGrade;
-
-              if (action == CreationType.add) {
-                subject.addTest(Test(numerator, denominator, name: name, isSpeaking: isSpeaking, timestamp: timestamp));
-              } else {
-                subject.editTest(index!, numerator, denominator, name, isSpeaking: isSpeaking, timestamp: timestamp);
-              }
-
-              return true;
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  child: EasyFormField(
-                    controller: nameController,
-                    label: translations.name,
-                    hint: getHint(translations.testOne, subject.tests),
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Flexible(
-                      child: EasyFormField(
-                        controller: gradeController,
-                        label: translations.gradeOne,
-                        hint: "01",
-                        textAlign: TextAlign.end,
-                        autofocus: true,
-                        numeric: true,
-                        textInputAction: TextInputAction.next,
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
-                      child: Text("/", style: TextStyle(fontSize: 20)),
-                    ),
-                    Flexible(
-                      child: EasyFormField(
-                        controller: maximumController,
-                        label: translations.maximum,
-                        hint: Calculator.format(getCurrentYear().maxGrade, roundToOverride: 1),
-                        numeric: true,
-                        signed: false,
-                        onSubmitted: () => dialogKey.currentState?.submit(),
-                        additionalValidator: (newValue) {
-                          final double? number = Calculator.tryParse(newValue);
-
-                          if (number != null && number <= 0) {
-                            return translations.invalid;
-                          }
-
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(4.0),
-                ),
-                IntrinsicHeight(
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: CheckboxListTile(
-                          value: isSpeaking,
-                          onChanged: (value) {
-                            isSpeaking = value ?? false;
-                            setState(() {});
-                          },
-                          title: Text(
-                            translations.speaking,
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(right: 4),
-                        child: VerticalDivider(
-                          indent: 10,
-                          endIndent: 10,
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.calendar_month),
-                        tooltip: translations.select_date,
-                        onPressed: () {
-                          final DateTime now = DateTime.now();
-                          showDatePicker(
-                            context: context,
-                            initialDate: timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp!) : DateTime(now.year, now.month, now.day),
-                            firstDate: DateTime(1970),
-                            lastDate: DateTime(2100),
-                          ).then((value) => timestamp = value?.millisecondsSinceEpoch ?? DateTime(2021, 9, 15).millisecondsSinceEpoch);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
+      return TestDialog(
+        subject: subject,
+        index: index,
       );
     },
   );
 }
 
-Future<void> showSubjectDialog(
-  BuildContext context,
-  TextEditingController nameController,
-  TextEditingController coeffController,
-  TextEditingController speakingController, {
-  int? index1,
-  int? index2,
-}) async {
-  coeffController.clear();
-  nameController.clear();
-  speakingController.clear();
+class TestDialog extends StatefulWidget {
+  const TestDialog({
+    super.key,
+    required this.subject,
+    this.index,
+  });
 
-  final CreationType action = index1 == null ? CreationType.add : CreationType.edit;
+  final Subject subject;
+  final int? index;
 
-  final Subject subject = action == CreationType.add
-      ? Subject("", 0, 0)
-      : index2 == null
-          ? getCurrentYear().termTemplate[index1!]
-          : getCurrentYear().termTemplate[index1!].children[index2];
-  coeffController.text = action == CreationType.edit ? Calculator.format(subject.coefficient, addZero: false, roundToOverride: 1) : "";
-  nameController.text = action == CreationType.edit ? subject.name : "";
-  speakingController.text = action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false, roundToOverride: 1) : "";
+  @override
+  State<TestDialog> createState() => _TestDialogState();
+}
+
+class _TestDialogState extends State<TestDialog> {
+  final nameController = TextEditingController();
+  final gradeController = TextEditingController();
+  final maximumController = TextEditingController();
+  final weightController = TextEditingController();
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
 
+  late CreationType action;
+  late bool isSpeaking;
+  late int? timestamp;
+
+  @override
+  void initState() {
+    super.initState();
+    action = widget.index == null ? CreationType.add : CreationType.edit;
+    nameController.text = action == CreationType.edit ? widget.subject.tests[widget.index!].name : "";
+    gradeController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].numerator, addZero: false) : "";
+    maximumController.text =
+        action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].denominator, addZero: false, roundToOverride: 1) : "";
+    weightController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].weight, addZero: false) : "";
+    isSpeaking = action == CreationType.edit && widget.subject.tests[widget.index!].isSpeaking;
+    timestamp = widget.index != null ? widget.subject.tests[widget.index!].timestamp : null;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    gradeController.dispose();
+    maximumController.dispose();
+    weightController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyDialog(
+      key: dialogKey,
+      title: action == CreationType.add ? translations.add_test : translations.edit_test,
+      icon: action == CreationType.add ? Icons.add : Icons.edit,
+      bottomPadding: 0,
+      onConfirm: () {
+        final String name = nameController.text.isEmpty ? getHint(translations.testOne, widget.subject.tests) : nameController.text;
+        final double numerator = Calculator.tryParse(gradeController.text) ?? 1;
+        final double denominator = Calculator.tryParse(maximumController.text) ?? getCurrentYear().maxGrade;
+        final double weight = Calculator.tryParse(weightController.text) ?? DefaultValues.weight;
+
+        if (action == CreationType.add) {
+          widget.subject.addTest(Test(numerator, denominator, name: name, weight: weight, isSpeaking: isSpeaking, timestamp: timestamp));
+        } else {
+          widget.subject.editTest(widget.index!, numerator, denominator, name, weight, isSpeaking: isSpeaking, timestamp: timestamp);
+        }
+
+        return true;
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          EasyFormField(
+            controller: nameController,
+            label: translations.name,
+            hint: getHint(translations.testOne, widget.subject.tests),
+            textInputAction: TextInputAction.next,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              EasyFormField(
+                controller: gradeController,
+                label: translations.gradeOne,
+                hint: "01",
+                textAlign: TextAlign.end,
+                autofocus: true,
+                numeric: true,
+                textInputAction: TextInputAction.next,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+                child: Text("/", style: TextStyle(fontSize: 20)),
+              ),
+              EasyFormField(
+                controller: maximumController,
+                label: translations.maximum,
+                hint: Calculator.format(getCurrentYear().maxGrade, roundToOverride: 1),
+                numeric: true,
+                signed: false,
+                additionalValidator: (value) => thresholdValidator(value, inclusive: false),
+              ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+          ),
+          EasyFormField(
+            controller: weightController,
+            label: translations.coefficientOne,
+            hint: Calculator.format(DefaultValues.weight, addZero: false, roundToOverride: 1),
+            numeric: true,
+            signed: false,
+            onSubmitted: () => dialogKey.currentState?.submit(),
+            additionalValidator: (value) => thresholdValidator(value, inclusive: false),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(4.0),
+          ),
+          SizedBox(
+            height: 56,
+            child: Row(
+              children: [
+                Flexible(
+                  child: CheckboxListTile(
+                    value: isSpeaking,
+                    onChanged: (value) {
+                      isSpeaking = value ?? false;
+                      setState(() {});
+                    },
+                    title: Text(
+                      translations.speaking,
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(right: 4),
+                  child: VerticalDivider(
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.calendar_month),
+                  tooltip: translations.select_date,
+                  onPressed: () {
+                    final DateTime now = DateTime.now();
+                    showDatePicker(
+                      context: context,
+                      initialDate: timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp!) : DateTime(now.year, now.month, now.day),
+                      firstDate: DateTime(1970),
+                      lastDate: DateTime(2100),
+                    ).then((value) => timestamp = value?.millisecondsSinceEpoch ?? DateTime(2021, 9, 15).millisecondsSinceEpoch);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Future<void> showSubjectDialog(BuildContext context, {int? index1, int? index2}) {
   return showDialog(
     context: context,
     builder: (context) {
-      return EasyDialog(
-        key: dialogKey,
-        title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
-        icon: action == CreationType.add ? Icons.add : Icons.edit,
-        onConfirm: () {
-          final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, getCurrentYear().termTemplate) : nameController.text;
-          final double coefficient = Calculator.tryParse(coeffController.text) ?? 1.0;
-
-          double speakingWeight = Calculator.tryParse(speakingController.text) ?? (defaultValues["speaking_weight"] as double) + 1;
-          speakingWeight--;
-          if (speakingWeight <= 0) speakingWeight = 1;
-
-          if (action == CreationType.add) {
-            getCurrentYear().addSubject(Subject(name, coefficient, speakingWeight));
-          } else {
-            getCurrentYear().editSubject(subject, name, coefficient, speakingWeight);
-          }
-
-          Manager.calculate();
-
-          return true;
-        },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: EasyFormField(
-                controller: nameController,
-                autofocus: true,
-                label: translations.name,
-                hint: getHint(translations.subjectOne, getCurrentYear().termTemplate),
-                textInputAction: TextInputAction.next,
-                additionalValidator: (newValue) {
-                  if (getCurrentYear().termTemplate.any((element) {
-                    if (action == CreationType.edit && element == subject) {
-                      return false;
-                    }
-                    if (element.children.any((child) {
-                      if (action == CreationType.edit && child == subject) {
-                        return false;
-                      }
-                      return child.name == newValue;
-                    })) {
-                      return true;
-                    }
-                    return element.name == newValue;
-                  })) {
-                    return translations.enter_unique;
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  child: EasyFormField(
-                    controller: coeffController,
-                    label: translations.coefficientOne,
-                    hint: "1",
-                    numeric: true,
-                    textInputAction: TextInputAction.next,
-                    additionalValidator: (newValue) {
-                      final double? number = Calculator.tryParse(newValue);
-
-                      if (number != null && number < 0) {
-                        return translations.invalid;
-                      }
-
-                      return null;
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
-                  child: Row(
-                    children: [
-                      Text("1 /", style: TextStyle(fontSize: 20)),
-                    ],
-                  ),
-                ),
-                Flexible(
-                  child: EasyFormField(
-                    controller: speakingController,
-                    label: translations.speaking_weight,
-                    hint: Calculator.format((defaultValues["speaking_weight"] as double) + 1, addZero: false, roundToOverride: 1),
-                    numeric: true,
-                    onSubmitted: () => dialogKey.currentState?.submit(),
-                    additionalValidator: (newValue) {
-                      final double? number = Calculator.tryParse(newValue);
-
-                      if (number != null && number < 1) {
-                        return translations.invalid;
-                      }
-
-                      return null;
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
+      return SubjectDialog(index1: index1, index2: index2);
     },
   );
+}
+
+class SubjectDialog extends StatefulWidget {
+  const SubjectDialog({
+    super.key,
+    this.index1,
+    this.index2,
+  });
+
+  final int? index1;
+  final int? index2;
+
+  @override
+  State<SubjectDialog> createState() => _SubjectDialogState();
+}
+
+class _SubjectDialogState extends State<SubjectDialog> {
+  final nameController = TextEditingController();
+  final weightController = TextEditingController();
+  final speakingController = TextEditingController();
+
+  final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
+
+  late CreationType action;
+  late Subject subject;
+
+  @override
+  void initState() {
+    super.initState();
+    action = widget.index1 == null ? CreationType.add : CreationType.edit;
+    subject = action == CreationType.add
+        ? Subject("", 0, 0)
+        : widget.index2 == null
+            ? getCurrentYear().termTemplate[widget.index1!]
+            : getCurrentYear().termTemplate[widget.index1!].children[widget.index2!];
+    nameController.text = action == CreationType.edit ? subject.name : "";
+    weightController.text = action == CreationType.edit ? Calculator.format(subject.weight, addZero: false, roundToOverride: 1) : "";
+    speakingController.text = action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false, roundToOverride: 1) : "";
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    weightController.dispose();
+    speakingController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyDialog(
+      key: dialogKey,
+      title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
+      icon: action == CreationType.add ? Icons.add : Icons.edit,
+      onConfirm: () {
+        final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, getCurrentYear().termTemplate) : nameController.text;
+        final double weight = Calculator.tryParse(weightController.text) ?? 1.0;
+
+        double speakingWeight = Calculator.tryParse(speakingController.text) ?? (DefaultValues.speakingWeight) + 1;
+        speakingWeight--;
+        if (speakingWeight <= 0) speakingWeight = 1;
+
+        if (action == CreationType.add) {
+          getCurrentYear().addSubject(Subject(name, weight, speakingWeight));
+        } else {
+          getCurrentYear().editSubject(subject, name, weight, speakingWeight);
+        }
+
+        Manager.calculate();
+        return true;
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          EasyFormField(
+            controller: nameController,
+            autofocus: true,
+            label: translations.name,
+            hint: getHint(translations.subjectOne, getCurrentYear().termTemplate),
+            textInputAction: TextInputAction.next,
+            additionalValidator: (newValue) {
+              if (getCurrentYear().termTemplate.any((element) {
+                if (action == CreationType.edit && element == subject) {
+                  return false;
+                }
+                if (element.children.any((child) {
+                  if (action == CreationType.edit && child == subject) {
+                    return false;
+                  }
+                  return child.name == newValue;
+                })) {
+                  return true;
+                }
+                return element.name == newValue;
+              })) {
+                return translations.enter_unique;
+              }
+              return null;
+            },
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              EasyFormField(
+                controller: weightController,
+                label: translations.coefficientOne,
+                hint: Calculator.format(DefaultValues.weight, addZero: false, roundToOverride: 1),
+                numeric: true,
+                textInputAction: TextInputAction.next,
+                additionalValidator: thresholdValidator,
+              ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+                child: Row(
+                  children: [
+                    Text("1 /", style: TextStyle(fontSize: 20)),
+                  ],
+                ),
+              ),
+              EasyFormField(
+                controller: speakingController,
+                label: translations.speaking_weight,
+                hint: Calculator.format((DefaultValues.speakingWeight) + 1, addZero: false, roundToOverride: 1),
+                numeric: true,
+                onSubmitted: () => dialogKey.currentState?.submit(),
+                additionalValidator: (value) => thresholdValidator(value, threshold: 1),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }

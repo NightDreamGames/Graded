@@ -14,14 +14,14 @@ abstract class CalculationObject {
   }
 
   String asciiName = "";
-  double coefficient = 1;
+  double weight = DefaultValues.weight;
   double? result;
   double? preciseResult;
   double? get numerator => result != null ? result! : null;
-  double get denominator => defaultValues["max_grade"] as double;
+  double get denominator => DefaultValues.maxGrade;
 
   String getResult({bool precise = false}) {
     if (result == null) return "-";
-    return Calculator.format(precise ? preciseResult : result, roundToMultiplier: precise ? defaultValues["precise_round_to_multiplier"] as int : 1);
+    return Calculator.format(precise ? preciseResult : result, roundToMultiplier: precise ? DefaultValues.preciseRoundToMultiplier : 1);
   }
 }

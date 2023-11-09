@@ -77,13 +77,7 @@ class _HomePageState extends State<HomePage> {
                                 .then((_) => refreshYearOverview());
                           },
                           onLongPress: () {
-                            showTestDialog(
-                              context,
-                              widget.term.subjects[index],
-                              TextEditingController(),
-                              TextEditingController(),
-                              TextEditingController(),
-                            ).then((_) => refreshYearOverview());
+                            showTestDialog(context, widget.term.subjects[index]).then((_) => refreshYearOverview());
                           },
                         );
                       } else {
@@ -108,13 +102,7 @@ class _HomePageState extends State<HomePage> {
                                       ).then((_) => refreshYearOverview());
                                     },
                                     onLongPress: () {
-                                      showTestDialog(
-                                        context,
-                                        widget.term.subjects[index].children[i],
-                                        TextEditingController(),
-                                        TextEditingController(),
-                                        TextEditingController(),
-                                      ).then((_) => refreshYearOverview());
+                                      showTestDialog(context, widget.term.subjects[index].children[i]).then((_) => refreshYearOverview());
                                     },
                                     isChild: true,
                                   ),

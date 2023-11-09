@@ -70,7 +70,7 @@ class _AppContainerState extends State<AppContainer> {
     final String localeName = getPreference<String>("language");
 
     return ChangeNotifierProvider(
-      create: (context) => LocaleProvider(locale: localeName != defaultValues["language"] ? Locale(localeName) : null),
+      create: (context) => LocaleProvider(locale: localeName != DefaultValues.language ? Locale(localeName) : null),
       child: Consumer<LocaleProvider>(
         builder: (context, provider, _) => DynamicColorBuilder(
           builder: (ColorScheme? light, ColorScheme? dark) => MaterialApp(

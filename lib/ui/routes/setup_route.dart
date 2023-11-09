@@ -119,22 +119,11 @@ class _SetupPageState extends State<SetupPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4),
                         child: Card(
-                          child: SimpleSettingsTile(
-                            title: translations.import_,
-                            subtitle: translations.import_description,
-                            icon: Icons.file_download_outlined,
-                            onTap: () => importData().then((success) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(success ? translations.import_success : translations.import_error),
-                                ),
-                              );
-
-                              if (!success) return;
-
+                          child: ImportSettingsTile(
+                            onChanged: () {
                               setPreference<bool>("is_first_run", false);
                               replaceRoute(context);
-                            }),
+                            },
                           ),
                         ),
                       ),
@@ -166,9 +155,9 @@ class _SetupPageState extends State<SetupPage> {
                               "general": translations.lux_system_general,
                             },
                             onChange: (_) {
-                              setPreference<int>("year", defaultValues["year"] as int);
-                              setPreference<String>("section", defaultValues["section"] as String);
-                              setPreference<String>("variant", defaultValues["variant"] as String);
+                              setPreference<int>("year", DefaultValues.year);
+                              setPreference<String>("section", DefaultValues.section);
+                              setPreference<String>("variant", DefaultValues.variant);
                               rebuild();
                             },
                           ),
@@ -181,10 +170,10 @@ class _SetupPageState extends State<SetupPage> {
                               values: SetupManager.getYears(),
                               onChange: (_) {
                                 if (SetupManager.hasSections()) {
-                                  setPreference<String>("section", defaultValues["section"] as String);
+                                  setPreference<String>("section", DefaultValues.section);
                                 }
                                 if (SetupManager.getVariants()[getPreference<String>("variant")] == null) {
-                                  setPreference<String>("variant", defaultValues["variant"] as String);
+                                  setPreference<String>("variant", DefaultValues.variant);
                                 }
                                 rebuild();
                               },
@@ -202,7 +191,7 @@ class _SetupPageState extends State<SetupPage> {
                               title: translations.variant,
                               icon: Icons.edit,
                               settingKey: "variant",
-                              selected: defaultValues["variant"] as String,
+                              selected: DefaultValues.variant,
                               values: SetupManager.getVariants(),
                               onChange: (_) => rebuild(),
                             ),

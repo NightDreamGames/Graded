@@ -98,21 +98,11 @@ class _SettingsPageState extends State<SettingsPage> {
                         subtitle: translations.export_description,
                         onTap: () => exportData(),
                       ),
-                      SimpleSettingsTile(
-                        icon: Icons.file_download_outlined,
-                        title: translations.import_,
-                        subtitle: translations.import_description,
-                        onTap: () => importData().then((success) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(success ? translations.import_success : translations.import_error),
-                            ),
-                          );
-
-                          if (!success) return;
+                      ImportSettingsTile(
+                        onChanged: () {
                           refreshHomePage();
                           Navigator.pop(context);
-                        }),
+                        },
                       ),
                     ],
                   ),
@@ -128,7 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           "light": translations.theme_light,
                           "dark": translations.theme_dark,
                         },
-                        selected: defaultValues["theme"] as String,
+                        selected: DefaultValues.theme,
                         onChange: (_) => appContainerKey.currentState?.setState(() {}),
                       ),
                       RadioModalSettingsTile<String>(
@@ -144,9 +134,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           //"es": translations.spanish,
                           "nl": translations.dutch,
                         },
-                        selected: defaultValues["language"] as String,
+                        selected: DefaultValues.language,
                         onChange: (value) {
-                          if (value != defaultValues["language"]) {
+                          if (value != DefaultValues.language) {
                             context.read<LocaleProvider>().setLocale(Locale(value));
                           } else {
                             context.read<LocaleProvider>().clearLocale();

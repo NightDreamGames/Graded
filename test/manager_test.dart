@@ -11,7 +11,6 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/localization/generated/l10n.dart";
-import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 
@@ -25,26 +24,25 @@ void main() async {
 
   test("Calculations", () async {
     getCurrentYear().termTemplate = [
-      Subject("Test1", 3, defaultValues["speaking_weight"] as double),
-      Subject("Test2", 3, defaultValues["speaking_weight"] as double),
-      Subject("Test3", 3, defaultValues["speaking_weight"] as double),
-      Subject("Test4", 2, defaultValues["speaking_weight"] as double),
-      Subject("Test5", 1, defaultValues["speaking_weight"] as double),
-      Subject("Test6", 3, defaultValues["speaking_weight"] as double),
-      Subject("Test7", 3, defaultValues["speaking_weight"] as double)
-        ..isGroup = true
+      Subject("Test1", 3, 3),
+      Subject("Test2", 3, 3),
+      Subject("Test3", 3, 3),
+      Subject("Test4", 2, 3),
+      Subject("Test5", 1, 3),
+      Subject("Test6", 3, 3),
+      Subject("Test7", 3, 3, isGroup: true)
         ..children.addAll({
-          Subject("Child1", 1, defaultValues["speaking_weight"] as double)..isChild = true,
-          Subject("Child2", 2, defaultValues["speaking_weight"] as double)..isChild = true,
+          Subject("Child1", 1, 3, isChild: true),
+          Subject("Child2", 2, 3, isChild: true),
         }),
-      Subject("Test8", 2, defaultValues["speaking_weight"] as double),
-      Subject("Test9", 2, defaultValues["speaking_weight"] as double),
-      Subject("Test10", 3, defaultValues["speaking_weight"] as double),
-      Subject("Test11", 2, defaultValues["speaking_weight"] as double)
+      Subject("Test8", 2, 3),
+      Subject("Test9", 2, 3),
+      Subject("Test10", 3, 3),
+      Subject("Test11", 2, 3)
         ..isGroup = true
         ..children.addAll({
-          Subject("Child3", 1, defaultValues["speaking_weight"] as double)..isChild = true,
-          Subject("Child4", 1, defaultValues["speaking_weight"] as double)..isChild = true,
+          Subject("Child3", 1, 3, isChild: true),
+          Subject("Child4", 1, 3, isChild: true),
         }),
     ];
 
