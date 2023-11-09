@@ -62,11 +62,9 @@ class _SubjectRouteState extends State<SubjectRoute> {
                 });
                 showTestDialog(context, widget.subject).then((_) => refreshYearOverview());
               },
-              child: AnimatedRotation(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOutCubic,
-                turns: fabRotation,
-                child: const Icon(Icons.add),
+              child: SpinningIcon(
+                icon: Icons.add,
+                rotation: fabRotation,
               ),
             )
           : null,
