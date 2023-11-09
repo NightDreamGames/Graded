@@ -31,6 +31,7 @@ import "package:graded/ui/utilities/misc_utilities.dart";
 final GlobalKey appContainerKey = GlobalKey();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 GlobalKey<RouteWidgetState> mainRouteKey = GlobalKey();
+final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -152,15 +153,7 @@ Route<dynamic> createRoute(RouteSettings settings) {
   return MaterialPageRoute(
     builder: (context) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        final ThemeData theme = Theme.of(context);
-
-        SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle(
-            systemNavigationBarColor: theme.colorScheme.surface,
-            systemNavigationBarIconBrightness: theme.brightness == Brightness.light ? Brightness.dark : Brightness.light,
-            systemNavigationBarDividerColor: theme.colorScheme.surface,
-          ),
-        );
+        setSystemStyle(Theme.of(context));
       });
 
       return Material(
@@ -173,11 +166,31 @@ Route<dynamic> createRoute(RouteSettings settings) {
 
 Future<void> setOptimalDisplayMode() async {
   if (!isAndroid) return;
-
-  final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-
+  final AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
   if (androidInfo.version.sdkInt < 23) return;
 
   await FlutterDisplayMode.setHighRefreshRate();
+}
+
+Future<void> setSystemStyle(ThemeData theme) async {
+  if (isAndroid) {
+    final AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+    final bool edgeToEdge = androidInfo.version.sdkInt >= 29;
+
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: edgeToEdge ? Colors.transparent : theme.colorScheme.surface,
+        systemNavigationBarDividerColor: edgeToEdge ? Colors.transparent : theme.colorScheme.surface,
+        systemNavigationBarContrastEnforced: true,
+        systemNavigationBarIconBrightness: theme.brightness == Brightness.light ? Brightness.dark : Brightness.light,
+      ),
+    );
+  } else {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+    );
+  }
 }
