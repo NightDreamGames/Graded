@@ -21,6 +21,7 @@ class EasyFormField extends StatelessWidget {
     this.additionalValidator,
     this.signed = true,
     this.focusNode,
+    this.flexible = true,
   });
 
   final TextEditingController? controller;
@@ -35,10 +36,12 @@ class EasyFormField extends StatelessWidget {
   final String? Function(String)? additionalValidator;
   final bool signed;
   final FocusNode? focusNode;
+  final bool flexible;
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
+      flex: flexible ? 1 : 0,
       child: TextFormField(
         controller: controller,
         textInputAction: textInputAction,

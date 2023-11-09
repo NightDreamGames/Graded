@@ -150,17 +150,20 @@ class TestDialog extends StatefulWidget {
   State<TestDialog> createState() => _TestDialogState();
 }
 
-class _TestDialogState extends State<TestDialog> {
+class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
   final nameController = TextEditingController();
   final gradeController = TextEditingController();
   final maximumController = TextEditingController();
   final weightController = TextEditingController();
+  late AnimationController animationController;
+  late Animation<double> expandAnimation;
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
 
   late CreationType action;
   late bool isSpeaking;
   late int? timestamp;
+  bool isExpanded = false;
 
   @override
   void initState() {
@@ -173,6 +176,9 @@ class _TestDialogState extends State<TestDialog> {
     weightController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].weight, addZero: false) : "";
     isSpeaking = action == CreationType.edit && widget.subject.tests[widget.index!].isSpeaking;
     timestamp = widget.index != null ? widget.subject.tests[widget.index!].timestamp : null;
+
+    animationController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
+    expandAnimation = CurvedAnimation(parent: animationController, curve: standardEasing);
   }
 
   @override
@@ -242,59 +248,92 @@ class _TestDialogState extends State<TestDialog> {
                 signed: false,
                 additionalValidator: (value) => thresholdValidator(value, inclusive: false),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 4, top: 8),
+                child: AnimatedRotation(
+                  turns: isExpanded ? .5 : 0,
+                  duration: const Duration(milliseconds: 200),
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                      if (expandAnimation.status != AnimationStatus.completed) {
+                        animationController.forward();
+                      } else {
+                        animationController.reverse();
+                      }
+                    },
+                    color: isExpanded ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                    icon: const Icon(Icons.expand_more),
+                  ),
+                ),
+              ),
             ],
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(6),
           ),
-          EasyFormField(
-            controller: weightController,
-            label: translations.coefficientOne,
-            hint: Calculator.format(DefaultValues.weight, addZero: false, roundToOverride: 1),
-            numeric: true,
-            signed: false,
-            onSubmitted: () => dialogKey.currentState?.submit(),
-            additionalValidator: (value) => thresholdValidator(value, inclusive: false),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(4.0),
-          ),
-          SizedBox(
-            height: 56,
-            child: Row(
+          SizeTransition(
+            sizeFactor: expandAnimation,
+            axisAlignment: -1,
+            child: Column(
               children: [
-                Flexible(
-                  child: CheckboxListTile(
-                    value: isSpeaking,
-                    onChanged: (value) {
-                      isSpeaking = value ?? false;
-                      setState(() {});
-                    },
-                    title: Text(
-                      translations.speaking,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                    ),
-                  ),
+                const Padding(
+                  padding: EdgeInsets.all(2),
+                ),
+                EasyFormField(
+                  controller: weightController,
+                  label: translations.coefficientOne,
+                  hint: Calculator.format(DefaultValues.weight, addZero: false, roundToOverride: 1),
+                  numeric: true,
+                  signed: false,
+                  onSubmitted: () => dialogKey.currentState?.submit(),
+                  additionalValidator: (value) => thresholdValidator(value, inclusive: false),
+                  flexible: false,
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(right: 4),
-                  child: VerticalDivider(
-                    indent: 10,
-                    endIndent: 10,
-                  ),
+                  padding: EdgeInsets.all(4.0),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.calendar_month),
-                  tooltip: translations.select_date,
-                  onPressed: () {
-                    final DateTime now = DateTime.now();
-                    showDatePicker(
-                      context: context,
-                      initialDate: timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp!) : DateTime(now.year, now.month, now.day),
-                      firstDate: DateTime(1970),
-                      lastDate: DateTime(2100),
-                    ).then((value) => timestamp = value?.millisecondsSinceEpoch ?? DateTime(2021, 9, 15).millisecondsSinceEpoch);
-                  },
+                SizedBox(
+                  height: 56,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: CheckboxListTile(
+                          value: isSpeaking,
+                          onChanged: (value) {
+                            isSpeaking = value ?? false;
+                            setState(() {});
+                          },
+                          title: Text(
+                            translations.speaking,
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 4),
+                        child: VerticalDivider(
+                          indent: 10,
+                          endIndent: 10,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.calendar_month),
+                        tooltip: translations.select_date,
+                        onPressed: () {
+                          final DateTime now = DateTime.now();
+                          showDatePicker(
+                            context: context,
+                            initialDate: timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp!) : DateTime(now.year, now.month, now.day),
+                            firstDate: DateTime(1970),
+                            lastDate: DateTime(2100),
+                          ).then((value) => timestamp = value?.millisecondsSinceEpoch ?? DateTime(2021, 9, 15).millisecondsSinceEpoch);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
