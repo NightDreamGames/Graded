@@ -220,20 +220,20 @@ class TranslationsClass {
     );
   }
 
-  /// `Coefficient`
+  /// `Weight`
   String get coefficientOne {
     return Intl.message(
-      'Coefficient',
+      'Weight',
       name: 'coefficientOne',
       desc: '',
       args: [],
     );
   }
 
-  /// `Coefficients`
+  /// `Weights`
   String get coefficientOther {
     return Intl.message(
-      'Coefficients',
+      'Weights',
       name: 'coefficientOther',
       desc: '',
       args: [],

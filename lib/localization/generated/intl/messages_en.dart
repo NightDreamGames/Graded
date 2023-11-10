@@ -41,9 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Class"),
-        "coefficientOne": MessageLookupByLibrary.simpleMessage("Coefficient"),
-        "coefficientOther":
-            MessageLookupByLibrary.simpleMessage("Coefficients"),
+        "coefficientOne": MessageLookupByLibrary.simpleMessage("Weight"),
+        "coefficientOther": MessageLookupByLibrary.simpleMessage("Weights"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Coming soon"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "contact": MessageLookupByLibrary.simpleMessage("Contact us"),
