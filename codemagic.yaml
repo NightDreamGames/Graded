@@ -24,7 +24,7 @@ workflows:
       - name: Bump Flutter submodule
         working_directory: .flutter/
         script: |
-          git pull origin stable
+          git pull
           bin/flutter --version
       - name: Get Flutter packages
         script: |
@@ -85,7 +85,7 @@ workflows:
       - name: Bump Flutter submodule
         working_directory: .flutter/
         script: |
-          git pull origin stable
+          git pull
           bin/flutter --version
       - name: Set up environment variables
         script: |
