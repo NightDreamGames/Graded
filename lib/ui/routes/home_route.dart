@@ -62,7 +62,6 @@ class _HomePageState extends State<HomePage> {
               ),
               SliverSafeArea(
                 top: false,
-                bottom: false,
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     childCount: widget.term.subjects.length,

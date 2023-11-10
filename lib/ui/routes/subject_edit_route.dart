@@ -89,7 +89,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
               bottom: false,
               child: getCurrentYear().termTemplate.isNotEmpty
                   ? ReorderableListView(
-                      padding: const EdgeInsets.only(bottom: 88),
+                      padding: EdgeInsets.only(bottom: 88 + MediaQuery.paddingOf(context).bottom),
                       primary: true,
                       buildDefaultDragHandles: false,
                       onReorder: (int oldIndex, int newIndex) {

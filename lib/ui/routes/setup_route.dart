@@ -111,7 +111,6 @@ class _SetupPageState extends State<SetupPage> {
             ),
             SliverSafeArea(
               top: false,
-              bottom: false,
               sliver: SliverToBoxAdapter(
                 child: SettingsContainer(
                   children: [

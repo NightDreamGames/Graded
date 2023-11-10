@@ -130,7 +130,6 @@ class _SubjectRouteState extends State<SubjectRoute> {
               ),
               SliverSafeArea(
                 top: false,
-                bottom: false,
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     childCount: widget.subject.tests.length,
