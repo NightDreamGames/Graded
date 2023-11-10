@@ -300,15 +300,20 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                   child: Row(
                     children: [
                       Flexible(
-                        child: CheckboxListTile(
-                          value: isSpeaking,
-                          onChanged: (value) {
-                            isSpeaking = value ?? false;
-                            setState(() {});
-                          },
-                          title: Text(
-                            translations.speaking,
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                        child: Material(
+                          borderRadius: BorderRadius.circular(8),
+                          clipBehavior: Clip.antiAlias,
+                          color: Colors.transparent,
+                          child: CheckboxListTile(
+                            value: isSpeaking,
+                            onChanged: (value) {
+                              isSpeaking = value ?? false;
+                              setState(() {});
+                            },
+                            title: Text(
+                              translations.speaking,
+                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
                           ),
                         ),
                       ),
