@@ -117,7 +117,7 @@ class _SetupPageState extends State<SetupPage> {
                   children: [
                     if (!widget.dismissible)
                       Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 4),
+                        padding: const EdgeInsets.only(left: 4, right: 4, bottom: 4),
                         child: Card(
                           child: ImportSettingsTile(
                             onChanged: () {
@@ -128,7 +128,7 @@ class _SetupPageState extends State<SetupPage> {
                         ),
                       ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Card(
                         child: RadioModalSettingsTile<String>(
                           title: translations.school_system,
