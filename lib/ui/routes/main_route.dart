@@ -42,9 +42,9 @@ class RouteWidget extends StatefulWidget {
 
 class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin {
   late TabController tabController;
-  GlobalKey tabBarKey = GlobalKey();
-  Completer<bool> tabBarIsScrollable = Completer();
   List<Widget> children = [];
+  GlobalKey tabBarKey = GlobalKey();
+  double tabPadding = 0;
 
   @override
   void initState() {
@@ -109,14 +109,14 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
       return;
     }
 
-    final bool newValue = tabBarKey.currentContext!.size!.width > MediaQuery.sizeOf(context).width;
-    tabBarIsScrollable.complete(newValue);
+    final double prevPadding = tabPadding;
+    tabPadding += (MediaQuery.sizeOf(context).width - tabBarKey.currentContext!.size!.width) / (tabController.length * 2.0);
+    if (tabPadding < 0) tabPadding = 0;
+    if (prevPadding != tabPadding) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    tabBarIsScrollable = Completer();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkTabBarSize();
     });
@@ -169,15 +169,10 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
                               ),
                             ),
                           ),
-                          FutureBuilder(
-                            future: tabBarIsScrollable.future,
-                            builder: (context, snapshot) {
-                              return TabBar(
-                                isScrollable: snapshot.data ?? true,
-                                controller: tabController,
-                                tabs: getTabs(),
-                              );
-                            },
+                          TabBar(
+                            isScrollable: true,
+                            controller: tabController,
+                            tabs: getTabs(),
                           ),
                         ],
                       ),
@@ -228,7 +223,13 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
     }
     items.add(translations.year_overview);
 
-    final List<Tab> entries = List.generate(items.length, (index) => Tab(text: items[index]));
+    final List<Widget> entries = List.generate(
+      items.length,
+      (index) => Padding(
+        padding: EdgeInsets.symmetric(horizontal: tabPadding),
+        child: Tab(text: items[index]),
+      ),
+    );
 
     return entries;
   }
