@@ -62,7 +62,7 @@ class EasyFormField extends StatelessWidget {
       focusNode: focusNode,
     );
 
-    return flexible ? Flexible(flex: flexible ? 1 : 0, child: formField) : formField;
+    return flexible ? Flexible(child: formField) : formField;
   }
 }
 
