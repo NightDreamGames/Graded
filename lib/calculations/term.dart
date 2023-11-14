@@ -30,15 +30,7 @@ class Term extends CalculationObject {
     if (getCurrentYear().termTemplate.isEmpty) return;
 
     for (final Subject s in getCurrentYear().termTemplate) {
-      if (!s.isGroup) {
-        subjects.add(Subject.fromSubject(s));
-      } else {
-        final Subject group = Subject.fromSubject(s);
-        subjects.add(group);
-        for (final Subject child in s.children) {
-          group.children.add(Subject.fromSubject(child));
-        }
-      }
+      subjects.add(Subject.fromSubject(s));
     }
   }
 
