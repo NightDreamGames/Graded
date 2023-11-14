@@ -117,9 +117,9 @@ workflows:
           changelog_file="CHANGELOG.md"
           files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
 
-          CHANGELOG=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d')
+          CHANGELOG=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d' | sed '$s/\\n$//')
           echo "CHANGELOG=$CHANGELOG" >> $CM_ENV
-          stripped_changelog=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//')
+          stripped_changelog=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//; $s/\\n$//')
 
           echo -e "$CHANGELOG"
 
@@ -140,6 +140,8 @@ workflows:
           for file in ${files[@]}; do
             echo "$stripped_changelog" > ${file}
           done
+
+          echo "$CHANGELOG" > changelog.txt
 
           echo "$CHANGELOG"
           echo
@@ -180,12 +182,14 @@ workflows:
         script: |
           #!/usr/bin/env zsh
 
+          cat changelog.txt
+
           mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
           mv build/ios/ipa/Graded.ipa build/ios/ipa/graded-${BUILD_NAME}.ipa
 
           gh release create "${BUILD_NAME}" \
             --title "${BUILD_NAME}" \
-            --notes "${CHANGELOG}" \
+            --notes-file changelog.txt \
             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
             build/ios/ipa/graded-${BUILD_NAME}.ipa
     publishing:
