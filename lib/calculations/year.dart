@@ -73,7 +73,7 @@ class Year extends CalculationObject {
     lists.addAll(terms.map((term) => term.subjects));
 
     for (final List<Subject> t in lists) {
-      t.add(subject);
+      t.add(Subject.fromSubject(subject));
     }
   }
 

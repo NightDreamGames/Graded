@@ -87,6 +87,15 @@ class Subject extends CalculationObject {
     Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
   }
 
+  Subject.fromSubject(Subject subject) {
+    children = subject.children.map((e) => Subject.fromSubject(e)).toList();
+    isGroup = subject.isGroup;
+    isChild = subject.isChild;
+    speakingWeight = subject.speakingWeight;
+    super.name = subject.name;
+    super.weight = subject.weight;
+  }
+
   Subject.fromJson(Map<String, dynamic> json) {
     if (json["tests"] != null) {
       final testsList = json["tests"] as List;

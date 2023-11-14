@@ -41,6 +41,16 @@ class Test extends CalculationObject {
     return Calculator.format(result);
   }
 
+  Test.fromTest(Test test) {
+    denominator = test.denominator;
+    name = test.name;
+    weight = test.weight;
+    isSpeaking = test.isSpeaking;
+    result = test.result;
+    numerator = test.numerator;
+    timestamp = test.timestamp;
+  }
+
   Test.fromJson(Map<String, dynamic> json) {
     numerator = json["grade1"] as double?;
     denominator = json["grade2"] as double;
