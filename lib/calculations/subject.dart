@@ -92,8 +92,8 @@ class Subject extends CalculationObject {
     isGroup = subject.isGroup;
     isChild = subject.isChild;
     speakingWeight = subject.speakingWeight;
-    super.name = subject.name;
-    super.weight = subject.weight;
+    name = subject.name;
+    weight = subject.weight;
   }
 
   Subject.fromJson(Map<String, dynamic> json) {
