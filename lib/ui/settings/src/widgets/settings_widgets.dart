@@ -535,7 +535,10 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
   }
 
   Widget _buildTextField(BuildContext context, String value, OnChanged<String> onChanged) {
-    _controller.text = value;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _controller.text = value;
+    });
+
     final FocusNode focusNode = FocusNode();
 
     return Form(
