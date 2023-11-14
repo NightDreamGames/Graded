@@ -549,6 +549,7 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
         onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
         additionalValidator: widget.additionalValidator,
         signed: false,
+        flexible: false,
         onSubmitted: () {
           _controller.clearComposing();
           focusNode.unfocus();

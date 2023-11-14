@@ -40,30 +40,29 @@ class EasyFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      flex: flexible ? 1 : 0,
-      child: TextFormField(
-        controller: controller,
-        textInputAction: textInputAction,
-        autofocus: autofocus,
-        autovalidateMode: numeric || additionalValidator != null ? AutovalidateMode.onUserInteraction : null,
-        keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: !isiOS && signed) : TextInputType.text,
-        textAlign: textAlign,
-        textCapitalization: TextCapitalization.sentences,
-        validator: (String? input) {
-          if (input != null && input.isNotEmpty) {
-            if (numeric && Calculator.tryParse(input) == null) {
-              return translations.invalid;
-            }
+    final Widget formField = TextFormField(
+      controller: controller,
+      textInputAction: textInputAction,
+      autofocus: autofocus,
+      autovalidateMode: numeric || additionalValidator != null ? AutovalidateMode.onUserInteraction : null,
+      keyboardType: numeric ? TextInputType.numberWithOptions(decimal: true, signed: !isiOS && signed) : TextInputType.text,
+      textAlign: textAlign,
+      textCapitalization: TextCapitalization.sentences,
+      validator: (String? input) {
+        if (input != null && input.isNotEmpty) {
+          if (numeric && Calculator.tryParse(input) == null) {
+            return translations.invalid;
           }
-          return additionalValidator?.call(input!);
-        },
-        decoration: inputDecoration(labelText: label, hintText: hint),
-        onSaved: onSaved,
-        onEditingComplete: onSubmitted,
-        focusNode: focusNode,
-      ),
+        }
+        return additionalValidator?.call(input!);
+      },
+      decoration: inputDecoration(labelText: label, hintText: hint),
+      onSaved: onSaved,
+      onEditingComplete: onSubmitted,
+      focusNode: focusNode,
     );
+
+    return flexible ? Flexible(flex: flexible ? 1 : 0, child: formField) : formField;
   }
 }
 
