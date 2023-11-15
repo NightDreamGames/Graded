@@ -63,10 +63,10 @@ class _SetupPageState extends State<SetupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      onPopInvoked: (didPop) {
+        if (!didPop) return;
         SetupManager.dispose();
-        return true;
       },
       child: Scaffold(
         floatingActionButton: () {

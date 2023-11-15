@@ -1,6 +1,3 @@
-// Dart imports:
-import "dart:async";
-
 // Flutter imports:
 import "package:flutter/material.dart";
 
@@ -45,6 +42,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
   List<Widget> children = [];
   GlobalKey tabBarKey = GlobalKey();
   double tabPadding = 0;
+  bool canPop = true;
 
   @override
   void initState() {
@@ -69,6 +67,10 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
     )..addListener(() {
         if (widget.routeType != RouteType.home) return;
         Manager.currentTerm = tabController.index;
+
+        setState(() {
+          canPop = !(children.last is HomePage && tabController.length > 1 && tabController.index == tabController.length - 1);
+        });
       });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -123,16 +125,19 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
     return Scaffold(
       body: PlatformWillPopScope(
-        onWillPop: () {
+        canPop: canPop,
+        onPopInvoked: (didPop) {
+          if (didPop) return;
           if (children.last is HomePage && tabController.length > 1 && tabController.index == tabController.length - 1) {
             int newIndex = tabController.previousIndex;
             if (newIndex == tabController.index) {
               newIndex = 0;
             }
             tabController.animateTo(newIndex);
-            return Future<bool>.value(false);
+            setState(() {
+              canPop = true;
+            });
           }
-          return Future<bool>.value(true);
         },
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {

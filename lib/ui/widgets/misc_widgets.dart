@@ -126,18 +126,21 @@ ButtonStyle getTonalIconButtonStyle(BuildContext context) {
 class PlatformWillPopScope extends StatelessWidget {
   const PlatformWillPopScope({
     super.key,
-    required this.onWillPop,
+    this.onPopInvoked,
+    this.canPop,
     required this.child,
   });
 
-  final Future<bool> Function()? onWillPop;
+  final void Function(bool)? onPopInvoked;
+  final bool? canPop;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return !isiOS
-        ? WillPopScope(
-            onWillPop: onWillPop,
+        ? PopScope(
+            onPopInvoked: onPopInvoked,
+            canPop: canPop ?? true,
             child: child,
           )
         : child;
