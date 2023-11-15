@@ -17,7 +17,7 @@ abstract class CalculationObject {
   double weight = DefaultValues.weight;
   double? result;
   double? preciseResult;
-  double? get numerator => result != null ? result! : null;
+  double? get numerator => result;
   double get denominator => DefaultValues.maxGrade;
 
   String getResult({bool precise = false}) {

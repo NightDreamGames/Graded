@@ -85,13 +85,13 @@ class _SubjectRouteState extends State<SubjectRoute> {
                       ? Row(
                           children: [
                             SizedBox(
-                              width: 100 * MediaQuery.textScaleFactorOf(context),
+                              width: 100 * MediaQuery.textScalerOf(context).scale(22) / 22,
                               child: Text(
                                 "${translations.bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : "  "}",
                                 overflow: TextOverflow.visible,
                                 softWrap: false,
                                 style: const TextStyle(
-                                  fontSize: 22.0,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
