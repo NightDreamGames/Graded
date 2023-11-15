@@ -499,6 +499,9 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
   String get modalBarrierDismissLabel => 'Schléissen';
 
   @override
+  String get menuDismissLabel => 'Menu schléissen';
+
+  @override
   String get noSpellCheckReplacementsLabel => 'Keen Ersatz fonnt';
 
   @override
@@ -596,6 +599,15 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
 
   @override
   String get selectAllButtonLabel => 'All auswielen';
+
+  @override
+  String get lookUpButtonLabel => 'Nosichen';
+
+  @override
+  String get searchWebButtonLabel => 'Web sichen';
+
+  @override
+  String get shareButtonLabel => 'Deelen...';
 
   @override
   String get selectYearSemanticsLabel => 'Joer auswielen';
@@ -811,4 +823,16 @@ class LbCupertinoLocalizations extends GlobalCupertinoLocalizations {
 
   @override
   String get todayLabel => 'Haut';
+
+  @override
+  String get lookUpButtonLabel => 'Nosichen';
+
+  @override
+  String get searchWebButtonLabel => 'Web sichen';
+
+  @override
+  String get shareButtonLabel => 'Deelen...';
+
+  @override
+  String get menuDismissLabel => 'Menu schléissen';
 }
