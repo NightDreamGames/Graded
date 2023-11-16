@@ -69,7 +69,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         Manager.currentTerm = tabController.index;
 
         setState(() {
-          canPop = !(children.last is HomePage && tabController.length > 1 && tabController.index == tabController.length - 1);
+          canPop = !(children.every((e) => e is HomePage) && tabController.length > 1 && tabController.index == tabController.length - 1);
         });
       });
 
@@ -128,7 +128,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         canPop: canPop,
         onPopInvoked: (didPop) {
           if (didPop) return;
-          if (children.last is HomePage && tabController.length > 1 && tabController.index == tabController.length - 1) {
+          if (children.every((e) => e is HomePage) && tabController.length > 1 && tabController.index == tabController.length - 1) {
             int newIndex = tabController.previousIndex;
             if (newIndex == tabController.index) {
               newIndex = 0;
