@@ -94,6 +94,9 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8.0),
         ),
       ),
+      tabBarTheme: theme.tabBarTheme.copyWith(
+        tabAlignment: TabAlignment.start,
+      ),
       //platform: TargetPlatform.iOS,
     );
   }
