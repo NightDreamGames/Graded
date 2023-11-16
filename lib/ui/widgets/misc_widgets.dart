@@ -160,8 +160,8 @@ class SpinningIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedRotation(
-      duration: const Duration(milliseconds: 500),
-      curve: standardEasing,
+      duration: Durations.long2,
+      curve: Easing.standard,
       turns: rotation,
       child: Icon(icon),
     );

@@ -177,8 +177,8 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
     isSpeaking = action == CreationType.edit && widget.subject.tests[widget.index!].isSpeaking;
     timestamp = widget.index != null ? widget.subject.tests[widget.index!].timestamp : null;
 
-    animationController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
-    expandAnimation = CurvedAnimation(parent: animationController, curve: standardEasing);
+    animationController = AnimationController(duration: Durations.long2, reverseDuration: Durations.medium2, vsync: this);
+    expandAnimation = CurvedAnimation(parent: animationController, curve: Easing.standard, reverseCurve: Easing.standard.flipped);
   }
 
   @override
@@ -252,7 +252,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                 padding: const EdgeInsets.only(left: 4, top: 8),
                 child: AnimatedRotation(
                   turns: isExpanded ? .5 : 0,
-                  duration: const Duration(milliseconds: 200),
+                  duration: Durations.short4,
                   child: IconButton(
                     onPressed: () {
                       setState(() {

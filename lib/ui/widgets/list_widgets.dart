@@ -140,7 +140,7 @@ class _GroupRowState extends State<GroupRow> {
               const Padding(padding: EdgeInsets.only(right: 24)),
               AnimatedRotation(
                 turns: _isExpanded ? .5 : 0,
-                duration: const Duration(milliseconds: 200),
+                duration: Durations.short4,
                 child: const Icon(
                   Icons.expand_more,
                   size: 24.0,
@@ -261,8 +261,8 @@ class _SubjectTileState extends State<SubjectTile> {
     showTutorial(context);
 
     return AnimatedPadding(
-      duration: const Duration(milliseconds: 300),
-      curve: standardEasing,
+      duration: Durations.medium2,
+      curve: Easing.standard,
       padding: widget.subject.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
       child: TextRow(
         listKey: widget.listKey,
@@ -277,11 +277,11 @@ class _SubjectTileState extends State<SubjectTile> {
               ? Showcase(
                   key: showCaseKey1,
                   description: translations.showcase_tap_subject,
-                  scaleAnimationCurve: standardEasing,
+                  scaleAnimationCurve: Easing.standardDecelerate,
                   child: Showcase(
                     key: showCaseKey2,
                     description: translations.showcase_drag_subject,
-                    scaleAnimationCurve: standardEasing,
+                    scaleAnimationCurve: Easing.standardDecelerate,
                     child: IgnorePointer(child: ReorderableHandle(target: widget)),
                   ),
                 )
