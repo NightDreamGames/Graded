@@ -1,6 +1,7 @@
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
 import "package:graded/localization/translations.dart";
 
 String getHint(String prefix, List<CalculationObject> data) {
@@ -10,7 +11,7 @@ String getHint(String prefix, List<CalculationObject> data) {
   do {
     i++;
     hint = "$prefix $i";
-  } while (data.any((element) => element.name == hint));
+  } while (data.any((e) => e.name == hint || (e is Subject && e.children.any((child) => child.name == hint))));
 
   return hint;
 }
