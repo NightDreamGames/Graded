@@ -35,6 +35,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      if (!mounted) return;
       setState(() {
         fabRotation += 0.5;
       });
@@ -56,6 +57,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
       floatingActionButton: !widget.term.isYearOverview
           ? FloatingActionButton(
               tooltip: translations.add_test,
+              heroTag: null,
               onPressed: () {
                 setState(() {
                   fabRotation += 0.5;

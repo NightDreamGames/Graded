@@ -31,6 +31,7 @@ class _YearRouteState extends State<YearRoute> {
       year.calculate();
     }
     Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      if (!mounted) return;
       setState(() {
         fabRotation += 0.5;
       });

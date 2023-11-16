@@ -37,6 +37,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      if (!mounted) return;
       setState(() {
         fabRotation += 0.5;
       });

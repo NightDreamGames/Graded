@@ -34,6 +34,7 @@ class _SetupPageState extends State<SetupPage> {
     });
 
     Future.delayed(const Duration(milliseconds: 250), () {
+      if (!mounted) return;
       setState(() {
         fabScale = 1.0;
         fabPosition = 0.0;
@@ -73,7 +74,7 @@ class _SetupPageState extends State<SetupPage> {
           if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
               getPreference<String>("school_system") == "other") {
             Future.delayed(const Duration(milliseconds: 500)).then((_) {
-              if (startedAnimation) return;
+              if (startedAnimation || !mounted) return;
               startedAnimation = true;
               _animateIcon();
             });

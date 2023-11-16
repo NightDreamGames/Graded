@@ -248,8 +248,7 @@ class _SubjectTileState extends State<SubjectTile> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500), () {
-        if (context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
-
+        if (!mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
         ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
       });
     });
