@@ -203,6 +203,12 @@ class Year extends CalculationObject {
     serialize();
   }
 
+  void populateSubjects() {
+    for (final Term term in terms) {
+      term.populateSubjects();
+    }
+  }
+
   Year.fromJson(Map<String, dynamic> json) {
     final termList = json["terms"] as List;
     final List<Term> t = termList.map((termJson) => Term.fromJson(termJson as Map<String, dynamic>)).toList();
