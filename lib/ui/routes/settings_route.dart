@@ -16,7 +16,7 @@ import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/custom_icons.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
-import "package:graded/ui/widgets/better_sliver_app_bar.dart";
+import "package:graded/ui/widgets/better_app_bar.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/settings_tiles.dart";
