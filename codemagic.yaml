@@ -154,6 +154,7 @@ workflows:
           git reset HEAD -- release_notes_fr-FR.txt
           git reset HEAD -- release_notes_de-DE.txt
           git reset HEAD -- pubspec.lock
+          git reset HEAD -- changelog.txt
           git commit -m "Versioning changes for ${BUILD_NAME}"
           git push
       - name: Set up local.properties
