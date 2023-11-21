@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.1] - 2023-11-21
+
+### Mostly bug fixes
+
+- Enable predictive back gesture
+- Rework some animations
+- Fix iOS dialog flicker
+- Fix errors on TextFields
+- Fix rating system dialog
+- Fix subjects being linked between terms
+- Fix multiple bugs when popping routes
+- Fix duplicated subject names
+- Fix back gestures on iOS
+- Code cleanup
+- Upgrade to Flutter 3.16
+- Add more test cases
+- Fix changelogs in CI
+- Fixed multiple other bugs
+
 ## [2.5.0] - 2023-11-10
 
 ### This version adds weights to tests, and reworks many parts of the user interface
