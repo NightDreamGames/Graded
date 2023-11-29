@@ -1,0 +1,23 @@
+# .github/workflows/test.yaml
+
+name: Bump submodule
+
+on:
+  release:
+    types:
+      - created
+  workflow_dispatch:
+
+jobs:
+  submodule:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Upgrade
+        run: |
+          git submodule update --remote --init --recursive
+          git add .flutter
+          git commit -m "Upgrade submodule"
