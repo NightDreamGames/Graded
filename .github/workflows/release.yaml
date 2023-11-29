@@ -1,0 +1,134 @@
+# .github/workflows/release.yaml
+
+name: Release
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yaml
+
+  bump_submodule:
+    uses: ./.github/workflows/bump_submodule.yaml
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "49079695+FauconSpartiate@users.noreply.github.com"
+          git config --global user.name "Faucon"
+
+      - name: Set environment variables
+        run: |
+
+          file=$(cat pubspec.yaml)
+          fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
+          echo "BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=${{ github.run_number + 246 }}" >> $GITHUB_ENV
+
+          echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
+
+      - name: Check if version is used
+        run: |
+          if [ $(git tag -l "$BUILD_NAME") ]; then
+              echo "Version $BUILD_NAME already exists"
+              exit 1
+          fi
+
+      - name: Update Changelog
+        run: |
+          changelog_file="CHANGELOG.md"
+
+          # Get the release body
+          CHANGELOG=$(jq -r '.release.body' $GITHUB_EVENT_PATH)
+          echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
+          STRIPPED_CHANGELOG=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//; $s/\\n$//')
+          echo "STRIPPED_CHANGELOG=$STRIPPED_CHANGELOG" >> $GITHUB_ENV
+
+          echo -e "$CHANGELOG"
+          echo -e "$STRIPPED_CHANGELOG"
+
+          if [[ -z "$STRIPPED_CHANGELOG" ]]; then
+            echo "Changelog not found for version $BUILD_NAME."
+            exit 1
+          fi
+
+          if [ ${#STRIPPED_CHANGELOG} -gt 500 ]; then
+            echo "Changelog length greater than 500 characters."
+            exit 1
+          fi
+
+          echo "$CHANGELOG" > "fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt"
+
+          # Insert the changelog entry before the previous version
+          awk -v BUILD_NAME="$BUILD_NAME" -v CHANGELOG="$CHANGELOG" '
+            /^## \[/{ if (!printed) { print CHANGELOG; printed=1 } }
+            { print }
+          ' $changelog_file > $changelog_file.new && mv $changelog_file.new $changelog_file
+
+          echo "$CHANGELOG" > changelog.txt
+          echo "$STRIPPED_CHANGELOG" > stripped_changelog.txt
+
+          echo "$CHANGELOG"
+          echo
+          echo "$STRIPPED_CHANGELOG"
+
+      - name: Update version in pubspec.yaml
+        run: |
+          perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($BUILD_NUMBER)/e' pubspec.yaml
+
+      - name: Commit changes
+        run: |
+          git add fastlane/
+          git add pubspec.yaml
+          git commit -m "Versioning changes for ${BUILD_NAME}"
+          git push
+
+      - name: Get packages
+        run: .flutter/bin/flutter pub get
+
+      - name: Build APK
+        run: .flutter/bin/flutter build apk --release
+
+      - name: Build AAB
+        run: .flutter/bin/flutter build appbundle --release
+
+      - name: Build IPA
+        run: .flutter/bin/flutter build ios --release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-artifacts
+          path: |
+            # Add iOS artifacts
+            build/app/outputs/flutter-apk/app-release.apk
+
+      # - name: Create GitHub Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: v1.0.${{ github.run_number }}
+      #     release_name: Release v1.0.${{ github.run_number }}
+      #     body: ${{ github.event.release.body }}
+
+      - name: Publish to Google Play
+        run: |
+          # Logic to publish to Google Play
+          # This may involve using the Google Play API or other tools
+          # Use secrets for sensitive information like service account credentials
+
+      - name: Publish to App Store
+        run: |
+          # Logic to publish to the App Store
+          # This may involve using Fastlane or other tools
+          # Use secrets for sensitive information like App Store Connect credentials

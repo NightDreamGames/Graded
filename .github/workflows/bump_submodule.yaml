@@ -3,13 +3,8 @@
 name: Bump Flutter submodule
 
 on:
-  push:
-    branches:
-      - "*"
-  release:
-    types:
-      - created
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   bump_submodule:
@@ -30,3 +25,6 @@ jobs:
           git add .flutter
           git commit -m "Upgrade submodule"
           git push
+
+      - name: Print Flutter version
+        run: .flutter/bin/flutter --version
