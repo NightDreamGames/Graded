@@ -17,6 +17,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Update submodule
+        run: git submodule update --remote --init --recursive
+
       - name: Print Flutter version
         run: .flutter/bin/flutter --version
 
