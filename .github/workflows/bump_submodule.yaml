@@ -1,6 +1,6 @@
-# .github/workflows/test.yaml
+# .github/workflows/bump_submodule.yaml
 
-name: Bump submodule
+name: Bump Flutter submodule
 
 on:
   release:
@@ -9,14 +9,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  submodule:
+  bump_submodule:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Upgrade
+      - name: Bump Flutter submodule
         run: |
           git submodule update --remote --init --recursive
           git add .flutter
