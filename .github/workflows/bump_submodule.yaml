@@ -3,6 +3,9 @@
 name: Bump Flutter submodule
 
 on:
+  push:
+    branches:
+      - "*"
   release:
     types:
       - created
