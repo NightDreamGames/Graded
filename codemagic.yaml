@@ -82,10 +82,9 @@ workflows:
     <<: *base
     name: Release workflow
     scripts:
-      - name: Bump Flutter submodule
+      - name: Print submodule version
         working_directory: .flutter/
         script: |
-          git pull
           bin/flutter --version
       - name: Set up environment variables
         script: |
