@@ -24,7 +24,9 @@ import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/settings_tiles.dart";
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  const SettingsPage({
+    super.key,
+  });
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
