@@ -13,6 +13,7 @@ List<Widget> getPaddedParentChildrenList(List<Widget> childrenIfEnabled) {
 
 TextStyle? headerTextStyle(BuildContext context) => Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 16);
 
-TextStyle? subtitleTextStyle(BuildContext context) => Theme.of(context).textTheme.titleSmall;
+TextStyle? subtitleTextStyle(BuildContext context) =>
+    Theme.of(context).textTheme.titleSmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.8));
 
 TextStyle? radioTextStyle(BuildContext context) => Theme.of(context).textTheme.titleMedium;
