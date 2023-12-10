@@ -194,12 +194,12 @@ class _SettingsPageState extends State<SettingsPage> {
                           return SimpleSettingsTile(
                             icon: Icons.info_outline,
                             title: translations.app_version,
-                            subtitle: snapshot.data ?? "2.0.0",
+                            subtitle: snapshot.data ?? translations.error,
                             onTap: () => launchURL(Link.store),
                           );
                         },
                         future: PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-                          return packageInfo.version;
+                          return "${packageInfo.version} (${packageInfo.buildNumber})";
                         }),
                       ),
                       SimpleSettingsTile(
