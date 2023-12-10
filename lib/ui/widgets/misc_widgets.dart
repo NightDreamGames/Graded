@@ -55,7 +55,9 @@ class _EmptyWidget extends StatelessWidget {
               ),
               Text(
                 message,
-                style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.outlineVariant),
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
               ),
             ],
           ),

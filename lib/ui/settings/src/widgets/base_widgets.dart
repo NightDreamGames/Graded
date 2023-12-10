@@ -125,6 +125,8 @@ class _SettingsTile extends StatefulWidget {
   /// widget which is placed as the main element of the tile as settings UI
   final Widget child;
 
+  final Widget? trailing;
+
   /// call back for handling the tap event on tile
   final GestureTapCallback? onTap;
 
@@ -148,6 +150,7 @@ class _SettingsTile extends StatefulWidget {
     this.enabled = true,
     this.showChildBelow = false,
     this.leading,
+    this.trailing,
     this.padding,
     this.dense = false,
   });
@@ -172,20 +175,23 @@ class _SettingsTileState extends State<_SettingsTile> {
           leading: widget.leading,
           title: Text(
             widget.title,
-            style: widget.titleTextStyle ?? headerTextStyle(context),
+            style: widget.titleTextStyle ??
+                headerTextStyle(context)?.copyWith(color: !widget.enabled ? Theme.of(context).colorScheme.onSurface.withOpacity(0.3) : null),
           ),
           subtitle: widget.subtitle?.isEmpty ?? true
               ? null
               : Text(
                   widget.subtitle!,
-                  style: widget.subtitleTextStyle ?? subtitleTextStyle(context),
+                  style: widget.subtitleTextStyle ??
+                      subtitleTextStyle(context)?.copyWith(color: !widget.enabled ? Theme.of(context).colorScheme.onSurface.withOpacity(0.3) : null),
                 ),
           enabled: widget.enabled,
           onTap: widget.onTap,
-          trailing: Visibility(
-            visible: !widget.showChildBelow,
-            child: widget.child,
-          ),
+          trailing: widget.trailing ??
+              Visibility(
+                visible: !widget.showChildBelow,
+                child: widget.child,
+              ),
           dense: widget.dense,
           // wrap only if the subtitle is longer than 70 characters
           //isThreeLine: (widget.subtitle?.isNotEmpty ?? false) && widget.subtitle!.length > 70,

@@ -104,9 +104,9 @@ class _YearRouteState extends State<YearRoute> {
                                   Calculator.format(year.result),
                                   overflow: TextOverflow.visible,
                                   softWrap: false,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                        fontWeight: FontWeight.normal,
+                                      ),
                                 ),
                               ],
                             ),

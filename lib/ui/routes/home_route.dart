@@ -53,10 +53,7 @@ class _HomePageState extends State<HomePage> {
                     widget.term.isYearOverview ? translations.yearly_average : translations.average,
                     overflow: TextOverflow.fade,
                     softWrap: false,
-                    style: const TextStyle(
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
               ),

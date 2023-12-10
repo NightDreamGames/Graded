@@ -312,7 +312,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                             },
                             title: Text(
                               translations.speaking,
-                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
                         ),
@@ -479,11 +479,14 @@ class _SubjectDialogState extends State<SubjectDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
                 child: Row(
                   children: [
-                    Text("1 /", style: TextStyle(fontSize: 20)),
+                    Text(
+                      "1 /",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ],
                 ),
               ),

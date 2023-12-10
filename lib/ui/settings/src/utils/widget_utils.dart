@@ -11,17 +11,8 @@ List<Widget> getPaddedParentChildrenList(List<Widget> childrenIfEnabled) {
   }).toList();
 }
 
-TextStyle? headerTextStyle(BuildContext context) => Theme.of(context).textTheme.titleLarge?.copyWith(
-      fontSize: 16.0,
-      fontWeight: FontWeight.bold,
-    );
+TextStyle? headerTextStyle(BuildContext context) => Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 16);
 
-TextStyle? subtitleTextStyle(BuildContext context) => Theme.of(context).textTheme.titleSmall?.copyWith(
-      fontSize: 13.0,
-      fontWeight: FontWeight.normal,
-    );
+TextStyle? subtitleTextStyle(BuildContext context) => Theme.of(context).textTheme.titleSmall;
 
-TextStyle? radioTextStyle(BuildContext context) => Theme.of(context).textTheme.titleLarge?.copyWith(
-      fontSize: 16.0,
-      fontWeight: FontWeight.normal,
-    );
+TextStyle? radioTextStyle(BuildContext context) => Theme.of(context).textTheme.titleMedium;

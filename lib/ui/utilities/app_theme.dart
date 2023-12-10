@@ -3,41 +3,85 @@ import "package:flutter/material.dart";
 
 // Package imports:
 import "package:animations/animations.dart";
+import "package:flex_color_scheme/flex_color_scheme.dart";
+
+// Project imports:
+import "package:graded/misc/storage.dart";
 
 class AppTheme {
   static ColorScheme? lightColorScheme;
   static ColorScheme? darkColorScheme;
+  static late bool hasDynamicColor;
 
   static ThemeData getTheme(Brightness brightness, ColorScheme? light, ColorScheme? dark) {
     lightColorScheme = light;
     darkColorScheme = dark;
+    hasDynamicColor = light != null;
 
     final ColorScheme colorScheme = brightness == Brightness.light ? lightTheme() : darkTheme();
 
-    final ThemeData theme = ThemeData.from(
-      colorScheme: colorScheme,
-      useMaterial3: true,
+    ThemeData theme;
+    String? fontFamily = getPreference<String>("font");
+    if (fontFamily == "system") fontFamily = null;
+
+    if (brightness == Brightness.light) {
+      theme = FlexColorScheme.light(
+        useMaterial3: true,
+        colorScheme: colorScheme,
+        fontFamily: fontFamily,
+        subThemesData: const FlexSubThemesData(
+          popupMenuRadius: 8,
+          appBarCenterTitle: false,
+        ),
+      ).toTheme;
+    } else {
+      theme = FlexColorScheme.dark(
+        useMaterial3: true,
+        colorScheme: colorScheme,
+        fontFamily: fontFamily,
+        darkIsTrueBlack: getPreference<bool>("amoled"),
+        subThemesData: const FlexSubThemesData(
+          popupMenuRadius: 8,
+          appBarCenterTitle: false,
+        ),
+      ).toTheme;
+    }
+
+    final TextTheme textTheme = theme.textTheme.copyWith(
+      titleLarge: theme.textTheme.titleLarge?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: 22,
+      ),
+      headlineSmall: theme.textTheme.headlineSmall?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: 24,
+      ),
+      headlineMedium: theme.textTheme.headlineMedium?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: 28,
+      ),
+      headlineLarge: theme.textTheme.headlineLarge?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: 32,
+      ),
+      displaySmall: theme.textTheme.displaySmall?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: 40,
+      ),
+      displayMedium: theme.textTheme.displayMedium?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: 45,
+      ),
+      displayLarge: theme.textTheme.displayLarge?.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: 57,
+      ),
     );
 
     return theme.copyWith(
-      textTheme: theme.textTheme
-          .apply(
-            fontFamily: "RobotoMono",
-          )
-          .copyWith(
-            titleLarge: theme.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-            headlineMedium: theme.textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 42,
-            ),
-          ),
-      primaryTextTheme: theme.textTheme.apply(
-        fontFamily: "RobotoMono",
-      ),
+      textTheme: textTheme,
       listTileTheme: theme.listTileTheme.copyWith(
-        titleTextStyle: theme.textTheme.titleLarge?.copyWith(
+        titleTextStyle: textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.w500,
           fontSize: 18,
         ),
@@ -69,50 +113,68 @@ class AppTheme {
           TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
         },
       ),
-      appBarTheme: theme.appBarTheme.copyWith(
-        centerTitle: false,
-      ),
       iconTheme: theme.iconTheme.copyWith(
         color: colorScheme.secondary,
       ),
       inputDecorationTheme: theme.inputDecorationTheme.copyWith(
+        filled: false,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: colorScheme.primary),
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(16),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 2, color: colorScheme.primary),
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: colorScheme.error),
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(16),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 2, color: colorScheme.error),
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8),
         ),
       ),
       tabBarTheme: theme.tabBarTheme.copyWith(
         tabAlignment: TabAlignment.start,
+      ),
+      appBarTheme: AppBarTheme(
+        // ignore: avoid_redundant_argument_values
+        systemOverlayStyle: null,
+        actionsIconTheme: theme.appBarTheme.actionsIconTheme,
+        backgroundColor: theme.appBarTheme.backgroundColor,
+        centerTitle: theme.appBarTheme.centerTitle,
+        elevation: theme.appBarTheme.elevation,
+        foregroundColor: theme.appBarTheme.foregroundColor,
+        iconTheme: theme.appBarTheme.iconTheme,
+        shadowColor: theme.appBarTheme.shadowColor,
+        titleSpacing: theme.appBarTheme.titleSpacing, scrolledUnderElevation: theme.appBarTheme.scrolledUnderElevation,
+        shape: theme.appBarTheme.shape,
+        surfaceTintColor: theme.appBarTheme.surfaceTintColor,
+        toolbarHeight: theme.appBarTheme.toolbarHeight,
+        toolbarTextStyle: theme.appBarTheme.toolbarTextStyle,
+        titleTextStyle: theme.appBarTheme.titleTextStyle,
       ),
       //platform: TargetPlatform.iOS,
     );
   }
 
   static ColorScheme lightTheme() {
-    final ColorScheme scheme = lightColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3));
-    //scheme = ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.light);
-    //scheme = const ColorScheme.light();
+    final seedColor = Color(getPreference<int>("custom_color"));
+
+    final ColorScheme scheme =
+        lightColorScheme != null && getPreference<bool>("dynamic_color") ? lightColorScheme! : ColorScheme.fromSeed(seedColor: seedColor);
 
     return scheme;
   }
 
   static ColorScheme darkTheme() {
-    final ColorScheme scheme = darkColorScheme ?? ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.dark);
-    //scheme = ColorScheme.fromSeed(seedColor: const Color(0xFF2196f3), brightness: Brightness.dark);
-    //scheme = const ColorScheme.dark();
+    final seedColor = Color(getPreference<int>("custom_color"));
+
+    final ColorScheme scheme = darkColorScheme != null && getPreference<bool>("dynamic_color")
+        ? darkColorScheme!
+        : ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark);
 
     return scheme;
   }

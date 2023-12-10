@@ -92,10 +92,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                                 "${translations.bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : "  "}",
                                 overflow: TextOverflow.visible,
                                 softWrap: false,
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                             ),
                             const Padding(padding: EdgeInsets.only(left: 8)),
@@ -123,10 +120,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                           translations.yearly_average,
                           overflow: TextOverflow.fade,
                           softWrap: false,
-                          style: const TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                 ),
               ),

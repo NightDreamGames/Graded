@@ -63,9 +63,9 @@ class TextRow extends StatelessWidget {
         children: [
           Text(
             trailingText,
-            style: const TextStyle(
-              fontSize: 20.0,
-            ),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.normal,
+                ),
           ),
           if (trailing != null) ...[
             const Padding(padding: EdgeInsets.only(right: 24)),
@@ -87,7 +87,6 @@ class TextRow extends StatelessWidget {
         ? Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Card(
-              color: isChild ? Theme.of(context).colorScheme.surface : null,
               child: listTile,
             ),
           )
@@ -133,9 +132,9 @@ class _GroupRowState extends State<GroupRow> {
             children: [
               Text(
                 widget.trailingText,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                ),
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
               ),
               const Padding(padding: EdgeInsets.only(right: 24)),
               AnimatedRotation(
@@ -203,7 +202,7 @@ class _ResultRowState extends State<ResultRow> {
                         showPreciseResult ? widget.preciseResult : widget.result,
                         overflow: TextOverflow.visible,
                         softWrap: false,
-                        style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
                   ),

@@ -2349,7 +2349,7 @@ class _LargeScrollUnderFlexibleConfig with _ScrollUnderFlexibleConfig {
   TextStyle? get collapsedTextStyle => _textTheme.titleLarge?.apply(color: _colors.onSurface);
 
   @override
-  TextStyle? get expandedTextStyle => _textTheme.headlineMedium?.apply(color: _colors.onSurface);
+  TextStyle? get expandedTextStyle => _textTheme.displaySmall?.apply(color: _colors.onSurface);
 
   @override
   EdgeInsetsGeometry get expandedTitlePadding => const EdgeInsets.fromLTRB(16, 0, 16, 28);

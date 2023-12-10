@@ -58,6 +58,8 @@ class SimpleSettingsTile extends StatelessWidget {
   /// widget that will be displayed on tap of the tile
   final Widget? child;
 
+  final Widget? trailing;
+
   final VoidCallback? onTap;
 
   const SimpleSettingsTile({
@@ -66,6 +68,7 @@ class SimpleSettingsTile extends StatelessWidget {
     this.subtitle,
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.trailing,
     this.child,
     this.enabled = true,
     this.icon,
@@ -75,11 +78,12 @@ class SimpleSettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _SettingsTile(
-      leading: Icon(icon),
+      leading: icon != null ? Icon(icon) : null,
       title: title,
       subtitle: subtitle,
       titleTextStyle: titleTextStyle,
       subtitleTextStyle: subtitleTextStyle,
+      trailing: trailing,
       enabled: enabled,
       onTap: () => _handleTap(context),
       child: child != null ? getIcon(context) : const Text(""),
@@ -303,11 +307,9 @@ class SettingsContainer extends StatelessWidget {
 
   Widget _buildChild() {
     final child = allowScrollInternally ? getList(children) : getColumn(children);
-    return Material(
-      child: Padding(
-        padding: EdgeInsets.only(left: leftPadding),
-        child: child,
-      ),
+    return Padding(
+      padding: EdgeInsets.only(left: leftPadding),
+      child: child,
     );
   }
 
@@ -541,24 +543,27 @@ class _TextInputSettingsTileState extends State<TextInputSettingsTile> {
 
     final FocusNode focusNode = FocusNode();
 
-    return Form(
-      key: _formKey,
-      child: EasyFormField(
-        autofocus: widget.autoFocus,
-        focusNode: focusNode,
-        controller: _controller,
-        label: widget.title,
-        numeric: widget.numeric,
-        onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
-        additionalValidator: widget.additionalValidator,
-        signed: false,
-        flexible: false,
-        onSubmitted: () {
-          _controller.clearComposing();
-          focusNode.unfocus();
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Form(
+        key: _formKey,
+        child: EasyFormField(
+          autofocus: widget.autoFocus,
+          focusNode: focusNode,
+          controller: _controller,
+          label: widget.title,
+          numeric: widget.numeric,
+          onSaved: widget.enabled ? (value) => _onSave(value, onChanged) : null,
+          additionalValidator: widget.additionalValidator,
+          signed: false,
+          flexible: false,
+          onSubmitted: () {
+            _controller.clearComposing();
+            focusNode.unfocus();
 
-          _dialogKey.currentState?.submit();
-        },
+            _dialogKey.currentState?.submit();
+          },
+        ),
       ),
     );
   }
@@ -1058,23 +1063,17 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
 
   Widget _buildRadioTiles(BuildContext context, T groupValue, OnChanged<T> onChanged) {
     final radioList = widget.values.entries.map<Widget>((MapEntry<T, String> entry) {
-      final ThemeData theme = Theme.of(context);
-
-      return Material(
-        color: ElevationOverlay.applySurfaceTint(theme.colorScheme.surface, theme.colorScheme.surfaceTint, 3),
-        child: _SettingsTile(
-          title: entry.value,
-          titleTextStyle: radioTextStyle(context),
-          onTap: () => _onRadioChange(entry.key, onChanged),
-          color: theme.dialogBackgroundColor,
+      return _SettingsTile(
+        title: entry.value,
+        titleTextStyle: radioTextStyle(context),
+        onTap: () => _onRadioChange(entry.key, onChanged),
+        enabled: widget.enabled,
+        padding: EdgeInsets.zero,
+        child: _SettingsRadio<T>(
+          value: entry.key,
+          onChanged: (newValue) => _onRadioChange(newValue, onChanged),
           enabled: widget.enabled,
-          padding: EdgeInsets.zero,
-          child: _SettingsRadio<T>(
-            value: entry.key,
-            onChanged: (newValue) => _onRadioChange(newValue, onChanged),
-            enabled: widget.enabled,
-            groupValue: groupValue,
-          ),
+          groupValue: groupValue,
         ),
       );
     }).toList();

@@ -115,7 +115,6 @@ Future<T?> showMenuActions<T>(BuildContext context, GlobalKey listKey, List<T> a
 
   return showMenu(
     context: context,
-    color: ElevationOverlay.applySurfaceTint(Theme.of(context).colorScheme.surface, Theme.of(context).colorScheme.surfaceTint, 2),
     position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
     items: [
       for (final T action in actionsEnum) PopupMenuItem<T>(value: action, child: Text(translations[actionsEnum.indexOf(action)])),

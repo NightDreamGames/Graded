@@ -33,6 +33,10 @@ class DefaultValues {
   //App settings
   static const String theme = "system";
   static const String brightness = "dark";
+  static const bool amoled = false;
+  static const bool dynamicColor = true;
+  static const int customColor = 0xFF2196f3;
+  static const String font = "montserrat";
   static const String language = "system";
 }
 
@@ -68,5 +72,9 @@ const Map<String, dynamic> defaultValues = {
   //App settings
   "theme": "system",
   "brightness": "dark",
+  "amoled": false,
+  "dynamic_color": true,
+  "custom_color": 0xFF2196f3,
+  "font": "montserrat",
   "language": "system",
 };
