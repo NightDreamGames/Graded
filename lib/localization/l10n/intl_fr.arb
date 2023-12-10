@@ -29,7 +29,7 @@
     "colorOther": "Couleurs",
     "coming_soon": "Bientôt disponible",
     "confirm": "Confirmation",
-    "contact": "Contact",
+    "contact_me": "Contactez-moi",
     "credits": "Crédits",
     "credits_description": "Développeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
@@ -199,7 +199,6 @@
     "semesterOne": "Semestre",
     "semesterMany": "Semestres",
     "semesterOther": "Semestres",
-    "send_feedback": "Donnez votre avis",
     "set_sub_subject": "Définir comme sous-matière",
     "settings": "Options",
     "setup": "Configuration",
@@ -208,7 +207,7 @@
     "showcase_tap_subject": "Appuyez ici pour faire de cette matière une sous-matière et de la matière au-dessus un groupe de matières",
     "sort_by": "Trier par",
     "source_code": "Code source",
-    "source_code_description": "Graded est entièrement open-source.\nSi vous avez un changement à l\\'esprit ou si vous voulez signaler un problème, rendez-vous sur le repo GitHub de Graded.",
+    "source_code_description": "Si vous avez un changement à l\\'esprit ou si vous voulez signaler un problème, rendez-vous sur le repo GitHub de Graded.",
     "spanish": "Español",
     "@spanish": {
         "description": "Do not translate",
