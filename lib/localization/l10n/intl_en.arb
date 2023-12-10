@@ -1,10 +1,5 @@
 {
     "about": "About",
-    "about_description": "NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus",
-    "@about_description": {
-        "description": "Do not translate names, keep formatting and line breaks",
-        "type": "text"
-    },
     "add": "Add",
     "add_group": "Add group",
     "add_subjectOne": "Add subject",
@@ -31,7 +26,13 @@
     "colorOther": "Colors",
     "coming_soon": "Coming soon",
     "confirm": "Confirm",
-    "contact": "Contact us",
+    "contact": "Contact",
+    "credits": "Credits",
+    "credits_description": "Developer - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus",
+    "@credits_description": {
+        "description": "Do not translate names, keep formatting and line breaks",
+        "type": "text"
+    },
     "custom": "Custom",
     "custom_color": "Custom color",
     "date": "Date",
@@ -96,7 +97,7 @@
         "type": "text"
     },
     "help_translate": "Help translate",
-    "help_translate_description": "Correct translation mistakes or localize project to your language",
+    "help_translate_description": "Correct translation mistakes or localise project to your language",
     "import_": "Import",
     "import_description": "Import a previously exported backup file",
     "import_error": "There was an error importing your backup.",
@@ -128,6 +129,11 @@
     "more_options": "More options",
     "name": "Name",
     "next": "Next",
+    "nightdream_games": "NightDream Games",
+    "@nightdream_games": {
+        "description": "Do not translate",
+        "type": "text"
+    },
     "no": "No",
     "no_dynamic_color": "No color palette detected",
     "no_grades": "No grades",
@@ -164,7 +170,7 @@
     "section_classic_i": "I - Informatics & Communication",
     "section_general_a3d": "A3D - Architecture, design & sustainable development",
     "section_general_acv": "ACV - Arts & visual communication",
-    "section_general_cc": "CC - Communication & organization",
+    "section_general_cc": "CC - Communication & organisation",
     "section_general_cf": "CF - Finance",
     "section_general_cg": "CG - Management",
     "section_general_cm": "CM - Administrative & commercial",
