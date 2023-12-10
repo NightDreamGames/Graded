@@ -26,7 +26,7 @@
     "colorOther": "Farben",
     "coming_soon": "Demnächst verfügbar",
     "confirm": "Bestätigung",
-    "contact": "Kontakt",
+    "contact_me": "Kontakt aufnehmen",
     "credits": "Impressum",
     "credits_description": "Entwickler - Damien Pirotte\nVisuelle Identität - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
@@ -195,7 +195,6 @@
     "select_school_term": "Schulperiode auswählen",
     "semesterOne": "Semester",
     "semesterOther": "Semester",
-    "send_feedback": "Feedback geben",
     "set_sub_subject": "Als Unterfach setzen",
     "settings": "Einstellungen",
     "setup": "Einrichtung",
@@ -204,7 +203,7 @@
     "showcase_tap_subject": "Tippen Sie hier, um aus diesem Fach ein Unterfach, und aus dem Fach drüber eine Fachgruppe zu machen",
     "sort_by": "Sortieren",
     "source_code": "Source code",
-    "source_code_description": "Graded ist vollständig open-source.\nWenn Sie eine Änderung im Kopf haben oder ein Problem melden möchten, besuchen Sie das Graded GitHub Repo.",
+    "source_code_description": "Wenn Sie eine Änderung im Kopf haben oder ein Problem melden möchten, besuchen Sie das Graded GitHub Repo.",
     "spanish": "Español",
     "@spanish": {
         "description": "Do not translate",
