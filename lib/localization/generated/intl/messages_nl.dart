@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vakken toevoegen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Toets toevoegen"),
         "add_year": MessageLookupByLibrary.simpleMessage("Jaar toevoegen"),
+        "amoled_mode": MessageLookupByLibrary.simpleMessage("Amoled-modus"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App versie"),
         "appearance": MessageLookupByLibrary.simpleMessage("Verschijning"),
@@ -44,10 +45,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
         "coefficientOther":
             MessageLookupByLibrary.simpleMessage("Coëfficiënten"),
+        "colorOne": MessageLookupByLibrary.simpleMessage("Kleur"),
+        "colorOther": MessageLookupByLibrary.simpleMessage("Kleuren"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Binnekort"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bevestig"),
         "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
+        "custom_color":
+            MessageLookupByLibrary.simpleMessage("Aangepaste kleur"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
         "decrease": MessageLookupByLibrary.simpleMessage("Verminderen"),
         "default_": MessageLookupByLibrary.simpleMessage("Standaard"),
@@ -55,7 +60,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "done": MessageLookupByLibrary.simpleMessage("Gereed"),
         "down": MessageLookupByLibrary.simpleMessage("Down"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
+        "dynamic_color":
+            MessageLookupByLibrary.simpleMessage("Dynamische kleur"),
         "edit": MessageLookupByLibrary.simpleMessage("Bewerk"),
+        "edit_color_scheme":
+            MessageLookupByLibrary.simpleMessage("Kleurenschema bewerken"),
+        "edit_primary_color":
+            MessageLookupByLibrary.simpleMessage("Primaire kleur bewerken"),
         "edit_subjectOne": MessageLookupByLibrary.simpleMessage("Vak bewerken"),
         "edit_subjectOther":
             MessageLookupByLibrary.simpleMessage("Vakken bewerken"),
@@ -68,22 +79,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_unique":
             MessageLookupByLibrary.simpleMessage("Voer een unieke naam in"),
+        "error": MessageLookupByLibrary.simpleMessage("Fout"),
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examens"),
         "export_": MessageLookupByLibrary.simpleMessage("Export"),
         "export_description": MessageLookupByLibrary.simpleMessage(
             "De huidige configuratie en opgeslagen gegevens exporteren"),
+        "font": MessageLookupByLibrary.simpleMessage("Lettertype"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
         "general": MessageLookupByLibrary.simpleMessage("Algemeen"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
-        "github": MessageLookupByLibrary.simpleMessage("GitHub repository"),
-        "github_description": MessageLookupByLibrary.simpleMessage(
-            "Graded is volledig open-source.\nAls je een wijziging in gedachten hebt of een probleem wilt melden, ga dan naar de Graded GitHub repo."),
         "gradeOne": MessageLookupByLibrary.simpleMessage("Cijfer"),
         "gradeOther": MessageLookupByLibrary.simpleMessage("Cijfers"),
         "group": MessageLookupByLibrary.simpleMessage("Groep"),
         "half_down": MessageLookupByLibrary.simpleMessage("Half naar beneden"),
         "half_up": MessageLookupByLibrary.simpleMessage("Half omhoog"),
+        "help_translate": MessageLookupByLibrary.simpleMessage("Help vertalen"),
+        "help_translate_description": MessageLookupByLibrary.simpleMessage(
+            "Corigeer vertaalfouten of lokaliseer het project naar jouw taal"),
         "import_": MessageLookupByLibrary.simpleMessage("Import"),
         "import_description": MessageLookupByLibrary.simpleMessage(
             "Een eerder geëxporteerd back-upbestand importeren"),
@@ -93,6 +106,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Back-up succesvol geïmporteerd."),
         "increase": MessageLookupByLibrary.simpleMessage("Verhogen"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongeldig"),
+        "issue_tracker": MessageLookupByLibrary.simpleMessage("Issue tracker"),
+        "issue_tracker_description": MessageLookupByLibrary.simpleMessage(
+            "Stuur bugrapporten en verzoeken om funxties hier"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Taal"),
         "language_code": MessageLookupByLibrary.simpleMessage("nl"),
@@ -105,11 +121,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "manage_years": MessageLookupByLibrary.simpleMessage("Jaren beheren"),
         "manage_years_description": MessageLookupByLibrary.simpleMessage(
             "Toevoegen, bewerk en verwijder je opgeslagen jaren"),
+        "material_3_shades":
+            MessageLookupByLibrary.simpleMessage("Material 3 tinten"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Meer opties"),
         "name": MessageLookupByLibrary.simpleMessage("Naam"),
         "next": MessageLookupByLibrary.simpleMessage("Volgende"),
         "no": MessageLookupByLibrary.simpleMessage("Nee"),
+        "no_dynamic_color": MessageLookupByLibrary.simpleMessage(
+            "Geen kleurenpalet gedetecteerd"),
         "no_grades": MessageLookupByLibrary.simpleMessage("Geen cijfers"),
         "no_items": MessageLookupByLibrary.simpleMessage("Geen items"),
         "no_subjects": MessageLookupByLibrary.simpleMessage("Geen vakken"),
@@ -121,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "other_school_system":
             MessageLookupByLibrary.simpleMessage("Andere schoolsystemen"),
+        "preset": MessageLookupByLibrary.simpleMessage("Voorgedefineerd"),
         "previous": MessageLookupByLibrary.simpleMessage("Vorige"),
         "quarterOne": MessageLookupByLibrary.simpleMessage("Kwartaal"),
         "quarterOther": MessageLookupByLibrary.simpleMessage("Kwartaals"),
@@ -187,6 +208,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sociale wetenschappen"),
         "select": MessageLookupByLibrary.simpleMessage("Kiezen"),
+        "select_color":
+            MessageLookupByLibrary.simpleMessage("Selecteer een kleur"),
         "select_date": MessageLookupByLibrary.simpleMessage("Datum kiezen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoolperiode kiezen"),
@@ -204,6 +227,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
             "Tik hier voor dit vak een subvak te maken en van het vak boven een vakgroep te maken"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sorteren op"),
+        "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
+        "source_code_description": MessageLookupByLibrary.simpleMessage(
+            "Graded is volledig open-source.\nAls je een wijziging in gedachten hebt of een probleem wilt melden, ga dan naar de Graded GitHub repo."),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Spreken"),
         "speaking_weight":
@@ -213,14 +239,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "subjectOne": MessageLookupByLibrary.simpleMessage("Vak"),
         "subjectOther": MessageLookupByLibrary.simpleMessage("Vakken"),
         "system": MessageLookupByLibrary.simpleMessage("Systeem"),
-        "system_language": MessageLookupByLibrary.simpleMessage("Systeemtaal"),
         "testOne": MessageLookupByLibrary.simpleMessage("Toets"),
         "testOther": MessageLookupByLibrary.simpleMessage("Toetsen"),
         "theme": MessageLookupByLibrary.simpleMessage("Thema"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Donkere"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Licht"),
-        "theme_system":
-            MessageLookupByLibrary.simpleMessage("Systeem (aanbelvolen)"),
         "to_100th": MessageLookupByLibrary.simpleMessage("Naar 100e"),
         "to_10th": MessageLookupByLibrary.simpleMessage("Naar 10e"),
         "to_integer": MessageLookupByLibrary.simpleMessage("Naar integer"),

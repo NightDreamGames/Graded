@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fächer hinzufügen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Prüfung hinzufügen"),
         "add_year": MessageLookupByLibrary.simpleMessage("Jahr hinzufügen"),
+        "amoled_mode": MessageLookupByLibrary.simpleMessage("Amoled Modus"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App-Version"),
         "appearance": MessageLookupByLibrary.simpleMessage("Aussehen"),
@@ -45,11 +46,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
         "coefficientOther":
             MessageLookupByLibrary.simpleMessage("Koeffiziente"),
+        "colorOne": MessageLookupByLibrary.simpleMessage("Farbe"),
+        "colorOther": MessageLookupByLibrary.simpleMessage("Farben"),
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Demnächst verfügbar"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bestätigung"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personalisiert"),
+        "custom_color": MessageLookupByLibrary.simpleMessage("Andere Farbe"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
         "decrease": MessageLookupByLibrary.simpleMessage("Verringern"),
         "default_": MessageLookupByLibrary.simpleMessage("Default"),
@@ -57,7 +61,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "done": MessageLookupByLibrary.simpleMessage("Fertig"),
         "down": MessageLookupByLibrary.simpleMessage("Nach unten"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
+        "dynamic_color":
+            MessageLookupByLibrary.simpleMessage("Dynamische Farben"),
         "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
+        "edit_color_scheme":
+            MessageLookupByLibrary.simpleMessage("Farbschema bearbeiten"),
+        "edit_primary_color":
+            MessageLookupByLibrary.simpleMessage("Primäre Farbe bearbeiten"),
         "edit_subjectOne":
             MessageLookupByLibrary.simpleMessage("Fach bearbeiten"),
         "edit_subjectOther":
@@ -71,22 +81,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_unique": MessageLookupByLibrary.simpleMessage(
             "Geben Sie einen eindeutigen Namen ein"),
+        "error": MessageLookupByLibrary.simpleMessage("Fehler"),
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examen"),
         "export_": MessageLookupByLibrary.simpleMessage("Exportieren"),
         "export_description": MessageLookupByLibrary.simpleMessage(
             "Exportieren der aktuellen Konfiguration und der gespeicherten Daten"),
+        "font": MessageLookupByLibrary.simpleMessage("Schrift"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
         "general": MessageLookupByLibrary.simpleMessage("Allgemein"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
-        "github": MessageLookupByLibrary.simpleMessage("GitHub Repository"),
-        "github_description": MessageLookupByLibrary.simpleMessage(
-            "Graded ist vollständig open-source.\nWenn Sie eine Änderung im Kopf haben oder ein Problem melden möchten, besuchen Sie das Graded GitHub Repo."),
         "gradeOne": MessageLookupByLibrary.simpleMessage("Note"),
         "gradeOther": MessageLookupByLibrary.simpleMessage("Noten"),
         "group": MessageLookupByLibrary.simpleMessage("Gruppe"),
         "half_down": MessageLookupByLibrary.simpleMessage("Halb nach unten"),
         "half_up": MessageLookupByLibrary.simpleMessage("Halb nach oben"),
+        "help_translate":
+            MessageLookupByLibrary.simpleMessage("Übersetzen hilfen"),
+        "help_translate_description": MessageLookupByLibrary.simpleMessage(
+            "Korrigiere Übersetzungsfehler oder lokalisiere das Projekt in deiner Sprache"),
         "import_": MessageLookupByLibrary.simpleMessage("Importieren"),
         "import_description": MessageLookupByLibrary.simpleMessage(
             "Importieren einer zuvor exportierten Backup-Datei"),
@@ -96,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Backup erfolgreich importiert."),
         "increase": MessageLookupByLibrary.simpleMessage("Erhöhen"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ungültig"),
+        "issue_tracker": MessageLookupByLibrary.simpleMessage("Issue tracker"),
+        "issue_tracker_description": MessageLookupByLibrary.simpleMessage(
+            "Schicke Fehlerberichte und Funktionswünsche hier"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Sprache"),
         "language_code": MessageLookupByLibrary.simpleMessage("de"),
@@ -108,11 +124,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "manage_years": MessageLookupByLibrary.simpleMessage("Jahre verwalten"),
         "manage_years_description": MessageLookupByLibrary.simpleMessage(
             "Hinzufügen, Bearbeiten und Löschen Ihrer gespeicherten Jahre"),
+        "material_3_shades":
+            MessageLookupByLibrary.simpleMessage("Material 3 Farbtöne"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Mehr Optionen"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Weiter"),
         "no": MessageLookupByLibrary.simpleMessage("Nein"),
+        "no_dynamic_color":
+            MessageLookupByLibrary.simpleMessage("Keine Farbpalette gefunden"),
         "no_grades": MessageLookupByLibrary.simpleMessage("Keine Noten"),
         "no_items": MessageLookupByLibrary.simpleMessage("Keine Elemente"),
         "no_subjects": MessageLookupByLibrary.simpleMessage("Keine Fächer"),
@@ -124,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "open": MessageLookupByLibrary.simpleMessage("Öffnen"),
         "other_school_system":
             MessageLookupByLibrary.simpleMessage("Anderes Schulsystem"),
+        "preset": MessageLookupByLibrary.simpleMessage("Predefiniert"),
         "previous": MessageLookupByLibrary.simpleMessage("Zurück"),
         "quarterOne": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
@@ -192,6 +213,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sozialwissenschaften"),
         "select": MessageLookupByLibrary.simpleMessage("Auswählen"),
+        "select_color": MessageLookupByLibrary.simpleMessage("Farbe wählen"),
         "select_date": MessageLookupByLibrary.simpleMessage("Datum auswählen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schulperiode auswählen"),
@@ -203,12 +225,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "setup": MessageLookupByLibrary.simpleMessage("Einrichtung"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
-            "Ziehe, um die Reihenfolge der Fächer zu ändern"),
+            "Ziehe, um die Reihenfolge der Fächer zu bearbeiten"),
         "showcase_precise_average": MessageLookupByLibrary.simpleMessage(
             "Tippen Sie hier, um den genauen Durchschnitt anzuzeigen"),
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
             "Tippen Sie hier, um aus diesem Fach ein Unterfach, und aus dem Fach drüber eine Fachgruppe zu machen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortieren"),
+        "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
+        "source_code_description": MessageLookupByLibrary.simpleMessage(
+            "Graded ist vollständig open-source.\nWenn Sie eine Änderung im Kopf haben oder ein Problem melden möchten, besuchen Sie das Graded GitHub Repo."),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
         "speaking_weight":
@@ -218,15 +243,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "subjectOne": MessageLookupByLibrary.simpleMessage("Fach"),
         "subjectOther": MessageLookupByLibrary.simpleMessage("Fächer"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
-        "system_language":
-            MessageLookupByLibrary.simpleMessage("Systemsprache"),
         "testOne": MessageLookupByLibrary.simpleMessage("Prüfung"),
         "testOther": MessageLookupByLibrary.simpleMessage("Prüfungen"),
         "theme": MessageLookupByLibrary.simpleMessage("Design"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Dunkel"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Hell"),
-        "theme_system":
-            MessageLookupByLibrary.simpleMessage("System (empfohlen)"),
         "to_100th": MessageLookupByLibrary.simpleMessage("Zum 100-tel"),
         "to_10th": MessageLookupByLibrary.simpleMessage("Zum 10-tel"),
         "to_integer": MessageLookupByLibrary.simpleMessage("Zur Ganzzahl"),

@@ -130,6 +130,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Amoled mode`
+  String get amoled_mode {
+    return Intl.message(
+      'Amoled mode',
+      name: 'amoled_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Graded`
   String get app_name {
     return Intl.message(
@@ -240,6 +250,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Color`
+  String get colorOne {
+    return Intl.message(
+      'Color',
+      name: 'colorOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Colors`
+  String get colorOther {
+    return Intl.message(
+      'Colors',
+      name: 'colorOther',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Coming soon`
   String get coming_soon {
     return Intl.message(
@@ -275,6 +305,16 @@ class TranslationsClass {
     return Intl.message(
       'Custom',
       name: 'custom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Custom color`
+  String get custom_color {
+    return Intl.message(
+      'Custom color',
+      name: 'custom_color',
       desc: '',
       args: [],
     );
@@ -350,11 +390,41 @@ class TranslationsClass {
     );
   }
 
+  /// `Dynamic color`
+  String get dynamic_color {
+    return Intl.message(
+      'Dynamic color',
+      name: 'dynamic_color',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Edit`
   String get edit {
     return Intl.message(
       'Edit',
       name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit color scheme`
+  String get edit_color_scheme {
+    return Intl.message(
+      'Edit color scheme',
+      name: 'edit_color_scheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit primary color`
+  String get edit_primary_color {
+    return Intl.message(
+      'Edit primary color',
+      name: 'edit_primary_color',
       desc: '',
       args: [],
     );
@@ -440,6 +510,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Error`
+  String get error {
+    return Intl.message(
+      'Error',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Exam`
   String get exam {
     return Intl.message(
@@ -480,6 +560,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Font`
+  String get font {
+    return Intl.message(
+      'Font',
+      name: 'font',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Français`
   String get french {
     return Intl.message(
@@ -506,26 +596,6 @@ class TranslationsClass {
       'Deutsch',
       name: 'german',
       desc: 'Do not translate',
-      args: [],
-    );
-  }
-
-  /// `GitHub repository`
-  String get github {
-    return Intl.message(
-      'GitHub repository',
-      name: 'github',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Graded is entirely open-source.\nIf you've got any change in mind or want to report an issue, head over to the Graded GitHub repo.`
-  String get github_description {
-    return Intl.message(
-      'Graded is entirely open-source.\nIf you\'ve got any change in mind or want to report an issue, head over to the Graded GitHub repo.',
-      name: 'github_description',
-      desc: '',
       args: [],
     );
   }
@@ -576,6 +646,26 @@ class TranslationsClass {
       'Half up',
       name: 'half_up',
       desc: 'Rounding half up',
+      args: [],
+    );
+  }
+
+  /// `Help translate`
+  String get help_translate {
+    return Intl.message(
+      'Help translate',
+      name: 'help_translate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Correct translation mistakes or localize project to your language`
+  String get help_translate_description {
+    return Intl.message(
+      'Correct translation mistakes or localize project to your language',
+      name: 'help_translate_description',
+      desc: '',
       args: [],
     );
   }
@@ -635,6 +725,26 @@ class TranslationsClass {
     return Intl.message(
       'Invalid',
       name: 'invalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Issue tracker`
+  String get issue_tracker {
+    return Intl.message(
+      'Issue tracker',
+      name: 'issue_tracker',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send bug reports and feature requests here`
+  String get issue_tracker_description {
+    return Intl.message(
+      'Send bug reports and feature requests here',
+      name: 'issue_tracker_description',
       desc: '',
       args: [],
     );
@@ -740,6 +850,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Material 3 shades`
+  String get material_3_shades {
+    return Intl.message(
+      'Material 3 shades',
+      name: 'material_3_shades',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Maximum`
   String get maximum {
     return Intl.message(
@@ -785,6 +905,16 @@ class TranslationsClass {
     return Intl.message(
       'No',
       name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No color palette detected`
+  String get no_dynamic_color {
+    return Intl.message(
+      'No color palette detected',
+      name: 'no_dynamic_color',
       desc: '',
       args: [],
     );
@@ -875,6 +1005,16 @@ class TranslationsClass {
     return Intl.message(
       'Other school system',
       name: 'other_school_system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preset`
+  String get preset {
+    return Intl.message(
+      'Preset',
+      name: 'preset',
       desc: '',
       args: [],
     );
@@ -1280,6 +1420,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Select a color`
+  String get select_color {
+    return Intl.message(
+      'Select a color',
+      name: 'select_color',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Select date`
   String get select_date {
     return Intl.message(
@@ -1400,6 +1550,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Source code`
+  String get source_code {
+    return Intl.message(
+      'Source code',
+      name: 'source_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Graded is entirely open-source.\nIf you've got any change in mind or want to report an issue, head over to the Graded GitHub repo.`
+  String get source_code_description {
+    return Intl.message(
+      'Graded is entirely open-source.\nIf you\'ve got any change in mind or want to report an issue, head over to the Graded GitHub repo.',
+      name: 'source_code_description',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Español`
   String get spanish {
     return Intl.message(
@@ -1472,16 +1642,6 @@ class TranslationsClass {
     );
   }
 
-  /// `System language`
-  String get system_language {
-    return Intl.message(
-      'System language',
-      name: 'system_language',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Test`
   String get testOne {
     return Intl.message(
@@ -1527,16 +1687,6 @@ class TranslationsClass {
     return Intl.message(
       'Light',
       name: 'theme_light',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `System (recommended)`
-  String get theme_system {
-    return Intl.message(
-      'System (recommended)',
-      name: 'theme_system',
       desc: '',
       args: [],
     );

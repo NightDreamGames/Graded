@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fächer zoufügen"),
         "add_test": MessageLookupByLibrary.simpleMessage("Prüfung zoufügen"),
         "add_year": MessageLookupByLibrary.simpleMessage("Joer zoufügen"),
+        "amoled_mode": MessageLookupByLibrary.simpleMessage("Amoled Modus"),
         "app_name": MessageLookupByLibrary.simpleMessage("Graded"),
         "app_version": MessageLookupByLibrary.simpleMessage("App-Versioun"),
         "appearance": MessageLookupByLibrary.simpleMessage("Ausgesinn"),
@@ -44,11 +45,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
         "coefficientOther":
             MessageLookupByLibrary.simpleMessage("Koeffizienten"),
+        "colorOne": MessageLookupByLibrary.simpleMessage("Faarf"),
+        "colorOther": MessageLookupByLibrary.simpleMessage("Faarwen"),
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Deemnächst verfügbar"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bestätegung"),
         "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
         "custom": MessageLookupByLibrary.simpleMessage("Personaliséiert"),
+        "custom_color": MessageLookupByLibrary.simpleMessage("Aner Faarf"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
         "decrease": MessageLookupByLibrary.simpleMessage("Verréngeren"),
         "default_": MessageLookupByLibrary.simpleMessage("Default"),
@@ -56,7 +60,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "done": MessageLookupByLibrary.simpleMessage("Fäerdeg"),
         "down": MessageLookupByLibrary.simpleMessage("No ënnen"),
         "dutch": MessageLookupByLibrary.simpleMessage("Nederlands"),
+        "dynamic_color":
+            MessageLookupByLibrary.simpleMessage("Dynamesch Faarwen"),
         "edit": MessageLookupByLibrary.simpleMessage("Beaarbechten"),
+        "edit_color_scheme":
+            MessageLookupByLibrary.simpleMessage("Faarfschema beaarbechten"),
+        "edit_primary_color":
+            MessageLookupByLibrary.simpleMessage("Primär Faarf beaarbechten"),
         "edit_subjectOne":
             MessageLookupByLibrary.simpleMessage("Fach beaarbechten"),
         "edit_subjectOther":
@@ -71,22 +81,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_unique":
             MessageLookupByLibrary.simpleMessage("Gidd en eendeitegen Numm un"),
+        "error": MessageLookupByLibrary.simpleMessage("Feeler"),
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examen"),
         "export_": MessageLookupByLibrary.simpleMessage("Exportéieren"),
         "export_description": MessageLookupByLibrary.simpleMessage(
             "Exportéieren vun der aktueller Konfiguratioun an den gespäicherten Donnéeën"),
+        "font": MessageLookupByLibrary.simpleMessage("Schrëft"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
         "general": MessageLookupByLibrary.simpleMessage("Allgemeng"),
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
-        "github": MessageLookupByLibrary.simpleMessage("GitHub Repository"),
-        "github_description": MessageLookupByLibrary.simpleMessage(
-            "Graded ass vollstänneg open-source.\nWann dir eng Ännerung am Kapp hutt oder e Problem mellen wëllt, besicht den Graded GitHub Repository."),
         "gradeOne": MessageLookupByLibrary.simpleMessage("Notte"),
         "gradeOther": MessageLookupByLibrary.simpleMessage("Notten"),
         "group": MessageLookupByLibrary.simpleMessage("Grupp"),
         "half_down": MessageLookupByLibrary.simpleMessage("Hallef no ënnen"),
         "half_up": MessageLookupByLibrary.simpleMessage("Hallef no uewen"),
+        "help_translate":
+            MessageLookupByLibrary.simpleMessage("Iwwersetzen hëllefen"),
+        "help_translate_description": MessageLookupByLibrary.simpleMessage(
+            "Korrigéier Iwwersetzungsfeeler oder lokaliséier de Projet an denger Sprooch"),
         "import_": MessageLookupByLibrary.simpleMessage("Importéieren"),
         "import_description": MessageLookupByLibrary.simpleMessage(
             "Importéieren vun enger virdrun exportéierten Backup-Datei"),
@@ -96,6 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Backup erfollegräich importéiert."),
         "increase": MessageLookupByLibrary.simpleMessage("Erhéijen"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongëlteg"),
+        "issue_tracker": MessageLookupByLibrary.simpleMessage("Issue tracker"),
+        "issue_tracker_description": MessageLookupByLibrary.simpleMessage(
+            "Schéck Feelerberichter an Funktiounswënsch hei"),
         "italian": MessageLookupByLibrary.simpleMessage("Italiano"),
         "language": MessageLookupByLibrary.simpleMessage("Sprooch"),
         "language_code": MessageLookupByLibrary.simpleMessage("lb"),
@@ -108,11 +124,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "manage_years": MessageLookupByLibrary.simpleMessage("Joer verwalten"),
         "manage_years_description": MessageLookupByLibrary.simpleMessage(
             "Zoufügen, Beaarbechten an Läschen vun ären gespäicherten Joer"),
+        "material_3_shades":
+            MessageLookupByLibrary.simpleMessage("Material 3 Faarftéin"),
         "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
         "more_options": MessageLookupByLibrary.simpleMessage("Méi Optiounen"),
         "name": MessageLookupByLibrary.simpleMessage("Numm"),
         "next": MessageLookupByLibrary.simpleMessage("Weider"),
         "no": MessageLookupByLibrary.simpleMessage("Nee"),
+        "no_dynamic_color":
+            MessageLookupByLibrary.simpleMessage("Keng Faarfpalette fonnt"),
         "no_grades": MessageLookupByLibrary.simpleMessage("Keng Notten"),
         "no_items": MessageLookupByLibrary.simpleMessage("Keng Elementer"),
         "no_subjects": MessageLookupByLibrary.simpleMessage("Keng Fächer"),
@@ -124,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "open": MessageLookupByLibrary.simpleMessage("Öffnen"),
         "other_school_system":
             MessageLookupByLibrary.simpleMessage("Aneren Schoulsystem"),
+        "preset": MessageLookupByLibrary.simpleMessage("Predefinéiert"),
         "previous": MessageLookupByLibrary.simpleMessage("Zeréck"),
         "quarterOne": MessageLookupByLibrary.simpleMessage("Quadrimester"),
         "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
@@ -193,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_so":
             MessageLookupByLibrary.simpleMessage("SO - Sozialwëssenschaften"),
         "select": MessageLookupByLibrary.simpleMessage("Auswielen"),
+        "select_color": MessageLookupByLibrary.simpleMessage("Faarf wielen"),
         "select_date": MessageLookupByLibrary.simpleMessage("Datum auswielen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoulperiod auswielen"),
@@ -210,6 +232,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "showcase_tap_subject": MessageLookupByLibrary.simpleMessage(
             "Dréckt hei fir aus dësem Fach en Ënnerfach, an aus dem Fach driwwer eng Fachgrupp ze maachen"),
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortéieren"),
+        "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
+        "source_code_description": MessageLookupByLibrary.simpleMessage(
+            "Graded ass vollstänneg open-source.\nWann dir eng Ännerung am Kapp hutt oder e Problem mellen wëllt, besicht den Graded GitHub Repository."),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
         "speaking_weight":
@@ -219,15 +244,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "subjectOne": MessageLookupByLibrary.simpleMessage("Fach"),
         "subjectOther": MessageLookupByLibrary.simpleMessage("Fächer"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
-        "system_language":
-            MessageLookupByLibrary.simpleMessage("Systemsprooch"),
         "testOne": MessageLookupByLibrary.simpleMessage("Prüfung"),
         "testOther": MessageLookupByLibrary.simpleMessage("Prüfungen"),
         "theme": MessageLookupByLibrary.simpleMessage("Design"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Donkel"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Hell"),
-        "theme_system":
-            MessageLookupByLibrary.simpleMessage("System (empfuelen)"),
         "to_100th": MessageLookupByLibrary.simpleMessage("Zum 100-tel"),
         "to_10th": MessageLookupByLibrary.simpleMessage("Zum 10-tel"),
         "to_integer": MessageLookupByLibrary.simpleMessage("Zur Ganzzuel"),
