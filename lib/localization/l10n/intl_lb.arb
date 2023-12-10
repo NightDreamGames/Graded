@@ -1,10 +1,5 @@
 {
     "about": "Informatiounen",
-    "about_description": "NightDream Games\nEntwéckler - Damien Pirotte\nVisuell Identitéit - Ellia Walrave\nTesting - Louis Colbus",
-    "@about_description": {
-        "description": "Do not translate names, keep formatting and line breaks",
-        "type": "text"
-    },
     "add": "Zoufügen",
     "add_group": "Grupp zoufügen",
     "add_subjectOne": "Fach zoufügen",
@@ -32,6 +27,12 @@
     "coming_soon": "Deemnächst verfügbar",
     "confirm": "Bestätegung",
     "contact": "Kontakt",
+    "credits": "Impressum",
+    "credits_description": "Entwéckler - Damien Pirotte\nVisuell Identitéit - Ellia Walrave\nTesting - Louis Colbus",
+    "@credits_description": {
+        "description": "Do not translate names, keep formatting and line breaks",
+        "type": "text"
+    },
     "custom": "Personaliséiert",
     "custom_color": "Aner Faarf",
     "date": "Datum",
@@ -128,6 +129,11 @@
     "more_options": "Méi Optiounen",
     "name": "Numm",
     "next": "Weider",
+    "nightdream_games": "NightDream Games",
+    "@nightdream_games": {
+        "description": "Do not translate",
+        "type": "text"
+    },
     "no": "Nee",
     "no_dynamic_color": "Keng Faarfpalette fonnt",
     "no_grades": "Keng Notten",
