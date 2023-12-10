@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2023-12-10
+
+### Settings rework, new color and font options, and more consistent theming
+
+- Update theming engine
+- Add color options (dynamic color, custom color, amoled mode)
+- Add font options
+- Rework about and credits sections in settings
+- Code cleanup
+- Fixed multiple other UI bugs
+
 ## [2.5.1] - 2023-11-21
 
 ### Mostly bug fixes
