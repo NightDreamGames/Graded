@@ -1,0 +1,10 @@
+## [2.6.0] - 2023-12-10
+
+### Settings rework, new color and font options, and more consistent theming
+
+- Update theming engine
+- Add color options (dynamic color, custom color, amoled mode)
+- Add font options
+- Rework about and credits sections in settings
+- Code cleanup
+- Fixed multiple other UI bugs
