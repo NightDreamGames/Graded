@@ -26,7 +26,7 @@
     "colorOther": "Faarwen",
     "coming_soon": "Deemnächst verfügbar",
     "confirm": "Bestätegung",
-    "contact": "Kontakt",
+    "contact_me": "Kontakt ophuelen",
     "credits": "Impressum",
     "credits_description": "Entwéckler - Damien Pirotte\nVisuell Identitéit - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
@@ -191,7 +191,6 @@
     "select_school_term": "Schoulperiod auswielen",
     "semesterOne": "Semester",
     "semesterOther": "Semester",
-    "send_feedback": "Feedback ginn",
     "set_sub_subject": "Als Ënnerfach setzen",
     "settings": "Astellungen",
     "setup": "Ariichtung",
@@ -200,7 +199,7 @@
     "showcase_tap_subject": "Dréckt hei fir aus dësem Fach en Ënnerfach, an aus dem Fach driwwer eng Fachgrupp ze maachen",
     "sort_by": "Sortéieren",
     "source_code": "Source code",
-    "source_code_description": "Graded ass vollstänneg open-source.\nWann dir eng Ännerung am Kapp hutt oder e Problem mellen wëllt, besicht den Graded GitHub Repository.",
+    "source_code_description": "Wann dir eng Ännerung am Kapp hutt oder e Problem mellen wëllt, besicht den Graded GitHub Repository.",
     "spanish": "Español",
     "@spanish": {
         "description": "Do not translate",
