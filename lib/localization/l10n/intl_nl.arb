@@ -26,7 +26,7 @@
     "colorOther": "Kleuren",
     "coming_soon": "Binnekort",
     "confirm": "Bevestig",
-    "contact": "Contact",
+    "contact_me": "Contact opnemen",
     "credits": "Credits",
     "credits_description": "Ontwikkelaar - Damien Pirotte\nVisuele identiteit - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
@@ -191,7 +191,6 @@
     "select_school_term": "Schoolperiode kiezen",
     "semesterOne": "Semester",
     "semesterOther": "Semesters",
-    "send_feedback": "Feedback geven",
     "set_sub_subject": "Als sub-vak instellen",
     "settings": "Instellingen",
     "setup": "Setup",
@@ -200,7 +199,7 @@
     "showcase_tap_subject": "Tik hier voor dit vak een subvak te maken en van het vak boven een vakgroep te maken",
     "sort_by": "Sorteren op",
     "source_code": "Source code",
-    "source_code_description": "Graded is volledig open-source.\nAls je een wijziging in gedachten hebt of een probleem wilt melden, ga dan naar de Graded GitHub repo.",
+    "source_code_description": "Als je een wijziging in gedachten hebt of een probleem wilt melden, ga dan naar de Graded GitHub repo.",
     "spanish": "Español",
     "@spanish": {
         "description": "Do not translate",
