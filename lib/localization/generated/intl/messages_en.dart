@@ -23,8 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("About"),
-        "about_description": MessageLookupByLibrary.simpleMessage(
-            "NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "add_group": MessageLookupByLibrary.simpleMessage("Add group"),
         "add_subjectOne": MessageLookupByLibrary.simpleMessage("Add subject"),
@@ -48,7 +46,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "colorOther": MessageLookupByLibrary.simpleMessage("Colors"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Coming soon"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
-        "contact": MessageLookupByLibrary.simpleMessage("Contact us"),
+        "contact_me": MessageLookupByLibrary.simpleMessage("Contact me"),
+        "credits": MessageLookupByLibrary.simpleMessage("Credits"),
+        "credits_description": MessageLookupByLibrary.simpleMessage(
+            "Developer - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus"),
         "custom": MessageLookupByLibrary.simpleMessage("Custom"),
         "custom_color": MessageLookupByLibrary.simpleMessage("Custom color"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -94,7 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "help_translate":
             MessageLookupByLibrary.simpleMessage("Help translate"),
         "help_translate_description": MessageLookupByLibrary.simpleMessage(
-            "Correct translation mistakes or localize project to your language"),
+            "Correct translation mistakes or localise project to your language"),
         "import_": MessageLookupByLibrary.simpleMessage("Import"),
         "import_description": MessageLookupByLibrary.simpleMessage(
             "Import a previously exported backup file"),
@@ -125,6 +126,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "more_options": MessageLookupByLibrary.simpleMessage("More options"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "nightdream_games":
+            MessageLookupByLibrary.simpleMessage("NightDream Games"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "no_dynamic_color":
             MessageLookupByLibrary.simpleMessage("No color palette detected"),
@@ -176,7 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "section_general_acv": MessageLookupByLibrary.simpleMessage(
             "ACV - Arts & visual communication"),
         "section_general_cc": MessageLookupByLibrary.simpleMessage(
-            "CC - Communication & organization"),
+            "CC - Communication & organisation"),
         "section_general_cf":
             MessageLookupByLibrary.simpleMessage("CF - Finance"),
         "section_general_cg":
@@ -212,7 +215,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select school term"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semesters"),
-        "send_feedback": MessageLookupByLibrary.simpleMessage("Give feedback"),
         "set_sub_subject":
             MessageLookupByLibrary.simpleMessage("Set as sub-subject"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
@@ -226,7 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sort_by": MessageLookupByLibrary.simpleMessage("Sort by"),
         "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
         "source_code_description": MessageLookupByLibrary.simpleMessage(
-            "Graded is entirely open-source.\nIf you\'ve got any change in mind or want to report an issue, head over to the Graded GitHub repo."),
+            "If you\'ve got any change in mind or want to report an issue, head over to the Graded GitHub repo."),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Speaking"),
         "speaking_weight":

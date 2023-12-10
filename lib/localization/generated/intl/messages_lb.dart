@@ -23,8 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Informatiounen"),
-        "about_description": MessageLookupByLibrary.simpleMessage(
-            "NightDream Games\nEntwéckler - Damien Pirotte\nVisuell Identitéit - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Zoufügen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Grupp zoufügen"),
         "add_subjectOne": MessageLookupByLibrary.simpleMessage("Fach zoufügen"),
@@ -50,7 +48,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Deemnächst verfügbar"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bestätegung"),
-        "contact": MessageLookupByLibrary.simpleMessage("Kontakt"),
+        "contact_me": MessageLookupByLibrary.simpleMessage("Kontakt ophuelen"),
+        "credits": MessageLookupByLibrary.simpleMessage("Impressum"),
+        "credits_description": MessageLookupByLibrary.simpleMessage(
+            "Entwéckler - Damien Pirotte\nVisuell Identitéit - Ellia Walrave\nTesting - Louis Colbus"),
         "custom": MessageLookupByLibrary.simpleMessage("Personaliséiert"),
         "custom_color": MessageLookupByLibrary.simpleMessage("Aner Faarf"),
         "date": MessageLookupByLibrary.simpleMessage("Datum"),
@@ -130,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "more_options": MessageLookupByLibrary.simpleMessage("Méi Optiounen"),
         "name": MessageLookupByLibrary.simpleMessage("Numm"),
         "next": MessageLookupByLibrary.simpleMessage("Weider"),
+        "nightdream_games":
+            MessageLookupByLibrary.simpleMessage("NightDream Games"),
         "no": MessageLookupByLibrary.simpleMessage("Nee"),
         "no_dynamic_color":
             MessageLookupByLibrary.simpleMessage("Keng Faarfpalette fonnt"),
@@ -220,7 +223,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Schoulperiod auswielen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semester"),
-        "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback ginn"),
         "set_sub_subject":
             MessageLookupByLibrary.simpleMessage("Als Ënnerfach setzen"),
         "settings": MessageLookupByLibrary.simpleMessage("Astellungen"),
@@ -234,7 +236,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sort_by": MessageLookupByLibrary.simpleMessage("Sortéieren"),
         "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
         "source_code_description": MessageLookupByLibrary.simpleMessage(
-            "Graded ass vollstänneg open-source.\nWann dir eng Ännerung am Kapp hutt oder e Problem mellen wëllt, besicht den Graded GitHub Repository."),
+            "Wann dir eng Ännerung am Kapp hutt oder e Problem mellen wëllt, besicht den Graded GitHub Repository."),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
         "speaking_weight":

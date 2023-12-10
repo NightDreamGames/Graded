@@ -23,8 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("Over"),
-        "about_description": MessageLookupByLibrary.simpleMessage(
-            "NightDream Games\nOntwikkelaar - Damien Pirotte\nVisuele identiteit - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Toevoegen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Groep toevoegen"),
         "add_subjectOne": MessageLookupByLibrary.simpleMessage("Vak toevoegen"),
@@ -49,7 +47,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "colorOther": MessageLookupByLibrary.simpleMessage("Kleuren"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Binnekort"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bevestig"),
-        "contact": MessageLookupByLibrary.simpleMessage("Contacteer ons"),
+        "contact_me": MessageLookupByLibrary.simpleMessage("Contact opnemen"),
+        "credits": MessageLookupByLibrary.simpleMessage("Credits"),
+        "credits_description": MessageLookupByLibrary.simpleMessage(
+            "Ontwikkelaar - Damien Pirotte\nVisuele identiteit - Ellia Walrave\nTesting - Louis Colbus"),
         "custom": MessageLookupByLibrary.simpleMessage("Aangepaste"),
         "custom_color":
             MessageLookupByLibrary.simpleMessage("Aangepaste kleur"),
@@ -127,6 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "more_options": MessageLookupByLibrary.simpleMessage("Meer opties"),
         "name": MessageLookupByLibrary.simpleMessage("Naam"),
         "next": MessageLookupByLibrary.simpleMessage("Volgende"),
+        "nightdream_games":
+            MessageLookupByLibrary.simpleMessage("NightDream Games"),
         "no": MessageLookupByLibrary.simpleMessage("Nee"),
         "no_dynamic_color": MessageLookupByLibrary.simpleMessage(
             "Geen kleurenpalet gedetecteerd"),
@@ -215,7 +218,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Schoolperiode kiezen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semesters"),
-        "send_feedback": MessageLookupByLibrary.simpleMessage("Feedback geven"),
         "set_sub_subject":
             MessageLookupByLibrary.simpleMessage("Als sub-vak instellen"),
         "settings": MessageLookupByLibrary.simpleMessage("Instellingen"),
@@ -229,7 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sort_by": MessageLookupByLibrary.simpleMessage("Sorteren op"),
         "source_code": MessageLookupByLibrary.simpleMessage("Source code"),
         "source_code_description": MessageLookupByLibrary.simpleMessage(
-            "Graded is volledig open-source.\nAls je een wijziging in gedachten hebt of een probleem wilt melden, ga dan naar de Graded GitHub repo."),
+            "Als je een wijziging in gedachten hebt of een probleem wilt melden, ga dan naar de Graded GitHub repo."),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Spreken"),
         "speaking_weight":

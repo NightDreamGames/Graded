@@ -23,8 +23,6 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "about": MessageLookupByLibrary.simpleMessage("À propos"),
-        "about_description": MessageLookupByLibrary.simpleMessage(
-            "NightDream Games\nDéveloppeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus"),
         "add": MessageLookupByLibrary.simpleMessage("Ajouter"),
         "add_group": MessageLookupByLibrary.simpleMessage("Ajouter un groupe"),
         "add_subjectOne":
@@ -52,7 +50,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "coming_soon":
             MessageLookupByLibrary.simpleMessage("Bientôt disponible"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirmation"),
-        "contact": MessageLookupByLibrary.simpleMessage("Contact"),
+        "contact_me": MessageLookupByLibrary.simpleMessage("Contactez-moi"),
+        "credits": MessageLookupByLibrary.simpleMessage("Crédits"),
+        "credits_description": MessageLookupByLibrary.simpleMessage(
+            "Développeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus"),
         "custom": MessageLookupByLibrary.simpleMessage("Personnalisé"),
         "custom_color":
             MessageLookupByLibrary.simpleMessage("Couleur personnalisée"),
@@ -135,6 +136,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "more_options": MessageLookupByLibrary.simpleMessage("Plus d\'options"),
         "name": MessageLookupByLibrary.simpleMessage("Nom"),
         "next": MessageLookupByLibrary.simpleMessage("Suivant"),
+        "nightdream_games":
+            MessageLookupByLibrary.simpleMessage("NightDream Games"),
         "no": MessageLookupByLibrary.simpleMessage("Non"),
         "no_dynamic_color": MessageLookupByLibrary.simpleMessage(
             "Pas de palette de couleur détectée"),
@@ -230,8 +233,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sélectionner période scolaire"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semestre"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semestres"),
-        "send_feedback":
-            MessageLookupByLibrary.simpleMessage("Donnez votre avis"),
         "set_sub_subject":
             MessageLookupByLibrary.simpleMessage("Définir comme sous-matière"),
         "settings": MessageLookupByLibrary.simpleMessage("Options"),
@@ -245,7 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sort_by": MessageLookupByLibrary.simpleMessage("Trier par"),
         "source_code": MessageLookupByLibrary.simpleMessage("Code source"),
         "source_code_description": MessageLookupByLibrary.simpleMessage(
-            "Graded est entièrement open-source.\nSi vous avez un changement à l\\\'esprit ou si vous voulez signaler un problème, rendez-vous sur le repo GitHub de Graded."),
+            "Si vous avez un changement à l\\\'esprit ou si vous voulez signaler un problème, rendez-vous sur le repo GitHub de Graded."),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
         "speaking_weight":

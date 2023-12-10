@@ -60,16 +60,6 @@ class TranslationsClass {
     );
   }
 
-  /// `NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus`
-  String get about_description {
-    return Intl.message(
-      'NightDream Games\nDeveloper - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus',
-      name: 'about_description',
-      desc: 'Do not translate names, keep formatting and line breaks',
-      args: [],
-    );
-  }
-
   /// `Add`
   String get add {
     return Intl.message(
@@ -290,12 +280,32 @@ class TranslationsClass {
     );
   }
 
-  /// `Contact us`
-  String get contact {
+  /// `Contact me`
+  String get contact_me {
     return Intl.message(
-      'Contact us',
-      name: 'contact',
+      'Contact me',
+      name: 'contact_me',
       desc: '',
+      args: [],
+    );
+  }
+
+  /// `Credits`
+  String get credits {
+    return Intl.message(
+      'Credits',
+      name: 'credits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Developer - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus`
+  String get credits_description {
+    return Intl.message(
+      'Developer - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus',
+      name: 'credits_description',
+      desc: 'Do not translate names, keep formatting and line breaks',
       args: [],
     );
   }
@@ -660,10 +670,10 @@ class TranslationsClass {
     );
   }
 
-  /// `Correct translation mistakes or localize project to your language`
+  /// `Correct translation mistakes or localise project to your language`
   String get help_translate_description {
     return Intl.message(
-      'Correct translation mistakes or localize project to your language',
+      'Correct translation mistakes or localise project to your language',
       name: 'help_translate_description',
       desc: '',
       args: [],
@@ -896,6 +906,16 @@ class TranslationsClass {
       'Next',
       name: 'next',
       desc: '',
+      args: [],
+    );
+  }
+
+  /// `NightDream Games`
+  String get nightdream_games {
+    return Intl.message(
+      'NightDream Games',
+      name: 'nightdream_games',
+      desc: 'Do not translate',
       args: [],
     );
   }
@@ -1260,10 +1280,10 @@ class TranslationsClass {
     );
   }
 
-  /// `CC - Communication & organization`
+  /// `CC - Communication & organisation`
   String get section_general_cc {
     return Intl.message(
-      'CC - Communication & organization',
+      'CC - Communication & organisation',
       name: 'section_general_cc',
       desc: '',
       args: [],
@@ -1470,16 +1490,6 @@ class TranslationsClass {
     );
   }
 
-  /// `Give feedback`
-  String get send_feedback {
-    return Intl.message(
-      'Give feedback',
-      name: 'send_feedback',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Set as sub-subject`
   String get set_sub_subject {
     return Intl.message(
@@ -1560,10 +1570,10 @@ class TranslationsClass {
     );
   }
 
-  /// `Graded is entirely open-source.\nIf you've got any change in mind or want to report an issue, head over to the Graded GitHub repo.`
+  /// `If you've got any change in mind or want to report an issue, head over to the Graded GitHub repo.`
   String get source_code_description {
     return Intl.message(
-      'Graded is entirely open-source.\nIf you\'ve got any change in mind or want to report an issue, head over to the Graded GitHub repo.',
+      'If you\'ve got any change in mind or want to report an issue, head over to the Graded GitHub repo.',
       name: 'source_code_description',
       desc: '',
       args: [],
