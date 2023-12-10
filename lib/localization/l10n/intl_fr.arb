@@ -1,10 +1,5 @@
 {
     "about": "À propos",
-    "about_description": "NightDream Games\nDéveloppeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus",
-    "@about_description": {
-        "description": "Do not translate names, keep formatting and line breaks",
-        "type": "text"
-    },
     "add": "Ajouter",
     "add_group": "Ajouter un groupe",
     "add_subjectOne": "Ajouter une matière",
@@ -35,6 +30,12 @@
     "coming_soon": "Bientôt disponible",
     "confirm": "Confirmation",
     "contact": "Contact",
+    "credits": "Crédits",
+    "credits_description": "Développeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus",
+    "@credits_description": {
+        "description": "Do not translate names, keep formatting and line breaks",
+        "type": "text"
+    },
     "custom": "Personnalisé",
     "custom_color": "Couleur personnalisée",
     "date": "Date",
@@ -133,6 +134,11 @@
     "more_options": "Plus d'options",
     "name": "Nom",
     "next": "Suivant",
+    "nightdream_games": "NightDream Games",
+    "@nightdream_games": {
+        "description": "Do not translate",
+        "type": "text"
+    },
     "no": "Non",
     "no_dynamic_color": "Pas de palette de couleur détectée",
     "no_grades": "Pas de notes",
