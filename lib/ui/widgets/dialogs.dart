@@ -16,13 +16,8 @@ import "package:graded/ui/widgets/easy_form_field.dart";
 
 class EasyDialog extends StatefulWidget {
   final String title;
-  final String? subtitle;
-  final TextStyle? titleTextStyle;
-  final TextStyle? subtitleTextStyle;
-  final bool enabled;
   final IconData? icon;
   final Widget child;
-  final bool showConfirmation;
   final VoidCallback? onCancel;
   final OnConfirmedCallback? onConfirm;
   final String? action;
@@ -32,14 +27,9 @@ class EasyDialog extends StatefulWidget {
     super.key,
     required this.title,
     required this.child,
-    this.subtitle = "",
-    this.enabled = true,
     this.icon,
-    this.showConfirmation = true,
     this.onCancel,
     this.onConfirm,
-    this.titleTextStyle,
-    this.subtitleTextStyle,
     this.action,
     this.bottomPadding = 20,
   });
@@ -131,6 +121,25 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
       return TestDialog(
         subject: subject,
         index: index,
+      );
+    },
+  );
+}
+
+Future<void> showResetConfirmDialog(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return EasyDialog(
+        title: translations.confirm,
+        icon: Icons.clear_all,
+        action: translations.confirm,
+        onConfirm: () {
+          Manager.clearTests();
+          Navigator.pop(context);
+          return true;
+        },
+        child: Text(translations.reset_confirm),
       );
     },
   );

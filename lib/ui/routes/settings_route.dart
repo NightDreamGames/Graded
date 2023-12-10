@@ -77,24 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       SimpleSettingsTile(
                         icon: Icons.clear_all,
                         title: translations.reset,
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return EasyDialog(
-                                title: translations.confirm,
-                                icon: Icons.clear_all,
-                                action: translations.confirm,
-                                onConfirm: () {
-                                  Manager.clearTests();
-                                  Navigator.pop(context);
-                                  return true;
-                                },
-                                child: Text(translations.reset_confirm),
-                              );
-                            },
-                          );
-                        },
+                        onTap: () => showResetConfirmDialog(context),
                       ),
                     ],
                   ),
