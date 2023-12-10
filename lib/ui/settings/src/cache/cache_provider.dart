@@ -64,7 +64,6 @@ abstract class CacheProvider {
 
   Future<void> setDouble(String key, double? value, {double? defaultValue});
 
-  // ignore: avoid_positional_boolean_parameters
   Future<void> setBool(String key, bool? value, {bool? defaultValue});
 
   bool? containsKey(String key);

@@ -167,8 +167,8 @@ class Compatibility {
 
       if (currentDataVersion < 14) {
         //Rename settings
-        setPreference<int>("term_count", getPreference("term", 3));
-        setPreference<double>("max_grade", getPreference("total_grades", 60.0));
+        setPreference<int>("term_count", getPreference<int>("term", 3));
+        setPreference<double>("max_grade", getPreference<double>("total_grades", 60.0));
 
         setPreference("term", null);
         setPreference("total_grades", null);

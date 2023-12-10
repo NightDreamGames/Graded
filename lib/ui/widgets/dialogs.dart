@@ -155,12 +155,12 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
   final gradeController = TextEditingController();
   final maximumController = TextEditingController();
   final weightController = TextEditingController();
-  late AnimationController animationController;
-  late Animation<double> expandAnimation;
+  late final AnimationController animationController;
+  late final Animation<double> expandAnimation;
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
 
-  late CreationType action;
+  late final CreationType action;
   late bool isSpeaking;
   late int? timestamp;
   bool isExpanded = false;
@@ -221,7 +221,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
             textInputAction: TextInputAction.next,
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,7 +238,10 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
-                child: Text("/", style: TextStyle(fontSize: 20)),
+                child: Text(
+                  "/",
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
               EasyFormField(
                 controller: maximumController,
@@ -293,7 +296,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                   flexible: false,
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(4.0),
+                  padding: EdgeInsets.all(4),
                 ),
                 SizedBox(
                   height: 56,
@@ -379,8 +382,8 @@ class _SubjectDialogState extends State<SubjectDialog> {
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
 
-  late CreationType action;
-  late Subject subject;
+  late final CreationType action;
+  late final Subject subject;
 
   @override
   void initState() {
@@ -412,7 +415,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
       icon: action == CreationType.add ? Icons.add : Icons.edit,
       onConfirm: () {
         final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, getCurrentYear().termTemplate) : nameController.text;
-        final double weight = Calculator.tryParse(weightController.text) ?? 1.0;
+        final double weight = Calculator.tryParse(weightController.text) ?? 1;
 
         double speakingWeight = Calculator.tryParse(speakingController.text) ?? (DefaultValues.speakingWeight) + 1;
         speakingWeight--;
@@ -457,7 +460,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
             },
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -473,7 +476,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
             ],
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -29,7 +29,7 @@ class SubjectRoute extends StatefulWidget {
 }
 
 class _SubjectRouteState extends State<SubjectRoute> {
-  double fabRotation = 0.0;
+  double fabRotation = 0;
 
   @override
   void initState() {

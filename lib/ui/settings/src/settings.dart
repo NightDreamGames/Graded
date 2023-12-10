@@ -210,7 +210,7 @@ class _ValueChangeObserverState<T> extends State<ValueChangeObserver<T>> {
 
   T? get defaultValue => widget.defaultValue;
 
-  late ValueChangeNotifier<T> notifier;
+  late final ValueChangeNotifier<T> notifier;
 
   @override
   void initState() {

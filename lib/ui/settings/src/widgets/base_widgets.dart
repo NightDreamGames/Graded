@@ -339,7 +339,7 @@ class _ExpansionSettingsTileState extends State<_ExpansionSettingsTile> {
           style: subtitleTextStyle(context),
         ),
         initiallyExpanded: widget.expanded,
-        childrenPadding: const EdgeInsets.only(left: 8.0),
+        childrenPadding: const EdgeInsets.only(left: 8),
         children: <Widget>[widget.child],
       ),
     );

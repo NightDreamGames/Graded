@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 List<Widget> getPaddedParentChildrenList(List<Widget> childrenIfEnabled) {
   return childrenIfEnabled.map<Widget>((childWidget) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0),
+      padding: const EdgeInsets.only(left: 8),
       child: childWidget,
     );
   }).toList();

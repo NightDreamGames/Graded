@@ -31,7 +31,7 @@ class SubjectEditRoute extends StatefulWidget {
 }
 
 class _SubjectEditRouteState extends State<SubjectEditRoute> {
-  double fabRotation = 0.0;
+  double fabRotation = 0;
 
   @override
   void initState() {

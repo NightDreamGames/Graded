@@ -11,7 +11,7 @@ import "package:graded/ui/settings/src/cache/cache_provider.dart";
 ///
 /// This cache provider implementation is used by default, if non is provided explicitly.
 class SharePreferenceCache extends CacheProvider {
-  late SharedPreferences _preferences;
+  late final SharedPreferences _preferences;
 
   @override
   Future<void> init() async {

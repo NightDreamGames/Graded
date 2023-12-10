@@ -297,7 +297,7 @@ class SettingsContainer extends StatelessWidget {
     Key? key,
     required this.children,
     this.allowScrollInternally = false,
-    this.leftPadding = 0.0,
+    this.leftPadding = 0,
   }) : super(key: key);
 
   @override
@@ -381,7 +381,7 @@ class SettingsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     final elements = <Widget>[
       Padding(
-        padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 22.0, bottom: 4),
+        padding: const EdgeInsets.only(top: 16, left: 16, right: 22, bottom: 4),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -1348,10 +1348,10 @@ class SliderSettingsTile extends StatefulWidget {
     required this.min,
     required this.max,
     this.subtitle = "",
-    this.defaultValue = 0.0,
+    this.defaultValue = 0,
     this.enabled = true,
     this.eagerUpdate = true,
-    this.step = 1.0,
+    this.step = 1,
     this.onChange,
     this.onChangeStart,
     this.onChangeEnd,
@@ -1649,9 +1649,9 @@ class SliderModalSettingsTile extends StatefulWidget {
     required this.settingKey,
     required this.min,
     required this.max,
-    this.defaultValue = 0.0,
+    this.defaultValue = 0,
     this.enabled = true,
-    this.step = 0.0,
+    this.step = 0,
     this.onChange,
     this.onChangeStart,
     this.onChangeEnd,

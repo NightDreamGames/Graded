@@ -72,7 +72,7 @@ class TextRow extends StatelessWidget {
             Theme(
               data: Theme.of(context).copyWith(
                 iconTheme: Theme.of(context).iconTheme.copyWith(
-                      size: 24.0,
+                      size: 24,
                       color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                     ),
               ),
@@ -142,7 +142,7 @@ class _GroupRowState extends State<GroupRow> {
                 duration: Durations.short4,
                 child: const Icon(
                   Icons.expand_more,
-                  size: 24.0,
+                  size: 24,
                 ),
               ),
             ],

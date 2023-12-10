@@ -24,20 +24,20 @@ class SetupPage extends StatefulWidget {
 
 class _SetupPageState extends State<SetupPage> {
   bool startedAnimation = false;
-  double fabScale = 1.0;
-  double fabPosition = 0.0;
+  double fabScale = 1;
+  double fabPosition = 0;
 
   void _animateIcon() {
     setState(() {
       fabScale = 0.8;
-      fabPosition = 8.0;
+      fabPosition = 8;
     });
 
     Future.delayed(const Duration(milliseconds: 250), () {
       if (!mounted) return;
       setState(() {
-        fabScale = 1.0;
-        fabPosition = 0.0;
+        fabScale = 1;
+        fabPosition = 0;
       });
     });
   }
@@ -92,7 +92,7 @@ class _SetupPageState extends State<SetupPage> {
                 duration: const Duration(milliseconds: 800),
                 curve: Curves.elasticOut,
                 transform: Matrix4.identity()
-                  ..scale(fabScale, 1.0)
+                  ..scale(fabScale, 1)
                   ..translate(fabPosition),
                 child: const Icon(Icons.navigate_next),
               ),

@@ -22,7 +22,7 @@ class YearRoute extends StatefulWidget {
 
 class _YearRouteState extends State<YearRoute> {
   final nameController = TextEditingController();
-  double fabRotation = 0.0;
+  double fabRotation = 0;
 
   @override
   void initState() {
