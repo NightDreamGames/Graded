@@ -2,7 +2,6 @@
 import "package:flutter/material.dart";
 
 // Package imports:
-import "package:flex_color_picker/flex_color_picker.dart";
 import "package:package_info_plus/package_info_plus.dart";
 import "package:provider/provider.dart";
 
@@ -19,6 +18,7 @@ import "package:graded/ui/utilities/app_theme.dart";
 import "package:graded/ui/utilities/custom_icons.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/better_app_bar.dart";
+import "package:graded/ui/widgets/bottom_sheets.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/settings_tiles.dart";
@@ -118,13 +118,11 @@ class _SettingsPageState extends State<SettingsPage> {
                         title: translations.colorOther,
                         subtitle: translations.edit_color_scheme,
                         onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            showDragHandle: true,
-                            builder: (context) {
-                              return ColorBottomSheet(onChanged: rebuildAppContainer);
-                            },
-                          );
+                          if (!AppTheme.hasDynamicColor) {
+                            setPreference("dynamic_color", false);
+                          }
+
+                          showColorBottomSheet(context, rebuildAppContainer);
                         },
                       ),
                       RadioModalSettingsTile<String>(
@@ -166,16 +164,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   SettingsGroup(
                     title: translations.about,
                     children: [
-                      SimpleSettingsTile(
-                        icon: CustomIcons.graded,
-                        title: translations.app_name,
-                        subtitle: translations.about_description,
-                        onTap: () => launchURL(Link.website),
-                      ),
                       FutureBuilder(
                         builder: (context, snapshot) {
                           return SimpleSettingsTile(
-                            icon: Icons.info_outline,
+                            icon: CustomIcons.graded,
                             title: translations.app_version,
                             subtitle: snapshot.data ?? translations.error,
                             onTap: () => launchURL(Link.store),
@@ -186,16 +178,44 @@ class _SettingsPageState extends State<SettingsPage> {
                         }),
                       ),
                       SimpleSettingsTile(
+                        icon: Icons.translate,
+                        title: translations.help_translate,
+                        subtitle: translations.help_translate_description,
+                        onTap: () => launchURL(Link.translate),
+                      ),
+                      SimpleSettingsTile(
+                        icon: Icons.bug_report_outlined,
+                        title: translations.issue_tracker,
+                        subtitle: translations.issue_tracker_description,
+                        onTap: () => launchURL(Link.issueTracker),
+                      ),
+                      SimpleSettingsTile(
                         icon: CustomIcons.github,
                         title: translations.source_code,
                         subtitle: translations.source_code_description,
                         onTap: () => launchURL(Link.github),
                       ),
+                    ],
+                  ),
+                  SettingsGroup(
+                    title: translations.credits,
+                    children: [
+                      SimpleSettingsTile(
+                        icon: Icons.emoji_people,
+                        title: translations.nightdream_games,
+                        subtitle: translations.credits_description,
+                        onTap: () => launchURL(Link.website),
+                      ),
                       SimpleSettingsTile(
                         icon: Icons.feedback_outlined,
-                        title: translations.send_feedback,
+                        title: translations.contact_me,
                         subtitle: translations.email,
                         onTap: () => launchURL(Link.email),
+                      ),
+                      SimpleSettingsTile(
+                        icon: Icons.star_border_outlined,
+                        title: translations.follow_nightdream_games,
+                        onTap: () => showSocialsBottomSheet(context),
                       ),
                     ],
                   ),
@@ -204,135 +224,6 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           const SliverPadding(padding: EdgeInsets.only(bottom: 16)),
-        ],
-      ),
-    );
-  }
-}
-
-class ColorBottomSheet extends StatelessWidget {
-  ColorBottomSheet({
-    super.key,
-    this.onChanged,
-  }) {
-    if (!AppTheme.hasDynamicColor) {
-      setPreference("dynamic_color", false);
-    }
-  }
-
-  final void Function()? onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Column(
-        children: [
-          Center(
-            child: Column(
-              children: [
-                const Icon(
-                  Icons.color_lens_outlined,
-                  size: 24,
-                ),
-                const Padding(padding: EdgeInsets.only(top: 8, bottom: 8)),
-                Text(
-                  translations.colorOther,
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const Padding(padding: EdgeInsets.only(bottom: 8)),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: SettingsContainer(
-              children: [
-                SwitchSettingsTile(
-                  title: translations.dynamic_color,
-                  settingKey: "dynamic_color",
-                  subtitle: !AppTheme.hasDynamicColor ? translations.no_dynamic_color : "",
-                  defaultValue: AppTheme.hasDynamicColor,
-                  enabled: AppTheme.hasDynamicColor,
-                  onChange: (_) => onChanged?.call(),
-                ),
-                SimpleSettingsTile(
-                  title: translations.custom_color,
-                  subtitle: translations.edit_primary_color,
-                  enabled: !AppTheme.hasDynamicColor || !getPreference<bool>("dynamic_color"),
-                  trailing: Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: SizedBox(
-                      height: 40,
-                      width: 40,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(getPreference<int>("custom_color")),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    Color selectedColor = Color(getPreference<int>("custom_color"));
-
-                    ColorPicker(
-                      color: selectedColor,
-                      showColorCode: true,
-                      heading: Text(
-                        translations.select_color,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      colorCodeHasColor: true,
-                      enableShadesSelection: false,
-                      selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
-                      enableTonalPalette: true,
-                      wheelHasBorder: true,
-                      tonalSubheading: Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Text(translations.material_3_shades),
-                      ),
-                      copyPasteBehavior: const ColorPickerCopyPasteBehavior(
-                        copyFormat: ColorPickerCopyFormat.numHexRRGGBB,
-                      ),
-                      spacing: 8,
-                      runSpacing: 8,
-                      columnSpacing: 16,
-                      wheelSquareBorderRadius: 16,
-                      borderRadius: 16,
-                      colorCodePrefixStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.5)),
-                      pickersEnabled: const <ColorPickerType, bool>{
-                        ColorPickerType.primary: true,
-                        ColorPickerType.wheel: true,
-                        ColorPickerType.accent: false,
-                      },
-                      pickerTypeLabels: <ColorPickerType, String>{
-                        ColorPickerType.primary: translations.preset,
-                        ColorPickerType.wheel: translations.custom,
-                      },
-                      onColorChanged: (Color value) {
-                        selectedColor = value;
-                      },
-                    )
-                        .showPickerDialog(
-                      context,
-                    )
-                        .then((_) {
-                      setPreference<int>("custom_color", selectedColor.value);
-                      onChanged?.call();
-                    });
-                  },
-                ),
-                SwitchSettingsTile(
-                  title: translations.amoled_mode,
-                  settingKey: "amoled",
-                  // ignore: avoid_redundant_argument_values
-                  defaultValue: false,
-                  onChange: (_) => onChanged?.call(),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

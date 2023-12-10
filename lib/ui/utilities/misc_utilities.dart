@@ -11,17 +11,19 @@ import "package:url_launcher/url_launcher.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/localization/translations.dart";
 
-enum Link { website, store, github, email }
+enum Link { website, store, github, email, issueTracker, translate, twitter, instagram, linkedin, facebook }
 
 String? encodeQueryParameters(Map<String, String> params) {
   return params.entries.map((MapEntry<String, String> e) => "${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}").join("&");
 }
 
-final Uri websiteLaunchUri = Uri.parse("https://nightdreamgames.com/");
-final Uri playStoreLaunchUri = Uri.https("play.google.com", "/store/apps/details", {"id": "com.NightDreamGames.Grade.ly"});
-final Uri appStoreLaunchUri = Uri.parse("https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284");
-final Uri githubLaunchUri = Uri.parse("https://github.com/NightDreamGames/Graded");
-final Uri emailLaunchUri = Uri(
+final Uri websiteUrl = Uri.parse("https://nightdreamgames.com/");
+final Uri playStoreUrl = Uri.https("play.google.com", "/store/apps/details", {"id": "com.NightDreamGames.Grade.ly"});
+final Uri appStoreUrl = Uri.parse("https://apps.apple.com/us/app/graded-suivi-de-notes/id6444681284");
+final Uri githubUrl = Uri.parse("https://github.com/NightDreamGames/Graded");
+final Uri issueUrl = Uri.parse("https://github.com/NightDreamGames/Graded/issues");
+final Uri translateUrl = Uri.parse("https://poeditor.com/join/project/6qnhP0EM5w");
+final Uri emailUrl = Uri(
   scheme: "mailto",
   path: "contact@nightdreamgames.com",
   query: encodeQueryParameters(<String, String>{
@@ -29,25 +31,42 @@ final Uri emailLaunchUri = Uri(
     "body": "Thank you for your feedback!",
   }),
 );
+final Uri twitterUrl = Uri.parse("https://twitter.com/nightdreamgames");
+final Uri instagramUrl = Uri.parse("https://www.instagram.com/graded.mobile");
+final Uri facebookUrl = Uri.parse("https://www.facebook.com/profile.php?id=61551463161459");
+final Uri linkedinUrl = Uri.parse("https://www.linkedin.com/company/nightdreamgames");
 
 Future<void> launchURL(Link type) async {
-  Uri link = websiteLaunchUri;
+  Uri link = websiteUrl;
 
   switch (type) {
     case Link.website:
-      link = websiteLaunchUri;
+      link = websiteUrl;
     case Link.store:
       if (isAndroid) {
-        link = playStoreLaunchUri;
+        link = playStoreUrl;
       } else if (isiOS) {
-        link = appStoreLaunchUri;
+        link = appStoreUrl;
       } else {
-        link = websiteLaunchUri;
+        link = websiteUrl;
       }
     case Link.github:
-      link = githubLaunchUri;
+      link = githubUrl;
+    case Link.issueTracker:
+      link = issueUrl;
+    case Link.translate:
+      link = translateUrl;
     case Link.email:
-      link = emailLaunchUri;
+      link = emailUrl;
+
+    case Link.twitter:
+      link = twitterUrl;
+    case Link.instagram:
+      link = instagramUrl;
+    case Link.facebook:
+      link = facebookUrl;
+    case Link.linkedin:
+      link = linkedinUrl;
   }
 
   if (!await launchUrl(
