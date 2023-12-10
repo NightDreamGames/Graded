@@ -26,7 +26,7 @@
     "colorOther": "Colors",
     "coming_soon": "Coming soon",
     "confirm": "Confirm",
-    "contact": "Contact",
+    "contact_me": "Contact me",
     "credits": "Credits",
     "credits_description": "Developer - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
@@ -191,7 +191,6 @@
     "select_school_term": "Select school term",
     "semesterOne": "Semester",
     "semesterOther": "Semesters",
-    "send_feedback": "Give feedback",
     "set_sub_subject": "Set as sub-subject",
     "settings": "Settings",
     "setup": "Setup",
@@ -200,7 +199,7 @@
     "showcase_tap_subject": "Tap here to make this subject a sub-subject and the subject above a subject group",
     "sort_by": "Sort by",
     "source_code": "Source code",
-    "source_code_description": "Graded is entirely open-source.\nIf you've got any change in mind or want to report an issue, head over to the Graded GitHub repo.",
+    "source_code_description": "If you've got any change in mind or want to report an issue, head over to the Graded GitHub repo.",
     "spanish": "Español",
     "@spanish": {
         "description": "Do not translate",
