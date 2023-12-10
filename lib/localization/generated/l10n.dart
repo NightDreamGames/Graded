@@ -570,6 +570,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Follow NightDream Games`
+  String get follow_nightdream_games {
+    return Intl.message(
+      'Follow NightDream Games',
+      name: 'follow_nightdream_games',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Font`
   String get font {
     return Intl.message(

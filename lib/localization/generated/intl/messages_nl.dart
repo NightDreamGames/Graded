@@ -86,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "export_": MessageLookupByLibrary.simpleMessage("Export"),
         "export_description": MessageLookupByLibrary.simpleMessage(
             "De huidige configuratie en opgeslagen gegevens exporteren"),
+        "follow_nightdream_games":
+            MessageLookupByLibrary.simpleMessage("Volg NightDream Games"),
         "font": MessageLookupByLibrary.simpleMessage("Lettertype"),
         "french": MessageLookupByLibrary.simpleMessage("Français"),
         "general": MessageLookupByLibrary.simpleMessage("Algemeen"),
