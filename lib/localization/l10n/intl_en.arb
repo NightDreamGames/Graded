@@ -27,6 +27,8 @@
     "coming_soon": "Coming soon",
     "confirm": "Confirm",
     "contact_me": "Contact me",
+    "copy": "Copy",
+    "copy_subjects_prompt": "Copy subjects from current year?",
     "credits": "Credits",
     "credits_description": "Developer - Damien Pirotte\nVisual identity - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
