@@ -48,6 +48,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "coming_soon": MessageLookupByLibrary.simpleMessage("Binnekort"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bevestig"),
         "contact_me": MessageLookupByLibrary.simpleMessage("Contact opnemen"),
+        "copy": MessageLookupByLibrary.simpleMessage("Kopie"),
+        "copy_subjects_prompt": MessageLookupByLibrary.simpleMessage(
+            "Vakken uit het huidige jaar kopiëren?"),
         "credits": MessageLookupByLibrary.simpleMessage("Credits"),
         "credits_description": MessageLookupByLibrary.simpleMessage(
             "Ontwikkelaar - Damien Pirotte\nVisuele identiteit - Ellia Walrave\nTesting - Louis Colbus"),

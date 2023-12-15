@@ -50,6 +50,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Demnächst verfügbar"),
         "confirm": MessageLookupByLibrary.simpleMessage("Bestätigung"),
         "contact_me": MessageLookupByLibrary.simpleMessage("Kontakt aufnehmen"),
+        "copy": MessageLookupByLibrary.simpleMessage("Kopieren"),
+        "copy_subjects_prompt": MessageLookupByLibrary.simpleMessage(
+            "Fächer vom aktuellen Jahr kopieren?"),
         "credits": MessageLookupByLibrary.simpleMessage("Impressum"),
         "credits_description": MessageLookupByLibrary.simpleMessage(
             "Entwickler - Damien Pirotte\nVisuelle Identität - Ellia Walrave\nTesting - Louis Colbus"),

@@ -290,6 +290,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Copy`
+  String get copy {
+    return Intl.message(
+      'Copy',
+      name: 'copy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copy subjects from current year?`
+  String get copy_subjects_prompt {
+    return Intl.message(
+      'Copy subjects from current year?',
+      name: 'copy_subjects_prompt',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Credits`
   String get credits {
     return Intl.message(
