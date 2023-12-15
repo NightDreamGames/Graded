@@ -201,6 +201,8 @@
     "set_sub_subject": "Als Unterfach setzen",
     "settings": "Einstellungen",
     "setup": "Einrichtung",
+    "show_leading_zero": "Vordere Null anzeigen",
+    "show_leading_zero_description": "Eine Null vor einstelligen Zahlen anzeigen",
     "showcase_drag_subject": "Ziehe, um die Reihenfolge der Fächer zu bearbeiten",
     "showcase_precise_average": "Tippen Sie hier, um den genauen Durchschnitt anzuzeigen",
     "showcase_tap_subject": "Tippen Sie hier, um aus diesem Fach ein Unterfach, und aus dem Fach drüber eine Fachgruppe zu machen",
