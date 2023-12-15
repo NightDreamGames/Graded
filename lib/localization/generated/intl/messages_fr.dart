@@ -248,7 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sort_by": MessageLookupByLibrary.simpleMessage("Trier par"),
         "source_code": MessageLookupByLibrary.simpleMessage("Code source"),
         "source_code_description": MessageLookupByLibrary.simpleMessage(
-            "Si vous avez un changement à l\\\'esprit ou si vous voulez signaler un problème, rendez-vous sur le repo GitHub de Graded."),
+            "Si vous avez un changement à l\'esprit ou si vous voulez signaler un problème, rendez-vous sur le repo GitHub de Graded."),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "speaking": MessageLookupByLibrary.simpleMessage("Oral"),
         "speaking_weight":
