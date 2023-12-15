@@ -45,31 +45,53 @@ flutter:
     - family: CustomIcons
       fonts:
         - asset: assets/fonts/CustomIcons.ttf
-    - family: Montserrat
+    - family: montserrat
       fonts:
-        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
-        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+        - asset: assets/fonts/montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/montserrat/Montserrat-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/montserrat/Montserrat-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+        - asset: assets/fonts/montserrat/Montserrat-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Montserrat/Montserrat-ExtraBold.ttf
+        - asset: assets/fonts/montserrat/Montserrat-ExtraBold.ttf
           weight: 800
-        - asset: assets/fonts/Montserrat/Montserrat-Black.ttf
+        - asset: assets/fonts/montserrat/Montserrat-Black.ttf
           weight: 900
-    - family: NotoSans
+    - family: notosans
       fonts:
-        - asset: assets/fonts/NotoSans/NotoSans-Regular.ttf
-        - asset: assets/fonts/NotoSans/NotoSans-Medium.ttf
+        - asset: assets/fonts/notosans/NotoSans-Regular.ttf
+        - asset: assets/fonts/notosans/NotoSans-Medium.ttf
           weight: 500
-        - asset: assets/fonts/NotoSans/NotoSans-SemiBold.ttf
+        - asset: assets/fonts/notosans/NotoSans-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/NotoSans/NotoSans-Bold.ttf
+        - asset: assets/fonts/notosans/NotoSans-Bold.ttf
           weight: 700
-        - asset: assets/fonts/NotoSans/NotoSans-ExtraBold.ttf
+        - asset: assets/fonts/notosans/NotoSans-ExtraBold.ttf
           weight: 800
-        - asset: assets/fonts/NotoSans/NotoSans-Black.ttf
+        - asset: assets/fonts/notosans/NotoSans-Black.ttf
+          weight: 900
+    - family: roboto
+      fonts:
+        - asset: assets/fonts/roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/roboto/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/roboto/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/roboto/Roboto-Black.ttf
+          weight: 900
+    - family: sfpro
+      fonts:
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Regular.otf
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Medium.otf
+          weight: 500
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Semibold.otf
+          weight: 600
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Bold.otf
+          weight: 700
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Heavy.otf
+          weight: 800
+        - asset: assets/fonts/sfpro/SF-Pro-Display-Black.otf
           weight: 900
   assets:
     - assets/class_data/lux/

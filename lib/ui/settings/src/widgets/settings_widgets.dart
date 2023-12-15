@@ -998,6 +998,8 @@ class RadioSettingsTile<T> extends StatefulWidget {
   /// A Widget that will be displayed in the front of the tile
   final Widget? leading;
 
+  final bool setFont;
+
   const RadioSettingsTile({
     Key? key,
     required this.title,
@@ -1011,6 +1013,7 @@ class RadioSettingsTile<T> extends StatefulWidget {
     this.subtitle = "",
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.setFont = false,
   }) : super(key: key);
 
   @override
@@ -1063,9 +1066,11 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
 
   Widget _buildRadioTiles(BuildContext context, T groupValue, OnChanged<T> onChanged) {
     final radioList = widget.values.entries.map<Widget>((MapEntry<T, String> entry) {
+      final String? font = widget.setFont ? entry.value : null;
+
       return _SettingsTile(
         title: entry.value,
-        titleTextStyle: radioTextStyle(context),
+        titleTextStyle: radioTextStyle(context)?.copyWith(fontFamily: font),
         onTap: () => _onRadioChange(entry.key, onChanged),
         enabled: widget.enabled,
         padding: EdgeInsets.zero,
@@ -1492,6 +1497,8 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
   /// on change callback for handling the value change
   final OnChanged<T>? onChange;
 
+  final bool setFont;
+
   const RadioModalSettingsTile({
     Key? key,
     required this.title,
@@ -1505,6 +1512,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
     this.icon,
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.setFont = false,
   }) : super(key: key);
 
   @override
@@ -1547,6 +1555,7 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
             settingKey: widget.settingKey,
             onChange: (value) => _onRadioChange(value, onChanged),
             selected: value,
+            setFont: widget.setFont,
           ),
         );
       },

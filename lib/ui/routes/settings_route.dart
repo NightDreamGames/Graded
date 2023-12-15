@@ -131,9 +131,12 @@ class _SettingsPageState extends State<SettingsPage> {
                         title: translations.font,
                         icon: Icons.font_download_outlined,
                         settingKey: "font",
+                        setFont: true,
                         values: <String, String>{
                           "montserrat": "Montserrat",
-                          "noto": "Noto Sans",
+                          "notosans": "Noto Sans",
+                          "roboto": "Roboto",
+                          "sfpro": "San Francisco Pro",
                           "system": translations.system,
                         },
                         selected: DefaultValues.font,
