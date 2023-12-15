@@ -197,6 +197,8 @@
     "set_sub_subject": "Als sub-vak instellen",
     "settings": "Instellingen",
     "setup": "Setup",
+    "show_leading_zero": "Toon leidende nul",
+    "show_leading_zero_description": "Een nul voor getallen met één cijfer plaatsen",
     "showcase_drag_subject": "Slepen om de volgorde van de vakken te wijzigen",
     "showcase_precise_average": "Tik hier om je exacte gemiddelde te geven",
     "showcase_tap_subject": "Tik hier voor dit vak een subvak te maken en van het vak boven een vakgroep te maken",
