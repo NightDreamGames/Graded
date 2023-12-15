@@ -139,6 +139,14 @@ class AppTheme {
       tabBarTheme: theme.tabBarTheme.copyWith(
         tabAlignment: TabAlignment.start,
       ),
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.fixed,
+        backgroundColor: ElevationOverlay.applySurfaceTint(colorScheme.inverseSurface, colorScheme.surfaceTint, 3),
+        contentTextStyle: theme.textTheme.bodyMedium?.copyWith(
+          color: colorScheme.onInverseSurface,
+        ),
+        actionTextColor: colorScheme.inversePrimary,
+      ),
       appBarTheme: AppBarTheme(
         // ignore: avoid_redundant_argument_values
         systemOverlayStyle: null,

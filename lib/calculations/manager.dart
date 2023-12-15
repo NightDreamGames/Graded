@@ -166,8 +166,8 @@ class Manager {
       };
 }
 
-Year getCurrentYear() {
-  if (SetupManager.inSetup) return SetupManager.year;
+Year getCurrentYear({bool allowSetup = true}) {
+  if (SetupManager.inSetup && allowSetup) return SetupManager.year;
 
   if (Manager.years.isEmpty) {
     deserialize();

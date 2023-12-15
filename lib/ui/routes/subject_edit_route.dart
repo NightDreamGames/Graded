@@ -10,6 +10,7 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/utilities/hints.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
@@ -42,6 +43,27 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         fabRotation += 0.5;
       });
     });
+
+    if (widget.creationType == CreationType.add) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(translations.copy_subjects_prompt),
+            action: SnackBarAction(
+              label: translations.copy,
+              onPressed: () {
+                getCurrentYear(allowSetup: false).termTemplate.forEach((element) {
+                  if (!isDuplicateName(element.name, getCurrentYear().termTemplate)) {
+                    getCurrentYear().addSubject(Subject.fromSubject(element));
+                  }
+                });
+                rebuild();
+              },
+            ),
+          ),
+        );
+      });
+    }
   }
 
   void rebuild() {
@@ -52,56 +74,62 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
   Widget build(BuildContext context) {
     final String title = widget.creationType == CreationType.edit ? translations.edit_subjectOther : translations.add_subjectOther;
 
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        tooltip: translations.add_subjectOne,
-        onPressed: () {
-          setState(() {
-            fabRotation += 0.5;
-          });
-          showSubjectDialog(context).then((_) => rebuild());
-        },
-        child: SpinningIcon(
-          icon: Icons.add,
-          rotation: fabRotation,
-        ),
-      ),
-      appBar: AppBar(
-        title: Text(title),
-        titleSpacing: 0,
-        toolbarHeight: 64,
-        actions: [
-          SortAction(
-            onTap: rebuild,
-            sortType: SortType.subject,
-          ),
-        ],
-      ),
-      body: ShowCaseWidget(
-        blurValue: 1,
-        onFinish: () {
-          setPreference<bool>("showcase_subject_edit", false);
-          rebuild();
-        },
-        builder: Builder(
-          builder: (context) {
-            return SafeArea(
-              top: false,
-              bottom: false,
-              child: getCurrentYear().termTemplate.isNotEmpty
-                  ? ReorderableListView(
-                      padding: EdgeInsets.only(bottom: 88 + MediaQuery.paddingOf(context).bottom),
-                      primary: true,
-                      buildDefaultDragHandles: false,
-                      onReorder: (int oldIndex, int newIndex) {
-                        getCurrentYear().reorderSubjects(oldIndex, newIndex);
-                        rebuild();
-                      },
-                      children: buildTiles(),
-                    )
-                  : EmptyWidget(message: translations.no_subjects),
-            );
+    return PopScope(
+      onPopInvoked: (didPop) {
+        if (!didPop) return;
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      },
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          tooltip: translations.add_subjectOne,
+          onPressed: () {
+            setState(() {
+              fabRotation += 0.5;
+            });
+            showSubjectDialog(context).then((_) => rebuild());
           },
+          child: SpinningIcon(
+            icon: Icons.add,
+            rotation: fabRotation,
+          ),
+        ),
+        appBar: AppBar(
+          title: Text(title),
+          titleSpacing: 0,
+          toolbarHeight: 64,
+          actions: [
+            SortAction(
+              onTap: rebuild,
+              sortType: SortType.subject,
+            ),
+          ],
+        ),
+        body: ShowCaseWidget(
+          blurValue: 1,
+          onFinish: () {
+            setPreference<bool>("showcase_subject_edit", false);
+            rebuild();
+          },
+          builder: Builder(
+            builder: (context) {
+              return SafeArea(
+                top: false,
+                bottom: false,
+                child: getCurrentYear().termTemplate.isNotEmpty
+                    ? ReorderableListView(
+                        padding: EdgeInsets.only(bottom: 88 + MediaQuery.paddingOf(context).bottom),
+                        primary: true,
+                        buildDefaultDragHandles: false,
+                        onReorder: (int oldIndex, int newIndex) {
+                          getCurrentYear().reorderSubjects(oldIndex, newIndex);
+                          rebuild();
+                        },
+                        children: buildTiles(),
+                      )
+                    : EmptyWidget(message: translations.no_subjects),
+              );
+            },
+          ),
         ),
       ),
     );
