@@ -449,23 +449,20 @@ class _SubjectDialogState extends State<SubjectDialog> {
             hint: getHint(translations.subjectOne, getCurrentYear().termTemplate),
             textInputAction: TextInputAction.next,
             additionalValidator: (newValue) {
-              if (getCurrentYear().termTemplate.any((element) {
-                if (action == CreationType.edit && element == subject) {
-                  return false;
-                }
-                if (element.children.any((child) {
-                  if (action == CreationType.edit && child == subject) {
-                    return false;
-                  }
-                  return child.name == newValue;
-                })) {
-                  return true;
-                }
-                return element.name == newValue;
-              })) {
-                return translations.enter_unique;
-              }
-              return null;
+              final bool isDuplicate = getCurrentYear().termTemplate.any((element) {
+                final bool isParent = element == subject;
+                final bool isChild = element.children.contains(subject);
+                final bool sameAsParent = element.name == newValue;
+                final bool sameAsChild = element.children.any((child) => child.name == newValue);
+
+                if (isParent && sameAsParent) return false;
+                if (isChild && sameAsChild) return false;
+                if (sameAsChild || sameAsParent) return true;
+
+                return false;
+              });
+
+              return isDuplicate ? translations.enter_unique : null;
             },
           ),
           const Padding(

@@ -11,9 +11,13 @@ String getHint(String prefix, List<CalculationObject> data) {
   do {
     i++;
     hint = "$prefix $i";
-  } while (data.any((e) => e.name == hint || (e is Subject && e.children.any((child) => child.name == hint))));
+  } while (isDuplicateName(hint, data));
 
   return hint;
+}
+
+bool isDuplicateName(String name, List<CalculationObject> data) {
+  return data.any((e) => e.name == name || (e is Subject && e.children.any((child) => child.name == name)));
 }
 
 String getTermName({required int termIndex}) {
