@@ -197,6 +197,8 @@
     "set_sub_subject": "Set as sub-subject",
     "settings": "Settings",
     "setup": "Setup",
+    "show_leading_zero": "Show leading zero",
+    "show_leading_zero_description": "Show a leading zero for single digit numbers",
     "showcase_drag_subject": "Drag to change subject order",
     "showcase_precise_average": "Tap here to show the precise average",
     "showcase_tap_subject": "Tap here to make this subject a sub-subject and the subject above a subject group",
