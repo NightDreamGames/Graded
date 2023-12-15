@@ -205,6 +205,8 @@
     "set_sub_subject": "Définir comme sous-matière",
     "settings": "Options",
     "setup": "Configuration",
+    "show_leading_zero": "Afficher zéro au début",
+    "show_leading_zero_description": "Afficher un zéro devant les nombres à un chiffre",
     "showcase_drag_subject": "Glissez pour changer l'ordre des matières",
     "showcase_precise_average": "Appuyez ici pour afficher la moyenne précise",
     "showcase_tap_subject": "Appuyez ici pour faire de cette matière une sous-matière et de la matière au-dessus un groupe de matières",
