@@ -224,6 +224,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Set as sub-subject"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "setup": MessageLookupByLibrary.simpleMessage("Setup"),
+        "show_leading_zero":
+            MessageLookupByLibrary.simpleMessage("Show leading zero"),
+        "show_leading_zero_description": MessageLookupByLibrary.simpleMessage(
+            "Show a zero in front of single digit numbers"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Drag to change subject order"),
         "showcase_precise_average": MessageLookupByLibrary.simpleMessage(

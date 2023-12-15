@@ -242,6 +242,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Définir comme sous-matière"),
         "settings": MessageLookupByLibrary.simpleMessage("Options"),
         "setup": MessageLookupByLibrary.simpleMessage("Configuration"),
+        "show_leading_zero":
+            MessageLookupByLibrary.simpleMessage("Afficher zéro au début"),
+        "show_leading_zero_description": MessageLookupByLibrary.simpleMessage(
+            "Afficher un zéro devant les nombres à un chiffre"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Glissez pour changer l\'ordre des matières"),
         "showcase_precise_average": MessageLookupByLibrary.simpleMessage(

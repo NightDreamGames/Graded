@@ -1550,6 +1550,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Show leading zero`
+  String get show_leading_zero {
+    return Intl.message(
+      'Show leading zero',
+      name: 'show_leading_zero',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show a zero in front of single digit numbers`
+  String get show_leading_zero_description {
+    return Intl.message(
+      'Show a zero in front of single digit numbers',
+      name: 'show_leading_zero_description',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Drag to change subject order`
   String get showcase_drag_subject {
     return Intl.message(

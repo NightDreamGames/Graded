@@ -227,6 +227,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Als sub-vak instellen"),
         "settings": MessageLookupByLibrary.simpleMessage("Instellingen"),
         "setup": MessageLookupByLibrary.simpleMessage("Setup"),
+        "show_leading_zero":
+            MessageLookupByLibrary.simpleMessage("Toon leidende nul"),
+        "show_leading_zero_description": MessageLookupByLibrary.simpleMessage(
+            "Een nul voor getallen met één cijfer plaatsen"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Slepen om de volgorde van de vakken te wijzigen"),
         "showcase_precise_average": MessageLookupByLibrary.simpleMessage(

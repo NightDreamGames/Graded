@@ -231,6 +231,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Als Unterfach setzen"),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "setup": MessageLookupByLibrary.simpleMessage("Einrichtung"),
+        "show_leading_zero":
+            MessageLookupByLibrary.simpleMessage("Vordere Null anzeigen"),
+        "show_leading_zero_description": MessageLookupByLibrary.simpleMessage(
+            "Eine Null vor einstelligen Zahlen anzeigen"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Ziehe, um die Reihenfolge der Fächer zu bearbeiten"),
         "showcase_precise_average": MessageLookupByLibrary.simpleMessage(

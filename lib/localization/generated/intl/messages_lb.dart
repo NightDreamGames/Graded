@@ -232,6 +232,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Als Ënnerfach setzen"),
         "settings": MessageLookupByLibrary.simpleMessage("Astellungen"),
         "setup": MessageLookupByLibrary.simpleMessage("Ariichtung"),
+        "show_leading_zero":
+            MessageLookupByLibrary.simpleMessage("Viischt Null uweisen"),
+        "show_leading_zero_description": MessageLookupByLibrary.simpleMessage(
+            "Eng Null virun den eestellegen Zuelen uweisen"),
         "showcase_drag_subject": MessageLookupByLibrary.simpleMessage(
             "Zéi fir d\'Reiefolleg vun de Fächer ze änneren"),
         "showcase_precise_average": MessageLookupByLibrary.simpleMessage(
