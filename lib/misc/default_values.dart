@@ -21,6 +21,7 @@ class DefaultValues {
   static const double weight = 1.0;
   static const double speakingWeight = 3.0;
   static const double examWeight = 2.0;
+  static const bool leadingZero = true;
 
   //Setup
   static const bool isFirstRun = true;
@@ -60,6 +61,7 @@ const Map<String, dynamic> defaultValues = {
   "weight": 1.0,
   "speaking_weight": 3.0,
   "exam_weight": 2.0,
+  "leading_zero": true,
 
   //Setup
   "is_first_run": true,

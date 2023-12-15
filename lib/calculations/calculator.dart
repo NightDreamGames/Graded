@@ -142,7 +142,7 @@ class Calculator {
     return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
   }
 
-  static String format(double? n, {bool addZero = true, int? roundToOverride, int roundToMultiplier = 1}) {
+  static String format(double? n, {bool leadingZero = true, int? roundToOverride, int roundToMultiplier = 1}) {
     if (n == null || n.isNaN) return "-";
 
     int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("round_to"));
@@ -157,7 +157,7 @@ class Calculator {
 
     result = n.toStringAsFixed(nbDecimals);
 
-    if (addZero && nbDecimals == 0 && n > 0 && n < 10) {
+    if (leadingZero && getPreference<bool>("leading_zero") && n >= 1 && n < 10) {
       result = "0$result";
     }
     return result;

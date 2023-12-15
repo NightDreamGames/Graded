@@ -76,6 +76,14 @@ class _SettingsPageState extends State<SettingsPage> {
                         subtitle: translations.manage_years_description,
                       ),
                       ...getSettingsTiles(context, type: CreationType.edit, onChanged: rebuildYearOverview),
+                      SwitchSettingsTile(
+                        leading: const Icon(CustomIcons.zero_one),
+                        title: translations.show_leading_zero,
+                        settingKey: "leading_zero",
+                        subtitle: translations.show_leading_zero_description,
+                        defaultValue: DefaultValues.leadingZero,
+                        onChange: (_) => rebuildHomePage(),
+                      ),
                       SimpleSettingsTile(
                         icon: Icons.clear_all,
                         title: translations.reset,

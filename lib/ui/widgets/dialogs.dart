@@ -179,10 +179,10 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
     super.initState();
     action = widget.index == null ? CreationType.add : CreationType.edit;
     nameController.text = action == CreationType.edit ? widget.subject.tests[widget.index!].name : "";
-    gradeController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].numerator, addZero: false) : "";
+    gradeController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].numerator, leadingZero: false) : "";
     maximumController.text =
-        action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].denominator, addZero: false, roundToOverride: 1) : "";
-    weightController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].weight, addZero: false) : "";
+        action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].denominator, leadingZero: false, roundToOverride: 1) : "";
+    weightController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].weight, leadingZero: false) : "";
     isSpeaking = action == CreationType.edit && widget.subject.tests[widget.index!].isSpeaking;
     timestamp = widget.index != null ? widget.subject.tests[widget.index!].timestamp : null;
 
@@ -239,7 +239,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
               EasyFormField(
                 controller: gradeController,
                 label: translations.gradeOne,
-                hint: "01",
+                hint: Calculator.format(1),
                 textAlign: TextAlign.end,
                 autofocus: true,
                 numeric: true,
@@ -297,7 +297,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                 EasyFormField(
                   controller: weightController,
                   label: translations.coefficientOne,
-                  hint: Calculator.format(DefaultValues.weight, addZero: false, roundToOverride: 1),
+                  hint: Calculator.format(DefaultValues.weight, leadingZero: false, roundToOverride: 1),
                   numeric: true,
                   signed: false,
                   onSubmitted: () => dialogKey.currentState?.submit(),
@@ -404,8 +404,9 @@ class _SubjectDialogState extends State<SubjectDialog> {
             ? getCurrentYear().termTemplate[widget.index1!]
             : getCurrentYear().termTemplate[widget.index1!].children[widget.index2!];
     nameController.text = action == CreationType.edit ? subject.name : "";
-    weightController.text = action == CreationType.edit ? Calculator.format(subject.weight, addZero: false, roundToOverride: 1) : "";
-    speakingController.text = action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, addZero: false, roundToOverride: 1) : "";
+    weightController.text = action == CreationType.edit ? Calculator.format(subject.weight, leadingZero: false, roundToOverride: 1) : "";
+    speakingController.text =
+        action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, leadingZero: false, roundToOverride: 1) : "";
   }
 
   @override
@@ -474,7 +475,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
               EasyFormField(
                 controller: weightController,
                 label: translations.coefficientOne,
-                hint: Calculator.format(DefaultValues.weight, addZero: false, roundToOverride: 1),
+                hint: Calculator.format(DefaultValues.weight, leadingZero: false, roundToOverride: 1),
                 numeric: true,
                 textInputAction: TextInputAction.next,
                 additionalValidator: thresholdValidator,
@@ -502,7 +503,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
               EasyFormField(
                 controller: speakingController,
                 label: translations.speaking_weight,
-                hint: Calculator.format((DefaultValues.speakingWeight) + 1, addZero: false, roundToOverride: 1),
+                hint: Calculator.format((DefaultValues.speakingWeight) + 1, leadingZero: false, roundToOverride: 1),
                 numeric: true,
                 onSubmitted: () => dialogKey.currentState?.submit(),
                 additionalValidator: (value) => thresholdValidator(value, threshold: 1),

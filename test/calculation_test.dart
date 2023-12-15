@@ -44,13 +44,14 @@ void main() async {
   test("Number formatting", () {
     expect(Calculator.format(null), equals("-"));
     expect(Calculator.format(47), equals("47"));
-    expect(Calculator.format(3.14159), equals("3.14159"));
-    expect(Calculator.format(3.14159, roundToOverride: 100), equals("3.14159"));
+    expect(Calculator.format(3.14159), equals("03.14159"));
+    expect(Calculator.format(3.14159, roundToOverride: 100), equals("03.14159"));
     expect(Calculator.format(0.5, roundToOverride: 100), equals("0.50"));
     expect(Calculator.format(47, roundToOverride: 10), equals("47.0"));
     expect(Calculator.format(47.5), equals("47.5"));
     expect(Calculator.format(47.5, roundToOverride: 100), equals("47.50"));
-    expect(Calculator.format(1, addZero: false), equals("1"));
+    expect(Calculator.format(1, leadingZero: false), equals("1"));
+    expect(Calculator.format(3.14159, leadingZero: false), equals("3.14159"));
     expect(Calculator.format(1), equals("01"));
     expect(Calculator.format(47.5, roundToOverride: 10, roundToMultiplier: 10), equals("47.50"));
   });

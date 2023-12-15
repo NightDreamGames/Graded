@@ -255,7 +255,7 @@ class _SubjectTileState extends State<SubjectTile> {
 
   @override
   Widget build(BuildContext context) {
-    final String weightString = Calculator.format(widget.subject.weight, addZero: false, roundToOverride: 1);
+    final String weightString = Calculator.format(widget.subject.weight, leadingZero: false, roundToOverride: 1);
 
     showTutorial(context);
 
