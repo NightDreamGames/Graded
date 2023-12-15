@@ -27,6 +27,8 @@
     "coming_soon": "Binnekort",
     "confirm": "Bevestig",
     "contact_me": "Contact opnemen",
+    "copy": "Kopie",
+    "copy_subjects_prompt": "Vakken uit het huidige jaar kopiëren?",
     "credits": "Credits",
     "credits_description": "Ontwikkelaar - Damien Pirotte\nVisuele identiteit - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
