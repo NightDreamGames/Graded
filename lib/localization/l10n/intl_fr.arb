@@ -30,6 +30,8 @@
     "coming_soon": "Bientôt disponible",
     "confirm": "Confirmation",
     "contact_me": "Contactez-moi",
+    "copy": "Copier",
+    "copy_subjects_prompt": "Copier les matières de l'année actuelle?",
     "credits": "Crédits",
     "credits_description": "Développeur - Damien Pirotte\nIdentité visuelle - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
