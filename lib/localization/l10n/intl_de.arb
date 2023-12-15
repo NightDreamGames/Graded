@@ -27,6 +27,8 @@
     "coming_soon": "Demnächst verfügbar",
     "confirm": "Bestätigung",
     "contact_me": "Kontakt aufnehmen",
+    "copy": "Kopieren",
+    "copy_subjects_prompt": "Fächer vom aktuellen Jahr kopieren?",
     "credits": "Impressum",
     "credits_description": "Entwickler - Damien Pirotte\nVisuelle Identität - Ellia Walrave\nTesting - Louis Colbus",
     "@credits_description": {
