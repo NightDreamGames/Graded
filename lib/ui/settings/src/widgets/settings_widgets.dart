@@ -664,9 +664,6 @@ class SwitchSettingsTile extends StatelessWidget {
   /// on change callback for handling the value change
   final OnChanged<bool>? onChange;
 
-  /// A Widget that will be displayed in the front of the tile
-  final Widget? leading;
-
   /// A specific text that will be displayed as subtitle when switch is set to enable state
   /// if provided, default = ''
   final String enabledLabel;
@@ -679,6 +676,8 @@ class SwitchSettingsTile extends StatelessWidget {
   /// state, Any flutter widget can be added in this list
   final List<Widget>? childrenIfEnabled;
 
+  final IconData? icon;
+
   const SwitchSettingsTile({
     Key? key,
     required this.title,
@@ -686,13 +685,13 @@ class SwitchSettingsTile extends StatelessWidget {
     this.defaultValue = false,
     this.enabled = true,
     this.onChange,
-    this.leading,
     this.enabledLabel = "",
     this.disabledLabel = "",
     this.childrenIfEnabled,
     this.subtitle = "",
     this.titleTextStyle,
     this.subtitleTextStyle,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -702,7 +701,7 @@ class SwitchSettingsTile extends StatelessWidget {
       defaultValue: defaultValue,
       builder: (BuildContext context, bool value, OnChanged<bool> onChanged) {
         final Widget mainWidget = _SettingsTile(
-          leading: leading,
+          leading: icon != null ? Icon(icon) : null,
           title: title,
           subtitle: getSubtitle(enabled: value),
           onTap: () => _onSwitchChange(context, !value, onChanged),

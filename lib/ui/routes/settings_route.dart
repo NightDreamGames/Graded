@@ -77,7 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                       ...getSettingsTiles(context, type: CreationType.edit, onChanged: rebuildYearOverview),
                       SwitchSettingsTile(
-                        leading: const Icon(CustomIcons.zero_one),
+                        icon: CustomIcons.zero_one,
                         title: translations.show_leading_zero,
                         settingKey: "leading_zero",
                         subtitle: translations.show_leading_zero_description,
