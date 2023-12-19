@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.1] - 2023-12-19
+
+### Added a few settings and improve font support
+
+- Add prompt when creating new year to copy old subjects
+- Add setting to show or hide leading zeros
+- Add font preview in settings
+- Add Roboto and SFPro fonts
+- Fixed duplicate subject names being allowed
+- Fixed some translations
+- Code cleanup
+
 ## [2.6.0] - 2023-12-10
 
 ### Settings rework, new color and font options, and more consistent theming
