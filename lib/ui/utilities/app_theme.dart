@@ -164,6 +164,16 @@ class AppTheme {
         toolbarTextStyle: theme.appBarTheme.toolbarTextStyle,
         titleTextStyle: theme.appBarTheme.titleTextStyle,
       ),
+      switchTheme: theme.switchTheme.copyWith(
+        thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.selected)) {
+              return const Icon(Icons.check);
+            }
+            return null;
+          },
+        ),
+      ),
       //platform: TargetPlatform.iOS,
     );
   }
