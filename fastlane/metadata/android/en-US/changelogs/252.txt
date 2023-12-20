@@ -1,0 +1,11 @@
+## [2.6.1] - 2023-12-19
+
+### Added a few settings and improve font support
+
+- Add prompt when creating new year to copy old subjects
+- Add setting to show or hide leading zeros
+- Add font preview in settings
+- Add Roboto and SFPro fonts
+- Fixed duplicate subject names being allowed
+- Fixed some translations
+- Code cleanup
