@@ -1,30 +1,30 @@
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
+	localPropertiesFile.withReader('UTF-8') { reader ->
+		localProperties.load(reader)
+	}
 }
 
- def keystoreProperties = new Properties()
-   def keystorePropertiesFile = rootProject.file('key.properties')
-   if (keystorePropertiesFile.exists()) {
-       keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-   }
+def keystoreProperties = new Properties()
+	def keystorePropertiesFile = rootProject.file('key.properties')
+	if (keystorePropertiesFile.exists()) {
+		keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+	}
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+	throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+	flutterVersionCode = '1'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+	flutterVersionName = '1.0'
 }
 
 apply plugin: 'com.android.application'
@@ -32,76 +32,79 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    ndkVersion flutter.ndkVersion
+	ndkVersion flutter.ndkVersion
 
-    compileOptions {
-        sourceCompatibility kotlin_version
-        targetCompatibility kotlin_version
-    }
+	compileOptions {
+		sourceCompatibility kotlin_version
+		targetCompatibility kotlin_version
+	}
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+	kotlinOptions {
+		jvmTarget = '1.8'
+	}
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+	sourceSets {
+		main.java.srcDirs += 'src/main/kotlin'
+	}
 
-    defaultConfig {
-        applicationId "com.NightDreamGames.Grade.ly"
-        minSdkVersion 21
-        compileSdk 34
-        targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-        vectorDrawables.generatedDensities = []
-    }
+	defaultConfig {
+		applicationId "com.NightDreamGames.Grade.ly"
+		minSdkVersion 21
+		compileSdk 34
+		targetSdkVersion 34
+		versionCode flutterVersionCode.toInteger()
+		versionName flutterVersionName
+		vectorDrawables.generatedDensities = []
+		resourceConfigurations += ["en", "fr", "de", "nl", "lb"]
+	}
 
-    signingConfigs {
-       release {
-              if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
-                  storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
-                  storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
-                  keyAlias System.getenv()["CM_KEY_ALIAS"]
-                  keyPassword System.getenv()["CM_KEY_PASSWORD"]
-              } else {
-                  keyAlias keystoreProperties['keyAlias']
-                  keyPassword keystoreProperties['keyPassword']
-                  storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-                  storePassword keystoreProperties['storePassword']
-              }
-          }
-   }
-   buildTypes {
-        debug {
-            signingConfig signingConfigs.debug
-            applicationIdSuffix '.debug'
-            versionNameSuffix '-DEBUG'
-        }
+	signingConfigs {
+		release {
+			if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
+				storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+				storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+				keyAlias System.getenv()["CM_KEY_ALIAS"]
+				keyPassword System.getenv()["CM_KEY_PASSWORD"]
+			} else {
+				keyAlias keystoreProperties['keyAlias']
+				keyPassword keystoreProperties['keyPassword']
+				storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+				storePassword keystoreProperties['storePassword']
+			}
+		}
+	}
 
-        profile {
-            signingConfig signingConfigs.debug
-            applicationIdSuffix '.profile'
-            versionNameSuffix '-PROFILE'
-        }
+	buildTypes {
+		debug {
+			signingConfig signingConfigs.debug
+			applicationIdSuffix '.debug'
+			versionNameSuffix '-DEBUG'
+		}
 
-       release {
-           signingConfig signingConfigs.release
-       }
-   }
-    packagingOptions {
-        jniLibs {
-            useLegacyPackaging = true
-        }
-    }
-    namespace 'com.nightdreamgames.grade.ly'
+		profile {
+			signingConfig signingConfigs.debug
+			applicationIdSuffix '.profile'
+			versionNameSuffix '-PROFILE'
+		}
+
+		release {
+			signingConfig signingConfigs.release
+		}
+	}
+
+	packagingOptions {
+		jniLibs {
+			useLegacyPackaging = true
+		}
+	}
+	namespace 'com.nightdreamgames.grade.ly'
 }
 
 flutter {
-    source '../..'
+	source '../..'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.android.material:material:1.10.0'
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+	implementation 'com.google.android.material:material:1.10.0'
 }
