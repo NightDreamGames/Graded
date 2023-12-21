@@ -156,16 +156,16 @@ class _SettingsPageState extends State<SettingsPage> {
                         settingKey: "language",
                         values: <String, String>{
                           "system": translations.system,
-                          "en": translations.english,
-                          "de": translations.german,
+                          "en_GB": translations.english,
                           "fr": translations.french,
-                          "lb": translations.luxembourgish,
+                          "de": translations.german,
                           "nl": translations.dutch,
+                          "lb": translations.luxembourgish,
                         },
                         selected: DefaultValues.language,
                         onChange: (value) {
                           if (value != DefaultValues.language) {
-                            context.read<LocaleProvider>().setLocale(Locale(value));
+                            context.read<LocaleProvider>().setLocale(value);
                           } else {
                             context.read<LocaleProvider>().clearLocale();
                           }

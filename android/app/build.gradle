@@ -55,7 +55,8 @@ android {
 		versionCode flutterVersionCode.toInteger()
 		versionName flutterVersionName
 		vectorDrawables.generatedDensities = []
-		resourceConfigurations += ["en", "fr", "de", "nl", "lb"]
+		resourceConfigurations += ["en-rGB", "fr", "de", "nl", "lb"]
+		resConfigs "en", "fr", "de", "nl", "lb"
 	}
 
 	signingConfigs {
@@ -97,6 +98,7 @@ android {
 			useLegacyPackaging = true
 		}
 	}
+
 	namespace 'com.nightdreamgames.grade.ly'
 }
 

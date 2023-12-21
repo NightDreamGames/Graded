@@ -18,10 +18,10 @@
 		<string>6.0</string>
 		<key>CFBundleLocalizations</key>
 		<array>
-			<string>en</string>
-			<string>nl</string>
+			<string>en_GB</string>
 			<string>fr</string>
 			<string>de</string>
+			<string>nl</string>
 			<string>lb</string>
 		</array>
 		<key>CFBundleName</key>

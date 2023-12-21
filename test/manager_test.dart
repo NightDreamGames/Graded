@@ -18,7 +18,7 @@ import "package:graded/ui/settings/flutter_settings_screens.dart";
 void main() async {
   SharedPreferences.setMockInitialValues({});
   await Settings.init();
-  TranslationsClass.load(const Locale("en", ""));
+  TranslationsClass.load(const Locale("en", "GB"));
   Manager.init();
   Manager.addYear(year: Year());
   getCurrentYear().ensureTermCount();

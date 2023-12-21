@@ -15,7 +15,6 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/localization/material_localization/lb_intl.dart";
 import "package:graded/localization/translations.dart";
-import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/locale_provider.dart";
 import "package:graded/misc/storage.dart";
@@ -70,7 +69,7 @@ class _AppContainerState extends State<AppContainer> {
     final String localeName = getPreference<String>("language");
 
     return ChangeNotifierProvider(
-      create: (context) => LocaleProvider(locale: localeName != DefaultValues.language ? Locale(localeName) : null),
+      create: (context) => LocaleProvider(localeName),
       child: Consumer<LocaleProvider>(
         builder: (context, provider, _) => DynamicColorBuilder(
           builder: (ColorScheme? light, ColorScheme? dark) => MaterialApp(
@@ -91,7 +90,7 @@ class _AppContainerState extends State<AppContainer> {
               if (supportedLocales.map((e) => e.languageCode).contains(deviceLocale?.languageCode)) {
                 return deviceLocale;
               }
-              return const Locale("en", "");
+              return const Locale("en", "GB");
             },
             locale: provider.locale,
             debugShowCheckedModeBanner: false,
