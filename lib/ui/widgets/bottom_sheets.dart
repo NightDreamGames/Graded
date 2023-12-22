@@ -46,6 +46,7 @@ class EasyBottomSheet extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.center,
                 ),
                 const Padding(padding: EdgeInsets.only(bottom: 8)),
               ],

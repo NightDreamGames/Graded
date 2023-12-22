@@ -3,6 +3,7 @@ import "dart:io" show Platform;
 
 // Flutter imports:
 import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
 
 // Package imports:
 import "package:url_launcher/url_launcher.dart";
@@ -99,4 +100,17 @@ String? nullValidator(String? value) {
   }
 
   return null;
+}
+
+Size calculateTextSize({required BuildContext context, required String text, TextStyle? style}) {
+  final TextScaler textScaler = MediaQuery.of(context).textScaler;
+  final TextDirection textDirection = Directionality.of(context);
+
+  final TextPainter textPainter = TextPainter(
+    text: TextSpan(text: text, style: style),
+    textDirection: textDirection,
+    textScaler: textScaler,
+  )..layout();
+
+  return textPainter.size;
 }

@@ -7,6 +7,7 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
+import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
@@ -86,16 +87,29 @@ class _SubjectRouteState extends State<SubjectRoute> {
                   leading: !widget.term.isYearOverview
                       ? Row(
                           children: [
-                            SizedBox(
-                              width: 100 * MediaQuery.textScalerOf(context).scale(22) / 22,
-                              child: Text(
-                                "${translations.bonus} ${widget.subject.bonus}${widget.subject.bonus < 0 ? "" : "  "}",
-                                overflow: TextOverflow.visible,
-                                softWrap: false,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
+                            Builder(
+                              builder: (context) {
+                                final String textMax = "${translations.bonus} -9}";
+                                final String text = "${translations.bonus} ${widget.subject.bonus}";
+
+                                final Size tSize = calculateTextSize(
+                                  context: context,
+                                  text: textMax,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                );
+
+                                return SizedBox(
+                                  width: tSize.width,
+                                  child: Text(
+                                    text,
+                                    overflow: TextOverflow.visible,
+                                    softWrap: false,
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                );
+                              },
                             ),
-                            const Padding(padding: EdgeInsets.only(left: 8)),
+                            const Padding(padding: EdgeInsets.only(left: 4)),
                             IconButton(
                               tooltip: translations.decrease,
                               icon: const Icon(Icons.remove, size: 20),
