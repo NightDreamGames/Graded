@@ -55,7 +55,7 @@ android {
 		versionCode flutterVersionCode.toInteger()
 		versionName flutterVersionName
 		vectorDrawables.generatedDensities = []
-		resourceConfigurations += ["en-rGB", "fr", "de", "nl", "lb"]
+		resourceConfigurations += ["en", "fr", "de", "nl", "lb"]
 		resConfigs "en", "fr", "de", "nl", "lb"
 	}
 
