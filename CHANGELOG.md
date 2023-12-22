@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.2] - 2023-12-22
+
+### Minor changes and CI fixes
+
+- Add icon to switches
+- Add support for per-app language
+- Specify language region for english
+- UI fixes for longer strings
+- Fix CI changelog upload
+- Other minor optimisations and bugfixes
+
 ## [2.6.1] - 2023-12-19
 
 ### Added a few settings and improve font support
