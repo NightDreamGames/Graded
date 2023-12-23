@@ -44,7 +44,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
       });
     });
 
-    if (widget.creationType == CreationType.add) {
+    if (widget.creationType == CreationType.add && Manager.years.isNotEmpty && getCurrentYear(allowSetup: false).termTemplate.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
