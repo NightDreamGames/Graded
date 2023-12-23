@@ -155,6 +155,7 @@ class _YearRouteState extends State<YearRoute> {
                   controller: nameController,
                   label: translations.name,
                   autofocus: true,
+                  flexible: false,
                   onSubmitted: () => dialogKey.currentState?.submit(),
                 ),
               );
