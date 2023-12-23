@@ -52,7 +52,7 @@ class Year extends CalculationObject {
     for (final Term term in terms) {
       term.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
     }
-    sortTermTemplate();
+    sortTermTemplate(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
   }
 
   void sortTermTemplate({int? sortModeOverride, int? sortDirectionOverride}) {

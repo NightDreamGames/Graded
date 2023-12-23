@@ -272,7 +272,10 @@ class _SubjectTileState extends State<SubjectTile> {
         enableEqualLongPress: true,
         leading: ReorderableDragStartListener(
           index: widget.reorderIndex,
-          child: (widget.index1 == 1 && getCurrentYear().termTemplate.length >= 3 && getPreference<bool>("showcase_subject_edit", true))
+          child: (widget.index1 == 1 &&
+                  widget.index2 == 0 &&
+                  getCurrentYear().termTemplate.length >= 3 &&
+                  getPreference<bool>("showcase_subject_edit", true))
               ? Showcase(
                   key: showCaseKey1,
                   description: translations.showcase_tap_subject,
