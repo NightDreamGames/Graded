@@ -243,7 +243,12 @@ class SubjectTile extends StatefulWidget {
 
 class _SubjectTileState extends State<SubjectTile> {
   Future<void> showTutorial(BuildContext context) async {
-    if (widget.index1 != 2 || getCurrentYear().termTemplate.length < 3 || !getPreference<bool>("showcase_subject_edit", true)) return;
+    if (widget.index1 != 2 ||
+        widget.subject.isChild ||
+        getCurrentYear().termTemplate.length < 3 ||
+        !getPreference<bool>("showcase_subject_edit", true)) {
+      return;
+    }
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500), () {
@@ -273,7 +278,7 @@ class _SubjectTileState extends State<SubjectTile> {
         leading: ReorderableDragStartListener(
           index: widget.reorderIndex,
           child: (widget.index1 == 1 &&
-                  widget.index2 == 0 &&
+                  !widget.subject.isChild &&
                   getCurrentYear().termTemplate.length >= 3 &&
                   getPreference<bool>("showcase_subject_edit", true))
               ? Showcase(
