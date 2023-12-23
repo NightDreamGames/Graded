@@ -77,6 +77,15 @@ class Year extends CalculationObject {
     }
   }
 
+  void clearSubjects() {
+    final List<List<Subject>> lists = [termTemplate];
+    lists.addAll(terms.map((term) => term.subjects));
+
+    for (final List<Subject> t in lists) {
+      t.clear();
+    }
+  }
+
   void editSubject(Subject subject, String name, double weight, double speakingWeight) {
     sort(
       sortModeOverride: SortMode.name,

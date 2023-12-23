@@ -203,6 +203,8 @@ class SetupManager {
     year.roundingMode = RoundingMode.up;
     year.roundTo = 1;
 
+    year.clearSubjects();
+
     final List<Subject> termTemplate = await fillSubjects();
 
     for (final Subject subject in termTemplate) {
