@@ -225,7 +225,7 @@ class SubjectTile extends StatefulWidget {
     required this.subject,
     required this.listKey,
     required this.index1,
-    this.index2 = 0,
+    this.index2,
     required this.reorderIndex,
     this.onActionCompleted,
   });
@@ -233,7 +233,7 @@ class SubjectTile extends StatefulWidget {
   final Subject subject;
   final GlobalKey listKey;
   final int index1;
-  final int index2;
+  final int? index2;
   final int reorderIndex;
   final Function()? onActionCompleted;
 
@@ -374,7 +374,7 @@ class ReorderableHandle extends StatelessWidget {
             child.children.clear();
           } else {
             final Subject parent = list[target.index1];
-            final Subject child = parent.children.removeAt(target.index2);
+            final Subject child = parent.children.removeAt(target.index2!);
             list.insert(target.index1 + 1, child..isChild = false);
             if (parent.children.isEmpty) parent.isGroup = false;
           }
