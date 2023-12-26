@@ -19,8 +19,7 @@ import "package:flutter/services.dart";
 typedef _FlexibleConfigBuilder = _ScrollUnderFlexibleConfig Function(BuildContext);
 
 const double _kLeadingWidth = kToolbarHeight; // So the leading button is square.
-const double _kMaxTitleTextScaleFactor =
-    1.34; // TODO(perc): Add link to Material spec when available, https://github.com/flutter/flutter/issues/58769.
+const double _kMaxTitleTextScaleFactor = 1.34;
 
 enum _SliverAppVariant { small, medium, large }
 
@@ -2064,7 +2063,6 @@ class _ScrollUnderFlexibleSpace extends StatelessWidget {
     // title to keep the visual hierarchy the same even with larger font
     // sizes. To opt out, wrap the [title] widget in a [MediaQuery] widget
     // with a different TextScaler.
-    // TODO(tahatesser): Add link to Material spec when available, https://github.com/flutter/flutter/issues/58769.
     return MediaQuery.withClampedTextScaling(
       maxScaleFactor: _kMaxTitleTextScaleFactor,
       // This column will assume the full height of the parent Stack.
