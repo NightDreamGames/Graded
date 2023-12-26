@@ -9,6 +9,8 @@ analyzer:
   exclude:
     - lib/localization/**
     - lib/ui/utilities/custom_icons.dart
+  errors:
+    todo: info
 
 # You can customize the lint rules set to your own liking. A list of all rules
 # can be found at https://dart-lang.github.io/linter/lints/options/options.html
@@ -17,4 +19,3 @@ linter:
     avoid_classes_with_only_static_members: false
     directives_ordering: false
     prefer_double_quotes: true
-    flutter_style_todos: true
