@@ -180,40 +180,38 @@ class _ResultRowState extends State<ResultRow> {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 6),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () => setState(() {
-                showPreciseResult = !showPreciseResult;
-              }),
-              behavior: HitTestBehavior.translucent,
-              child: SizedBox(
-                height: 54,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (widget.leading != null) widget.leading!,
-                      Text(
-                        showPreciseResult ? widget.preciseResult : widget.result,
-                        overflow: TextOverflow.visible,
-                        softWrap: false,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ],
-                  ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () => setState(() {
+              showPreciseResult = !showPreciseResult;
+            }),
+            behavior: HitTestBehavior.translucent,
+            child: SizedBox(
+              height: 54,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (widget.leading != null) widget.leading!,
+                    Text(
+                      showPreciseResult ? widget.preciseResult : widget.result,
+                      overflow: TextOverflow.visible,
+                      softWrap: false,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ],
                 ),
               ),
             ),
-            const Divider(
-              thickness: 2,
-            ),
-          ],
-        ),
+          ),
+          const Divider(
+            thickness: 2,
+          ),
+        ],
       ),
     );
   }
@@ -242,17 +240,14 @@ class SubjectTile extends StatefulWidget {
 }
 
 class _SubjectTileState extends State<SubjectTile> {
+  late bool shouldShowcase;
+
   Future<void> showTutorial(BuildContext context) async {
-    if (widget.index1 != 2 ||
-        widget.subject.isChild ||
-        getCurrentYear().termTemplate.length < 3 ||
-        !getPreference<bool>("showcase_subject_edit", true)) {
-      return;
-    }
+    if (!shouldShowcase) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500), () {
-        if (!mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
+        if (!shouldShowcase || !mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
         ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
       });
     });
@@ -262,6 +257,10 @@ class _SubjectTileState extends State<SubjectTile> {
   Widget build(BuildContext context) {
     final String weightString = Calculator.format(widget.subject.weight, leadingZero: false, roundToOverride: 1);
 
+    shouldShowcase = widget.index1 == 1 &&
+        !widget.subject.isChild &&
+        getCurrentYear().termTemplate.length >= 3 &&
+        getPreference<bool>("showcase_subject_edit", true);
     showTutorial(context);
 
     return AnimatedPadding(
@@ -277,10 +276,7 @@ class _SubjectTileState extends State<SubjectTile> {
         enableEqualLongPress: true,
         leading: ReorderableDragStartListener(
           index: widget.reorderIndex,
-          child: (widget.index1 == 1 &&
-                  !widget.subject.isChild &&
-                  getCurrentYear().termTemplate.length >= 3 &&
-                  getPreference<bool>("showcase_subject_edit", true))
+          child: shouldShowcase
               ? Showcase(
                   key: showCaseKey1,
                   description: translations.showcase_tap_subject,

@@ -110,6 +110,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
             setPreference<bool>("showcase_subject_edit", false);
             rebuild();
           },
+          enableShowcase: getPreference<bool>("showcase_subject_edit", true),
           builder: Builder(
             builder: (context) {
               return SafeArea(

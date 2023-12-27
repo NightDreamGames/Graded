@@ -81,61 +81,63 @@ class _SubjectRouteState extends State<SubjectRoute> {
               SliverSafeArea(
                 top: false,
                 bottom: false,
-                sliver: ResultRow(
-                  result: widget.subject.getResult(),
-                  preciseResult: widget.subject.getResult(precise: true),
-                  leading: !widget.term.isYearOverview
-                      ? Row(
-                          children: [
-                            Builder(
-                              builder: (context) {
-                                final String textMax = "${translations.bonus} -9}";
-                                final String text = "${translations.bonus} ${widget.subject.bonus}";
+                sliver: SliverToBoxAdapter(
+                  child: ResultRow(
+                    result: widget.subject.getResult(),
+                    preciseResult: widget.subject.getResult(precise: true),
+                    leading: !widget.term.isYearOverview
+                        ? Row(
+                            children: [
+                              Builder(
+                                builder: (context) {
+                                  final String textMax = "${translations.bonus} -9}";
+                                  final String text = "${translations.bonus} ${widget.subject.bonus}";
 
-                                final Size tSize = calculateTextSize(
-                                  context: context,
-                                  text: textMax,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                );
-
-                                return SizedBox(
-                                  width: tSize.width,
-                                  child: Text(
-                                    text,
-                                    overflow: TextOverflow.visible,
-                                    softWrap: false,
+                                  final Size tSize = calculateTextSize(
+                                    context: context,
+                                    text: textMax,
                                     style: Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                );
-                              },
-                            ),
-                            const Padding(padding: EdgeInsets.only(left: 4)),
-                            IconButton(
-                              tooltip: translations.decrease,
-                              icon: const Icon(Icons.remove, size: 20),
-                              onPressed: () {
-                                widget.subject.changeBonus(-1);
-                                refreshYearOverview();
-                              },
-                              style: getTonalIconButtonStyle(context),
-                            ),
-                            IconButton(
-                              tooltip: translations.increase,
-                              icon: const Icon(Icons.add, size: 20),
-                              onPressed: () {
-                                widget.subject.changeBonus(1);
-                                refreshYearOverview();
-                              },
-                              style: getTonalIconButtonStyle(context),
-                            ),
-                          ],
-                        )
-                      : Text(
-                          translations.yearly_average,
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+                                  );
+
+                                  return SizedBox(
+                                    width: tSize.width,
+                                    child: Text(
+                                      text,
+                                      overflow: TextOverflow.visible,
+                                      softWrap: false,
+                                      style: Theme.of(context).textTheme.titleLarge,
+                                    ),
+                                  );
+                                },
+                              ),
+                              const Padding(padding: EdgeInsets.only(left: 4)),
+                              IconButton(
+                                tooltip: translations.decrease,
+                                icon: const Icon(Icons.remove, size: 20),
+                                onPressed: () {
+                                  widget.subject.changeBonus(-1);
+                                  refreshYearOverview();
+                                },
+                                style: getTonalIconButtonStyle(context),
+                              ),
+                              IconButton(
+                                tooltip: translations.increase,
+                                icon: const Icon(Icons.add, size: 20),
+                                onPressed: () {
+                                  widget.subject.changeBonus(1);
+                                  refreshYearOverview();
+                                },
+                                style: getTonalIconButtonStyle(context),
+                              ),
+                            ],
+                          )
+                        : Text(
+                            translations.yearly_average,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                  ),
                 ),
               ),
               SliverSafeArea(
