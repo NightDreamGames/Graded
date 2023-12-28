@@ -24,7 +24,6 @@ class TextRow extends StatelessWidget {
     this.leading,
     this.trailing,
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
-    this.listKey,
     this.onTap,
     this.onLongPress,
     this.isChild = false,
@@ -37,7 +36,6 @@ class TextRow extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final EdgeInsets padding;
-  final Key? listKey;
   final Function()? onTap;
   final Function()? onLongPress;
   final bool isChild;
@@ -48,7 +46,6 @@ class TextRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final Widget listTile = ListTile(
       horizontalTitleGap: horizontalTitleGap,
-      key: listKey,
       onTap: onTap,
       onLongPress: enableEqualLongPress ? onTap : onLongPress,
       contentPadding: padding,
@@ -221,7 +218,6 @@ class SubjectTile extends StatefulWidget {
   const SubjectTile({
     super.key,
     required this.subject,
-    required this.listKey,
     required this.index1,
     this.index2,
     required this.reorderIndex,
@@ -229,7 +225,6 @@ class SubjectTile extends StatefulWidget {
   });
 
   final Subject subject;
-  final GlobalKey listKey;
   final int index1;
   final int? index2;
   final int reorderIndex;
@@ -268,7 +263,6 @@ class _SubjectTileState extends State<SubjectTile> {
       curve: Easing.standard,
       padding: widget.subject.isChild ? const EdgeInsets.only(left: 16) : EdgeInsets.zero,
       child: TextRow(
-        listKey: widget.listKey,
         leadingText: widget.subject.name,
         trailingText: weightString == "0" && widget.subject.isGroup ? "" : weightString,
         padding: const EdgeInsets.only(left: 4, right: 24),
@@ -291,7 +285,7 @@ class _SubjectTileState extends State<SubjectTile> {
               : ReorderableHandle(target: widget),
         ),
         onTap: () async {
-          showMenuActions<MenuAction>(context, widget.listKey, MenuAction.values, [translations.edit, translations.delete]).then((result) {
+          showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
             switch (result) {
               case MenuAction.edit:
                 showSubjectDialog(

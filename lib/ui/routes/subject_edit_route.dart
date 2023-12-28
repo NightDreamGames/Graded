@@ -146,7 +146,6 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         SubjectTile(
           key: ValueKey(element),
           subject: element,
-          listKey: GlobalKey(),
           index1: i,
           reorderIndex: reorderIndex,
           onActionCompleted: rebuild,
@@ -159,7 +158,6 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
           SubjectTile(
             key: ValueKey(child),
             subject: child,
-            listKey: GlobalKey(),
             index1: i,
             index2: j,
             reorderIndex: reorderIndex,

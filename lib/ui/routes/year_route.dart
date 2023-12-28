@@ -78,48 +78,50 @@ class _YearRouteState extends State<YearRoute> {
                 itemCount: Manager.years.length,
                 itemBuilder: (context, index) {
                   final Year year = Manager.years[index];
-                  final GlobalKey key = GlobalKey();
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: Column(
-                      children: [
-                        Card(
-                          child: ListTile(
-                            key: key,
-                            title: Text(
-                              year.name,
-                              overflow: TextOverflow.fade,
-                              softWrap: false,
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                if (Manager.currentYear == index)
-                                  const Padding(
-                                    padding: EdgeInsets.only(right: 32),
-                                    child: Icon(Icons.check),
-                                  ),
-                                Text(
-                                  Calculator.format(year.result),
-                                  overflow: TextOverflow.visible,
+                  return Builder(
+                    builder: (context) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Column(
+                          children: [
+                            Card(
+                              child: ListTile(
+                                title: Text(
+                                  year.name,
+                                  overflow: TextOverflow.fade,
                                   softWrap: false,
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.normal,
-                                      ),
                                 ),
-                              ],
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    if (Manager.currentYear == index)
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 32),
+                                        child: Icon(Icons.check),
+                                      ),
+                                    Text(
+                                      Calculator.format(year.result),
+                                      overflow: TextOverflow.visible,
+                                      softWrap: false,
+                                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                onLongPress: () {
+                                  showPopupActions(context, index, year);
+                                },
+                                onTap: () {
+                                  showPopupActions(context, index, year);
+                                },
+                              ),
                             ),
-                            onLongPress: () {
-                              showPopupActions(context, key, index, year);
-                            },
-                            onTap: () {
-                              showPopupActions(context, key, index, year);
-                            },
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   );
                 },
               )
@@ -128,13 +130,8 @@ class _YearRouteState extends State<YearRoute> {
     );
   }
 
-  void showPopupActions(BuildContext context, GlobalKey key, int index, Year year) {
-    showMenuActions<YearAction>(
-      context,
-      key,
-      YearAction.values,
-      [translations.select, translations.edit, translations.delete],
-    ).then((result) {
+  void showPopupActions(BuildContext context, int index, Year year) {
+    showMenuActions<YearAction>(context, YearAction.values, [translations.select, translations.edit, translations.delete]).then((result) {
       switch (result) {
         case YearAction.select:
           Manager.changeYear(index);

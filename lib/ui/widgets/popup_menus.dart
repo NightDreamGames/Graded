@@ -107,11 +107,11 @@ class SettingsAction extends StatelessWidget {
   }
 }
 
-Future<T?> showMenuActions<T>(BuildContext context, GlobalKey listKey, List<T> actionsEnum, List<String> translations) async {
-  final RenderBox? box = listKey.currentContext?.findRenderObject() as RenderBox?;
+Future<T?> showMenuActions<T>(BuildContext context, List<T> actionsEnum, List<String> translations) async {
+  final RenderBox? box = context.findRenderObject() as RenderBox?;
   if (box == null) return Future.value();
 
-  final Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 2));
+  final Offset position = box.localToGlobal(Offset(box.size.width, box.size.height / 4));
 
   return showMenu(
     context: context,

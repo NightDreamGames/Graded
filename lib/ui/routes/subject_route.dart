@@ -146,26 +146,28 @@ class _SubjectRouteState extends State<SubjectRoute> {
                   delegate: SliverChildBuilderDelegate(
                     childCount: widget.subject.tests.length,
                     (context, index) {
-                      final GlobalKey listKey = GlobalKey();
-                      return TextRow(
-                        listKey: listKey,
-                        leadingText: widget.subject.tests[index].name,
-                        trailingText: widget.subject.tests[index].toString(),
-                        enableEqualLongPress: true,
-                        onTap: () async {
-                          if (widget.term.isYearOverview) return;
+                      return Builder(
+                        builder: (context) {
+                          return TextRow(
+                            leadingText: widget.subject.tests[index].name,
+                            trailingText: widget.subject.tests[index].toString(),
+                            enableEqualLongPress: true,
+                            onTap: () async {
+                              if (widget.term.isYearOverview) return;
 
-                          showMenuActions<MenuAction>(context, listKey, MenuAction.values, [translations.edit, translations.delete]).then((result) {
-                            switch (result) {
-                              case MenuAction.edit:
-                                showTestDialog(context, widget.subject, index: index).then((_) => refreshYearOverview());
-                              case MenuAction.delete:
-                                widget.subject.removeTest(index);
-                                refreshYearOverview();
-                              default:
-                                break;
-                            }
-                          });
+                              showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
+                                switch (result) {
+                                  case MenuAction.edit:
+                                    showTestDialog(context, widget.subject, index: index).then((_) => refreshYearOverview());
+                                  case MenuAction.delete:
+                                    widget.subject.removeTest(index);
+                                    refreshYearOverview();
+                                  default:
+                                    break;
+                                }
+                              });
+                            },
+                          );
                         },
                       );
                     },
