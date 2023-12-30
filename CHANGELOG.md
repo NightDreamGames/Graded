@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.3] - 2023-12-31
+
+### Bug fixing
+
+- Precise average showcase
+- Clear subjects when switching school systems in setup
+- Fix year editing dialog
+- Fix subject editing crashes
+- Only show subject copying popup when there is actual data to copy
+- Other minor optimisations and bugfixes
+
 ## [2.6.2] - 2023-12-22
 
 ### Minor changes and CI fixes
