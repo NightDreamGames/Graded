@@ -49,12 +49,8 @@ flutter:
         - asset: assets/fonts/montserrat/Montserrat-Regular.ttf
         - asset: assets/fonts/montserrat/Montserrat-Medium.ttf
           weight: 500
-        - asset: assets/fonts/montserrat/Montserrat-SemiBold.ttf
-          weight: 600
         - asset: assets/fonts/montserrat/Montserrat-Bold.ttf
           weight: 700
-        - asset: assets/fonts/montserrat/Montserrat-ExtraBold.ttf
-          weight: 800
         - asset: assets/fonts/montserrat/Montserrat-Black.ttf
           weight: 900
     - family: notosans
@@ -62,12 +58,8 @@ flutter:
         - asset: assets/fonts/notosans/NotoSans-Regular.ttf
         - asset: assets/fonts/notosans/NotoSans-Medium.ttf
           weight: 500
-        - asset: assets/fonts/notosans/NotoSans-SemiBold.ttf
-          weight: 600
         - asset: assets/fonts/notosans/NotoSans-Bold.ttf
           weight: 700
-        - asset: assets/fonts/notosans/NotoSans-ExtraBold.ttf
-          weight: 800
         - asset: assets/fonts/notosans/NotoSans-Black.ttf
           weight: 900
     - family: roboto
@@ -84,12 +76,8 @@ flutter:
         - asset: assets/fonts/sfpro/SF-Pro-Display-Regular.otf
         - asset: assets/fonts/sfpro/SF-Pro-Display-Medium.otf
           weight: 500
-        - asset: assets/fonts/sfpro/SF-Pro-Display-Semibold.otf
-          weight: 600
         - asset: assets/fonts/sfpro/SF-Pro-Display-Bold.otf
           weight: 700
-        - asset: assets/fonts/sfpro/SF-Pro-Display-Heavy.otf
-          weight: 800
         - asset: assets/fonts/sfpro/SF-Pro-Display-Black.otf
           weight: 900
   assets:
