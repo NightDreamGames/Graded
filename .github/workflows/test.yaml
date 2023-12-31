@@ -1,0 +1,33 @@
+# .github/workflows/test.yaml
+
+name: Run Flutter tests
+
+on:
+  push:
+    branches:
+      - "*"
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update submodule
+        run: git submodule update --remote --init --recursive
+
+      - name: Print Flutter version
+        run: .flutter/bin/flutter --version
+
+      - name: Install dependencies
+        run: .flutter/bin/flutter pub get
+
+      - name: Flutter analyze
+        run: .flutter/bin/flutter analyze
+
+      - name: Run tests
+        run: .flutter/bin/flutter test

@@ -1,0 +1,30 @@
+# .github/workflows/bump_submodule.yaml
+
+name: Bump Flutter submodule
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  bump_submodule:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Faucon"
+          git config --global user.email "49079695+FauconSpartiate@users.noreply.github.com"
+
+      - name: Bump Flutter submodule
+        run: |
+          git submodule update --remote
+          git add .flutter
+          git commit -m "Upgrade Flutter submodule"
+          git push
+
+      - name: Print Flutter version
+        run: .flutter/bin/flutter --version
