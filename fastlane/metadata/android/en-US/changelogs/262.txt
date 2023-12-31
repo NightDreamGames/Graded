@@ -1,0 +1,10 @@
+## [2.6.3] - 2023-12-31
+
+### Bug fixing
+
+- Precise average showcase
+- Clear subjects when switching school systems in setup
+- Fix year editing dialog
+- Fix subject editing crashes
+- Only show subject copying popup when there is actual data to copy
+- Other minor optimisations and bugfixes
