@@ -6,6 +6,8 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 
 // Package imports:
+import "package:device_info_plus/device_info_plus.dart";
+import "package:package_info_plus/package_info_plus.dart";
 import "package:url_launcher/url_launcher.dart";
 
 // Project imports:
@@ -24,18 +26,37 @@ final Uri appStoreUrl = Uri.parse("https://apps.apple.com/us/app/graded-suivi-de
 final Uri githubUrl = Uri.parse("https://github.com/NightDreamGames/Graded");
 final Uri issueUrl = Uri.parse("https://github.com/NightDreamGames/Graded/issues");
 final Uri translateUrl = Uri.parse("https://poeditor.com/join/project/6qnhP0EM5w");
-final Uri emailUrl = Uri(
-  scheme: "mailto",
-  path: "contact@nightdreamgames.com",
-  query: encodeQueryParameters(<String, String>{
-    "subject": "Graded feedback",
-    "body": "Thank you for your feedback!",
-  }),
-);
+
 final Uri twitterUrl = Uri.parse("https://twitter.com/nightdreamgames");
 final Uri instagramUrl = Uri.parse("https://www.instagram.com/graded.mobile");
 final Uri facebookUrl = Uri.parse("https://www.facebook.com/profile.php?id=61551463161459");
 final Uri linkedinUrl = Uri.parse("https://www.linkedin.com/company/nightdreamgames");
+
+Future<Uri> getEmailUrl() async {
+  final deviceInfo = DeviceInfoPlugin();
+  final packageInfo = await PackageInfo.fromPlatform();
+  String body = "\n\n\nYou can also open an issue on the Graded GitHub repository: github.com/NightDreamGames/Graded/issues\n\n";
+  body += "Please do not remove the following information:\n";
+  body += "App version: ${packageInfo.version} (${packageInfo.buildNumber})\n";
+
+  if (isAndroid) {
+    final androidInfo = await deviceInfo.androidInfo;
+    body +=
+        "Device: ${androidInfo.model} (${androidInfo.device})\nAndroid version: ${androidInfo.version.release} (${androidInfo.version.sdkInt})\nDisplay: ${androidInfo.displayMetrics.widthPx.toInt()}x${androidInfo.displayMetrics.heightPx.toInt()}px";
+  } else if (isiOS) {
+    final iosInfo = await deviceInfo.iosInfo;
+    body += "Device: ${iosInfo.model} (${iosInfo.name})\niOS version: ${iosInfo.systemVersion}";
+  }
+
+  return Uri(
+    scheme: "mailto",
+    path: "contact@nightdreamgames.com",
+    query: encodeQueryParameters(<String, String>{
+      "subject": "Graded feedback",
+      "body": body,
+    }),
+  );
+}
 
 Future<void> launchURL(Link type) async {
   Uri link = websiteUrl;
@@ -59,7 +80,7 @@ Future<void> launchURL(Link type) async {
     case Link.translate:
       link = translateUrl;
     case Link.email:
-      link = emailUrl;
+      link = await getEmailUrl();
 
     //Socials
     case Link.twitter:
