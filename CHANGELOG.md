@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add support for per-app language
 - Specify language region for english
 - UI fixes for longer strings
+- Fix crash on old iOS versions
 - Fix CI changelog upload
 - Other minor optimisations and bugfixes
 
