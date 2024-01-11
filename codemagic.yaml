@@ -68,11 +68,14 @@ workflows:
           failure: true
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: "internal"
-        submit_as_draft: false
+        track: internal
+        release_promotion:
+          track: alpha
       app_store_connect:
         auth: integration
-        submit_to_testflight: false
+        submit_to_testflight: true
+        beta_groups:
+          - External testers
         submit_to_app_store: false
     cache:
       cache_paths:
@@ -193,11 +196,14 @@ workflows:
       <<: *base_publishing
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
-        track: production
-        submit_as_draft: false
+        track: internal
+        release_promotion:
+          track: production
       app_store_connect:
         auth: integration
-        submit_to_testflight: false
+        submit_to_testflight: true
+        beta_groups:
+          - External testers
         submit_to_app_store: true
         cancel_previous_submissions: true
         release_type: AFTER_APPROVAL
