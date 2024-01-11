@@ -183,7 +183,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             icon: CustomIcons.graded,
                             title: translations.app_version,
                             subtitle: snapshot.data ?? translations.error,
-                            onTap: () => launchURL(Link.store),
+                            onTap: () => launchURL(Link.appstore),
                           );
                         },
                         future: PackageInfo.fromPlatform().then((PackageInfo packageInfo) {

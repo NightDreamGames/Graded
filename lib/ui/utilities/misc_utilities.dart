@@ -12,7 +12,7 @@ import "package:url_launcher/url_launcher.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/localization/translations.dart";
 
-enum Link { website, store, github, email, issueTracker, translate, twitter, instagram, linkedin, facebook }
+enum Link { website, appstore, github, email, issueTracker, translate, twitter, instagram, linkedin, facebook }
 
 String? encodeQueryParameters(Map<String, String> params) {
   return params.entries.map((MapEntry<String, String> e) => "${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}").join("&");
@@ -41,9 +41,10 @@ Future<void> launchURL(Link type) async {
   Uri link = websiteUrl;
 
   switch (type) {
+    //Links
     case Link.website:
       link = websiteUrl;
-    case Link.store:
+    case Link.appstore:
       if (isAndroid) {
         link = playStoreUrl;
       } else if (isiOS) {
@@ -60,6 +61,7 @@ Future<void> launchURL(Link type) async {
     case Link.email:
       link = emailUrl;
 
+    //Socials
     case Link.twitter:
       link = twitterUrl;
     case Link.instagram:
@@ -70,10 +72,7 @@ Future<void> launchURL(Link type) async {
       link = linkedinUrl;
   }
 
-  if (!await launchUrl(
-    link,
-    mode: LaunchMode.externalApplication,
-  )) {
+  if (!await launchUrl(link, mode: LaunchMode.externalApplication)) {
     throw "Error while opening link: $link";
   }
 }
