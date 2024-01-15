@@ -21,7 +21,7 @@ jobs:
 
       - name: Bump Flutter submodule
         run: |
-          git submodule update --remote
+          git submodule update --remote --init
           git add .flutter
           git commit -m "Upgrade Flutter submodule"
           git push
