@@ -96,7 +96,7 @@ jobs:
           git push
 
   build:
-    needs: prepare_release
+    needs: [prepare_release, bump_submodule]
     runs-on: macos-latest
     steps:
       - name: Get packages
