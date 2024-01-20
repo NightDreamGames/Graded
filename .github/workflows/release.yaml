@@ -41,11 +41,6 @@ jobs:
 
           echo -e "$fullVersion\n BUILD_NAME: $BUILD_NAME\n BUILD_NUMBER: $BUILD_NUMBER\n RELEASE_CHANNEL: $RELEASE_CHANNEL"
 
-      - name: Test
-        run: |
-          echo $BUILD_NAME
-          echo ${{ env.BUILD_NAME }}
-
       - name: Check if version is used
         run: |
           if [ $(git tag -l "${{ env.BUILD_NAME }}") ]; then
@@ -104,8 +99,10 @@ jobs:
     needs: [prepare_release, bump_submodule, test]
     runs-on: macos-latest
     steps:
-      - name: Get submodule
-        run: git submodule update --init --recursive
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Get packages
         run: .flutter/bin/flutter pub get
