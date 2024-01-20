@@ -35,7 +35,7 @@ jobs:
           echo "BUILD_NUMBER=$((${{ github.run_number }} + 500))" >> $GITHUB_ENV
           echo "RELEASE_CHANNEL=${{ github.event.inputs.channel }}" >> $GITHUB_ENV
 
-          echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
+          echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1
           echo $BUILD_NAME
           echo ${{ env.BUILD_NAME }}
 
@@ -90,10 +90,10 @@ jobs:
 
       - name: Commit changes
         run: |
-          git add fastlane/metadata/android
-          git add pubspec.yaml
-          git commit -m "Versioning changes for ${{ env.BUILD_NAME }}"
-          git push
+          #git add fastlane/metadata/android
+          #git add pubspec.yaml
+          #git commit -m "Versioning changes for ${{ env.BUILD_NAME }}"
+          #git push
 
   build:
     needs: [prepare_release, bump_submodule, test]
