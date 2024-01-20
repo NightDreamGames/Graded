@@ -51,9 +51,9 @@ jobs:
           # Get the release changelog
           changelog_file="CHANGELOG.md"
           CHANGELOG=$(sed -n "/\[${{ env.BUILD_NAME }}\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d' | sed '$s/\\n$//')
-          echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
+          # echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
           STRIPPED_CHANGELOG=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//; $s/\\n$//')
-          echo "STRIPPED_CHANGELOG=$STRIPPED_CHANGELOG" >> $GITHUB_ENV
+          # echo "STRIPPED_CHANGELOG=$STRIPPED_CHANGELOG" >> $GITHUB_ENV
 
           if [[ -z "$STRIPPED_CHANGELOG" ]]; then
             echo "Changelog not found for version ${{ env.BUILD_NAME }}."
