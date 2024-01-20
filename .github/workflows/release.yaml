@@ -35,10 +35,11 @@ jobs:
           echo "BUILD_NUMBER=$((${{ github.run_number }} + 500))" >> $GITHUB_ENV
           echo "RELEASE_CHANNEL=${{ github.event.inputs.channel }}" >> $GITHUB_ENV
 
+          echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
           echo $BUILD_NAME
           echo ${{ env.BUILD_NAME }}
 
-          echo -e "$fullVersion BUILD_NAME: ${{ env.BUILD_NAME }}\n BUILD_NUMBER: ${{ env.BUILD_NUMBER }}\n RELEASE_CHANNEL: ${{ env.RELEASE_CHANNEL }}"
+          echo -e "$fullVersion\n BUILD_NAME: ${{ env.BUILD_NAME }}\n BUILD_NUMBER: ${{ env.BUILD_NUMBER }}\n RELEASE_CHANNEL: ${{ env.RELEASE_CHANNEL }}"
 
       - name: Check if version is used
         run: |
