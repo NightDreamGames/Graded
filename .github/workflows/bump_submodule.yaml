@@ -23,8 +23,10 @@ jobs:
         run: |
           git submodule update --remote --init
           git add .flutter
-          git commit -m "Upgrade Flutter submodule"
-          git push
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Upgrade Flutter submodule"
+            git push origin main
+          fi
 
       - name: Print Flutter version
         run: .flutter/bin/flutter --version
