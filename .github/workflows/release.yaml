@@ -1,0 +1,151 @@
+# .github/workflows/release.yaml
+
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Release channel: prod, beta, or alpha"
+        required: true
+        default: "prod"
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yaml
+
+  bump_submodule:
+    uses: ./.github/workflows/bump_submodule.yaml
+
+  prepare_release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "49079695+FauconSpartiate@users.noreply.github.com"
+          git config --global user.name "Faucon"
+
+      - name: Set environment variables
+        run: |
+          fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
+          echo "BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=${{ github.run_number + 246 }}" >> $GITHUB_ENV
+          echo "RELEASE_CHANNEL=${{ github.event.inputs.channel }}" >> $GITHUB_ENV
+
+          echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
+
+      - name: Check if version is used
+        run: |
+          if [ $(git tag -l "$BUILD_NAME") ]; then
+              echo "Version $BUILD_NAME already exists"
+              exit 1
+          fi
+
+      - name: Update Changelog
+        run: |
+          changelog_file="CHANGELOG.md"
+
+          # Get the release changelog
+          changelog_file="CHANGELOG.md"
+          CHANGELOG=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d' | sed '$s/\\n$//')
+          echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
+          STRIPPED_CHANGELOG=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//; $s/\\n$//')
+          echo "STRIPPED_CHANGELOG=$STRIPPED_CHANGELOG" >> $GITHUB_ENV
+
+          echo -e "$CHANGELOG"
+          echo -e "$STRIPPED_CHANGELOG"
+
+          if [[ -z "$STRIPPED_CHANGELOG" ]]; then
+            echo "Changelog not found for version $BUILD_NAME."
+            exit 1
+          fi
+
+          if [ ${#STRIPPED_CHANGELOG} -gt 500 ]; then
+            echo "Changelog length greater than 500 characters."
+            exit 1
+          fi
+
+          echo "$CHANGELOG" > "fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt"
+
+          # Insert the changelog entry before the previous version
+          awk -v BUILD_NAME="$BUILD_NAME" -v CHANGELOG="$CHANGELOG" '
+            /^## \[/{ if (!printed) { print CHANGELOG; printed=1 } }
+            { print }
+          ' $changelog_file > $changelog_file.new && mv $changelog_file.new $changelog_file
+
+          echo "$CHANGELOG" > changelog.txt
+          echo "$STRIPPED_CHANGELOG" > stripped_changelog.txt
+
+          echo "$CHANGELOG"
+          echo
+          echo "$STRIPPED_CHANGELOG"
+
+      - name: Update version in pubspec.yaml
+        run: |
+          perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($BUILD_NUMBER)/e' pubspec.yaml
+
+      - name: Commit changes
+        run: |
+          git add fastlane/metadata/android
+          git add pubspec.yaml
+          git commit -m "Versioning changes for ${BUILD_NAME}"
+          git push
+
+  build:
+    needs: prepare_release
+    runs-on: macos-latest
+    steps:
+      - name: Get packages
+        run: .flutter/bin/flutter pub get
+
+      - name: Build APK
+        run: .flutter/bin/flutter build apk --release
+
+      - name: Build AAB
+        run: .flutter/bin/flutter build appbundle --release
+
+      - name: Build IPA
+        run: .flutter/bin/flutter build ios --release
+
+      - name: Prepare artifacts
+        run: |
+          cp build/app/outputs/apk/release/app-release.apk artifacts/graded-${BUILD_NAME}.apk
+          cp build/app/outputs/bundle/release/app-release.aab artifacts/graded-${BUILD_NAME}.aab
+          cp build/ios/ipa/Graded.ipa artifacts/graded-${BUILD_NAME}.ipa
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            - artifacts/graded-${BUILD_NAME}.aab
+            - artifacts/graded-${BUILD_NAME}.apk
+            - build/**/outputs/**/mapping.txt
+            - artifacts/graded-${BUILD_NAME}.ipa
+            - /tmp/xcodebuild_logs/*.log
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "artifacts/graded-${BUILD_NAME}.apk, artifacts/graded-${BUILD_NAME}.ipa"
+          bodyFile: "changelog.txt"
+          name: "${BUILD_NAME}"
+          tag: "${BUILD_NAME}"
+          draft: true
+          commit: master
+
+      - name: Publish to Google Play
+        run: |
+          # Logic to publish to Google Play
+
+      - name: Publish to App Store
+        run: |
+          # Logic to publish to the App Store
