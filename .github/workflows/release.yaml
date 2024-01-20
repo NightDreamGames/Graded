@@ -35,9 +35,9 @@ jobs:
           BUILD_NUMBER=$((${{ github.run_number }} + 500))
           RELEASE_CHANNEL=${{ github.event.inputs.channel }}
 
-          echo $BUILD_NAME >> $GITHUB_ENV
-          echo $BUILD_NUMBER >> $GITHUB_ENV
-          echo $RELEASE_CHANNEL >> $GITHUB_ENV
+          echo "BUILD_NAME=$BUILD_NAME" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
+          echo "RELEASE_CHANNEL=$RELEASE_CHANNEL" >> $GITHUB_ENV
 
           echo -e "$fullVersion\n BUILD_NAME: $BUILD_NAME\n BUILD_NUMBER: $BUILD_NUMBER\n RELEASE_CHANNEL: $RELEASE_CHANNEL"
 
