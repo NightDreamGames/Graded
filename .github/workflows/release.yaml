@@ -32,10 +32,13 @@ jobs:
         run: |
           fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
           echo "BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)" >> $GITHUB_ENV
-          echo "BUILD_NUMBER=$((${{ github.run_number }} + 246))" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$((${{ github.run_number }} + 500))" >> $GITHUB_ENV
           echo "RELEASE_CHANNEL=${{ github.event.inputs.channel }}" >> $GITHUB_ENV
 
-          echo "$fullVersion BUILD_NAME: ${{ env.BUILD_NAME }}\n BUILD_NUMBER: ${{ env.BUILD_NUMBER }}\n RELEASE_CHANNEL: ${{ env.RELEASE_CHANNEL }}"
+          echo $BUILD_NAME
+          echo ${{ env.BUILD_NAME }}
+
+          echo -e "$fullVersion BUILD_NAME: ${{ env.BUILD_NAME }}\n BUILD_NUMBER: ${{ env.BUILD_NUMBER }}\n RELEASE_CHANNEL: ${{ env.RELEASE_CHANNEL }}"
 
       - name: Check if version is used
         run: |
@@ -95,6 +98,9 @@ jobs:
     needs: [prepare_release, bump_submodule, test]
     runs-on: macos-latest
     steps:
+      - name: Get submodule
+        run: git submodule update --init --recursive
+
       - name: Get packages
         run: .flutter/bin/flutter pub get
 
