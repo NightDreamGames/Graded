@@ -33,7 +33,7 @@ jobs:
         run: |
           fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
           echo "BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)" >> $GITHUB_ENV
-          echo "BUILD_NUMBER=${{ github.run_number + 246 }}" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$((${{ github.run_number }} + 246))" >> $GITHUB_ENV
           echo "RELEASE_CHANNEL=${{ github.event.inputs.channel }}" >> $GITHUB_ENV
 
           echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
