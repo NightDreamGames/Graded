@@ -105,6 +105,13 @@ jobs:
       - name: Get submodule
         run: git submodule update --init --recursive
 
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "17"
+          java-package: jdk
+
       - name: Get packages
         run: .flutter/bin/flutter pub get
 
