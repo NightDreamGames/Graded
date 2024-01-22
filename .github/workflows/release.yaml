@@ -96,7 +96,7 @@ jobs:
           #git push
 
   build:
-    needs: [prepare_release, bump_submodule, test]
+    needs: [prepare_release, bump_submodule]
     runs-on: macos-latest
     steps:
       - name: Checkout repository
@@ -142,7 +142,7 @@ jobs:
             - /tmp/xcodebuild_logs/*.log
 
   publish:
-    needs: build
+    needs: [build, test]
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub Release
