@@ -80,6 +80,7 @@ class _SubjectEditRouteState extends State<SubjectEditRoute> {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         floatingActionButton: FloatingActionButton(
           tooltip: translations.add_subjectOne,
           onPressed: () {

@@ -51,6 +51,7 @@ class _YearRouteState extends State<YearRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
         tooltip: translations.add_year,
         onPressed: () {

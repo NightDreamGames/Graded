@@ -70,6 +70,7 @@ class _SetupPageState extends State<SetupPage> {
         SetupManager.dispose();
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         floatingActionButton: () {
           if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
               getPreference<String>("school_system") == "other") {

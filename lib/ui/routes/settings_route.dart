@@ -53,6 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: CustomScrollView(
         primary: true,
         slivers: [

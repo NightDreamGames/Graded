@@ -124,6 +124,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
     });
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PlatformWillPopScope(
         canPop: canPop,
         onPopInvoked: (didPop) {

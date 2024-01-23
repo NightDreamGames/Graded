@@ -55,6 +55,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: !widget.term.isYearOverview
           ? FloatingActionButton(
               tooltip: translations.add_test,
