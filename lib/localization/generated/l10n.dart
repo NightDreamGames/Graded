@@ -690,6 +690,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Haptic feedback`
+  String get haptic_feedback {
+    return Intl.message(
+      'Haptic feedback',
+      name: 'haptic_feedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable vibrations`
+  String get haptic_feedback_description {
+    return Intl.message(
+      'Enable vibrations',
+      name: 'haptic_feedback_description',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Help translate`
   String get help_translate {
     return Intl.message(

@@ -97,6 +97,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "group": MessageLookupByLibrary.simpleMessage("Group"),
         "half_down": MessageLookupByLibrary.simpleMessage("Half down"),
         "half_up": MessageLookupByLibrary.simpleMessage("Half up"),
+        "haptic_feedback":
+            MessageLookupByLibrary.simpleMessage("Haptic feedback"),
+        "haptic_feedback_description":
+            MessageLookupByLibrary.simpleMessage("Enable vibrations"),
         "help_translate":
             MessageLookupByLibrary.simpleMessage("Help translate"),
         "help_translate_description": MessageLookupByLibrary.simpleMessage(
