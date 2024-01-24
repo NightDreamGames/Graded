@@ -12,6 +12,7 @@ import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/routes/home_route.dart";
 import "package:graded/ui/routes/subject_route.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/widgets/better_app_bar.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/popup_menus.dart";
@@ -75,6 +76,8 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Manager.deserializationError) {
+        heavyHaptics();
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(translations.storage_error),

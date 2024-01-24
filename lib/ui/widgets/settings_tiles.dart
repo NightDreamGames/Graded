@@ -9,6 +9,7 @@ import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 
 List<Widget> getSettingsTiles(BuildContext context, {required CreationType type, Function()? onChanged}) {
@@ -136,6 +137,8 @@ class ImportSettingsTile extends StatelessWidget {
       title: translations.import_,
       subtitle: translations.import_description,
       onTap: () => importData().then((success) {
+        if (!success) heavyHaptics();
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(success ? translations.import_success : translations.import_error),

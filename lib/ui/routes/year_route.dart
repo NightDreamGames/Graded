@@ -8,6 +8,7 @@ import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/main.dart";
 import "package:graded/misc/enums.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/easy_form_field.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
@@ -135,6 +136,7 @@ class _YearRouteState extends State<YearRoute> {
     showMenuActions<YearAction>(context, YearAction.values, [translations.select, translations.edit, translations.delete]).then((result) {
       switch (result) {
         case YearAction.select:
+          heavyHaptics();
           Manager.changeYear(index);
           Navigator.pushAndRemoveUntil(context, createRoute(const RouteSettings(name: "/")), (_) => false);
         case YearAction.edit:
@@ -163,6 +165,8 @@ class _YearRouteState extends State<YearRoute> {
             rebuild();
           });
         case YearAction.delete:
+          heavyHaptics();
+
           Manager.years.removeAt(index);
 
           if (Manager.years.isEmpty) {

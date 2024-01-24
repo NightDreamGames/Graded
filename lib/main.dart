@@ -25,6 +25,7 @@ import "package:graded/ui/routes/subject_edit_route.dart";
 import "package:graded/ui/routes/year_route.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/app_theme.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 
 final GlobalKey appContainerKey = GlobalKey();
@@ -95,7 +96,10 @@ class _AppContainerState extends State<AppContainer> {
             locale: provider.locale,
             debugShowCheckedModeBanner: false,
             initialRoute: widget.initialRoute,
-            onGenerateRoute: createRoute,
+            onGenerateRoute: (RouteSettings settings) {
+              lightHaptics();
+              return createRoute(settings);
+            },
             onGenerateInitialRoutes: (initialRoute) {
               Manager.init();
 

@@ -151,6 +151,13 @@ class _SettingsPageState extends State<SettingsPage> {
                         selected: DefaultValues.font,
                         onChange: (_) => rebuildAppContainer(),
                       ),
+                      SwitchSettingsTile(
+                        icon: Icons.vibration,
+                        title: translations.haptic_feedback,
+                        settingKey: "haptic_feedback",
+                        subtitle: translations.haptic_feedback_description,
+                        defaultValue: DefaultValues.hapticFeedback,
+                      ),
                       RadioModalSettingsTile<String>(
                         title: translations.language,
                         icon: Icons.language,

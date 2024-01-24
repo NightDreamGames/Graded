@@ -10,9 +10,10 @@ import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/app_theme.dart";
 import "package:graded/ui/utilities/custom_icons.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 
-class EasyBottomSheet extends StatelessWidget {
+class EasyBottomSheet extends StatefulWidget {
   final String title;
   final IconData? icon;
   final Widget child;
@@ -29,6 +30,17 @@ class EasyBottomSheet extends StatelessWidget {
   });
 
   @override
+  State<EasyBottomSheet> createState() => _EasyBottomSheetState();
+}
+
+class _EasyBottomSheetState extends State<EasyBottomSheet> {
+  @override
+  void initState() {
+    super.initState();
+    lightHaptics();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
@@ -39,12 +51,12 @@ class EasyBottomSheet extends StatelessWidget {
             child: Column(
               children: [
                 Icon(
-                  icon,
+                  widget.icon,
                   size: 32,
                 ),
                 const Padding(padding: EdgeInsets.only(top: 8, bottom: 8)),
                 Text(
-                  title,
+                  widget.title,
                   style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
@@ -54,7 +66,7 @@ class EasyBottomSheet extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, top: 16, bottom: 32),
-            child: child,
+            child: widget.child,
           ),
         ],
       ),
@@ -111,6 +123,8 @@ class ColorBottomSheet extends StatelessWidget {
               ),
             ),
             onTap: () {
+              lightHaptics();
+
               Color selectedColor = Color(getPreference<int>("custom_color"));
 
               ColorPicker(

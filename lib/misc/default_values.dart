@@ -39,6 +39,7 @@ class DefaultValues {
   static const int customColor = 0xFF2196f3;
   static const String font = "montserrat";
   static const String language = "system";
+  static const bool hapticFeedback = true;
 }
 
 const Map<String, dynamic> defaultValues = {
@@ -79,4 +80,5 @@ const Map<String, dynamic> defaultValues = {
   "custom_color": 0xFF2196f3,
   "font": "montserrat",
   "language": "system",
+  "haptic_feedback": true,
 };

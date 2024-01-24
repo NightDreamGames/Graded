@@ -10,6 +10,7 @@ import "package:graded/localization/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/hints.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/easy_form_field.dart";
@@ -39,6 +40,12 @@ class EasyDialog extends StatefulWidget {
 }
 
 class EasyDialogState extends State<EasyDialog> {
+  @override
+  void initState() {
+    super.initState();
+    lightHaptics();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -96,6 +103,7 @@ class EasyDialogState extends State<EasyDialog> {
 
       if (isValid) {
         state?.save();
+        lightHaptics();
         return true;
       }
 
@@ -135,6 +143,7 @@ Future<void> showResetConfirmDialog(BuildContext context) {
         icon: Icons.clear_all,
         action: translations.confirm,
         onConfirm: () {
+          heavyHaptics();
           Manager.clearTests();
           Navigator.pop(context);
           return true;

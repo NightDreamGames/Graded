@@ -7,6 +7,7 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
@@ -116,6 +117,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                                 tooltip: translations.decrease,
                                 icon: const Icon(Icons.remove, size: 20),
                                 onPressed: () {
+                                  lightHaptics();
                                   widget.subject.changeBonus(-1);
                                   refreshYearOverview();
                                 },
@@ -125,6 +127,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                                 tooltip: translations.increase,
                                 icon: const Icon(Icons.add, size: 20),
                                 onPressed: () {
+                                  lightHaptics();
                                   widget.subject.changeBonus(1);
                                   refreshYearOverview();
                                 },
@@ -161,6 +164,7 @@ class _SubjectRouteState extends State<SubjectRoute> {
                                   case MenuAction.edit:
                                     showTestDialog(context, widget.subject, index: index).then((_) => refreshYearOverview());
                                   case MenuAction.delete:
+                                    heavyHaptics();
                                     widget.subject.removeTest(index);
                                     refreshYearOverview();
                                   default:

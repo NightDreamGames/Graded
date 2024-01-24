@@ -13,6 +13,7 @@ import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/routes/subject_edit_route.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/popup_menus.dart";
 
@@ -148,6 +149,7 @@ class _GroupRowState extends State<GroupRow> {
             setState(() {
               _isExpanded = value;
             });
+            lightHaptics();
           },
           children: widget.children,
         ),
@@ -294,6 +296,8 @@ class _SubjectTileState extends State<SubjectTile> {
                   index2: widget.subject.isChild ? widget.index2 : null,
                 ).then((_) => widget.onActionCompleted?.call());
               case MenuAction.delete:
+                heavyHaptics();
+
                 final parent = getCurrentYear().termTemplate[widget.index1];
                 Manager.sortAll(
                   sortModeOverride: SortMode.name,
@@ -344,6 +348,9 @@ class ReorderableHandle extends StatelessWidget {
       icon: const Icon(Icons.drag_handle),
       onPressed: () {
         if (target.index1 == 0 && !target.subject.isChild) return;
+
+        lightHaptics();
+
         final List<List<Subject>> lists = [getCurrentYear().termTemplate];
         for (final Term term in getCurrentYear().terms) {
           lists.add(term.subjects);

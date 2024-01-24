@@ -9,6 +9,7 @@ import "package:graded/localization/translations.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/settings/src/utils/widget_utils.dart";
+import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/easy_form_field.dart";
 
@@ -730,6 +731,7 @@ class SwitchSettingsTile extends StatelessWidget {
     if (value == null) return;
     onChanged(value);
     onChange?.call(value);
+    lightHaptics();
   }
 
   String getSubtitle({required bool enabled}) {
