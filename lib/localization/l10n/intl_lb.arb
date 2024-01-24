@@ -99,6 +99,8 @@
         "description": "Rounding half up",
         "type": "text"
     },
+    "haptic_feedback": "Hapteschen Feedback",
+    "haptic_feedback_description": "Vibratiounen aktivéieren",
     "help_translate": "Iwwersetzen hëllefen",
     "help_translate_description": "Korrigéier Iwwersetzungsfeeler oder lokaliséier de Projet an denger Sprooch",
     "import_": "Importéieren",
