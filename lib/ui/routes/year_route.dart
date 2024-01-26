@@ -145,6 +145,7 @@ class _YearRouteState extends State<YearRoute> {
 
           showDialog(
             context: context,
+            useSafeArea: false,
             builder: (context) {
               final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
 

@@ -48,38 +48,48 @@ class EasyDialogState extends State<EasyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: AlertDialog(
-        actionsPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
-        contentPadding: EdgeInsets.only(left: 24, top: 16, right: 24, bottom: widget.bottomPadding),
-        semanticLabel: widget.title,
-        title: Text(widget.title),
-        scrollable: true,
-        icon: widget.icon != null ? Icon(widget.icon) : null,
-        elevation: 3,
-        actions: [
-          TextButton(
-            onPressed: () {
-              widget.onCancel?.call();
-              _disposeDialog(context);
-            },
-            child: Text(
-              translations.cancel,
+    return SafeArea(
+      bottom: false,
+      child: MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          padding: MediaQuery.paddingOf(context).copyWith(
+            bottom: MediaQuery.viewPaddingOf(context).bottom,
+          ),
+        ),
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: AlertDialog(
+            actionsPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 20),
+            contentPadding: EdgeInsets.only(left: 24, top: 16, right: 24, bottom: widget.bottomPadding),
+            semanticLabel: widget.title,
+            title: Text(widget.title),
+            scrollable: true,
+            icon: widget.icon != null ? Icon(widget.icon) : null,
+            elevation: 3,
+            actions: [
+              TextButton(
+                onPressed: () {
+                  widget.onCancel?.call();
+                  _disposeDialog(context);
+                },
+                child: Text(
+                  translations.cancel,
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  submit();
+                },
+                child: Text(
+                  widget.action ?? translations.save,
+                ),
+              ),
+            ],
+            content: Form(
+              key: formKey,
+              child: widget.child,
             ),
           ),
-          TextButton(
-            onPressed: () async {
-              submit();
-            },
-            child: Text(
-              widget.action ?? translations.save,
-            ),
-          ),
-        ],
-        content: Form(
-          key: formKey,
-          child: widget.child,
         ),
       ),
     );
@@ -125,6 +135,7 @@ class EasyDialogState extends State<EasyDialog> {
 Future<void> showTestDialog(BuildContext context, Subject subject, {int? index}) {
   return showDialog(
     context: context,
+    useSafeArea: false,
     builder: (context) {
       return TestDialog(
         subject: subject,
@@ -137,6 +148,7 @@ Future<void> showTestDialog(BuildContext context, Subject subject, {int? index})
 Future<void> showResetConfirmDialog(BuildContext context) {
   return showDialog(
     context: context,
+    useSafeArea: false,
     builder: (context) {
       return EasyDialog(
         title: translations.confirm,
@@ -373,6 +385,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
 Future<void> showSubjectDialog(BuildContext context, {int? index1, int? index2}) {
   return showDialog(
     context: context,
+    useSafeArea: false,
     builder: (context) {
       return SubjectDialog(index1: index1, index2: index2);
     },

@@ -452,6 +452,7 @@ class _ModalSettingsTileState extends State<_ModalSettingsTile> {
   void _showWidget(BuildContext context, Widget child) {
     showDialog(
       context: context,
+      useSafeArea: false,
       builder: (dialogContext) {
         return EasyDialog(
           title: widget.title,
