@@ -144,11 +144,23 @@ workflows:
             echo "$stripped_changelog" > ${file}
           done
 
-          echo "$CHANGELOG" > changelog.txt
+          last_release=$(gh release view --json tagName -q '.tagName')
+
+          changelog_gh=$CHANGELOG
+
+          if [[ -z "$last_release" ]]; then
+            echo "No previous release found."
+          else
+            changelog_gh+=$"\n\nFull changelog: https://github.com/NightDreamGames/Graded/compare/${last_release}...${BUILD_NAME}"
+          fi
+
+          echo "$changelog_gh" > changelog_gh.txt
 
           echo "$CHANGELOG"
           echo
           echo "$stripped_changelog"
+          echo
+          echo "$changelog_gh"
       - name: Commit versioning changes
         script: |
           gh auth setup-git
@@ -182,14 +194,14 @@ workflows:
         script: |
           #!/usr/bin/env zsh
 
-          cat changelog.txt
+          cat changelog_gh.txt
 
           mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
           mv build/ios/ipa/Graded.ipa build/ios/ipa/graded-${BUILD_NAME}.ipa
 
           gh release create "${BUILD_NAME}" \
             --title "${BUILD_NAME}" \
-            --notes-file changelog.txt \
+            --notes-file changelog_gh.txt \
             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
             build/ios/ipa/graded-${BUILD_NAME}.ipa
     publishing:
