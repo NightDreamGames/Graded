@@ -151,7 +151,7 @@ workflows:
           if [[ -z "$last_release" ]]; then
             echo "No previous release found."
           else
-            changelog_gh+=$"\n\nFull changelog: https://github.com/NightDreamGames/Graded/compare/${last_release}...${BUILD_NAME}"
+            changelog_gh+=$"\n\n#### Full changelog: https://github.com/NightDreamGames/Graded/compare/${last_release}...${BUILD_NAME}"
           fi
 
           echo "$changelog_gh" > changelog_gh.txt
