@@ -416,6 +416,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
 
   late final CreationType action;
   late final Subject subject;
+  bool confirmed = false;
 
   @override
   void initState() {
@@ -461,6 +462,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
         }
 
         Manager.calculate();
+        confirmed = true;
         return true;
       },
       child: Column(
@@ -473,6 +475,8 @@ class _SubjectDialogState extends State<SubjectDialog> {
             hint: getHint(translations.subjectOne, getCurrentYear().termTemplate),
             textInputAction: TextInputAction.next,
             additionalValidator: (newValue) {
+              if (confirmed) return null;
+
               final bool isDuplicate = getCurrentYear().termTemplate.any((element) {
                 final bool isParent = element == subject;
                 final bool isChild = element.children.contains(subject);
