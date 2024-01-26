@@ -9,6 +9,7 @@ import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/widgets/custom_safe_area.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
@@ -108,8 +109,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    SliverSafeArea(
+                    CustomSliverSafeArea(
                       top: false,
+                      maintainBottomViewPadding: true,
                       sliver: SliverList(
                         delegate: SliverChildBuilderDelegate(
                           childCount: widget.term.subjects.length,

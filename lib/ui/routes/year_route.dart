@@ -73,6 +73,7 @@ class _YearRouteState extends State<YearRoute> {
       ),
       body: SafeArea(
         top: false,
+        maintainBottomViewPadding: true,
         child: Manager.years.isNotEmpty
             ? ListView.builder(
                 padding: const EdgeInsets.only(bottom: 88),

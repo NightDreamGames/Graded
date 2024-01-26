@@ -44,6 +44,7 @@ class _EasyBottomSheetState extends State<EasyBottomSheet> {
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
+      maintainBottomViewPadding: true,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

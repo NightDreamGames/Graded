@@ -19,6 +19,7 @@ import "package:graded/ui/utilities/custom_icons.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/better_app_bar.dart";
 import "package:graded/ui/widgets/bottom_sheets.dart";
+import "package:graded/ui/widgets/custom_safe_area.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/settings_tiles.dart";
@@ -62,8 +63,9 @@ class _SettingsPageState extends State<SettingsPage> {
               title: translations.settings,
             ),
           ),
-          SliverSafeArea(
+          CustomSliverSafeArea(
             top: false,
+            maintainBottomViewPadding: true,
             sliver: SliverToBoxAdapter(
               child: SettingsContainer(
                 children: [

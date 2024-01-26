@@ -9,6 +9,7 @@ import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
+import "package:graded/ui/widgets/custom_safe_area.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
@@ -144,8 +145,9 @@ class _SubjectRouteState extends State<SubjectRoute> {
                   ),
                 ),
               ),
-              SliverSafeArea(
+              CustomSliverSafeArea(
                 top: false,
+                maintainBottomViewPadding: true,
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     childCount: widget.subject.tests.length,
