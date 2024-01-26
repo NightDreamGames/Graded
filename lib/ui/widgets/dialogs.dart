@@ -117,6 +117,7 @@ class EasyDialogState extends State<EasyDialog> {
         return true;
       }
 
+      heavyHaptics();
       return false;
     }
 
