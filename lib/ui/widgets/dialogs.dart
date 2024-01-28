@@ -289,10 +289,11 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                   duration: Durations.short4,
                   child: IconButton(
                     onPressed: () {
+                      lightHaptics();
                       setState(() {
                         isExpanded = !isExpanded;
                       });
-                      if (expandAnimation.status != AnimationStatus.completed) {
+                      if (expandAnimation.status == AnimationStatus.reverse || expandAnimation.isDismissed) {
                         animationController.forward();
                       } else {
                         animationController.reverse();
