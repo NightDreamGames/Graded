@@ -1,0 +1,9 @@
+## [2.6.4] - 2023-01-28
+
+### Added haptics and fixed long due minor UI bugs
+
+- Add haptics on navigation and significant actions
+- Add device info to email contact template
+- Fix UI animations when the keyboard opens
+- Fix TextFields becoming invalid on confirmation
+- Fix Test dialog expanding spam
