@@ -1,6 +1,9 @@
 // Flutter imports:
 import "package:flutter/material.dart";
 
+// Package imports:
+import "package:decimal/decimal.dart";
+
 // Project imports:
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
@@ -14,6 +17,7 @@ import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/hints.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/easy_form_field.dart";
+import "package:graded/ui/widgets/misc_widgets.dart";
 
 class EasyDialog extends StatefulWidget {
   final String title;
@@ -535,6 +539,108 @@ class _SubjectDialogState extends State<SubjectDialog> {
                 numeric: true,
                 onSubmitted: () => dialogKey.currentState?.submit(),
                 additionalValidator: (value) => thresholdValidator(value, threshold: 1),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Future<void> showBonusDialog(BuildContext context, Subject subject) {
+  return showDialog(
+    context: context,
+    useSafeArea: false,
+    builder: (context) {
+      return BonusDialog(subject: subject);
+    },
+  );
+}
+
+class BonusDialog extends StatefulWidget {
+  const BonusDialog({
+    super.key,
+    required this.subject,
+  });
+
+  final Subject subject;
+
+  @override
+  State<BonusDialog> createState() => _BonusDialogState();
+}
+
+class _BonusDialogState extends State<BonusDialog> {
+  final bonusController = TextEditingController();
+
+  final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
+
+  @override
+  void initState() {
+    super.initState();
+    bonusController.text = Calculator.format(widget.subject.bonus, leadingZero: false);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    bonusController.dispose();
+  }
+
+  void changeBonus(int multiplier) {
+    final double? bonus = Calculator.tryParse(bonusController.text);
+    if (bonus == null) {
+      heavyHaptics();
+      return;
+    }
+    lightHaptics();
+
+    final newBonus = Decimal.parse(bonus.toString()) + Decimal.fromInt(multiplier) * Decimal.one;
+
+    bonusController.text = Calculator.format(
+      newBonus.toDouble(),
+      leadingZero: false,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyDialog(
+      key: dialogKey,
+      title: translations.bonus,
+      icon: Icons.plus_one,
+      onConfirm: () {
+        final double bonus = Calculator.tryParse(bonusController.text) ?? 0;
+        widget.subject.bonus = bonus;
+
+        Manager.calculate();
+        return true;
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              EasyFormField(
+                controller: bonusController,
+                label: translations.coefficientOne,
+                hint: Calculator.format(DefaultValues.weight, leadingZero: false, roundToOverride: 1),
+                numeric: true,
+                textInputAction: TextInputAction.next,
+              ),
+              const Padding(padding: EdgeInsets.only(left: 8)),
+              IconButton(
+                tooltip: translations.decrease,
+                icon: const Icon(Icons.remove, size: 20),
+                onPressed: () => changeBonus(-1),
+                style: getTonalButtonStyle(context),
+              ),
+              IconButton(
+                tooltip: translations.increase,
+                icon: const Icon(Icons.add, size: 20),
+                onPressed: () => changeBonus(1),
+                style: getTonalButtonStyle(context),
               ),
             ],
           ),

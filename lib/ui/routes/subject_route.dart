@@ -1,14 +1,20 @@
+// Dart imports:
+import "dart:math";
+
 // Flutter imports:
 import "package:flutter/material.dart";
 
+// Package imports:
+import "package:fading_edge_scrollview/fading_edge_scrollview.dart";
+
 // Project imports:
+import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/utilities/haptics.dart";
-import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/custom_safe_area.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
@@ -33,6 +39,7 @@ class SubjectRoute extends StatefulWidget {
 
 class _SubjectRouteState extends State<SubjectRoute> {
   double fabRotation = 0;
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -89,52 +96,26 @@ class _SubjectRouteState extends State<SubjectRoute> {
                     result: widget.subject.getResult(),
                     preciseResult: widget.subject.getResult(precise: true),
                     leading: !widget.term.isYearOverview
-                        ? Row(
-                            children: [
-                              Builder(
-                                builder: (context) {
-                                  final String textMax = "${translations.bonus} -9}";
-                                  final String text = "${translations.bonus} ${widget.subject.bonus}";
-
-                                  final Size tSize = calculateTextSize(
-                                    context: context,
-                                    text: textMax,
-                                    style: Theme.of(context).textTheme.titleLarge,
-                                  );
-
-                                  return SizedBox(
-                                    width: tSize.width,
-                                    child: Text(
-                                      text,
-                                      overflow: TextOverflow.visible,
-                                      softWrap: false,
-                                      style: Theme.of(context).textTheme.titleLarge,
-                                    ),
-                                  );
-                                },
+                        ? FadingEdgeScrollView.fromSingleChildScrollView(
+                            child: SingleChildScrollView(
+                              controller: scrollController,
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      showBonusDialog(context, widget.subject).then((_) => refreshYearOverview());
+                                    },
+                                    style: getTonalButtonStyle(context),
+                                    child: Text("${translations.bonus}: ${Calculator.format(
+                                      widget.subject.bonus,
+                                      leadingZero: false,
+                                      showPlusSign: true,
+                                    )}"),
+                                  ),
+                                ],
                               ),
-                              const Padding(padding: EdgeInsets.only(left: 4)),
-                              IconButton(
-                                tooltip: translations.decrease,
-                                icon: const Icon(Icons.remove, size: 20),
-                                onPressed: () {
-                                  lightHaptics();
-                                  widget.subject.changeBonus(-1);
-                                  refreshYearOverview();
-                                },
-                                style: getTonalIconButtonStyle(context),
-                              ),
-                              IconButton(
-                                tooltip: translations.increase,
-                                icon: const Icon(Icons.add, size: 20),
-                                onPressed: () {
-                                  lightHaptics();
-                                  widget.subject.changeBonus(1);
-                                  refreshYearOverview();
-                                },
-                                style: getTonalIconButtonStyle(context),
-                              ),
-                            ],
+                            ),
                           )
                         : Text(
                             translations.yearly_average,

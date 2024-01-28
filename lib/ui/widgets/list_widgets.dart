@@ -195,7 +195,8 @@ class _ResultRowState extends State<ResultRow> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (widget.leading != null) widget.leading!,
+                    if (widget.leading != null) Expanded(flex: 3, child: widget.leading!),
+                    const Padding(padding: EdgeInsets.only(right: 16)),
                     Text(
                       showPreciseResult ? widget.preciseResult : widget.result,
                       overflow: TextOverflow.visible,

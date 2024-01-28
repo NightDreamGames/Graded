@@ -12,7 +12,7 @@ class Subject extends CalculationObject {
   @override
   double get denominator => getCurrentYear().maxGrade;
 
-  int bonus = 0;
+  double bonus = 0;
   bool isGroup = false;
   bool isChild = false;
   double speakingWeight = DefaultValues.speakingWeight;
@@ -64,13 +64,6 @@ class Subject extends CalculationObject {
     Manager.calculate();
   }
 
-  void changeBonus(int direction) {
-    if ((bonus + direction).abs() >= 10) return;
-
-    bonus += direction;
-    Manager.calculate();
-  }
-
   void sort({int? sortModeOverride, int? sortDirectionOverride}) {
     Calculator.sortObjects(
       children,
@@ -109,7 +102,11 @@ class Subject extends CalculationObject {
     isGroup = json["type"] != null && json["type"] as bool;
     name = json["name"] as String;
     weight = json["coefficient"] as double;
-    bonus = json["bonus"] as int;
+    try {
+      bonus = (json["bonus"] as int).toDouble();
+    } catch (e) {
+      bonus = json["bonus"] as double;
+    }
     speakingWeight = json["speakingWeight"] as double? ?? DefaultValues.speakingWeight;
   }
 

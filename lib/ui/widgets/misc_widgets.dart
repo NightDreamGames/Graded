@@ -111,7 +111,7 @@ class EmptyWidget extends StatelessWidget {
   }
 }
 
-ButtonStyle getTonalIconButtonStyle(BuildContext context) {
+ButtonStyle getTonalButtonStyle(BuildContext context) {
   final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
   return IconButton.styleFrom(

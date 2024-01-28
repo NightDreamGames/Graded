@@ -78,7 +78,7 @@ class Calculator {
     }
   }
 
-  static double? calculate(Iterable<CalculationObject> data, {int bonus = 0, bool precise = false, double speakingWeight = 1}) {
+  static double? calculate(Iterable<CalculationObject> data, {double bonus = 0, bool precise = false, double speakingWeight = 1}) {
     final bool isNullFilled = data.every((element) => element.numerator == null || element.denominator == 0);
 
     if (data.isEmpty || isNullFilled) return null;
@@ -142,7 +142,7 @@ class Calculator {
     return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
   }
 
-  static String format(double? n, {bool leadingZero = true, int? roundToOverride, int roundToMultiplier = 1}) {
+  static String format(double? n, {bool leadingZero = true, int? roundToOverride, int roundToMultiplier = 1, bool showPlusSign = false}) {
     if (n == null || n.isNaN) return "-";
 
     int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("round_to"));
@@ -160,6 +160,10 @@ class Calculator {
     if (leadingZero && getPreference<bool>("leading_zero") && n >= 1 && n < 10) {
       result = "0$result";
     }
+    if (showPlusSign && n >= 0) {
+      result = "+$result";
+    }
+
     return result;
   }
 }
