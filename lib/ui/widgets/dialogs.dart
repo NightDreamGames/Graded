@@ -627,6 +627,7 @@ class _BonusDialogState extends State<BonusDialog> {
                 label: translations.coefficientOne,
                 hint: Calculator.format(DefaultValues.weight, leadingZero: false, roundToOverride: 1),
                 numeric: true,
+                autofocus: true,
                 textInputAction: TextInputAction.next,
               ),
               const Padding(padding: EdgeInsets.only(left: 8)),
