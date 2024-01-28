@@ -1,4 +1,5 @@
 // Flutter imports:
+import "package:fading_edge_scrollview/fading_edge_scrollview.dart";
 import "package:flutter/material.dart";
 
 // Package imports:
@@ -7,7 +8,7 @@ import "package:flutter_svg/svg.dart";
 // Project imports:
 import "package:graded/ui/utilities/misc_utilities.dart";
 
-class AppBarTitle extends StatelessWidget {
+class AppBarTitle extends StatefulWidget {
   const AppBarTitle({
     super.key,
     required this.title,
@@ -16,12 +17,25 @@ class AppBarTitle extends StatelessWidget {
   final String title;
 
   @override
+  State<AppBarTitle> createState() => _AppBarTitleState();
+}
+
+class _AppBarTitleState extends State<AppBarTitle> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      softWrap: false,
-      maxLines: 1,
-      overflow: TextOverflow.fade,
+    return FadingEdgeScrollView.fromSingleChildScrollView(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        controller: scrollController,
+        child: Text(
+          widget.title,
+          softWrap: false,
+          maxLines: 1,
+          overflow: TextOverflow.fade,
+        ),
+      ),
     );
   }
 }
