@@ -64,6 +64,10 @@ void main() async {
     expect(Calculator.round(47.199, roundingModeOverride: RoundingMode.down, roundToOverride: 10), equals(47.1));
     expect(Calculator.round(47.5, roundingModeOverride: RoundingMode.halfUp), equals(48));
     expect(Calculator.round(47.15, roundingModeOverride: RoundingMode.halfDown, roundToOverride: 10), equals(47.1));
+    expect(Calculator.round(-1.23, roundingModeOverride: RoundingMode.up, roundToOverride: 10), equals(-1.2));
+    expect(Calculator.round(-1.23, roundingModeOverride: RoundingMode.down, roundToOverride: 1), equals(-2));
+    expect(Calculator.round(-1.5, roundingModeOverride: RoundingMode.halfUp, roundToOverride: 1), equals(-2));
+    expect(Calculator.round(-1.5, roundingModeOverride: RoundingMode.halfDown, roundToOverride: 1), equals(-1));
   });
 
   test("Number parsing", () {

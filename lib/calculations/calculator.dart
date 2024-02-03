@@ -123,15 +123,13 @@ class Calculator {
       case RoundingMode.down:
         return round.floorToDouble() / roundTo;
       case RoundingMode.halfUp:
-        final double base = round.floorToDouble();
-        final double decimals = n - base;
-
-        return (decimals < 0.5 ? base : base + 1) / roundTo;
+        return round.roundToDouble() / roundTo;
       case RoundingMode.halfDown:
-        final double base = round.floorToDouble();
+        final double base = round.truncateToDouble();
         final double decimals = n - base;
+        final int sign = n < 0 ? -1 : 1;
 
-        return (decimals <= 0.5 ? base : base + 1) / roundTo;
+        return (decimals <= 0.5 ? base : base + 1 * sign) / roundTo;
       default:
         return n;
     }
