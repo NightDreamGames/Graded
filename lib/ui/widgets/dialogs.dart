@@ -256,10 +256,9 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
             textInputAction: TextInputAction.next,
           ),
           const Padding(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.only(top: 16),
           ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               EasyFormField(
@@ -272,7 +271,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                 textInputAction: TextInputAction.next,
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+                padding: EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
                   "/",
                   style: TextStyle(fontSize: 20),
@@ -287,7 +286,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                 additionalValidator: (value) => thresholdValidator(value, inclusive: false),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 4, top: 8),
+                padding: const EdgeInsets.only(left: 4),
                 child: AnimatedRotation(
                   turns: isExpanded ? .5 : 0,
                   duration: Durations.short4,
@@ -311,7 +310,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
             ],
           ),
           const Padding(
-            padding: EdgeInsets.all(6),
+            padding: EdgeInsets.only(bottom: 12),
           ),
           SizeTransition(
             sizeFactor: expandAnimation,
@@ -319,7 +318,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
             child: Column(
               children: [
                 const Padding(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.only(top: 12),
                 ),
                 EasyFormField(
                   controller: weightController,
