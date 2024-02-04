@@ -1074,7 +1074,10 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
         titleTextStyle: radioTextStyle(context)?.copyWith(fontFamily: font),
         onTap: () => _onRadioChange(entry.key, onChanged),
         enabled: widget.enabled,
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.only(left: 8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: _SettingsRadio<T>(
           value: entry.key,
           onChanged: (newValue) => _onRadioChange(newValue, onChanged),

@@ -139,6 +139,8 @@ class _SettingsTile extends StatefulWidget {
 
   final bool dense;
 
+  final ShapeBorder? shape;
+
   const _SettingsTile({
     required this.title,
     required this.child,
@@ -153,6 +155,7 @@ class _SettingsTile extends StatefulWidget {
     this.trailing,
     this.padding,
     this.dense = false,
+    this.shape,
   });
 
   @override
@@ -173,6 +176,7 @@ class _SettingsTileState extends State<_SettingsTile> {
         ListTile(
           contentPadding: widget.padding,
           leading: widget.leading,
+          shape: widget.shape,
           title: Text(
             widget.title,
             style: widget.titleTextStyle ??
