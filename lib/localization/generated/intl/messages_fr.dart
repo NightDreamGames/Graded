@@ -38,7 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appearance": MessageLookupByLibrary.simpleMessage("Apparence"),
         "average": MessageLookupByLibrary.simpleMessage("Moyenne"),
         "basic": MessageLookupByLibrary.simpleMessage("Basique"),
-        "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
+        "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Classe"),
@@ -141,7 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ajoutez, modifiez et supprimez vos années sauvegardées"),
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Teintes Material 3"),
-        "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
+        "max": MessageLookupByLibrary.simpleMessage("Max"),
         "more_options": MessageLookupByLibrary.simpleMessage("Plus d\'options"),
         "name": MessageLookupByLibrary.simpleMessage("Nom"),
         "next": MessageLookupByLibrary.simpleMessage("Suivant"),

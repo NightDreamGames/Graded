@@ -280,7 +280,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
               ),
               EasyFormField(
                 controller: maximumController,
-                label: translations.maximum,
+                label: translations.max,
                 hint: Calculator.format(getCurrentYear().maxGrade, roundToOverride: 1),
                 numeric: true,
                 signed: false,

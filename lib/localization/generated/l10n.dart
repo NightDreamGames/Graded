@@ -180,10 +180,10 @@ class TranslationsClass {
     );
   }
 
-  /// `Bonus:`
+  /// `Bonus`
   String get bonus {
     return Intl.message(
-      'Bonus:',
+      'Bonus',
       name: 'bonus',
       desc: '',
       args: [],
@@ -920,11 +920,11 @@ class TranslationsClass {
     );
   }
 
-  /// `Maximum`
-  String get maximum {
+  /// `Max`
+  String get max {
     return Intl.message(
-      'Maximum',
-      name: 'maximum',
+      'Max',
+      name: 'max',
       desc: '',
       args: [],
     );

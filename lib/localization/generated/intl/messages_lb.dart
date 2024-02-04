@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appearance": MessageLookupByLibrary.simpleMessage("Ausgesinn"),
         "average": MessageLookupByLibrary.simpleMessage("Moyenne"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
-        "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
+        "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Ofbriechen"),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Klass"),
@@ -136,7 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Zoufügen, Beaarbechten an Läschen vun ären gespäicherten Joer"),
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Material 3 Faarftéin"),
-        "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
+        "max": MessageLookupByLibrary.simpleMessage("Max"),
         "more_options": MessageLookupByLibrary.simpleMessage("Méi Optiounen"),
         "name": MessageLookupByLibrary.simpleMessage("Numm"),
         "next": MessageLookupByLibrary.simpleMessage("Weider"),

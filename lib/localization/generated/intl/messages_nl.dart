@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appearance": MessageLookupByLibrary.simpleMessage("Verschijning"),
         "average": MessageLookupByLibrary.simpleMessage("Gemiddeld"),
         "basic": MessageLookupByLibrary.simpleMessage("Basis"),
-        "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
+        "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuleren"),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
@@ -133,7 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Toevoegen, bewerk en verwijder je opgeslagen jaren"),
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Material 3 tinten"),
-        "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
+        "max": MessageLookupByLibrary.simpleMessage("Max"),
         "more_options": MessageLookupByLibrary.simpleMessage("Meer opties"),
         "name": MessageLookupByLibrary.simpleMessage("Naam"),
         "next": MessageLookupByLibrary.simpleMessage("Volgende"),

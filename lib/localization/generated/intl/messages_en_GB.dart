@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
         "average": MessageLookupByLibrary.simpleMessage("Average"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
-        "bonus": MessageLookupByLibrary.simpleMessage("Bonus:"),
+        "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Class"),
@@ -131,7 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Add, edit and delete your saved years"),
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Material 3 shades"),
-        "maximum": MessageLookupByLibrary.simpleMessage("Maximum"),
+        "max": MessageLookupByLibrary.simpleMessage("Max"),
         "more_options": MessageLookupByLibrary.simpleMessage("More options"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
