@@ -623,8 +623,8 @@ class _BonusDialogState extends State<BonusDialog> {
             children: [
               EasyFormField(
                 controller: bonusController,
-                label: translations.coefficientOne,
-                hint: Calculator.format(DefaultValues.weight, leadingZero: false, roundToOverride: 1),
+                label: translations.bonus,
+                hint: Calculator.format(DefaultValues.bonus, leadingZero: false, roundToOverride: 1),
                 numeric: true,
                 autofocus: true,
                 textInputAction: TextInputAction.next,
