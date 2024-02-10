@@ -175,6 +175,8 @@
         "description": "Attention: \"Term\" is meant here in the sense of \"School period\", not \"Word\". Make sure to use the proper translation.",
         "type": "text"
     },
+    "school_term_num": "Schulperiode %s",
+    "school_term_short_num": "P%s",
     "section": "Sektion",
     "section_classic_a": "A - Sprachen",
     "section_classic_b": "B - Mathematik",
