@@ -171,6 +171,8 @@
     "school_system": "Schoulsystem",
     "school_termOne": "Schoulperiod",
     "school_termOther": "Schoulperioden",
+    "school_term_num": "Schoulperiod %s",
+    "school_term_short_num": "P%s",
     "section": "Sektioun",
     "section_classic_a": "A - Sproochen",
     "section_classic_b": "B - Mathematik",
