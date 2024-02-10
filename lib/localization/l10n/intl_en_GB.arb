@@ -171,6 +171,8 @@
     "school_system": "School system",
     "school_termOne": "School term",
     "school_termOther": "School terms",
+    "school_term_num": "School term %s",
+    "school_term_short_num": "T%s",
     "section": "Section",
     "section_classic_a": "A - Languages",
     "section_classic_b": "B - Mathematics",
