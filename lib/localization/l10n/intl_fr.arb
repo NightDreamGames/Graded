@@ -178,6 +178,8 @@
     "school_termOne": "Période scolaire",
     "school_termMany": "Périodes scolaires",
     "school_termOther": "Périodes scolaires",
+    "school_term_num": "Période scolaire %s",
+    "school_term_short_num": "P%s",
     "section": "Section",
     "section_classic_a": "A - Langues",
     "section_classic_b": "B - Mathematiques",
