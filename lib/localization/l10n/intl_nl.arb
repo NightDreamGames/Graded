@@ -171,6 +171,8 @@
     "school_system": "Schoolsysteem",
     "school_termOne": "Schoolperiode",
     "school_termOther": "Schoolperioden",
+    "school_term_num": "Schoolperiode %s",
+    "school_term_short_num": "P%s",
     "section": "Sectie",
     "section_classic_a": "A - Talen",
     "section_classic_b": "B - Wiskunde",
