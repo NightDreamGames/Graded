@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_version": MessageLookupByLibrary.simpleMessage("App-Version"),
         "appearance": MessageLookupByLibrary.simpleMessage("Aussehen"),
         "average": MessageLookupByLibrary.simpleMessage("Durchschnitt"),
+        "average_over_time":
+            MessageLookupByLibrary.simpleMessage("Durchschnitt über Zeit"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
@@ -158,8 +160,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anderes Schulsystem"),
         "preset": MessageLookupByLibrary.simpleMessage("Predefiniert"),
         "previous": MessageLookupByLibrary.simpleMessage("Zurück"),
-        "quarterOne": MessageLookupByLibrary.simpleMessage("Quadrimester"),
-        "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quartileOne": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quartileOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quartile_num": MessageLookupByLibrary.simpleMessage("Quadrimester %s"),
+        "quartile_short_num": MessageLookupByLibrary.simpleMessage("Q%s"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewertungssystem"),
         "reset": MessageLookupByLibrary.simpleMessage(
@@ -175,6 +179,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "school_termOne": MessageLookupByLibrary.simpleMessage("Schulperiode"),
         "school_termOther":
             MessageLookupByLibrary.simpleMessage("Schulperioden"),
+        "school_term_num":
+            MessageLookupByLibrary.simpleMessage("Schulperiode %s"),
+        "school_term_short_num": MessageLookupByLibrary.simpleMessage("P%s"),
         "section": MessageLookupByLibrary.simpleMessage("Sektion"),
         "section_classic_a":
             MessageLookupByLibrary.simpleMessage("A - Sprachen"),
@@ -231,6 +238,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Schulperiode auswählen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semester"),
+        "semester_num": MessageLookupByLibrary.simpleMessage("Semester %s"),
+        "semester_short_num": MessageLookupByLibrary.simpleMessage("S%s"),
         "set_sub_subject":
             MessageLookupByLibrary.simpleMessage("Als Unterfach setzen"),
         "settings": MessageLookupByLibrary.simpleMessage("Einstellungen"),
@@ -268,6 +277,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to_integer": MessageLookupByLibrary.simpleMessage("Zur Ganzzahl"),
         "trimesterOne": MessageLookupByLibrary.simpleMessage("Trimester"),
         "trimesterOther": MessageLookupByLibrary.simpleMessage("Trimester"),
+        "trimester_num": MessageLookupByLibrary.simpleMessage("Trimester %s"),
+        "trimester_short_num": MessageLookupByLibrary.simpleMessage("T%s"),
         "up": MessageLookupByLibrary.simpleMessage("Nach oben"),
         "variant": MessageLookupByLibrary.simpleMessage("Variante"),
         "variant_classic_l":

@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_version": MessageLookupByLibrary.simpleMessage("App versie"),
         "appearance": MessageLookupByLibrary.simpleMessage("Verschijning"),
         "average": MessageLookupByLibrary.simpleMessage("Gemiddeld"),
+        "average_over_time":
+            MessageLookupByLibrary.simpleMessage("Gemiddelde over tijd"),
         "basic": MessageLookupByLibrary.simpleMessage("Basis"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuleren"),
@@ -155,8 +157,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Andere schoolsystemen"),
         "preset": MessageLookupByLibrary.simpleMessage("Voorgedefineerd"),
         "previous": MessageLookupByLibrary.simpleMessage("Vorige"),
-        "quarterOne": MessageLookupByLibrary.simpleMessage("Kwartaal"),
-        "quarterOther": MessageLookupByLibrary.simpleMessage("Kwartaals"),
+        "quartileOne": MessageLookupByLibrary.simpleMessage("Kwartaal"),
+        "quartileOther": MessageLookupByLibrary.simpleMessage("Kwartaals"),
+        "quartile_num": MessageLookupByLibrary.simpleMessage("Kwartaal %s"),
+        "quartile_short_num": MessageLookupByLibrary.simpleMessage("Q%s"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Beoordelingssystem"),
         "reset": MessageLookupByLibrary.simpleMessage(
@@ -171,6 +175,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "school_termOne": MessageLookupByLibrary.simpleMessage("Schoolperiode"),
         "school_termOther":
             MessageLookupByLibrary.simpleMessage("Schoolperioden"),
+        "school_term_num":
+            MessageLookupByLibrary.simpleMessage("Schoolperiode %s"),
+        "school_term_short_num": MessageLookupByLibrary.simpleMessage("P%s"),
         "section": MessageLookupByLibrary.simpleMessage("Sectie"),
         "section_classic_a": MessageLookupByLibrary.simpleMessage("A - Talen"),
         "section_classic_b":
@@ -227,6 +234,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Schoolperiode kiezen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semesters"),
+        "semester_num": MessageLookupByLibrary.simpleMessage("Semester %s"),
+        "semester_short_num": MessageLookupByLibrary.simpleMessage("S%s"),
         "set_sub_subject":
             MessageLookupByLibrary.simpleMessage("Als sub-vak instellen"),
         "settings": MessageLookupByLibrary.simpleMessage("Instellingen"),
@@ -264,6 +273,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to_integer": MessageLookupByLibrary.simpleMessage("Naar integer"),
         "trimesterOne": MessageLookupByLibrary.simpleMessage("Trimester"),
         "trimesterOther": MessageLookupByLibrary.simpleMessage("Trimesters"),
+        "trimester_num": MessageLookupByLibrary.simpleMessage("Trimester %s"),
+        "trimester_short_num": MessageLookupByLibrary.simpleMessage("T%s"),
         "up": MessageLookupByLibrary.simpleMessage("Omhoog"),
         "variant": MessageLookupByLibrary.simpleMessage("Variant"),
         "variant_classic_l": MessageLookupByLibrary.simpleMessage("L - Latijn"),

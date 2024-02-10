@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_version": MessageLookupByLibrary.simpleMessage("App-Versioun"),
         "appearance": MessageLookupByLibrary.simpleMessage("Ausgesinn"),
         "average": MessageLookupByLibrary.simpleMessage("Moyenne"),
+        "average_over_time":
+            MessageLookupByLibrary.simpleMessage("Moyenne iwwer Zäit"),
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Ofbriechen"),
@@ -158,8 +160,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Aneren Schoulsystem"),
         "preset": MessageLookupByLibrary.simpleMessage("Predefinéiert"),
         "previous": MessageLookupByLibrary.simpleMessage("Zeréck"),
-        "quarterOne": MessageLookupByLibrary.simpleMessage("Quadrimester"),
-        "quarterOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quartileOne": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quartileOther": MessageLookupByLibrary.simpleMessage("Quadrimester"),
+        "quartile_num": MessageLookupByLibrary.simpleMessage("Quadrimester %s"),
+        "quartile_short_num": MessageLookupByLibrary.simpleMessage("Q%s"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Bewäertungssystem"),
         "reset": MessageLookupByLibrary.simpleMessage(
@@ -175,6 +179,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "school_termOne": MessageLookupByLibrary.simpleMessage("Schoulperiod"),
         "school_termOther":
             MessageLookupByLibrary.simpleMessage("Schoulperioden"),
+        "school_term_num":
+            MessageLookupByLibrary.simpleMessage("Schoulperiod %s"),
+        "school_term_short_num": MessageLookupByLibrary.simpleMessage("P%s"),
         "section": MessageLookupByLibrary.simpleMessage("Sektioun"),
         "section_classic_a":
             MessageLookupByLibrary.simpleMessage("A - Sproochen"),
@@ -232,6 +239,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Schoulperiod auswielen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
         "semesterOther": MessageLookupByLibrary.simpleMessage("Semester"),
+        "semester_num": MessageLookupByLibrary.simpleMessage("Semester %s"),
+        "semester_short_num": MessageLookupByLibrary.simpleMessage("S%s"),
         "set_sub_subject":
             MessageLookupByLibrary.simpleMessage("Als Ënnerfach setzen"),
         "settings": MessageLookupByLibrary.simpleMessage("Astellungen"),
@@ -269,6 +278,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "to_integer": MessageLookupByLibrary.simpleMessage("Zur Ganzzuel"),
         "trimesterOne": MessageLookupByLibrary.simpleMessage("Trimester"),
         "trimesterOther": MessageLookupByLibrary.simpleMessage("Trimester"),
+        "trimester_num": MessageLookupByLibrary.simpleMessage("Trimester %s"),
+        "trimester_short_num": MessageLookupByLibrary.simpleMessage("T%s"),
         "up": MessageLookupByLibrary.simpleMessage("No uewen"),
         "variant": MessageLookupByLibrary.simpleMessage("Variante"),
         "variant_classic_l": MessageLookupByLibrary.simpleMessage("L - Latäin"),

@@ -170,6 +170,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Average over time`
+  String get average_over_time {
+    return Intl.message(
+      'Average over time',
+      name: 'average_over_time',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Basic`
   String get basic {
     return Intl.message(
@@ -1100,22 +1110,42 @@ class TranslationsClass {
     );
   }
 
-  /// `Quarter`
-  String get quarterOne {
+  /// `Quartile`
+  String get quartileOne {
     return Intl.message(
-      'Quarter',
-      name: 'quarterOne',
+      'Quartile',
+      name: 'quartileOne',
       desc: '',
       args: [],
     );
   }
 
-  /// `Quarters`
-  String get quarterOther {
+  /// `Quartiles`
+  String get quartileOther {
     return Intl.message(
-      'Quarters',
-      name: 'quarterOther',
+      'Quartiles',
+      name: 'quartileOther',
       desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quartile %s`
+  String get quartile_num {
+    return Intl.message(
+      'Quartile %s',
+      name: 'quartile_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Q%s`
+  String get quartile_short_num {
+    return Intl.message(
+      'Q%s',
+      name: 'quartile_short_num',
+      desc: 'Keep %s for inserting numbers',
       args: [],
     );
   }
@@ -1215,6 +1245,26 @@ class TranslationsClass {
     return Intl.message(
       'School terms',
       name: 'school_termOther',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `School term %s`
+  String get school_term_num {
+    return Intl.message(
+      'School term %s',
+      name: 'school_term_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `T%s`
+  String get school_term_short_num {
+    return Intl.message(
+      'T%s',
+      name: 'school_term_short_num',
       desc: '',
       args: [],
     );
@@ -1540,6 +1590,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Semester %s`
+  String get semester_num {
+    return Intl.message(
+      'Semester %s',
+      name: 'semester_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `S%s`
+  String get semester_short_num {
+    return Intl.message(
+      'S%s',
+      name: 'semester_short_num',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Set as sub-subject`
   String get set_sub_subject {
     return Intl.message(
@@ -1817,6 +1887,26 @@ class TranslationsClass {
     return Intl.message(
       'Trimesters',
       name: 'trimesterOther',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trimester %s`
+  String get trimester_num {
+    return Intl.message(
+      'Trimester %s',
+      name: 'trimester_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `T%s`
+  String get trimester_short_num {
+    return Intl.message(
+      'T%s',
+      name: 'trimester_short_num',
       desc: '',
       args: [],
     );
