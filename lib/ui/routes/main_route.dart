@@ -200,32 +200,27 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
   }
 
   List<Widget> getTabs() {
-    List<String> items = [];
-
-    switch (getCurrentYear().termCount) {
-      case 1:
-        items = [
+    final List<String> items = switch (getCurrentYear().termCount) {
+      1 => [
           translations.yearOne,
-        ];
-      case 2:
-        items = [
+        ],
+      2 => [
           "${translations.semesterOne} 1",
           "${translations.semesterOne} 2",
-        ];
-      case 3:
-        items = [
+        ],
+      3 => [
           "${translations.trimesterOne} 1",
           "${translations.trimesterOne} 2",
           "${translations.trimesterOne} 3",
-        ];
-      case 4:
-        items = [
+        ],
+      4 => [
           "${translations.quarterOne} 1",
           "${translations.quarterOne} 2",
           "${translations.quarterOne} 3",
           "${translations.quarterOne} 4",
-        ];
-    }
+        ],
+      _ => throw const FormatException("Invalid"),
+    };
 
     if (getCurrentYear().validatedYear == 1) {
       items.add(translations.exams);

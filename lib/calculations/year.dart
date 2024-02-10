@@ -172,9 +172,8 @@ class Year extends CalculationObject {
 
     for (int i = 0; i < termTemplate.length; i++) {
       final int childCount = termTemplate[i].children.length;
-      if (subjectCount + childCount + (childCount > 0 ? addedIndex : 0) >= absoluteIndex) {
-        break;
-      }
+      if (subjectCount + childCount + (childCount > 0 ? addedIndex : 0) >= absoluteIndex) break;
+
       subjectCount += childCount;
       index1 = i + 1;
       subjectCount++;

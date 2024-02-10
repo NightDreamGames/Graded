@@ -26,18 +26,13 @@ class SortAction extends StatelessWidget {
         if (getPreference("sort_mode$sortType") == value) {
           setPreference<int>("sort_direction$sortType", -getPreference<int>("sort_direction$sortType"));
         } else {
-          int sortDirection = SortDirection.notApplicable;
+          final int sortDirection = switch (value) {
+            SortMode.name || SortMode.timestamp => SortDirection.ascending,
+            SortMode.result || SortMode.coefficient => SortDirection.descending,
+            SortMode.custom => SortDirection.notApplicable,
+            _ => SortDirection.notApplicable,
+          };
 
-          switch (value) {
-            case SortMode.name:
-            case SortMode.timestamp:
-              sortDirection = SortDirection.ascending;
-            case SortMode.result:
-            case SortMode.coefficient:
-              sortDirection = SortDirection.descending;
-            case SortMode.custom:
-              sortDirection = SortDirection.notApplicable;
-          }
           setPreference<int>("sort_direction$sortType", sortDirection);
         }
 
@@ -64,15 +59,12 @@ class SortAction extends StatelessWidget {
 
   PopupMenuItem<int> getPopupMenuItem(int value, String title) {
     final int sortDirection = getPreference<int>("sort_direction$sortType");
-    IconData icon = Icons.check;
-    switch (sortDirection) {
-      case SortDirection.ascending:
-        icon = Icons.arrow_upward;
-      case SortDirection.descending:
-        icon = Icons.arrow_downward;
-      case SortDirection.notApplicable:
-        icon = Icons.check;
-    }
+    final IconData icon = switch (sortDirection) {
+      SortDirection.ascending => Icons.arrow_upward,
+      SortDirection.descending => Icons.arrow_downward,
+      SortDirection.notApplicable => Icons.check,
+      _ => Icons.check,
+    };
 
     return PopupMenuItem<int>(
       value: value,

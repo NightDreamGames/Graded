@@ -61,37 +61,25 @@ Future<Uri> getEmailUrl() async {
 Future<void> launchURL(Link type) async {
   Uri link = websiteUrl;
 
-  switch (type) {
+  link = switch (type) {
     //Links
-    case Link.website:
-      link = websiteUrl;
-    case Link.appstore:
-      if (isAndroid) {
-        link = playStoreUrl;
-      } else if (isiOS) {
-        link = appStoreUrl;
-      } else {
-        link = websiteUrl;
-      }
-    case Link.github:
-      link = githubUrl;
-    case Link.issueTracker:
-      link = issueUrl;
-    case Link.translate:
-      link = translateUrl;
-    case Link.email:
-      link = await getEmailUrl();
+    Link.website => websiteUrl,
+    Link.appstore => isAndroid
+        ? playStoreUrl
+        : isiOS
+            ? appStoreUrl
+            : websiteUrl,
+    Link.github => githubUrl,
+    Link.issueTracker => issueUrl,
+    Link.translate => translateUrl,
+    Link.email => await getEmailUrl(),
 
     //Socials
-    case Link.twitter:
-      link = twitterUrl;
-    case Link.instagram:
-      link = instagramUrl;
-    case Link.facebook:
-      link = facebookUrl;
-    case Link.linkedin:
-      link = linkedinUrl;
-  }
+    Link.twitter => twitterUrl,
+    Link.instagram => instagramUrl,
+    Link.facebook => facebookUrl,
+    Link.linkedin => linkedinUrl,
+  };
 
   if (!await launchUrl(link, mode: LaunchMode.externalApplication)) {
     throw "Error while opening link: $link";
