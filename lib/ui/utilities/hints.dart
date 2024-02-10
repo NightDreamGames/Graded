@@ -27,16 +27,25 @@ String getTermName({required int termIndex}) {
 
   if (termIndex == termCount) return translations.exams;
 
-  switch (termCount) {
-    case 4:
-      return "${translations.quarterOne} ${termIndex + 1}";
-    case 3:
-      return "${translations.trimesterOne} ${termIndex + 1}";
-    case 2:
-      return "${translations.semesterOne} ${termIndex + 1}";
-    case 1:
-      return translations.yearOne;
-    default:
-      return "${translations.school_termOne} ${termIndex + 1}";
-  }
+  return switch (termCount) {
+    4 => translations.quartile_num.replaceFirst("%s", (termIndex + 1).toString()),
+    3 => translations.trimester_num.replaceFirst("%s", (termIndex + 1).toString()),
+    2 => translations.semester_num.replaceFirst("%s", (termIndex + 1).toString()),
+    1 => translations.yearOne,
+    _ => translations.school_term_num.replaceFirst("%s", (termIndex + 1).toString()),
+  };
+}
+
+String getTermNameShort({required int termIndex}) {
+  final int termCount = getCurrentYear().termCount;
+
+  if (termIndex == -1) return translations.year_overview;
+
+  return switch (termCount) {
+    4 => translations.quartile_short_num.replaceFirst("%s", (termIndex + 1).toString()),
+    3 => translations.trimester_short_num.replaceFirst("%s", (termIndex + 1).toString()),
+    2 => translations.semester_short_num.replaceFirst("%s", (termIndex + 1).toString()),
+    1 => translations.yearOne,
+    _ => translations.school_term_short_num.replaceFirst("%s", (termIndex + 1).toString()),
+  };
 }

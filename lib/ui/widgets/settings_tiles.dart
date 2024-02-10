@@ -109,7 +109,7 @@ class TermCountSettingsTile extends StatelessWidget {
       settingKey: "term_count",
       selected: DefaultValues.termCount,
       values: <int, String>{
-        4: translations.quarterOther,
+        4: translations.quartileOther,
         3: translations.trimesterOther,
         2: translations.semesterOther,
         1: translations.yearOne,
