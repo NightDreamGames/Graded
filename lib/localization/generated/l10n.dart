@@ -210,6 +210,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Chart`
+  String get chartOne {
+    return Intl.message(
+      'Chart',
+      name: 'chartOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Charts`
+  String get chartOther {
+    return Intl.message(
+      'Charts',
+      name: 'chartOther',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `中文`
   String get chinese {
     return Intl.message(
@@ -580,6 +600,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Expand`
+  String get expand {
+    return Intl.message(
+      'Expand',
+      name: 'expand',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Export`
   String get export_ {
     return Intl.message(
@@ -600,12 +630,22 @@ class TranslationsClass {
     );
   }
 
+  /// `Facebook`
+  String get facebook {
+    return Intl.message(
+      'Facebook',
+      name: 'facebook',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Follow NightDream Games`
   String get follow_nightdream_games {
     return Intl.message(
       'Follow NightDream Games',
       name: 'follow_nightdream_games',
-      desc: '',
+      desc: 'Do not translate "NightDream Games"',
       args: [],
     );
   }
@@ -790,6 +830,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Instagram`
+  String get instagram {
+    return Intl.message(
+      'Instagram',
+      name: 'instagram',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Invalid`
   String get invalid {
     return Intl.message(
@@ -855,6 +905,16 @@ class TranslationsClass {
     return Intl.message(
       'Licenses',
       name: 'licenses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LinkedIn`
+  String get linkedin {
+    return Intl.message(
+      'LinkedIn',
+      name: 'linkedin',
       desc: '',
       args: [],
     );
@@ -1135,7 +1195,7 @@ class TranslationsClass {
     return Intl.message(
       'Quartile %s',
       name: 'quartile_num',
-      desc: '',
+      desc: 'Put "%s" where the number should be inserted',
       args: [],
     );
   }
@@ -1145,7 +1205,7 @@ class TranslationsClass {
     return Intl.message(
       'Q%s',
       name: 'quartile_short_num',
-      desc: 'Keep %s for inserting numbers',
+      desc: 'Put "%s" where the number should be inserted',
       args: [],
     );
   }
@@ -1255,7 +1315,7 @@ class TranslationsClass {
     return Intl.message(
       'School term %s',
       name: 'school_term_num',
-      desc: '',
+      desc: 'Put "%s" where the number should be inserted',
       args: [],
     );
   }
@@ -1265,7 +1325,7 @@ class TranslationsClass {
     return Intl.message(
       'T%s',
       name: 'school_term_short_num',
-      desc: '',
+      desc: 'Put "%s" where the number should be inserted',
       args: [],
     );
   }
@@ -1595,7 +1655,7 @@ class TranslationsClass {
     return Intl.message(
       'Semester %s',
       name: 'semester_num',
-      desc: '',
+      desc: 'Put "%s" where the number should be inserted',
       args: [],
     );
   }
@@ -1605,7 +1665,7 @@ class TranslationsClass {
     return Intl.message(
       'S%s',
       name: 'semester_short_num',
-      desc: '',
+      desc: 'Put "%s" where the number should be inserted',
       args: [],
     );
   }
@@ -1897,7 +1957,7 @@ class TranslationsClass {
     return Intl.message(
       'Trimester %s',
       name: 'trimester_num',
-      desc: '',
+      desc: 'Put "%s" where the number should be inserted',
       args: [],
     );
   }
@@ -1907,6 +1967,16 @@ class TranslationsClass {
     return Intl.message(
       'T%s',
       name: 'trimester_short_num',
+      desc: 'Put "%s" where the number should be inserted',
+      args: [],
+    );
+  }
+
+  /// `X`
+  String get twitter {
+    return Intl.message(
+      'X',
+      name: 'twitter',
       desc: '',
       args: [],
     );

@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "basic": MessageLookupByLibrary.simpleMessage("Basic"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
+        "chartOne": MessageLookupByLibrary.simpleMessage("Grafik"),
+        "chartOther": MessageLookupByLibrary.simpleMessage("Grafiken"),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Koeffizient"),
@@ -90,9 +92,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Fehler"),
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examen"),
+        "expand": MessageLookupByLibrary.simpleMessage("Erweitern"),
         "export_": MessageLookupByLibrary.simpleMessage("Exportieren"),
         "export_description": MessageLookupByLibrary.simpleMessage(
             "Exportieren der aktuellen Konfiguration und der gespeicherten Daten"),
+        "facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
         "follow_nightdream_games":
             MessageLookupByLibrary.simpleMessage("NightDream Games folgen"),
         "font": MessageLookupByLibrary.simpleMessage("Schrift"),
@@ -120,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Backup erfolgreich importiert."),
         "increase": MessageLookupByLibrary.simpleMessage("Erhöhen"),
+        "instagram": MessageLookupByLibrary.simpleMessage("Instagram"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ungültig"),
         "issue_tracker": MessageLookupByLibrary.simpleMessage("Issue tracker"),
         "issue_tracker_description": MessageLookupByLibrary.simpleMessage(
@@ -128,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Sprache"),
         "language_code": MessageLookupByLibrary.simpleMessage("de"),
         "licenses": MessageLookupByLibrary.simpleMessage("Lizenzen"),
+        "linkedin": MessageLookupByLibrary.simpleMessage("LinkedIn"),
         "lux_system":
             MessageLookupByLibrary.simpleMessage("Luxemburgisches Schulsystem"),
         "lux_system_classic": MessageLookupByLibrary.simpleMessage("Klassik"),
@@ -279,6 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "trimesterOther": MessageLookupByLibrary.simpleMessage("Trimester"),
         "trimester_num": MessageLookupByLibrary.simpleMessage("Trimester %s"),
         "trimester_short_num": MessageLookupByLibrary.simpleMessage("T%s"),
+        "twitter": MessageLookupByLibrary.simpleMessage("X"),
         "up": MessageLookupByLibrary.simpleMessage("Nach oben"),
         "variant": MessageLookupByLibrary.simpleMessage("Variante"),
         "variant_classic_l":

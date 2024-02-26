@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "basic": MessageLookupByLibrary.simpleMessage("Basis"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuleren"),
+        "chartOne": MessageLookupByLibrary.simpleMessage("Grafiek"),
+        "chartOther": MessageLookupByLibrary.simpleMessage("Grafieken"),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
         "class_": MessageLookupByLibrary.simpleMessage("Klasse"),
         "coefficientOne": MessageLookupByLibrary.simpleMessage("Coëfficiënt"),
@@ -88,9 +90,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage("Fout"),
         "exam": MessageLookupByLibrary.simpleMessage("Examen"),
         "exams": MessageLookupByLibrary.simpleMessage("Examens"),
+        "expand": MessageLookupByLibrary.simpleMessage("Uitbreiden"),
         "export_": MessageLookupByLibrary.simpleMessage("Export"),
         "export_description": MessageLookupByLibrary.simpleMessage(
             "De huidige configuratie en opgeslagen gegevens exporteren"),
+        "facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
         "follow_nightdream_games":
             MessageLookupByLibrary.simpleMessage("Volg NightDream Games"),
         "font": MessageLookupByLibrary.simpleMessage("Lettertype"),
@@ -117,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "import_success": MessageLookupByLibrary.simpleMessage(
             "Back-up succesvol geïmporteerd."),
         "increase": MessageLookupByLibrary.simpleMessage("Verhogen"),
+        "instagram": MessageLookupByLibrary.simpleMessage("Instagram"),
         "invalid": MessageLookupByLibrary.simpleMessage("Ongeldig"),
         "issue_tracker": MessageLookupByLibrary.simpleMessage("Issue tracker"),
         "issue_tracker_description": MessageLookupByLibrary.simpleMessage(
@@ -125,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Taal"),
         "language_code": MessageLookupByLibrary.simpleMessage("nl"),
         "licenses": MessageLookupByLibrary.simpleMessage("Licenties"),
+        "linkedin": MessageLookupByLibrary.simpleMessage("LinkedIn"),
         "lux_system":
             MessageLookupByLibrary.simpleMessage("Luxemburgs schoolsysteem"),
         "lux_system_classic": MessageLookupByLibrary.simpleMessage("Klassiek"),
@@ -275,6 +281,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "trimesterOther": MessageLookupByLibrary.simpleMessage("Trimesters"),
         "trimester_num": MessageLookupByLibrary.simpleMessage("Trimester %s"),
         "trimester_short_num": MessageLookupByLibrary.simpleMessage("T%s"),
+        "twitter": MessageLookupByLibrary.simpleMessage("X"),
         "up": MessageLookupByLibrary.simpleMessage("Omhoog"),
         "variant": MessageLookupByLibrary.simpleMessage("Variant"),
         "variant_classic_l": MessageLookupByLibrary.simpleMessage("L - Latijn"),
