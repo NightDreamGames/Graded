@@ -19,6 +19,8 @@
     "basic": "Basic",
     "bonus": "Bonus",
     "cancel": "Cancel",
+    "chartOne": "Chart",
+    "chartOther": "Charts",
     "chinese": "中文",
     "class_": "Class",
     "coefficientOne": "Weight",
@@ -72,9 +74,15 @@
     "error": "Error",
     "exam": "Exam",
     "exams": "Exams",
+    "expand": "Expand",
     "export_": "Export",
     "export_description": "Export the current configuration and saved data",
+    "facebook": "Facebook",
     "follow_nightdream_games": "Follow NightDream Games",
+    "@follow_nightdream_games": {
+        "description": "Do not translate \"NightDream Games\"",
+        "type": "text"
+    },
     "font": "Font",
     "french": "Français",
     "@french": {
@@ -109,6 +117,7 @@
     "import_error": "There was an error importing your backup.",
     "import_success": "Backup imported successfully.",
     "increase": "Increase",
+    "instagram": "Instagram",
     "invalid": "Invalid",
     "issue_tracker": "Issue tracker",
     "issue_tracker_description": "Send bug reports and feature requests here",
@@ -120,6 +129,7 @@
         "type": "text"
     },
     "licenses": "Licenses",
+    "linkedin": "LinkedIn",
     "lux_system": "Luxembourgish school system",
     "lux_system_classic": "Classic",
     "lux_system_general": "General",
@@ -156,9 +166,13 @@
     "quartileOne": "Quartile",
     "quartileOther": "Quartiles",
     "quartile_num": "Quartile %s",
+    "@quartile_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "quartile_short_num": "Q%s",
     "@quartile_short_num": {
-        "description": "Keep %s for inserting numbers",
+        "description": "Put \"%s\" where the number should be inserted",
         "type": "text"
     },
     "rating_system": "Rating system",
@@ -172,7 +186,15 @@
     "school_termOne": "School term",
     "school_termOther": "School terms",
     "school_term_num": "School term %s",
+    "@school_term_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "school_term_short_num": "T%s",
+    "@school_term_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "section": "Section",
     "section_classic_a": "A - Languages",
     "section_classic_b": "B - Mathematics",
@@ -206,7 +228,15 @@
     "semesterOne": "Semester",
     "semesterOther": "Semesters",
     "semester_num": "Semester %s",
+    "@semester_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "semester_short_num": "S%s",
+    "@semester_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "set_sub_subject": "Set as sub-subject",
     "settings": "Settings",
     "setup": "Setup",
@@ -248,7 +278,16 @@
     "trimesterOne": "Trimester",
     "trimesterOther": "Trimesters",
     "trimester_num": "Trimester %s",
+    "@trimester_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "trimester_short_num": "T%s",
+    "@trimester_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
+    "twitter": "X",
     "up": "Up",
     "variant": "Variant",
     "variant_classic_l": "L - Latin",
