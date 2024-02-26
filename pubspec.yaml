@@ -20,6 +20,7 @@ dependencies:
     sdk: flutter
   flutter_displaymode: ^0.6.0
   flutter_file_dialog: ^3.0.0
+  flutter_hooks: ^0.20.5
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.0
@@ -127,3 +128,4 @@ import_sorter:
   ignored_files:
     - \/lib\\localization\\.*
     - \/lib\\ui\\utilities\\custom_icons.dart
+

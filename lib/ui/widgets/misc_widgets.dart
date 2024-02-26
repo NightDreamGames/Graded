@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 
 // Package imports:
 import "package:fading_edge_scrollview/fading_edge_scrollview.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_svg/svg.dart";
 
 // Project imports:
@@ -189,5 +190,57 @@ class SpinningIcon extends StatelessWidget {
       turns: rotation,
       child: Icon(icon),
     );
+  }
+}
+
+class MeasuredWidget extends StatefulWidget {
+  final Function(Size? size) onCalculateSize;
+  final Widget child;
+
+  const MeasuredWidget({
+    super.key,
+    required this.onCalculateSize,
+    required this.child,
+  });
+
+  @override
+  _MeasuredWidgetState createState() => _MeasuredWidgetState();
+}
+
+class _MeasuredWidgetState extends State<MeasuredWidget> {
+  final key = GlobalKey();
+
+  @override
+  void initState() {
+    //calling the getHeight Function after the Layout is Rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) => getHeight());
+
+    super.initState();
+  }
+
+  void getHeight() {
+    final size = key.currentContext?.size;
+    widget.onCalculateSize(size);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _MeasuredWidgetContent(
+      key: key,
+      child: widget.child,
+    );
+  }
+}
+
+class _MeasuredWidgetContent extends HookWidget {
+  final Widget child;
+  const _MeasuredWidgetContent({
+    super.key,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return child;
   }
 }
