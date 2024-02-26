@@ -19,6 +19,8 @@
     "basic": "Basic",
     "bonus": "Bonus",
     "cancel": "Ofbriechen",
+    "chartOne": "Grafik",
+    "chartOther": "Grafiken",
     "chinese": "中文",
     "class_": "Klass",
     "coefficientOne": "Koeffizient",
@@ -72,9 +74,15 @@
     "error": "Feeler",
     "exam": "Examen",
     "exams": "Examen",
+    "expand": "Erweideren",
     "export_": "Exportéieren",
     "export_description": "Exportéieren vun der aktueller Konfiguratioun an den gespäicherten Donnéeën",
+    "facebook": "Facebook",
     "follow_nightdream_games": "NightDream Games followen",
+    "@follow_nightdream_games": {
+        "description": "Do not translate \"NightDream Games\"",
+        "type": "text"
+    },
     "font": "Schrëft",
     "french": "Français",
     "@french": {
@@ -109,6 +117,7 @@
     "import_error": "Et ass e Feeler beim Importéieren vun ärem Backup opgetrueden.",
     "import_success": "Backup erfollegräich importéiert.",
     "increase": "Erhéijen",
+    "instagram": "Instagram",
     "invalid": "Ongëlteg",
     "issue_tracker": "Issue tracker",
     "issue_tracker_description": "Schéck Feelerberichter an Funktiounswënsch hei",
@@ -120,6 +129,7 @@
         "type": "text"
     },
     "licenses": "Lizenzen",
+    "linkedin": "LinkedIn",
     "lux_system": "Lëtzebuergeschen Schoulsystem",
     "lux_system_classic": "Klassik",
     "lux_system_general": "General",
@@ -156,9 +166,13 @@
     "quartileOne": "Quadrimester",
     "quartileOther": "Quadrimester",
     "quartile_num": "Quadrimester %s",
+    "@quartile_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "quartile_short_num": "Q%s",
     "@quartile_short_num": {
-        "description": "Keep %s for inserting numbers",
+        "description": "Put \"%s\" where the number should be inserted",
         "type": "text"
     },
     "rating_system": "Bewäertungssystem",
@@ -172,7 +186,15 @@
     "school_termOne": "Schoulperiod",
     "school_termOther": "Schoulperioden",
     "school_term_num": "Schoulperiod %s",
+    "@school_term_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "school_term_short_num": "P%s",
+    "@school_term_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "section": "Sektioun",
     "section_classic_a": "A - Sproochen",
     "section_classic_b": "B - Mathematik",
@@ -206,7 +228,15 @@
     "semesterOne": "Semester",
     "semesterOther": "Semester",
     "semester_num": "Semester %s",
+    "@semester_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "semester_short_num": "S%s",
+    "@semester_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "set_sub_subject": "Als Ënnerfach setzen",
     "settings": "Astellungen",
     "setup": "Ariichtung",
@@ -248,7 +278,16 @@
     "trimesterOne": "Trimester",
     "trimesterOther": "Trimester",
     "trimester_num": "Trimester %s",
+    "@trimester_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "trimester_short_num": "T%s",
+    "@trimester_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
+    "twitter": "X",
     "up": "No uewen",
     "variant": "Variante",
     "variant_classic_l": "L - Latäin",
