@@ -223,6 +223,7 @@ class SocialsBottomSheet extends StatelessWidget {
                 CustomIcons.twitter,
                 color: Theme.of(context).colorScheme.secondary,
               ),
+              tooltip: translations.twitter,
             ),
             IconButton(
               onPressed: () {
@@ -232,6 +233,7 @@ class SocialsBottomSheet extends StatelessWidget {
                 CustomIcons.instagram,
                 color: Theme.of(context).colorScheme.secondary,
               ),
+              tooltip: translations.instagram,
             ),
             IconButton(
               onPressed: () {
@@ -241,6 +243,7 @@ class SocialsBottomSheet extends StatelessWidget {
                 CustomIcons.facebook,
                 color: Theme.of(context).colorScheme.secondary,
               ),
+              tooltip: translations.facebook,
             ),
             IconButton(
               onPressed: () {
@@ -250,6 +253,7 @@ class SocialsBottomSheet extends StatelessWidget {
                 CustomIcons.linkedin,
                 color: Theme.of(context).colorScheme.secondary,
               ),
+              tooltip: translations.linkedin,
             ),
           ],
         ),
