@@ -78,7 +78,13 @@ class Calculator {
     }
   }
 
-  static double? calculate(Iterable<CalculationObject> data, {double bonus = 0, bool precise = false, double speakingWeight = 1}) {
+  static double? calculate(
+    Iterable<CalculationObject> data, {
+    double bonus = 0,
+    bool precise = false,
+    bool clamp = true,
+    double speakingWeight = 1,
+  }) {
     final bool isNullFilled = data.every((element) => element.numerator == null || element.denominator == 0);
 
     if (data.isEmpty || isNullFilled) return null;
@@ -105,9 +111,12 @@ class Calculator {
     if (result.isNaN) result = resultSpeaking;
     if (resultSpeaking.isNaN) resultSpeaking = result;
 
-    final double totalResult = (result * speakingWeight + resultSpeaking) / (speakingWeight + 1) + bonus;
+    double totalResult = (result * speakingWeight + resultSpeaking) / (speakingWeight + 1) + bonus;
 
-    return round(totalResult, roundToMultiplier: precise ? DefaultValues.preciseRoundToMultiplier : 1);
+    totalResult = round(totalResult, roundToMultiplier: precise ? DefaultValues.preciseRoundToMultiplier : 1);
+    if (clamp && !precise) totalResult = totalResult.clamp(0, maxGrade);
+
+    return totalResult;
   }
 
   static double round(double n, {String? roundingModeOverride, int? roundToOverride, int roundToMultiplier = 1}) {

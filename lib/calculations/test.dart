@@ -22,7 +22,7 @@ class Test extends CalculationObject {
   }) {
     super.name = name;
     super.weight = weight;
-    result = isEmpty ? null : Calculator.calculate([this]);
+    result = isEmpty ? null : Calculator.calculate([this], clamp: false);
     if (result == null) numerator = null;
 
     final DateTime now = DateTime.now();
@@ -57,7 +57,7 @@ class Test extends CalculationObject {
     name = json["name"] as String;
     weight = json["coefficient"] as double? ?? 1;
     isSpeaking = json["isSpeaking"] as bool? ?? false;
-    result = Calculator.calculate([this]);
+    result = Calculator.calculate([this], clamp: false);
     if (result == null) numerator = null;
     timestamp = json["timestamp"] as int? ?? DateTime(2021, 9, 15).millisecondsSinceEpoch;
   }

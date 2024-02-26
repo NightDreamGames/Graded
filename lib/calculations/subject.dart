@@ -59,7 +59,7 @@ class Subject extends CalculationObject {
     t.name = name;
     t.weight = weight;
     t.isSpeaking = isSpeaking;
-    t.result = Calculator.calculate([t]);
+    t.result = Calculator.calculate([t], clamp: false);
     t.timestamp = timestamp ?? t.timestamp;
     Manager.calculate();
   }

@@ -28,17 +28,21 @@ void main() async {
     final List<CalculationObject> oneItemList = [Test(80, 100)];
     final List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(65.9, 70), Test(50, 55)];
     final List<CalculationObject> speakingList = [Test(0, 60, isSpeaking: true), Test(60, 60)];
+    final List<CalculationObject> clampingList = [Test(80, 100), Test(150, 100)];
 
     expect(Calculator.calculate([]), equals(null));
     expect(Calculator.calculate(emptyList), equals(null));
     expect(Calculator.calculate(speakingList, speakingWeight: 3), equals(45));
-    expect(Calculator.calculate(multipleItemsList), equals(57.0));
-    expect(Calculator.calculate(multipleItemsList, bonus: -3), equals(54.0));
+    expect(Calculator.calculate(multipleItemsList), equals(57));
+    expect(Calculator.calculate(multipleItemsList, bonus: -3), equals(54));
     expect(Calculator.calculate(multipleItemsList, bonus: 3, precise: true), equals(59.1));
 
-    expect(Calculator.calculate(oneItemList), equals(48.0));
+    expect(Calculator.calculate(oneItemList), equals(48));
     getCurrentYear().maxGrade = 100;
     expect(Calculator.calculate(oneItemList), equals(80));
+
+    expect(Calculator.calculate(clampingList), equals(100));
+    expect(Calculator.calculate(clampingList, clamp: false), equals(115));
   });
 
   test("Number formatting", () {
@@ -75,7 +79,7 @@ void main() async {
     expect(Calculator.tryParse(""), equals(null));
     expect(Calculator.tryParse("abc"), equals(null));
 
-    expect(Calculator.tryParse("1"), equals(1.0));
+    expect(Calculator.tryParse("1"), equals(1));
     expect(Calculator.tryParse("1.23"), equals(1.23));
     expect(Calculator.tryParse("1,23"), equals(1.23));
     expect(Calculator.tryParse("-1.23"), equals(-1.23));
