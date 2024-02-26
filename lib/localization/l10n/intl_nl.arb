@@ -19,6 +19,8 @@
     "basic": "Basis",
     "bonus": "Bonus",
     "cancel": "Annuleren",
+    "chartOne": "Grafiek",
+    "chartOther": "Grafieken",
     "chinese": "中文",
     "class_": "Klasse",
     "coefficientOne": "Coëfficiënt",
@@ -72,9 +74,15 @@
     "error": "Fout",
     "exam": "Examen",
     "exams": "Examens",
+    "expand": "Uitbreiden",
     "export_": "Export",
     "export_description": "De huidige configuratie en opgeslagen gegevens exporteren",
+    "facebook": "Facebook",
     "follow_nightdream_games": "Volg NightDream Games",
+    "@follow_nightdream_games": {
+        "description": "Do not translate \"NightDream Games\"",
+        "type": "text"
+    },
     "font": "Lettertype",
     "french": "Français",
     "@french": {
@@ -109,6 +117,7 @@
     "import_error": "Er is een four opgetreden bij het importeren van uw back-up.",
     "import_success": "Back-up succesvol geïmporteerd.",
     "increase": "Verhogen",
+    "instagram": "Instagram",
     "invalid": "Ongeldig",
     "issue_tracker": "Issue tracker",
     "issue_tracker_description": "Stuur bugrapporten en verzoeken om funxties hier",
@@ -120,6 +129,7 @@
         "type": "text"
     },
     "licenses": "Licenties",
+    "linkedin": "LinkedIn",
     "lux_system": "Luxemburgs schoolsysteem",
     "lux_system_classic": "Klassiek",
     "lux_system_general": "Generaal",
@@ -156,9 +166,13 @@
     "quartileOne": "Kwartaal",
     "quartileOther": "Kwartaals",
     "quartile_num": "Kwartaal %s",
+    "@quartile_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "quartile_short_num": "Q%s",
     "@quartile_short_num": {
-        "description": "Keep %s for inserting numbers",
+        "description": "Put \"%s\" where the number should be inserted",
         "type": "text"
     },
     "rating_system": "Beoordelingssystem",
@@ -172,7 +186,15 @@
     "school_termOne": "Schoolperiode",
     "school_termOther": "Schoolperioden",
     "school_term_num": "Schoolperiode %s",
+    "@school_term_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "school_term_short_num": "P%s",
+    "@school_term_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "section": "Sectie",
     "section_classic_a": "A - Talen",
     "section_classic_b": "B - Wiskunde",
@@ -206,7 +228,15 @@
     "semesterOne": "Semester",
     "semesterOther": "Semesters",
     "semester_num": "Semester %s",
+    "@semester_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "semester_short_num": "S%s",
+    "@semester_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "set_sub_subject": "Als sub-vak instellen",
     "settings": "Instellingen",
     "setup": "Setup",
@@ -248,7 +278,16 @@
     "trimesterOne": "Trimester",
     "trimesterOther": "Trimesters",
     "trimester_num": "Trimester %s",
+    "@trimester_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
     "trimester_short_num": "T%s",
+    "@trimester_short_num": {
+        "description": "Put \"%s\" where the number should be inserted",
+        "type": "text"
+    },
+    "twitter": "X",
     "up": "Omhoog",
     "variant": "Variant",
     "variant_classic_l": "L - Latijn",
