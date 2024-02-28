@@ -1,0 +1,13 @@
+## [2.6.5] - 2023-02-28
+
+### Bugfixing and minor improvements
+
+- Move bonus to its own dialog, allowing for more precise input
+- Make app bar title scrollable when it overflows
+- Add limit at maximum grade
+- Fix BottomSheet maximum height
+- Fix UI on Test dialog
+- Add rounded edges to inksplashes
+- Round negative numbers correctly
+- Add missing tooltips
+- Optimisations and minification
