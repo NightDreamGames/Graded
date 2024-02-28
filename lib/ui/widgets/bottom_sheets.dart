@@ -107,7 +107,6 @@ class _EasyBottomSheetState extends State<EasyBottomSheet> {
                 cardTheme: Theme.of(context).cardTheme.copyWith(elevation: 0.75),
               ),
               child: ListView(
-                controller: scrollController,
                 children: children,
               ),
             ),
@@ -118,13 +117,18 @@ class _EasyBottomSheetState extends State<EasyBottomSheet> {
   }
 }
 
-void showColorBottomSheet(BuildContext context, void Function()? onChanged) => showModalBottomSheet(
-      isScrollControlled: true,
+void showBottomSheet({required BuildContext context, required Widget child}) => showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       showDragHandle: true,
       builder: (context) {
-        return ColorBottomSheet(onChanged: onChanged);
+        return child;
       },
+    );
+
+void showColorBottomSheet(BuildContext context, void Function()? onChanged) => showBottomSheet(
+      context: context,
+      child: ColorBottomSheet(onChanged: onChanged),
     );
 
 class ColorBottomSheet extends StatelessWidget {
@@ -234,13 +238,9 @@ class ColorBottomSheet extends StatelessWidget {
   }
 }
 
-void showSocialsBottomSheet(BuildContext context) => showModalBottomSheet(
-      isScrollControlled: true,
+void showSocialsBottomSheet(BuildContext context) => showBottomSheet(
       context: context,
-      showDragHandle: true,
-      builder: (context) {
-        return const SocialsBottomSheet();
-      },
+      child: const SocialsBottomSheet(),
     );
 
 class SocialsBottomSheet extends StatelessWidget {
