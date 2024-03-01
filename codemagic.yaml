@@ -154,7 +154,7 @@ workflows:
             changelog_gh+=$"\n\n#### Full changelog: https://github.com/NightDreamGames/Graded/compare/${last_release}...${BUILD_NAME}"
           fi
 
-          echo "$changelog_gh" > changelog_gh.txt
+          echo -e "$changelog_gh" > changelog_gh.txt
 
           echo "$CHANGELOG"
           echo
