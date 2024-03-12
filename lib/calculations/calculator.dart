@@ -75,6 +75,8 @@ class Calculator {
             return result * sortDirection;
           },
         );
+      default:
+        throw const FormatException("Invalid");
     }
   }
 
@@ -140,7 +142,7 @@ class Calculator {
 
         return (decimals <= 0.5 ? base : base + 1 * sign) / roundTo;
       default:
-        return n;
+        throw const FormatException("Invalid");
     }
   }
 

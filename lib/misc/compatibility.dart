@@ -99,6 +99,8 @@ class Compatibility {
               sortDirection = SortDirection.descending;
             case SortMode.custom:
               sortDirection = SortDirection.notApplicable;
+            default:
+              throw const FormatException("Invalid");
           }
           setPreference<int>("sort_direction$sortType", sortDirection);
         }

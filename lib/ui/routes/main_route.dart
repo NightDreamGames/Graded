@@ -207,8 +207,8 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         2 => translations.semester_num.replaceFirst("%s", "${i + 1}"),
         3 => translations.trimester_num.replaceFirst("%s", "${i + 1}"),
         4 => translations.quartile_num.replaceFirst("%s", "${i + 1}"),
-      _ => throw const FormatException("Invalid"),
-    };
+        _ => throw const FormatException("Invalid"),
+      };
     });
 
     if (getCurrentYear().validatedYear == 1) {
