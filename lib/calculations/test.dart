@@ -10,23 +10,28 @@ class Test extends CalculationObject {
   double denominator = 0;
   bool isSpeaking = false;
   int timestamp = 0;
+  bool isEmpty = false;
 
   Test(
     this.numerator,
     this.denominator, {
     String name = "",
     double weight = DefaultValues.weight,
-    bool isEmpty = false,
+    this.isEmpty = false,
     this.isSpeaking = false,
     int? timestamp,
   }) {
     super.name = name;
     super.weight = weight;
-    result = isEmpty ? null : Calculator.calculate([this], clamp: false);
+    calculate();
     if (result == null) numerator = null;
 
     final DateTime now = DateTime.now();
     this.timestamp = timestamp ?? DateTime(now.year, now.month, now.day).millisecondsSinceEpoch;
+  }
+
+  void calculate() {
+    result = isEmpty ? null : Calculator.calculate([this], clamp: false);
   }
 
   @override
@@ -46,9 +51,9 @@ class Test extends CalculationObject {
     name = test.name;
     weight = test.weight;
     isSpeaking = test.isSpeaking;
-    result = test.result;
     numerator = test.numerator;
     timestamp = test.timestamp;
+    calculate();
   }
 
   Test.fromJson(Map<String, dynamic> json) {
@@ -57,7 +62,7 @@ class Test extends CalculationObject {
     name = json["name"] as String;
     weight = json["coefficient"] as double? ?? 1;
     isSpeaking = json["isSpeaking"] as bool? ?? false;
-    result = Calculator.calculate([this], clamp: false);
+    calculate();
     if (result == null) numerator = null;
     timestamp = json["timestamp"] as int? ?? DateTime(2021, 9, 15).millisecondsSinceEpoch;
   }

@@ -24,13 +24,17 @@ class Subject extends CalculationObject {
 
   void calculate() {
     if (isGroup) {
-      for (final Subject element in children) {
-        element.calculate();
+      for (final Subject child in children) {
+        child.calculate();
       }
 
       result = Calculator.calculate(children);
       preciseResult = Calculator.calculate(children, precise: true);
     } else {
+      for (final test in tests) {
+        test.calculate();
+      }
+
       result = Calculator.calculate(tests, bonus: bonus, speakingWeight: speakingWeight);
       preciseResult = Calculator.calculate(tests, bonus: bonus, precise: true, speakingWeight: speakingWeight);
     }
