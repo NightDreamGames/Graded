@@ -1,6 +1,9 @@
 // Flutter imports:
 import "package:flutter/material.dart";
 
+// Package imports:
+import "package:collection/collection.dart";
+
 // Project imports:
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
@@ -159,6 +162,33 @@ class Manager {
     yearOverview.sort();
 
     return yearOverview;
+  }
+
+  //TODO make more use of this function
+  static List<Subject> getSubjectAcrossTerms(Subject subject) {
+    final List<Subject> result = [];
+
+    for (final term in getCurrentYear().terms) {
+      final Subject? s = getSubjectInTerm(subject, term);
+      if (s == null) continue;
+      result.add(s);
+    }
+    return result;
+  }
+
+  static Subject? getSubjectInTerm(Subject? subject, Term term) {
+    if (subject == null) return null;
+
+    final Subject? result = term.subjects.firstWhereOrNull((s) => s.name == subject.name);
+
+    if (result != null) return result;
+
+    for (final s in term.subjects) {
+      final Subject? child = s.children.firstWhereOrNull((c) => c.name == subject.name);
+      if (child != null) return child;
+    }
+
+    throw ArgumentError("Subject not found in term");
   }
 
   Map<String, dynamic> toJson() => {

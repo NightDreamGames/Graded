@@ -7,6 +7,7 @@ import "package:device_info_plus/device_info_plus.dart";
 import "package:dynamic_color/dynamic_color.dart";
 import "package:flutter_displaymode/flutter_displaymode.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
+import "package:intl/date_symbol_data_local.dart";
 import "package:provider/provider.dart";
 
 // Project imports:
@@ -89,8 +90,11 @@ class _AppContainerState extends State<AppContainer> {
             supportedLocales: TranslationsClass.delegate.supportedLocales,
             localeResolutionCallback: (deviceLocale, supportedLocales) {
               if (supportedLocales.map((e) => e.languageCode).contains(deviceLocale?.languageCode)) {
+                initializeDateFormatting(deviceLocale?.languageCode);
                 return deviceLocale;
               }
+
+              initializeDateFormatting("en_GB");
               return const Locale("en", "GB");
             },
             locale: provider.locale,
@@ -128,6 +132,7 @@ Route<dynamic> createRoute(RouteSettings settings) {
       final CreationType type = (settings.arguments as CreationType?) ?? CreationType.edit;
       route = SubjectEditRoute(creationType: type);
     case "/subject":
+    case "/chart":
       if (settings.arguments == null) {
         throw ArgumentError("No arguments passed to route");
       }
@@ -136,7 +141,7 @@ Route<dynamic> createRoute(RouteSettings settings) {
       final Subject subject = arguments[1]!;
 
       route = RouteWidget(
-        routeType: RouteType.subject,
+        routeType: settings.name == "/subject" ? RouteType.subject : RouteType.chart,
         title: subject.name,
         arguments: arguments,
       );

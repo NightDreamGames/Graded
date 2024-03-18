@@ -10,6 +10,7 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
+import "package:graded/ui/routes/chart_route.dart";
 import "package:graded/ui/routes/home_route.dart";
 import "package:graded/ui/routes/subject_route.dart";
 import "package:graded/ui/utilities/haptics.dart";
@@ -20,6 +21,7 @@ import "package:graded/ui/widgets/popup_menus.dart";
 enum RouteType {
   home,
   subject,
+  chart,
 }
 
 class RouteWidget extends StatefulWidget {
@@ -63,7 +65,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
     tabController = TabController(
       length: children.length,
-      initialIndex: Manager.currentTerm,
+      initialIndex: widget.routeType != RouteType.chart ? Manager.currentTerm : 0,
       vsync: this,
     )..addListener(() {
         if (widget.routeType != RouteType.home) return;
@@ -234,33 +236,47 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
 
     List<Widget> children = [];
 
-    if (widget.routeType == RouteType.home) {
-      children = List.generate(
-        tabCount,
-        (index) => HomePage(term: getTerm(index)),
-      );
-    } else {
-      if (widget.arguments == null) {
-        throw ArgumentError("No arguments passed to route");
-      }
+    switch (widget.routeType) {
+      case RouteType.home:
+        children = List.generate(
+          tabCount,
+          (index) => HomePage(term: getTerm(index)),
+        );
 
-      final List<Subject?> arguments = widget.arguments! as List<Subject?>;
-      final Subject? parent = arguments[0];
-      final Subject subject = arguments[1]!;
+      case RouteType.subject:
+      case RouteType.chart:
+        if (widget.arguments == null) {
+          throw ArgumentError("No arguments passed to route");
+        }
 
-      int tabCount = getCurrentYear().termCount;
-      if (getCurrentYear().validatedYear == 1) tabCount++;
-      if (tabCount > 1) tabCount++;
+        final List<Subject?> arguments = widget.arguments! as List<Subject?>;
+        final Subject? parent = arguments[0];
+        final Subject subject = arguments[1]!;
 
-      children = List.generate(tabCount, (index) {
-        final Term term = getTerm(index);
-        final Subject? newParent = parent != null ? term.subjects.firstWhere((element) => element.name == parent.name) : null;
-        final Subject newSubject = newParent != null
-            ? newParent.children.firstWhere((element) => element.name == subject.name)
-            : term.subjects.firstWhere((element) => element.name == subject.name);
+        int tabCount = 1;
+        if (widget.routeType == RouteType.subject) {
+          tabCount = getCurrentYear().termCount;
+          if (getCurrentYear().validatedYear == 1) tabCount++;
+          if (tabCount > 1) tabCount++;
+        }
 
-        return SubjectRoute(term: term, parent: newParent, subject: newSubject);
-      });
+        children = List.generate(tabCount, (index) {
+          Term term = getTerm(index);
+          if (widget.routeType == RouteType.chart) {
+            term = getYearOverview();
+          }
+
+          final Subject? newParent = parent != null ? Manager.getSubjectInTerm(parent, term) : null;
+          final Subject newSubject = newParent != null
+              ? newParent.children.firstWhere((element) => element.name == subject.name)
+              : term.subjects.firstWhere((element) => element.name == subject.name);
+
+          if (widget.routeType == RouteType.subject) {
+            return SubjectRoute(term: term, parent: newParent, subject: newSubject);
+          } else {
+            return ChartRoute(term: term, parent: newParent, subject: newSubject);
+          }
+        });
     }
 
     return children;

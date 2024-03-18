@@ -1,3 +1,6 @@
+// Dart imports:
+import "dart:math";
+
 // Flutter imports:
 import "package:flutter/material.dart";
 
@@ -92,34 +95,57 @@ class _SubjectRouteState extends State<SubjectRoute> {
                   child: ResultRow(
                     result: widget.subject.getResult(),
                     preciseResult: widget.subject.getResult(precise: true),
-                    leading: !widget.term.isYearOverview
-                        ? FadingEdgeScrollView.fromSingleChildScrollView(
-                            child: SingleChildScrollView(
-                              controller: scrollController,
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      showBonusDialog(context, widget.subject).then((_) => refreshYearOverview());
-                                    },
-                                    style: getTonalButtonStyle(context),
-                                    child: Text("${translations.bonus}: ${Calculator.format(
-                                      widget.subject.bonus,
-                                      leadingZero: false,
-                                      showPlusSign: true,
-                                    )}"),
-                                  ),
-                                ],
+                    leading: FadingEdgeScrollView.fromSingleChildScrollView(
+                      child: SingleChildScrollView(
+                        controller: scrollController,
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            if (!widget.term.isYearOverview)
+                              ElevatedButton(
+                                onPressed: () {
+                                  showBonusDialog(context, widget.subject).then((_) => refreshYearOverview());
+                                },
+                                style: getTonalButtonStyle(context),
+                                child: Text(
+                                  "${translations.bonus}: ${Calculator.format(
+                                    widget.subject.bonus,
+                                    leadingZero: false,
+                                    showPlusSign: true,
+                                  )}",
+                                ),
+                              )
+                            else
+                              Text(
+                                translations.yearly_average,
+                                overflow: TextOverflow.fade,
+                                softWrap: false,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
+                            const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                            IconButton.filledTonal(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(
+                                  "/chart",
+                                  arguments: [
+                                    Manager.getSubjectInTerm(widget.parent, getYearOverview()),
+                                    Manager.getSubjectInTerm(widget.subject, getYearOverview()),
+                                  ],
+                                );
+                              },
+                              icon: Transform(
+                                alignment: Alignment.center,
+                                transform: Matrix4.rotationY(pi),
+                                child: const Icon(
+                                  Icons.stacked_bar_chart,
+                                ),
+                              ),
+                              tooltip: translations.chartOther,
                             ),
-                          )
-                        : Text(
-                            translations.yearly_average,
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
