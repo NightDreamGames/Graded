@@ -1,3 +1,7 @@
+ext {
+    targetCompatibility = 17
+}
+
 allprojects {
 	repositories {
 		google()
