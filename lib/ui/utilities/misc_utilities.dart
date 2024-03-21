@@ -41,8 +41,7 @@ Future<Uri> getEmailUrl() async {
 
   if (isAndroid) {
     final androidInfo = await deviceInfo.androidInfo;
-    body +=
-        "Device: ${androidInfo.model} (${androidInfo.device})\nAndroid version: ${androidInfo.version.release} (${androidInfo.version.sdkInt})\nDisplay: ${androidInfo.displayMetrics.widthPx.toInt()}x${androidInfo.displayMetrics.heightPx.toInt()}px";
+    body += "Device: ${androidInfo.model} (${androidInfo.device})\nAndroid version: ${androidInfo.version.release} (${androidInfo.version.sdkInt})";
   } else if (isiOS) {
     final iosInfo = await deviceInfo.iosInfo;
     body += "Device: ${iosInfo.model} (${iosInfo.name})\niOS version: ${iosInfo.systemVersion}";
