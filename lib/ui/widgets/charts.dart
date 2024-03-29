@@ -143,7 +143,7 @@ class _StandardLineChartState extends State<StandardLineChart> {
         touchSpotThreshold: 30,
         touchTooltipData: LineTouchTooltipData(
           fitInsideVertically: true,
-          tooltipBgColor: Theme.of(context).colorScheme.primary,
+          getTooltipColor: (spot) => Theme.of(context).colorScheme.primary,
           getTooltipItems: (List<LineBarSpot> touchedSpots) {
             return touchedSpots.map((LineBarSpot touchedSpot) {
               if (touchedSpot.barIndex != 0) return null;
