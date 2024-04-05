@@ -115,12 +115,12 @@ class Subject extends CalculationObject {
   }
 
   Map<String, dynamic> toJson() => {
-        "tests": tests,
-        "children": children,
         "name": name,
         "coefficient": weight,
+        "speakingWeight": speakingWeight,
         "bonus": bonus,
         "type": isGroup,
-        "speakingWeight": speakingWeight,
+        "children": children.toList(),
+        "tests": tests,
       };
 }

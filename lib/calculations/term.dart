@@ -85,8 +85,8 @@ class Term extends CalculationObject {
   }
 
   Map<String, dynamic> toJson() => {
-        "subjects": subjects,
         "coefficient": weight,
         "isExam": isExam,
+        "subjects": subjects.toList(),
       };
 }

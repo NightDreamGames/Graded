@@ -240,17 +240,17 @@ class Year extends CalculationObject {
   }
 
   Map<String, dynamic> toJson() => {
-        "terms": terms,
-        "term_template": termTemplate,
         "name": name,
+        "term_count": termCount,
+        "max_grade": maxGrade,
+        "rounding_mode": roundingMode,
+        "round_to": roundTo,
         "validated_school_system": validatedSchoolSystem,
         "validated_lux_system": validatedLuxSystem,
         "validated_year": validatedYear,
         "validated_section": validatedSection,
         "validated_variant": validatedVariant,
-        "term_count": termCount,
-        "max_grade": maxGrade,
-        "rounding_mode": roundingMode,
-        "round_to": roundTo,
+        "terms": terms,
+        "term_template": termTemplate.toList(),
       };
 }

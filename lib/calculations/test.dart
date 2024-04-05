@@ -68,9 +68,9 @@ class Test extends CalculationObject {
   }
 
   Map<String, dynamic> toJson() => {
+        "name": name,
         "grade1": numerator,
         "grade2": denominator,
-        "name": name,
         "coefficient": weight,
         "isSpeaking": isSpeaking,
         "timestamp": timestamp,
