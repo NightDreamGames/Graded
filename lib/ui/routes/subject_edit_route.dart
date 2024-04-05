@@ -31,18 +31,10 @@ class SubjectEditRoute extends StatefulWidget {
   State<SubjectEditRoute> createState() => _SubjectEditRouteState();
 }
 
-class _SubjectEditRouteState extends State<SubjectEditRoute> {
-  double fabRotation = 0;
-
+class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500)).then((_) {
-      if (!mounted) return;
-      setState(() {
-        fabRotation += 0.5;
-      });
-    });
 
     if (widget.creationType == CreationType.add && Manager.years.isNotEmpty && getCurrentYear(allowSetup: false).termTemplate.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

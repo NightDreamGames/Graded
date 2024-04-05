@@ -21,9 +21,8 @@ class YearRoute extends StatefulWidget {
   State<YearRoute> createState() => _YearRouteState();
 }
 
-class _YearRouteState extends State<YearRoute> {
+class _YearRouteState extends SpinningFabPage<YearRoute> {
   final nameController = TextEditingController();
-  double fabRotation = 0;
 
   @override
   void initState() {
@@ -31,12 +30,6 @@ class _YearRouteState extends State<YearRoute> {
     for (final Year year in Manager.years) {
       year.calculate();
     }
-    Future.delayed(const Duration(milliseconds: 500)).then((_) {
-      if (!mounted) return;
-      setState(() {
-        fabRotation += 0.5;
-      });
-    });
   }
 
   @override

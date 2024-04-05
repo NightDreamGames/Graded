@@ -37,20 +37,8 @@ class SubjectRoute extends StatefulWidget {
   State<SubjectRoute> createState() => _SubjectRouteState();
 }
 
-class _SubjectRouteState extends State<SubjectRoute> {
-  double fabRotation = 0;
+class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
   final ScrollController scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 500)).then((_) {
-      if (!mounted) return;
-      setState(() {
-        fabRotation += 0.5;
-      });
-    });
-  }
 
   void rebuild() {
     setState(() {});
