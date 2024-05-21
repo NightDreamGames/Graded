@@ -1,3 +1,6 @@
+// Package imports:
+import "package:collection/collection.dart";
+
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
@@ -74,7 +77,7 @@ class Subject extends CalculationObject {
       sortType: SortType.subject,
       sortModeOverride: sortModeOverride,
       sortDirectionOverride: sortDirectionOverride,
-      comparisonData: children.isNotEmpty ? getCurrentYear().termTemplate.firstWhere((element) => element.name == name).children : null,
+      comparisonData: children.isNotEmpty ? getCurrentYear().termTemplate.firstWhereOrNull((element) => element.name == name)?.children : null,
     );
 
     for (final Subject element in children) {
