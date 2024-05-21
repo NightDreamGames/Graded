@@ -100,13 +100,13 @@ class _StandardLineChartState extends State<StandardLineChart> {
         verticalInterval: widget.xGridInterval.toDouble(),
         getDrawingHorizontalLine: (value) {
           return FlLine(
-            color: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
           return FlLine(
-            color: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
             strokeWidth: 1,
           );
         },
@@ -133,7 +133,7 @@ class _StandardLineChartState extends State<StandardLineChart> {
       ),
       borderData: FlBorderData(
         show: true,
-        border: Border.all(color: Theme.of(context).colorScheme.surfaceVariant),
+        border: Border.all(color: Theme.of(context).colorScheme.surfaceContainerHighest),
       ),
       minX: minX,
       maxX: maxX,

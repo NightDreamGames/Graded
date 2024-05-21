@@ -211,6 +211,9 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
   String get backButtonTooltip => 'Zerèck';
 
   @override
+  String get clearButtonTooltip => 'Text läschen';
+
+  @override
   String get bottomSheetLabel => 'Usiicht am ënneren Rand';
 
   @override
@@ -611,6 +614,9 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
 
   @override
   String get selectYearSemanticsLabel => 'Joer auswielen';
+
+  @override
+  String get selectedDateLabel => 'Gewielt';
 
   @override
   String? get selectedRowCountTitleFew => null;
