@@ -29,7 +29,7 @@
 Go to the [Releases](https://github.com/NightDreamGames/Graded/releases) and download latest APK/IPA or click the badges below:
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" title="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
-[<img src="https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en-au.png" title="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.NightDreamGames.Grade.ly)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" title="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.NightDreamGames.Grade.ly)
 
 [<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us" title="Download on the App Store" height="60">](https://apps.apple.com/us/app/graded-grade-tracker/id644468128)
 
