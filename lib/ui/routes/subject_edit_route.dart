@@ -112,26 +112,24 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
             rebuild();
           },
           enableShowcase: getPreference<bool>("showcase_subject_edit", true),
-          builder: Builder(
-            builder: (context) {
-              return SafeArea(
-                top: false,
-                bottom: false,
-                child: subjectData.isNotEmpty
-                    ? ReorderableListView(
-                        padding: EdgeInsets.only(bottom: 88 + MediaQuery.paddingOf(context).bottom),
-                        primary: true,
-                        buildDefaultDragHandles: false,
-                        onReorder: (int oldIndex, int newIndex) {
-                          getCurrentYear().reorderSubjects(oldIndex, newIndex);
-                          rebuild();
-                        },
-                        children: buildTiles(subjectData, childrenData),
-                      )
-                    : EmptyWidget(message: translations.no_subjects),
-              );
-            },
-          ),
+          builder: (context) {
+            return SafeArea(
+              top: false,
+              bottom: false,
+              child: subjectData.isNotEmpty
+                  ? ReorderableListView(
+                      padding: EdgeInsets.only(bottom: 88 + MediaQuery.paddingOf(context).bottom),
+                      primary: true,
+                      buildDefaultDragHandles: false,
+                      onReorder: (int oldIndex, int newIndex) {
+                        getCurrentYear().reorderSubjects(oldIndex, newIndex);
+                        rebuild();
+                      },
+                      children: buildTiles(subjectData, childrenData),
+                    )
+                  : EmptyWidget(message: translations.no_subjects),
+            );
+          },
         ),
       ),
     );
