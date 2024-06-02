@@ -1,16 +1,13 @@
-// Package imports:
-import "package:collection/collection.dart";
-
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/misc/default_values.dart";
-import "package:graded/misc/enums.dart";
+import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Subject extends CalculationObject {
-  List<Subject> children = [];
+  OrderedCollection<Subject> children = OrderedCollection.newTreeSet();
   List<Test> tests = [];
   @override
   double get denominator => getCurrentYear().maxGrade;
@@ -51,44 +48,33 @@ class Subject extends CalculationObject {
     }
   }
 
-  void removeTest(int position, {bool calculate = true}) {
+  void removeTest(Test test, {bool calculate = true}) {
+    tests.remove(test);
+    if (calculate) {
+      Manager.calculate();
+    }
+  }
+
+  void removeTestAt(int position, {bool calculate = true}) {
     tests.removeAt(position);
     if (calculate) {
       Manager.calculate();
     }
   }
 
-  void editTest(int position, double numerator, double denominator, String name, double weight, {bool isSpeaking = false, int? timestamp}) {
-    final Test t = tests[position];
-
-    t.numerator = numerator;
-    t.denominator = denominator;
-    t.name = name;
-    t.weight = weight;
-    t.isSpeaking = isSpeaking;
-    t.result = Calculator.calculate([t], clamp: false);
-    t.timestamp = timestamp ?? t.timestamp;
+  void editTest(Test test, double numerator, double denominator, String name, double weight, {bool isSpeaking = false, int? timestamp}) {
+    test.numerator = numerator;
+    test.denominator = denominator;
+    test.name = name;
+    test.weight = weight;
+    test.isSpeaking = isSpeaking;
+    test.result = Calculator.calculate([test], clamp: false);
+    test.timestamp = timestamp ?? test.timestamp;
     Manager.calculate();
   }
 
-  void sort({int? sortModeOverride, int? sortDirectionOverride}) {
-    Calculator.sortObjects(
-      children,
-      sortType: SortType.subject,
-      sortModeOverride: sortModeOverride,
-      sortDirectionOverride: sortDirectionOverride,
-      comparisonData: children.isNotEmpty ? getCurrentYear().termTemplate.firstWhereOrNull((element) => element.name == name)?.children : null,
-    );
-
-    for (final Subject element in children) {
-      element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-    }
-
-    Calculator.sortObjects(tests, sortType: SortType.test, sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-  }
-
   Subject.fromSubject(Subject subject) {
-    children = subject.children.map((e) => Subject.fromSubject(e)).toList();
+    children = OrderedCollection.newTreeSet(subject.children.map((e) => Subject.fromSubject(e)));
     isGroup = subject.isGroup;
     isChild = subject.isChild;
     speakingWeight = subject.speakingWeight;
@@ -103,7 +89,7 @@ class Subject extends CalculationObject {
     }
     if (json["children"] != null) {
       final childrenList = json["children"] as List;
-      children = childrenList.map((childJson) => Subject.fromJson(childJson as Map<String, dynamic>)..isChild = true).toList();
+      children = OrderedCollection.newTreeSet(childrenList.map((childJson) => Subject.fromJson(childJson as Map<String, dynamic>)..isChild = true));
     }
 
     isGroup = json["type"] != null && json["type"] as bool;
@@ -126,4 +112,6 @@ class Subject extends CalculationObject {
         "children": children.toList(),
         "tests": tests,
       };
+
+  int compareTo(Subject other) => name.hashCode - other.name.hashCode;
 }

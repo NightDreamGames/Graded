@@ -2,7 +2,6 @@
 import "package:flutter/material.dart";
 
 // Project imports:
-import "package:graded/calculations/manager.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
@@ -37,7 +36,6 @@ class SortAction extends StatelessWidget {
 
         setPreference<int>("sort_mode$sortType", value);
 
-        Manager.sortAll();
         onTap?.call();
       },
       itemBuilder: (context) {

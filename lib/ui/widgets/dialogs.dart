@@ -137,14 +137,14 @@ class EasyDialogState extends State<EasyDialog> {
   }
 }
 
-Future<void> showTestDialog(BuildContext context, Subject subject, {int? index}) {
+Future<void> showTestDialog(BuildContext context, Subject subject, {Test? test}) {
   return showDialog(
     context: context,
     useSafeArea: false,
     builder: (context) {
       return TestDialog(
         subject: subject,
-        index: index,
+        test: test,
       );
     },
   );
@@ -175,11 +175,11 @@ class TestDialog extends StatefulWidget {
   const TestDialog({
     super.key,
     required this.subject,
-    this.index,
+    this.test,
   });
 
   final Subject subject;
-  final int? index;
+  final Test? test;
 
   @override
   State<TestDialog> createState() => _TestDialogState();
@@ -203,14 +203,13 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    action = widget.index == null ? CreationType.add : CreationType.edit;
-    nameController.text = action == CreationType.edit ? widget.subject.tests[widget.index!].name : "";
-    gradeController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].numerator, leadingZero: false) : "";
-    maximumController.text =
-        action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].denominator, leadingZero: false, roundToOverride: 1) : "";
-    weightController.text = action == CreationType.edit ? Calculator.format(widget.subject.tests[widget.index!].weight, leadingZero: false) : "";
-    isSpeaking = action == CreationType.edit && widget.subject.tests[widget.index!].isSpeaking;
-    timestamp = widget.index != null ? widget.subject.tests[widget.index!].timestamp : null;
+    action = widget.test == null ? CreationType.add : CreationType.edit;
+    nameController.text = action == CreationType.edit ? widget.test!.name : "";
+    gradeController.text = action == CreationType.edit ? Calculator.format(widget.test!.numerator, leadingZero: false) : "";
+    maximumController.text = action == CreationType.edit ? Calculator.format(widget.test!.denominator, leadingZero: false, roundToOverride: 1) : "";
+    weightController.text = action == CreationType.edit ? Calculator.format(widget.test!.weight, leadingZero: false) : "";
+    isSpeaking = action == CreationType.edit && widget.test!.isSpeaking;
+    timestamp = widget.test?.timestamp;
 
     animationController = AnimationController(duration: Durations.long2, reverseDuration: Durations.medium2, vsync: this);
     expandAnimation = CurvedAnimation(parent: animationController, curve: Easing.standard, reverseCurve: Easing.standard.flipped);
@@ -241,7 +240,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
         if (action == CreationType.add) {
           widget.subject.addTest(Test(numerator, denominator, name: name, weight: weight, isSpeaking: isSpeaking, timestamp: timestamp));
         } else {
-          widget.subject.editTest(widget.index!, numerator, denominator, name, weight, isSpeaking: isSpeaking, timestamp: timestamp);
+          widget.subject.editTest(widget.test!, numerator, denominator, name, weight, isSpeaking: isSpeaking, timestamp: timestamp);
         }
 
         return true;

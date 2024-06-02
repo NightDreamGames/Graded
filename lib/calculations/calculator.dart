@@ -7,20 +7,23 @@ import "package:collection/collection.dart";
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Calculator {
-  static void sortObjects(
-    List<CalculationObject> data, {
+  static List<T> sortObjects<T extends CalculationObject>(
+    Iterable<T> data, {
     required int sortType,
     int? sortModeOverride,
     int? sortDirectionOverride,
-    List<CalculationObject>? comparisonData,
   }) {
-    if (data.length < 2) return;
+    if (data.length < 2) return data.toList();
+
+    final List<T> result = data.toList();
 
     final int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
     int sortMode = getPreference<int>("sort_mode$sortType");
@@ -31,7 +34,7 @@ class Calculator {
     switch (sortMode) {
       case SortMode.name:
         insertionSort(
-          data,
+          result,
           compare: (a, b) {
             int result = compareNatural(a.asciiName, b.asciiName);
             if (result == 0) {
@@ -42,7 +45,7 @@ class Calculator {
         );
       case SortMode.result:
         insertionSort(
-          data,
+          result,
           compare: (a, b) {
             if (a.result == null && b.result == null) {
               return 0;
@@ -56,17 +59,17 @@ class Calculator {
           },
         );
       case SortMode.coefficient:
-        insertionSort(data, compare: (a, b) => sortDirection * a.weight.compareTo(b.weight));
+        insertionSort(result, compare: (a, b) => sortDirection * a.weight.compareTo(b.weight));
       case SortMode.custom:
-        final compare = comparisonData ?? getCurrentYear().termTemplate;
-        data.sort((a, b) {
+        final OrderedCollection<CalculationObject> compare = getCurrentYear().comparisonData;
+        result.sort((a, b) {
           return compare.indexWhere((element) => a.name == element.name) - compare.indexWhere((element) => b.name == element.name);
         });
       case SortMode.timestamp:
-        if (data.first is! Test) throw UnimplementedError("Timestamp sorting is only implemented for tests");
+        if (result.first is! Test) throw UnimplementedError("Timestamp sorting is only implemented for tests");
 
         insertionSort(
-          data,
+          result,
           compare: (a, b) {
             int result = (a as Test).timestamp.compareTo((b as Test).timestamp);
             if (result == 0) {
@@ -78,6 +81,8 @@ class Calculator {
       default:
         throw const FormatException("Invalid");
     }
+
+    return result;
   }
 
   static double? calculate(
@@ -174,5 +179,19 @@ class Calculator {
     }
 
     return result;
+  }
+
+  static List<Test> getSortedTestData(List<Test> tests) {
+    return sortObjects<Test>(tests, sortType: SortType.test);
+  }
+
+  static (List<Subject>, List<List<Subject>>) getSortedSubjectData(List<Subject> subjects) {
+    final List<Subject> subjectData = sortObjects<Subject>(subjects, sortType: SortType.subject);
+    final List<List<Subject>> childrenData = subjectData.map((element) {
+      if (element.children.isEmpty) return <Subject>[];
+      return sortObjects<Subject>(element.children, sortType: SortType.subject);
+    }).toList();
+
+    return (subjectData, childrenData);
   }
 }

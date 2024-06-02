@@ -4,9 +4,6 @@ import "dart:math";
 // Flutter imports:
 import "package:flutter/material.dart";
 
-// Package imports:
-import "package:sliver_tools/sliver_tools.dart";
-
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
@@ -59,10 +56,11 @@ class _ChartRouteState extends State<ChartRoute> {
               CustomSliverSafeArea(
                 top: false,
                 maintainBottomViewPadding: true,
-                sliver: MultiSliver(
-                  children: [
-                    SliverToBoxAdapter(
-                      child: ResultRow(
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ResultRow(
                         result: widget.subject.getResult(),
                         preciseResult: widget.subject.getResult(precise: true),
                         leading: Text(
@@ -72,10 +70,8 @@ class _ChartRouteState extends State<ChartRoute> {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
-                    ),
-                    const SliverPadding(padding: EdgeInsets.only(top: 8)),
-                    SliverToBoxAdapter(
-                      child: StandardLineChart(
+                      const Padding(padding: EdgeInsets.only(top: 8)),
+                      StandardLineChart(
                         title: translations.average_over_time,
                         spots: getSubjectResultSpots(
                           subject: widget.subject,
@@ -87,21 +83,17 @@ class _ChartRouteState extends State<ChartRoute> {
                         getLeftTitleWidget: getLeftTitleWidgets,
                         showRollingAverage: true,
                       ),
-                    ),
-                    const SliverPadding(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      sliver: SliverToBoxAdapter(
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
                         child: Divider(),
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Builder(
+                      Builder(
                         builder: (context) {
                           final spots = getSubjectTestSpots(
                             subject: widget.subject,
                           );
 
-                          double lowestX = spots[0].x;
+                          double lowestX = spots.firstOrNull?.x ?? 0;
                           final DateTime lowestDate = DateTime.fromMillisecondsSinceEpoch(lowestX.toInt());
                           if (lowestDate.month >= 9) {
                             lowestX = DateTime(lowestDate.year, 9).millisecondsSinceEpoch.toDouble();
@@ -109,7 +101,7 @@ class _ChartRouteState extends State<ChartRoute> {
                             lowestX = DateTime(lowestDate.year - 1, 9).millisecondsSinceEpoch.toDouble();
                           }
 
-                          double highestX = spots[0].x;
+                          double highestX = spots.firstOrNull?.x ?? 0;
                           final DateTime highestDate = DateTime.fromMillisecondsSinceEpoch(highestX.toInt());
                           if (highestDate.month >= 9) {
                             highestX = DateTime(highestDate.year + 1, 9).millisecondsSinceEpoch.toDouble();
@@ -131,8 +123,8 @@ class _ChartRouteState extends State<ChartRoute> {
                           );
                         },
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

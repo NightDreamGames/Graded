@@ -5,7 +5,9 @@ import "package:flutter/material.dart";
 import "package:showcaseview/showcaseview.dart";
 
 // Project imports:
+import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/storage.dart";
@@ -52,7 +54,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    shouldShowcase = widget.term.subjects.fold<int>(0, (previousValue, element) => previousValue + (element.result != null ? 1 : 0)) >= 3 &&
+    final data = Calculator.getSortedSubjectData(widget.term.subjects);
+    final List<Subject> subjectData = data.$1;
+    final List<List<Subject>> childrenData = data.$2;
+
+    shouldShowcase = subjectData.fold<int>(0, (previousValue, element) => previousValue + (element.result != null ? 1 : 0)) >= 3 &&
         getPreference<bool>("showcase_precise_average", true);
 
     return ShowCaseWidget(
@@ -114,49 +120,47 @@ class _HomePageState extends State<HomePage> {
                       maintainBottomViewPadding: true,
                       sliver: SliverList(
                         delegate: SliverChildBuilderDelegate(
-                          childCount: widget.term.subjects.length,
+                          childCount: subjectData.length,
                           (context, index) {
-                            if (!widget.term.subjects[index].isGroup) {
+                            if (!subjectData[index].isGroup) {
                               return TextRow(
-                                leadingText: widget.term.subjects[index].name,
-                                trailingText: widget.term.subjects[index].getResult(),
+                                leadingText: subjectData[index].name,
+                                trailingText: subjectData[index].getResult(),
                                 trailing: const Icon(Icons.navigate_next),
                                 onTap: () {
-                                  Navigator.pushNamed(context, "/subject", arguments: [null, widget.term.subjects[index]])
-                                      .then((_) => refreshYearOverview());
+                                  Navigator.pushNamed(context, "/subject", arguments: [null, subjectData[index]]).then((_) => refreshYearOverview());
                                 },
                                 onLongPress: () {
-                                  showTestDialog(context, widget.term.subjects[index]).then((_) => refreshYearOverview());
+                                  showTestDialog(context, subjectData[index]).then((_) => refreshYearOverview());
                                 },
                               );
                             } else {
                               return GroupRow(
-                                leadingText: widget.term.subjects[index].name,
-                                trailingText: widget.term.subjects[index].getResult(),
+                                leadingText: subjectData[index].name,
+                                trailingText: subjectData[index].getResult(),
                                 children: [
                                   const Divider(),
-                                  for (int i = 0; i < widget.term.subjects[index].children.length; i++)
+                                  for (int i = 0; i < childrenData[index].length; i++)
                                     Column(
                                       children: [
                                         TextRow(
-                                          leadingText: widget.term.subjects[index].children[i].name,
-                                          trailingText: widget.term.subjects[index].children[i].getResult(),
+                                          leadingText: childrenData[index][i].name,
+                                          trailingText: childrenData[index][i].getResult(),
                                           trailing: const Icon(Icons.navigate_next),
                                           padding: const EdgeInsets.only(left: 36, right: 24),
                                           onTap: () {
                                             Navigator.pushNamed(
                                               context,
                                               "/subject",
-                                              arguments: [widget.term.subjects[index], widget.term.subjects[index].children[i]],
+                                              arguments: [subjectData[index], childrenData[index][i]],
                                             ).then((_) => refreshYearOverview());
                                           },
                                           onLongPress: () {
-                                            showTestDialog(context, widget.term.subjects[index].children[i]).then((_) => refreshYearOverview());
+                                            showTestDialog(context, childrenData[index][i]).then((_) => refreshYearOverview());
                                           },
                                           isChild: true,
                                         ),
-                                        if (i != widget.term.subjects[index].children.length - 1)
-                                          Divider(indent: Theme.of(context).dividerTheme.indent! + 16),
+                                        if (i != childrenData[index].length - 1) Divider(indent: Theme.of(context).dividerTheme.indent! + 16),
                                       ],
                                     ),
                                 ],
@@ -166,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    if (widget.term.subjects.isEmpty) SliverEmptyWidget(message: translations.no_subjects),
+                    if (subjectData.isEmpty) SliverEmptyWidget(message: translations.no_subjects),
                     const SliverPadding(padding: EdgeInsets.only(bottom: 16)),
                   ],
                 );

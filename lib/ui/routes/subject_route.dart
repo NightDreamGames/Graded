@@ -12,6 +12,7 @@ import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
+import "package:graded/calculations/test.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/utilities/haptics.dart";
@@ -51,6 +52,8 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Test> testData = Calculator.getSortedTestData(widget.subject.tests);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButton: !widget.term.isYearOverview
@@ -116,8 +119,8 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                                 Navigator.of(context).pushNamed(
                                   "/chart",
                                   arguments: [
-                                    Manager.getSubjectInTerm(widget.parent, getYearOverview()),
-                                    Manager.getSubjectInTerm(widget.subject, getYearOverview()),
+                                    getSubjectInTerm(widget.parent, getYearOverview()),
+                                    getSubjectInTerm(widget.subject, getYearOverview()),
                                   ],
                                 );
                               },
@@ -142,13 +145,13 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                 maintainBottomViewPadding: true,
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    childCount: widget.subject.tests.length,
+                    childCount: testData.length,
                     (context, index) {
                       return Builder(
                         builder: (context) {
                           return TextRow(
-                            leadingText: widget.subject.tests[index].name,
-                            trailingText: widget.subject.tests[index].toString(),
+                            leadingText: testData[index].name,
+                            trailingText: testData[index].toString(),
                             enableEqualLongPress: true,
                             onTap: () async {
                               if (widget.term.isYearOverview) return;
@@ -156,10 +159,10 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                               showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
                                 switch (result) {
                                   case MenuAction.edit:
-                                    showTestDialog(context, widget.subject, index: index).then((_) => refreshYearOverview());
+                                    showTestDialog(context, widget.subject, test: testData[index]).then((_) => refreshYearOverview());
                                   case MenuAction.delete:
                                     heavyHaptics();
-                                    widget.subject.removeTest(index);
+                                    widget.subject.removeTest(testData[index]);
                                     refreshYearOverview();
                                   default:
                                     break;
@@ -173,7 +176,7 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                   ),
                 ),
               ),
-              if (widget.subject.tests.isEmpty) SliverEmptyWidget(message: translations.no_grades),
+              if (testData.isEmpty) SliverEmptyWidget(message: translations.no_grades),
               const SliverPadding(padding: EdgeInsets.only(bottom: 88)),
             ],
           );

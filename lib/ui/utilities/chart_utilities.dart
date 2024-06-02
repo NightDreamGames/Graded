@@ -16,7 +16,7 @@ import "package:graded/ui/utilities/hints.dart";
 double getHighestAverage({required Subject subject}) {
   double highest = 0;
 
-  Manager.getSubjectAcrossTerms(subject).forEach((subject) {
+  getSubjectAcrossTerms(subject).forEach((subject) {
     if (subject.result != null && subject.result! > highest) {
       highest = subject.result!;
     }
@@ -28,7 +28,7 @@ double getHighestAverage({required Subject subject}) {
 double getHighestTest({required Subject subject}) {
   double highest = 0;
 
-  Manager.getSubjectAcrossTerms(subject).forEach((subject) {
+  getSubjectAcrossTerms(subject).forEach((subject) {
     for (final test in subject.tests) {
       if (test.result != null && test.result! > highest) {
         highest = test.result!;
@@ -41,7 +41,7 @@ double getHighestTest({required Subject subject}) {
 
 List<FlSpot> getSubjectResultSpots({required Subject subject}) {
   final List<FlSpot> spots = <FlSpot>[];
-  final List<Subject> subjects = Manager.getSubjectAcrossTerms(subject);
+  final List<Subject> subjects = getSubjectAcrossTerms(subject);
 
   for (int i = 0; i < subjects.length; i++) {
     final subject = subjects[i];
@@ -55,7 +55,7 @@ List<FlSpot> getSubjectResultSpots({required Subject subject}) {
 List<FlSpot> getSubjectTestSpots({required Subject subject}) {
   final List<FlSpot> spots = <FlSpot>[];
 
-  Manager.getSubjectAcrossTerms(subject).forEach((s) {
+  getSubjectAcrossTerms(subject).forEach((s) {
     for (final test in s.tests) {
       if (test.result == null) continue;
 
@@ -117,12 +117,12 @@ List<FlSpot> calculateRollingAverage(List<FlSpot> data, int windowSize, {double?
 
   dataCopy.addAll(data);
 
-  if (maxX != null && dataCopy.last.x != maxX) {
-    dataCopy.add(FlSpot(maxX, dataCopy.last.y));
+  if (minX != null && dataCopy.isNotEmpty && dataCopy.first.x != minX) {
+    rollingAverage.insert(0, FlSpot(minX, dataCopy.first.y));
   }
 
-  if (minX != null && dataCopy.first.x != minX) {
-    rollingAverage.insert(0, FlSpot(minX, dataCopy.first.y));
+  if (maxX != null && dataCopy.isNotEmpty && dataCopy.last.x != maxX) {
+    dataCopy.add(FlSpot(maxX, dataCopy.last.y));
   }
 
   for (int i = 0; i < dataCopy.length; i++) {

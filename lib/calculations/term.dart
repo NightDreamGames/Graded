@@ -3,10 +3,10 @@ import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/misc/enums.dart";
+import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Term extends CalculationObject {
-  List<Subject> subjects = [];
+  OrderedCollection<Subject> subjects = OrderedCollection.newTreeSet();
   bool isExam = false;
   bool isYearOverview = false;
   @override
@@ -39,7 +39,7 @@ class Term extends CalculationObject {
       s.calculate();
     }
 
-    final List<Subject> toBeCalculated = [...subjects];
+    final List<Subject> toBeCalculated = subjects.toList();
     for (int i = 0; i < toBeCalculated.length; i++) {
       if (toBeCalculated[i].weight == 0) {
         toBeCalculated.addAll(toBeCalculated[i].children);
@@ -50,19 +50,6 @@ class Term extends CalculationObject {
 
     result = Calculator.calculate(toBeCalculated);
     preciseResult = Calculator.calculate(toBeCalculated, precise: true);
-  }
-
-  void sort({int? sortModeOverride, int? sortDirectionOverride}) {
-    for (final Subject subject in subjects) {
-      subject.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-    }
-
-    Calculator.sortObjects(
-      subjects,
-      sortType: SortType.subject,
-      sortModeOverride: sortModeOverride,
-      sortDirectionOverride: sortDirectionOverride,
-    );
   }
 
   @override
@@ -79,7 +66,7 @@ class Term extends CalculationObject {
       return Subject.fromJson(subjectJson as Map<String, dynamic>);
     }).toList();
 
-    subjects = s;
+    subjects = OrderedCollection.newTreeSet(s);
     weight = json["coefficient"] as double? ?? 1;
     isExam = json["isExam"] as bool? ?? false;
   }

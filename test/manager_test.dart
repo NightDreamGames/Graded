@@ -14,6 +14,7 @@ import "package:graded/calculations/year.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/ordered_collection.dart";
 
 void main() async {
   SharedPreferences.setMockInitialValues({});
@@ -24,29 +25,32 @@ void main() async {
   getCurrentYear().ensureTermCount();
 
   test("Calculations", () async {
-    getCurrentYear().termTemplate = [
+    getCurrentYear().termTemplate = OrderedCollection.newTreeSet([
       Subject("Test1", 3, 3),
       Subject("Test2", 3, 3),
       Subject("Test3", 3, 3),
       Subject("Test4", 2, 3),
       Subject("Test5", 1, 3),
       Subject("Test6", 3, 3),
-      Subject("Test7", 3, 3, isGroup: true)
-        ..children.addAll({
-          Subject("Child1", 1, 3, isChild: true),
-          Subject("Child2", 2, 3, isChild: true),
-        }),
+      Subject("Test7", 3, 3),
       Subject("Test8", 2, 3),
       Subject("Test9", 2, 3),
       Subject("Test10", 3, 3),
-      Subject("Test11", 2, 3)
-        ..isGroup = true
-        ..children.addAll({
-          Subject("Child3", 1, 3, isChild: true),
-          Subject("Child4", 1, 3, isChild: true),
-        }),
+      Subject("Test11", 2, 3),
       Subject("Test12", 3, 3),
-    ];
+    ]);
+    getCurrentYear().termTemplate[6]
+      ..isGroup = true
+      ..children.addAll({
+        Subject("Child1", 1, 3, isChild: true),
+        Subject("Child2", 1, 3, isChild: true),
+      });
+    getCurrentYear().termTemplate[10]
+      ..isGroup = true
+      ..children.addAll({
+        Subject("Child3", 1, 3, isChild: true),
+        Subject("Child4", 1, 3, isChild: true),
+      });
 
     getCurrentYear().ensureTermCount();
     getCurrentYear().populateSubjects();
@@ -78,12 +82,12 @@ void main() async {
 
     getCurrentYear().roundTo = 10;
     Manager.calculate();
-    expect(getCurrentYear().result, equals(47.8));
+    expect(getCurrentYear().result, equals(47.6));
 
     getCurrentYear().roundTo = 100;
     getCurrentYear().roundingMode = RoundingMode.halfDown;
     Manager.calculate();
-    expect(getCurrentYear().result, equals(47.71));
+    expect(getCurrentYear().result, equals(47.56));
 
     final Term yearOverview = getCurrentYear().yearOverview;
     expect(yearOverview.isYearOverview, equals(true));

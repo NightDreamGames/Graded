@@ -4,7 +4,7 @@ import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/localization/translations.dart";
 
-String getHint(String prefix, List<CalculationObject> data) {
+String getHint(String prefix, Iterable<CalculationObject> data) {
   String hint = "";
   int i = data.length;
 
@@ -16,7 +16,7 @@ String getHint(String prefix, List<CalculationObject> data) {
   return hint;
 }
 
-bool isDuplicateName(String name, List<CalculationObject> data) {
+bool isDuplicateName(String name, Iterable<CalculationObject> data) {
   return data.any((e) => e.name == name || (e is Subject && e.children.any((child) => child.name == name)));
 }
 

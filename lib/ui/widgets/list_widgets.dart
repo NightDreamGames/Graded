@@ -11,7 +11,6 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
-import "package:graded/misc/storage.dart";
 import "package:graded/ui/routes/subject_edit_route.dart";
 import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/widgets/dialogs.dart";
@@ -221,31 +220,33 @@ class SubjectTile extends StatefulWidget {
   const SubjectTile({
     super.key,
     required this.subject,
+    this.potentialParent,
     required this.index1,
     this.index2,
     required this.reorderIndex,
     this.onActionCompleted,
+    this.shouldShowcase = false,
   });
 
   final Subject subject;
+  final Subject? potentialParent;
   final int index1;
   final int? index2;
   final int reorderIndex;
   final Function()? onActionCompleted;
+  final bool shouldShowcase;
 
   @override
   State<SubjectTile> createState() => _SubjectTileState();
 }
 
 class _SubjectTileState extends State<SubjectTile> {
-  late bool shouldShowcase;
-
   Future<void> showTutorial(BuildContext context) async {
-    if (!shouldShowcase) return;
+    if (!widget.shouldShowcase) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500), () {
-        if (!shouldShowcase || !mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
+        if (!widget.shouldShowcase || !mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
         ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
       });
     });
@@ -255,10 +256,6 @@ class _SubjectTileState extends State<SubjectTile> {
   Widget build(BuildContext context) {
     final String weightString = Calculator.format(widget.subject.weight, leadingZero: false, roundToOverride: 1);
 
-    shouldShowcase = widget.index1 == 1 &&
-        !widget.subject.isChild &&
-        getCurrentYear().termTemplate.length >= 3 &&
-        getPreference<bool>("showcase_subject_edit", true);
     showTutorial(context);
 
     return AnimatedPadding(
@@ -273,7 +270,7 @@ class _SubjectTileState extends State<SubjectTile> {
         enableEqualLongPress: true,
         leading: ReorderableDragStartListener(
           index: widget.reorderIndex,
-          child: shouldShowcase
+          child: widget.shouldShowcase
               ? Showcase(
                   key: showCaseKey1,
                   description: translations.showcase_tap_subject,
@@ -282,10 +279,20 @@ class _SubjectTileState extends State<SubjectTile> {
                     key: showCaseKey2,
                     description: translations.showcase_drag_subject,
                     scaleAnimationCurve: Easing.standardDecelerate,
-                    child: IgnorePointer(child: ReorderableHandle(target: widget)),
+                    child: IgnorePointer(
+                      child: ReorderableHandle(
+                        target: widget.subject,
+                        potentialParent: widget.potentialParent,
+                        onActionCompleted: widget.onActionCompleted,
+                      ),
+                    ),
                   ),
                 )
-              : ReorderableHandle(target: widget),
+              : ReorderableHandle(
+                  target: widget.subject,
+                  potentialParent: widget.potentialParent,
+                  onActionCompleted: widget.onActionCompleted,
+                ),
         ),
         onTap: () async {
           showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
@@ -299,26 +306,21 @@ class _SubjectTileState extends State<SubjectTile> {
               case MenuAction.delete:
                 heavyHaptics();
 
-                final parent = getCurrentYear().termTemplate[widget.index1];
-                Manager.sortAll(
-                  sortModeOverride: SortMode.name,
-                  sortDirectionOverride: SortDirection.ascending,
-                );
-                final int newIndex = getCurrentYear().termTemplate.indexOf(parent);
-
                 if (widget.subject.isChild) {
-                  getCurrentYear().termTemplate[newIndex].children.removeWhere((element) => element.name == widget.subject.name);
+                  final Subject parent = getCurrentYear().termTemplate[widget.index1];
+                  parent.children.removeAt(widget.index2!);
+                  parent.isGroup = parent.children.isNotEmpty;
                 } else {
-                  getCurrentYear().termTemplate.removeWhere((element) => element.name == widget.subject.name);
+                  getCurrentYear().termTemplate.removeAt(widget.index1);
                 }
 
-                for (final Term t in getCurrentYear().terms) {
+                for (final Term term in getCurrentYear().terms) {
                   if (widget.subject.isChild) {
-                    final Subject parent = t.subjects[newIndex];
-                    parent.children.removeWhere((element) => element.name == widget.subject.name);
+                    final Subject parent = term.subjects[widget.index1];
+                    parent.children.removeAt(widget.index2!);
                     parent.isGroup = parent.children.isNotEmpty;
                   } else {
-                    t.subjects.removeWhere((element) => element.name == widget.subject.name);
+                    term.subjects.removeAt(widget.index1);
                   }
                 }
 
@@ -338,9 +340,13 @@ class ReorderableHandle extends StatelessWidget {
   const ReorderableHandle({
     super.key,
     required this.target,
+    this.potentialParent,
+    this.onActionCompleted,
   });
 
-  final SubjectTile target;
+  final Subject target;
+  final Subject? potentialParent;
+  final Function()? onActionCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -348,21 +354,20 @@ class ReorderableHandle extends StatelessWidget {
       tooltip: translations.set_sub_subject,
       icon: const Icon(Icons.drag_handle),
       onPressed: () {
-        if (target.index1 == 0 && !target.subject.isChild) return;
+        final (int, int?) childIndexes = getSubjectIndex(target, inTermTemplate: true);
+        final int? parentIndex = potentialParent != null ? getSubjectIndex(potentialParent!, inTermTemplate: true).$1 : null;
+        final bool isChild = target.isChild;
+
+        if (potentialParent == null && !isChild) return;
 
         lightHaptics();
 
-        final List<List<Subject>> lists = [getCurrentYear().termTemplate];
-        for (final Term term in getCurrentYear().terms) {
-          lists.add(term.subjects);
-        }
-
-        final bool isChild = target.subject.isChild;
-
-        for (final List<Subject> list in lists) {
+        for (final list in getCurrentYear().getSubjectLists()) {
           if (!isChild) {
-            final Subject parent = list[target.index1 - 1];
-            final Subject child = list.removeAt(target.index1);
+            final Subject parent = list[parentIndex!];
+            final Subject child = list[childIndexes.$1];
+
+            list.remove(child);
 
             parent.isGroup = true;
             child.isChild = true;
@@ -371,16 +376,17 @@ class ReorderableHandle extends StatelessWidget {
             parent.children.addAll([child, ...child.children]);
             child.children.clear();
           } else {
-            final Subject parent = list[target.index1];
-            final Subject child = parent.children.removeAt(target.index2!);
-            list.insert(target.index1 + 1, child..isChild = false);
+            final Subject parent = list[childIndexes.$1];
+            final Subject child = parent.children[childIndexes.$2!];
+
+            parent.children.remove(child);
+            list.add(child..isChild = false);
             if (parent.children.isEmpty) parent.isGroup = false;
           }
         }
 
         Manager.calculate();
-        serialize();
-        target.onActionCompleted?.call();
+        onActionCompleted?.call();
       },
     );
   }

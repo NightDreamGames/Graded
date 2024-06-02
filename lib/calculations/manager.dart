@@ -1,9 +1,6 @@
 // Flutter imports:
 import "package:flutter/material.dart";
 
-// Package imports:
-import "package:collection/collection.dart";
-
 // Project imports:
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
@@ -12,10 +9,10 @@ import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/main.dart";
 import "package:graded/misc/compatibility.dart";
-import "package:graded/misc/enums.dart";
 import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/utilities/hints.dart";
+import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Manager {
   static List<Year> years = [];
@@ -48,7 +45,7 @@ class Manager {
   static void calculate() {
     getCurrentYear().calculate();
 
-    sortAll();
+    serialize();
   }
 
   static void clearTests() {
@@ -74,7 +71,6 @@ class Manager {
     year.name = getHint(translations.yearOne, years);
     years.add(year);
     changeYear(years.length - 1);
-    year.sort();
   }
 
   static void changeYear(int index) {
@@ -83,36 +79,9 @@ class Manager {
     calculate();
   }
 
-  static void sortAll({int? sortModeOverride, int? sortDirectionOverride}) {
-    getCurrentYear().sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-
-    for (final Subject element in getCurrentYear().termTemplate) {
-      element.sort(sortModeOverride: sortModeOverride, sortDirectionOverride: sortDirectionOverride);
-    }
-
-    getCurrentYear().sortTermTemplate(
-      sortModeOverride: sortModeOverride,
-      sortDirectionOverride: sortDirectionOverride,
-    );
-
-    if (sortModeOverride == null && sortDirectionOverride == null) {
-      serialize();
-    }
-  }
-
   static Term refreshYearOverview({Term? yearOverview, Year? year}) {
     yearOverview ??= getYearOverview();
     year ??= getCurrentYear();
-
-    sortAll(
-      sortModeOverride: SortMode.name,
-      sortDirectionOverride: SortDirection.ascending,
-    );
-
-    yearOverview.sort(
-      sortModeOverride: SortMode.name,
-      sortDirectionOverride: SortDirection.ascending,
-    );
 
     for (final subject in yearOverview.subjects) {
       subject.tests.clear();
@@ -158,37 +127,8 @@ class Manager {
     }
 
     yearOverview.calculate();
-    sortAll();
-    yearOverview.sort();
 
     return yearOverview;
-  }
-
-  //TODO make more use of this function
-  static List<Subject> getSubjectAcrossTerms(Subject subject) {
-    final List<Subject> result = [];
-
-    for (final term in getCurrentYear().terms) {
-      final Subject? s = getSubjectInTerm(subject, term);
-      if (s == null) continue;
-      result.add(s);
-    }
-    return result;
-  }
-
-  static Subject? getSubjectInTerm(Subject? subject, Term term) {
-    if (subject == null) return null;
-
-    final Subject? result = term.subjects.firstWhereOrNull((s) => s.name == subject.name);
-
-    if (result != null) return result;
-
-    for (final s in term.subjects) {
-      final Subject? child = s.children.firstWhereOrNull((c) => c.name == subject.name);
-      if (child != null) return child;
-    }
-
-    throw ArgumentError("Subject not found in term");
   }
 
   Map<String, dynamic> toJson() => {
@@ -230,4 +170,63 @@ Term createYearOverview({required Year year}) {
 
 Term getCurrentTerm() {
   return getTerm(Manager.currentTerm);
+}
+
+//TODO make more use of this function
+List<Subject> getSubjectAcrossTerms(Subject subject) {
+  final List<Subject> result = [];
+  final (int, int?) indexes = getSubjectIndex(subject);
+
+  for (final term in getCurrentYear().terms) {
+    final Subject s = indexes.$2 == null ? term.subjects[indexes.$1] : term.subjects[indexes.$1].children[indexes.$2!];
+    result.add(s);
+  }
+  return result;
+}
+
+Subject? getSubjectInTerm(Subject? subject, Term term) {
+  if (subject == null) return null;
+
+  final (int, int?) indexes = getSubjectIndex(subject);
+
+  if (indexes.$2 == null) {
+    return term.subjects[indexes.$1];
+  } else {
+    return term.subjects[indexes.$1].children[indexes.$2!];
+  }
+}
+
+(int, int?) getSubjectIndex(Subject subject, {Term? term, bool? inTermTemplate, bool? inComparisonData, bool? isChild}) {
+  final List<OrderedCollection<Subject>> lists = [];
+
+  if (term != null) {
+    lists.add(term.subjects);
+  } else if (inComparisonData != null && inComparisonData) {
+    lists.add(getCurrentYear().comparisonData);
+  } else {
+    if (inTermTemplate == null || inTermTemplate) {
+      lists.add(getCurrentYear().termTemplate);
+    }
+    if (inTermTemplate == null || !inTermTemplate) {
+      for (final term in getCurrentYear().terms) {
+        lists.add(term.subjects);
+      }
+      lists.add(getYearOverview().subjects);
+      lists.add(getCurrentYear().comparisonData);
+    }
+  }
+
+  for (final subjects in lists) {
+    if (isChild == null || !isChild) {
+      final int result1 = subjects.indexOf(subject);
+      if (result1 != -1) return (result1, null);
+    }
+
+    for (int j = 0; j < subjects.length; j++) {
+      final int result2 = subjects[j].children.indexOf(subject);
+      if (result2 != -1) return (j, result2);
+    }
+  }
+
+  throw ArgumentError("Subject not found in terms");
 }

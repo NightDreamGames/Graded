@@ -9,12 +9,14 @@ import "package:test/test.dart";
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
+import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/ordered_collection.dart";
 
 void main() async {
   SharedPreferences.setMockInitialValues({});
@@ -98,7 +100,7 @@ void main() async {
       Test(30, 100, name: "Gamma"),
     ];
 
-    Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.name);
+    data = Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.name);
 
     expect(data[0].name, "Alpha");
     expect(data[1].name, "Beta");
@@ -113,7 +115,7 @@ void main() async {
       Test(99, 100, name: "Gamma"),
     ];
 
-    Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.result, sortDirectionOverride: SortDirection.descending);
+    data = Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.result, sortDirectionOverride: SortDirection.descending);
 
     expect(data[0].name, "Gamma");
     expect(data[1].name, "Delta");
@@ -128,7 +130,7 @@ void main() async {
       Term(name: "Gamma", weight: 0.1),
     ];
 
-    Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.coefficient, sortDirectionOverride: SortDirection.descending);
+    data = Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.coefficient, sortDirectionOverride: SortDirection.descending);
 
     expect(data[0].name, "Delta");
     expect(data[1].name, "Alpha");
@@ -137,24 +139,23 @@ void main() async {
 
     // Test sorting using custom order
     data = [
-      Term(name: "Gamma"),
-      Term(name: "Beta"),
-      Term(name: "Alpha"),
-      Term(name: "Delta"),
+      Subject("Gamma", 1, 1),
+      Subject("Beta", 1, 1),
+      Subject("Alpha", 1, 1),
+      Subject("Delta", 1, 1),
     ];
 
-    final List<CalculationObject> comparisonData = [
-      Term(name: "Alpha"),
-      Term(name: "Beta"),
-      Term(name: "Gamma"),
-      Term(name: "Delta"),
-    ];
+    getCurrentYear().comparisonData = OrderedCollection.newList([
+      Subject("Alpha", 1, 1),
+      Subject("Beta", 1, 1),
+      Subject("Gamma", 1, 1),
+      Subject("Delta", 1, 1),
+    ]);
 
-    Calculator.sortObjects(
+    data = Calculator.sortObjects(
       data,
       sortType: 1,
       sortModeOverride: SortMode.custom,
-      comparisonData: comparisonData,
       sortDirectionOverride: SortDirection.notApplicable,
     );
 

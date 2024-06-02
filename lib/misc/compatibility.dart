@@ -10,6 +10,7 @@ import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Compatibility {
   static const dataVersion = 14;
@@ -128,7 +129,8 @@ class Compatibility {
       if (currentDataVersion < 12) {
         //Move termTemplate into year
         final termTemplateList = jsonDecode(getPreference<String>("default_data", "[]")) as List<dynamic>;
-        getCurrentYear().termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)).toList();
+        getCurrentYear().termTemplate =
+            OrderedCollection(termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)));
 
         setPreference("default_data", null);
 

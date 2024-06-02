@@ -5,12 +5,14 @@ import "package:flutter/material.dart";
 import "package:showcaseview/showcaseview.dart";
 
 // Project imports:
+import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/utilities/hints.dart";
+import "package:graded/ui/utilities/ordered_collection.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
@@ -35,6 +37,8 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
   @override
   void initState() {
     super.initState();
+
+    getCurrentYear().comparisonData = OrderedCollection.newList(Calculator.sortObjects(getCurrentYear().comparisonData, sortType: SortType.subject));
 
     if (widget.creationType == CreationType.add && Manager.years.isNotEmpty && getCurrentYear(allowSetup: false).termTemplate.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -64,6 +68,10 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Calculator.getSortedSubjectData(getCurrentYear().termTemplate);
+    final List<Subject> subjectData = data.$1;
+    final List<List<Subject>> childrenData = data.$2;
+
     final String title = widget.creationType == CreationType.edit ? translations.edit_subjectOther : translations.add_subjectOther;
 
     return PopScope(
@@ -109,7 +117,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
               return SafeArea(
                 top: false,
                 bottom: false,
-                child: getCurrentYear().termTemplate.isNotEmpty
+                child: subjectData.isNotEmpty
                     ? ReorderableListView(
                         padding: EdgeInsets.only(bottom: 88 + MediaQuery.paddingOf(context).bottom),
                         primary: true,
@@ -118,7 +126,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
                           getCurrentYear().reorderSubjects(oldIndex, newIndex);
                           rebuild();
                         },
-                        children: buildTiles(),
+                        children: buildTiles(subjectData, childrenData),
                       )
                     : EmptyWidget(message: translations.no_subjects),
               );
@@ -129,30 +137,35 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
     );
   }
 
-  List<Widget> buildTiles() {
+  List<Widget> buildTiles(List<Subject> subjectData, List<List<Subject>> childrenData) {
     final List<Widget> result = [];
     int reorderIndex = 0;
 
-    for (int i = 0; i < getCurrentYear().termTemplate.length; i++) {
-      final Subject element = getCurrentYear().termTemplate[i];
+    for (int i = 0; i < subjectData.length; i++) {
+      final Subject element = subjectData[i];
       result.add(
         SubjectTile(
           key: ValueKey(element),
           subject: element,
-          index1: i,
+          potentialParent: i == 0 ? null : subjectData[i - 1],
+          index1: getSubjectIndex(element, inComparisonData: true).$1,
           reorderIndex: reorderIndex,
           onActionCompleted: rebuild,
+          shouldShowcase: i == 1 && subjectData.length >= 3 && getPreference<bool>("showcase_subject_edit", true),
         ),
       );
       reorderIndex++;
-      for (int j = 0; j < element.children.length; j++) {
-        final Subject child = element.children[j];
+
+      for (int j = 0; j < childrenData[i].length; j++) {
+        final Subject child = childrenData[i][j];
+        final (int, int?) indexes = getSubjectIndex(child, isChild: true, inComparisonData: true);
+
         result.add(
           SubjectTile(
             key: ValueKey(child),
             subject: child,
-            index1: i,
-            index2: j,
+            index1: indexes.$1,
+            index2: indexes.$2,
             reorderIndex: reorderIndex,
             onActionCompleted: rebuild,
           ),

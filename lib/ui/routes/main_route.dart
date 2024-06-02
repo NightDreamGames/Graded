@@ -266,7 +266,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
             term = getYearOverview();
           }
 
-          final Subject? newParent = parent != null ? Manager.getSubjectInTerm(parent, term) : null;
+          final Subject? newParent = parent != null ? getSubjectInTerm(parent, term) : null;
           final Subject newSubject = newParent != null
               ? newParent.children.firstWhere((element) => element.name == subject.name)
               : term.subjects.firstWhere((element) => element.name == subject.name);
