@@ -141,10 +141,10 @@ packages:
     dependency: "direct main"
     description:
       name: decimal
-      sha256: "24a261d5d5c87e86c7651c417a5dbdf8bcd7080dd592533910e8d0505a279f21"
+      sha256: fec41e5cf4666c67307a5953b26a4ad758437bfad0dba80ee9d51337570ec242
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "3.0.0"
   dependency_validator:
     dependency: "direct dev"
     description:
@@ -737,10 +737,10 @@ packages:
     dependency: "direct main"
     description:
       name: showcaseview
-      sha256: "3929adfcff53a8a9bc6b501914d67e4b7eae40451db7e654f76f34b0b30a185a"
+      sha256: f236c1f44b286e1ba888f8701adca067af92c33e29ea937d0fe9b4a29d4cd41e
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "3.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
