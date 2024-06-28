@@ -1,6 +1,3 @@
-// Dart imports:
-import "dart:io" show Platform;
-
 // Flutter imports:
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
@@ -85,8 +82,8 @@ Future<void> launchURL(Link type) async {
   }
 }
 
-bool isAndroid = !kIsWeb && Platform.isAndroid;
-bool isiOS = !kIsWeb && Platform.isIOS;
+bool isAndroid = !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
+bool isiOS = !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
 bool isWeb = kIsWeb;
 
 String? thresholdValidator(String? value, {int threshold = 0, bool inclusive = true}) {
