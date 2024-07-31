@@ -22,7 +22,7 @@ jobs:
       - name: Save Flutter version
         run: |
           git submodule update --init
-          OLD_FLUTTER_VERSION=$(.flutter/bin/flutter --version)
+          OLD_FLUTTER_VERSION=$(.flutter/bin/flutter --version | grep 'Flutter' | sed 's/Flutter //;s/ .*//')
           echo "OLD_FLUTTER_VERSION=$OLD_FLUTTER_VERSION" >> $GITHUB_ENV
 
       - name: Bump Flutter submodule
@@ -33,7 +33,8 @@ jobs:
         run: |
           git add .flutter
           if ! git diff-index --quiet HEAD; then
-            git commit -m "Bump Flutter submodule\n\nFlutter version: ${{ env.OLD_FLUTTER_VERSION }} -> $(.flutter/bin/flutter --version)"
+            NEW_FLUTTER_VERSION=$(.flutter/bin/flutter --version | grep 'Flutter' | sed 's/Flutter //;s/ .*//')
+            git commit -m "Bump Flutter submodule\n\nFlutter version: ${{ env.OLD_FLUTTER_VERSION }} -> $(NEW_FLUTTER_VERSION)"
             git push origin main
           fi
 
