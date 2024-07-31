@@ -47,8 +47,8 @@ android {
 	defaultConfig {
 		applicationId "com.NightDreamGames.Grade.ly"
 		minSdkVersion 21
-		compileSdk 34
-		targetSdkVersion 34
+		compileSdk 35
+		targetSdkVersion 35
 		versionCode flutterVersionCode.toInteger()
 		versionName flutterVersionName
 		vectorDrawables.generatedDensities = []
