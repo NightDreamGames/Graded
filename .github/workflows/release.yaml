@@ -115,13 +115,23 @@ jobs:
       - name: Create the Keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+          KEYSTORE_PASSWORD_ALIAS: ${{ secrets.KEYSTORE_PASSWORD_ALIAS }}
         run: |
-          # import keystore from secrets
-          echo $KEYSTORE_BASE64 | base64 -d > $RUNNER_TEMP/my_production.keystore
+          # Create the keystore file from the base64 encoded secret
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/prod.keystore"
+
+          cat > "$GITHUB_WORKSPACE/android/key.properties" <<EOF
+          storePassword=$KEYSTORE_PASSWORD
+          keyPassword=$KEYSTORE_PASSWORD_ALIAS
+          keyAlias=$KEYSTORE_ALIAS
+          storeFile=$RUNNER_TEMP/prod.keystore
+          EOF
 
       - name: Set up local.properties
         run: |
-          echo "flutter.sdk=$HOME/programs/flutter" > "$GITHUB_WORKSPACE/android/local.properties"
+          echo "flutter.sdk=${GITHUB_WORKSPACE}/.flutter" > "$GITHUB_WORKSPACE/android/local.properties"
 
       - name: Get packages
         run: .flutter/bin/flutter pub get
