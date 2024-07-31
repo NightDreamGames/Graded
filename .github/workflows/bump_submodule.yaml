@@ -22,7 +22,8 @@ jobs:
       - name: Save Flutter version
         run: |
           git submodule update --init
-          echo "OLD_FLUTTER_VERSION=$(.flutter/bin/flutter --version)" >> $GITHUB_ENV
+          OLD_FLUTTER_VERSION=$(.flutter/bin/flutter --version)
+          echo "OLD_FLUTTER_VERSION=$OLD_FLUTTER_VERSION" >> $GITHUB_ENV
 
       - name: Bump Flutter submodule
         run: |
