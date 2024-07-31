@@ -1,9 +1,9 @@
 // Flutter imports:
 import "package:flutter/material.dart";
+import "package:flutter/rendering.dart";
 
 // Package imports:
 import "package:fading_edge_scrollview/fading_edge_scrollview.dart";
-import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_svg/svg.dart";
 
 // Project imports:
@@ -193,55 +193,45 @@ class SpinningIcon extends StatelessWidget {
   }
 }
 
-class MeasuredWidget extends StatefulWidget {
-  final Function(Size? size) onCalculateSize;
-  final Widget child;
+typedef OnWidgetSizeChange = void Function(Size size);
 
-  const MeasuredWidget({
-    super.key,
-    required this.onCalculateSize,
-    required this.child,
-  });
+class MeasureSizeRenderObject extends RenderProxyBox {
+  Size? oldSize;
+  OnWidgetSizeChange onChange;
+
+  MeasureSizeRenderObject(this.onChange);
 
   @override
-  _MeasuredWidgetState createState() => _MeasuredWidgetState();
-}
+  void performLayout() {
+    super.performLayout();
 
-class _MeasuredWidgetState extends State<MeasuredWidget> {
-  final key = GlobalKey();
+    final Size newSize = child!.size;
+    if (oldSize == newSize) return;
 
-  @override
-  void initState() {
-    //calling the getHeight Function after the Layout is Rendered
-    WidgetsBinding.instance.addPostFrameCallback((_) => getHeight());
-
-    super.initState();
-  }
-
-  void getHeight() {
-    final size = key.currentContext?.size;
-    widget.onCalculateSize(size);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _MeasuredWidgetContent(
-      key: key,
-      child: widget.child,
-    );
+    oldSize = newSize;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onChange(newSize);
+    });
   }
 }
 
-class _MeasuredWidgetContent extends HookWidget {
-  final Widget child;
-  const _MeasuredWidgetContent({
+class MeasureSize extends SingleChildRenderObjectWidget {
+  final OnWidgetSizeChange onChange;
+
+  const MeasureSize({
     super.key,
-    required this.child,
+    required this.onChange,
+    required Widget super.child,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return child;
+  RenderObject createRenderObject(BuildContext context) {
+    return MeasureSizeRenderObject(onChange);
+  }
+
+  @override
+  void updateRenderObject(BuildContext context, covariant MeasureSizeRenderObject renderObject) {
+    renderObject.onChange = onChange;
   }
 }
 

@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 
 // Package imports:
 import "package:flex_color_picker/flex_color_picker.dart";
-import "package:flutter_hooks/flutter_hooks.dart";
 
 // Project imports:
 import "package:graded/localization/translations.dart";
@@ -15,7 +14,7 @@ import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
 
-class EasyBottomSheet extends StatefulHookWidget {
+class EasyBottomSheet extends StatefulWidget {
   final String title;
   final IconData? icon;
   final Widget child;
@@ -34,6 +33,24 @@ class EasyBottomSheet extends StatefulHookWidget {
 }
 
 class _EasyBottomSheetState extends State<EasyBottomSheet> {
+  double maxSize = 1;
+  double get initSize => maxSize * (1 - .0001);
+
+  void _setMaxChildSize(Size size) {
+    setState(() {
+      const double indicatorPadding = 48;
+      const double errorPadding = 0;
+
+      // get height of the container.
+      final double boxHeight = size.height + indicatorPadding + errorPadding;
+      // get height of the screen from mediaQuery.
+      final double screenHeight = MediaQuery.of(context).size.height;
+      // get the ratio to set as max size.
+      final double ratio = boxHeight / screenHeight;
+      maxSize = ratio.clamp(.1, .9);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -42,72 +59,53 @@ class _EasyBottomSheetState extends State<EasyBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final height = useState(0.0);
-
-    final children = [
-      Center(
-        child: Column(
-          children: [
-            Icon(
-              widget.icon,
-              size: 32,
-            ),
-            const Padding(padding: EdgeInsets.only(top: 8, bottom: 8)),
-            Text(
-              widget.title,
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-            const Padding(padding: EdgeInsets.only(bottom: 8)),
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-        child: widget.child,
-      ),
-    ];
-
-    // calculate the proportion
-    final double maxSize = useMemoized(
-      () => ((height.value / MediaQuery.of(context).size.height) + 0.06).clamp(.1, .9),
-      [height.value],
-    );
-
-    // for some reason initSize can't equal max size for very long widgets
-    final initSize = maxSize * (1 - .0001);
-
-    // render the child to get its height
-    if (height.value == 0) {
-      return SingleChildScrollView(
-        child: MeasuredWidget(
-          onCalculateSize: (v) => height.value = v!.height,
-          child: Column(
-            children: children,
-          ),
-        ),
-      );
-    }
-
     return DraggableScrollableSheet(
       expand: false,
       maxChildSize: maxSize,
-      initialChildSize: initSize,
+      initialChildSize: maxSize,
       builder: (context, scrollController) {
-        return SafeArea(
-          top: false,
-          maintainBottomViewPadding: true,
-          child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (OverscrollIndicatorNotification overscroll) {
-              overscroll.disallowIndicator();
-              return true;
-            },
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                cardTheme: Theme.of(context).cardTheme.copyWith(elevation: 0.75),
-              ),
-              child: ListView(
-                children: children,
+        return NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (OverscrollIndicatorNotification overscroll) {
+            overscroll.disallowIndicator();
+            return true;
+          },
+          child: SingleChildScrollView(
+            controller: scrollController,
+            child: MeasureSize(
+              onChange: _setMaxChildSize,
+              child: SafeArea(
+                top: false,
+                maintainBottomViewPadding: true,
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    cardTheme: Theme.of(context).cardTheme.copyWith(elevation: 0.75),
+                  ),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Column(
+                          children: [
+                            Icon(
+                              widget.icon,
+                              size: 32,
+                            ),
+                            const Padding(padding: EdgeInsets.only(top: 8, bottom: 8)),
+                            Text(
+                              widget.title,
+                              style: Theme.of(context).textTheme.headlineSmall,
+                              textAlign: TextAlign.center,
+                            ),
+                            const Padding(padding: EdgeInsets.only(bottom: 8)),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                        child: widget.child,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
