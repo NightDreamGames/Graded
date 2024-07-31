@@ -18,14 +18,12 @@ class EasyBottomSheet extends StatefulWidget {
   final String title;
   final IconData? icon;
   final Widget child;
-  final String? action;
 
   const EasyBottomSheet({
     super.key,
     required this.title,
     required this.child,
     this.icon,
-    this.action,
   });
 
   @override

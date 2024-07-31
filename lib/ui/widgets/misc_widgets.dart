@@ -193,6 +193,21 @@ class SpinningIcon extends StatelessWidget {
   }
 }
 
+abstract class SpinningFabPage<T extends StatefulWidget> extends State<T> {
+  double fabRotation = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      if (!mounted) return;
+      setState(() {
+        fabRotation += 0.5;
+      });
+    });
+  }
+}
+
 typedef OnWidgetSizeChange = void Function(Size size);
 
 class MeasureSizeRenderObject extends RenderProxyBox {
@@ -232,20 +247,5 @@ class MeasureSize extends SingleChildRenderObjectWidget {
   @override
   void updateRenderObject(BuildContext context, covariant MeasureSizeRenderObject renderObject) {
     renderObject.onChange = onChange;
-  }
-}
-
-abstract class SpinningFabPage<T extends StatefulWidget> extends State<T> {
-  double fabRotation = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(milliseconds: 500)).then((_) {
-      if (!mounted) return;
-      setState(() {
-        fabRotation += 0.5;
-      });
-    });
   }
 }
