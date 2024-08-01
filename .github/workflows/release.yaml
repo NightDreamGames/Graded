@@ -185,7 +185,6 @@ jobs:
             artifacts/mapping.txt
             artifacts/lib.zip
             artifacts/graded-${{ env.BUILD_NAME }}.ipa
-            /tmp/xcodebuild_logs/*.log
 
   publish:
     needs: [prepare_release, build, test]
