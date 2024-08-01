@@ -188,7 +188,7 @@ jobs:
             /tmp/xcodebuild_logs/*.log
 
   publish:
-    needs: [build, test]
+    needs: [prepare_release, build, test]
     runs-on: ubuntu-latest
     permissions:
       contents: write
