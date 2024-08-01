@@ -44,9 +44,9 @@ jobs:
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           echo "RELEASE_CHANNEL=$RELEASE_CHANNEL" >> $GITHUB_ENV
 
-          echo "::set-output name=build_name::$BUILD_NAME"
-          echo "::set-output name=build_number::$BUILD_NUMBER"
-          echo "::set-output name=release_channel::$RELEASE_CHANNEL"
+          echo "build_name=$BUILD_NAME" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+          echo "release_channel=$RELEASE_CHANNEL" >> $GITHUB_OUTPUT
 
       - name: Check if version is used
         run: |
@@ -56,13 +56,12 @@ jobs:
           fi
 
       - name: Update Changelog
+        id: update-changelog
         run: |
           # Get the release changelog
           changelog_file="CHANGELOG.md"
           CHANGELOG=$(sed -n "/\[${{ env.BUILD_NAME }}\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d' | sed '$s/\\n$//')
-          # echo "CHANGELOG=$CHANGELOG" >> $GITHUB_ENV
           STRIPPED_CHANGELOG=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//; $s/\\n$//')
-          # echo "STRIPPED_CHANGELOG=$STRIPPED_CHANGELOG" >> $GITHUB_ENV
 
           if [[ -z "$STRIPPED_CHANGELOG" ]]; then
             echo "Changelog not found for version ${{ env.BUILD_NAME }}."
@@ -82,8 +81,8 @@ jobs:
             { print }
           ' $changelog_file > $changelog_file.new && mv $changelog_file.new $changelog_file
 
-          echo "::set-output name=changelog::$CHANGELOG"
-          echo "::set-output name=stripped_changelog::$STRIPPED_CHANGELOG"
+          echo "changelog=$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "stripped_changelog=$STRIPPED_CHANGELOG" >> $GITHUB_OUTPUT
 
           echo "$CHANGELOG"
           echo
@@ -176,13 +175,12 @@ jobs:
         with:
           name: release-artifacts
           path: |
-            - artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
-            - artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.apk
-            - artifacts/mapping.txt
-            - artifacts/lib.zip
-
-  #            - artifacts/graded-${{ env.BUILD_NAME }}.ipa
-  #            - /tmp/xcodebuild_logs/*.log
+            artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
+            artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.apk
+            artifacts/mapping.txt
+            artifacts/lib.zip
+            artifacts/graded-${{ env.BUILD_NAME }}.ipa
+            /tmp/xcodebuild_logs/*.log
 
   publish:
     needs: [build, test]
