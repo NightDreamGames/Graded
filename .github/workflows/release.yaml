@@ -207,7 +207,7 @@ jobs:
           name: "${{ needs.prepare_release.outputs.build_name }}"
           tag: "${{ needs.prepare_release.outputs.build_name }}"
           draft: true
-          commit: master
+          commit: main
 
       - name: Set track based on input
         id: set-track
