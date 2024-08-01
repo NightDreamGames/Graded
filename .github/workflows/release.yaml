@@ -21,6 +21,8 @@ jobs:
       build_name: ${{ steps.set-env.outputs.build_name }}
       build_number: ${{ steps.set-env.outputs.build_number }}
       release_channel: ${{ steps.set-env.outputs.release_channel }}
+      changelog: ${{ steps.update-changelog.outputs.changelog }}
+      stripped_changelog: ${{ steps.update-changelog.outputs.stripped_changelog }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -80,8 +82,8 @@ jobs:
             { print }
           ' $changelog_file > $changelog_file.new && mv $changelog_file.new $changelog_file
 
-          echo "$CHANGELOG" > changelog.txt
-          echo "$STRIPPED_CHANGELOG" > stripped_changelog.txt
+          echo "::set-output name=changelog::$CHANGELOG"
+          echo "::set-output name=stripped_changelog::$STRIPPED_CHANGELOG"
 
           echo "$CHANGELOG"
           echo
@@ -167,7 +169,7 @@ jobs:
           cp build/app/outputs/apk/release/app-release.apk artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.apk
           cp build/app/outputs/bundle/release/app-release.aab artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
           cp build/app/outputs/mapping/release/mapping.txt artifacts/mapping.txt
-          cd build/app/intermediates/merged_native_libs/release/out/lib && zip -r -0 $GITHUB_WORKSPACE/artifacts/lib.zip . && cd $GITHUB_WORKSPACE
+          cd build/app/intermediates/merged_native_libs/release/mergeReleaseNativeLibs/out/lib && zip -r -0 $GITHUB_WORKSPACE/artifacts/lib.zip . && cd $GITHUB_WORKSPACE
       #          cp build/ios/ipa/Graded.ipa artifacts/graded-${{ env.BUILD_NAME }}.ipa
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -190,6 +192,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: release-artifacts
+
+      - name: Write changelog to file
+        run: echo "${{ needs.prepare_release.outputs.changelog }}" > changelog.txt
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
@@ -214,6 +219,13 @@ jobs:
             echo "TRACK=production" >> $GITHUB_ENV
           fi
 
+      - name: Create localized changelog files
+        run: |
+          mkdir -p changelogs
+          echo "${{ needs.prepare_release.outputs.stripped_changelog }}" > changelogs/whatsnew-en-GB
+          echo "${{ needs.prepare_release.outputs.stripped_changelog }}" > changelogs/whatsnew-fr-FR
+          echo "${{ needs.prepare_release.outputs.stripped_changelog }}" > changelogs/whatsnew-de-DE
+
       - name: Publish to Google Play
         uses: r0adkll/upload-google-play@v1
         with:
@@ -221,7 +233,7 @@ jobs:
           packageName: com.NightDreamGames.Grade.ly
           releaseFiles: artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
           track: ${{ env.TRACK }}
-          whatsNewDirectory: distribution/whatsnew
+          whatsNewDirectory: changelogs
           mappingFile: artifacts/mapping.txt
           debugSymbols: artifacts/lib.zip
 
