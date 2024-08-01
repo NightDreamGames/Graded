@@ -112,7 +112,7 @@ jobs:
           java-version: "17"
           java-package: jdk
 
-      - name: Create the Keystore
+      - name: Prepare Android signing
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -142,15 +142,29 @@ jobs:
       - name: Build AAB
         run: .flutter/bin/flutter build appbundle --release
 
-      - name: Build IPA
-        run: .flutter/bin/flutter build ios --release
+      #      - name: Prepare signing
+      #        uses: ngeri/prepare-signing@v1.0.2
+      #        with:
+      #          appStoreConnectPrivateKey: ${{ secrets.appStoreConnectPrivateKey }}
+      #          keyID: ${{ env.keyID }}
+      #          issuerID: ${{ env.issuerID }}
+      #          keychainName: ${{ secrets.keychainName }}
+      #          keychainPassword: ${{ secrets.keychainPassword }}
+      #          base64P12File: ${{ secrets.base64P12File }}
+      #          p12Password: ${{ secrets.p12Password }}
+      #          bundleIdentifier: ${{ env.bundleIdentifier }}
+      #          signType: ${{ env.signType }}
+      #
+      #      - name: Build IPA
+      #        run: .flutter/bin/flutter build ios --release
 
       - name: Prepare artifacts
         run: |
           cp build/app/outputs/apk/release/app-release.apk artifacts/graded-${{ env.BUILD_NAME }}.apk
           cp build/app/outputs/bundle/release/app-release.aab artifacts/graded-${{ env.BUILD_NAME }}.aab
-          cp build/ios/ipa/Graded.ipa artifacts/graded-${{ env.BUILD_NAME }}.ipa
-
+          cp build/app/outputs/mapping/release/mapping.txt artifacts/mapping.txt
+          cd build/app/intermediates/merged_native_libs/release/out/lib && zip -r -0 $GITHUB_WORKSPACE/artifacts/lib.zip . && cd $GITHUB_WORKSPACE
+      #          cp build/ios/ipa/Graded.ipa artifacts/graded-${{ env.BUILD_NAME }}.ipa
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -158,14 +172,21 @@ jobs:
           path: |
             - artifacts/graded-${{ env.BUILD_NAME }}.aab
             - artifacts/graded-${{ env.BUILD_NAME }}.apk
-            - build/**/outputs/**/mapping.txt
-            - artifacts/graded-${{ env.BUILD_NAME }}.ipa
-            - /tmp/xcodebuild_logs/*.log
+            - artifacts/mapping.txt
+            - artifacts/lib.zip
+
+  #            - artifacts/graded-${{ env.BUILD_NAME }}.ipa
+  #            - /tmp/xcodebuild_logs/*.log
 
   publish:
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts
+
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
@@ -177,8 +198,15 @@ jobs:
           commit: master
 
       - name: Publish to Google Play
-        run: |
-          # Logic to publish to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: com.NightDreamGames.Grade.ly
+          releaseFiles: artifacts/graded-${{ env.BUILD_NAME }}.aab
+          track: production
+          whatsNewDirectory: distribution/whatsnew
+          mappingFile: artifacts/mapping.txt
+          debugSymbols: artifacts/lib.zip
 
       - name: Publish to App Store
         run: |
