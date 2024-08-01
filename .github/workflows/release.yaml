@@ -1,5 +1,3 @@
-# .github/workflows/release.yaml
-
 name: Release
 
 on:
@@ -19,6 +17,10 @@ jobs:
 
   prepare_release:
     runs-on: ubuntu-latest
+    outputs:
+      build_name: ${{ steps.set-env.outputs.build_name }}
+      build_number: ${{ steps.set-env.outputs.build_number }}
+      release_channel: ${{ steps.set-env.outputs.release_channel }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,17 +31,20 @@ jobs:
           git config --global user.name "Faucon"
 
       - name: Set environment variables
+        id: set-env
         run: |
-          fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
+          fullVersion=$(grep -i -e "version: " pubspec.yaml)
           BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)
-          BUILD_NUMBER=$((${{ github.run_number }} + 500))
+          BUILD_NUMBER=$((${GITHUB_RUN_NUMBER} + 500))
           RELEASE_CHANNEL=${{ github.event.inputs.channel }}
 
           echo "BUILD_NAME=$BUILD_NAME" >> $GITHUB_ENV
           echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
           echo "RELEASE_CHANNEL=$RELEASE_CHANNEL" >> $GITHUB_ENV
 
-          echo -e "$fullVersion\n BUILD_NAME: $BUILD_NAME\n BUILD_NUMBER: $BUILD_NUMBER\n RELEASE_CHANNEL: $RELEASE_CHANNEL"
+          echo "::set-output name=build_name::$BUILD_NAME"
+          echo "::set-output name=build_number::$BUILD_NUMBER"
+          echo "::set-output name=release_channel::$RELEASE_CHANNEL"
 
       - name: Check if version is used
         run: |
@@ -50,8 +55,6 @@ jobs:
 
       - name: Update Changelog
         run: |
-          changelog_file="CHANGELOG.md"
-
           # Get the release changelog
           changelog_file="CHANGELOG.md"
           CHANGELOG=$(sed -n "/\[${{ env.BUILD_NAME }}\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d' | sed '$s/\\n$//')
@@ -160,8 +163,9 @@ jobs:
 
       - name: Prepare artifacts
         run: |
-          cp build/app/outputs/apk/release/app-release.apk artifacts/graded-${{ env.BUILD_NAME }}.apk
-          cp build/app/outputs/bundle/release/app-release.aab artifacts/graded-${{ env.BUILD_NAME }}.aab
+          mkdir -p artifacts
+          cp build/app/outputs/apk/release/app-release.apk artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.apk
+          cp build/app/outputs/bundle/release/app-release.aab artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
           cp build/app/outputs/mapping/release/mapping.txt artifacts/mapping.txt
           cd build/app/intermediates/merged_native_libs/release/out/lib && zip -r -0 $GITHUB_WORKSPACE/artifacts/lib.zip . && cd $GITHUB_WORKSPACE
       #          cp build/ios/ipa/Graded.ipa artifacts/graded-${{ env.BUILD_NAME }}.ipa
@@ -170,8 +174,8 @@ jobs:
         with:
           name: release-artifacts
           path: |
-            - artifacts/graded-${{ env.BUILD_NAME }}.aab
-            - artifacts/graded-${{ env.BUILD_NAME }}.apk
+            - artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
+            - artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.apk
             - artifacts/mapping.txt
             - artifacts/lib.zip
 
@@ -190,20 +194,33 @@ jobs:
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "artifacts/graded-${{ env.BUILD_NAME }}.apk, artifacts/graded-${{ env.BUILD_NAME }}.ipa"
+          artifacts: "artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.apk"
           bodyFile: "changelog.txt"
-          name: "${{ env.BUILD_NAME }}"
-          tag: "${{ env.BUILD_NAME }}"
+          name: "${{ needs.prepare_release.outputs.build_name }}"
+          tag: "${{ needs.prepare_release.outputs.build_name }}"
           draft: true
           commit: master
+
+      - name: Set track based on input
+        id: set-track
+        run: |
+          if [ "${{ needs.prepare_release.outputs.release_channel }}" == "prod" ]; then
+            echo "TRACK=production" >> $GITHUB_ENV
+          elif [ "${{ needs.prepare_release.outputs.release_channel }}" == "beta" ]; then
+            echo "TRACK=beta" >> $GITHUB_ENV
+          elif [ "${{ needs.prepare_release.outputs.release_channel }}" == "alpha" ]; then
+            echo "TRACK=qa" >> $GITHUB_ENV
+          else
+            echo "TRACK=production" >> $GITHUB_ENV
+          fi
 
       - name: Publish to Google Play
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.NightDreamGames.Grade.ly
-          releaseFiles: artifacts/graded-${{ env.BUILD_NAME }}.aab
-          track: production
+          releaseFiles: artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
+          track: ${{ env.TRACK }}
           whatsNewDirectory: distribution/whatsnew
           mappingFile: artifacts/mapping.txt
           debugSymbols: artifacts/lib.zip
