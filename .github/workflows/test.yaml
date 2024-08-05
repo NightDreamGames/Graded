@@ -17,17 +17,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Update submodule
-        run: git submodule update --remote --init --recursive
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v3
+        with:
+          channel: stable
+          version: latest
 
       - name: Print Flutter version
-        run: .flutter/bin/flutter --version
+        run: flutter --version
 
       - name: Install dependencies
-        run: .flutter/bin/flutter pub get
+        run: flutter pub get
 
       - name: Flutter analyze
-        run: .flutter/bin/flutter analyze
+        run: flutter analyze
 
       - name: Run tests
-        run: .flutter/bin/flutter test
+        run: flutter test

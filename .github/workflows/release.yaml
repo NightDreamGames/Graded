@@ -103,14 +103,17 @@ jobs:
           #git push
 
   build:
-    needs: [prepare_release, bump_submodule]
+    needs: [prepare_release]
     runs-on: macos-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get submodule
-        run: git submodule update --init --recursive
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v3
+        with:
+          channel: stable
+          version: latest
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -136,18 +139,14 @@ jobs:
           storeFile=$RUNNER_TEMP/prod.keystore
           EOF
 
-      - name: Set up local.properties
-        run: |
-          echo "flutter.sdk=${GITHUB_WORKSPACE}/.flutter" > "$GITHUB_WORKSPACE/android/local.properties"
-
       - name: Get packages
-        run: .flutter/bin/flutter pub get
+        run: flutter pub get
 
       - name: Build APK
-        run: .flutter/bin/flutter build apk --release
+        run: flutter build apk --release
 
       - name: Build AAB
-        run: .flutter/bin/flutter build appbundle --release
+        run: flutter build appbundle --release
 
       #      - name: Prepare signing
       #        uses: ngeri/prepare-signing@v1.0.2
@@ -163,7 +162,7 @@ jobs:
       #          signType: ${{ env.signType }}
       #
       #      - name: Build IPA
-      #        run: .flutter/bin/flutter build ios --release
+      #        run: flutter build ios --release
 
       - name: Prepare artifacts
         run: |
@@ -185,7 +184,7 @@ jobs:
             artifacts/*.ipa
 
   publish:
-    needs: [prepare_release, build, test]
+    needs: [bump_submodule, prepare_release, test, build]
     runs-on: ubuntu-latest
     permissions:
       contents: write

@@ -14,10 +14,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Git
-        run: |
-          git config --global user.name "Faucon"
-          git config --global user.email "49079695+FauconSpartiate@users.noreply.github.com"
+      - name: Set up Git user
+        uses: fregante/setup-git-user@v2
 
       - name: Save Flutter version
         run: |
