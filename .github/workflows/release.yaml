@@ -199,6 +199,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: release-artifacts
+          path: artifacts
 
       - name: Write changelog to file
         run: echo "${{ needs.prepare_release.outputs.changelog }}" > changelog.txt
