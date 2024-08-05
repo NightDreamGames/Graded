@@ -27,10 +27,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Git
-        run: |
-          git config --global user.email "49079695+FauconSpartiate@users.noreply.github.com"
-          git config --global user.name "Faucon"
+      - name: Set up Git user
+        uses: fregante/setup-git-user@v2
 
       - name: Set environment variables
         id: set-env
@@ -180,11 +178,11 @@ jobs:
         with:
           name: release-artifacts
           path: |
-            artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
-            artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.apk
+            artifacts/*.aab
+            artifacts/*.apk
             artifacts/mapping.txt
             artifacts/lib.zip
-            artifacts/graded-${{ env.BUILD_NAME }}.ipa
+            artifacts/*.ipa
 
   publish:
     needs: [prepare_release, build, test]
@@ -198,13 +196,10 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: release-artifacts
           path: artifacts
 
       - name: Write changelog to file
         run: echo "${{ needs.prepare_release.outputs.changelog }}" > changelog.txt
-
-      - run: ls artifacts
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
@@ -219,15 +214,13 @@ jobs:
       - name: Set track based on input
         id: set-track
         run: |
-          if [ "${{ needs.prepare_release.outputs.release_channel }}" == "prod" ]; then
-            echo "TRACK=production" >> $GITHUB_ENV
-          elif [ "${{ needs.prepare_release.outputs.release_channel }}" == "beta" ]; then
-            echo "TRACK=beta" >> $GITHUB_ENV
-          elif [ "${{ needs.prepare_release.outputs.release_channel }}" == "alpha" ]; then
-            echo "TRACK=qa" >> $GITHUB_ENV
-          else
-            echo "TRACK=production" >> $GITHUB_ENV
-          fi
+          case "${{ needs.prepare_release.outputs.release_channel }}" in
+            prod) TRACK=production ;;
+            beta) TRACK=beta ;;
+            alpha) TRACK=qa ;;
+            *) TRACK=production ;;
+          esac
+          echo "TRACK=$TRACK" >> $GITHUB_ENV
 
       - name: Create localized changelog files
         run: |
@@ -241,7 +234,7 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: com.NightDreamGames.Grade.ly
-          releaseFiles: artifacts/graded-${{ needs.prepare_release.outputs.build_name }}.aab
+          releaseFiles: artifacts/*.aab
           track: ${{ env.TRACK }}
           whatsNewDirectory: changelogs
           mappingFile: artifacts/mapping.txt
