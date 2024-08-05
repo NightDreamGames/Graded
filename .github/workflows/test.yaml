@@ -22,9 +22,8 @@ jobs:
         with:
           channel: stable
           version: latest
-
-      - name: Print Flutter version
-        run: flutter --version
+          cache: true
+          cache-sdk: true
 
       - name: Install dependencies
         run: flutter pub get

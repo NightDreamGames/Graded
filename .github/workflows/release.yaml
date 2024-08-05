@@ -114,6 +114,8 @@ jobs:
         with:
           channel: stable
           version: latest
+          cache: true
+          cache-sdk: true
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -195,6 +197,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
+          name: release-artifacts
           path: artifacts
 
       - name: Write changelog to file
