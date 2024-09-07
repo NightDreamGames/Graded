@@ -128,6 +128,7 @@ class _YearRouteState extends SpinningFabPage<YearRoute> {
 
   void showPopupActions(BuildContext context, int index, Year year) {
     showMenuActions<YearAction>(context, YearAction.values, [translations.select, translations.edit, translations.delete]).then((result) {
+      if (!context.mounted) return;
       switch (result) {
         case YearAction.select:
           heavyHaptics();

@@ -132,7 +132,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
       resizeToAvoidBottomInset: false,
       body: PlatformWillPopScope(
         canPop: canPop,
-        onPopInvoked: (didPop) {
+        onPopInvoked: (didPop, _) {
           if (didPop) return;
           if (children.every((e) => e is HomePage) && tabController.length > 1 && tabController.index == tabController.length - 1) {
             int newIndex = tabController.previousIndex;

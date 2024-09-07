@@ -138,6 +138,7 @@ class ImportSettingsTile extends StatelessWidget {
       subtitle: translations.import_description,
       onTap: () => importData().then((success) {
         if (!success) heavyHaptics();
+        if (!context.mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

@@ -153,12 +153,13 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                             leadingText: testData[index].name,
                             trailingText: testData[index].toString(),
                             enableEqualLongPress: true,
-                            onTap: () async {
+                            onTap: () {
                               if (widget.term.isYearOverview) return;
 
                               showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
                                 switch (result) {
                                   case MenuAction.edit:
+                                    if (!context.mounted) return;
                                     showTestDialog(context, widget.subject, test: testData[index]).then((_) => refreshYearOverview());
                                   case MenuAction.delete:
                                     heavyHaptics();

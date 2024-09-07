@@ -246,7 +246,7 @@ class _SubjectTileState extends State<SubjectTile> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500), () {
-        if (!widget.shouldShowcase || !mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
+        if (!widget.shouldShowcase || !context.mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
         ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
       });
     });
@@ -298,6 +298,7 @@ class _SubjectTileState extends State<SubjectTile> {
           showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
             switch (result) {
               case MenuAction.edit:
+                if (!context.mounted) return;
                 showSubjectDialog(
                   context,
                   index1: widget.index1,

@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500), () {
-        if (!shouldShowcase || !mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
+        if (!shouldShowcase || !context.mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
         ShowCaseWidget.of(context).startShowCase([showCaseKey]);
       });
     });
