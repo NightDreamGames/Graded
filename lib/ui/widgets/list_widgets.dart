@@ -241,13 +241,16 @@ class SubjectTile extends StatefulWidget {
 }
 
 class _SubjectTileState extends State<SubjectTile> {
+  bool showcasing = false;
+
   Future<void> showTutorial(BuildContext context) async {
-    if (!widget.shouldShowcase) return;
+    if (!widget.shouldShowcase || showcasing) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500), () {
-        if (!widget.shouldShowcase || !context.mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
+        if (!widget.shouldShowcase || showcasing || !context.mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
         ShowCaseWidget.of(context).startShowCase([showCaseKey1, showCaseKey2]);
+        showcasing = true;
       });
     });
   }

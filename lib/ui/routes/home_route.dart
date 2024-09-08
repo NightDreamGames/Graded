@@ -31,6 +31,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey showCaseKey = GlobalKey();
   late bool shouldShowcase;
+  bool showcasing = false;
 
   void rebuild() {
     setState(() {});
@@ -42,12 +43,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> showTutorial(BuildContext context) async {
-    if (!shouldShowcase) return;
+    if (!shouldShowcase || showcasing) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 500), () {
-        if (!shouldShowcase || !context.mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
+        if (!shouldShowcase || showcasing || !context.mounted || context.findAncestorWidgetOfExactType<ShowCaseWidget>() == null) return;
         ShowCaseWidget.of(context).startShowCase([showCaseKey]);
+        showcasing = true;
       });
     });
   }
