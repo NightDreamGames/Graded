@@ -30,6 +30,7 @@ class Test extends CalculationObject {
     this.timestamp = timestamp ?? DateTime(now.year, now.month, now.day).millisecondsSinceEpoch;
   }
 
+  @override
   void calculate() {
     result = isEmpty ? null : Calculator.calculate([this], clamp: false);
   }
@@ -38,12 +39,6 @@ class Test extends CalculationObject {
   String toString() {
     if (result == null) return "-";
     return "${Calculator.format(numerator)}/${Calculator.format(denominator, roundToOverride: 1)}";
-  }
-
-  @override
-  String getResult({bool precise = false}) {
-    if (result == null) return "-";
-    return Calculator.format(result);
   }
 
   Test.fromTest(Test test) {

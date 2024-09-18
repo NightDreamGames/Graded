@@ -2,6 +2,8 @@
 import "package:flutter/material.dart";
 
 // Project imports:
+import "package:graded/calculations/calculator.dart";
+import "package:graded/calculations/manager.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
@@ -22,6 +24,14 @@ class SortAction extends StatelessWidget {
       icon: const Icon(Icons.sort),
       tooltip: translations.sort_by,
       onSelected: (value) {
+        if (!getCurrentYear().hasBeenSortedCustom && value == SortMode.custom) {
+          getCurrentYear().subjects = Calculator.sortObjects(getCurrentYear().subjects, sortType: SortType.subject);
+          for (final subject in getCurrentYear().subjects) {
+            subject.children = Calculator.sortObjects(subject.children, sortType: SortType.subject);
+          }
+          getCurrentYear().hasBeenSortedCustom = true;
+        }
+
         if (getPreference("sort_mode$sortType") == value) {
           setPreference<int>("sort_direction$sortType", -getPreference<int>("sort_direction$sortType"));
         } else {

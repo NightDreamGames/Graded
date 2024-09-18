@@ -8,6 +8,7 @@ import "package:decimal/decimal.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/default_values.dart";
@@ -137,13 +138,13 @@ class EasyDialogState extends State<EasyDialog> {
   }
 }
 
-Future<void> showTestDialog(BuildContext context, Subject subject, {Test? test}) {
+Future<void> showTestDialog(BuildContext context, Term term, {Test? test}) {
   return showDialog(
     context: context,
     useSafeArea: false,
     builder: (context) {
       return TestDialog(
-        subject: subject,
+        term: term,
         test: test,
       );
     },
@@ -174,11 +175,11 @@ Future<void> showResetConfirmDialog(BuildContext context) {
 class TestDialog extends StatefulWidget {
   const TestDialog({
     super.key,
-    required this.subject,
+    required this.term,
     this.test,
   });
 
-  final Subject subject;
+  final Term term;
   final Test? test;
 
   @override
@@ -232,15 +233,15 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
       icon: action == CreationType.add ? Icons.add : Icons.edit,
       bottomPadding: 0,
       onConfirm: () {
-        final String name = nameController.text.isEmpty ? getHint(translations.testOne, widget.subject.tests) : nameController.text;
+        final String name = nameController.text.isEmpty ? getHint(translations.testOne, widget.term.tests) : nameController.text;
         final double numerator = Calculator.tryParse(gradeController.text) ?? 1;
         final double denominator = Calculator.tryParse(maximumController.text) ?? getCurrentYear().maxGrade;
         final double weight = Calculator.tryParse(weightController.text) ?? DefaultValues.weight;
 
         if (action == CreationType.add) {
-          widget.subject.addTest(Test(numerator, denominator, name: name, weight: weight, isSpeaking: isSpeaking, timestamp: timestamp));
+          widget.term.addTest(Test(numerator, denominator, name: name, weight: weight, isSpeaking: isSpeaking, timestamp: timestamp));
         } else {
-          widget.subject.editTest(widget.test!, numerator, denominator, name, weight, isSpeaking: isSpeaking, timestamp: timestamp);
+          widget.term.editTest(widget.test!, numerator, denominator, name, weight, isSpeaking: isSpeaking, timestamp: timestamp);
         }
 
         return true;
@@ -251,7 +252,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
           EasyFormField(
             controller: nameController,
             label: translations.name,
-            hint: getHint(translations.testOne, widget.subject.tests),
+            hint: getHint(translations.testOne, widget.term.tests),
             textInputAction: TextInputAction.next,
           ),
           const Padding(
@@ -427,10 +428,10 @@ class _SubjectDialogState extends State<SubjectDialog> {
     super.initState();
     action = widget.index1 == null ? CreationType.add : CreationType.edit;
     subject = action == CreationType.add
-        ? Subject("", 0, 0)
+        ? Subject("", 0)
         : widget.index2 == null
-            ? getCurrentYear().termTemplate[widget.index1!]
-            : getCurrentYear().termTemplate[widget.index1!].children[widget.index2!];
+            ? getCurrentYear().subjects[widget.index1!]
+            : getCurrentYear().subjects[widget.index1!].children[widget.index2!];
     nameController.text = action == CreationType.edit ? subject.name : "";
     weightController.text = action == CreationType.edit ? Calculator.format(subject.weight, leadingZero: false, roundToOverride: 1) : "";
     speakingController.text =
@@ -452,7 +453,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
       title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
       icon: action == CreationType.add ? Icons.add : Icons.edit,
       onConfirm: () {
-        final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, getCurrentYear().termTemplate) : nameController.text;
+        final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, getCurrentYear().subjects) : nameController.text;
         final double weight = Calculator.tryParse(weightController.text) ?? 1;
 
         double speakingWeight = Calculator.tryParse(speakingController.text) ?? (DefaultValues.speakingWeight) + 1;
@@ -460,7 +461,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
         if (speakingWeight <= 0) speakingWeight = 1;
 
         if (action == CreationType.add) {
-          getCurrentYear().addSubject(Subject(name, weight, speakingWeight));
+          getCurrentYear().addSubject(Subject(name, weight, speakingWeight: speakingWeight));
         } else {
           getCurrentYear().editSubject(subject, name, weight, speakingWeight);
         }
@@ -476,12 +477,12 @@ class _SubjectDialogState extends State<SubjectDialog> {
             controller: nameController,
             autofocus: true,
             label: translations.name,
-            hint: getHint(translations.subjectOne, getCurrentYear().termTemplate),
+            hint: getHint(translations.subjectOne, getCurrentYear().subjects),
             textInputAction: TextInputAction.next,
             additionalValidator: (newValue) {
               if (confirmed) return null;
 
-              final bool isDuplicate = getCurrentYear().termTemplate.any((element) {
+              final bool isDuplicate = getCurrentYear().subjects.any((element) {
                 final bool isParent = element == subject;
                 final bool isChild = element.children.contains(subject);
                 final bool sameAsParent = element.name == newValue;
@@ -547,12 +548,12 @@ class _SubjectDialogState extends State<SubjectDialog> {
   }
 }
 
-Future<void> showBonusDialog(BuildContext context, Subject subject) {
+Future<void> showBonusDialog(BuildContext context, Term term) {
   return showDialog(
     context: context,
     useSafeArea: false,
     builder: (context) {
-      return BonusDialog(subject: subject);
+      return BonusDialog(term: term);
     },
   );
 }
@@ -560,10 +561,10 @@ Future<void> showBonusDialog(BuildContext context, Subject subject) {
 class BonusDialog extends StatefulWidget {
   const BonusDialog({
     super.key,
-    required this.subject,
+    required this.term,
   });
 
-  final Subject subject;
+  final Term term;
 
   @override
   State<BonusDialog> createState() => _BonusDialogState();
@@ -577,7 +578,7 @@ class _BonusDialogState extends State<BonusDialog> {
   @override
   void initState() {
     super.initState();
-    bonusController.text = Calculator.format(widget.subject.bonus, leadingZero: false);
+    bonusController.text = Calculator.format(widget.term.bonus, leadingZero: false);
   }
 
   @override
@@ -610,7 +611,7 @@ class _BonusDialogState extends State<BonusDialog> {
       icon: Icons.plus_one,
       onConfirm: () {
         final double bonus = Calculator.tryParse(bonusController.text) ?? 0;
-        widget.subject.bonus = bonus;
+        widget.term.bonus = bonus;
 
         Manager.calculate();
         return true;

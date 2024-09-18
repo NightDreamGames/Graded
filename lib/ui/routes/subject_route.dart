@@ -11,8 +11,8 @@ import "package:fading_edge_scrollview/fading_edge_scrollview.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
+import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/utilities/haptics.dart";
@@ -25,12 +25,14 @@ import "package:graded/ui/widgets/popup_menus.dart";
 class SubjectRoute extends StatefulWidget {
   const SubjectRoute({
     super.key,
-    required this.term,
+    required this.year,
+    required this.termIndex,
     required this.subject,
     this.parent,
   });
 
-  final Term term;
+  final Year year;
+  final int termIndex;
   final Subject subject;
   final Subject? parent;
 
@@ -52,11 +54,11 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Test> testData = Calculator.getSortedTestData(widget.subject.tests);
+    final List<Test> testData = Calculator.getSortedTestData(widget.subject.terms[widget.termIndex].tests);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      floatingActionButton: !widget.term.isYearOverview
+      floatingActionButton: !widget.year.isYearOverview
           ? FloatingActionButton(
               tooltip: translations.add_test,
               heroTag: null,
@@ -64,7 +66,7 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                 setState(() {
                   fabRotation += 0.5;
                 });
-                showTestDialog(context, widget.subject).then((_) => refreshYearOverview());
+                showTestDialog(context, widget.subject.terms[widget.termIndex]).then((_) => refreshYearOverview());
               },
               child: SpinningIcon(
                 icon: Icons.add,
@@ -84,23 +86,23 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                 bottom: false,
                 sliver: SliverToBoxAdapter(
                   child: ResultRow(
-                    result: widget.subject.getResult(),
-                    preciseResult: widget.subject.getResult(precise: true),
+                    result: widget.subject.getTermResultString(widget.termIndex),
+                    preciseResult: widget.subject.getTermResultString(widget.termIndex, precise: true),
                     leading: FadingEdgeScrollView.fromSingleChildScrollView(
                       child: SingleChildScrollView(
                         controller: scrollController,
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            if (!widget.term.isYearOverview)
+                            if (!widget.year.isYearOverview)
                               ElevatedButton(
                                 onPressed: () {
-                                  showBonusDialog(context, widget.subject).then((_) => refreshYearOverview());
+                                  showBonusDialog(context, widget.subject.terms[widget.termIndex]).then((_) => refreshYearOverview());
                                 },
                                 style: getTonalButtonStyle(context),
                                 child: Text(
                                   "${translations.bonus}: ${Calculator.format(
-                                    widget.subject.bonus,
+                                    widget.subject.terms[widget.termIndex].bonus,
                                     leadingZero: false,
                                     showPlusSign: true,
                                   )}",
@@ -119,8 +121,8 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                                 Navigator.of(context).pushNamed(
                                   "/chart",
                                   arguments: [
-                                    getSubjectInTerm(widget.parent, getYearOverview()),
-                                    getSubjectInTerm(widget.subject, getYearOverview()),
+                                    widget.parent,
+                                    widget.subject,
                                   ],
                                 );
                               },
@@ -154,16 +156,17 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                             trailingText: testData[index].toString(),
                             enableEqualLongPress: true,
                             onTap: () {
-                              if (widget.term.isYearOverview) return;
+                              if (widget.year.isYearOverview) return;
 
                               showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
                                 switch (result) {
                                   case MenuAction.edit:
                                     if (!context.mounted) return;
-                                    showTestDialog(context, widget.subject, test: testData[index]).then((_) => refreshYearOverview());
+                                    showTestDialog(context, widget.subject.terms[widget.termIndex], test: testData[index])
+                                        .then((_) => refreshYearOverview());
                                   case MenuAction.delete:
                                     heavyHaptics();
-                                    widget.subject.removeTest(testData[index]);
+                                    widget.subject.terms[widget.termIndex].removeTest(testData[index]);
                                     refreshYearOverview();
                                   default:
                                     break;

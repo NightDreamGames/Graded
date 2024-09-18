@@ -9,18 +9,18 @@ import "package:fl_chart/fl_chart.dart";
 import "package:intl/intl.dart";
 
 // Project imports:
-import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
+import "package:graded/calculations/term.dart";
 import "package:graded/ui/utilities/hints.dart";
 
 double getHighestAverage({required Subject subject}) {
   double highest = 0;
 
-  getSubjectAcrossTerms(subject).forEach((subject) {
-    if (subject.result != null && subject.result! > highest) {
-      highest = subject.result!;
+  for (final t in subject.terms) {
+    if (t.result != null && t.result! > highest) {
+      highest = t.result!;
     }
-  });
+  }
 
   return highest;
 }
@@ -28,26 +28,25 @@ double getHighestAverage({required Subject subject}) {
 double getHighestTest({required Subject subject}) {
   double highest = 0;
 
-  getSubjectAcrossTerms(subject).forEach((subject) {
-    for (final test in subject.tests) {
+  for (final t in subject.terms) {
+    for (final test in t.tests) {
       if (test.result != null && test.result! > highest) {
         highest = test.result!;
       }
     }
-  });
+  }
 
   return highest;
 }
 
 List<FlSpot> getSubjectResultSpots({required Subject subject}) {
   final List<FlSpot> spots = <FlSpot>[];
-  final List<Subject> subjects = getSubjectAcrossTerms(subject);
 
-  for (int i = 0; i < subjects.length; i++) {
-    final subject = subjects[i];
-    if (subject.result == null) continue;
+  for (int i = 0; i < subject.terms.length; i++) {
+    final Term term = subject.terms[i];
+    if (term.result == null) continue;
 
-    spots.add(FlSpot(i.toDouble(), subject.result!));
+    spots.add(FlSpot(i.toDouble(), term.result!));
   }
   return spots;
 }
@@ -55,8 +54,8 @@ List<FlSpot> getSubjectResultSpots({required Subject subject}) {
 List<FlSpot> getSubjectTestSpots({required Subject subject}) {
   final List<FlSpot> spots = <FlSpot>[];
 
-  getSubjectAcrossTerms(subject).forEach((s) {
-    for (final test in s.tests) {
+  for (final t in subject.terms) {
+    for (final test in t.tests) {
       if (test.result == null) continue;
 
       double truncatedTimestamp = test.timestamp.toDouble();
@@ -67,7 +66,7 @@ List<FlSpot> getSubjectTestSpots({required Subject subject}) {
 
       spots.add(FlSpot(truncatedTimestamp, test.result!));
     }
-  });
+  }
 
   spots.sort((a, b) => a.x.compareTo(b.x));
 

@@ -8,7 +8,7 @@ import "package:showcaseview/showcaseview.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
+import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/widgets/custom_safe_area.dart";
@@ -19,10 +19,14 @@ import "package:graded/ui/widgets/misc_widgets.dart";
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
-    required this.term,
+    required this.year,
+    required this.termIndex,
+    this.isYearOverview = false,
   });
 
-  final Term term;
+  final Year year;
+  final int termIndex;
+  final bool isYearOverview;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -56,9 +60,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final data = Calculator.getSortedSubjectData(widget.term.subjects);
+    final data = Calculator.getSortedSubjectData(widget.isYearOverview ? widget.year.yearOverview.subjects : widget.year.subjects);
     final List<Subject> subjectData = data.$1;
     final List<List<Subject>> childrenData = data.$2;
+
+    final referenceData = Calculator.getSortedSubjectData(widget.year.subjects);
+    final List<Subject> subjectReferenceData = referenceData.$1;
+    final List<List<Subject>> childrenReferenceData = referenceData.$2;
 
     shouldShowcase = subjectData.fold<int>(0, (previousValue, element) => previousValue + (element.result != null ? 1 : 0)) >= 3 &&
         getPreference<bool>("showcase_precise_average", true);
@@ -91,10 +99,14 @@ class _HomePageState extends State<HomePage> {
                           showTutorial(context);
 
                           final Widget child = ResultRow(
-                            result: widget.term.getResult(),
-                            preciseResult: widget.term.getResult(precise: true),
+                            result: widget.year.isYearOverview
+                                ? widget.year.yearOverview.getResultString()
+                                : widget.year.getTermResultString(widget.termIndex),
+                            preciseResult: widget.year.isYearOverview
+                                ? widget.year.yearOverview.getResultString(precise: true)
+                                : widget.year.getTermResultString(widget.termIndex, precise: true),
                             leading: Text(
-                              widget.term.isYearOverview ? translations.yearly_average : translations.average,
+                              widget.year.isYearOverview ? translations.yearly_average : translations.average,
                               overflow: TextOverflow.fade,
                               softWrap: false,
                               style: Theme.of(context).textTheme.titleLarge,
@@ -102,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                           );
 
                           if (shouldShowcase) {
-                            // TODO: Change preciseValue on tap
+                            // TODO: Change preciseValue on tap doesn't work
                             return Showcase(
                               key: showCaseKey,
                               description: translations.showcase_precise_average,
@@ -126,19 +138,24 @@ class _HomePageState extends State<HomePage> {
                           if (!subjectData[index].isGroup) {
                             return TextRow(
                               leadingText: subjectData[index].name,
-                              trailingText: subjectData[index].getResult(),
+                              trailingText: subjectData[index].getTermResultString(widget.termIndex),
                               trailing: const Icon(Icons.navigate_next),
                               onTap: () {
-                                Navigator.pushNamed(context, "/subject", arguments: [null, subjectData[index]]).then((_) => refreshYearOverview());
+                                Navigator.pushNamed(
+                                  context,
+                                  "/subject",
+                                  arguments: [null, subjectReferenceData[index]],
+                                ).then((_) => refreshYearOverview());
                               },
                               onLongPress: () {
-                                showTestDialog(context, subjectData[index]).then((_) => refreshYearOverview());
+                                if (widget.isYearOverview) return;
+                                showTestDialog(context, subjectData[index].terms[widget.termIndex]).then((_) => refreshYearOverview());
                               },
                             );
                           } else {
                             return GroupRow(
                               leadingText: subjectData[index].name,
-                              trailingText: subjectData[index].getResult(),
+                              trailingText: subjectData[index].getTermResultString(widget.termIndex),
                               children: [
                                 const Divider(),
                                 for (int i = 0; i < childrenData[index].length; i++)
@@ -146,18 +163,18 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       TextRow(
                                         leadingText: childrenData[index][i].name,
-                                        trailingText: childrenData[index][i].getResult(),
+                                        trailingText: childrenData[index][i].getTermResultString(widget.termIndex),
                                         trailing: const Icon(Icons.navigate_next),
                                         padding: const EdgeInsets.only(left: 36, right: 24),
                                         onTap: () {
                                           Navigator.pushNamed(
                                             context,
                                             "/subject",
-                                            arguments: [subjectData[index], childrenData[index][i]],
+                                            arguments: [subjectReferenceData[index], childrenReferenceData[index][i]],
                                           ).then((_) => refreshYearOverview());
                                         },
                                         onLongPress: () {
-                                          showTestDialog(context, childrenData[index][i]).then((_) => refreshYearOverview());
+                                          showTestDialog(context, childrenData[index][i].terms[widget.termIndex]).then((_) => refreshYearOverview());
                                         },
                                         isChild: true,
                                       ),

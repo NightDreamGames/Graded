@@ -27,7 +27,7 @@ void deserialize() {
 
   try {
     final data = jsonDecode(getPreference<String>("data")) as List<dynamic>;
-    Manager.years = data.map((yearJson) => Year.fromJson(yearJson as Map<String, dynamic>)).toList();
+    Manager.years = data.map((yearJson) => Year.fromJson(yearJson as Map<String, dynamic>)..ensureTermCount()).toList();
   } catch (e) {
     Manager.deserializationError = true;
     Manager.clearYears();

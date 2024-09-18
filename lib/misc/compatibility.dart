@@ -1,16 +1,9 @@
-// Dart imports:
-import "dart:convert";
-
 // Project imports:
 import "package:graded/calculations/manager.dart";
-import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
-import "package:graded/localization/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
-import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Compatibility {
   static const dataVersion = 14;
@@ -107,7 +100,8 @@ class Compatibility {
         }
       }
 
-      if (currentDataVersion < 10) {
+      //TODO: Fix this
+      /*if (currentDataVersion < 10) {
         //Fix exam coefficient
         if (getPreference<String>("validated_school_system") == "lux" && getPreference<int>("validated_year") == 1) {
           final Iterable<Term> examTerms = getCurrentYear().terms.where((element) => element.weight == 2);
@@ -116,7 +110,7 @@ class Compatibility {
             examTerm.isExam = true;
           }
         }
-      }
+      }*/
 
       if (currentDataVersion < 11) {
         //Change currentTerm behavior
@@ -126,17 +120,17 @@ class Compatibility {
         }
       }
 
-      if (currentDataVersion < 12) {
+      //TODO: Fix this
+      /*if (currentDataVersion < 12) {
         //Move termTemplate into year
         final termTemplateList = jsonDecode(getPreference<String>("default_data", "[]")) as List<dynamic>;
-        getCurrentYear().termTemplate =
-            OrderedCollection(termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)));
+        getCurrentYear().termTemplate = termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)).toList();
 
         setPreference("default_data", null);
 
         //Add year name
         getCurrentYear().name = "${translations.yearOne} 1";
-      }
+      }*/
 
       if (currentDataVersion < 13) {
         //Move validated data into year
@@ -184,6 +178,12 @@ class Compatibility {
         getCurrentYear().roundingMode = getPreference<String>("rounding_mode", RoundingMode.up);
         getCurrentYear().roundTo = getPreference<int>("round_to", 1);
       }
+
+      //TODO: Delete defaultData
+      //TODO: Rearrange terms and subjects
+      //TODO: Convert to full JSON manipulation
+      //TODO: Keep the termTemplate order
+      //TODO: Add hasBeenSortedCustom attribute to years
     }
 
     setPreference<int>("data_version", dataVersion);

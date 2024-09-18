@@ -7,7 +7,7 @@ import "package:sliver_tools/sliver_tools.dart";
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
+import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/routes/chart_route.dart";
@@ -240,7 +240,14 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
       case RouteType.home:
         children = List.generate(
           tabCount,
-          (index) => HomePage(term: getTerm(index)),
+          (index) {
+            final isYearOverview = index == tabCount - 1;
+            return HomePage(
+              year: getCurrentYear(),
+              termIndex: isYearOverview ? 0 : index,
+              isYearOverview: isYearOverview,
+            );
+          },
         );
 
       case RouteType.subject:
@@ -250,8 +257,8 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         }
 
         final List<Subject?> arguments = widget.arguments! as List<Subject?>;
-        final Subject? parent = arguments[0];
-        final Subject subject = arguments[1]!;
+        Subject? parent = arguments[0];
+        Subject subject = arguments[1]!;
 
         int tabCount = 1;
         if (widget.routeType == RouteType.subject) {
@@ -261,20 +268,24 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         }
 
         children = List.generate(tabCount, (index) {
-          Term term = getTerm(index);
-          if (widget.routeType == RouteType.chart) {
-            term = getYearOverview();
+          Year year = getCurrentYear();
+          final isYearOverview = index == tabCount - 1;
+
+          if (widget.routeType == RouteType.chart || isYearOverview) {
+            year = getYearOverview();
           }
 
-          final Subject? newParent = parent != null ? getSubjectInTerm(parent, term) : null;
-          final Subject newSubject = newParent != null
-              ? newParent.children.firstWhere((element) => element.name == subject.name)
-              : term.subjects.firstWhere((element) => element.name == subject.name);
-
           if (widget.routeType == RouteType.subject) {
-            return SubjectRoute(term: term, parent: newParent, subject: newSubject);
+            if (isYearOverview) {
+              if (parent != null) {
+                parent = getSubjectInYearOverview(parent!);
+              }
+              subject = getSubjectInYearOverview(subject);
+            }
+            return SubjectRoute(year: year, termIndex: isYearOverview ? 0 : index, parent: parent, subject: subject);
           } else {
-            return ChartRoute(term: term, parent: newParent, subject: newSubject);
+            subject = getSubjectInYear(subject);
+            return ChartRoute(subject: subject);
           }
         });
     }

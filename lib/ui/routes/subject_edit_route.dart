@@ -12,7 +12,6 @@ import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/utilities/hints.dart";
-import "package:graded/ui/utilities/ordered_collection.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";
 import "package:graded/ui/widgets/misc_widgets.dart";
@@ -38,9 +37,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
   void initState() {
     super.initState();
 
-    getCurrentYear().comparisonData = OrderedCollection.newList(Calculator.sortObjects(getCurrentYear().comparisonData, sortType: SortType.subject));
-
-    if (widget.creationType == CreationType.add && Manager.years.isNotEmpty && getCurrentYear(allowSetup: false).termTemplate.isNotEmpty) {
+    if (widget.creationType == CreationType.add && Manager.years.isNotEmpty && getCurrentYear(allowSetup: false).subjects.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -48,8 +45,8 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
             action: SnackBarAction(
               label: translations.copy,
               onPressed: () {
-                getCurrentYear(allowSetup: false).termTemplate.forEach((element) {
-                  if (!isDuplicateName(element.name, getCurrentYear().termTemplate)) {
+                getCurrentYear(allowSetup: false).subjects.forEach((element) {
+                  if (!isDuplicateName(element.name, getCurrentYear().subjects)) {
                     getCurrentYear().addSubject(Subject.fromSubject(element));
                   }
                 });
@@ -68,7 +65,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
 
   @override
   Widget build(BuildContext context) {
-    final data = Calculator.getSortedSubjectData(getCurrentYear().termTemplate);
+    final data = Calculator.getSortedSubjectData(getCurrentYear().subjects);
     final List<Subject> subjectData = data.$1;
     final List<List<Subject>> childrenData = data.$2;
 
@@ -146,7 +143,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
           key: ValueKey(element),
           subject: element,
           potentialParent: i == 0 ? null : subjectData[i - 1],
-          index1: getSubjectIndex(element, inComparisonData: true).$1,
+          index1: i,
           reorderIndex: reorderIndex,
           onActionCompleted: rebuild,
           shouldShowcase: i == 1 && subjectData.length >= 3 && getPreference<bool>("showcase_subject_edit", true),
@@ -156,7 +153,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
 
       for (int j = 0; j < childrenData[i].length; j++) {
         final Subject child = childrenData[i][j];
-        final (int, int?) indexes = getSubjectIndex(child, isChild: true, inComparisonData: true);
+        final (int, int?) indexes = (i, j);
 
         result.add(
           SubjectTile(
@@ -164,6 +161,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
             subject: child,
             index1: indexes.$1,
             index2: indexes.$2,
+            potentialParent: subjectData[i],
             reorderIndex: reorderIndex,
             onActionCompleted: rebuild,
           ),

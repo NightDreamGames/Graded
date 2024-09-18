@@ -7,7 +7,6 @@ import "package:flutter/material.dart";
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/ui/utilities/chart_utilities.dart";
 import "package:graded/ui/widgets/charts.dart";
@@ -17,14 +16,10 @@ import "package:graded/ui/widgets/list_widgets.dart";
 class ChartRoute extends StatefulWidget {
   const ChartRoute({
     super.key,
-    required this.term,
     required this.subject,
-    this.parent,
   });
 
-  final Term term;
   final Subject subject;
-  final Subject? parent;
 
   @override
   State<ChartRoute> createState() => _ChartRouteState();
@@ -61,8 +56,8 @@ class _ChartRouteState extends State<ChartRoute> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ResultRow(
-                        result: widget.subject.getResult(),
-                        preciseResult: widget.subject.getResult(precise: true),
+                        result: widget.subject.getResultString(),
+                        preciseResult: widget.subject.getResultString(precise: true),
                         leading: Text(
                           translations.yearly_average,
                           overflow: TextOverflow.fade,

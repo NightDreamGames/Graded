@@ -12,7 +12,6 @@ import "package:graded/calculations/test.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
-import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Calculator {
   static List<T> sortObjects<T extends CalculationObject>(
@@ -27,9 +26,7 @@ class Calculator {
 
     final int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
     int sortMode = getPreference<int>("sort_mode$sortType");
-    if (sortModeOverride != null && sortMode != SortMode.custom) {
-      sortMode = sortModeOverride;
-    }
+    if (sortModeOverride != null) sortMode = sortModeOverride;
 
     switch (sortMode) {
       case SortMode.name:
@@ -60,11 +57,6 @@ class Calculator {
         );
       case SortMode.coefficient:
         insertionSort(result, compare: (a, b) => sortDirection * a.weight.compareTo(b.weight));
-      case SortMode.custom:
-        final OrderedCollection<CalculationObject> compare = getCurrentYear().comparisonData;
-        result.sort((a, b) {
-          return compare.indexWhere((element) => a.name == element.name) - compare.indexWhere((element) => b.name == element.name);
-        });
       case SortMode.timestamp:
         if (result.first is! Test) throw UnimplementedError("Timestamp sorting is only implemented for tests");
 
@@ -78,6 +70,8 @@ class Calculator {
             return result * sortDirection;
           },
         );
+      case SortMode.custom:
+        break;
       default:
         throw const FormatException("Invalid");
     }

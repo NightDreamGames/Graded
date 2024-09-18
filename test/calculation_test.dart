@@ -16,7 +16,6 @@ import "package:graded/calculations/year.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
-import "package:graded/ui/utilities/ordered_collection.dart";
 
 void main() async {
   SharedPreferences.setMockInitialValues({});
@@ -139,18 +138,11 @@ void main() async {
 
     // Test sorting using custom order
     data = [
-      Subject("Gamma", 1, 1),
-      Subject("Beta", 1, 1),
-      Subject("Alpha", 1, 1),
-      Subject("Delta", 1, 1),
+      Subject("Gamma", 1),
+      Subject("Beta", 1),
+      Subject("Alpha", 1),
+      Subject("Delta", 1),
     ];
-
-    getCurrentYear().comparisonData = OrderedCollection.newList([
-      Subject("Alpha", 1, 1),
-      Subject("Beta", 1, 1),
-      Subject("Gamma", 1, 1),
-      Subject("Delta", 1, 1),
-    ]);
 
     data = Calculator.sortObjects(
       data,
@@ -159,9 +151,87 @@ void main() async {
       sortDirectionOverride: SortDirection.notApplicable,
     );
 
-    expect(data[0].name, "Alpha");
+    expect(data[0].name, "Gamma");
     expect(data[1].name, "Beta");
-    expect(data[2].name, "Gamma");
+    expect(data[2].name, "Alpha");
     expect(data[3].name, "Delta");
+  });
+
+  group("ensureTermCount", () {
+    test("Ensure term count for a non-group subject without an exam", () {
+      final year = Year();
+      year.termCount = 3;
+      year.validatedYear = 5;
+      final subject = Subject("Subject1", 3)..terms = [Term(), Term()];
+
+      subject.ensureTermCount(year: year);
+
+      expect(subject.terms.length, equals(3));
+      expect(subject.terms.where((term) => term.isExam).isEmpty, isTrue);
+    });
+
+    test("Ensure term count for a non-group subject with an exam", () {
+      final year = Year();
+      year.termCount = 3;
+      year.validatedYear = 1;
+      final subject = Subject("Subject2", 3)..terms = [Term(), Term()];
+
+      subject.ensureTermCount(year: year);
+
+      expect(subject.terms.length, equals(4));
+      expect(subject.terms.where((term) => term.isExam).length, equals(1));
+      expect(subject.terms.last.isExam, isTrue);
+    });
+
+    test("Ensure term count for a non-group subject with an exam present", () {
+      final year = Year();
+      year.termCount = 3;
+      year.validatedYear = 1;
+      final subject = Subject("Subject2", 3)..terms = [Term(), Term(), Term(isExam: true)];
+
+      subject.ensureTermCount(year: year);
+
+      expect(subject.terms.length, equals(4));
+      expect(subject.terms.where((term) => term.isExam).length, equals(1));
+      expect(subject.terms.last.isExam, isTrue);
+    });
+
+    test("Ensure term count for a group subject", () {
+      final year = Year();
+      year.termCount = 3;
+      year.validatedYear = 5;
+      final childSubject = Subject("ChildSubject", 3)..terms = [Term(), Term()];
+      final groupSubject = Subject("GroupSubject", 3, isGroup: true)..children = [childSubject];
+
+      groupSubject.ensureTermCount(year: year);
+
+      expect(childSubject.terms.length, equals(3));
+      expect(childSubject.terms.where((term) => term.isExam).isEmpty, isTrue);
+    });
+
+    test("Ensure term count for a non-group subject with excess terms with exam", () {
+      final year = Year();
+      year.termCount = 3;
+      year.validatedYear = 1;
+      final subject = Subject("Subject3", 3)..terms = [Term(), Term(), Term(), Term(), Term(isExam: true)];
+
+      subject.ensureTermCount(year: year);
+
+      expect(subject.terms.length, equals(4));
+      expect(subject.terms.where((term) => term.isExam).length, equals(1));
+    });
+
+    test("Ensure term count for a non-group subject with fewer terms with exam", () {
+      final year = Year();
+      year.termCount = 3;
+      year.validatedYear = 1;
+      final subject = Subject("Subject4", 3)..terms = [Term(), Term(isExam: true)];
+
+      subject.ensureTermCount(year: year);
+
+      expect(subject.terms.length, equals(4));
+      expect(subject.terms.where((term) => term.isExam).length, equals(1));
+      expect(subject.terms.last.isExam, isTrue);
+    });
   });
 }

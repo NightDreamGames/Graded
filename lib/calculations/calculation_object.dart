@@ -20,8 +20,9 @@ abstract class CalculationObject {
   double? get numerator => result;
   double get denominator => DefaultValues.maxGrade;
 
-  String getResult({bool precise = false}) {
-    if (result == null) return "-";
+  void calculate();
+
+  String getResultString({bool precise = false}) {
     return Calculator.format(precise ? preciseResult : result, roundToMultiplier: precise ? DefaultValues.preciseRoundToMultiplier : 1);
   }
 }

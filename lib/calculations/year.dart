@@ -3,17 +3,13 @@ import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
-import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Year extends CalculationObject {
-  List<Term> terms = [];
-  OrderedCollection<Subject> termTemplate = OrderedCollection.newTreeSet();
-  late OrderedCollection<Subject> comparisonData = OrderedCollection.newList(termTemplate);
-  late Term yearOverview = createYearOverview(year: this);
+  List<Subject> subjects = [];
+  late Year yearOverview = createYearOverview(year: this);
   @override
   double get denominator => maxGrade;
 
@@ -28,70 +24,56 @@ class Year extends CalculationObject {
   String roundingMode = DefaultValues.roundingMode;
   int roundTo = DefaultValues.roundTo;
 
-  Year({
-    Iterable<Subject>? termTemplate,
-  }) : termTemplate = OrderedCollection.newTreeSet(termTemplate);
+  bool isYearOverview = false;
+  bool hasBeenSortedCustom = false;
 
+  Year({
+    this.isYearOverview = false,
+  });
+
+  @override
   void calculate() {
-    for (final Term t in terms) {
-      t.calculate();
+    for (final Subject s in subjects) {
+      s.calculate();
     }
 
-    const double examWeight = DefaultValues.examWeight;
-    final int nonEmptyTerms = terms.where((element) => element.result != null && !element.isExam).length;
-
-    for (final Term t in terms) {
-      if (t.isExam) {
-        t.weight = examWeight * nonEmptyTerms;
+    final List<Subject> toBeCalculated = subjects;
+    for (int i = 0; i < toBeCalculated.length; i++) {
+      if (toBeCalculated[i].weight == 0) {
+        toBeCalculated.addAll(toBeCalculated[i].children);
+        toBeCalculated.removeAt(i);
+        i--;
       }
     }
 
-    result = Calculator.calculate(terms);
-    preciseResult = Calculator.calculate(terms, precise: true);
+    result = Calculator.calculate(toBeCalculated);
+    preciseResult = Calculator.calculate(toBeCalculated, precise: true);
   }
 
   void addSubject(Subject subject) {
-    for (final t in getSubjectLists()) {
-      t.add(Subject.fromSubject(subject));
-    }
+    subjects.add(Subject.fromSubject(subject));
   }
 
   void clearSubjects() {
-    for (final t in getSubjectLists()) {
-      t.clear();
-    }
+    subjects.clear();
   }
 
   void editSubject(Subject subject, String name, double weight, double speakingWeight) {
     subject.name = name;
     subject.weight = weight;
     subject.speakingWeight = speakingWeight;
-
-    for (final Term t in terms) {
-      for (int i = 0; i < t.subjects.length; i++) {
-        final Subject s = t.subjects[i];
-        final Subject template = termTemplate[i];
-
-        s.name = template.name;
-        s.weight = template.weight;
-        s.speakingWeight = template.speakingWeight;
-        for (int j = 0; j < t.subjects[i].children.length; j++) {
-          s.children[j].name = template.children[j].name;
-          s.children[j].weight = template.children[j].weight;
-          s.children[j].speakingWeight = template.children[j].speakingWeight;
-        }
-      }
-    }
   }
 
   void reorderSubjects(int oldIndex, int newIndex) {
     if (oldIndex == newIndex - 1) return;
 
-    setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
-    setPreference<int>("sort_direction${SortType.subject}", SortDirection.notApplicable);
+    subjects = Calculator.sortObjects(subjects, sortType: SortType.subject);
+    for (final subject in subjects) {
+      subject.children = Calculator.sortObjects(subject.children, sortType: SortType.subject);
+    }
 
-    final oldIndexes = getSubjectIndexes(oldIndex);
-    final newIndexes = getSubjectIndexes(newIndex, addedIndex: 1);
+    final oldIndexes = getIndexesFromFlattened(oldIndex);
+    final newIndexes = getIndexesFromFlattened(newIndex, addedIndex: 1);
     final int oldIndex1 = oldIndexes.$1;
     final int? oldIndex2 = oldIndexes.$2;
     int newIndex1 = newIndexes.$1;
@@ -110,38 +92,40 @@ class Year extends CalculationObject {
       return;
     }
 
-    final list = getCurrentYear().comparisonData;
     Subject item;
 
     if (oldIndex2 == null) {
-      item = list.removeAt(oldIndex1);
+      item = subjects.removeAt(oldIndex1);
     } else {
-      item = list[oldIndex1].children.removeAt(oldIndex2);
-      if (list[oldIndex1].children.isEmpty) list[oldIndex1].isGroup = false;
+      item = subjects[oldIndex1].children.removeAt(oldIndex2);
+      if (subjects[oldIndex1].children.isEmpty) subjects[oldIndex1].isGroup = false;
     }
 
     item.isChild = newIndex2 != null;
 
     if (newIndex2 == null) {
-      list.insert(newIndex1, item);
+      subjects.insert(newIndex1, item);
     } else {
-      list[newIndex1].children.insertAll(newIndex2, [item, ...item.children]);
+      subjects[newIndex1].children.insertAll(newIndex2, [item, ...item.children]);
       item.children.clear();
       item.isGroup = false;
-      list[newIndex1].isGroup = true;
+      subjects[newIndex1].isGroup = true;
     }
+
+    setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
+    setPreference<int>("sort_direction${SortType.subject}", SortDirection.notApplicable);
 
     serialize();
     calculate();
   }
 
-  (int, int?) getSubjectIndexes(int absoluteIndex, {int addedIndex = 0}) {
+  (int, int?) getIndexesFromFlattened(int absoluteIndex, {int addedIndex = 0}) {
     int subjectCount = 0;
     int index1 = 0;
     int? index2;
 
-    for (int i = 0; i < comparisonData.length; i++) {
-      final int childCount = comparisonData[i].children.length;
+    for (int i = 0; i < subjects.length; i++) {
+      final int childCount = subjects[i].children.length;
       if (subjectCount + childCount + (childCount > 0 ? addedIndex : 0) >= absoluteIndex) break;
 
       subjectCount += childCount;
@@ -156,59 +140,28 @@ class Year extends CalculationObject {
   }
 
   void ensureTermCount() {
-    Manager.currentTerm = 0;
-
-    final bool hasExam = validatedYear == 1;
-
-    final bool examPresent = terms.isNotEmpty && terms.last.weight == 2;
-
-    while (terms.length > termCount + (hasExam ? 1 : 0)) {
-      final int index = terms.length - 1 - (hasExam ? 1 : 0);
-      terms.removeAt(index);
-    }
-
-    while (terms.length < termCount + (examPresent ? 1 : 0)) {
-      int index = terms.length - (examPresent ? 1 : 0);
-      if (hasExam && !examPresent && terms.length > index) {
-        index++;
-      }
-      terms.insert(index, Term());
-    }
-
-    if (hasExam && !examPresent && terms.length < termCount + 1) {
-      terms.add(Term(isExam: true));
-    }
-
-    Manager.calculate();
-    serialize();
-  }
-
-  void populateSubjects() {
-    for (final Term term in terms) {
-      term.populateSubjects();
+    for (final Subject s in subjects) {
+      s.ensureTermCount(year: this);
     }
   }
 
-  List<OrderedCollection<Subject>> getSubjectLists({bool includeComparison = true}) {
-    final List<OrderedCollection<Subject>> lists = [
-      termTemplate,
-      if (includeComparison) comparisonData,
-    ];
-    for (final term in terms) {
-      lists.add(term.subjects);
+  double? getTermResult(int termIndex, {bool precise = false}) {
+    final List<CalculationObject> toCalculate = subjects.map((s) => Subject.copyWithTerms(s, termIndex)).toList();
+    for (final CalculationObject c in toCalculate) {
+      c.calculate();
     }
 
-    return lists;
+    return Calculator.calculate(toCalculate, precise: precise);
+  }
+
+  String getTermResultString(int termIndex, {bool precise = false}) {
+    return Calculator.format(getTermResult(termIndex, precise: precise), roundToMultiplier: precise ? DefaultValues.preciseRoundToMultiplier : 1);
   }
 
   Year.fromJson(Map<String, dynamic> json) {
-    final termList = json["terms"] as List;
-    final List<Term> t = termList.map((termJson) => Term.fromJson(termJson as Map<String, dynamic>)).toList();
+    final subjectList = json["subjects"] as List;
+    subjects = subjectList.map((subjectJson) => Subject.fromJson(subjectJson as Map<String, dynamic>)).toList();
 
-    final termTemplateList = (json["term_template"] ?? []) as List<dynamic>;
-    termTemplate = OrderedCollection.newTreeSet(termTemplateList.map((templateJson) => Subject.fromJson(templateJson as Map<String, dynamic>)));
-
-    terms = t;
     name = (json["name"] as String?) ?? "";
 
     validatedSchoolSystem = json["validated_school_system"] as String?;
@@ -221,6 +174,8 @@ class Year extends CalculationObject {
     maxGrade = json["max_grade"] as double? ?? DefaultValues.maxGrade;
     roundingMode = json["rounding_mode"] as String? ?? DefaultValues.roundingMode;
     roundTo = json["round_to"] as int? ?? DefaultValues.roundTo;
+
+    hasBeenSortedCustom = (json["has_been_sorted_custom"] as bool?) ?? false;
   }
 
   Map<String, dynamic> toJson() => {
@@ -234,7 +189,7 @@ class Year extends CalculationObject {
         "validated_year": validatedYear,
         "validated_section": validatedSection,
         "validated_variant": validatedVariant,
-        "terms": terms,
-        "term_template": termTemplate.toList(),
+        "subjects": subjects,
+        "has_been_sorted_custom": hasBeenSortedCustom,
       };
 }

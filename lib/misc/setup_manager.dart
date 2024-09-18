@@ -238,7 +238,6 @@ class SetupManager {
       final Subject newSubject = Subject(
         subject["name"] as String,
         (subject["coefficient"] as int?)?.toDouble() ?? 0,
-        DefaultValues.speakingWeight,
         isGroup: subject["children"] != null,
       );
       termTemplate.add(newSubject);
@@ -249,7 +248,6 @@ class SetupManager {
           Subject(
             childSubject["name"] as String,
             (childSubject["coefficient"] as int?)?.toDouble() ?? 0,
-            DefaultValues.speakingWeight,
             isChild: true,
           ),
         );

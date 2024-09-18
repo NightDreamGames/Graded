@@ -8,7 +8,6 @@ import "package:showcaseview/showcaseview.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
 import "package:graded/localization/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/routes/subject_edit_route.dart";
@@ -311,21 +310,11 @@ class _SubjectTileState extends State<SubjectTile> {
                 heavyHaptics();
 
                 if (widget.subject.isChild) {
-                  final Subject parent = getCurrentYear().termTemplate[widget.index1];
+                  final Subject parent = getCurrentYear().subjects[widget.index1];
                   parent.children.removeAt(widget.index2!);
                   parent.isGroup = parent.children.isNotEmpty;
                 } else {
-                  getCurrentYear().termTemplate.removeAt(widget.index1);
-                }
-
-                for (final Term term in getCurrentYear().terms) {
-                  if (widget.subject.isChild) {
-                    final Subject parent = term.subjects[widget.index1];
-                    parent.children.removeAt(widget.index2!);
-                    parent.isGroup = parent.children.isNotEmpty;
-                  } else {
-                    term.subjects.removeAt(widget.index1);
-                  }
+                  getCurrentYear().subjects.removeAt(widget.index1);
                 }
 
                 Manager.calculate();
@@ -358,35 +347,33 @@ class ReorderableHandle extends StatelessWidget {
       tooltip: translations.set_sub_subject,
       icon: const Icon(Icons.drag_handle),
       onPressed: () {
-        final (int, int?) childIndexes = getSubjectIndex(target, inTermTemplate: true);
-        final int? parentIndex = potentialParent != null ? getSubjectIndex(potentialParent!, inTermTemplate: true).$1 : null;
         final bool isChild = target.isChild;
 
         if (potentialParent == null && !isChild) return;
 
         lightHaptics();
 
-        for (final list in getCurrentYear().getSubjectLists()) {
-          if (!isChild) {
-            final Subject parent = list[parentIndex!];
-            final Subject child = list[childIndexes.$1];
+        final subjects = getCurrentYear().subjects;
 
-            list.remove(child);
+        if (!isChild) {
+          final Subject parent = potentialParent!;
+          final Subject child = target;
 
-            parent.isGroup = true;
-            child.isChild = true;
-            child.isGroup = false;
+          subjects.remove(child);
 
-            parent.children.addAll([child, ...child.children]);
-            child.children.clear();
-          } else {
-            final Subject parent = list[childIndexes.$1];
-            final Subject child = parent.children[childIndexes.$2!];
+          parent.isGroup = true;
+          child.isChild = true;
+          child.isGroup = false;
 
-            parent.children.remove(child);
-            list.add(child..isChild = false);
-            if (parent.children.isEmpty) parent.isGroup = false;
-          }
+          parent.children.addAll([child, ...child.children]);
+          child.children.clear();
+        } else {
+          final Subject parent = potentialParent!;
+          final Subject child = target;
+
+          parent.children.remove(child);
+          subjects.insert(subjects.indexOf(parent) + 1, child..isChild = false);
+          if (parent.children.isEmpty) parent.isGroup = false;
         }
 
         Manager.calculate();

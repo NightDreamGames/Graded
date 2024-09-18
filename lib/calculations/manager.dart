@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 
 // Project imports:
 import "package:graded/calculations/subject.dart";
-import "package:graded/calculations/term.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/localization/translations.dart";
@@ -12,7 +11,6 @@ import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/utilities/hints.dart";
-import "package:graded/ui/utilities/ordered_collection.dart";
 
 class Manager {
   static List<Year> years = [];
@@ -49,13 +47,15 @@ class Manager {
   }
 
   static void clearTests() {
-    getCurrentYear().terms.forEach((term) {
-      for (final subject in term.subjects) {
-        subject.bonus = 0;
-        subject.tests.clear();
-        for (final child in subject.children) {
-          child.bonus = 0;
-          child.tests.clear();
+    getCurrentYear().subjects.forEach((subject) {
+      for (final term in subject.terms) {
+        term.bonus = 0;
+        term.tests.clear();
+      }
+      for (final child in subject.children) {
+        for (final term in child.terms) {
+          term.bonus = 0;
+          term.tests.clear();
         }
       }
     });
@@ -79,44 +79,51 @@ class Manager {
     calculate();
   }
 
-  static Term refreshYearOverview({Term? yearOverview, Year? year}) {
+  static int getAmountOfTerms() {
+    return getCurrentYear().termCount + (getCurrentYear().validatedYear == 1 ? 1 : 0);
+  }
+
+  static Year refreshYearOverview({Year? yearOverview, Year? year}) {
     yearOverview ??= getYearOverview();
     year ??= getCurrentYear();
 
     for (final subject in yearOverview.subjects) {
-      subject.tests.clear();
+      for (final term in subject.terms) {
+        term.tests.clear();
+      }
       for (final child in subject.children) {
-        child.tests.clear();
+        for (final term in child.terms) {
+          term.tests.clear();
+        }
       }
     }
 
-    for (int i = 0; i < year.terms.length; i++) {
-      final Term t = year.terms[i];
-      for (int j = 0; j < t.subjects.length; j++) {
-        final Subject s = yearOverview.subjects[j];
-
+    for (int i = 0; i < year.subjects.length; i++) {
+      final Subject t = year.subjects[i];
+      final Subject s = yearOverview.subjects[i];
+      for (int j = 0; j < getAmountOfTerms(); j++) {
         if (s.isGroup) {
           for (int k = 0; k < s.children.length; k++) {
-            final double? subjectResult = t.subjects[j].children[k].result;
-            s.children[k].addTest(
+            final double? subjectResult = t.children[k].terms[j].result;
+            s.children[k].terms[0].addTest(
               Test(
                 subjectResult ?? 0,
                 year.maxGrade,
-                name: getTermName(termIndex: i),
-                weight: t.weight,
+                name: getTermName(termIndex: j),
+                weight: t.children[k].terms[j].weight,
                 isEmpty: subjectResult == null,
               ),
               calculate: false,
             );
           }
         } else {
-          final double? subjectResult = t.subjects[j].result;
+          final double? subjectResult = t.terms[j].result;
 
-          s.addTest(
+          s.terms[0].addTest(
             Test(
               subjectResult ?? 0,
               year.maxGrade,
-              name: getTermName(termIndex: i),
+              name: getTermName(termIndex: j),
               weight: t.weight,
               isEmpty: subjectResult == null,
             ),
@@ -150,83 +157,50 @@ Year getCurrentYear({bool allowSetup = true}) {
   return Manager.years[Manager.currentYear];
 }
 
-Term getTerm(int index) {
-  if (index == getCurrentYear().terms.length) return getYearOverview();
-
-  return getCurrentYear().terms[index];
-}
-
-Term getYearOverview() {
+Year getYearOverview() {
   return getCurrentYear().yearOverview;
 }
 
-Term createYearOverview({required Year year}) {
-  final Term yearOverview = Term(isYearOverview: true);
+Year createYearOverview({required Year year}) {
+  final Year yearOverview = Year(isYearOverview: true);
+
+  if (getCurrentYear().subjects.isEmpty) return yearOverview;
+
+  for (final Subject s in getCurrentYear().subjects) {
+    yearOverview.subjects.add(Subject.fromSubject(s));
+  }
 
   Manager.refreshYearOverview(yearOverview: yearOverview, year: year);
 
   return yearOverview;
 }
 
-Term getCurrentTerm() {
-  return getTerm(Manager.currentTerm);
+Subject getSubjectInYearOverview(Subject subject) {
+  final Year year = getCurrentYear();
+  final Year yearOverview = getYearOverview();
+
+  return getSubjectInSpecificYear(subject, year, yearOverview);
 }
 
-//TODO make more use of this function
-List<Subject> getSubjectAcrossTerms(Subject subject) {
-  final List<Subject> result = [];
-  final (int, int?) indexes = getSubjectIndex(subject);
+Subject getSubjectInYear(Subject subject) {
+  final Year year = getCurrentYear();
+  final Year yearOverview = getYearOverview();
 
-  for (final term in getCurrentYear().terms) {
-    final Subject s = indexes.$2 == null ? term.subjects[indexes.$1] : term.subjects[indexes.$1].children[indexes.$2!];
-    result.add(s);
-  }
-  return result;
+  return getSubjectInSpecificYear(subject, yearOverview, year);
 }
 
-Subject? getSubjectInTerm(Subject? subject, Term term) {
-  if (subject == null) return null;
+Subject getSubjectInSpecificYear(Subject subject, Year oldYear, Year newYear) {
+  if (newYear.subjects.contains(subject) || newYear.subjects.any((s) => s.children.contains(subject))) return subject;
 
-  final (int, int?) indexes = getSubjectIndex(subject);
-
-  if (indexes.$2 == null) {
-    return term.subjects[indexes.$1];
-  } else {
-    return term.subjects[indexes.$1].children[indexes.$2!];
-  }
-}
-
-(int, int?) getSubjectIndex(Subject subject, {Term? term, bool? inTermTemplate, bool? inComparisonData, bool? isChild}) {
-  final List<OrderedCollection<Subject>> lists = [];
-
-  if (term != null) {
-    lists.add(term.subjects);
-  } else if (inComparisonData != null && inComparisonData) {
-    lists.add(getCurrentYear().comparisonData);
-  } else {
-    if (inTermTemplate == null || inTermTemplate) {
-      lists.add(getCurrentYear().termTemplate);
-    }
-    if (inTermTemplate == null || !inTermTemplate) {
-      for (final term in getCurrentYear().terms) {
-        lists.add(term.subjects);
+  final int index = oldYear.subjects.indexOf(subject);
+  if (index == -1) {
+    for (final Subject s in oldYear.subjects) {
+      final int childIndex = s.children.indexOf(subject);
+      if (childIndex != -1) {
+        return newYear.subjects[oldYear.subjects.indexOf(s)].children[childIndex];
       }
-      lists.add(getYearOverview().subjects);
-      lists.add(getCurrentYear().comparisonData);
     }
   }
 
-  for (final subjects in lists) {
-    if (isChild == null || !isChild) {
-      final int result1 = subjects.indexOf(subject);
-      if (result1 != -1) return (result1, null);
-    }
-
-    for (int j = 0; j < subjects.length; j++) {
-      final int result2 = subjects[j].children.indexOf(subject);
-      if (result2 != -1) return (j, result2);
-    }
-  }
-
-  throw ArgumentError("Subject not found in terms");
+  return newYear.subjects[oldYear.subjects.indexOf(subject)];
 }
