@@ -36,7 +36,7 @@ dependencies:
 dev_dependencies:
   dependency_validator: ^4.0.0
   flutter_native_splash: ^2.2.0
-  icons_launcher: ^2.1.0
+  icons_launcher: ^3.0.0
   import_sorter: ^4.6.0
   lint: ^2.0.0
   test: ^1.22.0
@@ -107,6 +107,8 @@ icons_launcher:
     ios:
       enable: true
       image_path: "assets/icons/icon.png"
+      dark_path: "assets/icons/icon-dark.png"
+      tinted_path: "assets/icons/icon-tinted.png"
     web:
       enable: true
       image_path: "assets/icons/icon-roundrect.png"
