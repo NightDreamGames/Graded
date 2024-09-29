@@ -314,8 +314,6 @@ class Compatibility {
         updateData();
       }
 
-      // TODO: Change all keys to lowerCamelCase
-
       deserialize(dataString: data);
     }
 

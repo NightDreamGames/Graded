@@ -388,12 +388,12 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
   }
 }
 
-Future<void> showSubjectDialog(BuildContext context, {int? index1, int? index2}) {
+Future<void> showSubjectDialog(BuildContext context, {Subject? subject, CreationType action = CreationType.add}) {
   return showDialog(
     context: context,
     useSafeArea: false,
     builder: (context) {
-      return SubjectDialog(index1: index1, index2: index2);
+      return SubjectDialog(subject: subject, action: action);
     },
   );
 }
@@ -401,12 +401,12 @@ Future<void> showSubjectDialog(BuildContext context, {int? index1, int? index2})
 class SubjectDialog extends StatefulWidget {
   const SubjectDialog({
     super.key,
-    this.index1,
-    this.index2,
-  });
+    this.subject,
+    this.action = CreationType.add,
+  }) : assert(action != CreationType.edit || subject != null);
 
-  final int? index1;
-  final int? index2;
+  final Subject? subject;
+  final CreationType action;
 
   @override
   State<SubjectDialog> createState() => _SubjectDialogState();
@@ -419,23 +419,17 @@ class _SubjectDialogState extends State<SubjectDialog> {
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
 
-  late final CreationType action;
   late final Subject subject;
   bool confirmed = false;
 
   @override
   void initState() {
     super.initState();
-    action = widget.index1 == null ? CreationType.add : CreationType.edit;
-    subject = action == CreationType.add
-        ? Subject("", 0)
-        : widget.index2 == null
-            ? getCurrentYear().subjects[widget.index1!]
-            : getCurrentYear().subjects[widget.index1!].children[widget.index2!];
-    nameController.text = action == CreationType.edit ? subject.name : "";
-    weightController.text = action == CreationType.edit ? Calculator.format(subject.weight, leadingZero: false, roundToOverride: 1) : "";
+    subject = widget.subject ?? Subject("", 0);
+    nameController.text = widget.action == CreationType.edit ? subject.name : "";
+    weightController.text = widget.action == CreationType.edit ? Calculator.format(subject.weight, leadingZero: false, roundToOverride: 1) : "";
     speakingController.text =
-        action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, leadingZero: false, roundToOverride: 1) : "";
+        widget.action == CreationType.edit ? Calculator.format(subject.speakingWeight + 1, leadingZero: false, roundToOverride: 1) : "";
   }
 
   @override
@@ -450,8 +444,8 @@ class _SubjectDialogState extends State<SubjectDialog> {
   Widget build(BuildContext context) {
     return EasyDialog(
       key: dialogKey,
-      title: action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
-      icon: action == CreationType.add ? Icons.add : Icons.edit,
+      title: widget.action == CreationType.add ? translations.add_subjectOne : translations.edit_subjectOne,
+      icon: widget.action == CreationType.add ? Icons.add : Icons.edit,
       onConfirm: () {
         final String name = nameController.text.isEmpty ? getHint(translations.subjectOne, getCurrentYear().subjects) : nameController.text;
         final double weight = Calculator.tryParse(weightController.text) ?? 1;
@@ -460,7 +454,7 @@ class _SubjectDialogState extends State<SubjectDialog> {
         speakingWeight--;
         if (speakingWeight <= 0) speakingWeight = 1;
 
-        if (action == CreationType.add) {
+        if (widget.action == CreationType.add) {
           getCurrentYear().addSubject(Subject(name, weight, speakingWeight: speakingWeight));
         } else {
           getCurrentYear().editSubject(subject, name, weight, speakingWeight);

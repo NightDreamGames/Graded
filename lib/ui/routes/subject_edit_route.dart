@@ -63,7 +63,6 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
     setState(() {});
   }
 
-  // TODO: Fix deleting wrong index
   @override
   Widget build(BuildContext context) {
     final data = Calculator.getSortedSubjectData(getCurrentYear().subjects);
@@ -144,7 +143,6 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
           key: ValueKey(element),
           subject: element,
           potentialParent: i == 0 ? null : subjectData[i - 1],
-          index1: i,
           reorderIndex: reorderIndex,
           onActionCompleted: rebuild,
           shouldShowcase: i == 1 && subjectData.length >= 3 && getPreference<bool>("showcase_subject_edit", true),
@@ -154,14 +152,11 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
 
       for (int j = 0; j < childrenData[i].length; j++) {
         final Subject child = childrenData[i][j];
-        final (int, int?) indexes = (i, j);
 
         result.add(
           SubjectTile(
             key: ValueKey(child),
             subject: child,
-            index1: indexes.$1,
-            index2: indexes.$2,
             potentialParent: subjectData[i],
             reorderIndex: reorderIndex,
             onActionCompleted: rebuild,

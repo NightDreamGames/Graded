@@ -220,8 +220,6 @@ class SubjectTile extends StatefulWidget {
     super.key,
     required this.subject,
     this.potentialParent,
-    required this.index1,
-    this.index2,
     required this.reorderIndex,
     this.onActionCompleted,
     this.shouldShowcase = false,
@@ -229,8 +227,6 @@ class SubjectTile extends StatefulWidget {
 
   final Subject subject;
   final Subject? potentialParent;
-  final int index1;
-  final int? index2;
   final int reorderIndex;
   final Function()? onActionCompleted;
   final bool shouldShowcase;
@@ -303,18 +299,18 @@ class _SubjectTileState extends State<SubjectTile> {
                 if (!context.mounted) return;
                 showSubjectDialog(
                   context,
-                  index1: widget.index1,
-                  index2: widget.subject.isChild ? widget.index2 : null,
+                  subject: widget.subject,
+                  action: CreationType.edit,
                 ).then((_) => widget.onActionCompleted?.call());
               case MenuAction.delete:
                 heavyHaptics();
 
                 if (widget.subject.isChild) {
-                  final Subject parent = getCurrentYear().subjects[widget.index1];
-                  parent.children.removeAt(widget.index2!);
+                  final Subject parent = widget.potentialParent!;
+                  parent.children.remove(widget.subject);
                   parent.isGroup = parent.children.isNotEmpty;
                 } else {
-                  getCurrentYear().subjects.removeAt(widget.index1);
+                  getCurrentYear().subjects.remove(widget.subject);
                 }
 
                 Manager.calculate();
