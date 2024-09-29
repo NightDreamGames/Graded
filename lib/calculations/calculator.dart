@@ -19,6 +19,7 @@ class Calculator {
     required int sortType,
     int? sortModeOverride,
     int? sortDirectionOverride,
+    int? termIndex,
   }) {
     if (data.length < 2) return data.toList();
 
@@ -44,15 +45,23 @@ class Calculator {
         insertionSort(
           result,
           compare: (a, b) {
-            if (a.result == null && b.result == null) {
+            double? getResult(CalculationObject c) {
+              if (c is Subject && termIndex != null) {
+                return c.getTermResult(termIndex);
+              } else {
+                return c.result;
+              }
+            }
+
+            if (getResult(a) == null && getResult(b) == null) {
               return 0;
-            } else if (b.result == null) {
+            } else if (getResult(b) == null) {
               return -1;
-            } else if (a.result == null) {
+            } else if (getResult(a) == null) {
               return 1;
             }
 
-            return sortDirection * a.result!.compareTo(b.result!);
+            return sortDirection * getResult(a)!.compareTo(getResult(b)!);
           },
         );
       case SortMode.coefficient:
@@ -179,11 +188,19 @@ class Calculator {
     return sortObjects<Test>(tests, sortType: SortType.test);
   }
 
-  static (List<Subject>, List<List<Subject>>) getSortedSubjectData(List<Subject> subjects) {
-    final List<Subject> subjectData = sortObjects<Subject>(subjects, sortType: SortType.subject);
+  static (List<Subject>, List<List<Subject>>) getSortedSubjectData(List<Subject> subjects, {int? termIndex}) {
+    final List<Subject> subjectData = sortObjects<Subject>(
+      subjects,
+      sortType: SortType.subject,
+      termIndex: termIndex,
+    );
     final List<List<Subject>> childrenData = subjectData.map((element) {
       if (element.children.isEmpty) return <Subject>[];
-      return sortObjects<Subject>(element.children, sortType: SortType.subject);
+      return sortObjects<Subject>(
+        element.children,
+        sortType: SortType.subject,
+        termIndex: termIndex,
+      );
     }).toList();
 
     return (subjectData, childrenData);

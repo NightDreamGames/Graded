@@ -58,14 +58,19 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // TODO: Fix sorting by result
   @override
   Widget build(BuildContext context) {
-    final data = Calculator.getSortedSubjectData(widget.isYearOverview ? widget.year.yearOverview.subjects : widget.year.subjects);
+    final data = Calculator.getSortedSubjectData(
+      widget.isYearOverview ? widget.year.yearOverview.subjects : widget.year.subjects,
+      termIndex: widget.termIndex,
+    );
     final List<Subject> subjectData = data.$1;
     final List<List<Subject>> childrenData = data.$2;
 
-    final referenceData = Calculator.getSortedSubjectData(widget.year.subjects);
+    final referenceData = Calculator.getSortedSubjectData(
+      widget.year.subjects,
+      termIndex: widget.termIndex,
+    );
     final List<Subject> subjectReferenceData = referenceData.$1;
     final List<List<Subject>> childrenReferenceData = referenceData.$2;
 
