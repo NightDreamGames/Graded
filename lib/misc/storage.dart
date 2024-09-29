@@ -22,11 +22,13 @@ void serialize() {
   setPreference<String?>("data", jsonEncode(Manager.years));
 }
 
-void deserialize() {
-  if (!existsPreference("data")) return;
+void deserialize({String? dataString}) {
+  if (dataString == null && !existsPreference("data")) return;
+
+  dataString ??= getPreference<String>("data");
 
   try {
-    final data = jsonDecode(getPreference<String>("data")) as List<dynamic>;
+    final data = jsonDecode(dataString) as List<dynamic>;
     Manager.years = data.map((yearJson) => Year.fromJson(yearJson as Map<String, dynamic>)..ensureTermCount()).toList();
   } catch (e) {
     Manager.deserializationError = true;

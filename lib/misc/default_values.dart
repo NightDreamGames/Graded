@@ -10,6 +10,7 @@ class DefaultValues {
   static const int sortMode2 = SortMode.name;
   static const int sortDirection1 = SortDirection.ascending;
   static const int sortDirection2 = SortDirection.ascending;
+  static const bool hasBeenSortedCustom = false;
   static const int dataVersion = -1;
 
   //Calculation settings
@@ -19,10 +20,12 @@ class DefaultValues {
   static const int roundTo = 1;
   static const int preciseRoundToMultiplier = 10;
   static const double weight = 1.0;
+  static const double coefficient = 1.0;
   static const double bonus = 1;
   static const double speakingWeight = 3.0;
   static const double examWeight = 2.0;
   static const bool leadingZero = true;
+  static const bool isExam = false;
 
   //Setup
   static const bool isFirstRun = true;
@@ -52,6 +55,7 @@ const Map<String, dynamic> defaultValues = {
   "sort_mode2": SortMode.name,
   "sort_direction1": SortDirection.ascending,
   "sort_direction2": SortDirection.ascending,
+  "has_been_sorted_custom": false,
   "data_version": -1,
 
   //Calculation settings
@@ -61,9 +65,11 @@ const Map<String, dynamic> defaultValues = {
   "round_to": 1,
   "precise_round_to_multiplier": 10,
   "weight": 1.0,
+  "coefficient": 1.0,
   "speaking_weight": 3.0,
   "exam_weight": 2.0,
   "leading_zero": true,
+  "is_exam": false,
 
   //Setup
   "is_first_run": true,
