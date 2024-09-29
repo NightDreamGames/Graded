@@ -135,7 +135,7 @@ class Subject extends CalculationObject {
       children = childrenList.map((childJson) => Subject.fromJson(childJson as Map<String, dynamic>)..isChild = true).toList();
     }
 
-    isGroup = json["type"] != null && json["type"] as bool;
+    isGroup = json["type"] as bool? ?? false;
     name = json["name"] as String;
     weight = json["coefficient"] as double;
 

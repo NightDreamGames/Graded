@@ -72,8 +72,8 @@ class Term extends CalculationObject {
       return Test.fromJson(testJson as Map<String, dynamic>);
     }).toList();
 
-    weight = json["coefficient"] as double? ?? 1;
-    isExam = json["isExam"] as bool? ?? false;
+    weight = json["coefficient"] as double? ?? DefaultValues.coefficient;
+    isExam = json["isExam"] as bool? ?? DefaultValues.isExam;
     try {
       bonus = json["bonus"] as double;
     } catch (e) {
@@ -84,7 +84,7 @@ class Term extends CalculationObject {
   Map<String, dynamic> toJson() => {
         "coefficient": weight,
         "isExam": isExam,
-        "tests": tests,
         "bonus": bonus,
+        "tests": tests,
       };
 }

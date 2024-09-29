@@ -175,7 +175,7 @@ class Year extends CalculationObject {
     roundingMode = json["rounding_mode"] as String? ?? DefaultValues.roundingMode;
     roundTo = json["round_to"] as int? ?? DefaultValues.roundTo;
 
-    hasBeenSortedCustom = (json["has_been_sorted_custom"] as bool?) ?? false;
+    hasBeenSortedCustom = (json["has_been_sorted_custom"] as bool?) ?? DefaultValues.hasBeenSortedCustom;
   }
 
   Map<String, dynamic> toJson() => {
@@ -189,7 +189,7 @@ class Year extends CalculationObject {
         "validated_year": validatedYear,
         "validated_section": validatedSection,
         "validated_variant": validatedVariant,
-        "subjects": subjects,
         "has_been_sorted_custom": hasBeenSortedCustom,
+        "subjects": subjects,
       };
 }
