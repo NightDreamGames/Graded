@@ -63,6 +63,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
     setState(() {});
   }
 
+  // TODO: Fix deleting wrong index
   @override
   Widget build(BuildContext context) {
     final data = Calculator.getSortedSubjectData(getCurrentYear().subjects);

@@ -6,7 +6,6 @@ import "package:graded/calculations/test.dart";
 import "package:graded/misc/default_values.dart";
 
 class Term extends CalculationObject {
-  //TODO: Debug empty tests randomly showing up
   List<Test> tests = [];
   bool isExam = false;
   @override

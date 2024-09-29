@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  // TODO: Fix sorting by result
   @override
   Widget build(BuildContext context) {
     final data = Calculator.getSortedSubjectData(widget.isYearOverview ? widget.year.yearOverview.subjects : widget.year.subjects);

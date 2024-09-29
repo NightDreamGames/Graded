@@ -87,7 +87,7 @@ class Compatibility {
       }
 
       if (currentDataVersion < 9) {
-        //Sort direction
+        // Sort direction
         for (int sortType = 1; sortType <= 2; sortType++) {
           final int sortMode = getPreference<int>("sort_mode$sortType", SortMode.name);
           int sortDirection = SortDirection.ascending;
@@ -107,7 +107,7 @@ class Compatibility {
       }
 
       if (currentDataVersion < 10) {
-        //Fix exam coefficient
+        // Fix exam coefficient
         if (getPreference<String>("validated_school_system", "") == "lux" && getPreference<int>("validated_year", -1) == 1) {
           for (final term in decodedData[0]["terms"] as List) {
             if (term["weight"] == 2) {
@@ -120,7 +120,7 @@ class Compatibility {
       }
 
       if (currentDataVersion < 11) {
-        //Change currentTerm behavior
+        // Change currentTerm behavior
         final int currentTerm = getPreference<int>("current_term", 0);
         if (currentTerm == -1) {
           setPreference("current_term", 0);
@@ -128,20 +128,20 @@ class Compatibility {
       }
 
       if (currentDataVersion < 12) {
-        //Move termTemplate into year
+        // Move termTemplate into year
         final termTemplateList = jsonDecode(getPreference<String>("default_data", "[]")) as List;
         decodedData[0]["term_template"] = termTemplateList;
 
         setPreference("default_data", null);
 
-        //Add year name
+        // Add year name
         decodedData[0]["name"] = "${translations.yearOne} 1";
 
         updateData();
       }
 
       if (currentDataVersion < 13) {
-        //Move validated data into year
+        // Move validated data into year
         decodedData[0]["validatedSchoolSystem"] = getPreference<String?>("validated_school_system", "");
         decodedData[0]["validatedLuxSystem"] = getPreference<String?>("validated_lux_system", "");
         decodedData[0]["validatedYear"] = (getPreference<int>("validated_year", -1) != -1) ? getPreference<int>("validated_year", -1) : null;
@@ -174,7 +174,7 @@ class Compatibility {
       }
 
       if (currentDataVersion < 14) {
-        //Rename settings
+        // Rename settings
         setPreference<int>("term_count", getPreference<int>("term", 3));
         setPreference<double>("max_grade", getPreference<double>("total_grades", 60.0));
 
@@ -182,7 +182,7 @@ class Compatibility {
         setPreference("total_grades", null);
         setPreference("total_grades_description", null);
 
-        //Move settings into year
+        // Move settings into year
         decodedData[0]["term_count"] = getPreference<int>("term_count", 3);
         decodedData[0]["max_grade"] = getPreference<double>("max_grade", 60);
         decodedData[0]["rounding_mode"] = getPreference<String>("rounding_mode", RoundingMode.up);
@@ -192,7 +192,7 @@ class Compatibility {
       }
 
       if (currentDataVersion < 15) {
-        //Change order from Year->Term->Subject to Year->Subject->Term
+        // Change order from Year->Term->Subject to Year->Subject->Term
 
         // Function to handle child subjects recursively
         Map<String, dynamic> handleSubject(Map<String, dynamic> subject, double termCoefficient, bool isExam) {
@@ -286,7 +286,7 @@ class Compatibility {
           };
         }).toList();
 
-        //Keep termTemplate order
+        // Keep termTemplate order
         for (int i = 0; i < newDecodedData.length; i++) {
           final compare = decodedData[i]["term_template"] as List;
           (newDecodedData[i]["subjects"] as List).sort((a, b) {
@@ -314,7 +314,7 @@ class Compatibility {
         updateData();
       }
 
-      //TODO: Change everything to lowerCamelCase
+      // TODO: Change all keys to lowerCamelCase
 
       deserialize(dataString: data);
     }

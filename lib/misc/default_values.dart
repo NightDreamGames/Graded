@@ -2,7 +2,7 @@
 import "package:graded/misc/enums.dart";
 
 class DefaultValues {
-  //System
+  // System
   static const String data = "[]";
   static const int currentYear = 0;
   static const int currentTerm = 0;
@@ -13,7 +13,7 @@ class DefaultValues {
   static const bool hasBeenSortedCustom = false;
   static const int dataVersion = -1;
 
-  //Calculation settings
+  // Calculation settings
   static const int termCount = 3;
   static const double maxGrade = 60.0;
   static const String roundingMode = RoundingMode.up;
@@ -27,7 +27,7 @@ class DefaultValues {
   static const bool leadingZero = true;
   static const bool isExam = false;
 
-  //Setup
+  // Setup
   static const bool isFirstRun = true;
   static const String schoolSystem = "";
   static const String luxSystem = "";
@@ -35,7 +35,7 @@ class DefaultValues {
   static const String section = "";
   static const String variant = "";
 
-  //App settings
+  // App settings
   static const String theme = "system";
   static const String brightness = "dark";
   static const bool amoled = false;
@@ -47,7 +47,7 @@ class DefaultValues {
 }
 
 const Map<String, dynamic> defaultValues = {
-  //System
+  // System
   "data": "[]",
   "current_year": 0,
   "current_term": 0,
@@ -58,7 +58,7 @@ const Map<String, dynamic> defaultValues = {
   "has_been_sorted_custom": false,
   "data_version": -1,
 
-  //Calculation settings
+  // Calculation settings
   "term_count": 3,
   "max_grade": 60.0,
   "rounding_mode": RoundingMode.up,
@@ -71,7 +71,7 @@ const Map<String, dynamic> defaultValues = {
   "leading_zero": true,
   "is_exam": false,
 
-  //Setup
+  // Setup
   "is_first_run": true,
   "school_system": "",
   "lux_system": "",
@@ -79,7 +79,7 @@ const Map<String, dynamic> defaultValues = {
   "section": "",
   "variant": "",
 
-  //App settings
+  // App settings
   "theme": "system",
   "brightness": "dark",
   "amoled": false,

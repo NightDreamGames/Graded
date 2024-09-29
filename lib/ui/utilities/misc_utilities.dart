@@ -58,7 +58,7 @@ Future<void> launchURL(Link type) async {
   Uri link = websiteUrl;
 
   link = switch (type) {
-    //Links
+    // Links
     Link.website => websiteUrl,
     Link.appstore => isAndroid
         ? playStoreUrl
@@ -70,7 +70,7 @@ Future<void> launchURL(Link type) async {
     Link.translate => translateUrl,
     Link.email => await getEmailUrl(),
 
-    //Socials
+    // Socials
     Link.twitter => twitterUrl,
     Link.instagram => instagramUrl,
     Link.facebook => facebookUrl,
