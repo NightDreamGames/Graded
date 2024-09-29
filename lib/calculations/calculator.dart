@@ -67,11 +67,11 @@ class Calculator {
             if (result == 0) {
               result = a.asciiName.compareTo(b.asciiName);
             }
-            return result * sortDirection;
+            return sortDirection * result;
           },
         );
       case SortMode.custom:
-        break;
+        return sortDirection == SortDirection.descending ? result.reversed.toList() : result;
       default:
         throw const FormatException("Invalid");
     }

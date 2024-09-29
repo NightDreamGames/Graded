@@ -113,7 +113,7 @@ class Year extends CalculationObject {
     }
 
     setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
-    setPreference<int>("sort_direction${SortType.subject}", SortDirection.notApplicable);
+    setPreference<int>("sort_direction${SortType.subject}", SortDirection.ascending);
 
     serialize();
     calculate();

@@ -90,16 +90,15 @@ class Compatibility {
         //Sort direction
         for (int sortType = 1; sortType <= 2; sortType++) {
           final int sortMode = getPreference<int>("sort_mode$sortType", SortMode.name);
-          int sortDirection = SortDirection.notApplicable;
+          int sortDirection = SortDirection.ascending;
 
           switch (sortMode) {
             case SortMode.name:
+            case SortMode.custom:
               sortDirection = SortDirection.ascending;
             case SortMode.result:
             case SortMode.coefficient:
               sortDirection = SortDirection.descending;
-            case SortMode.custom:
-              sortDirection = SortDirection.notApplicable;
             default:
               throw const FormatException("Invalid");
           }
@@ -300,6 +299,14 @@ class Compatibility {
           for (final year in newDecodedData) {
             year["has_been_sorted_custom"] = true;
           }
+        }
+
+        // Remove SortDirection.notApplicable
+        if (getPreference<int>("sort_direction1", SortDirection.ascending) == 0) {
+          setPreference<int>("sort_direction1", SortDirection.ascending);
+        }
+        if (getPreference<int>("sort_direction2", SortDirection.ascending) == 0) {
+          setPreference<int>("sort_direction2", SortDirection.ascending);
         }
 
         decodedData = newDecodedData;

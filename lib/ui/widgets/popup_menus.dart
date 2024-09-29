@@ -36,9 +36,8 @@ class SortAction extends StatelessWidget {
           setPreference<int>("sort_direction$sortType", -getPreference<int>("sort_direction$sortType"));
         } else {
           final int sortDirection = switch (value) {
-            SortMode.name || SortMode.timestamp => SortDirection.ascending,
             SortMode.result || SortMode.coefficient => SortDirection.descending,
-            SortMode.custom || _ => SortDirection.notApplicable,
+            SortMode.name || SortMode.timestamp || SortMode.custom || _ => SortDirection.ascending,
           };
 
           setPreference<int>("sort_direction$sortType", sortDirection);
@@ -69,7 +68,7 @@ class SortAction extends StatelessWidget {
     final IconData icon = switch (sortDirection) {
       SortDirection.ascending => Icons.arrow_upward,
       SortDirection.descending => Icons.arrow_downward,
-      SortDirection.notApplicable || _ => Icons.check,
+      _ => Icons.check,
     };
 
     return PopupMenuItem<int>(

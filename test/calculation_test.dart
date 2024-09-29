@@ -148,7 +148,7 @@ void main() async {
       data,
       sortType: 1,
       sortModeOverride: SortMode.custom,
-      sortDirectionOverride: SortDirection.notApplicable,
+      sortDirectionOverride: SortDirection.ascending,
     );
 
     expect(data[0].name, "Gamma");

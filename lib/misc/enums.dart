@@ -9,7 +9,6 @@ abstract class SortMode {
 abstract class SortDirection {
   static const int ascending = 1;
   static const int descending = -1;
-  static const int notApplicable = 0;
 }
 
 abstract class SortType {
