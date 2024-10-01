@@ -62,14 +62,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final data = Calculator.getSortedSubjectData(
       widget.isYearOverview ? widget.year.yearOverview.subjects : widget.year.subjects,
-      termIndex: widget.termIndex,
+      termIndex: widget.isYearOverview ? null : widget.termIndex,
     );
     final List<Subject> subjectData = data.$1;
     final List<List<Subject>> childrenData = data.$2;
 
     final referenceData = Calculator.getSortedSubjectData(
       widget.year.subjects,
-      termIndex: widget.termIndex,
+      termIndex: widget.isYearOverview ? null : widget.termIndex,
     );
     final List<Subject> subjectReferenceData = referenceData.$1;
     final List<List<Subject>> childrenReferenceData = referenceData.$2;
