@@ -33,6 +33,7 @@ class Test extends CalculationObject {
   @override
   void calculate() {
     result = isEmpty ? null : Calculator.calculate([this], clamp: false);
+    preciseResult = isEmpty ? null : Calculator.calculate([this], clamp: false, precise: true);
   }
 
   @override
