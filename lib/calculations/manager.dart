@@ -18,14 +18,14 @@ class Manager {
   static int _currentYear = 0;
   static int get currentYear => _currentYear;
   static set currentYear(int newValue) {
-    setPreference<int>("current_year", newValue);
+    setPreference<int>("currentYear", newValue);
     _currentYear = newValue;
   }
 
   static int _currentTerm = 0;
   static int get currentTerm => _currentTerm;
   static set currentTerm(int newValue) {
-    setPreference<int>("current_term", newValue);
+    setPreference<int>("currentTerm", newValue);
     _currentTerm = newValue;
   }
 
@@ -34,8 +34,8 @@ class Manager {
   static void init() {
     Compatibility.upgradeDataVersion();
 
-    currentYear = getPreference<int>("current_year");
-    currentTerm = getPreference<int>("current_term");
+    currentYear = getPreference<int>("currentYear");
+    currentTerm = getPreference<int>("currentTerm");
 
     if (years.isNotEmpty) calculate();
   }

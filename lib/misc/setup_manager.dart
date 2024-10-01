@@ -41,7 +41,7 @@ class SetupManager {
 
   static Map<String, String> getSections([String? luxSystemOverride, int? yearOverride]) {
     final Map<String, String> result = <String, String>{};
-    final String luxSystem = luxSystemOverride ?? getPreference<String>("lux_system");
+    final String luxSystem = luxSystemOverride ?? getPreference<String>("luxSystem");
     final int year = yearOverride ?? getPreference<int>("year");
 
     if (year == -1 || luxSystem.isEmpty) return result;
@@ -96,7 +96,7 @@ class SetupManager {
   }
 
   static Map<String, String> getVariants([String? luxSystemOverride, int? yearOverride, String? sectionOverride]) {
-    final String luxSystem = luxSystemOverride ?? getPreference<String>("lux_system");
+    final String luxSystem = luxSystemOverride ?? getPreference<String>("luxSystem");
     final int year = yearOverride ?? getPreference<int>("year");
     final String section = sectionOverride ?? getPreference<String>("section");
 
@@ -165,9 +165,9 @@ class SetupManager {
   }
 
   static Future<void> completeSetup() async {
-    year.validatedSchoolSystem = getPreference<String>("school_system");
+    year.validatedSchoolSystem = getPreference<String>("schoolSystem");
 
-    if (getPreference<String>("school_system") == "lux") {
+    if (getPreference<String>("schoolSystem") == "lux") {
       await completeLuxSystem();
     }
 
@@ -176,11 +176,11 @@ class SetupManager {
     inSetup = false;
     year.ensureTermCount();
 
-    setPreference<bool>("is_first_run", false);
+    setPreference<bool>("isFirstRun", false);
   }
 
   static Future<void> completeLuxSystem() async {
-    year.validatedLuxSystem = getPreference<String>("lux_system");
+    year.validatedLuxSystem = getPreference<String>("luxSystem");
     year.validatedYear = getPreference<int>("year");
 
     if (hasSections()) {
@@ -218,7 +218,7 @@ class SetupManager {
     final String section = getPreference<String>("section");
     final String variant = getPreference<String>("variant");
 
-    final bool classic = getPreference<String>("lux_system") == "classic";
+    final bool classic = getPreference<String>("luxSystem") == "classic";
     String letter = classic ? "C" : "G";
     if (variant == "P" || variant == "PF" || variant == "AD" || variant == "ADF") letter = "";
 
@@ -237,7 +237,7 @@ class SetupManager {
     for (final subject in (classObject["subjects"] as List<dynamic>).cast<Map<String, dynamic>>()) {
       final Subject newSubject = Subject(
         subject["name"] as String,
-        (subject["coefficient"] as int?)?.toDouble() ?? 0,
+        (subject["weight"] as int?)?.toDouble() ?? 0,
         isGroup: subject["children"] != null,
       );
       termTemplate.add(newSubject);
@@ -247,7 +247,7 @@ class SetupManager {
         newSubject.children.add(
           Subject(
             childSubject["name"] as String,
-            (childSubject["coefficient"] as int?)?.toDouble() ?? 0,
+            (childSubject["weight"] as int?)?.toDouble() ?? 0,
             isChild: true,
           ),
         );

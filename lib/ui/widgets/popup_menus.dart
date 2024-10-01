@@ -32,18 +32,18 @@ class SortAction extends StatelessWidget {
           getCurrentYear().hasBeenSortedCustom = true;
         }
 
-        if (getPreference("sort_mode$sortType") == value) {
-          setPreference<int>("sort_direction$sortType", -getPreference<int>("sort_direction$sortType"));
+        if (getPreference("sortMode$sortType") == value) {
+          setPreference<int>("sortDirection$sortType", -getPreference<int>("sortDirection$sortType"));
         } else {
           final int sortDirection = switch (value) {
-            SortMode.result || SortMode.coefficient => SortDirection.descending,
+            SortMode.result || SortMode.weight => SortDirection.descending,
             SortMode.name || SortMode.timestamp || SortMode.custom || _ => SortDirection.ascending,
           };
 
-          setPreference<int>("sort_direction$sortType", sortDirection);
+          setPreference<int>("sortDirection$sortType", sortDirection);
         }
 
-        setPreference<int>("sort_mode$sortType", value);
+        setPreference<int>("sortMode$sortType", value);
 
         onTap?.call();
       },
@@ -52,7 +52,7 @@ class SortAction extends StatelessWidget {
           getPopupMenuItem(SortMode.name, translations.name),
           getPopupMenuItem(SortMode.result, translations.result),
           if (sortType == SortType.subject) ...[
-            getPopupMenuItem(SortMode.coefficient, translations.coefficientOne),
+            getPopupMenuItem(SortMode.weight, translations.coefficientOne),
             getPopupMenuItem(SortMode.custom, translations.custom),
           ],
           if (sortType == SortType.test) ...[
@@ -64,7 +64,7 @@ class SortAction extends StatelessWidget {
   }
 
   PopupMenuItem<int> getPopupMenuItem(int value, String title) {
-    final int sortDirection = getPreference<int>("sort_direction$sortType");
+    final int sortDirection = getPreference<int>("sortDirection$sortType");
     final IconData icon = switch (sortDirection) {
       SortDirection.ascending => Icons.arrow_upward,
       SortDirection.descending => Icons.arrow_downward,
@@ -77,7 +77,7 @@ class SortAction extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title),
-          if (getPreference<int>("sort_mode$sortType") == value) Icon(icon, size: 20),
+          if (getPreference<int>("sortMode$sortType") == value) Icon(icon, size: 20),
         ],
       ),
     );

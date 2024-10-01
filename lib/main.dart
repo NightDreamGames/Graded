@@ -16,6 +16,7 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/localization/generated/l10n.dart";
 import "package:graded/localization/material_localization/lb_intl.dart";
 import "package:graded/localization/translations.dart";
+import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/locale_provider.dart";
 import "package:graded/misc/storage.dart";
@@ -38,11 +39,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Settings.init();
+  Manager.init();
 
   String initialRoute = "/";
 
-  if (getPreference<bool>("is_first_run")) {
-    initialRoute = "setup_first";
+  if (getPreference<bool>("isFirstRun")) {
+    initialRoute = "/setupFirst";
   }
 
   runApp(
@@ -94,7 +96,7 @@ class _AppContainerState extends State<AppContainer> {
                 return deviceLocale;
               }
 
-              initializeDateFormatting("en_GB");
+              initializeDateFormatting(DefaultValues.language);
               return const Locale("en", "GB");
             },
             locale: provider.locale,
@@ -105,8 +107,6 @@ class _AppContainerState extends State<AppContainer> {
               return createRoute(settings);
             },
             onGenerateInitialRoutes: (initialRoute) {
-              Manager.init();
-
               return [
                 createRoute(RouteSettings(name: initialRoute)),
               ];
@@ -122,13 +122,13 @@ Route<dynamic> createRoute(RouteSettings settings) {
   Widget route;
 
   switch (settings.name) {
-    case "setup_first":
+    case "/setupFirst":
       route = const SetupPage(dismissible: false);
     case "/setup":
       route = const SetupPage();
     case "/settings":
       route = const SettingsPage();
-    case "/subject_edit":
+    case "/subjectEdit":
       final CreationType type = (settings.arguments as CreationType?) ?? CreationType.edit;
       route = SubjectEditRoute(creationType: type);
     case "/subject":

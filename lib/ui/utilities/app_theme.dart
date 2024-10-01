@@ -179,18 +179,18 @@ class AppTheme {
   }
 
   static ColorScheme lightTheme() {
-    final seedColor = Color(getPreference<int>("custom_color"));
+    final seedColor = Color(getPreference<int>("customColor"));
 
     final ColorScheme scheme =
-        lightColorScheme != null && getPreference<bool>("dynamic_color") ? lightColorScheme! : ColorScheme.fromSeed(seedColor: seedColor);
+        lightColorScheme != null && getPreference<bool>("dynamicColor") ? lightColorScheme! : ColorScheme.fromSeed(seedColor: seedColor);
 
     return scheme;
   }
 
   static ColorScheme darkTheme() {
-    final seedColor = Color(getPreference<int>("custom_color"));
+    final seedColor = Color(getPreference<int>("customColor"));
 
-    final ColorScheme scheme = darkColorScheme != null && getPreference<bool>("dynamic_color")
+    final ColorScheme scheme = darkColorScheme != null && getPreference<bool>("dynamicColor")
         ? darkColorScheme!
         : ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark);
 

@@ -25,8 +25,8 @@ class Calculator {
 
     final List<T> result = data.toList();
 
-    final int sortDirection = sortDirectionOverride ?? getPreference<int>("sort_direction$sortType");
-    int sortMode = getPreference<int>("sort_mode$sortType");
+    final int sortDirection = sortDirectionOverride ?? getPreference<int>("sortDirection$sortType");
+    int sortMode = getPreference<int>("sortMode$sortType");
     if (sortModeOverride != null) sortMode = sortModeOverride;
 
     switch (sortMode) {
@@ -64,7 +64,7 @@ class Calculator {
             return sortDirection * getResult(a)!.compareTo(getResult(b)!);
           },
         );
-      case SortMode.coefficient:
+      case SortMode.weight:
         insertionSort(result, compare: (a, b) => sortDirection * a.weight.compareTo(b.weight));
       case SortMode.timestamp:
         if (result.first is! Test) throw UnimplementedError("Timestamp sorting is only implemented for tests");
@@ -99,7 +99,7 @@ class Calculator {
 
     if (data.isEmpty || isNullFilled) return null;
 
-    final double maxGrade = Manager.years.isNotEmpty ? getCurrentYear().maxGrade : getPreference("max_grade");
+    final double maxGrade = Manager.years.isNotEmpty ? getCurrentYear().maxGrade : getPreference("maxGrade");
 
     double totalNumerator = 0;
     double totalDenominator = 0;
@@ -130,8 +130,8 @@ class Calculator {
   }
 
   static double round(double n, {String? roundingModeOverride, int? roundToOverride, int roundToMultiplier = 1}) {
-    final String roundingMode = roundingModeOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundingMode : getPreference("rounding_mode"));
-    int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("round_to"));
+    final String roundingMode = roundingModeOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundingMode : getPreference("roundingMode"));
+    int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("roundTo"));
     roundTo *= roundToMultiplier;
 
     final double round = n * roundTo;
@@ -162,7 +162,7 @@ class Calculator {
   static String format(double? n, {bool leadingZero = true, int? roundToOverride, int roundToMultiplier = 1, bool showPlusSign = false}) {
     if (n == null || n.isNaN) return "-";
 
-    int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("round_to"));
+    int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("roundTo"));
     roundTo *= roundToMultiplier;
 
     String result;
@@ -174,7 +174,7 @@ class Calculator {
 
     result = n.toStringAsFixed(nbDecimals);
 
-    if (leadingZero && getPreference<bool>("leading_zero") && n >= 1 && n < 10) {
+    if (leadingZero && getPreference<bool>("leadingZero") && n >= 1 && n < 10) {
       result = "0$result";
     }
     if (showPlusSign && n >= 0) {

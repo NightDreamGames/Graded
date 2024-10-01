@@ -15,18 +15,18 @@ import "package:graded/ui/utilities/misc_utilities.dart";
 List<Widget> getSettingsTiles(BuildContext context, {required CreationType type, Function()? onChanged}) {
   final String subjectEditingPageTitle = type == CreationType.add ? translations.add_subjectOther : translations.edit_subjectOther;
 
-  setPreference<int>("term_count", getCurrentYear().termCount);
-  setPreference<double>("max_grade", getCurrentYear().maxGrade);
-  setPreference<String>("max_grade_string", getCurrentYear().maxGrade.toString());
-  setPreference<String>("rounding_mode", getCurrentYear().roundingMode);
-  setPreference<int>("round_to", getCurrentYear().roundTo);
+  setPreference<int>("termCount", getCurrentYear().termCount);
+  setPreference<double>("maxGrade", getCurrentYear().maxGrade);
+  setPreference<String>("maxGradeString", getCurrentYear().maxGrade.toString());
+  setPreference<String>("roundingMode", getCurrentYear().roundingMode);
+  setPreference<int>("roundTo", getCurrentYear().roundTo);
 
   return [
     SimpleSettingsTile(
       title: subjectEditingPageTitle,
       subtitle: translations.edit_subjects_description,
       icon: Icons.subject,
-      onTap: () => Navigator.pushNamed(context, "/subject_edit", arguments: type).then((value) => onChanged?.call()),
+      onTap: () => Navigator.pushNamed(context, "/subjectEdit", arguments: type).then((value) => onChanged?.call()),
     ),
     TermCountSettingsTile(
       onChanged: onChanged,
@@ -34,15 +34,15 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
     TextInputSettingsTile(
       title: translations.rating_system,
       icon: Icons.vertical_align_top,
-      settingKey: "max_grade_string",
+      settingKey: "maxGradeString",
       initialValue: DefaultValues.maxGrade.toString(),
       numeric: true,
       onChange: (value) {
         final double? parsed = Calculator.tryParse(value);
         if (parsed == null) return;
 
-        setPreference<double>("max_grade", parsed);
-        setPreference<String>("max_grade_string", parsed.toString());
+        setPreference<double>("maxGrade", parsed);
+        setPreference<String>("maxGradeString", parsed.toString());
         getCurrentYear().maxGrade = parsed;
         Manager.calculate();
 
@@ -61,7 +61,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
     RadioModalSettingsTile<String>(
       title: translations.rounding_mode,
       icon: Icons.arrow_upward,
-      settingKey: "rounding_mode",
+      settingKey: "roundingMode",
       selected: DefaultValues.roundingMode,
       values: <String, String>{
         RoundingMode.up: translations.up,
@@ -78,7 +78,7 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
     RadioModalSettingsTile<int>(
       title: translations.round_to,
       icon: Icons.cut,
-      settingKey: "round_to",
+      settingKey: "roundTo",
       selected: DefaultValues.roundTo,
       values: <int, String>{
         1: translations.to_integer,
@@ -106,7 +106,7 @@ class TermCountSettingsTile extends StatelessWidget {
     return RadioModalSettingsTile<int>(
       title: translations.school_termOne,
       icon: Icons.access_time_outlined,
-      settingKey: "term_count",
+      settingKey: "termCount",
       selected: DefaultValues.termCount,
       values: <int, String>{
         4: translations.quartileOther,

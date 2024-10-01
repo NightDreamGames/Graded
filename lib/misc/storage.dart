@@ -22,13 +22,11 @@ void serialize() {
   setPreference<String?>("data", jsonEncode(Manager.years));
 }
 
-void deserialize({String? dataString}) {
-  if (dataString == null && !existsPreference("data")) return;
-
-  dataString ??= getPreference<String>("data");
+void deserialize({List<dynamic>? data}) {
+  if (data == null && !hasPreference("data")) return;
 
   try {
-    final data = jsonDecode(dataString) as List<dynamic>;
+    data ??= jsonDecode(getPreference<String>("data")) as List<dynamic>;
     Manager.years = data.map((yearJson) => Year.fromJson(yearJson as Map<String, dynamic>)..ensureTermCount()).toList();
   } catch (e) {
     Manager.deserializationError = true;
@@ -44,19 +42,27 @@ T getPreference<T>(String key, [T? defaultValue]) {
   return Settings.getValue<T>(key, defaultValue ?? defaultValues[key] as T);
 }
 
-bool existsPreference(String key) {
+bool hasPreference(String key) {
   return Settings.containsKey(key)!;
 }
 
 List<String> keys = [
-  "data_version",
+  "dataVersion",
   "data",
-  "current_year",
-  "current_term",
-  "sort_mode1",
-  "sort_mode2",
-  "sort_direction1",
-  "sort_direction2",
+  "currentYear",
+  "currentTerm",
+  "sortMode1",
+  "sortMode2",
+  "sortDirection1",
+  "sortDirection2",
+  "leadingZero",
+  "theme",
+  "dynamicColor",
+  "customColor",
+  "amoled",
+  "font",
+  "hapticFeedback",
+  "language",
 ];
 
 String getExportData() {

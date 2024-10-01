@@ -75,13 +75,13 @@ class _HomePageState extends State<HomePage> {
     final List<List<Subject>> childrenReferenceData = referenceData.$2;
 
     shouldShowcase = subjectData.fold<int>(0, (previousValue, element) => previousValue + (element.result != null ? 1 : 0)) >= 3 &&
-        getPreference<bool>("showcase_precise_average", true);
+        getPreference<bool>("showcasePreciseAverage");
 
     return ShowCaseWidget(
       blurValue: 1,
       disableBarrierInteraction: true,
       onFinish: () {
-        setPreference<bool>("showcase_precise_average", false);
+        setPreference<bool>("showcasePreciseAverage", false);
         rebuild();
       },
       enableShowcase: shouldShowcase,

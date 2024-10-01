@@ -145,7 +145,7 @@ class ColorBottomSheet extends StatelessWidget {
           children: [
             SwitchSettingsTile(
               title: translations.dynamic_color,
-              settingKey: "dynamic_color",
+              settingKey: "dynamicColor",
               subtitle: !AppTheme.hasDynamicColor ? translations.no_dynamic_color : "",
               defaultValue: AppTheme.hasDynamicColor,
               enabled: AppTheme.hasDynamicColor,
@@ -154,7 +154,7 @@ class ColorBottomSheet extends StatelessWidget {
             SimpleSettingsTile(
               title: translations.custom_color,
               subtitle: translations.edit_primary_color,
-              enabled: !AppTheme.hasDynamicColor || !getPreference<bool>("dynamic_color"),
+              enabled: !AppTheme.hasDynamicColor || !getPreference<bool>("dynamicColor"),
               trailing: Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: SizedBox(
@@ -162,7 +162,7 @@ class ColorBottomSheet extends StatelessWidget {
                   width: 40,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(getPreference<int>("custom_color")),
+                      color: Color(getPreference<int>("customColor")),
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -171,7 +171,7 @@ class ColorBottomSheet extends StatelessWidget {
               onTap: () {
                 lightHaptics();
 
-                Color selectedColor = Color(getPreference<int>("custom_color"));
+                Color selectedColor = Color(getPreference<int>("customColor"));
 
                 ColorPicker(
                   color: selectedColor,
@@ -215,7 +215,7 @@ class ColorBottomSheet extends StatelessWidget {
                   context,
                 )
                     .then((_) {
-                  setPreference<int>("custom_color", selectedColor.value);
+                  setPreference<int>("customColor", selectedColor.value);
                   onChanged?.call();
                 });
               },

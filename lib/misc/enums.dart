@@ -1,7 +1,7 @@
 abstract class SortMode {
   static const int name = 0;
   static const int result = 1;
-  static const int coefficient = 2;
+  static const int weight = 2;
   static const int custom = 3;
   static const int timestamp = 4;
 }

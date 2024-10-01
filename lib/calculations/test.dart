@@ -53,10 +53,10 @@ class Test extends CalculationObject {
   }
 
   Test.fromJson(Map<String, dynamic> json) {
-    numerator = json["grade1"] as double?;
-    denominator = json["grade2"] as double;
+    numerator = json["numerator"] as double?;
+    denominator = json["denominator"] as double;
     name = json["name"] as String;
-    weight = json["coefficient"] as double? ?? 1;
+    weight = json["weight"] as double? ?? 1;
     isSpeaking = json["isSpeaking"] as bool? ?? false;
     calculate();
     if (result == null) numerator = null;
@@ -65,9 +65,9 @@ class Test extends CalculationObject {
 
   Map<String, dynamic> toJson() => {
         "name": name,
-        "grade1": numerator,
-        "grade2": denominator,
-        "coefficient": weight,
+        "numerator": numerator,
+        "denominator": denominator,
+        "weight": weight,
         "isSpeaking": isSpeaking,
         "timestamp": timestamp,
       };

@@ -75,7 +75,7 @@ class _SetupPageState extends State<SetupPage> {
         resizeToAvoidBottomInset: false,
         floatingActionButton: () {
           if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
-              getPreference<String>("school_system") == "other") {
+              getPreference<String>("schoolSystem") == "other") {
             Future.delayed(const Duration(milliseconds: 500)).then((_) {
               if (startedAnimation || !mounted) return;
               startedAnimation = true;
@@ -126,7 +126,7 @@ class _SetupPageState extends State<SetupPage> {
                         child: Card(
                           child: ImportSettingsTile(
                             onChanged: () {
-                              setPreference<bool>("is_first_run", false);
+                              setPreference<bool>("isFirstRun", false);
                               replaceRoute(context);
                             },
                           ),
@@ -138,7 +138,7 @@ class _SetupPageState extends State<SetupPage> {
                         child: RadioModalSettingsTile<String>(
                           title: translations.school_system,
                           icon: Icons.school,
-                          settingKey: "school_system",
+                          settingKey: "schoolSystem",
                           values: <String, String>{
                             "lux": translations.lux_system,
                             "other": translations.other_school_system,
@@ -147,14 +147,14 @@ class _SetupPageState extends State<SetupPage> {
                         ),
                       ),
                     ),
-                    if (getPreference<String>("school_system") == "lux")
+                    if (getPreference<String>("schoolSystem") == "lux")
                       SettingsGroup(
                         title: translations.lux_system,
                         children: [
                           RadioModalSettingsTile<String>(
                             title: translations.system,
                             icon: Icons.build,
-                            settingKey: "lux_system",
+                            settingKey: "luxSystem",
                             values: <String, String>{
                               "classic": translations.lux_system_classic,
                               "general": translations.lux_system_general,
@@ -166,7 +166,7 @@ class _SetupPageState extends State<SetupPage> {
                               rebuild();
                             },
                           ),
-                          if (getPreference<String>("lux_system").isNotEmpty)
+                          if (getPreference<String>("luxSystem").isNotEmpty)
                             RadioModalSettingsTile<int>(
                               title: translations.yearOne,
                               icon: Icons.timelapse,
@@ -203,7 +203,7 @@ class _SetupPageState extends State<SetupPage> {
                           if (getPreference<int>("year") != -1 && getPreference<int>("year") != 1) const TermCountSettingsTile(),
                         ],
                       )
-                    else if (getPreference<String>("school_system") == "other")
+                    else if (getPreference<String>("schoolSystem") == "other")
                       SettingsGroup(
                         title: translations.other_school_system,
                         children: getSettingsTiles(context, type: CreationType.add),

@@ -1,39 +1,36 @@
-// Project imports:
 // ignore_for_file: avoid_dynamic_calls
 
+// Dart imports:
 import "dart:convert";
 
+// Project imports:
 import "package:graded/localization/translations.dart";
-import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/utilities/misc_utilities.dart";
 
 class Compatibility {
-  static const dataVersion = 15;
+  static const dataVersion = 16;
 
   static void upgradeDataVersion({bool imported = false}) {
-    if (!getPreference<bool>("is_first_run") || imported) {
-      String data = getPreference<String>("data");
-      List decodedData = jsonDecode(data) as List;
-      final int currentDataVersion = getPreference<int>("data_version");
-
-      void updateData() {
-        data = jsonEncode(decodedData);
-      }
-
-      void updateDecodedData() {
-        decodedData = jsonDecode(data) as List;
-      }
+    if (!(hasPreference("is_first_run") ? getPreference<bool>("is_first_run", true) : getPreference<bool>("isFirstRun")) || imported) {
+      final String dataString = getPreference<String>("data");
+      List decodedData = jsonDecode(dataString) as List;
+      final int currentDataVersion = hasPreference("data_version") ? getPreference<int>("data_version", -1) : getPreference<int>("dataVersion");
 
       if (currentDataVersion < 2) {
-        data = data.replaceAll("period", "term").replaceAll("mark", "grade");
-        updateDecodedData();
-        setPreference<String?>("default_data", getPreference<String>("default_data", "[]").replaceAll("period", "term").replaceAll("mark", "grade"));
+        decodedData = replaceKeysInJson(decodedData, "period", "term") as List;
+        decodedData = replaceKeysInJson(decodedData, "mark", "grade") as List;
+
+        List defaultData = jsonDecode(getPreference<String>("default_data", "[]")) as List;
+        defaultData = replaceKeysInJson(defaultData, "period", "term") as List;
+        defaultData = replaceKeysInJson(defaultData, "mark", "grade") as List;
+        setPreference("default_data", jsonEncode(defaultData));
       }
 
       if (currentDataVersion < 5) {
-        setPreference<String>("language", DefaultValues.language);
+        setPreference<String>("language", "system");
       }
 
       if (currentDataVersion < 6) {
@@ -78,11 +75,10 @@ class Compatibility {
             setPreference<String>("validated_variant", "");
           }
         } else {
-          final List<String> keys = ["validated_lux_system", "validated_year", "validated_section", "validated_variant"];
-
-          for (final String key in keys) {
-            setPreference(key, defaultValues[key]);
-          }
+          setPreference("validated_lux_system", "");
+          setPreference("validated_year", -1);
+          setPreference("validated_section", "");
+          setPreference("validated_variant", "");
         }
       }
 
@@ -97,7 +93,7 @@ class Compatibility {
             case SortMode.custom:
               sortDirection = SortDirection.ascending;
             case SortMode.result:
-            case SortMode.coefficient:
+            case SortMode.weight:
               sortDirection = SortDirection.descending;
             default:
               throw const FormatException("Invalid");
@@ -114,8 +110,6 @@ class Compatibility {
               term["isExam"] = true;
             }
           }
-
-          updateData();
         }
       }
 
@@ -136,8 +130,6 @@ class Compatibility {
 
         // Add year name
         decodedData[0]["name"] = "${translations.yearOne} 1";
-
-        updateData();
       }
 
       if (currentDataVersion < 13) {
@@ -169,8 +161,6 @@ class Compatibility {
         setPreference("validated_year", null);
         setPreference("validated_section", null);
         setPreference("validated_variant", null);
-
-        updateData();
       }
 
       if (currentDataVersion < 14) {
@@ -187,8 +177,6 @@ class Compatibility {
         decodedData[0]["max_grade"] = getPreference<double>("max_grade", 60);
         decodedData[0]["rounding_mode"] = getPreference<String>("rounding_mode", RoundingMode.up);
         decodedData[0]["round_to"] = getPreference<int>("round_to", 1);
-
-        updateData();
       }
 
       if (currentDataVersion < 15) {
@@ -199,7 +187,7 @@ class Compatibility {
           // Extract subject details
           final String subjectName = subject["name"] as String;
           final double subjectCoefficient = subject["coefficient"] as double;
-          final double speakingWeight = subject["speakingWeight"] as double? ?? DefaultValues.speakingWeight;
+          final double speakingWeight = subject["speakingWeight"] as double? ?? 3;
           final bool subjectType = subject["type"] as bool? ?? false;
           double bonus;
           try {
@@ -231,10 +219,10 @@ class Compatibility {
 
           // Extract year-level information
           final String yearName = yearData["name"] as String? ?? "";
-          final int termCount = yearData["term_count"] as int? ?? DefaultValues.termCount;
-          final double maxGrade = yearData["max_grade"] as double? ?? DefaultValues.maxGrade;
-          final String roundingMode = yearData["rounding_mode"] as String? ?? DefaultValues.roundingMode;
-          final int roundTo = yearData["round_to"] as int? ?? DefaultValues.roundTo;
+          final int termCount = yearData["term_count"] as int? ?? 3;
+          final double maxGrade = yearData["max_grade"] as double? ?? 60;
+          final String roundingMode = yearData["rounding_mode"] as String? ?? RoundingMode.up;
+          final int roundTo = yearData["round_to"] as int? ?? 1;
           final String? validatedSchoolSystem = yearData["validated_school_system"] as String?;
           final String? validatedLuxSystem = yearData["validated_lux_system"] as String?;
           final int? validatedYear = yearData["validated_year"] as int?;
@@ -246,8 +234,8 @@ class Compatibility {
 
           // Iterate over terms
           for (final term in yearData["terms"] as List) {
-            final double termCoefficient = term["coefficient"] as double? ?? DefaultValues.weight;
-            final bool isExam = term["isExam"] as bool? ?? DefaultValues.isExam;
+            final double termCoefficient = term["coefficient"] as double? ?? 1;
+            final bool isExam = term["isExam"] as bool? ?? false;
 
             for (final subject in term["subjects"] as List) {
               final String subjectName = subject["name"] as String;
@@ -310,13 +298,84 @@ class Compatibility {
         }
 
         decodedData = newDecodedData;
-
-        updateData();
       }
 
-      deserialize(dataString: data);
+      if (currentDataVersion < 16) {
+        // Rename storage keys
+        // Year
+        decodedData = replaceKeysInJson(decodedData, "term_count", "termCount") as List;
+        decodedData = replaceKeysInJson(decodedData, "max_grade", "maxGrade") as List;
+        decodedData = replaceKeysInJson(decodedData, "rounding_mode", "roundingMode") as List;
+        decodedData = replaceKeysInJson(decodedData, "round_to", "roundTo") as List;
+        decodedData = replaceKeysInJson(decodedData, "validated_school_system", "validatedSchoolSystem") as List;
+        decodedData = replaceKeysInJson(decodedData, "validated_lux_system", "validatedLuxSystem") as List;
+        decodedData = replaceKeysInJson(decodedData, "validated_year", "validatedYear") as List;
+        decodedData = replaceKeysInJson(decodedData, "validated_section", "validatedSection") as List;
+        decodedData = replaceKeysInJson(decodedData, "validated_variant", "validatedVariant") as List;
+        decodedData = replaceKeysInJson(decodedData, "has_been_sorted_custom", "hasBeenSortedCustom") as List;
+
+        // Subject, Term & Test
+        decodedData = replaceKeysInJson(decodedData, "coefficient", "weight") as List;
+
+        // Subject
+        decodedData = replaceKeysInJson(decodedData, "type", "isGroup") as List;
+
+        // Test
+        decodedData = replaceKeysInJson(decodedData, "grade1", "numerator") as List;
+        decodedData = replaceKeysInJson(decodedData, "grade2", "denominator") as List;
+
+        // Rename settings keys
+        setPreference("currentYear", getPreference<int>("current_year", 0));
+        setPreference("currentTerm", getPreference<int>("current_term", 0));
+        setPreference("sortMode1", getPreference<int>("sort_mode1", SortMode.name));
+        setPreference("sortMode2", getPreference<int>("sort_mode2", SortMode.name));
+        setPreference("sortDirection1", getPreference<int>("sort_direction1", SortDirection.ascending));
+        setPreference("sortDirection2", getPreference<int>("sort_direction2", SortDirection.ascending));
+        setPreference("dataVersion", getPreference<int>("data_version", -1));
+        setPreference("termCount", getPreference<int>("term_count", 3));
+        setPreference("maxGrade", getPreference<double>("max_grade", 60.0));
+        setPreference("maxGradeString", getPreference<String>("max_grade_string", "60.0"));
+        setPreference("roundingMode", getPreference<String>("rounding_mode", RoundingMode.up));
+        setPreference("roundTo", getPreference<int>("round_to", 1));
+        setPreference("leadingZero", getPreference<bool>("leading_zero", true));
+        setPreference("isFirstRun", getPreference<bool>("is_first_run", true));
+        setPreference("schoolSystem", getPreference<String>("school_system", ""));
+        setPreference("luxSystem", getPreference<String>("lux_system", ""));
+        setPreference("dynamicColor", getPreference<bool>("dynamic_color", true));
+        setPreference("customColor", getPreference<int>("custom_color", 0xFF2196f3));
+        setPreference("hapticFeedback", getPreference<bool>("haptic_feedback", true));
+
+        // Remove old keys
+        final List<String> keys = [
+          "current_year",
+          "current_term",
+          "sort_mode1",
+          "sort_mode2",
+          "sort_direction1",
+          "sort_direction2",
+          "data_version",
+          "term_count",
+          "max_grade",
+          "max_grade_string",
+          "rounding_mode",
+          "round_to",
+          "leading_zero",
+          "is_first_run",
+          "school_system",
+          "lux_system",
+          "dynamic_color",
+          "custom_color",
+          "haptic_feedback",
+        ];
+
+        for (final String key in keys) {
+          setPreference(key, null);
+        }
+      }
+
+      deserialize(data: decodedData);
     }
 
-    setPreference<int>("data_version", dataVersion);
+    setPreference<int>("dataVersion", dataVersion);
   }
 }

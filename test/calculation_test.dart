@@ -114,7 +114,12 @@ void main() async {
       Test(99, 100, name: "Gamma"),
     ];
 
-    data = Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.result, sortDirectionOverride: SortDirection.descending);
+    data = Calculator.sortObjects(
+      data,
+      sortType: 1,
+      sortModeOverride: SortMode.result,
+      sortDirectionOverride: SortDirection.descending,
+    );
 
     expect(data[0].name, "Gamma");
     expect(data[1].name, "Delta");
@@ -129,7 +134,12 @@ void main() async {
       Term(name: "Gamma", weight: 0.1),
     ];
 
-    data = Calculator.sortObjects(data, sortType: 1, sortModeOverride: SortMode.coefficient, sortDirectionOverride: SortDirection.descending);
+    data = Calculator.sortObjects(
+      data,
+      sortType: 1,
+      sortModeOverride: SortMode.weight,
+      sortDirectionOverride: SortDirection.descending,
+    );
 
     expect(data[0].name, "Delta");
     expect(data[1].name, "Alpha");

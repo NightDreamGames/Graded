@@ -105,10 +105,10 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
         body: ShowCaseWidget(
           blurValue: 1,
           onFinish: () {
-            setPreference<bool>("showcase_subject_edit", false);
+            setPreference<bool>("showcaseSubjectEdit", false);
             rebuild();
           },
-          enableShowcase: getPreference<bool>("showcase_subject_edit", true),
+          enableShowcase: getPreference<bool>("showcaseSubjectEdit"),
           builder: (context) {
             return SafeArea(
               top: false,
@@ -145,7 +145,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
           potentialParent: i == 0 ? null : subjectData[i - 1],
           reorderIndex: reorderIndex,
           onActionCompleted: rebuild,
-          shouldShowcase: i == 1 && subjectData.length >= 3 && getPreference<bool>("showcase_subject_edit", true),
+          shouldShowcase: i == 1 && subjectData.length >= 3 && getPreference<bool>("showcaseSubjectEdit"),
         ),
       );
       reorderIndex++;

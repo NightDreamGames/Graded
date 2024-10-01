@@ -112,8 +112,8 @@ class Year extends CalculationObject {
       subjects[newIndex1].isGroup = true;
     }
 
-    setPreference<int>("sort_mode${SortType.subject}", SortMode.custom);
-    setPreference<int>("sort_direction${SortType.subject}", SortDirection.ascending);
+    setPreference<int>("sortMode${SortType.subject}", SortMode.custom);
+    setPreference<int>("sortDirection${SortType.subject}", SortDirection.ascending);
 
     serialize();
     calculate();
@@ -164,32 +164,32 @@ class Year extends CalculationObject {
 
     name = (json["name"] as String?) ?? "";
 
-    validatedSchoolSystem = json["validated_school_system"] as String?;
-    validatedLuxSystem = json["validated_lux_system"] as String?;
-    validatedYear = json["validated_year"] as int?;
-    validatedSection = json["validated_section"] as String?;
-    validatedVariant = json["validated_variant"] as String?;
+    validatedSchoolSystem = json["validatedSchoolSystem"] as String?;
+    validatedLuxSystem = json["validatedLuxSystem"] as String?;
+    validatedYear = json["validatedYear"] as int?;
+    validatedSection = json["validatedSection"] as String?;
+    validatedVariant = json["validatedVariant"] as String?;
 
-    termCount = json["term_count"] as int? ?? DefaultValues.termCount;
-    maxGrade = json["max_grade"] as double? ?? DefaultValues.maxGrade;
-    roundingMode = json["rounding_mode"] as String? ?? DefaultValues.roundingMode;
-    roundTo = json["round_to"] as int? ?? DefaultValues.roundTo;
+    termCount = json["termCount"] as int? ?? DefaultValues.termCount;
+    maxGrade = json["maxGrade"] as double? ?? DefaultValues.maxGrade;
+    roundingMode = json["roundingMode"] as String? ?? DefaultValues.roundingMode;
+    roundTo = json["roundTo"] as int? ?? DefaultValues.roundTo;
 
-    hasBeenSortedCustom = (json["has_been_sorted_custom"] as bool?) ?? DefaultValues.hasBeenSortedCustom;
+    hasBeenSortedCustom = (json["hasBeenSortedCustom"] as bool?) ?? DefaultValues.hasBeenSortedCustom;
   }
 
   Map<String, dynamic> toJson() => {
         "name": name,
-        "term_count": termCount,
-        "max_grade": maxGrade,
-        "rounding_mode": roundingMode,
-        "round_to": roundTo,
-        "validated_school_system": validatedSchoolSystem,
-        "validated_lux_system": validatedLuxSystem,
-        "validated_year": validatedYear,
-        "validated_section": validatedSection,
-        "validated_variant": validatedVariant,
-        "has_been_sorted_custom": hasBeenSortedCustom,
+        "termCount": termCount,
+        "maxGrade": maxGrade,
+        "roundingMode": roundingMode,
+        "roundTo": roundTo,
+        "validatedSchoolSystem": validatedSchoolSystem,
+        "validatedLuxSystem": validatedLuxSystem,
+        "validatedYear": validatedYear,
+        "validatedSection": validatedSection,
+        "validatedVariant": validatedVariant,
+        "hasBeenSortedCustom": hasBeenSortedCustom,
         "subjects": subjects,
       };
 }

@@ -82,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       SwitchSettingsTile(
                         icon: CustomIcons.zero_one,
                         title: translations.show_leading_zero,
-                        settingKey: "leading_zero",
+                        settingKey: "leadingZero",
                         subtitle: translations.show_leading_zero_description,
                         defaultValue: DefaultValues.leadingZero,
                         onChange: (_) => rebuildHomePage(),
@@ -132,7 +132,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         subtitle: translations.edit_color_scheme,
                         onTap: () {
                           if (!AppTheme.hasDynamicColor) {
-                            setPreference("dynamic_color", false);
+                            setPreference("dynamicColor", false);
                           }
 
                           showColorBottomSheet(context, rebuildAppContainer);
@@ -156,7 +156,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       SwitchSettingsTile(
                         icon: Icons.vibration,
                         title: translations.haptic_feedback,
-                        settingKey: "haptic_feedback",
+                        settingKey: "hapticFeedback",
                         subtitle: translations.haptic_feedback_description,
                         defaultValue: DefaultValues.hapticFeedback,
                       ),

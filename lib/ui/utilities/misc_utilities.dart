@@ -118,3 +118,27 @@ Size calculateTextSize({required BuildContext context, required String text, Tex
 
   return textPainter.size;
 }
+
+//TODO: test if this even works
+dynamic replaceKeysInJson(dynamic jsonData, String target, String replacement) {
+  if (jsonData is Map<String, dynamic>) {
+    // Create a new map to hold the replaced keys
+    final Map<String, dynamic> updatedMap = <String, dynamic>{};
+
+    jsonData.forEach((key, value) {
+      // Replace target string in the key
+      final String newKey = key.replaceAll(target, replacement);
+
+      // Recursively call the function for nested maps or lists
+      updatedMap[newKey] = replaceKeysInJson(value, target, replacement);
+    });
+
+    return updatedMap;
+  } else if (jsonData is List) {
+    // Recursively call the function for each element in the list
+    return jsonData.map((element) => replaceKeysInJson(element, target, replacement)).toList();
+  } else {
+    // If it's neither a map nor a list, return the value as is
+    return jsonData;
+  }
+}

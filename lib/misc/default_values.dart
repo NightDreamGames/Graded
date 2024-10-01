@@ -15,12 +15,11 @@ class DefaultValues {
 
   // Calculation settings
   static const int termCount = 3;
-  static const double maxGrade = 60.0;
+  static const double maxGrade = 60;
   static const String roundingMode = RoundingMode.up;
   static const int roundTo = 1;
   static const int preciseRoundToMultiplier = 10;
   static const double weight = 1.0;
-  static const double coefficient = 1.0;
   static const double bonus = 1;
   static const double speakingWeight = 3.0;
   static const double examWeight = 2.0;
@@ -49,43 +48,46 @@ class DefaultValues {
 const Map<String, dynamic> defaultValues = {
   // System
   "data": "[]",
-  "current_year": 0,
-  "current_term": 0,
-  "sort_mode1": SortMode.name,
-  "sort_mode2": SortMode.name,
-  "sort_direction1": SortDirection.ascending,
-  "sort_direction2": SortDirection.ascending,
-  "has_been_sorted_custom": false,
-  "data_version": -1,
+  "currentYear": 0,
+  "currentTerm": 0,
+  "sortMode1": SortMode.name,
+  "sortMode2": SortMode.name,
+  "sortDirection1": SortDirection.ascending,
+  "sortDirection2": SortDirection.ascending,
+  "hasBeenSortedCustom": false,
+  "dataVersion": -1,
 
   // Calculation settings
-  "term_count": 3,
-  "max_grade": 60.0,
-  "rounding_mode": RoundingMode.up,
-  "round_to": 1,
-  "precise_round_to_multiplier": 10,
+  "termCount": 3,
+  "maxGrade": 60.0,
+  "roundingMode": RoundingMode.up,
+  "roundTo": 1,
+  "preciseRoundToMultiplier": 10,
   "weight": 1.0,
-  "coefficient": 1.0,
-  "speaking_weight": 3.0,
-  "exam_weight": 2.0,
-  "leading_zero": true,
-  "is_exam": false,
+  "speakingWeight": 3.0,
+  "examWeight": 2.0,
+  "leadingZero": true,
+  "isExam": false,
 
   // Setup
-  "is_first_run": true,
-  "school_system": "",
-  "lux_system": "",
+  "isFirstRun": true,
+  "schoolSystem": "",
+  "luxSystem": "",
   "year": -1,
   "section": "",
   "variant": "",
+
+  // Showcase
+  "showcaseSubjectEdit": true,
+  "showcasePreciseAverage": true,
 
   // App settings
   "theme": "system",
   "brightness": "dark",
   "amoled": false,
-  "dynamic_color": true,
-  "custom_color": 0xFF2196f3,
+  "dynamicColor": true,
+  "customColor": 0xFF2196f3,
   "font": "montserrat",
   "language": "system",
-  "haptic_feedback": true,
+  "hapticFeedback": true,
 };
