@@ -47,9 +47,9 @@ class Calculator {
           compare: (a, b) {
             double? getResult(CalculationObject c) {
               if (c is Subject && termIndex != null) {
-                return c.getTermResult(termIndex);
+                return c.getTermResult(termIndex, precise: true);
               } else {
-                return c.result;
+                return c.preciseResult;
               }
             }
 
