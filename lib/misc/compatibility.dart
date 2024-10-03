@@ -11,7 +11,7 @@ import "package:graded/misc/storage.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 
 class Compatibility {
-  static const dataVersion = 16;
+  static const dataVersion = 17;
 
   static void upgradeDataVersion({bool imported = false}) {
     if (!(hasPreference("is_first_run") ? getPreference<bool>("is_first_run", true) : getPreference<bool>("isFirstRun")) || imported) {
@@ -370,6 +370,19 @@ class Compatibility {
 
         for (final String key in keys) {
           setPreference(key, null);
+        }
+      }
+
+      if (currentDataVersion < 17) {
+        // Convert bonus to double
+        for (final year in decodedData) {
+          for (final subject in year["subjects"] as List) {
+            for (final term in subject["terms"] as List) {
+              if (term["bonus"] is int) {
+                term["bonus"] = (term["bonus"] as int).toDouble();
+              }
+            }
+          }
         }
       }
 

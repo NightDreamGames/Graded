@@ -138,7 +138,6 @@ class Subject extends CalculationObject {
     isGroup = json["isGroup"] as bool? ?? false;
     name = json["name"] as String;
     weight = json["weight"] as double;
-
     speakingWeight = json["speakingWeight"] as double? ?? DefaultValues.speakingWeight;
   }
 

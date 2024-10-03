@@ -73,11 +73,7 @@ class Term extends CalculationObject {
 
     weight = json["weight"] as double? ?? DefaultValues.weight;
     isExam = json["isExam"] as bool? ?? DefaultValues.isExam;
-    try {
-      bonus = json["bonus"] as double;
-    } catch (e) {
-      bonus = (json["bonus"] as int).toDouble();
-    }
+    bonus = json["bonus"] as double;
   }
 
   Map<String, dynamic> toJson() => {
