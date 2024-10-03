@@ -127,7 +127,7 @@ void showColorBottomSheet(BuildContext context, void Function()? onChanged) => s
       child: ColorBottomSheet(onChanged: onChanged),
     );
 
-class ColorBottomSheet extends StatelessWidget {
+class ColorBottomSheet extends StatefulWidget {
   const ColorBottomSheet({
     super.key,
     this.onChanged,
@@ -135,6 +135,11 @@ class ColorBottomSheet extends StatelessWidget {
 
   final void Function()? onChanged;
 
+  @override
+  State<ColorBottomSheet> createState() => _ColorBottomSheetState();
+}
+
+class _ColorBottomSheetState extends State<ColorBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return EasyBottomSheet(
@@ -149,7 +154,10 @@ class ColorBottomSheet extends StatelessWidget {
               subtitle: !AppTheme.hasDynamicColor ? translations.no_dynamic_color : "",
               defaultValue: AppTheme.hasDynamicColor,
               enabled: AppTheme.hasDynamicColor,
-              onChange: (_) => onChanged?.call(),
+              onChange: (_) {
+                widget.onChanged?.call();
+                setState(() {});
+              },
             ),
             SimpleSettingsTile(
               title: translations.custom_color,
@@ -216,7 +224,7 @@ class ColorBottomSheet extends StatelessWidget {
                 )
                     .then((_) {
                   setPreference<int>("customColor", selectedColor.value);
-                  onChanged?.call();
+                  widget.onChanged?.call();
                 });
               },
             ),
@@ -225,7 +233,7 @@ class ColorBottomSheet extends StatelessWidget {
               settingKey: "amoled",
               // ignore: avoid_redundant_argument_values
               defaultValue: false,
-              onChange: (_) => onChanged?.call(),
+              onChange: (_) => widget.onChanged?.call(),
             ),
           ],
         ),
