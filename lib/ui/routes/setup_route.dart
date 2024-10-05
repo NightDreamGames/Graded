@@ -67,7 +67,7 @@ class _SetupPageState extends State<SetupPage> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvokedWithResult: (didPop, _) {
+      onPopInvoked: (didPop) {
         if (!didPop) return;
         SetupManager.dispose();
       },

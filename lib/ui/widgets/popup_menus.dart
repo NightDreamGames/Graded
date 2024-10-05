@@ -44,7 +44,7 @@ class SortAction extends StatelessWidget {
         }
 
         setPreference<int>("sortMode$sortType", value);
-
+        //TODO: Fix this
         onTap?.call();
       },
       itemBuilder: (context) {

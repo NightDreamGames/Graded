@@ -156,7 +156,7 @@ class PlatformWillPopScope extends StatelessWidget {
     required this.child,
   });
 
-  final void Function(bool, dynamic)? onPopInvoked;
+  final void Function(bool)? onPopInvoked;
   final bool? canPop;
   final Widget child;
 
@@ -164,7 +164,7 @@ class PlatformWillPopScope extends StatelessWidget {
   Widget build(BuildContext context) {
     return !isiOS
         ? PopScope(
-            onPopInvokedWithResult: onPopInvoked,
+            onPopInvoked: onPopInvoked,
             canPop: canPop ?? true,
             child: child,
           )

@@ -133,7 +133,7 @@ class _StandardLineChartState extends State<StandardLineChart> {
       ),
       borderData: FlBorderData(
         show: true,
-        border: Border.all(color: Theme.of(context).colorScheme.surfaceContainerHighest),
+        border: Border.all(color: Theme.of(context).colorScheme.surfaceVariant),
       ),
       minX: minX,
       maxX: maxX,

@@ -476,8 +476,8 @@ class BetterAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// overall theme's brightness is [Brightness.light], and [ColorScheme.surface]
   /// if the overall theme's brightness is [Brightness.dark].
   ///
-  /// If this color is a [WidgetStateColor] it will be resolved against
-  /// [WidgetState.scrolledUnder] when the content of the app's
+  /// If this color is a [MaterialStateColor] it will be resolved against
+  /// [MaterialState.scrolledUnder] when the content of the app's
   /// primary scrollable overlaps the app bar.
   /// {@endtemplate}
   ///
@@ -774,10 +774,10 @@ class _BetterAppBarState extends State<BetterAppBar> {
     }
   }
 
-  Color _resolveColor(Set<WidgetState> states, Color? widgetColor, Color? themeColor, Color defaultColor) {
-    return WidgetStateProperty.resolveAs<Color?>(widgetColor, states) ??
-        WidgetStateProperty.resolveAs<Color?>(themeColor, states) ??
-        WidgetStateProperty.resolveAs<Color>(defaultColor, states);
+  Color _resolveColor(Set<MaterialState> states, Color? widgetColor, Color? themeColor, Color defaultColor) {
+    return MaterialStateProperty.resolveAs<Color?>(widgetColor, states) ??
+        MaterialStateProperty.resolveAs<Color?>(themeColor, states) ??
+        MaterialStateProperty.resolveAs<Color>(defaultColor, states);
   }
 
   SystemUiOverlayStyle _systemOverlayStyleForBrightness(Brightness brightness, [Color? backgroundColor]) {
@@ -803,8 +803,8 @@ class _BetterAppBarState extends State<BetterAppBar> {
     final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
 
     final FlexibleSpaceBarSettings? settings = context.dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>();
-    final Set<WidgetState> states = <WidgetState>{
-      if (settings?.isScrolledUnder ?? _scrolledUnder) WidgetState.scrolledUnder,
+    final Set<MaterialState> states = <MaterialState>{
+      if (settings?.isScrolledUnder ?? _scrolledUnder) MaterialState.scrolledUnder,
     };
 
     final bool hasDrawer = scaffold?.hasDrawer ?? false;
@@ -820,20 +820,11 @@ class _BetterAppBarState extends State<BetterAppBar> {
       defaults.backgroundColor!,
     );
 
-    final Color scrolledUnderBackground = _resolveColor(
-      states,
-      widget.backgroundColor,
-      appBarTheme.backgroundColor,
-      Theme.of(context).colorScheme.surfaceContainer,
-    );
-
-    final Color effectiveBackgroundColor = states.contains(WidgetState.scrolledUnder) ? scrolledUnderBackground : backgroundColor;
-
     final Color foregroundColor = widget.foregroundColor ?? appBarTheme.foregroundColor ?? defaults.foregroundColor!;
 
     final double elevation = widget.elevation ?? appBarTheme.elevation ?? defaults.elevation!;
 
-    final double effectiveElevation = states.contains(WidgetState.scrolledUnder)
+    final double effectiveElevation = states.contains(MaterialState.scrolledUnder)
         ? widget.scrolledUnderElevation ?? appBarTheme.scrolledUnderElevation ?? defaults.scrolledUnderElevation ?? elevation
         : elevation;
 
@@ -1083,7 +1074,7 @@ class _BetterAppBarState extends State<BetterAppBar> {
         appBarTheme.systemOverlayStyle ??
         defaults.systemOverlayStyle ??
         _systemOverlayStyleForBrightness(
-          ThemeData.estimateBrightnessForColor(effectiveBackgroundColor),
+          ThemeData.estimateBrightnessForColor(backgroundColor),
           // Make the status bar transparent for M3 so the elevation overlay
           // color is picked up by the statusbar.
           theme.useMaterial3 ? const Color(0x00000000) : null,
@@ -1094,17 +1085,11 @@ class _BetterAppBarState extends State<BetterAppBar> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: overlayStyle,
         child: Material(
-          color: theme.useMaterial3 ? effectiveBackgroundColor : backgroundColor,
+          color: backgroundColor,
           elevation: effectiveElevation,
           type: widget.forceMaterialTransparency ? MaterialType.transparency : MaterialType.canvas,
           shadowColor: widget.shadowColor ?? appBarTheme.shadowColor ?? defaults.shadowColor,
-          surfaceTintColor: widget.surfaceTintColor ??
-              appBarTheme.surfaceTintColor
-              // M3 `defaults.surfaceTint` is Colors.transparent now. It is not used
-              // here because otherwise, it will cause breaking change for
-              // `scrolledUnderElevation`.
-              ??
-              (theme.useMaterial3 ? theme.colorScheme.surfaceTint : null),
+          surfaceTintColor: widget.surfaceTintColor ?? appBarTheme.surfaceTintColor ?? defaults.surfaceTintColor,
           shape: widget.shape ?? appBarTheme.shape ?? defaults.shape,
           child: Semantics(
             explicitChildNodes: true,
@@ -1155,7 +1140,6 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     required this.forceMaterialTransparency,
     required this.clipBehavior,
     required this.variant,
-    required this.accessibleNavigation,
   })  : assert(primary || topPadding == 0.0),
         _bottomHeight = bottom?.preferredSize.height ?? 0.0;
 
@@ -1193,7 +1177,6 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final bool forceMaterialTransparency;
   final Clip? clipBehavior;
   final _SliverAppVariant variant;
-  final bool accessibleNavigation;
 
   @override
   double get minExtent => collapsedHeight;
@@ -1221,9 +1204,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 
     final bool isScrolledUnder = overlapsContent || forceElevated || (pinned && shrinkOffset > maxExtent - minExtent);
     final bool isPinnedWithOpacityFade = pinned && floating && bottom != null && extraToolbarHeight == 0.0;
-    final double toolbarOpacity = !accessibleNavigation && (!pinned || isPinnedWithOpacityFade)
-        ? clampDouble(visibleToolbarHeight / (toolbarHeight ?? kToolbarHeight), 0.0, 1.0)
-        : 1.0;
+    final double toolbarOpacity =
+        !pinned || isPinnedWithOpacityFade ? clampDouble(visibleToolbarHeight / (toolbarHeight ?? kToolbarHeight), 0.0, 1.0) : 1.0;
     final Widget? effectiveTitle = switch (variant) {
       _SliverAppVariant.small => title,
       _SliverAppVariant.medium || _SliverAppVariant.large => AnimatedOpacity(
@@ -1312,8 +1294,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         toolbarTextStyle != oldDelegate.toolbarTextStyle ||
         titleTextStyle != oldDelegate.titleTextStyle ||
         systemOverlayStyle != oldDelegate.systemOverlayStyle ||
-        forceMaterialTransparency != oldDelegate.forceMaterialTransparency ||
-        accessibleNavigation != oldDelegate.accessibleNavigation;
+        forceMaterialTransparency != oldDelegate.forceMaterialTransparency;
   }
 
   @override
@@ -1992,7 +1973,6 @@ class _BetterSliverAppBarState extends State<BetterSliverAppBar> with TickerProv
           forceMaterialTransparency: widget.forceMaterialTransparency,
           clipBehavior: widget.clipBehavior,
           variant: widget._variant,
-          accessibleNavigation: MediaQuery.of(context).accessibleNavigation,
         ),
       ),
     );
@@ -2203,48 +2183,42 @@ class _RenderExpandedTitleBox extends RenderShiftedBox {
     return child == null ? 0.0 : child.getMinIntrinsicWidth(double.infinity) + padding.horizontal;
   }
 
-  @override
-  Size computeDryLayout(BoxConstraints constraints) => child == null ? Size.zero : constraints.biggest;
-
-  Offset _childOffsetFromSize(Size childSize, Size size) {
-    assert(child != null);
-    assert(padding.isNonNegative);
-    assert(titleAlignment.y == 1.0);
-    // yAdjustment is the minimum additional y offset to shift the child in
-    // the visible vertical space when BetterAppBar is fully expanded. The goal is to
-    // prevent the expanded title from being clipped when the expanded title
-    // widget + the bottom padding is too tall to fit in the flexible space (the
-    // top padding is basically ignored since the expanded title is
-    // bottom-aligned).
-    final double yAdjustment = clampDouble(childSize.height + padding.bottom - maxExtent, 0, padding.bottom);
-    final double offsetX = (titleAlignment.x + 1) / 2 * (size.width - padding.horizontal - childSize.width) + padding.left;
-    final double offsetY = size.height - childSize.height - padding.bottom + yAdjustment;
-    return Offset(offsetX, offsetY);
-  }
-
-  @override
-  double? computeDryBaseline(covariant BoxConstraints constraints, TextBaseline baseline) {
+  Size _computeSize(BoxConstraints constraints, ChildLayouter layoutChild) {
     final RenderBox? child = this.child;
     if (child == null) {
-      return null;
+      return Size.zero;
     }
-    final BoxConstraints childConstraints = constraints.widthConstraints().deflate(padding);
-    final BaselineOffset result = BaselineOffset(child.getDryBaseline(childConstraints, baseline)) +
-        _childOffsetFromSize(child.getDryLayout(childConstraints), getDryLayout(constraints)).dy;
-    return result.offset;
+    layoutChild(child, constraints.widthConstraints().deflate(padding));
+    return constraints.biggest;
   }
+
+  @override
+  Size computeDryLayout(BoxConstraints constraints) => _computeSize(constraints, ChildLayoutHelper.dryLayoutChild);
 
   @override
   void performLayout() {
     final RenderBox? child = this.child;
     if (child == null) {
-      size = constraints.smallest;
+      this.size = constraints.smallest;
       return;
     }
-    size = constraints.biggest;
-    child.layout(constraints.widthConstraints().deflate(padding), parentUsesSize: true);
+    final Size size = this.size = _computeSize(constraints, ChildLayoutHelper.layoutChild);
+    final Size childSize = child.size;
+
+    assert(padding.isNonNegative);
+    assert(titleAlignment.y == 1.0);
+    // yAdjustement is the minimum additional y offset to shift the child in
+    // the visible vertical space when AppBar is fully expanded. The goal is to
+    // prevent the expanded title from being clipped when the expanded title
+    // widget + the bottom padding is too tall to fit in the flexible space (the
+    // top padding is basically ignored since the expanded title is
+    // bottom-aligned).
+    final double yAdjustement = clampDouble(childSize.height + padding.bottom - maxExtent, 0, padding.bottom);
+    final double offsetY = size.height - childSize.height - padding.bottom + yAdjustement;
+    final double offsetX = (titleAlignment.x + 1) / 2 * (size.width - padding.horizontal - childSize.width) + padding.left;
+
     final BoxParentData childParentData = child.parentData! as BoxParentData;
-    childParentData.offset = _childOffsetFromSize(child.size, size);
+    childParentData.offset = Offset(offsetX, offsetY);
   }
 }
 
@@ -2315,7 +2289,7 @@ class _AppBarDefaultsM3 extends AppBarTheme {
   Color? get shadowColor => Colors.transparent;
 
   @override
-  Color? get surfaceTintColor => Colors.transparent;
+  Color? get surfaceTintColor => _colors.surfaceTint;
 
   @override
   IconThemeData? get iconTheme => IconThemeData(
