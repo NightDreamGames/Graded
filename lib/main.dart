@@ -39,26 +39,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Settings.init();
-  Manager.init();
-
-  String initialRoute = "/";
-
-  if (getPreference<bool>("isFirstRun")) {
-    initialRoute = "/setupFirst";
-  }
 
   runApp(
-    AppContainer(initialRoute: initialRoute, key: appContainerKey),
+    AppContainer(key: appContainerKey),
   );
 }
 
 class AppContainer extends StatefulWidget {
   const AppContainer({
     super.key,
-    required this.initialRoute,
   });
-
-  final String initialRoute;
 
   @override
   State<AppContainer> createState() => _AppContainerState();
@@ -101,12 +91,18 @@ class _AppContainerState extends State<AppContainer> {
             },
             locale: provider.locale,
             debugShowCheckedModeBanner: false,
-            initialRoute: widget.initialRoute,
+            initialRoute: "/",
             onGenerateRoute: (RouteSettings settings) {
               lightHaptics();
               return createRoute(settings);
             },
             onGenerateInitialRoutes: (initialRoute) {
+              Manager.init();
+
+              if (getPreference<bool>("isFirstRun")) {
+                initialRoute = "/setupFirst";
+              }
+
               return [
                 createRoute(RouteSettings(name: initialRoute)),
               ];
