@@ -1,0 +1,12 @@
+## [2.7.0] - 2024-10-05
+
+### Added charts to visualise your progress and improved handling of saves
+
+- Add charts and graphs
+- Add iOS tinted and dark icons
+- Add reverse custom sorting
+- Optimize and unify the way data is saved
+- Improve robustness of data upgrade from old versions
+- Fix export missing keys
+- Streamline codebase
+- Various optimisations
