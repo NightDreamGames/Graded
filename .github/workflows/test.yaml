@@ -21,7 +21,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: stable
-          version: latest
+          version: 3.19.6
           cache: true
           cache-sdk: true
 
