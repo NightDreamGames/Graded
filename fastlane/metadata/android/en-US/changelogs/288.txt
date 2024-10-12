@@ -1,0 +1,5 @@
+## [2.7.1] - 2024-10-12
+
+### Quick hotfix
+
+- Fix UI issue when in Year mode
