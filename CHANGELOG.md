@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.1] - 2024-10-12
+
+### Quick hotfix
+
+- Fix UI issue when in Year mode
+
 ## [2.7.0] - 2024-10-05
 
 ### Added charts to visualise your progress and improved handling of saves
