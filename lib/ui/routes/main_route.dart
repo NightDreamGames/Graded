@@ -241,7 +241,7 @@ class RouteMaterialState extends State<RouteWidget> with TickerProviderStateMixi
         children = List.generate(
           tabCount,
           (index) {
-            final isYearOverview = index == tabCount - 1;
+            final isYearOverview = index == tabCount - 1 && tabCount > 1;
             return HomePage(
               year: getCurrentYear(),
               termIndex: isYearOverview ? 0 : index,
@@ -269,7 +269,7 @@ class RouteMaterialState extends State<RouteWidget> with TickerProviderStateMixi
 
         children = List.generate(tabCount, (index) {
           Year year = getCurrentYear();
-          final isYearOverview = index == tabCount - 1;
+          final isYearOverview = index == tabCount - 1 && tabCount > 1;
 
           if (widget.routeType == RouteType.chart || isYearOverview) {
             year = getYearOverview();

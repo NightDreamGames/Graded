@@ -105,14 +105,14 @@ class _HomePageState extends State<HomePage> {
                           showTutorial(context);
 
                           final Widget child = ResultRow(
-                            result: widget.year.isYearOverview
+                            result: widget.isYearOverview
                                 ? widget.year.yearOverview.getResultString()
                                 : widget.year.getTermResultString(widget.termIndex),
-                            preciseResult: widget.year.isYearOverview
+                            preciseResult: widget.isYearOverview
                                 ? widget.year.yearOverview.getResultString(precise: true)
                                 : widget.year.getTermResultString(widget.termIndex, precise: true),
                             leading: Text(
-                              widget.year.isYearOverview ? translations.yearly_average : translations.average,
+                              widget.isYearOverview ? translations.yearly_average : translations.average,
                               overflow: TextOverflow.fade,
                               softWrap: false,
                               style: Theme.of(context).textTheme.titleLarge,

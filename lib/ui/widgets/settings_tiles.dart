@@ -115,6 +115,7 @@ class TermCountSettingsTile extends StatelessWidget {
         1: translations.yearOne,
       },
       onChange: (value) {
+        Manager.currentTerm = 0;
         getCurrentYear().termCount = value;
         getCurrentYear().ensureTermCount();
         onChanged?.call();
