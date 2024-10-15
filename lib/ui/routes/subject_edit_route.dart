@@ -72,7 +72,7 @@ class _SubjectEditRouteState extends SpinningFabPage<SubjectEditRoute> {
     final String title = widget.creationType == CreationType.edit ? translations.edit_subjectOther : translations.add_subjectOther;
 
     return PopScope(
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (!didPop) return;
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
       },

@@ -37,10 +37,10 @@ class RouteWidget extends StatefulWidget {
   final Object? arguments;
 
   @override
-  State<RouteWidget> createState() => RouteMaterialState();
+  State<RouteWidget> createState() => RouteWidgetState();
 }
 
-class RouteMaterialState extends State<RouteWidget> with TickerProviderStateMixin {
+class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin {
   late TabController tabController;
   List<Widget> children = [];
   GlobalKey tabBarKey = GlobalKey();
@@ -132,7 +132,7 @@ class RouteMaterialState extends State<RouteWidget> with TickerProviderStateMixi
       resizeToAvoidBottomInset: false,
       body: PlatformWillPopScope(
         canPop: canPop,
-        onPopInvoked: (didPop) {
+        onPopInvoked: (didPop, _) {
           if (didPop) return;
           if (children.every((e) => e is HomePage) && tabController.length > 1 && tabController.index == tabController.length - 1) {
             int newIndex = tabController.previousIndex;

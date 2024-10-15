@@ -32,7 +32,7 @@ import "package:graded/ui/utilities/misc_utilities.dart";
 
 final GlobalKey appContainerKey = GlobalKey();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-GlobalKey<RouteMaterialState> mainRouteKey = GlobalKey();
+GlobalKey<RouteWidgetState> mainRouteKey = GlobalKey();
 final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
 void main() async {

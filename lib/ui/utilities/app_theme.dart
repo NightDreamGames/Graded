@@ -101,7 +101,7 @@ class AppTheme {
         space: 1,
         indent: 16,
         endIndent: 16,
-        color: colorScheme.surfaceVariant,
+        color: colorScheme.surfaceContainerHighest,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
@@ -165,9 +165,9 @@ class AppTheme {
         titleTextStyle: theme.appBarTheme.titleTextStyle,
       ),
       switchTheme: theme.switchTheme.copyWith(
-        thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.selected)) {
+        thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.selected)) {
               return const Icon(Icons.check);
             }
             return null;
