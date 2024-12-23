@@ -10,13 +10,13 @@ dependencies:
   animations: ^2.0.0
   collection: ^1.16.0
   decimal: ^3.0.0
-  device_info_plus: ^10.0.0
+  device_info_plus: ^11.0.0
   diacritic: ^0.1.0
   dynamic_color: ^1.4.0
   fading_edge_scrollview: ^4.0.0
-  fl_chart: ^0.69.0
+  fl_chart: ^0.70.0
   flex_color_picker: ^3.3.0
-  flex_color_scheme: ^7.3.1
+  flex_color_scheme: ^8.0.0
   flutter:
     sdk: flutter
   flutter_displaymode: ^0.6.0

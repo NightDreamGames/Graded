@@ -151,7 +151,6 @@ Route<dynamic> createRoute(RouteSettings settings) {
         routeType: RouteType.home,
         title: translations.subjectOther,
       );
-      break;
   }
 
   return MaterialPageRoute(

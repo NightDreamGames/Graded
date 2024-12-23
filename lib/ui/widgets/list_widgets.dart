@@ -69,7 +69,7 @@ class TextRow extends StatelessWidget {
               data: Theme.of(context).copyWith(
                 iconTheme: Theme.of(context).iconTheme.copyWith(
                       size: 24,
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                     ),
               ),
               child: trailing!,

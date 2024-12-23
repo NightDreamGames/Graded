@@ -100,13 +100,13 @@ class _StandardLineChartState extends State<StandardLineChart> {
         verticalInterval: widget.xGridInterval.toDouble(),
         getDrawingHorizontalLine: (value) {
           return FlLine(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
           return FlLine(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
             strokeWidth: 1,
           );
         },
@@ -168,14 +168,14 @@ class _StandardLineChartState extends State<StandardLineChart> {
           preventCurveOverShooting: true,
           belowBarData: BarAreaData(
             show: true,
-            color: Theme.of(context).colorScheme.primary.withOpacity(0.25),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.25),
           ),
         ),
         if (widget.showRollingAverage)
           LineChartBarData(
             spots: calculateRollingAverage(widget.spots, 2, minX: minX, maxX: maxX),
             isCurved: true,
-            color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+            color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
             barWidth: 3,
             isStrokeCapRound: true,
             preventCurveOverShooting: true,
@@ -183,7 +183,7 @@ class _StandardLineChartState extends State<StandardLineChart> {
             dotData: const FlDotData(show: false),
             belowBarData: BarAreaData(
               show: true,
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.25),
+              color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.25),
             ),
           ),
       ],

@@ -205,7 +205,7 @@ class _ColorBottomSheetState extends State<ColorBottomSheet> {
                   columnSpacing: 16,
                   wheelSquareBorderRadius: 16,
                   borderRadius: 16,
-                  colorCodePrefixStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.5)),
+                  colorCodePrefixStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
                   pickersEnabled: const <ColorPickerType, bool>{
                     ColorPickerType.primary: true,
                     ColorPickerType.wheel: true,
@@ -270,40 +270,28 @@ class SocialsBottomSheet extends StatelessWidget {
               onPressed: () {
                 launchURL(Link.twitter);
               },
-              icon: Icon(
-                CustomIcons.twitter,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+              icon: const Icon(CustomIcons.twitter),
               tooltip: translations.twitter,
             ),
             IconButton(
               onPressed: () {
                 launchURL(Link.instagram);
               },
-              icon: Icon(
-                CustomIcons.instagram,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+              icon: const Icon(CustomIcons.instagram),
               tooltip: translations.instagram,
             ),
             IconButton(
               onPressed: () {
                 launchURL(Link.facebook);
               },
-              icon: Icon(
-                CustomIcons.facebook,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+              icon: const Icon(CustomIcons.facebook),
               tooltip: translations.facebook,
             ),
             IconButton(
               onPressed: () {
                 launchURL(Link.linkedin);
               },
-              icon: Icon(
-                CustomIcons.linkedin,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+              icon: const Icon(CustomIcons.linkedin),
               tooltip: translations.linkedin,
             ),
           ],

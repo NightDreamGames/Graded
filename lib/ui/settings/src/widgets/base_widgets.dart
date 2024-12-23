@@ -180,14 +180,15 @@ class _SettingsTileState extends State<_SettingsTile> {
           title: Text(
             widget.title,
             style: widget.titleTextStyle ??
-                headerTextStyle(context)?.copyWith(color: !widget.enabled ? Theme.of(context).colorScheme.onSurface.withOpacity(0.3) : null),
+                headerTextStyle(context)?.copyWith(color: !widget.enabled ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3) : null),
           ),
           subtitle: widget.subtitle?.isEmpty ?? true
               ? null
               : Text(
                   widget.subtitle!,
                   style: widget.subtitleTextStyle ??
-                      subtitleTextStyle(context)?.copyWith(color: !widget.enabled ? Theme.of(context).colorScheme.onSurface.withOpacity(0.3) : null),
+                      subtitleTextStyle(context)
+                          ?.copyWith(color: !widget.enabled ? Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.3) : null),
                 ),
           enabled: widget.enabled,
           onTap: widget.onTap,

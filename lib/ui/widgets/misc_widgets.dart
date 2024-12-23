@@ -140,11 +140,11 @@ ButtonStyle getTonalButtonStyle(BuildContext context) {
   return IconButton.styleFrom(
     foregroundColor: colorScheme.onSecondaryContainer,
     backgroundColor: colorScheme.secondaryContainer,
-    disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38),
-    disabledBackgroundColor: colorScheme.onSurface.withOpacity(0.12),
-    hoverColor: colorScheme.onSecondaryContainer.withOpacity(0.08),
-    focusColor: colorScheme.onSecondaryContainer.withOpacity(0.12),
-    highlightColor: colorScheme.onSecondaryContainer.withOpacity(0.12),
+    disabledForegroundColor: colorScheme.onSurface.withValues(alpha: 0.38),
+    disabledBackgroundColor: colorScheme.onSurface.withValues(alpha: 0.12),
+    hoverColor: colorScheme.onSecondaryContainer.withValues(alpha: 0.08),
+    focusColor: colorScheme.onSecondaryContainer.withValues(alpha: 0.12),
+    highlightColor: colorScheme.onSecondaryContainer.withValues(alpha: 0.12),
   );
 }
 

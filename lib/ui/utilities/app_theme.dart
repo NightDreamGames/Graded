@@ -1,4 +1,5 @@
 // Flutter imports:
+import "package:dynamic_color/dynamic_color.dart";
 import "package:flutter/material.dart";
 
 // Package imports:
@@ -7,6 +8,7 @@ import "package:flex_color_scheme/flex_color_scheme.dart";
 
 // Project imports:
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/widgets/better_predictive_transition.dart";
 
 class AppTheme {
   static ColorScheme? lightColorScheme;
@@ -18,7 +20,7 @@ class AppTheme {
     darkColorScheme = dark;
     hasDynamicColor = light != null;
 
-    final ColorScheme colorScheme = brightness == Brightness.light ? lightTheme() : darkTheme();
+    ColorScheme colorScheme = brightness == Brightness.light ? lightTheme() : darkTheme();
 
     ThemeData theme;
     String? fontFamily = getPreference<String>("font");
@@ -26,26 +28,24 @@ class AppTheme {
 
     if (brightness == Brightness.light) {
       theme = FlexColorScheme.light(
-        useMaterial3: true,
         colorScheme: colorScheme,
         fontFamily: fontFamily,
         subThemesData: const FlexSubThemesData(
           popupMenuRadius: 8,
-          appBarCenterTitle: false,
         ),
       ).toTheme;
     } else {
       theme = FlexColorScheme.dark(
-        useMaterial3: true,
         colorScheme: colorScheme,
         fontFamily: fontFamily,
         darkIsTrueBlack: getPreference<bool>("amoled"),
         subThemesData: const FlexSubThemesData(
           popupMenuRadius: 8,
-          appBarCenterTitle: false,
         ),
       ).toTheme;
     }
+
+    colorScheme = theme.colorScheme;
 
     final TextTheme textTheme = theme.textTheme.copyWith(
       titleLarge: theme.textTheme.titleLarge?.copyWith(
@@ -91,7 +91,7 @@ class AppTheme {
         shape: const Border(),
         collapsedShape: const Border(),
         iconColor: colorScheme.primary,
-        collapsedIconColor: colorScheme.onSurface.withOpacity(0.5),
+        collapsedIconColor: colorScheme.onSurface.withValues(alpha: 0.5),
       ),
       cardTheme: theme.cardTheme.copyWith(
         clipBehavior: Clip.antiAlias,
@@ -101,11 +101,10 @@ class AppTheme {
         space: 1,
         indent: 16,
         endIndent: 16,
-        color: colorScheme.surfaceContainerHighest,
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
-          TargetPlatform.android: SharedAxisTransitionBuilder(),
+          TargetPlatform.android: BetterPredictiveBackPageTransitionsBuilder(),
           TargetPlatform.windows: SharedAxisTransitionBuilder(),
           TargetPlatform.linux: SharedAxisTransitionBuilder(),
           TargetPlatform.fuchsia: SharedAxisTransitionBuilder(),
@@ -147,22 +146,9 @@ class AppTheme {
         ),
         actionTextColor: colorScheme.inversePrimary,
       ),
-      appBarTheme: AppBarTheme(
-        // ignore: avoid_redundant_argument_values
-        systemOverlayStyle: null,
-        actionsIconTheme: theme.appBarTheme.actionsIconTheme,
-        backgroundColor: theme.appBarTheme.backgroundColor,
-        centerTitle: theme.appBarTheme.centerTitle,
-        elevation: theme.appBarTheme.elevation,
-        foregroundColor: theme.appBarTheme.foregroundColor,
-        iconTheme: theme.appBarTheme.iconTheme,
-        shadowColor: theme.appBarTheme.shadowColor,
-        titleSpacing: theme.appBarTheme.titleSpacing, scrolledUnderElevation: theme.appBarTheme.scrolledUnderElevation,
-        shape: theme.appBarTheme.shape,
-        surfaceTintColor: theme.appBarTheme.surfaceTintColor,
-        toolbarHeight: theme.appBarTheme.toolbarHeight,
-        toolbarTextStyle: theme.appBarTheme.toolbarTextStyle,
-        titleTextStyle: theme.appBarTheme.titleTextStyle,
+      appBarTheme: theme.appBarTheme.copyWith(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        centerTitle: false,
       ),
       switchTheme: theme.switchTheme.copyWith(
         thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
@@ -179,24 +165,53 @@ class AppTheme {
   }
 
   static ColorScheme lightTheme() {
-    final seedColor = Color(getPreference<int>("customColor"));
+    if (lightColorScheme != null && getPreference<bool>("dynamicColor")) {
+      final ColorScheme lightBase = ColorScheme.fromSeed(seedColor: lightColorScheme!.primary);
+      final List<Color> lightAdditionalColors = _extractAdditionalColors(lightBase);
+      final ColorScheme lightScheme = _insertAdditionalColors(lightBase, lightAdditionalColors);
 
-    final ColorScheme scheme =
-        lightColorScheme != null && getPreference<bool>("dynamicColor") ? lightColorScheme! : ColorScheme.fromSeed(seedColor: seedColor);
-
-    return scheme;
+      return lightScheme.harmonized();
+    } else {
+      final seedColor = Color(getPreference<int>("customColor"));
+      return ColorScheme.fromSeed(seedColor: seedColor);
+    }
   }
 
   static ColorScheme darkTheme() {
-    final seedColor = Color(getPreference<int>("customColor"));
+    if (darkColorScheme != null && getPreference<bool>("dynamicColor")) {
+      final ColorScheme darkBase = ColorScheme.fromSeed(seedColor: darkColorScheme!.primary, brightness: Brightness.dark);
+      final List<Color> darkAdditionalColors = _extractAdditionalColors(darkBase);
+      final ColorScheme darkScheme = _insertAdditionalColors(darkBase, darkAdditionalColors);
 
-    final ColorScheme scheme = darkColorScheme != null && getPreference<bool>("dynamicColor")
-        ? darkColorScheme!
-        : ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark);
-
-    return scheme;
+      return darkScheme.harmonized();
+    } else {
+      final seedColor = Color(getPreference<int>("customColor"));
+      return ColorScheme.fromSeed(seedColor: seedColor, brightness: Brightness.dark);
+    }
   }
 }
+
+List<Color> _extractAdditionalColors(ColorScheme scheme) => [
+      scheme.surface,
+      scheme.surfaceDim,
+      scheme.surfaceBright,
+      scheme.surfaceContainerLowest,
+      scheme.surfaceContainerLow,
+      scheme.surfaceContainer,
+      scheme.surfaceContainerHigh,
+      scheme.surfaceContainerHighest,
+    ];
+
+ColorScheme _insertAdditionalColors(ColorScheme scheme, List<Color> additionalColors) => scheme.copyWith(
+      surface: additionalColors[0],
+      surfaceDim: additionalColors[1],
+      surfaceBright: additionalColors[2],
+      surfaceContainerLowest: additionalColors[3],
+      surfaceContainerLow: additionalColors[4],
+      surfaceContainer: additionalColors[5],
+      surfaceContainerHigh: additionalColors[6],
+      surfaceContainerHighest: additionalColors[7],
+    );
 
 class SharedAxisTransitionBuilder extends PageTransitionsBuilder {
   const SharedAxisTransitionBuilder();

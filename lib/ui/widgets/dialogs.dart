@@ -302,7 +302,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                         animationController.reverse();
                       }
                     },
-                    color: isExpanded ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                    color: isExpanded ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                     icon: const Icon(Icons.expand_more),
                     tooltip: translations.expand,
                   ),
