@@ -141,3 +141,7 @@ dynamic replaceKeysInJson(dynamic jsonData, String target, String replacement) {
     return jsonData;
   }
 }
+
+int floatToInt8(double x) {
+  return (x * 255.0).round() & 0xff;
+}

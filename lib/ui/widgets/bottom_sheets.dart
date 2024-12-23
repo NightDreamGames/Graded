@@ -223,7 +223,13 @@ class _ColorBottomSheetState extends State<ColorBottomSheet> {
                   context,
                 )
                     .then((_) {
-                  setPreference<int>("customColor", selectedColor.value);
+                  setPreference<int>(
+                    "customColor",
+                    floatToInt8(selectedColor.a) << 24 |
+                        floatToInt8(selectedColor.r) << 16 |
+                        floatToInt8(selectedColor.g) << 8 |
+                        floatToInt8(selectedColor.b) << 0,
+                  );
                   widget.onChanged?.call();
                 });
               },
