@@ -182,6 +182,8 @@
     "round_to": "Round to",
     "rounding_mode": "Rounding mode",
     "save": "Save",
+    "scale_up_tests": "Scale up tests",
+    "scale_up_tests_description": "Scale up tests to the max. grade before calculating the average",
     "school_system": "School system",
     "school_termOne": "School term",
     "school_termOther": "School terms",
