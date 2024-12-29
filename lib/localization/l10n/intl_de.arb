@@ -182,6 +182,8 @@
     "round_to": "Runden bis",
     "rounding_mode": "Abrundungsmodus",
     "save": "Speichern",
+    "scale_up_tests": "Prüfungen skalieren",
+    "scale_up_tests_description": "Prüfungen zur max. Note skalieren bevor der Durchschnitt berechnet wird",
     "school_system": "Schulsystem",
     "school_termOne": "Schulperiode",
     "school_termOther": "Schulperioden",
