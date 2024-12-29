@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Mostly technology upgrades
 
 - Add an option to scale up tests before calculating the average
+- Fix some TextField focus continuity issues
 - Theming improvements for more contrast
 - Upgrade to Flutter 3.27
 - Change rendering engine to Impeller for better rendering performance on every platform

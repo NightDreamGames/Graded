@@ -195,6 +195,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
   late final Animation<double> expandAnimation;
 
   final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
+  final FocusNode weightFocus = FocusNode();
 
   late final CreationType action;
   late bool isSpeaking;
@@ -283,6 +284,14 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                 hint: Calculator.format(getCurrentYear().maxGrade, roundToOverride: 1),
                 numeric: true,
                 signed: false,
+                textInputAction: isExpanded ? TextInputAction.next : TextInputAction.done,
+                onSubmitted: () {
+                  if (isExpanded) {
+                    FocusScope.of(context).requestFocus(weightFocus);
+                  } else {
+                    dialogKey.currentState?.submit();
+                  }
+                },
                 additionalValidator: (value) => thresholdValidator(value, inclusive: false),
               ),
               Padding(
@@ -323,6 +332,7 @@ class _TestDialogState extends State<TestDialog> with TickerProviderStateMixin {
                 ),
                 EasyFormField(
                   controller: weightController,
+                  focusNode: weightFocus,
                   label: translations.coefficientOne,
                   hint: Calculator.format(DefaultValues.weight, leadingZero: false, roundToOverride: 1),
                   numeric: true,
@@ -621,8 +631,8 @@ class _BonusDialogState extends State<BonusDialog> {
                 label: translations.bonus,
                 hint: Calculator.format(DefaultValues.bonus, leadingZero: false, roundToOverride: 1),
                 numeric: true,
+                onSubmitted: () => dialogKey.currentState?.submit(),
                 autofocus: true,
-                textInputAction: TextInputAction.next,
               ),
               const Padding(padding: EdgeInsets.only(left: 8)),
               IconButton(
