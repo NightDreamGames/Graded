@@ -47,7 +47,7 @@ void main() async {
     expect(Calculator.calculate(clampingList, clamp: false), equals(115));
 
     expect(Calculator.calculate(scaleUpTestsList, precise: true), equals(72));
-    getCurrentYear().scaleUpTests = false;
+    getCurrentYear().scaleUpTests = true;
     expect(Calculator.calculate(scaleUpTestsList, precise: true), equals(67.5));
   });
 
