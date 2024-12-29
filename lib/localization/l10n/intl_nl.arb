@@ -182,6 +182,8 @@
     "round_to": "Rond naar",
     "rounding_mode": "Ronde modus",
     "save": "Opslaan",
+    "scale_up_tests": "Toetsen opschalen",
+    "scale_up_tests_description": "Toetsen opschalen tot het max. cijfer voordat het gemiddelde wordt berekend",
     "school_system": "Schoolsysteem",
     "school_termOne": "Schoolperiode",
     "school_termOther": "Schoolperioden",
