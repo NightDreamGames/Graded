@@ -19,6 +19,7 @@ class DefaultValues {
   static const String roundingMode = RoundingMode.up;
   static const int roundTo = 1;
   static const int preciseRoundToMultiplier = 10;
+  static const bool scaleUpTests = false;
   static const double weight = 1.0;
   static const double bonus = 1;
   static const double speakingWeight = 3.0;
@@ -63,6 +64,7 @@ const Map<String, dynamic> defaultValues = {
   "roundingMode": RoundingMode.up,
   "roundTo": 1,
   "preciseRoundToMultiplier": 10,
+  "scaleUpTests": false,
   "weight": 1.0,
   "speakingWeight": 3.0,
   "examWeight": 2.0,

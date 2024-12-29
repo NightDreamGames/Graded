@@ -181,6 +181,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "rounding_mode":
             MessageLookupByLibrary.simpleMessage("Ofronnungsmodus"),
         "save": MessageLookupByLibrary.simpleMessage("Späicheren"),
+        "scale_up_tests":
+            MessageLookupByLibrary.simpleMessage("Prüfungen skaléieren"),
+        "scale_up_tests_description": MessageLookupByLibrary.simpleMessage(
+            "Prüfungen zur max. Notte skaléieren virun dass d\'Moyenne gerechent gëtt"),
         "school_system": MessageLookupByLibrary.simpleMessage("Schoulsystem"),
         "school_termOne": MessageLookupByLibrary.simpleMessage("Schoulperiod"),
         "school_termOther":

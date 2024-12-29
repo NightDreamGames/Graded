@@ -174,6 +174,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "round_to": MessageLookupByLibrary.simpleMessage("Round to"),
         "rounding_mode": MessageLookupByLibrary.simpleMessage("Rounding mode"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "scale_up_tests":
+            MessageLookupByLibrary.simpleMessage("Scale up tests"),
+        "scale_up_tests_description": MessageLookupByLibrary.simpleMessage(
+            "Scale up tests to the max. grade before calculating the average"),
         "school_system": MessageLookupByLibrary.simpleMessage("School system"),
         "school_termOne": MessageLookupByLibrary.simpleMessage("School term"),
         "school_termOther":

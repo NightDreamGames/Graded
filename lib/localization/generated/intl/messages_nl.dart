@@ -177,6 +177,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "round_to": MessageLookupByLibrary.simpleMessage("Rond naar"),
         "rounding_mode": MessageLookupByLibrary.simpleMessage("Ronde modus"),
         "save": MessageLookupByLibrary.simpleMessage("Opslaan"),
+        "scale_up_tests":
+            MessageLookupByLibrary.simpleMessage("Toetsen opschalen"),
+        "scale_up_tests_description": MessageLookupByLibrary.simpleMessage(
+            "Toetsen opschalen tot het max. cijfer voordat het gemiddelde wordt berekend"),
         "school_system": MessageLookupByLibrary.simpleMessage("Schoolsysteem"),
         "school_termOne": MessageLookupByLibrary.simpleMessage("Schoolperiode"),
         "school_termOther":

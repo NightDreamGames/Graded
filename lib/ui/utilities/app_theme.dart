@@ -1,9 +1,9 @@
 // Flutter imports:
-import "package:dynamic_color/dynamic_color.dart";
 import "package:flutter/material.dart";
 
 // Package imports:
 import "package:animations/animations.dart";
+import "package:dynamic_color/dynamic_color.dart";
 import "package:flex_color_scheme/flex_color_scheme.dart";
 
 // Project imports:

@@ -1280,6 +1280,26 @@ class TranslationsClass {
     );
   }
 
+  /// `Scale up tests`
+  String get scale_up_tests {
+    return Intl.message(
+      'Scale up tests',
+      name: 'scale_up_tests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scale up tests to the max. grade before calculating the average`
+  String get scale_up_tests_description {
+    return Intl.message(
+      'Scale up tests to the max. grade before calculating the average',
+      name: 'scale_up_tests_description',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `School system`
   String get school_system {
     return Intl.message(

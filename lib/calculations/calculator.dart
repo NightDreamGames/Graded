@@ -99,7 +99,8 @@ class Calculator {
 
     if (data.isEmpty || isNullFilled) return null;
 
-    final double maxGrade = Manager.years.isNotEmpty ? getCurrentYear().maxGrade : getPreference("maxGrade");
+    final double maxGrade = Manager.years.isNotEmpty ? getCurrentYear().maxGrade : getPreference<double>("maxGrade");
+    final bool scaleUpTests = Manager.years.isNotEmpty ? getCurrentYear().scaleUpTests : getPreference<bool>("scaleUpTests");
 
     double totalNumerator = 0;
     double totalDenominator = 0;
@@ -107,12 +108,17 @@ class Calculator {
     double totalDenominatorSpeaking = 0;
 
     for (final CalculationObject c in data.where((element) => element.numerator != null && element.denominator != 0)) {
+      final double maxGradeMultiplier = scaleUpTests ? maxGrade / c.denominator : 1;
+
+      final double weightedNumerator = c.numerator! * c.weight * maxGradeMultiplier;
+      final double weightedDenominator = c.denominator * c.weight * maxGradeMultiplier;
+
       if (c is Test && c.isSpeaking) {
-        totalNumeratorSpeaking += c.numerator! * c.weight;
-        totalDenominatorSpeaking += c.denominator * c.weight;
+        totalNumeratorSpeaking += weightedNumerator;
+        totalDenominatorSpeaking += weightedDenominator;
       } else {
-        totalNumerator += c.numerator! * c.weight;
-        totalDenominator += c.denominator * c.weight;
+        totalNumerator += weightedNumerator;
+        totalDenominator += weightedDenominator;
       }
     }
 

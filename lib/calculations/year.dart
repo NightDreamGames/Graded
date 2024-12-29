@@ -23,6 +23,7 @@ class Year extends CalculationObject {
   double maxGrade = DefaultValues.maxGrade;
   String roundingMode = DefaultValues.roundingMode;
   int roundTo = DefaultValues.roundTo;
+  bool scaleUpTests = DefaultValues.scaleUpTests;
 
   bool isYearOverview = false;
   bool hasBeenSortedCustom = false;
@@ -174,6 +175,7 @@ class Year extends CalculationObject {
     maxGrade = json["maxGrade"] as double? ?? DefaultValues.maxGrade;
     roundingMode = json["roundingMode"] as String? ?? DefaultValues.roundingMode;
     roundTo = json["roundTo"] as int? ?? DefaultValues.roundTo;
+    scaleUpTests = (json["scaleUpTests"] as bool?) ?? DefaultValues.scaleUpTests;
 
     hasBeenSortedCustom = (json["hasBeenSortedCustom"] as bool?) ?? DefaultValues.hasBeenSortedCustom;
   }
@@ -184,6 +186,7 @@ class Year extends CalculationObject {
         "maxGrade": maxGrade,
         "roundingMode": roundingMode,
         "roundTo": roundTo,
+        "scaleUpTests": scaleUpTests,
         "validatedSchoolSystem": validatedSchoolSystem,
         "validatedLuxSystem": validatedLuxSystem,
         "validatedYear": validatedYear,

@@ -30,6 +30,7 @@ void main() async {
     final List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(65.9, 70), Test(50, 55)];
     final List<CalculationObject> speakingList = [Test(0, 60, isSpeaking: true), Test(60, 60)];
     final List<CalculationObject> clampingList = [Test(80, 100), Test(150, 100)];
+    final List<CalculationObject> scaleUpTestsList = [Test(30, 40), Test(06, 10)];
 
     expect(Calculator.calculate([]), equals(null));
     expect(Calculator.calculate(emptyList), equals(null));
@@ -44,6 +45,10 @@ void main() async {
 
     expect(Calculator.calculate(clampingList), equals(100));
     expect(Calculator.calculate(clampingList, clamp: false), equals(115));
+
+    expect(Calculator.calculate(scaleUpTestsList, precise: true), equals(72));
+    getCurrentYear().scaleUpTests = false;
+    expect(Calculator.calculate(scaleUpTestsList, precise: true), equals(67.5));
   });
 
   test("Number formatting", () {

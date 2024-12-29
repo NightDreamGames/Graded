@@ -91,6 +91,20 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
         onChanged?.call();
       },
     ),
+    SwitchSettingsTile(
+      title: translations.scale_up_tests,
+      subtitle: translations.scale_up_tests_description,
+      icon: Icons.scale,
+      settingKey: "scaleUpTests",
+      // ignore: avoid_redundant_argument_values
+      defaultValue: DefaultValues.scaleUpTests,
+      onChange: (value) {
+        getCurrentYear().scaleUpTests = value;
+
+        Manager.calculate();
+        onChanged?.call();
+      },
+    ),
   ];
 }
 
