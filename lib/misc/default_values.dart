@@ -21,7 +21,7 @@ class DefaultValues {
   static const int preciseRoundToMultiplier = 10;
   static const bool scaleUpTests = false;
   static const double weight = 1.0;
-  static const double bonus = 1;
+  static const double bonus = 0;
   static const double speakingWeight = 3.0;
   static const double examWeight = 2.0;
   static const bool leadingZero = true;
