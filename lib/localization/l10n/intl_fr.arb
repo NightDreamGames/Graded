@@ -189,6 +189,8 @@
     "round_to": "Arrondir à",
     "rounding_mode": "Mode arrondissage",
     "save": "Sauvegarder",
+    "scale_up_tests": "Étendre les devoirs",
+    "scale_up_tests_description": "Étendre les devoirs à la note max. avant de calculer la moyenne",
     "school_system": "Système scolaire",
     "school_termOne": "Période scolaire",
     "school_termMany": "Périodes scolaires",
