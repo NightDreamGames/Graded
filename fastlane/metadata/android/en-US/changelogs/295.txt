@@ -1,0 +1,6 @@
+## [2.7.3] - 2025-01-22
+
+### Hotfix
+
+- Disable Predictive Back animation for now, as it causes crashes on some devices
+- Upgrade Flutter version, fixes janky TabBar animation
