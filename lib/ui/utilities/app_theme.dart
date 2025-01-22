@@ -160,6 +160,9 @@ class AppTheme {
           },
         ),
       ),
+      bottomSheetTheme: theme.bottomSheetTheme.copyWith(
+        clipBehavior: Clip.antiAlias,
+      ),
       //platform: TargetPlatform.iOS,
     );
   }

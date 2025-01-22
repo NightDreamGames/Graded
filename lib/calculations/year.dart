@@ -120,13 +120,15 @@ class Year extends CalculationObject {
     calculate();
   }
 
-  (int, int?) getIndexesFromFlattened(int absoluteIndex, {int addedIndex = 0}) {
+  (int, int?) getIndexesFromFlattened(int absoluteIndex, {int addedIndex = 0, List<Subject>? subjectData, List<List<Subject>>? childrenData}) {
     int subjectCount = 0;
     int index1 = 0;
     int? index2;
+    subjectData ??= subjects;
+    childrenData ??= subjectData.map((element) => element.children).toList();
 
-    for (int i = 0; i < subjects.length; i++) {
-      final int childCount = subjects[i].children.length;
+    for (int i = 0; i < subjectData.length; i++) {
+      final int childCount = childrenData[i].length;
       if (subjectCount + childCount + (childCount > 0 ? addedIndex : 0) >= absoluteIndex) break;
 
       subjectCount += childCount;

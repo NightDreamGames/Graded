@@ -83,7 +83,7 @@ Widget getBottomWidget(String value, TitleMeta meta) {
   text = Text(value, style: style);
 
   return SideTitleWidget(
-    axisSide: meta.axisSide,
+    meta: meta,
     child: text,
   );
 }
