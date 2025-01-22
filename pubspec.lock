@@ -766,10 +766,10 @@ packages:
     dependency: "direct main"
     description:
       name: showcaseview
-      sha256: f236c1f44b286e1ba888f8701adca067af92c33e29ea937d0fe9b4a29d4cd41e
+      sha256: "40a93e57cd7da12653eea6048c92382c6e58d57480317e679aae71dd3180b852"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "4.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

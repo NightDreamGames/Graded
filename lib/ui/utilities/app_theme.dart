@@ -104,7 +104,9 @@ class AppTheme {
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
-          TargetPlatform.android: BetterPredictiveBackPageTransitionsBuilder(),
+          // TODO: Uncomment when Flutter fixes Predictive Back Animation
+          // TargetPlatform.android: BetterPredictiveBackPageTransitionsBuilder(),
+          TargetPlatform.android: SharedAxisTransitionBuilder(),
           TargetPlatform.windows: SharedAxisTransitionBuilder(),
           TargetPlatform.linux: SharedAxisTransitionBuilder(),
           TargetPlatform.fuchsia: SharedAxisTransitionBuilder(),

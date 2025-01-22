@@ -1,7 +1,7 @@
 name: graded
 description: Track and manage your school grades with ease
 publish_to: "none"
-version: 2.7.2+293
+version: 2.7.3+293
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
@@ -29,7 +29,7 @@ dependencies:
   package_info_plus: ^8.0.0
   provider: ^6.0.0
   shared_preferences: ^2.0.0
-  showcaseview: ^3.0.0
+  showcaseview: ^4.0.0
   sliver_tools: ^0.2.0
   url_launcher: ^6.0.0
 
