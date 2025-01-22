@@ -8,7 +8,6 @@ import "package:flex_color_scheme/flex_color_scheme.dart";
 
 // Project imports:
 import "package:graded/misc/storage.dart";
-import "package:graded/ui/widgets/better_predictive_transition.dart";
 
 class AppTheme {
   static ColorScheme? lightColorScheme;
