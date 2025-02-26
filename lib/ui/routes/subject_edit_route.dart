@@ -8,7 +8,7 @@ import "package:showcaseview/showcaseview.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/utilities/hints.dart";

@@ -2,7 +2,7 @@
 import "package:flutter/material.dart";
 
 // Project imports:
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/main.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";

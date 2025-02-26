@@ -2,7 +2,7 @@
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 
 String getHint(String prefix, Iterable<CalculationObject> data) {
   String hint = "";

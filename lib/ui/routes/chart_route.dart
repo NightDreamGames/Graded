@@ -7,7 +7,7 @@ import "package:flutter/material.dart";
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/ui/utilities/chart_utilities.dart";
 import "package:graded/ui/widgets/charts.dart";
 import "package:graded/ui/widgets/custom_safe_area.dart";

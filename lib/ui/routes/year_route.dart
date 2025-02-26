@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/year.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/main.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/utilities/haptics.dart";

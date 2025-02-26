@@ -7,7 +7,7 @@ import "package:provider/provider.dart";
 
 // Project imports:
 import "package:graded/calculations/manager.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/main.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";

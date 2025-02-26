@@ -13,9 +13,9 @@ import "package:provider/provider.dart";
 // Project imports:
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
-import "package:graded/localization/generated/l10n.dart";
-import "package:graded/localization/material_localization/lb_intl.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/generated/l10n.dart";
+import "package:graded/l10n/material_localization/lb_intl.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/locale_provider.dart";

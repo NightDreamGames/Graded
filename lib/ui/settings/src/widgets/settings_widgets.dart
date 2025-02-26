@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/settings/src/utils/widget_utils.dart";

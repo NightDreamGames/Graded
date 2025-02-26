@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 import "package:flex_color_picker/flex_color_picker.dart";
 
 // Project imports:
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
 import "package:graded/ui/utilities/app_theme.dart";

@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 import "package:intl/locale.dart" as intl;
 
 // Project imports:
-import "package:graded/localization/generated/l10n.dart";
+import "package:graded/l10n/generated/l10n.dart";
 import "package:graded/misc/default_values.dart";
 
 class LocaleProvider with ChangeNotifier {

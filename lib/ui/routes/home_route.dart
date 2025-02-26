@@ -9,7 +9,7 @@ import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/year.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/misc/storage.dart";
 import "package:graded/ui/widgets/custom_safe_area.dart";
 import "package:graded/ui/widgets/dialogs.dart";

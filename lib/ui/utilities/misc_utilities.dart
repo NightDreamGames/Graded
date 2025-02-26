@@ -9,7 +9,7 @@ import "package:url_launcher/url_launcher.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 
 enum Link { website, appstore, github, email, issueTracker, translate, twitter, instagram, linkedin, facebook }
 

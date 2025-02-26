@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 
 class EasyFormField extends StatelessWidget {

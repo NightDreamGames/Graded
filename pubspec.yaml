@@ -93,8 +93,8 @@ flutter_intl:
   enabled: true
   class_name: TranslationsClass
   main_locale: en_GB
-  arb_dir: lib/localization/l10n
-  output_dir: lib/localization/generated
+  arb_dir: lib/l10n/arb
+  output_dir: lib/l10n/generated
 
 icons_launcher:
   image_path: "assets/icons/icon.png"
@@ -130,6 +130,6 @@ flutter_native_splash:
 
 import_sorter:
   ignored_files:
-    - \/lib\\localization\\.*
+    - \/lib\\l10n\\.*
     - \/lib\\ui\\utilities\\custom_icons.dart
 

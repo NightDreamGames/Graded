@@ -11,7 +11,7 @@ import "package:collection/collection.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/year.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
@@ -228,8 +228,8 @@ class SetupManager {
     final json = jsonDecode(data) as List;
 
     final Map<String, dynamic> classObject = json[binarySearch(
-      json,
-      {"name": className},
+              json,
+              {"name": className},
       compare: (element1, element2) =>
           ((element1! as Map<String, dynamic>)["name"] as String).compareTo((element2! as Map<String, dynamic>)["name"] as String),
     )] as Map<String, dynamic>;

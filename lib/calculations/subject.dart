@@ -132,7 +132,11 @@ class Subject extends CalculationObject {
     }
     if (json["children"] != null && json["children"] is List && (json["children"] as List).isNotEmpty) {
       final childrenList = json["children"] as List;
-      children = childrenList.map((childJson) => Subject.fromJson(childJson as Map<String, dynamic>)..isChild = true).toList();
+      children = childrenList
+          .map(
+            (childJson) => Subject.fromJson(childJson as Map<String, dynamic>)..isChild = true,
+          )
+          .toList();
     }
 
     isGroup = json["isGroup"] as bool? ?? false;

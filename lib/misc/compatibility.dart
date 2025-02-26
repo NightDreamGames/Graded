@@ -4,7 +4,7 @@
 import "dart:convert";
 
 // Project imports:
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/setup_manager.dart";
 import "package:graded/misc/storage.dart";

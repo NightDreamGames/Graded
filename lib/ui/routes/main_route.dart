@@ -8,7 +8,7 @@ import "package:sliver_tools/sliver_tools.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/year.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/routes/chart_route.dart";
 import "package:graded/ui/routes/home_route.dart";

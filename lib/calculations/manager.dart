@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/test.dart";
 import "package:graded/calculations/year.dart";
-import "package:graded/localization/translations.dart";
+import "package:graded/l10n/translations.dart";
 import "package:graded/main.dart";
 import "package:graded/misc/compatibility.dart";
 import "package:graded/misc/setup_manager.dart";
