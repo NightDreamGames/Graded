@@ -937,7 +937,7 @@ class CheckboxSettingsTile extends StatelessWidget {
 ///
 /// For example if the required value type is a boolean then the values map can
 /// be as following:
-///  <bool, String> {
+///  `<bool, String>` {
 ///     true: 'Enabled',
 ///     false: 'Disabled'
 ///  }
@@ -1103,7 +1103,7 @@ class _RadioSettingsTileState<T> extends State<RadioSettingsTile<T>> {
 ///
 /// For example if the required value type is a boolean then the values map can
 /// be as following:
-///  <bool, String> {
+///  `<bool, String>` {
 ///     true: 'Enabled',
 ///     false: 'Disabled'
 ///  }

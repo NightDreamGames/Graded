@@ -82,7 +82,7 @@ class EasyDialogState extends State<EasyDialog> {
                 ),
               ),
               TextButton(
-                onPressed: () async {
+                onPressed: () {
                   submit();
                 },
                 child: Text(

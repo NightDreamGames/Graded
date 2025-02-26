@@ -24,7 +24,7 @@ void main() async {
   Manager.init();
   Manager.addYear(year: Year());
 
-  test("Calculations", () async {
+  test("Calculations", () {
     final List<CalculationObject> emptyList = [Test(null, 0), Test(null, 0), Test(null, 0)];
     final List<CalculationObject> oneItemList = [Test(80, 100)];
     final List<CalculationObject> multipleItemsList = [Test(47.5, 50), Test(65.9, 70), Test(50, 55)];

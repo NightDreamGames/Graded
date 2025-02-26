@@ -4,7 +4,7 @@
 ///
 /// Based on the plugin by Barnabás BARTHA :
 ///   https://github.com/BarthaBRW/shared_preferences_settings
-library flutter_settings_screens;
+library;
 
 export "src/cache/cache.dart";
 export "src/settings.dart";

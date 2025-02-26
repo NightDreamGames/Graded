@@ -1,5 +1,5 @@
 // @dart = 2.12
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, unused_element_parameter
 
 part of "settings_widgets.dart";
 

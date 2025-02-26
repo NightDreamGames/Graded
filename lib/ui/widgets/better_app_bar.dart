@@ -193,6 +193,7 @@ class BetterAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.systemOverlayStyle,
     this.forceMaterialTransparency = false,
     this.clipBehavior,
+    this.actionsPadding,
   })  : assert(elevation == null || elevation >= 0.0),
         preferredSize = _PreferredAppBarSize(toolbarHeight, bottom?.preferredSize.height);
 
@@ -260,8 +261,8 @@ class BetterAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// {@template flutter.material.appbar.automaticallyImplyLeading}
   /// Controls whether we should try to imply the leading widget if null.
   ///
-  /// If true and [leading] is null, automatically try to deduce what the leading
-  /// widget should be. If false and [leading] is null, leading space is given to [title].
+  /// If true and [BetterAppBar.leading] is null, automatically try to deduce what the leading
+  /// widget should be. If false and [BetterAppBar.leading] is null, leading space is given to [BetterAppBar.title].
   /// If leading widget is not null, this parameter has no effect.
   /// {@endtemplate}
   final bool automaticallyImplyLeading;
@@ -719,6 +720,13 @@ class BetterAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// {@macro flutter.material.Material.clipBehavior}
   final Clip? clipBehavior;
 
+  /// {@template flutter.material.appbar.actionsPadding}
+  /// The padding between the [actions] and the end of the AppBar.
+  ///
+  /// Defaults to zero.
+  /// {@endtemplate}
+  final EdgeInsetsGeometry? actionsPadding;
+
   bool _getEffectiveCenterTitle(ThemeData theme) {
     bool platformCenter() {
       switch (theme.platform) {
@@ -786,19 +794,27 @@ class _BetterAppBarState extends State<BetterAppBar> {
 
       if (_scrolledUnder != oldScrolledUnder) {
         setState(() {
-          // React to a change in MaterialState.scrolledUnder
+          // React to a change in WidgetState.scrolledUnder
         });
       }
     }
   }
 
-  Color _resolveColor(Set<WidgetState> states, Color? widgetColor, Color? themeColor, Color defaultColor) {
+  Color _resolveColor(
+    Set<WidgetState> states,
+    Color? widgetColor,
+    Color? themeColor,
+    Color defaultColor,
+  ) {
     return WidgetStateProperty.resolveAs<Color?>(widgetColor, states) ??
         WidgetStateProperty.resolveAs<Color?>(themeColor, states) ??
         WidgetStateProperty.resolveAs<Color>(defaultColor, states);
   }
 
-  SystemUiOverlayStyle _systemOverlayStyleForBrightness(Brightness brightness, [Color? backgroundColor]) {
+  SystemUiOverlayStyle _systemOverlayStyleForBrightness(
+    Brightness brightness, [
+    Color? backgroundColor,
+  ]) {
     final SystemUiOverlayStyle style = brightness == Brightness.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark;
     // For backward compatibility, create an overlay style without system navigation bar settings.
     return SystemUiOverlayStyle(
@@ -865,18 +881,28 @@ class _BetterAppBarState extends State<BetterAppBar> {
         defaults.actionsIconTheme?.copyWith(color: actionForegroundColor) ??
         overallIconTheme;
 
+    final EdgeInsetsGeometry actionsPadding = widget.actionsPadding ?? appBarTheme.actionsPadding ?? defaults.actionsPadding!;
+
     TextStyle? toolbarTextStyle =
         widget.toolbarTextStyle ?? appBarTheme.toolbarTextStyle ?? defaults.toolbarTextStyle?.copyWith(color: foregroundColor);
 
     TextStyle? titleTextStyle = widget.titleTextStyle ?? appBarTheme.titleTextStyle ?? defaults.titleTextStyle?.copyWith(color: foregroundColor);
 
     if (widget.toolbarOpacity != 1.0) {
-      final double opacity = const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn).transform(widget.toolbarOpacity);
+      final double opacity = const Interval(
+        0.25,
+        1.0,
+        curve: Curves.fastOutSlowIn,
+      ).transform(widget.toolbarOpacity);
       if (titleTextStyle?.color != null) {
-        titleTextStyle = titleTextStyle!.copyWith(color: titleTextStyle.color!.withValues(alpha: opacity));
+        titleTextStyle = titleTextStyle!.copyWith(
+          color: titleTextStyle.color!.withValues(alpha: opacity),
+        );
       }
       if (toolbarTextStyle?.color != null) {
-        toolbarTextStyle = toolbarTextStyle!.copyWith(color: toolbarTextStyle.color!.withValues(alpha: opacity));
+        toolbarTextStyle = toolbarTextStyle!.copyWith(
+          color: toolbarTextStyle.color!.withValues(alpha: opacity),
+        );
       }
       overallIconTheme = overallIconTheme.copyWith(
         opacity: opacity * (overallIconTheme.opacity ?? 1.0),
@@ -890,9 +916,7 @@ class _BetterAppBarState extends State<BetterAppBar> {
     double? titleSpacing = widget.titleSpacing;
     if (leading == null && widget.automaticallyImplyLeading) {
       if (hasDrawer) {
-        leading = DrawerButton(
-          style: IconButton.styleFrom(iconSize: overallIconTheme.size ?? 24),
-        );
+        leading = DrawerButton(style: IconButton.styleFrom(iconSize: overallIconTheme.size ?? 24));
       } else if (parentRoute?.impliesAppBarDismissal ?? false) {
         leading = useCloseButton ? const CloseButton() : const BackButton();
         titleSpacing = 0;
@@ -977,15 +1001,16 @@ class _BetterAppBarState extends State<BetterAppBar> {
 
     Widget? actions;
     if (widget.actions != null && widget.actions!.isNotEmpty) {
-      actions = Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: theme.useMaterial3 ? CrossAxisAlignment.center : CrossAxisAlignment.stretch,
-        children: widget.actions!,
+      actions = Padding(
+        padding: actionsPadding,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: theme.useMaterial3 ? CrossAxisAlignment.center : CrossAxisAlignment.stretch,
+          children: widget.actions!,
+        ),
       );
     } else if (hasEndDrawer) {
-      actions = EndDrawerButton(
-        style: IconButton.styleFrom(iconSize: overallIconTheme.size ?? 24),
-      );
+      actions = EndDrawerButton(style: IconButton.styleFrom(iconSize: overallIconTheme.size ?? 24));
     }
 
     // Allow the trailing actions to have their own theme if necessary.
@@ -1010,10 +1035,7 @@ class _BetterAppBarState extends State<BetterAppBar> {
 
       actions = IconButtonTheme(
         data: effectiveActionsIconButtonTheme,
-        child: IconTheme.merge(
-          data: actionsIconTheme,
-          child: actions,
-        ),
+        child: IconTheme.merge(data: actionsIconTheme, child: actions),
       );
     }
 
@@ -1033,10 +1055,7 @@ class _BetterAppBarState extends State<BetterAppBar> {
         delegate: _ToolbarContainerLayout(toolbarHeight),
         child: IconTheme.merge(
           data: overallIconTheme,
-          child: DefaultTextStyle(
-            style: toolbarTextStyle!,
-            child: toolbar,
-          ),
+          child: DefaultTextStyle(style: toolbarTextStyle!, child: toolbar),
         ),
       ),
     );
@@ -1054,7 +1073,11 @@ class _BetterAppBarState extends State<BetterAppBar> {
             widget.bottom!
           else
             Opacity(
-              opacity: const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn).transform(widget.bottomOpacity),
+              opacity: const Interval(
+                0.25,
+                1.0,
+                curve: Curves.fastOutSlowIn,
+              ).transform(widget.bottomOpacity),
               child: widget.bottom,
             ),
         ],
@@ -1063,16 +1086,10 @@ class _BetterAppBarState extends State<BetterAppBar> {
 
     // The padding applies to the toolbar and tabbar, not the flexible space.
     if (widget.primary) {
-      appBar = SafeArea(
-        bottom: false,
-        child: appBar,
-      );
+      appBar = SafeArea(bottom: false, child: appBar);
     }
 
-    appBar = Align(
-      alignment: Alignment.topCenter,
-      child: appBar,
-    );
+    appBar = Align(alignment: Alignment.topCenter, child: appBar);
 
     if (widget.flexibleSpace != null) {
       appBar = Stack(
@@ -1088,10 +1105,7 @@ class _BetterAppBarState extends State<BetterAppBar> {
             explicitChildNodes: true,
             // Creates a material widget to prevent the flexibleSpace from
             // obscuring the ink splashes produced by appBar children.
-            child: Material(
-              type: MaterialType.transparency,
-              child: appBar,
-            ),
+            child: Material(type: MaterialType.transparency, child: appBar),
           ),
         ],
       );
@@ -1124,10 +1138,7 @@ class _BetterAppBarState extends State<BetterAppBar> {
               ??
               (theme.useMaterial3 ? theme.colorScheme.surfaceTint : null),
           shape: widget.shape ?? appBarTheme.shape ?? defaults.shape,
-          child: Semantics(
-            explicitChildNodes: true,
-            child: appBar,
-          ),
+          child: Semantics(explicitChildNodes: true, child: appBar),
         ),
       ),
     );
@@ -1174,6 +1185,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     required this.clipBehavior,
     required this.variant,
     required this.accessibleNavigation,
+    required this.actionsPadding,
   })  : assert(primary || topPadding == 0.0),
         _bottomHeight = bottom?.preferredSize.height ?? 0.0;
 
@@ -1212,12 +1224,16 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final Clip? clipBehavior;
   final _SliverAppVariant variant;
   final bool accessibleNavigation;
+  final EdgeInsetsGeometry? actionsPadding;
 
   @override
   double get minExtent => collapsedHeight;
 
   @override
-  double get maxExtent => math.max(topPadding + (expandedHeight ?? (toolbarHeight ?? kToolbarHeight) + _bottomHeight), minExtent);
+  double get maxExtent => math.max(
+        topPadding + (expandedHeight ?? (toolbarHeight ?? kToolbarHeight) + _bottomHeight),
+        minExtent,
+      );
 
   @override
   final TickerProvider vsync;
@@ -1234,7 +1250,10 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final double visibleMainHeight = maxExtent - shrinkOffset - topPadding;
-    final double extraToolbarHeight = math.max(minExtent - _bottomHeight - topPadding - (toolbarHeight ?? kToolbarHeight), 0.0);
+    final double extraToolbarHeight = math.max(
+      minExtent - _bottomHeight - topPadding - (toolbarHeight ?? kToolbarHeight),
+      0.0,
+    );
     final double visibleToolbarHeight = visibleMainHeight - _bottomHeight - extraToolbarHeight;
 
     final bool isScrolledUnder = overlapsContent || forceElevated || (pinned && shrinkOffset > maxExtent - minExtent);
@@ -1265,12 +1284,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         automaticallyImplyLeading: automaticallyImplyLeading,
         title: effectiveTitle,
         actions: actions,
-        flexibleSpace: (title == null && flexibleSpace != null && !excludeHeaderSemantics)
-            ? Semantics(
-                header: true,
-                child: flexibleSpace,
-              )
-            : flexibleSpace,
+        flexibleSpace:
+            (title == null && flexibleSpace != null && !excludeHeaderSemantics) ? Semantics(header: true, child: flexibleSpace) : flexibleSpace,
         bottom: bottom,
         elevation: isScrolledUnder ? elevation : 0.0,
         scrolledUnderElevation: scrolledUnderElevation,
@@ -1293,6 +1308,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         titleTextStyle: titleTextStyle,
         systemOverlayStyle: systemOverlayStyle,
         forceMaterialTransparency: forceMaterialTransparency,
+        actionsPadding: actionsPadding,
       ),
     );
     return appBar;
@@ -1331,7 +1347,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         titleTextStyle != oldDelegate.titleTextStyle ||
         systemOverlayStyle != oldDelegate.systemOverlayStyle ||
         forceMaterialTransparency != oldDelegate.forceMaterialTransparency ||
-        accessibleNavigation != oldDelegate.accessibleNavigation;
+        accessibleNavigation != oldDelegate.accessibleNavigation ||
+        actionsPadding != oldDelegate.actionsPadding;
   }
 
   @override
@@ -1471,6 +1488,7 @@ class BetterSliverAppBar extends StatefulWidget {
     this.systemOverlayStyle,
     this.forceMaterialTransparency = false,
     this.clipBehavior,
+    this.actionsPadding,
   })  : assert(floating || !snap, 'The "snap" argument only makes sense for floating app bars.'),
         assert(stretchTriggerOffset > 0.0),
         assert(
@@ -1539,6 +1557,7 @@ class BetterSliverAppBar extends StatefulWidget {
     this.systemOverlayStyle,
     this.forceMaterialTransparency = false,
     this.clipBehavior,
+    this.actionsPadding,
   })  : assert(floating || !snap, 'The "snap" argument only makes sense for floating app bars.'),
         assert(stretchTriggerOffset > 0.0),
         assert(
@@ -1607,6 +1626,7 @@ class BetterSliverAppBar extends StatefulWidget {
     this.systemOverlayStyle,
     this.forceMaterialTransparency = false,
     this.clipBehavior,
+    this.actionsPadding,
   })  : assert(floating || !snap, 'The "snap" argument only makes sense for floating app bars.'),
         assert(stretchTriggerOffset > 0.0),
         assert(
@@ -1870,6 +1890,11 @@ class BetterSliverAppBar extends StatefulWidget {
   /// {@macro flutter.material.Material.clipBehavior}
   final Clip? clipBehavior;
 
+  /// {@macro flutter.material.appbar.actionsPadding}
+  ///
+  /// This property is used to configure an [BetterAppBar].
+  final EdgeInsetsGeometry? actionsPadding;
+
   final _SliverAppVariant _variant;
 
   @override
@@ -1893,8 +1918,11 @@ class _BetterSliverAppBarState extends State<BetterSliverAppBar> with TickerProv
       _snapConfiguration = null;
     }
 
-    _showOnScreenConfiguration =
-        widget.floating & widget.snap ? const PersistentHeaderShowOnScreenConfiguration(minShowOnScreenExtent: double.infinity) : null;
+    _showOnScreenConfiguration = widget.floating & widget.snap
+        ? const PersistentHeaderShowOnScreenConfiguration(
+            minShowOnScreenExtent: double.infinity,
+          )
+        : null;
   }
 
   void _updateStretchConfiguration() {
@@ -2011,6 +2039,7 @@ class _BetterSliverAppBarState extends State<BetterSliverAppBar> with TickerProv
           clipBehavior: widget.clipBehavior,
           variant: widget._variant,
           accessibleNavigation: MediaQuery.of(context).accessibleNavigation,
+          actionsPadding: widget.actionsPadding,
         ),
       ),
     );
@@ -2025,9 +2054,7 @@ class _AppBarTitleBox extends SingleChildRenderObjectWidget {
 
   @override
   _RenderAppBarTitleBox createRenderObject(BuildContext context) {
-    return _RenderAppBarTitleBox(
-      textDirection: Directionality.of(context),
-    );
+    return _RenderAppBarTitleBox(textDirection: Directionality.of(context));
   }
 
   @override
@@ -2037,9 +2064,7 @@ class _AppBarTitleBox extends SingleChildRenderObjectWidget {
 }
 
 class _RenderAppBarTitleBox extends RenderAligningShiftedBox {
-  _RenderAppBarTitleBox({
-    super.textDirection,
-  }) : super(alignment: Alignment.center);
+  _RenderAppBarTitleBox({super.textDirection}) : super(alignment: Alignment.center);
 
   @override
   Size computeDryLayout(BoxConstraints constraints) {
@@ -2101,15 +2126,22 @@ class _ScrollUnderFlexibleSpace extends StatelessWidget {
 
     final TextStyle? expandedTextStyle = titleTextStyle ??
         appBarTheme.titleTextStyle ??
-        config.expandedTextStyle?.copyWith(color: foregroundColor ?? appBarTheme.foregroundColor ?? defaults.foregroundColor);
+        config.expandedTextStyle?.copyWith(
+          color: foregroundColor ?? appBarTheme.foregroundColor ?? defaults.foregroundColor,
+        );
 
     final Widget? expandedTitle = switch ((title, expandedTextStyle)) {
       (null, _) => null,
       (final Widget title, null) => title,
-      (final Widget title, final TextStyle textStyle) => DefaultTextStyle(style: textStyle, child: title),
+      (final Widget title, final TextStyle textStyle) => DefaultTextStyle(
+          style: textStyle,
+          child: title,
+        ),
     };
 
-    final EdgeInsets resolvedTitlePadding = config.expandedTitlePadding.resolve(Directionality.of(context));
+    final EdgeInsets resolvedTitlePadding = config.expandedTitlePadding.resolve(
+      Directionality.of(context),
+    );
     final EdgeInsetsGeometry expandedTitlePadding = bottomHeight > 0 ? resolvedTitlePadding.copyWith(bottom: 0) : resolvedTitlePadding;
 
     // Set maximum text scale factor to [_kMaxTitleTextScaleFactor] for the
@@ -2148,11 +2180,7 @@ class _ScrollUnderFlexibleSpace extends StatelessWidget {
 // padding) to within the y range [0, maxExtent], to make sure the child is
 // visible when the AppBar is fully expanded.
 class _ExpandedTitleWithPadding extends SingleChildRenderObjectWidget {
-  const _ExpandedTitleWithPadding({
-    required this.padding,
-    required this.maxExtent,
-    super.child,
-  });
+  const _ExpandedTitleWithPadding({required this.padding, required this.maxExtent, super.child});
 
   final EdgeInsetsGeometry padding;
   final double maxExtent;
@@ -2249,7 +2277,11 @@ class _RenderExpandedTitleBox extends RenderShiftedBox {
     // widget + the bottom padding is too tall to fit in the flexible space (the
     // top padding is basically ignored since the expanded title is
     // bottom-aligned).
-    final double yAdjustment = clampDouble(childSize.height + padding.bottom - maxExtent, 0, padding.bottom);
+    final double yAdjustment = clampDouble(
+      childSize.height + padding.bottom - maxExtent,
+      0,
+      padding.bottom,
+    );
     final double offsetX = (titleAlignment.x + 1) / 2 * (size.width - padding.horizontal - childSize.width) + padding.left;
     final double offsetY = size.height - childSize.height - padding.bottom + yAdjustment;
     return Offset(offsetX, offsetY);
@@ -2315,6 +2347,9 @@ class _AppBarDefaultsM2 extends AppBarTheme {
 
   @override
   TextStyle? get titleTextStyle => _theme.textTheme.titleLarge;
+
+  @override
+  EdgeInsets? get actionsPadding => EdgeInsets.zero;
 }
 
 // BEGIN GENERATED TOKEN PROPERTIES - AppBar
@@ -2368,6 +2403,9 @@ class _AppBarDefaultsM3 extends AppBarTheme {
 
   @override
   TextStyle? get titleTextStyle => _textTheme.titleLarge;
+
+  @override
+  EdgeInsets? get actionsPadding => EdgeInsets.zero;
 }
 
 // Variant configuration

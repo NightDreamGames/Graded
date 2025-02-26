@@ -104,7 +104,7 @@ class SettingsAction extends StatelessWidget {
   }
 }
 
-Future<T?> showMenuActions<T>(BuildContext context, List<T> actionsEnum, List<String> translations) async {
+Future<T?> showMenuActions<T>(BuildContext context, List<T> actionsEnum, List<String> translations) {
   final RenderBox? box = context.findRenderObject() as RenderBox?;
   if (box == null) return Future.value();
 

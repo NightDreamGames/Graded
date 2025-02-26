@@ -138,6 +138,7 @@ class AppTheme {
       ),
       tabBarTheme: theme.tabBarTheme.copyWith(
         tabAlignment: TabAlignment.start,
+        indicatorAnimation: TabIndicatorAnimation.linear,
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.fixed,

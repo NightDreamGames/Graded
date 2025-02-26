@@ -19,3 +19,6 @@ linter:
     avoid_classes_with_only_static_members: false
     directives_ordering: false
     prefer_double_quotes: true
+
+formatter:
+  page_width: 150

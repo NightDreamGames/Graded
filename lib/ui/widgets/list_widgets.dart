@@ -292,7 +292,7 @@ class _SubjectTileState extends State<SubjectTile> {
                   onActionCompleted: widget.onActionCompleted,
                 ),
         ),
-        onTap: () async {
+        onTap: () {
           showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
             switch (result) {
               case MenuAction.edit:

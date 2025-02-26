@@ -22,7 +22,7 @@ void main() async {
   Manager.addYear(year: Year());
   getCurrentYear().ensureTermCount();
 
-  test("Calculations", () async {
+  test("Calculations", () {
     getCurrentYear().subjects = [
       Subject("Test1", 3),
       Subject("Test2", 3),
