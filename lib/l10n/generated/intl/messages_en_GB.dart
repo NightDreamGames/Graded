@@ -175,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quartile_num": MessageLookupByLibrary.simpleMessage("Quartile %s"),
         "quartile_short_num": MessageLookupByLibrary.simpleMessage("Q%s"),
         "rating_system": MessageLookupByLibrary.simpleMessage("Rating system"),
+        "reorder": MessageLookupByLibrary.simpleMessage("Reorder"),
         "reset":
             MessageLookupByLibrary.simpleMessage("Reset this year\'s grades"),
         "reset_confirm": MessageLookupByLibrary.simpleMessage(

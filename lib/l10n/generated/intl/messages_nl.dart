@@ -180,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quartile_short_num": MessageLookupByLibrary.simpleMessage("Q%s"),
         "rating_system":
             MessageLookupByLibrary.simpleMessage("Beoordelingssystem"),
+        "reorder": MessageLookupByLibrary.simpleMessage("Herschikken"),
         "reset": MessageLookupByLibrary.simpleMessage(
             "Cijfers van dit jaar terugzetten"),
         "reset_confirm": MessageLookupByLibrary.simpleMessage(

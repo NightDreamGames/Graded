@@ -1280,6 +1280,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Reorder`
+  String get reorder {
+    return Intl.message(
+      'Reorder',
+      name: 'reorder',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reset this year's grades`
   String get reset {
     return Intl.message(
