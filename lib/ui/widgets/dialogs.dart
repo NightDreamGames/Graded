@@ -6,7 +6,6 @@ import "package:decimal/decimal.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
-import "package:graded/ui/utilities/grade_display_value.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
@@ -15,6 +14,7 @@ import "package:graded/l10n/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/settings/flutter_settings_screens.dart";
+import "package:graded/ui/utilities/grade_mapping_value.dart";
 import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/utilities/hints.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";

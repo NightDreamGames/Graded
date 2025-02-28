@@ -3,12 +3,12 @@ import "package:flutter/material.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
-import "package:graded/ui/utilities/grade_display_value.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/year.dart";
 import "package:graded/l10n/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/utilities/grade_mapping_value.dart";
 import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/widgets/dialogs.dart";
 import "package:graded/ui/widgets/list_widgets.dart";

@@ -1,12 +1,12 @@
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
-import "package:graded/ui/utilities/grade_display_value.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/utilities/grade_mapping_value.dart";
 
 class Year extends CalculationObject {
   List<Subject> subjects = [];
