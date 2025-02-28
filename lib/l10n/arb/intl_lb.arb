@@ -182,6 +182,7 @@
         "type": "text"
     },
     "rating_system": "Bewäertungssystem",
+    "reorder": "Nei uerdnen",
     "reset": "Notten vun dësem Joer zerécksetzen",
     "reset_confirm": "Sidd Dir sécher datt Dir all gespäichert Notten aus dësem Joer läschen wëllt?",
     "result": "Resultat",
