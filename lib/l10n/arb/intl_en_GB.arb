@@ -182,6 +182,7 @@
         "type": "text"
     },
     "rating_system": "Rating system",
+    "reorder": "Reorder",
     "reset": "Reset this year's grades",
     "reset_confirm": "Are you sure you want to delete all the saved grades from this year?",
     "result": "Result",

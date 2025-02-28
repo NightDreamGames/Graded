@@ -182,6 +182,7 @@
         "type": "text"
     },
     "rating_system": "Bewertungssystem",
+    "reorder": "Neu ordnen",
     "reset": "Noten von diesem Jahr zurücksetzen",
     "reset_confirm": "Sind Sie sicher, dass Sie alle gespeicherten Noten aus diesem Jahr löschen wollen?",
     "result": "Resultat",
