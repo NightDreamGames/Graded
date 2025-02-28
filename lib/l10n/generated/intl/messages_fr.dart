@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("À propos"),
         "add": MessageLookupByLibrary.simpleMessage("Ajouter"),
         "add_group": MessageLookupByLibrary.simpleMessage("Ajouter un groupe"),
+        "add_mapping":
+            MessageLookupByLibrary.simpleMessage("Ajouter une correspondance"),
         "add_subjectOne":
             MessageLookupByLibrary.simpleMessage("Ajouter une matière"),
         "add_subjectOther":
@@ -76,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Modifier"),
         "edit_color_scheme": MessageLookupByLibrary.simpleMessage(
             "Modifier le schéma de couleurs"),
+        "edit_mapping":
+            MessageLookupByLibrary.simpleMessage("Modifier une correspondance"),
         "edit_primary_color":
             MessageLookupByLibrary.simpleMessage("Modifier couleur principale"),
         "edit_subjectOne":
@@ -107,6 +111,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "gradeOne": MessageLookupByLibrary.simpleMessage("Note"),
         "gradeOther": MessageLookupByLibrary.simpleMessage("Notes"),
+        "grade_mappingOne":
+            MessageLookupByLibrary.simpleMessage("Correspondance des notes"),
+        "grade_mappingOther":
+            MessageLookupByLibrary.simpleMessage("Correspondances des notes"),
+        "grade_mapping_description": MessageLookupByLibrary.simpleMessage(
+            "Modifier la façon dont les notes sont affichées"),
         "group": MessageLookupByLibrary.simpleMessage("Groupe"),
         "half_down":
             MessageLookupByLibrary.simpleMessage("A moitié vers le bas"),
@@ -150,6 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Teintes Material 3"),
         "max": MessageLookupByLibrary.simpleMessage("Max"),
+        "min": MessageLookupByLibrary.simpleMessage("Min"),
         "more_options": MessageLookupByLibrary.simpleMessage("Plus d\'options"),
         "name": MessageLookupByLibrary.simpleMessage("Nom"),
         "next": MessageLookupByLibrary.simpleMessage("Suivant"),

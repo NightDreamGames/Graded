@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("About"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "add_group": MessageLookupByLibrary.simpleMessage("Add group"),
+        "add_mapping": MessageLookupByLibrary.simpleMessage("Add mapping"),
         "add_subjectOne": MessageLookupByLibrary.simpleMessage("Add subject"),
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Add subjects"),
@@ -70,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "edit_color_scheme":
             MessageLookupByLibrary.simpleMessage("Edit color scheme"),
+        "edit_mapping": MessageLookupByLibrary.simpleMessage("Edit mapping"),
         "edit_primary_color":
             MessageLookupByLibrary.simpleMessage("Edit primary color"),
         "edit_subjectOne": MessageLookupByLibrary.simpleMessage("Edit subject"),
@@ -100,6 +102,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "gradeOne": MessageLookupByLibrary.simpleMessage("Grade"),
         "gradeOther": MessageLookupByLibrary.simpleMessage("Grades"),
+        "grade_mappingOne":
+            MessageLookupByLibrary.simpleMessage("Grade mapping"),
+        "grade_mappingOther":
+            MessageLookupByLibrary.simpleMessage("Grade mappings"),
+        "grade_mapping_description": MessageLookupByLibrary.simpleMessage(
+            "Change the way grades are displayed"),
         "group": MessageLookupByLibrary.simpleMessage("Group"),
         "half_down": MessageLookupByLibrary.simpleMessage("Half down"),
         "half_up": MessageLookupByLibrary.simpleMessage("Half up"),
@@ -140,6 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Material 3 shades"),
         "max": MessageLookupByLibrary.simpleMessage("Max"),
+        "min": MessageLookupByLibrary.simpleMessage("Min"),
         "more_options": MessageLookupByLibrary.simpleMessage("More options"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),

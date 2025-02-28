@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("Informatiounen"),
         "add": MessageLookupByLibrary.simpleMessage("Zoufügen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Grupp zoufügen"),
+        "add_mapping": MessageLookupByLibrary.simpleMessage("Mapping zoufügen"),
         "add_subjectOne": MessageLookupByLibrary.simpleMessage("Fach zoufügen"),
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Fächer zoufügen"),
@@ -73,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Beaarbechten"),
         "edit_color_scheme":
             MessageLookupByLibrary.simpleMessage("Faarfschema beaarbechten"),
+        "edit_mapping":
+            MessageLookupByLibrary.simpleMessage("Mapping beaarbechten"),
         "edit_primary_color":
             MessageLookupByLibrary.simpleMessage("Primär Faarf beaarbechten"),
         "edit_subjectOne":
@@ -105,6 +108,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "gradeOne": MessageLookupByLibrary.simpleMessage("Notte"),
         "gradeOther": MessageLookupByLibrary.simpleMessage("Notten"),
+        "grade_mappingOne":
+            MessageLookupByLibrary.simpleMessage("Notten-Mapping"),
+        "grade_mappingOther":
+            MessageLookupByLibrary.simpleMessage("Notten-Mappings"),
+        "grade_mapping_description": MessageLookupByLibrary.simpleMessage(
+            "Uweisung vun den Notten änneren"),
         "group": MessageLookupByLibrary.simpleMessage("Grupp"),
         "half_down": MessageLookupByLibrary.simpleMessage("Hallef no ënnen"),
         "half_up": MessageLookupByLibrary.simpleMessage("Hallef no uewen"),
@@ -145,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Material 3 Faarftéin"),
         "max": MessageLookupByLibrary.simpleMessage("Max"),
+        "min": MessageLookupByLibrary.simpleMessage("Min"),
         "more_options": MessageLookupByLibrary.simpleMessage("Méi Optiounen"),
         "name": MessageLookupByLibrary.simpleMessage("Numm"),
         "next": MessageLookupByLibrary.simpleMessage("Weider"),

@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("Informationen"),
         "add": MessageLookupByLibrary.simpleMessage("Hinzufügen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Gruppe hinzufügen"),
+        "add_mapping": MessageLookupByLibrary.simpleMessage("Mapping zufügen"),
         "add_subjectOne":
             MessageLookupByLibrary.simpleMessage("Fach hinzufügen"),
         "add_subjectOther":
@@ -74,6 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Bearbeiten"),
         "edit_color_scheme":
             MessageLookupByLibrary.simpleMessage("Farbschema bearbeiten"),
+        "edit_mapping":
+            MessageLookupByLibrary.simpleMessage("Mapping bearbeiten"),
         "edit_primary_color":
             MessageLookupByLibrary.simpleMessage("Primäre Farbe bearbeiten"),
         "edit_subjectOne":
@@ -105,6 +108,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "gradeOne": MessageLookupByLibrary.simpleMessage("Note"),
         "gradeOther": MessageLookupByLibrary.simpleMessage("Noten"),
+        "grade_mappingOne":
+            MessageLookupByLibrary.simpleMessage("Noten-Mapping"),
+        "grade_mappingOther":
+            MessageLookupByLibrary.simpleMessage("Noten-Mappings"),
+        "grade_mapping_description":
+            MessageLookupByLibrary.simpleMessage("Anzeige der Noten änderen"),
         "group": MessageLookupByLibrary.simpleMessage("Gruppe"),
         "half_down": MessageLookupByLibrary.simpleMessage("Halb nach unten"),
         "half_up": MessageLookupByLibrary.simpleMessage("Halb nach oben"),
@@ -145,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Material 3 Farbtöne"),
         "max": MessageLookupByLibrary.simpleMessage("Max"),
+        "min": MessageLookupByLibrary.simpleMessage("Min"),
         "more_options": MessageLookupByLibrary.simpleMessage("Mehr Optionen"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next": MessageLookupByLibrary.simpleMessage("Weiter"),

@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "about": MessageLookupByLibrary.simpleMessage("Over"),
         "add": MessageLookupByLibrary.simpleMessage("Toevoegen"),
         "add_group": MessageLookupByLibrary.simpleMessage("Groep toevoegen"),
+        "add_mapping":
+            MessageLookupByLibrary.simpleMessage("Koppeling toevoegen"),
         "add_subjectOne": MessageLookupByLibrary.simpleMessage("Vak toevoegen"),
         "add_subjectOther":
             MessageLookupByLibrary.simpleMessage("Vakken toevoegen"),
@@ -73,6 +75,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "edit": MessageLookupByLibrary.simpleMessage("Bewerk"),
         "edit_color_scheme":
             MessageLookupByLibrary.simpleMessage("Kleurenschema bewerken"),
+        "edit_mapping":
+            MessageLookupByLibrary.simpleMessage("Koppeling bewerken"),
         "edit_primary_color":
             MessageLookupByLibrary.simpleMessage("Primaire kleur bewerken"),
         "edit_subjectOne": MessageLookupByLibrary.simpleMessage("Vak bewerken"),
@@ -103,6 +107,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "german": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "gradeOne": MessageLookupByLibrary.simpleMessage("Cijfer"),
         "gradeOther": MessageLookupByLibrary.simpleMessage("Cijfers"),
+        "grade_mappingOne":
+            MessageLookupByLibrary.simpleMessage("Cijferkoppeling"),
+        "grade_mappingOther":
+            MessageLookupByLibrary.simpleMessage("Cijferkoppelingen"),
+        "grade_mapping_description": MessageLookupByLibrary.simpleMessage(
+            "Wijzig de manier waarop cijfers worden weergegeven"),
         "group": MessageLookupByLibrary.simpleMessage("Groep"),
         "half_down": MessageLookupByLibrary.simpleMessage("Half naar beneden"),
         "half_up": MessageLookupByLibrary.simpleMessage("Half omhoog"),
@@ -142,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "material_3_shades":
             MessageLookupByLibrary.simpleMessage("Material 3 tinten"),
         "max": MessageLookupByLibrary.simpleMessage("Max"),
+        "min": MessageLookupByLibrary.simpleMessage("Min"),
         "more_options": MessageLookupByLibrary.simpleMessage("Meer opties"),
         "name": MessageLookupByLibrary.simpleMessage("Naam"),
         "next": MessageLookupByLibrary.simpleMessage("Volgende"),

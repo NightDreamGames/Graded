@@ -80,6 +80,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Add mapping`
+  String get add_mapping {
+    return Intl.message(
+      'Add mapping',
+      name: 'add_mapping',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add subject`
   String get add_subjectOne {
     return Intl.message(
@@ -480,6 +490,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Edit mapping`
+  String get edit_mapping {
+    return Intl.message(
+      'Edit mapping',
+      name: 'edit_mapping',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Edit primary color`
   String get edit_primary_color {
     return Intl.message(
@@ -705,6 +725,36 @@ class TranslationsClass {
     return Intl.message(
       'Grades',
       name: 'gradeOther',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Grade mapping`
+  String get grade_mappingOne {
+    return Intl.message(
+      'Grade mapping',
+      name: 'grade_mappingOne',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Grade mappings`
+  String get grade_mappingOther {
+    return Intl.message(
+      'Grade mappings',
+      name: 'grade_mappingOther',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change the way grades are displayed`
+  String get grade_mapping_description {
+    return Intl.message(
+      'Change the way grades are displayed',
+      name: 'grade_mapping_description',
       desc: '',
       args: [],
     );
@@ -995,6 +1045,16 @@ class TranslationsClass {
     return Intl.message(
       'Max',
       name: 'max',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Min`
+  String get min {
+    return Intl.message(
+      'Min',
+      name: 'min',
       desc: '',
       args: [],
     );
