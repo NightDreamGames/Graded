@@ -182,6 +182,7 @@
         "type": "text"
     },
     "rating_system": "Beoordelingssystem",
+    "reorder": "Herschikken",
     "reset": "Cijfers van dit jaar terugzetten",
     "reset_confirm": "Weet je zeker dat je alle opgeslagen cijfers van dit jaar wilt verwijderen?",
     "result": "Resultaat",
