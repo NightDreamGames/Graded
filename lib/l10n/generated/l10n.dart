@@ -220,6 +220,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Change subject hierarchy`
+  String get change_subject_hierarchy {
+    return Intl.message(
+      'Change subject hierarchy',
+      name: 'change_subject_hierarchy',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Chart`
   String get chartOne {
     return Intl.message(

@@ -332,7 +332,7 @@ class _SubjectTileState extends State<SubjectTile> {
                   child: SizedBox(
                     width: kMinInteractiveDimension * 5 / 6,
                     child: IconButton(
-                      // TODO: Add tooltip
+                      tooltip: translations.change_subject_hierarchy,
                       onPressed: changeSubjectHierarchy,
                       icon: AnimatedRotation(
                         turns: widget.subject.isChild ? .5 : 0,
@@ -346,7 +346,7 @@ class _SubjectTileState extends State<SubjectTile> {
                 SizedBox(
                   width: kMinInteractiveDimension * 5 / 6,
                   child: IconButton(
-                    // TODO: Add tooltip
+                    tooltip: translations.change_subject_hierarchy,
                     onPressed: changeSubjectHierarchy,
                     icon: AnimatedRotation(
                       turns: widget.subject.isChild ? .5 : 0,

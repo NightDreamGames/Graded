@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "basic": MessageLookupByLibrary.simpleMessage("Basis"),
         "bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuleren"),
+        "change_subject_hierarchy":
+            MessageLookupByLibrary.simpleMessage("Wijzig de vakhiërarchie"),
         "chartOne": MessageLookupByLibrary.simpleMessage("Grafiek"),
         "chartOther": MessageLookupByLibrary.simpleMessage("Grafieken"),
         "chinese": MessageLookupByLibrary.simpleMessage("中文"),
