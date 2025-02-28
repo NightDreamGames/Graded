@@ -266,31 +266,57 @@ class _SubjectTileState extends State<SubjectTile> {
         padding: const EdgeInsets.only(left: 4, right: 24),
         horizontalTitleGap: 8,
         enableEqualLongPress: true,
-        leading: ReorderableDragStartListener(
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ReorderableDragStartListener(
           index: widget.reorderIndex,
           child: widget.shouldShowcase
               ? Showcase(
+                      key: showCaseKey2,
+                      description: translations.showcase_drag_subject,
+                      scaleAnimationCurve: Easing.standardDecelerate,
+                      child: const IgnorePointer(
+                        child: ReorderableHandle(),
+                      ),
+                    )
+                  : const ReorderableHandle(),
+            ),
+            if (widget.reorderIndex != 0)
+              if (widget.shouldShowcase)
+                Showcase(
                   key: showCaseKey1,
                   description: translations.showcase_tap_subject,
                   scaleAnimationCurve: Easing.standardDecelerate,
-                  child: Showcase(
-                    key: showCaseKey2,
-                    description: translations.showcase_drag_subject,
-                    scaleAnimationCurve: Easing.standardDecelerate,
-                    child: IgnorePointer(
-                      child: ReorderableHandle(
-                        target: widget.subject,
-                        potentialParent: widget.potentialParent,
-                        onActionCompleted: widget.onActionCompleted,
+                  child: SizedBox(
+                    width: kMinInteractiveDimension * 5 / 6,
+                    child: IconButton(
+                      // TODO: Add tooltip
+                      onPressed: changeSubjectHierarchy,
+                      icon: AnimatedRotation(
+                        turns: widget.subject.isChild ? .5 : 0,
+                        duration: Durations.short4,
+                        child: const Icon(Icons.arrow_forward),
                       ),
                     ),
                   ),
                 )
-              : ReorderableHandle(
-                  target: widget.subject,
-                  potentialParent: widget.potentialParent,
-                  onActionCompleted: widget.onActionCompleted,
-                ),
+              else
+                SizedBox(
+                  width: kMinInteractiveDimension * 5 / 6,
+                  child: IconButton(
+                    // TODO: Add tooltip
+                    onPressed: changeSubjectHierarchy,
+                    icon: AnimatedRotation(
+                      turns: widget.subject.isChild ? .5 : 0,
+                      duration: Durations.short4,
+                      child: const Icon(Icons.arrow_forward),
+                    ),
+                  ),
+                )
+            else
+              const Padding(padding: EdgeInsets.all(kMinInteractiveDimension / 2)),
+          ],
         ),
         onTap: () {
           showMenuActions<MenuAction>(context, MenuAction.values, [translations.edit, translations.delete]).then((result) {
@@ -323,37 +349,19 @@ class _SubjectTileState extends State<SubjectTile> {
       ),
     );
   }
-}
 
-class ReorderableHandle extends StatelessWidget {
-  const ReorderableHandle({
-    super.key,
-    required this.target,
-    this.potentialParent,
-    this.onActionCompleted,
-  });
+  void changeSubjectHierarchy() {
+    final bool isChild = widget.subject.isChild;
 
-  final Subject target;
-  final Subject? potentialParent;
-  final Function()? onActionCompleted;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      tooltip: translations.set_sub_subject,
-      icon: const Icon(Icons.drag_handle),
-      onPressed: () {
-        final bool isChild = target.isChild;
-
-        if (potentialParent == null && !isChild) return;
+    if (widget.potentialParent == null && !isChild) return;
 
         lightHaptics();
 
         final subjects = getCurrentYear().subjects;
 
         if (!isChild) {
-          final Subject parent = potentialParent!;
-          final Subject child = target;
+      final Subject parent = widget.potentialParent!;
+      final Subject child = widget.subject;
 
           subjects.remove(child);
 
@@ -364,8 +372,8 @@ class ReorderableHandle extends StatelessWidget {
           parent.children.addAll([child, ...child.children]);
           child.children.clear();
         } else {
-          final Subject parent = potentialParent!;
-          final Subject child = target;
+      final Subject parent = widget.potentialParent!;
+      final Subject child = widget.subject;
 
           parent.children.remove(child);
           subjects.insert(subjects.indexOf(parent) + 1, child..isChild = false);
@@ -373,8 +381,21 @@ class ReorderableHandle extends StatelessWidget {
         }
 
         Manager.calculate();
-        onActionCompleted?.call();
-      },
+    widget.onActionCompleted?.call();
+  }
+}
+
+class ReorderableHandle extends StatelessWidget {
+  const ReorderableHandle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      tooltip: translations.reorder,
+      icon: const Icon(Icons.drag_handle),
+      onPressed: null,
     );
   }
 }
