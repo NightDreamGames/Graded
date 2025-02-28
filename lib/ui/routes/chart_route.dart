@@ -5,6 +5,7 @@ import "dart:math";
 import "package:flutter/material.dart";
 
 // Project imports:
+import "package:graded/calculations/calculator.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/l10n/translations.dart";
@@ -58,6 +59,7 @@ class _ChartRouteState extends State<ChartRoute> {
                       ResultRow(
                         result: widget.subject.getResultString(),
                         preciseResult: widget.subject.getResultString(precise: true),
+                        gradeMapping: Calculator.format(widget.subject.result, applyGradeMappings: true),
                         leading: Text(
                           translations.yearly_average,
                           overflow: TextOverflow.fade,

@@ -1,6 +1,7 @@
 // Project imports:
 import "package:graded/calculations/calculation_object.dart";
 import "package:graded/calculations/calculator.dart";
+import "package:graded/ui/utilities/grade_display_value.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/misc/default_values.dart";
@@ -27,6 +28,8 @@ class Year extends CalculationObject {
 
   bool isYearOverview = false;
   bool hasBeenSortedCustom = false;
+
+  List<GradeMapping> gradeMappings = [];
 
   Year({
     this.isYearOverview = false,
@@ -180,6 +183,8 @@ class Year extends CalculationObject {
     scaleUpTests = (json["scaleUpTests"] as bool?) ?? DefaultValues.scaleUpTests;
 
     hasBeenSortedCustom = (json["hasBeenSortedCustom"] as bool?) ?? DefaultValues.hasBeenSortedCustom;
+
+    gradeMappings = ((json["gradeMappings"] ?? []) as List).map((e) => GradeMapping.fromJson(e as Map<String, dynamic>)).toList();
   }
 
   Map<String, dynamic> toJson() => {
@@ -195,6 +200,7 @@ class Year extends CalculationObject {
         "validatedSection": validatedSection,
         "validatedVariant": validatedVariant,
         "hasBeenSortedCustom": hasBeenSortedCustom,
+        "gradeMappings": gradeMappings.map((e) => e.toJson()).toList(),
         "subjects": subjects,
       };
 }

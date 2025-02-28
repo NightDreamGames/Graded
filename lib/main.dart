@@ -20,6 +20,7 @@ import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/locale_provider.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/routes/grade_mappings_route.dart";
 import "package:graded/ui/routes/main_route.dart";
 import "package:graded/ui/routes/settings_route.dart";
 import "package:graded/ui/routes/setup_route.dart";
@@ -143,6 +144,8 @@ Route<dynamic> createRoute(RouteSettings settings) {
       );
     case "/years":
       route = const YearRoute();
+    case "/gradeMappings":
+      route = const GradeMappingRoute();
     case "/":
     default:
       mainRouteKey = GlobalKey();

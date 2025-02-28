@@ -58,6 +58,12 @@ List<Widget> getSettingsTiles(BuildContext context, {required CreationType type,
         return null;
       },
     ),
+    SimpleSettingsTile(
+      title: translations.grade_mappingOther,
+      subtitle: translations.grade_mapping_description,
+      icon: Icons.display_settings,
+      onTap: () => Navigator.pushNamed(context, "/gradeMappings").then((value) => onChanged?.call()),
+    ),
     RadioModalSettingsTile<String>(
       title: translations.rounding_mode,
       icon: Icons.arrow_upward,

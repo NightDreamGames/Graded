@@ -6,6 +6,7 @@ import "package:decimal/decimal.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
+import "package:graded/ui/utilities/grade_display_value.dart";
 import "package:graded/calculations/manager.dart";
 import "package:graded/calculations/subject.dart";
 import "package:graded/calculations/term.dart";
@@ -646,6 +647,118 @@ class _BonusDialogState extends State<BonusDialog> {
                 icon: const Icon(Icons.add, size: 20),
                 onPressed: () => changeBonus(1),
                 style: getTonalButtonStyle(context),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Future<void> showGradeMappingDialog(BuildContext context, {GradeMapping? gradeMapping, CreationType action = CreationType.add}) {
+  return showDialog(
+    context: context,
+    useSafeArea: false,
+    builder: (context) {
+      return GradeMappingDialog(gradeMapping: gradeMapping, action: action);
+    },
+  );
+}
+
+class GradeMappingDialog extends StatefulWidget {
+  const GradeMappingDialog({
+    super.key,
+    this.gradeMapping,
+    this.action = CreationType.add,
+  }) : assert(action != CreationType.edit || gradeMapping != null);
+
+  final GradeMapping? gradeMapping;
+  final CreationType action;
+
+  @override
+  State<GradeMappingDialog> createState() => _GradeMappingDialogState();
+}
+
+class _GradeMappingDialogState extends State<GradeMappingDialog> {
+  final nameController = TextEditingController();
+  final minController = TextEditingController();
+  final maxController = TextEditingController();
+
+  final GlobalKey<EasyDialogState> dialogKey = GlobalKey<EasyDialogState>();
+
+  late final GradeMapping gradeMapping;
+  bool confirmed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    gradeMapping = widget.gradeMapping ?? GradeMapping(0, 0, "");
+    nameController.text = widget.action == CreationType.edit ? gradeMapping.name : "";
+    minController.text = widget.action == CreationType.edit ? Calculator.format(gradeMapping.min, leadingZero: false, roundToOverride: 1) : "";
+    maxController.text = widget.action == CreationType.edit ? Calculator.format(gradeMapping.max, leadingZero: false, roundToOverride: 1) : "";
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    minController.dispose();
+    maxController.dispose();
+    nameController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyDialog(
+      key: dialogKey,
+      title: widget.action == CreationType.add ? translations.add_mapping : translations.edit_mapping,
+      icon: widget.action == CreationType.add ? Icons.add : Icons.edit,
+      onConfirm: () {
+        final String name = nameController.text;
+        final double min = Calculator.tryParse(minController.text) ?? 0;
+        final double max = Calculator.tryParse(maxController.text) ?? getCurrentYear().maxGrade;
+
+        if (widget.action == CreationType.add) {
+          getCurrentYear().gradeMappings.add(GradeMapping(min, max, name));
+        } else {
+          getCurrentYear().gradeMappings[getCurrentYear().gradeMappings.indexOf(gradeMapping)] = GradeMapping(min, max, name);
+        }
+
+        Manager.calculate();
+        confirmed = true;
+        return true;
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          EasyFormField(
+            controller: nameController,
+            autofocus: true,
+            label: translations.name,
+            textInputAction: TextInputAction.next,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              EasyFormField(
+                controller: minController,
+                label: translations.min,
+                hint: Calculator.format(0, leadingZero: false, roundToOverride: 1),
+                numeric: true,
+                textInputAction: TextInputAction.next,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8),
+              ),
+              EasyFormField(
+                controller: maxController,
+                label: translations.max,
+                hint: Calculator.format(getCurrentYear().maxGrade, leadingZero: false, roundToOverride: 1),
+                numeric: true,
+                onSubmitted: () => dialogKey.currentState?.submit(),
               ),
             ],
           ),

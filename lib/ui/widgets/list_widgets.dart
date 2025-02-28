@@ -28,6 +28,7 @@ class TextRow extends StatelessWidget {
     this.isChild = false,
     this.horizontalTitleGap = 16,
     this.enableEqualLongPress = false,
+    this.gradeMapping,
   });
 
   final String leadingText;
@@ -40,6 +41,7 @@ class TextRow extends StatelessWidget {
   final bool isChild;
   final double horizontalTitleGap;
   final bool enableEqualLongPress;
+  final String? gradeMapping;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,17 @@ class TextRow extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (gradeMapping != null && gradeMapping!.isNotEmpty) ...[
+            Text(
+              gradeMapping!,
+              overflow: TextOverflow.visible,
+              softWrap: false,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.normal,
+                  ),
+            ),
+            const Padding(padding: EdgeInsets.only(right: 12)),
+          ],
           Text(
             trailingText,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -96,11 +109,13 @@ class GroupRow extends StatefulWidget {
     required this.children,
     required this.leadingText,
     required this.trailingText,
+    this.gradeMapping,
   });
 
   final String leadingText;
   final String trailingText;
   final List<Widget> children;
+  final String? gradeMapping;
 
   @override
   State<GroupRow> createState() => _GroupRowState();
@@ -126,6 +141,17 @@ class _GroupRowState extends State<GroupRow> {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
+              if (widget.gradeMapping != null && widget.gradeMapping!.isNotEmpty) ...[
+                Text(
+                  widget.gradeMapping!,
+                  overflow: TextOverflow.visible,
+                  softWrap: false,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.normal,
+                      ),
+                ),
+                const Padding(padding: EdgeInsets.only(right: 12)),
+              ],
               Text(
                 widget.trailingText,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -161,11 +187,13 @@ class ResultRow extends StatefulWidget {
     super.key,
     required this.result,
     required this.preciseResult,
+    this.gradeMapping,
     this.leading,
   });
 
   final String result;
   final String preciseResult;
+  final String? gradeMapping;
   final Widget? leading;
 
   @override
@@ -195,11 +223,24 @@ class _ResultRowState extends State<ResultRow> {
                   children: [
                     if (widget.leading != null) Expanded(flex: 3, child: widget.leading!),
                     const Padding(padding: EdgeInsets.only(right: 16)),
-                    Text(
-                      showPreciseResult ? widget.preciseResult : widget.result,
-                      overflow: TextOverflow.visible,
-                      softWrap: false,
-                      style: Theme.of(context).textTheme.titleLarge,
+                    Row(
+                      children: [
+                        if (widget.gradeMapping != null && widget.gradeMapping!.isNotEmpty) ...[
+                          Text(
+                            widget.gradeMapping!,
+                            overflow: TextOverflow.visible,
+                            softWrap: false,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          const Padding(padding: EdgeInsets.only(right: 12)),
+                        ],
+                        Text(
+                          showPreciseResult ? widget.preciseResult : widget.result,
+                          overflow: TextOverflow.visible,
+                          softWrap: false,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -270,9 +311,9 @@ class _SubjectTileState extends State<SubjectTile> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ReorderableDragStartListener(
-          index: widget.reorderIndex,
-          child: widget.shouldShowcase
-              ? Showcase(
+              index: widget.reorderIndex,
+              child: widget.shouldShowcase
+                  ? Showcase(
                       key: showCaseKey2,
                       description: translations.showcase_drag_subject,
                       scaleAnimationCurve: Easing.standardDecelerate,
@@ -355,32 +396,32 @@ class _SubjectTileState extends State<SubjectTile> {
 
     if (widget.potentialParent == null && !isChild) return;
 
-        lightHaptics();
+    lightHaptics();
 
-        final subjects = getCurrentYear().subjects;
+    final subjects = getCurrentYear().subjects;
 
-        if (!isChild) {
+    if (!isChild) {
       final Subject parent = widget.potentialParent!;
       final Subject child = widget.subject;
 
-          subjects.remove(child);
+      subjects.remove(child);
 
-          parent.isGroup = true;
-          child.isChild = true;
-          child.isGroup = false;
+      parent.isGroup = true;
+      child.isChild = true;
+      child.isGroup = false;
 
-          parent.children.addAll([child, ...child.children]);
-          child.children.clear();
-        } else {
+      parent.children.addAll([child, ...child.children]);
+      child.children.clear();
+    } else {
       final Subject parent = widget.potentialParent!;
       final Subject child = widget.subject;
 
-          parent.children.remove(child);
-          subjects.insert(subjects.indexOf(parent) + 1, child..isChild = false);
-          if (parent.children.isEmpty) parent.isGroup = false;
-        }
+      parent.children.remove(child);
+      subjects.insert(subjects.indexOf(parent) + 1, child..isChild = false);
+      if (parent.children.isEmpty) parent.isGroup = false;
+    }
 
-        Manager.calculate();
+    Manager.calculate();
     widget.onActionCompleted?.call();
   }
 }

@@ -111,6 +111,9 @@ class _HomePageState extends State<HomePage> {
                             preciseResult: widget.isYearOverview
                                 ? widget.year.yearOverview.getResultString(precise: true)
                                 : widget.year.getTermResultString(widget.termIndex, precise: true),
+                            gradeMapping: Calculator.format(
+                                widget.isYearOverview ? widget.year.yearOverview.result : widget.year.getTermResult(widget.termIndex),
+                                applyGradeMappings: true),
                             leading: Text(
                               widget.isYearOverview ? translations.yearly_average : translations.average,
                               overflow: TextOverflow.fade,
@@ -145,6 +148,7 @@ class _HomePageState extends State<HomePage> {
                             return TextRow(
                               leadingText: subjectData[index].name,
                               trailingText: subjectData[index].getTermResultString(widget.termIndex),
+                              gradeMapping: Calculator.format(subjectData[index].getTermResult(widget.termIndex), applyGradeMappings: true),
                               trailing: const Icon(Icons.navigate_next),
                               onTap: () {
                                 Navigator.pushNamed(
@@ -170,6 +174,8 @@ class _HomePageState extends State<HomePage> {
                                       TextRow(
                                         leadingText: childrenData[index][i].name,
                                         trailingText: childrenData[index][i].getTermResultString(widget.termIndex),
+                                        gradeMapping:
+                                            Calculator.format(childrenData[index][i].getTermResult(widget.termIndex), applyGradeMappings: true),
                                         trailing: const Icon(Icons.navigate_next),
                                         padding: const EdgeInsets.only(left: 36, right: 24),
                                         onTap: () {

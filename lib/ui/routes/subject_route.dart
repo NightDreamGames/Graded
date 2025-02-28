@@ -88,6 +88,7 @@ class _SubjectRouteState extends SpinningFabPage<SubjectRoute> {
                   child: ResultRow(
                     result: widget.subject.getTermResultString(widget.termIndex),
                     preciseResult: widget.subject.getTermResultString(widget.termIndex, precise: true),
+                    gradeMapping: Calculator.format(widget.subject.getTermResult(widget.termIndex), applyGradeMappings: true),
                     leading: FadingEdgeScrollView.fromSingleChildScrollView(
                       child: SingleChildScrollView(
                         controller: scrollController,

@@ -165,8 +165,18 @@ class Calculator {
     return double.tryParse(input.replaceAll(",", ".").replaceAll(" ", ""));
   }
 
-  static String format(double? n, {bool leadingZero = true, int? roundToOverride, int roundToMultiplier = 1, bool showPlusSign = false}) {
-    if (n == null || n.isNaN) return "-";
+  static String format(
+    double? n, {
+    bool leadingZero = true,
+    int? roundToOverride,
+    int roundToMultiplier = 1,
+    bool showPlusSign = false,
+    bool applyGradeMappings = false,
+  }) {
+    if (n == null || n.isNaN) {
+      if (applyGradeMappings) return "";
+      return "-";
+    }
 
     int roundTo = roundToOverride ?? (Manager.years.isNotEmpty ? getCurrentYear().roundTo : getPreference<int>("roundTo"));
     roundTo *= roundToMultiplier;
@@ -179,6 +189,16 @@ class Calculator {
     }
 
     result = n.toStringAsFixed(nbDecimals);
+
+    if (applyGradeMappings) {
+      for (final gradeMapping in getCurrentYear().gradeMappings) {
+        if (n >= gradeMapping.min && n <= gradeMapping.max) {
+          return gradeMapping.name;
+        }
+      }
+
+      return "";
+    }
 
     if (leadingZero && getPreference<bool>("leadingZero") && n >= 1 && n < 10) {
       result = "0$result";
