@@ -243,6 +243,7 @@
     "select": "Sélectionner",
     "select_color": "Sélectionner une couleur",
     "select_date": "Sélectionner date",
+    "select_preset": "Sélectionner un préréglage",
     "select_school_term": "Sélectionner période scolaire",
     "semesterOne": "Semestre",
     "semesterMany": "Semestres",
