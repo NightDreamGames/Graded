@@ -24,7 +24,8 @@ workflows:
       - name: Bump Flutter submodule
         working_directory: .flutter/
         script: |
-          git config pull.ff only
+          git reset --hard
+          git rebase
           git pull
           bin/flutter --version
       - name: Get Flutter packages
