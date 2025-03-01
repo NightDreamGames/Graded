@@ -82,9 +82,9 @@ Future<void> launchURL(Link type) async {
   }
 }
 
-bool isAndroid = !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
-bool isiOS = !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
-bool isWeb = kIsWeb;
+final bool isAndroid = !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
+final bool isiOS = !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
+const bool isWeb = kIsWeb;
 
 String? thresholdValidator(String? value, {int threshold = 0, bool inclusive = true}) {
   final double? number = Calculator.tryParse(value);

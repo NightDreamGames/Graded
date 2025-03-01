@@ -1,6 +1,6 @@
 <div align="center">
 <a href="https://nightdreamgames.com">
-  <img src="https://github.com/NightDreamGames/Graded/assets/49079695/d00c3e83-e525-478e-a657-878dcbc2f59a" title="Graded" width="500">
+  <img src="https://github.com/NightDreamGames/Graded/assets/49079695/d00c3e83-e525-478e-a657-878dcbc2f59a" title="Graded" alt="Graded" width="500">
 </a>
 
 <br>
@@ -22,16 +22,16 @@
 
 ### Track and manage your school grades with ease
 
-<img src="https://github.com/NightDreamGames/Graded/assets/49079695/77455727-cdba-44e6-b6b2-5603d2c1b21f" title="Screenshot_1" width="90%">
+<img src="https://github.com/NightDreamGames/Graded/assets/49079695/77455727-cdba-44e6-b6b2-5603d2c1b21f" title="Graded screenshots" alt="Graded screenshots" width="90%">
 
 # ⬇️ Download
 
 Go to the [Releases](https://github.com/NightDreamGames/Graded/releases) and download latest APK/IPA or click the badges below:
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" title="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" title="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.NightDreamGames.Grade.ly)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" title="Get it on Google Play" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.NightDreamGames.Grade.ly)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" title="Get it on F-Droid" alt="Get it on F-Droid" height="80">](https://f-droid.org/en/packages/com.NightDreamGames.Grade.ly)
 
-[<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us" title="Download on the App Store" height="60">](https://apps.apple.com/us/app/graded-grade-tracker/id644468128)
+[<img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us" title="Download on the App Store" alt="Download on the App Store" height="60">](https://apps.apple.com/us/app/graded-grade-tracker/id644468128)
 
 </div>
 
@@ -48,7 +48,7 @@ Graded is free and open source and will always stay like this. If you like this 
 
 ## You can find our roadmap with all the planned features on our [Trello board](https://trello.com/b/kfWs3e3h/graded)
 
-- Luxembourgish school system integration - Easily set up the app by selecting your class if you're in a Luxembourgish school and avoid setting your subjects by hand. All the classes are up to date with the 2022-2023 school year.
+- Luxembourgish school system integration - Easily set up the app by selecting your class if you're in a Luxembourgish school and avoid setting your subjects by hand. All the classes are up to date with the 2024-2025 school year.
 - Easy subject setup - Create and customize your subjects with ease, including coefficients and subject groups.
 - Grade and average tracking - Averages are automatically calculated through every term and subject.
 - Multiple term support - With Graded, you can switch between terms and keep track of your grades for each term independently. You have complete flexibility and Graded handles it all!
@@ -70,7 +70,7 @@ Interested in contributing to the Graded project? Thanks so much for your intere
 
 You can can take a look at our roadmap on our [Trello board](https://trello.com/b/kfWs3e3h/graded) for any inspiration or to look at what's already being worked on.
 
-If you find an error in the class presets, you can open an issue explaining it, I'll fix it quickly.
+If you find an error in the class or grade mapping presets, or want to add a fully new one, you can do so by opening an issue explaining it. I'll be happy to help you with that.
 
 If you'd like to help us translate the app, you can do so on [our POEditor project](https://poeditor.com/join/project/6qnhP0EM5w). Any language is welcome!
 

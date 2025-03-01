@@ -17,8 +17,8 @@ import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
 
 class SetupManager {
-  static String classicPath = "assets/class_data/lux/classique.json";
-  static String generalPath = "assets/class_data/lux/general.json";
+  static const String classicPath = "assets/class_data/lux/classique.json";
+  static const String generalPath = "assets/class_data/lux/general.json";
   static List<String?> cache = [null, null];
   static bool inSetup = false;
   static Year year = Year();
@@ -161,7 +161,6 @@ class SetupManager {
 
   static void dispose() {
     inSetup = false;
-    cache.clear();
   }
 
   static Future<void> completeSetup() async {
@@ -228,8 +227,8 @@ class SetupManager {
     final json = jsonDecode(data) as List;
 
     final Map<String, dynamic> classObject = json[binarySearch(
-              json,
-              {"name": className},
+      json,
+      {"name": className},
       compare: (element1, element2) =>
           ((element1! as Map<String, dynamic>)["name"] as String).compareTo((element2! as Map<String, dynamic>)["name"] as String),
     )] as Map<String, dynamic>;

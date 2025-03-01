@@ -88,6 +88,7 @@ flutter:
   assets:
     - assets/class_data/lux/
     - assets/illustrations/
+    - assets/mappings_data/
 
 flutter_intl:
   enabled: true
@@ -132,4 +133,3 @@ import_sorter:
   ignored_files:
     - \/lib\\l10n\\.*
     - \/lib\\ui\\utilities\\custom_icons.dart
-

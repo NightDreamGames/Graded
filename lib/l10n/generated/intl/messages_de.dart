@@ -257,6 +257,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "select": MessageLookupByLibrary.simpleMessage("Auswählen"),
         "select_color": MessageLookupByLibrary.simpleMessage("Farbe wählen"),
         "select_date": MessageLookupByLibrary.simpleMessage("Datum auswählen"),
+        "select_preset":
+            MessageLookupByLibrary.simpleMessage("Voreinstellung auswählen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schulperiode auswählen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),

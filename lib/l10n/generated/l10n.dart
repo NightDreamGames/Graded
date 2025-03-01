@@ -1720,6 +1720,16 @@ class TranslationsClass {
     );
   }
 
+  /// `Select preset`
+  String get select_preset {
+    return Intl.message(
+      'Select preset',
+      name: 'select_preset',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Select school term`
   String get select_school_term {
     return Intl.message(

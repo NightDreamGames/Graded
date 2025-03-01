@@ -258,6 +258,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "select": MessageLookupByLibrary.simpleMessage("Auswielen"),
         "select_color": MessageLookupByLibrary.simpleMessage("Faarf wielen"),
         "select_date": MessageLookupByLibrary.simpleMessage("Datum auswielen"),
+        "select_preset":
+            MessageLookupByLibrary.simpleMessage("Virastellung auswielen"),
         "select_school_term":
             MessageLookupByLibrary.simpleMessage("Schoulperiod auswielen"),
         "semesterOne": MessageLookupByLibrary.simpleMessage("Semester"),
