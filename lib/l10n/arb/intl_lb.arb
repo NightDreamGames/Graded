@@ -234,6 +234,7 @@
     "select": "Auswielen",
     "select_color": "Faarf wielen",
     "select_date": "Datum auswielen",
+    "select_preset": "Virastellung auswielen",
     "select_school_term": "Schoulperiod auswielen",
     "semesterOne": "Semester",
     "semesterOther": "Semester",
