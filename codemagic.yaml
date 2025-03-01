@@ -25,7 +25,7 @@ workflows:
         working_directory: .flutter/
         script: |
           git reset --hard
-          git rebase
+          git rebase stable
           git pull
           bin/flutter --version
       - name: Get Flutter packages
