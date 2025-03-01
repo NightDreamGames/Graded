@@ -234,6 +234,7 @@
     "select": "Select",
     "select_color": "Select a color",
     "select_date": "Select date",
+    "select_preset": "Select preset",
     "select_school_term": "Select school term",
     "semesterOne": "Semester",
     "semesterOther": "Semesters",
