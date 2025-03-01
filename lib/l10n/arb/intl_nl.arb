@@ -234,6 +234,7 @@
     "select": "Kiezen",
     "select_color": "Selecteer een kleur",
     "select_date": "Datum kiezen",
+    "select_preset": "Voorinstelling selecteren",
     "select_school_term": "Schoolperiode kiezen",
     "semesterOne": "Semester",
     "semesterOther": "Semesters",
