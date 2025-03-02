@@ -83,15 +83,157 @@ workflows:
       cache_paths:
         - $FLUTTER_ROOT/.pub-cache
         - $HOME/Library/Caches/CocoaPods
+  beta-release-workflow:
+    <<: *base
+    name: Beta release workflow
+    scripts:
+      - name: Bump Flutter submodule
+        script: |
+          git submodule deinit -f --all
+          rm -rf .git/modules/
+          git submodule update --init --recursive
+
+          .flutter/bin/flutter --version
+      - name: Set up environment variables
+        script: |
+          file=$(cat pubspec.yaml)
+          fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
+          echo "BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)" >> $CM_ENV
+          echo "BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER+50))" >> $CM_ENV
+
+          echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
+      - name: Check version number
+        script: |
+          if [ $(git tag -l "$BUILD_NAME") ]; then
+              echo "Version $BUILD_NAME already exists"
+              exit 1
+          fi
+      - name: Get Flutter packages
+        script: |
+          .flutter/bin/flutter pub get
+      - name: Flutter analyze
+        script: |
+          .flutter/bin/flutter analyze
+      - name: Flutter unit tests
+        script: |
+          .flutter/bin/flutter test
+      - name: Automatic versioning
+        script: |
+          perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
+
+          changelog_file="CHANGELOG.md"
+          files=("release_notes_en-GB.txt" "release_notes_fr-FR.txt" "release_notes_de-DE.txt")
+
+          CHANGELOG=$(sed -n "/\[$BUILD_NAME\]/,/\[.*\] -/p" $changelog_file | sed '$d' | sed '$d' | sed '$s/\\n$//')
+          echo "CHANGELOG=$CHANGELOG" >> $CM_ENV
+          stripped_changelog=$(echo "$CHANGELOG" | sed '1s/^...//; 3s/^....//; $s/\\n$//')
+
+          echo -e "$CHANGELOG"
+
+          echo -e "$stripped_changelog"
+
+          echo "$CHANGELOG" > "fastlane/metadata/android/en-US/changelogs/$BUILD_NUMBER.txt"
+
+          if [[ -z "$stripped_changelog" ]]; then
+            echo "Changelog not found for version $BUILD_NAME."
+            exit 1
+          fi
+
+          if [ ${#stripped_changelog} -gt 500 ]; then
+            echo "Changelog length 500 characters."
+            exit 1
+          fi
+
+          for file in ${files[@]}; do
+            echo "$stripped_changelog" > ${file}
+          done
+
+          last_release=$(gh release view --json tagName -q '.tagName')
+
+          changelog_gh=$CHANGELOG
+
+          if [[ -z "$last_release" ]]; then
+            echo "No previous release found."
+          else
+            changelog_gh+=$"\n\n#### Full changelog: https://github.com/NightDreamGames/Graded/compare/${last_release}...${BUILD_NAME}"
+          fi
+
+          echo -e "$changelog_gh" > changelog_gh.txt
+
+          echo "$CHANGELOG"
+          echo
+          echo "$stripped_changelog"
+          echo
+          echo "$changelog_gh"
+      - name: Commit versioning changes
+        script: |
+          gh auth setup-git
+          git add fastlane/metadata/android
+          git add pubspec.yaml
+          git commit -m "Versioning changes for ${BUILD_NAME}"
+          git push
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Build AAB
+        script: |
+          .flutter/bin/flutter build appbundle --release \
+            --build-number=$BUILD_NUMBER
+      - name: Build APK
+        script: |
+          .flutter/bin/flutter build apk --release \
+            --build-number=$BUILD_NUMBER
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles --project="ios/**/*.xcodeproj"
+      - name: Install pods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Build IPA
+        script: |
+          .flutter/bin/flutter build ipa --release \
+            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --export-options-plist=/Users/builder/export_options.plist
+      - name: Publish to GitHub
+        script: |
+          #!/usr/bin/env zsh
+
+          cat changelog_gh.txt
+
+          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
+          mv build/ios/ipa/Graded.ipa build/ios/ipa/graded-${BUILD_NAME}.ipa
+
+          gh release create "${BUILD_NAME}" \
+            --title "${BUILD_NAME}" \
+            --notes-file changelog_gh.txt \
+            -p \
+            build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
+            build/ios/ipa/graded-${BUILD_NAME}.ipa
+    publishing:
+      <<: *base_publishing
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: internal
+        release_promotion:
+          track: beta
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        beta_groups:
+          - External testers
+        submit_to_app_store: false
+        release_type: AFTER_APPROVAL
   production-release-workflow:
     <<: *base
     name: Production release workflow
     scripts:
       - name: Bump Flutter submodule
-        working_directory: .flutter/
         script: |
-          git pull
-          bin/flutter --version
+          git submodule deinit -f --all
+          rm -rf .git/modules/
+          git submodule update --init --recursive
+
+          .flutter/bin/flutter --version
       - name: Set up environment variables
         script: |
           file=$(cat pubspec.yaml)

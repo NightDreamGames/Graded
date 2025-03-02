@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0-beta] - 2025-03-02
+
+### New features to adapt to more school systems
+
+- Add grade mappings for systems that map the grade scale to a letter of different number scale. You can access it in Settings>Grade mappings
+- Add presets for grade mappings
+- Update the UI in the subject editing screen to better reflect the ability to change the subject hierarchy
+- Upgrade to Flutter 3.29
+
 ## [2.7.3] - 2025-01-22
 
 ### Hotfix
