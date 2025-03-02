@@ -69,7 +69,7 @@ workflows:
           success: false
           failure: true
       google_play:
-        credentials: $GOOGLE_PLAY_SERVICE_ACCOUNT_CREDENTIALS
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: internal
         release_promotion:
           track: alpha
@@ -212,7 +212,7 @@ workflows:
     publishing:
       <<: *base_publishing
       google_play:
-        credentials: $GOOGLE_PLAY_SERVICE_ACCOUNT_CREDENTIALS
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: internal
         release_promotion:
           track: beta
@@ -350,7 +350,7 @@ workflows:
     publishing:
       <<: *base_publishing
       google_play:
-        credentials: $GOOGLE_PLAY_SERVICE_ACCOUNT_CREDENTIALS
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: internal
         release_promotion:
           track: production
