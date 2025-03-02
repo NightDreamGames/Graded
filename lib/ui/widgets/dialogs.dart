@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 
 // Package imports:
 import "package:decimal/decimal.dart";
+import "package:flex_color_picker/flex_color_picker.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";
@@ -719,9 +720,15 @@ class _GradeMappingDialogState extends State<GradeMappingDialog> {
         final double max = Calculator.tryParse(maxController.text) ?? getCurrentYear().maxGrade;
 
         if (widget.action == CreationType.add) {
-          getCurrentYear().gradeMappings.add(GradeMapping(min, max, name));
+          gradeMapping.min = min;
+          gradeMapping.max = max;
+          gradeMapping.name = name;
+          getCurrentYear().gradeMappings.add(gradeMapping);
         } else {
-          getCurrentYear().gradeMappings[getCurrentYear().gradeMappings.indexOf(gradeMapping)] = GradeMapping(min, max, name);
+          final temp = getCurrentYear().gradeMappings[getCurrentYear().gradeMappings.indexOf(gradeMapping)];
+          temp.min = min;
+          temp.max = max;
+          temp.name = name;
         }
 
         Manager.calculate();
@@ -737,9 +744,7 @@ class _GradeMappingDialogState extends State<GradeMappingDialog> {
             label: translations.name,
             textInputAction: TextInputAction.next,
           ),
-          const Padding(
-            padding: EdgeInsets.all(8),
-          ),
+          const Padding(padding: EdgeInsets.all(8)),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -759,6 +764,107 @@ class _GradeMappingDialogState extends State<GradeMappingDialog> {
                 hint: Calculator.format(getCurrentYear().maxGrade, leadingZero: false, roundToOverride: 1),
                 numeric: true,
                 onSubmitted: () => dialogKey.currentState?.submit(),
+              ),
+            ],
+          ),
+          const Padding(padding: EdgeInsets.all(4)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  translations.custom_color,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  softWrap: true,
+                ),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Switch(
+                      value: gradeMapping.color != null,
+                      onChanged: (value) {
+                        if (value) {
+                          gradeMapping.color = Theme.of(context).colorScheme.onSurface.withAlpha(100);
+                        } else {
+                          gradeMapping.color = null;
+                        }
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                  InkWell(
+                    customBorder: const CircleBorder(),
+                    onTap: () {
+                      if (gradeMapping.color == null) return;
+
+                      lightHaptics();
+
+                      Color selectedColor = gradeMapping.color ?? Theme.of(context).colorScheme.onSurface.withAlpha(100);
+
+                      ColorPicker(
+                        color: selectedColor,
+                        showColorCode: true,
+                        heading: Text(
+                          translations.select_color,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        colorCodeHasColor: true,
+                        enableShadesSelection: false,
+                        selectedPickerTypeColor: Theme.of(context).colorScheme.primary,
+                        enableTonalPalette: true,
+                        wheelHasBorder: true,
+                        tonalSubheading: Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Text(translations.material_3_shades),
+                        ),
+                        copyPasteBehavior: const ColorPickerCopyPasteBehavior(
+                          copyFormat: ColorPickerCopyFormat.numHexRRGGBB,
+                        ),
+                        spacing: 8,
+                        runSpacing: 8,
+                        columnSpacing: 16,
+                        wheelSquareBorderRadius: 16,
+                        borderRadius: 16,
+                        colorCodePrefixStyle: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
+                        pickersEnabled: const <ColorPickerType, bool>{
+                          ColorPickerType.primary: true,
+                          ColorPickerType.wheel: true,
+                          ColorPickerType.accent: false,
+                        },
+                        pickerTypeLabels: <ColorPickerType, String>{
+                          ColorPickerType.primary: translations.preset,
+                          ColorPickerType.wheel: translations.custom,
+                        },
+                        enableOpacity: true,
+                        onColorChanged: (Color value) {
+                          selectedColor = value;
+                        },
+                      )
+                          .showPickerDialog(
+                        context,
+                      )
+                          .then((_) {
+                        gradeMapping.color = selectedColor;
+                        setState(() {});
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: SizedBox(
+                        height: 36,
+                        width: 36,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: gradeMapping.color ?? Theme.of(context).colorScheme.onSurface.withAlpha(100),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -59,7 +59,7 @@ class _ChartRouteState extends State<ChartRoute> {
                       ResultRow(
                         result: widget.subject.getResultString(),
                         preciseResult: widget.subject.getResultString(precise: true),
-                        gradeMapping: Calculator.format(widget.subject.result, applyGradeMappings: true),
+                        gradeMapping: Calculator.getGradeMapping(widget.subject.result),
                         leading: Text(
                           translations.yearly_average,
                           overflow: TextOverflow.fade,

@@ -60,7 +60,7 @@ class _GradeMappingRouteState extends SpinningFabPage<GradeMappingRoute> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
-        tooltip: translations.add_year,
+        tooltip: translations.add_mapping,
         onPressed: () {
           setState(() {
             fabRotation += 0.5;
@@ -94,6 +94,7 @@ class _GradeMappingRouteState extends SpinningFabPage<GradeMappingRoute> {
                 }
                 return RadioModalSettingsTile<String>(
                   title: translations.select_preset,
+                  subtitle: null,
                   icon: Icons.widgets_outlined,
                   settingKey: "gradeMappingPreset",
                   values: snapshot.connectionState == ConnectionState.waiting ? {} : snapshot.data!,

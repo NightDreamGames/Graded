@@ -7,6 +7,7 @@ import "package:fading_edge_scrollview/fading_edge_scrollview.dart";
 import "package:flutter_svg/svg.dart";
 
 // Project imports:
+import "package:graded/ui/utilities/grade_mapping_value.dart";
 import "package:graded/ui/utilities/misc_utilities.dart";
 
 class AppBarTitle extends StatefulWidget {
@@ -247,5 +248,43 @@ class MeasureSize extends SingleChildRenderObjectWidget {
   @override
   void updateRenderObject(BuildContext context, covariant MeasureSizeRenderObject renderObject) {
     renderObject.onChange = onChange;
+  }
+}
+
+class GradeMappingIndicator extends StatelessWidget {
+  const GradeMappingIndicator({
+    super.key,
+    required this.gradeMapping,
+    this.textStyle,
+  });
+
+  final GradeMapping? gradeMapping;
+  final TextStyle? textStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    if (gradeMapping == null || gradeMapping!.name.isEmpty) return Container();
+
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: gradeMapping?.color ?? Theme.of(context).colorScheme.onSurface.withAlpha(100),
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Text(
+          gradeMapping!.name,
+          overflow: TextOverflow.visible,
+          softWrap: false,
+          style: textStyle ??
+              Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.normal,
+                  ),
+        ),
+      ),
+    );
   }
 }

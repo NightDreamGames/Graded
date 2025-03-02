@@ -1480,7 +1480,7 @@ class RadioModalSettingsTile<T> extends StatefulWidget {
   final String title;
 
   /// subtitle for the settings tile, default = ''
-  final String subtitle;
+  final String? subtitle;
 
   /// title text style
   final TextStyle? titleTextStyle;
@@ -1541,13 +1541,19 @@ class _RadioModalSettingsTileState<T> extends State<RadioModalSettingsTile<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final String? subtitle = widget.subtitle != null
+        ? widget.subtitle!.isNotEmpty
+            ? widget.subtitle
+            : (widget.values[getPreference(widget.settingKey)] ?? translations.not_set)
+        : null;
+
     return ValueChangeObserver<T>(
       cacheKey: widget.settingKey,
       defaultValue: selectedValue,
       builder: (BuildContext context, T value, OnChanged<T> onChanged) {
         return _ModalSettingsTile<T>(
           title: widget.title,
-          subtitle: widget.subtitle.isNotEmpty ? widget.subtitle : (widget.values[getPreference(widget.settingKey)] ?? translations.not_set),
+          subtitle: subtitle,
           icon: widget.icon,
           titleTextStyle: widget.titleTextStyle,
           subtitleTextStyle: widget.subtitleTextStyle,

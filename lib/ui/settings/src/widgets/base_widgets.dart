@@ -443,10 +443,12 @@ class _ModalSettingsTileState extends State<_ModalSettingsTile> {
             widget.icon,
           ),
           title: Text(widget.title, style: widget.titleTextStyle ?? headerTextStyle(context)),
-          subtitle: Text(
-            widget.subtitle!,
-            style: widget.subtitleTextStyle ?? subtitleTextStyle(context),
-          ),
+          subtitle: widget.subtitle != null
+              ? Text(
+                  widget.subtitle!,
+                  style: widget.subtitleTextStyle ?? subtitleTextStyle(context),
+                )
+              : null,
           enabled: widget.enabled,
           onTap: () => _showWidget(context, widget.child),
         ),

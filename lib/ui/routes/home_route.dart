@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey showCaseKey = GlobalKey();
   late bool shouldShowcase;
   bool showcasing = false;
+  double? maxTextWidth = 0;
 
   void rebuild() {
     setState(() {});
@@ -58,8 +59,40 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  double? calculateMaxWidth() {
+    final List<Subject> subjects = widget.isYearOverview ? widget.year.yearOverview.subjects : widget.year.subjects;
+    if (subjects.length < 2) return null;
+    if (getCurrentYear().gradeMappings.isEmpty) return null;
+    if (subjects.where((element) => element.result != null).length < 2) return null;
+    if (subjects.every((element) => Calculator.getGradeMapping(element.result) == null)) return null;
+    if (subjects.every((element) => Calculator.getGradeMapping(element.result)?.name.isEmpty ?? true)) return null;
+
+    final textPainter = TextPainter(
+      textDirection: TextDirection.ltr,
+    );
+
+    double maxWidth = 0;
+
+    for (final subject in widget.isYearOverview ? widget.year.yearOverview.subjects : widget.year.subjects) {
+      final String text = subject.getTermResultString(widget.termIndex);
+      textPainter.text = TextSpan(
+        text: text,
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.normal,
+            ),
+      );
+      textPainter.layout();
+
+      maxWidth = maxWidth > textPainter.width ? maxWidth : textPainter.width;
+    }
+
+    return maxWidth;
+  }
+
   @override
   Widget build(BuildContext context) {
+    maxTextWidth = calculateMaxWidth();
+
     final data = Calculator.getSortedSubjectData(
       widget.isYearOverview ? widget.year.yearOverview.subjects : widget.year.subjects,
       termIndex: widget.isYearOverview ? null : widget.termIndex,
@@ -111,10 +144,8 @@ class _HomePageState extends State<HomePage> {
                             preciseResult: widget.isYearOverview
                                 ? widget.year.yearOverview.getResultString(precise: true)
                                 : widget.year.getTermResultString(widget.termIndex, precise: true),
-                            gradeMapping: Calculator.format(
-                              widget.isYearOverview ? widget.year.yearOverview.result : widget.year.getTermResult(widget.termIndex),
-                              applyGradeMappings: true,
-                            ),
+                            gradeMapping: Calculator.getGradeMapping(
+                                widget.isYearOverview ? widget.year.yearOverview.result : widget.year.getTermResult(widget.termIndex)),
                             leading: Text(
                               widget.isYearOverview ? translations.yearly_average : translations.average,
                               overflow: TextOverflow.fade,
@@ -149,7 +180,8 @@ class _HomePageState extends State<HomePage> {
                             return TextRow(
                               leadingText: subjectData[index].name,
                               trailingText: subjectData[index].getTermResultString(widget.termIndex),
-                              gradeMapping: Calculator.format(subjectData[index].getTermResult(widget.termIndex), applyGradeMappings: true),
+                              trailingTextWidth: maxTextWidth,
+                              gradeMapping: Calculator.getGradeMapping(subjectData[index].getTermResult(widget.termIndex)),
                               trailing: const Icon(Icons.navigate_next),
                               onTap: () {
                                 Navigator.pushNamed(
@@ -167,6 +199,8 @@ class _HomePageState extends State<HomePage> {
                             return GroupRow(
                               leadingText: subjectData[index].name,
                               trailingText: subjectData[index].getTermResultString(widget.termIndex),
+                              trailingTextWidth: maxTextWidth,
+                              gradeMapping: Calculator.getGradeMapping(subjectData[index].getTermResult(widget.termIndex)),
                               children: [
                                 const Divider(),
                                 for (int i = 0; i < childrenData[index].length; i++)
@@ -175,8 +209,8 @@ class _HomePageState extends State<HomePage> {
                                       TextRow(
                                         leadingText: childrenData[index][i].name,
                                         trailingText: childrenData[index][i].getTermResultString(widget.termIndex),
-                                        gradeMapping:
-                                            Calculator.format(childrenData[index][i].getTermResult(widget.termIndex), applyGradeMappings: true),
+                                        trailingTextWidth: maxTextWidth,
+                                        gradeMapping: Calculator.getGradeMapping(childrenData[index][i].getTermResult(widget.termIndex)),
                                         trailing: const Icon(Icons.navigate_next),
                                         padding: const EdgeInsets.only(left: 36, right: 24),
                                         onTap: () {

@@ -11,8 +11,10 @@ import "package:graded/calculations/subject.dart";
 import "package:graded/l10n/translations.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/ui/routes/subject_edit_route.dart";
+import "package:graded/ui/utilities/grade_mapping_value.dart";
 import "package:graded/ui/utilities/haptics.dart";
 import "package:graded/ui/widgets/dialogs.dart";
+import "package:graded/ui/widgets/misc_widgets.dart";
 import "package:graded/ui/widgets/popup_menus.dart";
 
 class TextRow extends StatelessWidget {
@@ -22,6 +24,7 @@ class TextRow extends StatelessWidget {
     required this.trailingText,
     this.leading,
     this.trailing,
+    this.trailingTextWidth,
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
     this.onTap,
     this.onLongPress,
@@ -35,13 +38,14 @@ class TextRow extends StatelessWidget {
   final String trailingText;
   final Widget? leading;
   final Widget? trailing;
+  final double? trailingTextWidth;
   final EdgeInsets padding;
   final Function()? onTap;
   final Function()? onLongPress;
   final bool isChild;
   final double horizontalTitleGap;
   final bool enableEqualLongPress;
-  final String? gradeMapping;
+  final GradeMapping? gradeMapping;
 
   @override
   Widget build(BuildContext context) {
@@ -59,22 +63,19 @@ class TextRow extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (gradeMapping != null && gradeMapping!.isNotEmpty) ...[
-            Text(
-              gradeMapping!,
-              overflow: TextOverflow.visible,
-              softWrap: false,
+          if (gradeMapping != null && gradeMapping!.name.isNotEmpty) ...[
+            GradeMappingIndicator(gradeMapping: gradeMapping),
+            const Padding(padding: EdgeInsets.only(right: 12)),
+          ],
+          SizedBox(
+            width: trailingTextWidth,
+            child: Text(
+              trailingText,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.normal,
                   ),
+              textAlign: TextAlign.end,
             ),
-            const Padding(padding: EdgeInsets.only(right: 12)),
-          ],
-          Text(
-            trailingText,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.normal,
-                ),
           ),
           if (trailing != null) ...[
             const Padding(padding: EdgeInsets.only(right: 24)),
@@ -109,13 +110,15 @@ class GroupRow extends StatefulWidget {
     required this.children,
     required this.leadingText,
     required this.trailingText,
+    this.trailingTextWidth,
     this.gradeMapping,
   });
 
   final String leadingText;
   final String trailingText;
+  final double? trailingTextWidth;
   final List<Widget> children;
-  final String? gradeMapping;
+  final GradeMapping? gradeMapping;
 
   @override
   State<GroupRow> createState() => _GroupRowState();
@@ -141,22 +144,19 @@ class _GroupRowState extends State<GroupRow> {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (widget.gradeMapping != null && widget.gradeMapping!.isNotEmpty) ...[
-                Text(
-                  widget.gradeMapping!,
-                  overflow: TextOverflow.visible,
-                  softWrap: false,
+              if (widget.gradeMapping != null && widget.gradeMapping!.name.isNotEmpty) ...[
+                GradeMappingIndicator(gradeMapping: widget.gradeMapping),
+                const Padding(padding: EdgeInsets.only(right: 12)),
+              ],
+              SizedBox(
+                width: widget.trailingTextWidth,
+                child: Text(
+                  widget.trailingText,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.normal,
                       ),
+                  textAlign: TextAlign.end,
                 ),
-                const Padding(padding: EdgeInsets.only(right: 12)),
-              ],
-              Text(
-                widget.trailingText,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
               ),
               const Padding(padding: EdgeInsets.only(right: 24)),
               AnimatedRotation(
@@ -193,7 +193,7 @@ class ResultRow extends StatefulWidget {
 
   final String result;
   final String preciseResult;
-  final String? gradeMapping;
+  final GradeMapping? gradeMapping;
   final Widget? leading;
 
   @override
@@ -225,12 +225,10 @@ class _ResultRowState extends State<ResultRow> {
                     const Padding(padding: EdgeInsets.only(right: 16)),
                     Row(
                       children: [
-                        if (widget.gradeMapping != null && widget.gradeMapping!.isNotEmpty) ...[
-                          Text(
-                            widget.gradeMapping!,
-                            overflow: TextOverflow.visible,
-                            softWrap: false,
-                            style: Theme.of(context).textTheme.titleLarge,
+                        if (widget.gradeMapping != null && widget.gradeMapping!.name.isNotEmpty) ...[
+                          GradeMappingIndicator(
+                            gradeMapping: widget.gradeMapping,
+                            textStyle: Theme.of(context).textTheme.titleLarge,
                           ),
                           const Padding(padding: EdgeInsets.only(right: 12)),
                         ],

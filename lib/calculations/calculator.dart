@@ -12,6 +12,7 @@ import "package:graded/calculations/test.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/storage.dart";
+import "package:graded/ui/utilities/grade_mapping_value.dart";
 
 class Calculator {
   static List<T> sortObjects<T extends CalculationObject>(
@@ -171,10 +172,8 @@ class Calculator {
     int? roundToOverride,
     int roundToMultiplier = 1,
     bool showPlusSign = false,
-    bool applyGradeMappings = false,
   }) {
     if (n == null || n.isNaN) {
-      if (applyGradeMappings) return "";
       return "-";
     }
 
@@ -189,16 +188,6 @@ class Calculator {
     }
 
     result = n.toStringAsFixed(nbDecimals);
-
-    if (applyGradeMappings) {
-      for (final gradeMapping in getCurrentYear().gradeMappings) {
-        if (n >= gradeMapping.min && n <= gradeMapping.max) {
-          return gradeMapping.name;
-        }
-      }
-
-      return "";
-    }
 
     if (leadingZero && getPreference<bool>("leadingZero") && n >= 1 && n < 10) {
       result = "0$result";
@@ -230,5 +219,17 @@ class Calculator {
     }).toList();
 
     return (subjectData, childrenData);
+  }
+
+  static GradeMapping? getGradeMapping(double? n) {
+    if (n == null || n.isNaN) return null;
+
+    for (final gradeMapping in getCurrentYear().gradeMappings) {
+      if (n >= gradeMapping.min && n <= gradeMapping.max) {
+        return gradeMapping;
+      }
+    }
+
+    return null;
   }
 }
