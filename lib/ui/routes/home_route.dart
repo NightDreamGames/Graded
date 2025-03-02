@@ -145,7 +145,8 @@ class _HomePageState extends State<HomePage> {
                                 ? widget.year.yearOverview.getResultString(precise: true)
                                 : widget.year.getTermResultString(widget.termIndex, precise: true),
                             gradeMapping: Calculator.getGradeMapping(
-                                widget.isYearOverview ? widget.year.yearOverview.result : widget.year.getTermResult(widget.termIndex)),
+                              widget.isYearOverview ? widget.year.yearOverview.result : widget.year.getTermResult(widget.termIndex),
+                            ),
                             leading: Text(
                               widget.isYearOverview ? translations.yearly_average : translations.average,
                               overflow: TextOverflow.fade,
