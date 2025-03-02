@@ -10,7 +10,7 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.NightDreamGames.Gradely
       groups:
-        - gh-auth
+        - GITHUB_TOKEN
         - playstore-auth
       vars:
         PACKAGE_NAME: "com.NightDreamGames.Grade.ly"
