@@ -27,7 +27,7 @@ workflows:
           rm -rf .git/modules/
           git submodule update --init --recursive
 
-          bin/flutter --version
+          .flutter/bin/flutter --version
       - name: Get Flutter packages
         script: |
           .flutter/bin/flutter pub get
