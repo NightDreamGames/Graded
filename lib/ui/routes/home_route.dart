@@ -112,8 +112,9 @@ class _HomePageState extends State<HomePage> {
                                 ? widget.year.yearOverview.getResultString(precise: true)
                                 : widget.year.getTermResultString(widget.termIndex, precise: true),
                             gradeMapping: Calculator.format(
-                                widget.isYearOverview ? widget.year.yearOverview.result : widget.year.getTermResult(widget.termIndex),
-                                applyGradeMappings: true),
+                              widget.isYearOverview ? widget.year.yearOverview.result : widget.year.getTermResult(widget.termIndex),
+                              applyGradeMappings: true,
+                            ),
                             leading: Text(
                               widget.isYearOverview ? translations.yearly_average : translations.average,
                               overflow: TextOverflow.fade,
