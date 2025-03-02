@@ -222,7 +222,6 @@ workflows:
         beta_groups:
           - External testers
         submit_to_app_store: false
-        release_type: AFTER_APPROVAL
   production-release-workflow:
     <<: *base
     name: Production release workflow
