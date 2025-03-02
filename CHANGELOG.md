@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.8.0-beta] - 2025-03-02
+## [2.8.0-beta2] - 2025-03-02
+
+### New features to adapt to more school systems
+
+- Add a border to grade mappings
+- Add settings to customize grade mapping color
+- Align grade mappings horizontally with eachother
+- Fix grade mapping presets not applying the name correctly
+
+## [2.8.0-beta1] - 2025-03-02
 
 ### New features to adapt to more school systems
 
