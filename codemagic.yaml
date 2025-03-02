@@ -22,11 +22,11 @@ workflows:
       app_store_connect: NightDream Games
     scripts:
       - name: Bump Flutter submodule
-        working_directory: .flutter/
         script: |
-          git reset --hard
-          git rebase stable
-          git pull
+          git submodule deinit -f --all
+          rm -rf .git/modules/
+          git submodule update --init --recursive
+
           bin/flutter --version
       - name: Get Flutter packages
         script: |
