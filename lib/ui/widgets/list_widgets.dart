@@ -354,7 +354,7 @@ class _SubjectTileState extends State<SubjectTile> {
                   ),
                 )
             else
-              const Padding(padding: EdgeInsets.all(kMinInteractiveDimension / 2)),
+              const Padding(padding: EdgeInsets.only(right: kMinInteractiveDimension * 5 / 6)),
           ],
         ),
         onTap: () {
