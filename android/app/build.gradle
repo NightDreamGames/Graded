@@ -81,7 +81,6 @@ android {
 
 		profile {
 			signingConfig signingConfigs.debug
-			applicationIdSuffix '.profile'
 			versionNameSuffix '-PROFILE'
 		}
 
