@@ -257,8 +257,7 @@ class LbMaterialLocalizations extends GlobalMaterialLocalizations {
     required super.twoDigitZeroPaddedFormat,
   });
 
-  static const LocalizationsDelegate<MaterialLocalizations> delegate =
-      _LbMaterialLocalizationsDelegate();
+  static const LocalizationsDelegate<MaterialLocalizations> delegate = _LbMaterialLocalizationsDelegate();
 
   @override
   String get aboutListTileTitleRaw => r'Iwwer $applicationName';
@@ -759,8 +758,7 @@ class LbCupertinoLocalizations extends GlobalCupertinoLocalizations {
     required super.decimalFormat,
   });
 
-  static const LocalizationsDelegate<CupertinoLocalizations> delegate =
-      _LbCupertinoLocalizationsDelegate();
+  static const LocalizationsDelegate<CupertinoLocalizations> delegate = _LbCupertinoLocalizationsDelegate();
 
   @override
   String get alertDialogLabel => 'Notifikatiounen';
@@ -908,4 +906,10 @@ class LbCupertinoLocalizations extends GlobalCupertinoLocalizations {
 
   @override
   String get menuDismissLabel => 'Menu schléissen';
+
+  @override
+  String get backButtonLabel => 'Zerèck';
+
+  @override
+  String get cancelButtonLabel => 'Ofbriechen';
 }
