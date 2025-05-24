@@ -99,32 +99,32 @@ class Manager {
     }
 
     for (int i = 0; i < year.subjects.length; i++) {
-      final Subject t = year.subjects[i];
-      final Subject s = yearOverview.subjects[i];
+      final Subject s = year.subjects[i];
+      final Subject ys = yearOverview.subjects[i];
       for (int j = 0; j < getAmountOfTerms(); j++) {
-        if (s.isGroup) {
-          for (int k = 0; k < s.children.length; k++) {
-            final double? subjectResult = t.children[k].terms[j].result;
-            s.children[k].terms[0].addTest(
+        if (ys.isGroup) {
+          for (int k = 0; k < ys.children.length; k++) {
+            final double? subjectResult = s.children[k].terms[j].result;
+            ys.children[k].terms[0].addTest(
               Test(
                 subjectResult ?? 0,
                 year.maxGrade,
                 name: getTermName(termIndex: j),
-                weight: t.children[k].terms[j].weight,
+                weight: s.children[k].terms[j].weight,
                 isEmpty: subjectResult == null,
               ),
               calculate: false,
             );
           }
         } else {
-          final double? subjectResult = t.terms[j].result;
+          final double? subjectResult = s.terms[j].result;
 
-          s.terms[0].addTest(
+          ys.terms[0].addTest(
             Test(
               subjectResult ?? 0,
               year.maxGrade,
               name: getTermName(termIndex: j),
-              weight: t.weight,
+              weight: s.terms[j].weight,
               isEmpty: subjectResult == null,
             ),
             calculate: false,
@@ -192,15 +192,29 @@ Subject getSubjectInYear(Subject subject) {
 Subject getSubjectInSpecificYear(Subject subject, Year oldYear, Year newYear) {
   if (newYear.subjects.contains(subject) || newYear.subjects.any((s) => s.children.contains(subject))) return subject;
 
-  final int index = oldYear.subjects.indexOf(subject);
-  if (index == -1) {
-    for (final Subject s in oldYear.subjects) {
-      final int childIndex = s.children.indexOf(subject);
-      if (childIndex != -1) {
-        return newYear.subjects[oldYear.subjects.indexOf(s)].children[childIndex];
-      }
+  int index = oldYear.subjects.indexOf(subject);
+  if (index != -1) {
+    return newYear.subjects[index];
+  }
+
+  for (final Subject s in oldYear.subjects) {
+    final int childIndex = s.children.indexOf(subject);
+    if (childIndex != -1) {
+      return newYear.subjects[oldYear.subjects.indexOf(s)].children[childIndex];
     }
   }
 
-  return newYear.subjects[oldYear.subjects.indexOf(subject)];
+  index = oldYear.subjects.indexWhere((s) => s.name == subject.name);
+  if (index != -1) {
+    return newYear.subjects[index];
+  }
+
+  for (final Subject s in oldYear.subjects) {
+    final int childIndex = s.children.indexWhere((c) => c.name == subject.name);
+    if (childIndex != -1) {
+      return newYear.subjects[oldYear.subjects.indexOf(s)].children[childIndex];
+    }
+  }
+
+  throw ArgumentError('Subject "${subject.name}" not found in year');
 }

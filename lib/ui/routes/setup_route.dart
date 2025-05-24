@@ -76,11 +76,13 @@ class _SetupPageState extends State<SetupPage> {
         floatingActionButton: () {
           if ((getPreference<int>("year") != -1 && (!SetupManager.hasSections() || getPreference<String>("section").isNotEmpty)) ||
               getPreference<String>("schoolSystem") == "other") {
-            Future.delayed(const Duration(milliseconds: 500)).then((_) {
-              if (startedAnimation || !mounted) return;
-              startedAnimation = true;
-              _animateIcon();
-            });
+            if (mounted && !startedAnimation) {
+              Future.delayed(const Duration(milliseconds: 500)).then((_) {
+                if (startedAnimation || !mounted) return;
+                startedAnimation = true;
+                _animateIcon();
+              });
+            }
 
             return FloatingActionButton(
               tooltip: translations.done,

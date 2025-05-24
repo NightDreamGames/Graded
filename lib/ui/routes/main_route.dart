@@ -27,12 +27,10 @@ enum RouteType {
 class RouteWidget extends StatefulWidget {
   const RouteWidget({
     super.key,
-    required this.title,
     required this.routeType,
     this.arguments,
   });
 
-  final String title;
   final RouteType routeType;
   final Object? arguments;
 
@@ -147,6 +145,11 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         },
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            String title = translations.subjectOther;
+            if (widget.routeType != RouteType.home) {
+              title = (widget.arguments! as List<Subject?>)[1]!.name;
+            }
+
             return <Widget>[
               SliverOverlapAbsorber(
                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
@@ -154,7 +157,7 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
                   children: [
                     BetterSliverAppBar.large(
                       title: AppBarTitle(
-                        title: widget.title,
+                        title: title,
                       ),
                       actions: [
                         SortAction(
@@ -260,11 +263,8 @@ class RouteWidgetState extends State<RouteWidget> with TickerProviderStateMixin 
         Subject? parent = arguments[0];
         Subject subject = arguments[1]!;
 
-        int tabCount = 1;
-        if (widget.routeType == RouteType.subject) {
-          tabCount = getCurrentYear().termCount;
-          if (getCurrentYear().validatedYear == 1) tabCount++;
-          if (tabCount > 1) tabCount++;
+        if (widget.routeType == RouteType.chart) {
+          tabCount = 1;
         }
 
         children = List.generate(tabCount, (index) {

@@ -12,10 +12,8 @@ import "package:provider/provider.dart";
 
 // Project imports:
 import "package:graded/calculations/manager.dart";
-import "package:graded/calculations/subject.dart";
 import "package:graded/l10n/generated/l10n.dart";
 import "package:graded/l10n/material_localization/lb_intl.dart";
-import "package:graded/l10n/translations.dart";
 import "package:graded/misc/default_values.dart";
 import "package:graded/misc/enums.dart";
 import "package:graded/misc/locale_provider.dart";
@@ -134,13 +132,9 @@ Route<dynamic> createRoute(RouteSettings settings) {
         throw ArgumentError("No arguments passed to route");
       }
 
-      final List<Subject?> arguments = settings.arguments! as List<Subject?>;
-      final Subject subject = arguments[1]!;
-
       route = RouteWidget(
         routeType: settings.name == "/subject" ? RouteType.subject : RouteType.chart,
-        title: subject.name,
-        arguments: arguments,
+        arguments: settings.arguments,
       );
     case "/years":
       route = const YearRoute();
@@ -152,7 +146,6 @@ Route<dynamic> createRoute(RouteSettings settings) {
       route = RouteWidget(
         key: mainRouteKey,
         routeType: RouteType.home,
-        title: translations.subjectOther,
       );
   }
 
