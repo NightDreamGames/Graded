@@ -1,0 +1,8 @@
+## [2.8.0] - 2025-05-25
+
+### Added grade mappings and fixed issues
+
+- Introduce customizable grade mappings for diverse school systems (Settings > Grade mappings). You can now define how grades are represented, including letter grades and alternative number scales, along with a color scheme.
+- Improve subject editing UI to better reflect subject hierarchy changes
+- Fix incorrect weight and wrong result shown for exam term
+- Miscellaneous internal refactorings
