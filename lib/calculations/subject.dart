@@ -48,6 +48,9 @@ class Subject extends CalculationObject {
       for (final Term t in terms) {
         if (t.isExam) {
           t.weight = examWeight * nonEmptyTerms;
+          if (t.weight == 0) {
+            t.weight = 1;
+          }
         }
       }
 
