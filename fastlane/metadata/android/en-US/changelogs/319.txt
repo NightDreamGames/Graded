@@ -1,0 +1,9 @@
+## [2.8.0-beta3] - 2025-05-24
+
+### Bugfixes
+
+- Fix weight of the exam term being wrong
+- Fix exam term always showing a result of 60
+- Fix alignment issue in subject editing page
+- Misc refactorings
+- Upgrade to Flutter 3.32
