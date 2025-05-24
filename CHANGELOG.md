@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0-beta3] - 2025-05-24
+
+### Bugfixes
+
+- Fix weight of the exam term being wrong
+- Fix exam term always showing a result of 60
+- Fix alignment issue in subject editing page
+- Misc refactorings
+- Upgrade to Flutter 3.32
+
 ## [2.8.0-beta2] - 2025-03-02
 
 ### New features to adapt to more school systems
