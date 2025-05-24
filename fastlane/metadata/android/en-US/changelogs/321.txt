@@ -1,0 +1,5 @@
+## [2.8.0-beta4] - 2025-05-24
+
+### Version bump
+
+- Bump version number due to failed publishing
