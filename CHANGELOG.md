@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2025-05-25
+
+### Added grade mappings and fixed issues
+
+- Introduce customizable grade mappings for diverse school systems (Settings > Grade mappings). You can now define how grades are represented, including letter grades and alternative number scales, along with a color scheme.
+- Improve subject editing UI to better reflect subject hierarchy changes
+- Fix incorrect weight and wrong result shown for exam term
+- Miscellaneous internal refactorings
+
 ## [2.8.0-beta4] - 2025-05-24
 
 ### Version bump
