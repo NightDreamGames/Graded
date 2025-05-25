@@ -1,8 +1,11 @@
 workflows:
+  # ────────────────────────────────────────────────────────────────────────────
+  # Base definition for all three workflows
   alpha-release-workflow: &base
     name: Alpha release workflow
     max_build_duration: 30
     instance_type: mac_mini_m2
+
     environment:
       android_signing:
         - Graded
@@ -18,49 +21,76 @@ workflows:
       xcode: latest
       java: 17
       cocoapods: default
+
     integrations:
       app_store_connect: NightDream Games
+
+    # ──────────────── Build steps ────────────────────
     scripts:
       - name: Bump Flutter submodule
         script: |
           git submodule deinit -f --all
           rm -rf .git/modules/
           git submodule update --init --recursive
-
           .flutter/bin/flutter --version
+
       - name: Get Flutter packages
-        script: |
-          .flutter/bin/flutter pub get
+        script: .flutter/bin/flutter pub get
+
       - name: Flutter analyze
-        script: |
-          .flutter/bin/flutter analyze
+        script: .flutter/bin/flutter analyze
+
       - name: Flutter unit tests
-        script: |
-          .flutter/bin/flutter test
+        script: .flutter/bin/flutter test
+
       - name: Set up local.properties
         script: |
-          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Build AAB
+          echo "flutter.sdk=$HOME/programs/flutter" \
+            > "$CM_BUILD_DIR/android/local.properties"
+
+      - name: Build Android AAB
         script: |
           .flutter/bin/flutter build appbundle --release \
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
+
       - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles --project="ios/**/*.xcodeproj"
+
+      - name: Conditional Pod install
         script: |
-          xcode-project use-profiles --project="ios/**/*.xcodeproj"
-      - name: Install pods
+          if git diff --quiet HEAD^ HEAD -- ios/Podfile*; then
+            echo "No Podfile changes – skipping pod install"
+          else
+            find . -name "Podfile" -execdir pod install \;
+          fi
+
+      - name: Build IPA (iOS with alpha suffix)
         script: |
-          find . -name "Podfile" -execdir pod install \;
-      - name: Build IPA
-        script: |
+          fullVersion=$(grep ^version: pubspec.yaml | awk '{print $2}')
+          versionName=${fullVersion%%+*}             # e.g. 2.8.0-alpha1
+          buildNum=$(($PROJECT_BUILD_NUMBER + 50))   # e.g. 53
+
+          if [[ "$versionName" =~ -alpha([0-9]+)$ ]]; then
+            suffix="a${BASH_REMATCH[1]}"              # a1
+          else
+            suffix=""
+          fi
+
+          iosBuildNumber="${buildNum}${suffix}"      # e.g. 53a1
+
           .flutter/bin/flutter build ipa --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --build-name="$versionName" \
+            --build-number="$iosBuildNumber" \
             --export-options-plist=/Users/builder/export_options.plist
+
     artifacts:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/apk/release/*.apk
       - build/**/outputs/**/mapping.txt
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
+
+    # ──────────────── Common publishing (merged into each) ─────────────────
     publishing: &base_publishing
       email:
         recipients:
@@ -68,56 +98,65 @@ workflows:
         notify:
           success: false
           failure: true
+
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: internal
         release_promotion:
           track: alpha
+
       app_store_connect:
         auth: integration
         submit_to_testflight: true
         beta_groups:
           - External testers
         submit_to_app_store: false
+
     cache:
       cache_paths:
+        - $HOME/programs/flutter/bin/cache
         - $FLUTTER_ROOT/.pub-cache
         - $HOME/Library/Caches/CocoaPods
+        - ios/Pods
+        - ios/Podfile.lock
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Beta workflow reuses everything in &base, then overrides scripts + publishing
   beta-release-workflow:
     <<: *base
     name: Beta release workflow
+
     scripts:
       - name: Bump Flutter submodule
         script: |
           git submodule deinit -f --all
           rm -rf .git/modules/
           git submodule update --init --recursive
-
           .flutter/bin/flutter --version
+
       - name: Set up environment variables
         script: |
-          file=$(cat pubspec.yaml)
-          fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
-          echo "BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)" >> $CM_ENV
+          fullVersion=$(grep ^version: pubspec.yaml | awk '{print $2}')
+          echo "BUILD_NAME=${fullVersion%%+*}" >> $CM_ENV
           echo "BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER+50))" >> $CM_ENV
 
-          echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
       - name: Check version number
         script: |
-          if [ $(git tag -l "$BUILD_NAME") ]; then
-              echo "Version $BUILD_NAME already exists"
-              exit 1
+          if git tag -l "$BUILD_NAME"; then
+            echo "Version $BUILD_NAME already exists"
+            exit 1
           fi
+
       - name: Get Flutter packages
-        script: |
-          .flutter/bin/flutter pub get
+        script: .flutter/bin/flutter pub get
+
       - name: Flutter analyze
-        script: |
-          .flutter/bin/flutter analyze
+        script: .flutter/bin/flutter analyze
+
       - name: Flutter unit tests
-        script: |
-          .flutter/bin/flutter test
-      - name: Automatic versioning
+        script: .flutter/bin/flutter test
+
+      - name: Automatic versioning & changelog prep
         script: |
           perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
 
@@ -172,43 +211,60 @@ workflows:
           git add pubspec.yaml
           git commit -m "Versioning changes for ${BUILD_NAME}"
           git push
+
       - name: Set up local.properties
-        script: |
-          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Build AAB
-        script: |
-          .flutter/bin/flutter build appbundle --release \
-            --build-number=$BUILD_NUMBER
-      - name: Build APK
-        script: |
-          .flutter/bin/flutter build apk --release \
-            --build-number=$BUILD_NUMBER
+        script: echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+
+      - name: Build Android AAB
+        script: .flutter/bin/flutter build appbundle --release --build-number=$BUILD_NUMBER
+
+      - name: Build Android APK
+        script: .flutter/bin/flutter build apk --release --build-number=$BUILD_NUMBER
+
       - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles --project="ios/**/*.xcodeproj"
+
+      - name: Conditional Pod install
         script: |
-          xcode-project use-profiles --project="ios/**/*.xcodeproj"
-      - name: Install pods
+          if git diff --quiet HEAD^ HEAD -- ios/Podfile*; then
+            echo "No Podfile changes – skipping pod install"
+          else
+            find . -name "Podfile" -execdir pod install \;
+          fi
+
+      - name: Build IPA (iOS with beta suffix)
         script: |
-          find . -name "Podfile" -execdir pod install \;
-      - name: Build IPA
-        script: |
+          fullVersion=$(grep ^version: pubspec.yaml | awk '{print $2}')
+          versionName=${fullVersion%%+*}
+          buildNum=$BUILD_NUMBER
+          if [[ "$versionName" =~ -beta([0-9]+)$ ]]; then
+            suffix="b${BASH_REMATCH[1]}"
+          else
+            suffix=""
+          fi
+          iosBuildNumber="${buildNum}${suffix}"
           .flutter/bin/flutter build ipa --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --build-name="$versionName" \
+            --build-number="$iosBuildNumber" \
             --export-options-plist=/Users/builder/export_options.plist
+
       - name: Publish to GitHub
         script: |
           #!/usr/bin/env zsh
 
           cat changelog_gh.txt
 
-          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
-          mv build/ios/ipa/Graded.ipa build/ios/ipa/graded-${BUILD_NAME}.ipa
-
+          mv build/app/outputs/apk/release/app-release.apk \
+             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
+          mv build/ios/ipa/Graded.ipa \
+             build/ios/ipa/graded-${BUILD_NAME}.ipa
           gh release create "${BUILD_NAME}" \
             --title "${BUILD_NAME}" \
             --notes-file changelog_gh.txt \
             -p \
             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
             build/ios/ipa/graded-${BUILD_NAME}.ipa
+
     publishing:
       <<: *base_publishing
       google_play:
@@ -222,41 +278,44 @@ workflows:
         beta_groups:
           - External testers
         submit_to_app_store: false
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # Production: same base, override name, scripts & publishing for final release
   production-release-workflow:
     <<: *base
     name: Production release workflow
+
     scripts:
       - name: Bump Flutter submodule
         script: |
           git submodule deinit -f --all
           rm -rf .git/modules/
           git submodule update --init --recursive
-
           .flutter/bin/flutter --version
+
       - name: Set up environment variables
         script: |
-          file=$(cat pubspec.yaml)
-          fullVersion=$(echo | grep -i -e "version: " pubspec.yaml)
-          echo "BUILD_NAME=$(echo $fullVersion | cut -d " " -f 2 | cut -d "+" -f 1)" >> $CM_ENV
+          fullVersion=$(grep ^version: pubspec.yaml | awk '{print $2}')
+          echo "BUILD_NAME=${fullVersion%%+*}" >> $CM_ENV
           echo "BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER+50))" >> $CM_ENV
 
-          echo "$fullVersion BUILD_NAME: ${BUILD_NAME} BUILD_NUMBER: ${BUILD_NUMBER}"
       - name: Check version number
         script: |
-          if [ $(git tag -l "$BUILD_NAME") ]; then
-              echo "Version $BUILD_NAME already exists"
-              exit 1
+          if git tag -l "$BUILD_NAME"; then
+            echo "Version $BUILD_NAME already exists"
+            exit 1
           fi
+
       - name: Get Flutter packages
-        script: |
-          .flutter/bin/flutter pub get
+        script: .flutter/bin/flutter pub get
+
       - name: Flutter analyze
-        script: |
-          .flutter/bin/flutter analyze
+        script: .flutter/bin/flutter analyze
+
       - name: Flutter unit tests
-        script: |
-          .flutter/bin/flutter test
-      - name: Automatic versioning
+        script: .flutter/bin/flutter test
+
+      - name: Automatic versioning & changelog prep
         script: |
           perl -i -pe 's/^(version:\s+\d+\.\d+\.\d+\+)(\d+)$/$1.($ENV{BUILD_NUMBER})/e' pubspec.yaml
 
@@ -311,42 +370,49 @@ workflows:
           git add pubspec.yaml
           git commit -m "Versioning changes for ${BUILD_NAME}"
           git push
+
       - name: Set up local.properties
-        script: |
-          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Build AAB
-        script: |
-          .flutter/bin/flutter build appbundle --release \
-            --build-number=$BUILD_NUMBER
-      - name: Build APK
-        script: |
-          .flutter/bin/flutter build apk --release \
-            --build-number=$BUILD_NUMBER
+        script: echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+
+      - name: Build Android AAB
+        script: .flutter/bin/flutter build appbundle --release --build-number=$BUILD_NUMBER
+
+      - name: Build Android APK
+        script: .flutter/bin/flutter build apk --release --build-number=$BUILD_NUMBER
+
       - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles --project="ios/**/*.xcodeproj"
+
+      - name: Conditional Pod install
         script: |
-          xcode-project use-profiles --project="ios/**/*.xcodeproj"
-      - name: Install pods
-        script: |
-          find . -name "Podfile" -execdir pod install \;
-      - name: Build IPA
+          if git diff --quiet HEAD^ HEAD -- ios/Podfile*; then
+            echo "No Podfile changes – skipping pod install"
+          else
+            find . -name "Podfile" -execdir pod install \;
+          fi
+
+      - name: Build IPA (final)
         script: |
           .flutter/bin/flutter build ipa --release \
-            --build-number=$(($PROJECT_BUILD_NUMBER + 50)) \
+            --build-number=$BUILD_NUMBER \
             --export-options-plist=/Users/builder/export_options.plist
+
       - name: Publish to GitHub
         script: |
           #!/usr/bin/env zsh
 
           cat changelog_gh.txt
 
-          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
-          mv build/ios/ipa/Graded.ipa build/ios/ipa/graded-${BUILD_NAME}.ipa
-
+          mv build/app/outputs/apk/release/app-release.apk \
+             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
+          mv build/ios/ipa/Graded.ipa \
+             build/ios/ipa/graded-${BUILD_NAME}.ipa
           gh release create "${BUILD_NAME}" \
             --title "${BUILD_NAME}" \
             --notes-file changelog_gh.txt \
             build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
             build/ios/ipa/graded-${BUILD_NAME}.ipa
+
     publishing:
       <<: *base_publishing
       google_play:
