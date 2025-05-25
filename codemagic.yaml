@@ -119,6 +119,10 @@ workflows:
         - $HOME/Library/Caches/CocoaPods
         - ios/Pods
         - ios/Podfile.lock
+        - /usr/local/share/android-sdk/ndk
+        - /usr/local/share/android-sdk/build-tools
+        - /usr/local/share/android-sdk/platforms
+        - /usr/local/share/android-sdk/licenses
 
   # ────────────────────────────────────────────────────────────────────────────
   # Beta workflow reuses everything in &base, then overrides scripts + publishing
