@@ -175,7 +175,7 @@ jobs:
           cd build/app/intermediates/merged_native_libs/release/mergeReleaseNativeLibs/out/lib && zip -r -0 $GITHUB_WORKSPACE/artifacts/lib.zip . && cd $GITHUB_WORKSPACE
       #          cp build/ios/ipa/Graded.ipa artifacts/graded-${{ env.BUILD_NAME }}.ipa
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: release-artifacts
           path: |
