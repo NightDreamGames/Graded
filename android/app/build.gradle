@@ -47,7 +47,7 @@ android {
 	defaultConfig {
 		applicationId "com.NightDreamGames.Grade.ly"
 		minSdkVersion 21
-		compileSdk 35
+		compileSdk 37
 		targetSdkVersion 35
 		versionCode flutterVersionCode.toInteger()
 		versionName flutterVersionName
