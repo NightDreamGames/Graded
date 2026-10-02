@@ -3,8 +3,10 @@
 // found in the LICENSE file.
 
 // Flutter imports:
-import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+
+// Package imports:
+import "package:material_ui/material_ui.dart";
 
 // Project imports:
 import "package:graded/ui/utilities/app_theme.dart";

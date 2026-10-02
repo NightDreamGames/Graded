@@ -7,7 +7,9 @@ import "dart:math" as math;
 
 // Flutter imports:
 import "package:flutter/foundation.dart";
-import "package:flutter/material.dart";
+
+// Package imports:
+import "package:material_ui/material_ui.dart";
 
 /// A sliver that insets another sliver by sufficient padding to avoid
 /// intrusions by the operating system.

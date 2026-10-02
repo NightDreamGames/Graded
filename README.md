@@ -7,7 +7,7 @@
 <br>
 
 [![NightDream Games Homepage](https://img.shields.io/badge/HOMEPAGE-316189?style=for-the-badge)](https://nightdreamgames.com)
-![API 21+](https://img.shields.io/badge/Api%2021+-50f270?logo=android&logoColor=black&style=for-the-badge)
+![API 24+](https://img.shields.io/badge/Api%2024+-50f270?logo=android&logoColor=black&style=for-the-badge)
 ![Dart](https://img.shields.io/badge/Dart-4285F4?logo=dart&logoColor=FFFFFF&style=for-the-badge)
 ![Flutter](https://img.shields.io/badge/Flutter-a503fc?logo=flutter&logoColor=white&style=for-the-badge)
 ![Material You](https://custom-icon-badges.demolab.com/badge/Material%20You-lightblue?logo=material-you&logoColor=333&style=for-the-badge)
@@ -65,6 +65,10 @@ Here's a brief high-level overview of the tech stack Graded uses:
 - The app design adheres to the material design guidelines.
 
 # ✍️ Contributing
+
+Build with Flutter 3.47 or newer and Dart 3.13 or newer. The `.flutter` submodule is pinned to Flutter 3.47.6. Android requires API 24 or newer; iOS requires iOS 15 or newer.
+
+Run `flutter pub get`, `flutter analyze --no-fatal-infos`, and `flutter test` before building with `flutter build apk --debug`.
 
 Interested in contributing to the Graded project? Thanks so much for your interest! I'm always looking for improvements to the project and contributions from open-source developers are greatly appreciated.
 

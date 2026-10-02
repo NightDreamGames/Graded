@@ -1,8 +1,6 @@
-// Flutter imports:
-import "package:flutter/material.dart";
-
 // Package imports:
 import "package:flex_color_picker/flex_color_picker.dart";
+import "package:material_ui/material_ui.dart";
 
 // Project imports:
 import "package:graded/l10n/translations.dart";

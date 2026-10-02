@@ -1,8 +1,6 @@
-// Flutter imports:
-import "package:flutter/material.dart";
-
 // Package imports:
 import "package:intl/locale.dart" as intl;
+import "package:material_ui/material_ui.dart";
 
 // Project imports:
 import "package:graded/l10n/generated/l10n.dart";

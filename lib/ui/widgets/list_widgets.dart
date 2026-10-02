@@ -1,7 +1,5 @@
-// Flutter imports:
-import "package:flutter/material.dart";
-
 // Package imports:
+import "package:material_ui/material_ui.dart";
 import "package:showcaseview/showcaseview.dart";
 
 // Project imports:

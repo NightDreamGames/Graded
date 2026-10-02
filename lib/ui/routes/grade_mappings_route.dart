@@ -2,8 +2,10 @@
 import "dart:convert";
 
 // Flutter imports:
-import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+
+// Package imports:
+import "package:material_ui/material_ui.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";

@@ -1,13 +1,14 @@
 // Flutter imports:
-import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
 // Package imports:
+import "package:cupertino_ui/cupertino_ui.dart" show GlobalCupertinoLocalizations;
 import "package:device_info_plus/device_info_plus.dart";
 import "package:dynamic_color/dynamic_color.dart";
 import "package:flutter_displaymode/flutter_displaymode.dart";
-import "package:flutter_localizations/flutter_localizations.dart";
+import "package:flutter_localizations/flutter_localizations.dart" show GlobalWidgetsLocalizations;
 import "package:intl/date_symbol_data_local.dart";
+import "package:material_ui/material_ui.dart";
 import "package:provider/provider.dart";
 
 // Project imports:
@@ -70,6 +71,9 @@ class _AppContainerState extends State<AppContainer> {
             theme: AppTheme.getTheme(Brightness.light, light, dark),
             darkTheme: AppTheme.getTheme(Brightness.dark, light, dark),
             themeMode: brightness,
+            // Charts and showcases still read the framework's theme and localizations.
+            // ignore: deprecated_member_use
+            builder: (context, child) => MaterialUiCompatibilityBridge(child: child!),
             localizationsDelegates: const [
               AppLocalizationDelegate(),
               GlobalMaterialLocalizations.delegate,
@@ -98,12 +102,10 @@ class _AppContainerState extends State<AppContainer> {
             onGenerateInitialRoutes: (initialRoute) {
               Manager.init();
 
-              if (getPreference<bool>("isFirstRun")) {
-                initialRoute = "/setupFirst";
-              }
+              final String route = getPreference<bool>("isFirstRun") ? "/setupFirst" : initialRoute;
 
               return [
-                createRoute(RouteSettings(name: initialRoute)),
+                createRoute(RouteSettings(name: route)),
               ];
             },
           ),

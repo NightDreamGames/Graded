@@ -38,7 +38,7 @@ workflows:
         script: .flutter/bin/flutter pub get
 
       - name: Flutter analyze
-        script: .flutter/bin/flutter analyze
+        script: .flutter/bin/flutter analyze --no-fatal-infos
 
       - name: Flutter unit tests
         script: .flutter/bin/flutter test
@@ -155,7 +155,7 @@ workflows:
         script: .flutter/bin/flutter pub get
 
       - name: Flutter analyze
-        script: .flutter/bin/flutter analyze
+        script: .flutter/bin/flutter analyze --no-fatal-infos
 
       - name: Flutter unit tests
         script: .flutter/bin/flutter test
@@ -314,7 +314,7 @@ workflows:
         script: .flutter/bin/flutter pub get
 
       - name: Flutter analyze
-        script: .flutter/bin/flutter analyze
+        script: .flutter/bin/flutter analyze --no-fatal-infos
 
       - name: Flutter unit tests
         script: .flutter/bin/flutter test

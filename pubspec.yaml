@@ -4,32 +4,36 @@ publish_to: "none"
 version: 2.8.1-alpha1+322
 
 environment:
-  sdk: ">=3.2.0 <4.0.0"
+  sdk: ">=3.13.0 <4.0.0"
+  flutter: ">=3.47.0"
 
 dependencies:
-  animations: ^2.0.0
+  animations: ^3.0.0
   collection: ^1.16.0
+  cupertino_icons: ^1.0.8
+  cupertino_ui: ^1.1.1
   decimal: ^3.0.0
-  device_info_plus: ^11.0.0
+  device_info_plus: ^13.3.0
   diacritic: ^0.1.0
-  dynamic_color: ^1.4.0
+  dynamic_color: ^2.1.0
   fading_edge_scrollview: ^4.0.0
   fl_chart: ^1.0.0
-  flex_color_picker: ^3.3.0
-  flex_color_scheme: ^8.0.0
+  flex_color_picker: ^4.0.0
+  flex_color_scheme: ^9.0.0
   flutter:
     sdk: flutter
-  flutter_displaymode: ^0.6.0
+  flutter_displaymode: ^0.7.0
   flutter_file_dialog: ^3.0.0
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.17
   intl: ^0.20.0
   material_symbols_icons: ^4.0.0
-  package_info_plus: ^8.0.0
+  material_ui: ^1.5.0
+  package_info_plus: ^10.2.2
   provider: ^6.0.0
   shared_preferences: ^2.0.0
-  showcaseview: ^4.0.0
+  showcaseview: ^5.1.0
   sliver_tools: ^0.2.0
   url_launcher: ^6.0.0
 
@@ -46,7 +50,7 @@ dev_dependencies:
   intl_utils: ^2.8.7
   lint: ^2.0.0
   test: ^1.22.0
-  xml: ^6.5.0
+  xml: ^7.0.1
 
 flutter:
   uses-material-design: true

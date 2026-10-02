@@ -1,11 +1,9 @@
 // Dart imports:
 import "dart:math";
 
-// Flutter imports:
-import "package:flutter/material.dart";
-
 // Package imports:
 import "package:fading_edge_scrollview/fading_edge_scrollview.dart";
+import "package:material_ui/material_ui.dart";
 
 // Project imports:
 import "package:graded/calculations/calculator.dart";

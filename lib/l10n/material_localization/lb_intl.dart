@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/date_symbol_data_custom.dart' as date_symbol_data_custom;
 import 'package:intl/date_symbols.dart' as intl;
 import 'package:intl/intl.dart' as intl;
@@ -759,6 +758,24 @@ class LbCupertinoLocalizations extends GlobalCupertinoLocalizations {
   });
 
   static const LocalizationsDelegate<CupertinoLocalizations> delegate = _LbCupertinoLocalizationsDelegate();
+
+  @override
+  String get collapsedHint => 'Zesummegeklappt';
+
+  @override
+  String get expandedHint => 'Ausgeklappt';
+
+  @override
+  String get expansionTileCollapsedHint => 'Duebelt tippe fir auszeklappen';
+
+  @override
+  String get expansionTileCollapsedTapHint => 'Ausklappe fir méi Detailer';
+
+  @override
+  String get expansionTileExpandedHint => 'Duebelt tippe fir zesummenzeklappen';
+
+  @override
+  String get expansionTileExpandedTapHint => 'Zesummeklappen';
 
   @override
   String get alertDialogLabel => 'Notifikatiounen';

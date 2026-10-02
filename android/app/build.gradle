@@ -30,6 +30,8 @@ if (flutterVersionName == null) {
 
 android {
 	namespace 'com.nightdreamgames.grade.ly'
+	compileSdk flutter.compileSdkVersion
+	ndkVersion flutter.ndkVersion
 
 	compileOptions {
 		sourceCompatibility 17
@@ -46,8 +48,7 @@ android {
 
 	defaultConfig {
 		applicationId "com.NightDreamGames.Grade.ly"
-		minSdkVersion 21
-		compileSdk 37
+		minSdkVersion flutter.minSdkVersion
 		targetSdkVersion 35
 		versionCode flutterVersionCode.toInteger()
 		versionName flutterVersionName

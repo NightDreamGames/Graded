@@ -1,10 +1,10 @@
 // Flutter imports:
-import "package:flutter/material.dart";
 import "package:flutter/rendering.dart";
 
 // Package imports:
 import "package:fading_edge_scrollview/fading_edge_scrollview.dart";
 import "package:flutter_svg/svg.dart";
+import "package:material_ui/material_ui.dart";
 
 // Project imports:
 import "package:graded/ui/utilities/grade_mapping_value.dart";

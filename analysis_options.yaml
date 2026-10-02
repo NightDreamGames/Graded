@@ -9,6 +9,11 @@ analyzer:
   exclude:
     - lib/l10n/**
     - lib/ui/utilities/custom_icons.dart
+    - build/**
+    - .flutter/**
+    - android/**
+    - ios/**
+    - web/**
   errors:
     todo: info
 
