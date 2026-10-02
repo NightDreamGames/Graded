@@ -54,9 +54,12 @@ workflows:
             --build-number=$(($PROJECT_BUILD_NUMBER + 50))
 
       - name: Set up code signing settings on Xcode project
+        # iOS failures must not prevent publishing the Android artifacts.
+        ignore_failure: true
         script: xcode-project use-profiles --project="ios/**/*.xcodeproj"
 
       - name: Conditional Pod install
+        ignore_failure: true
         script: |
           if git diff --quiet HEAD^ HEAD -- ios/Podfile*; then
             echo "No Podfile changes – skipping pod install"
@@ -65,6 +68,7 @@ workflows:
           fi
 
       - name: Build IPA (iOS with alpha suffix)
+        ignore_failure: true
         script: |
           fullVersion=$(grep ^version: pubspec.yaml | awk '{print $2}')
           versionName=${fullVersion%%+*}             # e.g. 2.8.0-alpha1
@@ -226,9 +230,12 @@ workflows:
         script: .flutter/bin/flutter build apk --release --build-number=$BUILD_NUMBER
 
       - name: Set up code signing settings on Xcode project
+        # iOS failures must not prevent publishing the Android artifacts.
+        ignore_failure: true
         script: xcode-project use-profiles --project="ios/**/*.xcodeproj"
 
       - name: Conditional Pod install
+        ignore_failure: true
         script: |
           if git diff --quiet HEAD^ HEAD -- ios/Podfile*; then
             echo "No Podfile changes – skipping pod install"
@@ -237,6 +244,7 @@ workflows:
           fi
 
       - name: Build IPA (iOS with beta suffix)
+        ignore_failure: true
         script: |
           fullVersion=$(grep ^version: pubspec.yaml | awk '{print $2}')
           versionName=${fullVersion%%+*}
@@ -255,19 +263,25 @@ workflows:
       - name: Publish to GitHub
         script: |
           #!/usr/bin/env zsh
+          set -e
 
           cat changelog_gh.txt
 
           mv build/app/outputs/apk/release/app-release.apk \
              build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
-          mv build/ios/ipa/Graded.ipa \
-             build/ios/ipa/graded-${BUILD_NAME}.ipa
+          release_artifacts=("build/app/outputs/apk/release/graded-${BUILD_NAME}.apk")
+          if [[ -f build/ios/ipa/Graded.ipa ]]; then
+            mv build/ios/ipa/Graded.ipa \
+               build/ios/ipa/graded-${BUILD_NAME}.ipa
+            release_artifacts+=("build/ios/ipa/graded-${BUILD_NAME}.ipa")
+          else
+            echo "No IPA found – publishing the Android release only"
+          fi
           gh release create "${BUILD_NAME}" \
             --title "${BUILD_NAME}" \
             --notes-file changelog_gh.txt \
             -p \
-            build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
-            build/ios/ipa/graded-${BUILD_NAME}.ipa
+            "${release_artifacts[@]}"
 
     publishing:
       <<: *base_publishing
@@ -385,9 +399,12 @@ workflows:
         script: .flutter/bin/flutter build apk --release --build-number=$BUILD_NUMBER
 
       - name: Set up code signing settings on Xcode project
+        # iOS failures must not prevent publishing the Android artifacts.
+        ignore_failure: true
         script: xcode-project use-profiles --project="ios/**/*.xcodeproj"
 
       - name: Conditional Pod install
+        ignore_failure: true
         script: |
           if git diff --quiet HEAD^ HEAD -- ios/Podfile*; then
             echo "No Podfile changes – skipping pod install"
@@ -396,6 +413,7 @@ workflows:
           fi
 
       - name: Build IPA (final)
+        ignore_failure: true
         script: |
           .flutter/bin/flutter build ipa --release \
             --build-number=$BUILD_NUMBER \
@@ -404,18 +422,24 @@ workflows:
       - name: Publish to GitHub
         script: |
           #!/usr/bin/env zsh
+          set -e
 
           cat changelog_gh.txt
 
           mv build/app/outputs/apk/release/app-release.apk \
              build/app/outputs/apk/release/graded-${BUILD_NAME}.apk
-          mv build/ios/ipa/Graded.ipa \
-             build/ios/ipa/graded-${BUILD_NAME}.ipa
+          release_artifacts=("build/app/outputs/apk/release/graded-${BUILD_NAME}.apk")
+          if [[ -f build/ios/ipa/Graded.ipa ]]; then
+            mv build/ios/ipa/Graded.ipa \
+               build/ios/ipa/graded-${BUILD_NAME}.ipa
+            release_artifacts+=("build/ios/ipa/graded-${BUILD_NAME}.ipa")
+          else
+            echo "No IPA found – publishing the Android release only"
+          fi
           gh release create "${BUILD_NAME}" \
             --title "${BUILD_NAME}" \
             --notes-file changelog_gh.txt \
-            build/app/outputs/apk/release/graded-${BUILD_NAME}.apk \
-            build/ios/ipa/graded-${BUILD_NAME}.ipa
+            "${release_artifacts[@]}"
 
     publishing:
       <<: *base_publishing
