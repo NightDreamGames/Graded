@@ -30,7 +30,7 @@ if (flutterVersionName == null) {
 
 android {
 	namespace 'com.nightdreamgames.grade.ly'
-	compileSdk flutter.compileSdkVersion
+	compileSdk 37
 	ndkVersion flutter.ndkVersion
 
 	compileOptions {
@@ -49,7 +49,7 @@ android {
 	defaultConfig {
 		applicationId "com.NightDreamGames.Grade.ly"
 		minSdkVersion flutter.minSdkVersion
-		targetSdkVersion 35
+		targetSdkVersion 37
 		versionCode flutterVersionCode.toInteger()
 		versionName flutterVersionName
 		vectorDrawables.generatedDensities = []
